@@ -1,11 +1,12 @@
 /* pilrc generated file.  Do not edit!*/
-#define ClienteNaoExiste 9980
-#define Debug 9981
-#define ToBeDone 9982
-#define BuscaClienteFrm 9983
-#define ItensFinalizar 9984
-#define ItensCancelar 9985
-#define ItensNovo 9986
+#define ClienteNaoExiste 9978
+#define Debug 9979
+#define ToBeDone 9980
+#define BuscaClienteFrm 9981
+#define ItensFinalizar 9982
+#define ItensCancelar 9983
+#define ItensNovo 9984
+#define ItensItens 9985
 #define ItensFrm 9987
 #define PedidoCancelar 9988
 #define PedidoItens 9989
