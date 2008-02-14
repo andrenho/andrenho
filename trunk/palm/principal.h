@@ -8,6 +8,7 @@ class Principal : public Form
 public:
 	Principal();
 	void event(UInt16 controlID);
+	void loadData();
 };
 
 #endif

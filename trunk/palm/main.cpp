@@ -2,44 +2,26 @@
 #include "palm.h"
 #include "forms.h"
 
-FormType* pfrm;
-
-/*
-void load_pointers()
+void testaPrimeiroUso()
 {
-	// pSegB = (ControlPtr)FrmGetObjectPtr(pfrm, FrmGetObjectIndex(pfrm, SegB));
+	// WagnClienteDB
+	if(DmCreateDatabase(0, "WagnClienteDB", DB_CREATOR, 'DATA', false) == dmErrAlreadyExists)
+		return;
+	
 }
-*/
-
-/*
-static void dealWithSelectEvent(UInt16 controlID)
-{
-	switch(controlID)
-	{
-		case PrincipalNovo:
-			FrmGotoForm(Pedido);
-			break;
-		case PrincipalConectar:
-			FrmAlert(ToBeDone);
-			break;
-
-		case PedidoCancelar:
-			FrmGotoForm(Principal);
-			break;
-		case PedidoItens:
-			FrmGotoForm(Itens);
-			break;
-	}
-}
-*/
 
 UInt32 PilotMain(UInt16 cmd, MemPtr cmdPBP, UInt16 launchFlags)
 {
 	UInt16 err;
 	EventType e;
+	FormType* pfrm;
+
+	testaPrimeiroUso();
 
 	principal = new Principal();
 	pedido = new Pedido();
+	itens = new Itens();
+	buscaCliente = new BuscaCliente();
 	
 	current = principal;
 
@@ -87,3 +69,10 @@ _quit:
 
 	return 0;
 }
+
+/*
+void load_pointers()
+{
+	// pSegB = (ControlPtr)FrmGetObjectPtr(pfrm, FrmGetObjectIndex(pfrm, SegB));
+}
+*/

@@ -8,7 +8,9 @@ class Form
 {
 public:
 	void open();
+	void load();
 	virtual void event(UInt16 controlID) =0;
+	virtual void loadData() =0;
 protected:
 	UInt16 id;
 };
