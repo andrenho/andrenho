@@ -11,7 +11,3 @@ void Itens::event(UInt16 controlID)
 	{
 	}
 }
-
-void Itens::loadData()
-{
-}

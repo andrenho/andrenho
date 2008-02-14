@@ -8,13 +8,6 @@ BEGIN
 	TABLE ID PrincipalNaoEnviados AT (3 20 150 120) ROWS 5 COLUMNS 2
 END
 
-ALERT ID ToBeDone WARNING
-BEGIN
-	TITLE "A Fazer"
-	MESSAGE "Esta função não está implementada."
-	BUTTONS "Ok"
-END
-
 FORM ID PedidoFrm AT (0 0 159 159) USABLE NOFRAME
 BEGIN
 	TITLE "Novo Pedido"
@@ -29,6 +22,25 @@ END
 FORM ID ItensFrm AT (0 0 159 159) USABLE NOFRAME
 BEGIN
 	TITLE "Itens"
+END
+
+FORM ID BuscaClienteFrm AT (0 0 159 159) USABLE NOFRAME
+BEGIN
+	TITLE "Clientes"
+END
+
+ALERT ID ToBeDone WARNING
+BEGIN
+	TITLE "A Fazer"
+	MESSAGE "Esta função não está implementada."
+	BUTTONS "Ok"
+END
+
+ALERT ID ClienteNaoExiste ERROR
+BEGIN
+	TITLE "Cliente Inexistente"
+	MESSAGE "Este cliente não está cadastrado."
+	BUTTONS "Ok"
 END
 
 /*

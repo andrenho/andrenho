@@ -4,11 +4,13 @@
 #include "form.h"
 #include "principal.h"
 #include "pedido.h"
-
-// FormType* pfrm;
+#include "itens.h"
+#include "buscacliente.h"
 
 Form* current;
 Principal* principal;
 Pedido* pedido;
+Itens* itens;
+BuscaCliente* buscaCliente;
 
 #endif

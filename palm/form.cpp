@@ -7,3 +7,10 @@ void Form::open()
 	FrmGotoForm(id);
 	current = this;
 }
+
+void Form::load()
+{
+	FrmGotoForm(id);
+	loadData();
+	current = this;
+}

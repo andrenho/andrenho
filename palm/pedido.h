@@ -8,6 +8,9 @@ class Pedido : public Form
 public:
 	Pedido();
 	void event(UInt16 controlID);
+	void loadData();
+
+	Char* cliente;
 };
 
 #endif

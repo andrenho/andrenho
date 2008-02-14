@@ -8,7 +8,6 @@ class Itens : public Form
 public:
 	Itens();
 	void event(UInt16 controlID);
-	void loadData();
 };
 
 #endif

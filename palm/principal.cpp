@@ -21,3 +21,7 @@ void Principal::event(UInt16 controlID)
 			break;
 	}
 }
+
+void Principal::loadData()
+{
+}

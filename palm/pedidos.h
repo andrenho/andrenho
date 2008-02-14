@@ -15,6 +15,9 @@
 
 #define ItensFrm 1200
 
-#define ToBeDone 9000
+#define BuscaClienteFrm  5000
+#define ClienteNaoExiste 5500
+
+#define ToBeDone 8000
 
 #endif
