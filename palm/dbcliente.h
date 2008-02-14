@@ -3,14 +3,12 @@
 
 #include "database.h"
 
-class R_Cliente : public Registro
+typedef struct
 {
-public:
-	Char* CNPJ;
-	Char* Fantasia;
-	Char* RazaoSocial;
-	Char* traducao();
-};
+	char CNPJ[18];
+	char Fantasia[20];
+	char RazaoSocial[50];
+} R_Cliente;
 
 class DBCliente : public Database
 {
@@ -19,6 +17,7 @@ public:
 	~DBCliente();
 
 	void populateDB();
+	Char* buscaCNPJ(Char* fantasia);
 
 private:
 	const Char* dbName() { return "WagnClientesDB"; }

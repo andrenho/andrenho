@@ -5,22 +5,17 @@
 
 #define DB_CREATOR 'WAGN'
 
-class Registro
-{
-public:
-	virtual Char* traducao() =0;
-};
-
 class Database
 {
 public:
-	virtual bool adicionaRegistro(Registro* r);
+	virtual bool adicionaRegistro(void* r, int size);
 protected:
 	bool openDB();
 	void closeDB();
+	// MemPtr leRegistro(int n);
+
 	virtual const Char* dbName() =0;
 	virtual void populateDB() =0;
-	bool addRec(Char* reg);
 
 	DmOpenRef db;
 

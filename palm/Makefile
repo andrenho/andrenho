@@ -1,9 +1,9 @@
 CPP = m68k-palmos-g++
-CFLAGS = -O2 -palmos5r4
+CFLAGS = -g -O2 -palmos5r4
 
 all: pedidos.prc
 
-pedidos.prc: pedidos pedidos.stamp
+pedidos.prc: pedidos.stamp pedidos
 	build-prc pedidos.prc "Pedidos" TuHe pedidos *.bin
 	# rm -f *.[oa] pedidos *.bin *.stamp
 
@@ -37,7 +37,7 @@ itens.o: itens.cpp itens.h
 buscacliente.o: buscacliente.cpp buscacliente.h
 	$(CPP) $(CFLAGS) -c buscacliente.cpp
 
-pedidos.stamp: pedidos.rcp pedidos.h
+pedidos.stamp: pedidos.rcp
 	pilrc pedidos.rcp
 
 clean:

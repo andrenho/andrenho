@@ -1,4 +1,4 @@
-#include "pedidos.h"
+GENERATEHEADER "pedidos.h"
 
 FORM ID PrincipalFrm AT (0 0 159 159) USABLE NOFRAME
 BEGIN
@@ -22,6 +22,9 @@ END
 FORM ID ItensFrm AT (0 0 159 159) USABLE NOFRAME
 BEGIN
 	TITLE "Itens"
+	BUTTON "Novo Item" ID ItensNovo AT (1 BOTTOM@158 AUTO AUTO)
+	BUTTON "Cancelar" ID ItensCancelar AT (PREVRIGHT+5 BOTTOM@158 AUTO AUTO)
+	BUTTON "Finalizar" ID ItensFinalizar AT (PREVRIGHT+5 BOTTOM@158 AUTO AUTO)
 END
 
 FORM ID BuscaClienteFrm AT (0 0 159 159) USABLE NOFRAME
@@ -56,6 +59,7 @@ SMALLICON "hellosmall.bmp"
 
 BITMAP ID 2005 "hello.bmp"
 */
-VERSION 1 "0.01"
+VERSION 1 "0.0.1"
 
 // LAUNCHERCATEGORY ID 1000 "Games"
+

@@ -2,10 +2,12 @@
 #include "principal.h"
 #include "itens.h"
 #include "buscacliente.h"
+#include "dbcliente.h"
 
 extern Principal* principal;
 extern Itens* itens;
 extern BuscaCliente* buscaCliente;
+extern DBCliente* dbCliente;
 
 Pedido::Pedido()
 {
@@ -20,12 +22,15 @@ void Pedido::event(UInt16 controlID)
 			principal->open();
 			break;
 		case PedidoItens:
-			this->cliente = buscaCliente->busca(PedidoCliente);
+		{
+			Char* t = FldGetTextPtr((FieldType*)getControl(PedidoCliente));
+			this->cliente = dbCliente->buscaCNPJ(t);
 			if(this->cliente == NULL)
 				FrmAlert(ClienteNaoExiste);
 			else
 				itens->open();
 			break;
+		}
 	}
 }
 

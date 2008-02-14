@@ -12,16 +12,6 @@ void BuscaCliente::event(UInt16 controlID)
 	}
 }
 
-Char* BuscaCliente::busca(UInt16 textBox)
-{
-	return NULL;
-}
-
-bool BuscaCliente::clienteExiste(Char* cliente)
-{
-	
-}
-
 void BuscaCliente::loadData()
 {
 }

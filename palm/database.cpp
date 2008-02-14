@@ -31,17 +31,17 @@ void Database::closeDB()
 	DmCloseDatabase(this->db);
 }
 
-bool Database::addRec(Char* reg)
+bool Database::adicionaRegistro(void* r, int size)
 {
 	MemHandle h;
 	MemPtr p;
 	UInt16 idx = DmNumRecords(this->db);
 
-	if(!(h = DmNewRecord(this->db, &idx, StrLen(reg))))
+	if(!(h = DmNewRecord(this->db, &idx, size)))
 		return false;
 	
 	p = MemHandleLock(h);
-	DmWrite(p, 0, reg, StrLen(reg));
+	DmWrite(p, 0, r, size);
 	MemPtrUnlock(p);
 	
 	DmReleaseRecord(this->db, idx, true);
@@ -49,10 +49,13 @@ bool Database::addRec(Char* reg)
 	return true;
 }
 
-bool Database::adicionaRegistro(Registro* r)
+/*
+MemPtr Database::leRegistro(int n)
 {
-	Char* c = r->traducao();
-	FrmCustomAlert(Debug, c, " ", " ");
-	addRec(c);
-	MemHandleFree(MemPtrRecoverHandle(c));
+	MemPtr p, p2;
+
+	MemHandle h = DmQueryRecord(this->db, n);
+	p = MemHandleLock(h);
+	
 }
+*/

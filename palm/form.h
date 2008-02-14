@@ -12,6 +12,8 @@ public:
 	virtual void event(UInt16 controlID) =0;
 	virtual void loadData() =0;
 protected:
+	FormType* getFormType();
+	void* getControl(UInt16 id);
 	UInt16 id;
 };
 
