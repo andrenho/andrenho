@@ -1,14 +1,7 @@
 #include "pedidos.h"
 #include "palm.h"
 #include "forms.h"
-
-void testaPrimeiroUso()
-{
-	// WagnClienteDB
-	if(DmCreateDatabase(0, "WagnClienteDB", DB_CREATOR, 'DATA', false) == dmErrAlreadyExists)
-		return;
-	
-}
+#include "pedidos.h"
 
 UInt32 PilotMain(UInt16 cmd, MemPtr cmdPBP, UInt16 launchFlags)
 {
@@ -16,7 +9,7 @@ UInt32 PilotMain(UInt16 cmd, MemPtr cmdPBP, UInt16 launchFlags)
 	EventType e;
 	FormType* pfrm;
 
-	testaPrimeiroUso();
+	dbCliente = new DBCliente();
 
 	principal = new Principal();
 	pedido = new Pedido();
@@ -64,6 +57,11 @@ _default:
 		}
 
 _quit:
+		delete dbCliente;
+		delete buscaCliente;
+		delete itens;
+		delete pedido;
+		delete principal;
 		FrmCloseAllForms();
 	}
 

@@ -19,5 +19,6 @@
 #define ClienteNaoExiste 5500
 
 #define ToBeDone 8000
+#define Debug    8001
 
 #endif
