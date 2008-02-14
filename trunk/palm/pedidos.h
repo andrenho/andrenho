@@ -1,24 +1,19 @@
-#ifndef PEDIDOS_H
-#define PEDIDOS_H
-
-#define PrincipalFrm         1000
-#define PrincipalNovo        1001
-#define PrincipalConectar    1002
-#define PrincipalNaoEnviados 1003
-
-#define PedidoFrm          1100
-#define PedidoBuscaCliente 1101
-#define PedidoCliente      1102
-#define PedidoNovoCliente  1103
-#define PedidoItens        1110
-#define PedidoCancelar     1111
-
-#define ItensFrm 1200
-
-#define BuscaClienteFrm  5000
-#define ClienteNaoExiste 5500
-
-#define ToBeDone 8000
-#define Debug    8001
-
-#endif
+/* pilrc generated file.  Do not edit!*/
+#define ClienteNaoExiste 9980
+#define Debug 9981
+#define ToBeDone 9982
+#define BuscaClienteFrm 9983
+#define ItensFinalizar 9984
+#define ItensCancelar 9985
+#define ItensNovo 9986
+#define ItensFrm 9987
+#define PedidoCancelar 9988
+#define PedidoItens 9989
+#define PedidoNovoCliente 9990
+#define PedidoBuscaCliente 9991
+#define PedidoCliente 9992
+#define PedidoFrm 9994
+#define PrincipalNaoEnviados 9995
+#define PrincipalConectar 9996
+#define PrincipalNovo 9997
+#define PrincipalFrm 9998

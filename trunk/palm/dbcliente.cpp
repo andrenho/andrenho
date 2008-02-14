@@ -11,27 +11,35 @@ DBCliente::~DBCliente()
 	closeDB();
 }
 
-Char* R_Cliente::traducao()
-{
-	Char* s;
-
-	int n = StrLen(CNPJ) + StrLen(Fantasia) + StrLen(RazaoSocial) + 3;
-	MemHandle h = MemHandleNew(n);
-	s = (Char *)MemHandleLock(h);
-	StrPrintF(s, "%s\1%s\1%s\1", CNPJ, Fantasia, RazaoSocial);
-	MemHandleUnlock(h);
-
-	return s;
-}
-
 void DBCliente::populateDB()
 {
-	R_Cliente* r = new R_Cliente();
-	r->CNPJ = "12345";
-	r->Fantasia = "Andre";
-	r->RazaoSocial = "André Wagner";
+	R_Cliente r;
+	StrCopy(r.CNPJ, "12345");
+	StrCopy(r.Fantasia, "Andre");
+	StrCopy(r.RazaoSocial, "André Wagner");
 
-	adicionaRegistro(r);
+	adicionaRegistro(&r, sizeof(R_Cliente));
+}
 
-	delete r;
+Char* DBCliente::buscaCNPJ(Char* fantasia)
+{
+	MemPtr p;
+	R_Cliente* r;
+	int i;
+
+	for(i=0; i<DmNumRecords(this->db); i++)
+	{
+		MemHandle h = DmQueryRecord(this->db, i);
+		p = MemHandleLock(h);
+		r = (R_Cliente *)p;
+		if(StrCaselessCompare(fantasia, r->Fantasia) == 0)
+		{
+			MemHandleUnlock(h);
+			return "xxx";
+			// return
+		}
+		MemHandleUnlock(h);
+	}
+	
+	return NULL;
 }
