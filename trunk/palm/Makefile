@@ -8,12 +8,19 @@ pedidos.prc: pedidos pedidos.stamp
 	# rm -f *.[oa] pedidos *.bin *.stamp
 
 pedidos: main.o form.o principal.o pedido.o itens.o \
-	 buscacliente.o
+	 buscacliente.o database.o dbcliente.o
 	$(CPP) $(CFLAGS) -o pedidos main.o form.o principal.o pedido.o \
-		                    itens.o buscacliente.o
+		                    itens.o buscacliente.o database.o  \
+				    dbcliente.o
 
 main.o: main.cpp
 	$(CPP) $(CFLAGS) -c main.cpp
+
+database.o: database.cpp database.h
+	$(CPP) $(CFLAGS) -c database.cpp
+
+dbcliente.o: dbcliente.cpp dbcliente.h
+	$(CPP) $(CFLAGS) -c dbcliente.cpp
 
 form.o: form.cpp form.h
 	$(CPP) $(CFLAGS) -c form.cpp

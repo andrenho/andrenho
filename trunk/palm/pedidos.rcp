@@ -36,6 +36,13 @@ BEGIN
 	BUTTONS "Ok"
 END
 
+ALERT ID Debug ERROR
+BEGIN
+	TITLE "Debug"
+	MESSAGE "^1, ^2, ^3"
+	BUTTONS "Ok"
+END
+
 ALERT ID ClienteNaoExiste ERROR
 BEGIN
 	TITLE "Cliente Inexistente"

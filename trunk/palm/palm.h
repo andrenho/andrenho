@@ -10,6 +10,4 @@
 #include <DateTime.h>
 #include <TimeMgr.h>
 
-#define DB_CREATOR 'WAGN'
-
 #endif
