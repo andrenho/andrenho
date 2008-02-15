@@ -7,6 +7,7 @@ DBCliente* dbCliente;
 
 void mainLoop(UInt16 cmd)
 {
+	bool quit = false;
 	UInt16 err;
 	EventType e;
 	FormType* pfrm;
@@ -18,7 +19,7 @@ void mainLoop(UInt16 cmd)
 	{
 		current->open();
 
-		while(1)
+		while(!quit)
 		{
 			EvtGetEvent(&e, 100);
 			if (SysHandleEvent(&e))
@@ -28,11 +29,6 @@ void mainLoop(UInt16 cmd)
 
 			switch(e.eType)
 			{
-				case ctlSelectEvent:
-					current->event(e.data.ctlSelect.controlID);
-					goto _default;
-					break;
-
 				case frmLoadEvent:
 					FrmSetActiveForm(FrmInitForm(e.data.frmLoad.formID));
 					break;
@@ -43,16 +39,20 @@ void mainLoop(UInt16 cmd)
 					break;
 
 				case appStopEvent:
-					goto _quit;
+					quit = true;
+					break;
 
 				default:
-_default:
+					current->event(e.data.ctlSelect.controlID);
 					if (FrmGetActiveForm())
 						FrmHandleEvent(FrmGetActiveForm(), &e);
+					break;
 			}
 		}
 
-_quit:
 		FrmCloseAllForms();
 	}
+
+	delete dbCliente;
+	delete buscaCliente;
 }

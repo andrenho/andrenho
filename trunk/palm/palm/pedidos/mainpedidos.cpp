@@ -16,8 +16,6 @@ UInt32 PilotMain(UInt16 cmd, MemPtr cmdPBP, UInt16 launchFlags)
 
 	mainLoop(cmd);
 
-	delete dbCliente;
-	delete buscaCliente;
 	delete itens;
 	delete pedido;
 	delete principal;

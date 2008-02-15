@@ -49,13 +49,17 @@ bool Database::adicionaRegistro(void* r, int size)
 	return true;
 }
 
-/*
-MemPtr Database::leRegistro(int n)
+int Database::numeroRegistros()
 {
-	MemPtr p, p2;
+	return DmNumRecords(this->db);
+}
 
+void* Database::registro(int n)
+{
+	// TODO - testar
+	MemPtr p = NULL;
 	MemHandle h = DmQueryRecord(this->db, n);
 	p = MemHandleLock(h);
-	
+	MemHandleUnlock(h);
+	return p;
 }
-*/

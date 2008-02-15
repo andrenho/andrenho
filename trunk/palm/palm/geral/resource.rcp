@@ -19,7 +19,7 @@ END
 
 ALERT ID ClienteNaoExiste ERROR
 BEGIN
-	TITLE "Cliente Inexistente"
+	TITLE "Cliente Inválido"
 	MESSAGE "Este cliente não está cadastrado."
 	BUTTONS "Ok"
 END

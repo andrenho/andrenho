@@ -14,6 +14,10 @@ Pedido::Pedido()
 	this->id = PedidoFrm;
 }
 
+Pedido::~Pedido()
+{
+}
+
 void Pedido::event(UInt16 controlID)
 {
 	switch(controlID)
@@ -22,15 +26,20 @@ void Pedido::event(UInt16 controlID)
 			principal->open();
 			break;
 		case PedidoItens:
-		{
+			/*
 			Char* t = FldGetTextPtr((FieldType*)getControl(PedidoCliente));
-			this->cliente = dbCliente->buscaCNPJ(t);
+			R_Cliente* r = dbCliente->busca(t, false);
+			this->cliente = r ? r->CNPJ : NULL;
 			if(this->cliente == NULL)
 				FrmAlert(ClienteNaoExiste);
 			else
 				itens->open();
 			break;
-		}
+			*/
+			break;
+		case PedidoBuscaCliente:
+			buscaCliente->busca(this, PedidoCNPJ, PedidoCliente, 0);
+			break;
 	}
 }
 

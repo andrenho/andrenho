@@ -11,9 +11,10 @@ public:
 	void load();
 	virtual void event(UInt16 controlID) =0;
 	virtual void loadData() =0;
+	void* getControl(UInt16 id);
+	void setField(UInt16 field, Char* s);
 protected:
 	FormType* getFormType();
-	void* getControl(UInt16 id);
 	UInt16 id;
 };
 

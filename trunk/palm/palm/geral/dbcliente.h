@@ -17,8 +17,6 @@ public:
 	~DBCliente();
 
 	void populateDB();
-	Char* buscaCNPJ(Char* fantasia);
-
 private:
 	const Char* dbName() { return "WagnClientesDB"; }
 };
