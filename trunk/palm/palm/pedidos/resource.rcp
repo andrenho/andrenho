@@ -1,0 +1,67 @@
+GENERATEHEADER "resource.h"
+
+FORM ID PrincipalFrm AT (0 0 159 159) USABLE NOFRAME
+BEGIN
+	TITLE "Pedidos"
+	BUTTON "Novo..." ID PrincipalNovo AT (1 BOTTOM@158 AUTO AUTO)
+	BUTTON "Conectar" ID PrincipalConectar AT (PREVRIGHT+6 BOTTOM@158 AUTO AUTO)
+	TABLE ID PrincipalNaoEnviados AT (3 20 150 120) ROWS 5 COLUMNS 2
+END
+
+FORM ID PedidoFrm AT (0 0 159 159) USABLE NOFRAME
+BEGIN
+	TITLE "Novo Pedido"
+	LABEL "Cliente:" AUTOID AT (2 25) FONT 1
+	FIELD ID PedidoCliente AT (PREVRIGHT+2 PREVTOP 75 AUTO) UNDERLINED MAXCHARS 20 FONT 1
+	BUTTON "Busca" ID PedidoBuscaCliente AT (RIGHT@157 PREVTOP AUTO AUTO)
+	BUTTON "Novo Cliente" ID PedidoNovoCliente AT (RIGHT@157 PREVBOTTOM+3 AUTO AUTO)
+	BUTTON "Itens..." ID PedidoItens AT (1 BOTTOM@158 AUTO AUTO)
+	BUTTON "Cancelar" ID PedidoCancelar AT (PREVRIGHT+6 BOTTOM@158 AUTO AUTO)
+END
+
+FORM ID ItensFrm AT (0 0 159 159) USABLE NOFRAME
+BEGIN
+	TITLE "Itens"
+	FIELD ID ItensNItens AT (38 2 AUTO AUTO) NONEDITABLE MAXCHARS 20
+	TABLE ID ItensItens AT (3 20 150 120) ROWS 5 COLUMNS 2
+	BUTTON "Novo Item" ID ItensNovo AT (1 BOTTOM@158 AUTO AUTO)
+	BUTTON "Cancelar" ID ItensCancelar AT (PREVRIGHT+5 BOTTOM@158 AUTO AUTO)
+	BUTTON "Finalizar" ID ItensFinalizar AT (PREVRIGHT+5 BOTTOM@158 AUTO AUTO)
+END
+
+FORM ID BuscaClienteFrm AT (0 0 159 159) USABLE NOFRAME
+BEGIN
+	TITLE "Clientes"
+END
+
+ALERT ID ToBeDone WARNING
+BEGIN
+	TITLE "A Fazer"
+	MESSAGE "Esta função não está implementada."
+	BUTTONS "Ok"
+END
+
+ALERT ID Debug ERROR
+BEGIN
+	TITLE "Debug"
+	MESSAGE "^1, ^2, ^3"
+	BUTTONS "Ok"
+END
+
+ALERT ID ClienteNaoExiste ERROR
+BEGIN
+	TITLE "Cliente Inexistente"
+	MESSAGE "Este cliente não está cadastrado."
+	BUTTONS "Ok"
+END
+
+/*
+ICON "hello.bmp"
+SMALLICON "hellosmall.bmp"
+
+BITMAP ID 2005 "hello.bmp"
+*/
+VERSION 1 "0.0.1"
+
+// LAUNCHERCATEGORY ID 1000 "Games"
+
