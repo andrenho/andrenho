@@ -1,45 +1,67 @@
+# 
+# Ferramentas
+#
 CPP = m68k-palmos-g++
-CFLAGS = -g -O2 -palmos5r4
 
-all: pedidos.prc
+# 
+# Diretórios
+# 
+GERAL_DIR = palm/geral
+PEDIDOS_DIR = palm/pedidos
+VPATH = $(GERAL_DIR) $(PEDIDOS_DIR)
 
-pedidos.prc: pedidos.stamp pedidos
-	build-prc pedidos.prc "Pedidos" TuHe pedidos *.bin
-	# rm -f *.[oa] pedidos *.bin *.stamp
+#
+# Flags
+#
+CFLAGS = -O2 -palmos5r4 -I$(GERAL_DIR) -I$(PEDIDOS_DIR)
 
-pedidos: main.o form.o principal.o pedido.o itens.o \
-	 buscacliente.o database.o dbcliente.o
-	$(CPP) $(CFLAGS) -o pedidos main.o form.o principal.o pedido.o \
-		                    itens.o buscacliente.o database.o  \
-				    dbcliente.o
+# 
+# Objetos
+#
+GERAL_O = events.o \
+	  pform.o buscacliente.o \
+	  database.o dbcliente.o 
 
-main.o: main.cpp
-	$(CPP) $(CFLAGS) -c main.cpp
+PEDIDOS_O = main.o \
+	    principal.o pedido.o itens.o
 
-database.o: database.cpp database.h
-	$(CPP) $(CFLAGS) -c database.cpp
+# 
+# Executáveis
+#
+PEDIDOS_PRC = pedidos.prc
+EXECUTAVEIS = $(PEDIDOS_PRC)
 
-dbcliente.o: dbcliente.cpp dbcliente.h
-	$(CPP) $(CFLAGS) -c dbcliente.cpp
+# 
+# Compilation rules
+#
 
-form.o: form.cpp form.h
-	$(CPP) $(CFLAGS) -c form.cpp
-
+main.o: main.cpp 
 principal.o: principal.cpp principal.h
-	$(CPP) $(CFLAGS) -c principal.cpp
-
 pedido.o: pedido.cpp pedido.h
-	$(CPP) $(CFLAGS) -c pedido.cpp
-
 itens.o: itens.cpp itens.h
-	$(CPP) $(CFLAGS) -c itens.cpp
 
+events.o: events.cpp events.h
+pform.o: pform.cpp pform.h
 buscacliente.o: buscacliente.cpp buscacliente.h
-	$(CPP) $(CFLAGS) -c buscacliente.cpp
+database.o: database.cpp database.h
+dbcliente.o: dbcliente.cpp dbcliente.h
+
+#
+# Rules
+# 
+all: $(EXECUTAVEIS)
+
+.cpp.o:
+	$(CPP) -c -o $@ $< $(CFLAGS)
+
+pedidos.bin: $(GERAL_O) $(PEDIDOS_O)
+	$(CPP) -o pedidos.bin $^
 
 pedidos.stamp: pedidos.rcp
-	pilrc pedidos.rcp
+	pilrc $^
+
+pedidos.prc: pedidos.stamp pedidos.bin
+	build-prc pedidos.prc "Pedidos" TuHe pedidos.bin *.bin
 
 clean:
-	rm -f *.[oa] pedidos *.bin *.stamp
-
+	rm -f *.[oa] *.obj *.bin *.stamp

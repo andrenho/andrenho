@@ -1,4 +1,4 @@
-#include "form.h"
+#include "pform.h"
 
 extern Form* current;
 

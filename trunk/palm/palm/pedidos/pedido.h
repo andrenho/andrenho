@@ -1,7 +1,7 @@
 #ifndef PEDIDO_H
 #define PEDIDO_H
 
-#include "form.h"
+#include "pform.h"
 
 class Pedido : public Form
 {
