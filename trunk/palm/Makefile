@@ -26,8 +26,27 @@ PEDIDOS_O = main.o \
 	    principal.o pedido.o itens.o
 
 # 
-# Compilation rules
+# Regra padrão
 #
+all: pedidos
+
+#
+# Regras executáveis Palm
+# 
+pedidos: pedidos.prc
+
+pedidos.prc: pedido.stamp pedido
+	build-prc pedidos.prc "Pedidos" TuHe pedido *.bin
+
+pedido: $(GERAL_O) $(PEDIDOS_O)
+	$(CPP) -o pedido $^
+
+pedido.stamp: pedido.rcp
+	pilrc $^
+
+#
+# Regras de compilação
+# 
 main.o: main.cpp 
 principal.o: principal.cpp principal.h
 pedido.o: pedido.cpp pedido.h
@@ -39,29 +58,10 @@ buscacliente.o: buscacliente.cpp buscacliente.h
 database.o: database.cpp database.h
 dbcliente.o: dbcliente.cpp dbcliente.h
 
-#
-# Regras executáveis Palm
-# 
-pedidos: pedidos.prc
-
-pedidos.prc: pedidos.stamp pedido
-	build-prc pedidos.prc "Pedidos" TuHe pedido *.bin
-
-pedido: pedidos.stamp $(GERAL_O) $(PEDIDOS_O)
-	$(CPP) -o pedido $^
-
-pedidos.stamp: pedidos.rcp
-	pilrc $^
-
-#
-# Regras de compilação
-# 
-all: pedidos
-
 .cpp.o:
 	$(CPP) -c -o $@ $< $(CFLAGS)
 
 clean:
-	rm -f *.[oa] *.bin pedido *.stamp
+	rm -f *.[oa] *.bin pedido *.stamp *.h
 
 .PHONY : pedido
