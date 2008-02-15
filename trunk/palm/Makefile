@@ -13,7 +13,7 @@ VPATH = $(GERAL_DIR) $(PEDIDOS_DIR)
 #
 # Flags
 #
-CFLAGS = -O2 -palmos5r4 -I$(GERAL_DIR) -I$(PEDIDOS_DIR)
+CFLAGS = -O2 -palmos5r4 -I. -I$(GERAL_DIR) -I$(PEDIDOS_DIR)
 
 # 
 # Objetos
@@ -26,15 +26,8 @@ PEDIDOS_O = main.o \
 	    principal.o pedido.o itens.o
 
 # 
-# Executáveis
-#
-PEDIDOS_PRC = pedidos.prc
-EXECUTAVEIS = $(PEDIDOS_PRC)
-
-# 
 # Compilation rules
 #
-
 main.o: main.cpp 
 principal.o: principal.cpp principal.h
 pedido.o: pedido.cpp pedido.h
@@ -47,21 +40,28 @@ database.o: database.cpp database.h
 dbcliente.o: dbcliente.cpp dbcliente.h
 
 #
-# Rules
+# Regras executáveis Palm
 # 
-all: $(EXECUTAVEIS)
+pedidos: pedidos.prc
 
-.cpp.o:
-	$(CPP) -c -o $@ $< $(CFLAGS)
+pedidos.prc: pedidos.stamp pedido
+	build-prc pedidos.prc "Pedidos" TuHe pedido *.bin
 
-pedidos.bin: $(GERAL_O) $(PEDIDOS_O)
-	$(CPP) -o pedidos.bin $^
+pedido: pedidos.stamp $(GERAL_O) $(PEDIDOS_O)
+	$(CPP) -o pedido $^
 
 pedidos.stamp: pedidos.rcp
 	pilrc $^
 
-pedidos.prc: pedidos.stamp pedidos.bin
-	build-prc pedidos.prc "Pedidos" TuHe pedidos.bin *.bin
+#
+# Regras de compilação
+# 
+all: pedidos
+
+.cpp.o:
+	$(CPP) -c -o $@ $< $(CFLAGS)
 
 clean:
-	rm -f *.[oa] *.obj *.bin *.stamp
+	rm -f *.[oa] *.bin pedido *.stamp
+
+.PHONY : pedido
