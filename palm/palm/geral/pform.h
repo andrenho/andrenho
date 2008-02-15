@@ -1,7 +1,7 @@
 #ifndef FORM_H
 #define FORM_H
 
-#include "palm.h"
+#include "palmincludes.h"
 #include "pedidos.h"
 
 class Form

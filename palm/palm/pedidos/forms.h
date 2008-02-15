@@ -1,7 +1,7 @@
 #ifndef FORMS_H
 #define FORMS_H
 
-#include "form.h"
+#include "pform.h"
 #include "principal.h"
 #include "pedido.h"
 #include "itens.h"

@@ -1,7 +1,7 @@
 #ifndef DATABASE_H
 #define DATABASE_H
 
-#include "palm.h"
+#include "palmincludes.h"
 
 #define DB_CREATOR 'WAGN'
 

@@ -1,7 +1,7 @@
 #ifndef BUSCACLIENTE_H
 #define BUSCACLIENTE_H
 
-#include "form.h"
+#include "pform.h"
 
 class BuscaCliente : public Form
 {

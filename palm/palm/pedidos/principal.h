@@ -1,7 +1,7 @@
 #ifndef PRINCIPAL_H
 #define PRINCIPAL_H
 
-#include "form.h"
+#include "pform.h"
 
 class Principal : public Form
 {
