@@ -1,4 +1,4 @@
-GENERATEHEADER "resource.h"
+GENERATEHEADER "pedidos.h"
 
 FORM ID PrincipalFrm AT (0 0 159 159) USABLE NOFRAME
 BEGIN
