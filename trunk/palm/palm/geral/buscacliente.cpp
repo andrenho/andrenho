@@ -52,16 +52,14 @@ void BuscaCliente::busca(Form* caller, UInt16 campoCNPJ, UInt16 campoFantasia, U
 	else if(c == 1)
 	{
 		R_Cliente* r = (R_Cliente*)MemHandleLock(mh[0]);
-		// caller->setField(campoCNPJ, r->CNPJ);
+		caller->setField(campoCNPJ, r->CNPJ);
 		caller->setField(campoFantasia, r->Fantasia);
-		// if(campoRazaoSocial)
-		// 	caller->setField(campoRazaoSocial, r->RazaoSocial);
+		if(campoRazaoSocial)
+		 	caller->setField(campoRazaoSocial, r->RazaoSocial);
 		MemHandleUnlock(mh[0]);
 	}
 	else
-	{
-
-	}
+		FrmAlert(ToBeDone);
 
 	// libera os handles
 	for(i=0; i<c; i++)
