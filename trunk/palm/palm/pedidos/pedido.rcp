@@ -1,5 +1,7 @@
 GENERATEHEADER "pedidos.h"
 
+#include "palm/geral/resource.rcp"
+
 FORM ID PrincipalFrm AT (0 0 159 159) USABLE NOFRAME
 BEGIN
 	TITLE "Pedidos"
@@ -27,32 +29,6 @@ BEGIN
 	BUTTON "Novo Item" ID ItensNovo AT (1 BOTTOM@158 AUTO AUTO)
 	BUTTON "Cancelar" ID ItensCancelar AT (PREVRIGHT+5 BOTTOM@158 AUTO AUTO)
 	BUTTON "Finalizar" ID ItensFinalizar AT (PREVRIGHT+5 BOTTOM@158 AUTO AUTO)
-END
-
-FORM ID BuscaClienteFrm AT (0 0 159 159) USABLE NOFRAME
-BEGIN
-	TITLE "Clientes"
-END
-
-ALERT ID ToBeDone WARNING
-BEGIN
-	TITLE "A Fazer"
-	MESSAGE "Esta função não está implementada."
-	BUTTONS "Ok"
-END
-
-ALERT ID Debug ERROR
-BEGIN
-	TITLE "Debug"
-	MESSAGE "^1, ^2, ^3"
-	BUTTONS "Ok"
-END
-
-ALERT ID ClienteNaoExiste ERROR
-BEGIN
-	TITLE "Cliente Inexistente"
-	MESSAGE "Este cliente não está cadastrado."
-	BUTTONS "Ok"
 END
 
 /*

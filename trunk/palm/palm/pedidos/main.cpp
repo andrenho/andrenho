@@ -1,76 +1,26 @@
-#include "pedidos.h"
 #include "palmincludes.h"
-#include "forms.h"
-#include "pedidos.h"
+#include "events.h"
+#include "extern_pedidos.h"
+
+Principal* principal;
+Pedido* pedido;
+Itens* itens;
 
 UInt32 PilotMain(UInt16 cmd, MemPtr cmdPBP, UInt16 launchFlags)
 {
-	UInt16 err;
-	EventType e;
-	FormType* pfrm;
-
-	dbCliente = new DBCliente();
-
 	principal = new Principal();
 	pedido = new Pedido();
 	itens = new Itens();
-	buscaCliente = new BuscaCliente();
 	
 	current = principal;
 
-	if (cmd == sysAppLaunchCmdNormalLaunch)
-	{
-		current->open();
+	mainLoop(cmd);
 
-		while(1)
-		{
-			EvtGetEvent(&e, 100);
-			if (SysHandleEvent(&e))
-				continue;
-			if (MenuHandleEvent(NULL, &e, &err))
-				continue;
-
-			switch(e.eType)
-			{
-				case ctlSelectEvent:
-					current->event(e.data.ctlSelect.controlID);
-					goto _default;
-					break;
-
-				case frmLoadEvent:
-					FrmSetActiveForm(FrmInitForm(e.data.frmLoad.formID));
-					break;
-
-				case frmOpenEvent:
-					pfrm = FrmGetActiveForm();
-					FrmDrawForm(pfrm);
-					break;
-
-				case appStopEvent:
-					goto _quit;
-
-				default:
-_default:
-					if (FrmGetActiveForm())
-						FrmHandleEvent(FrmGetActiveForm(), &e);
-			}
-		}
-
-_quit:
-		delete dbCliente;
-		delete buscaCliente;
-		delete itens;
-		delete pedido;
-		delete principal;
-		FrmCloseAllForms();
-	}
+	delete dbCliente;
+	delete buscaCliente;
+	delete itens;
+	delete pedido;
+	delete principal;
 
 	return 0;
 }
-
-/*
-void load_pointers()
-{
-	// pSegB = (ControlPtr)FrmGetObjectPtr(pfrm, FrmGetObjectIndex(pfrm, SegB));
-}
-*/

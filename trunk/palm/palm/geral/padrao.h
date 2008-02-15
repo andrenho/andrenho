@@ -1,7 +1,7 @@
 #ifndef ITENS_H
 #define ITENS_H
 
-#include "pform.h"
+#include "extern.h"
 
 class Itens : public Form
 {
