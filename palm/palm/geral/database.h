@@ -9,6 +9,10 @@ class Database
 {
 public:
 	virtual bool adicionaRegistro(void* r, int size);
+	int numeroRegistros();
+	void* registro(int n);
+
+	DmOpenRef db;
 protected:
 	bool openDB();
 	void closeDB();
@@ -16,9 +20,6 @@ protected:
 
 	virtual const Char* dbName() =0;
 	virtual void populateDB() =0;
-
-	DmOpenRef db;
-
 };
 
 #endif

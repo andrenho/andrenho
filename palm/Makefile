@@ -59,7 +59,7 @@ database.o: database.cpp database.h
 dbcliente.o: dbcliente.cpp dbcliente.h
 
 .cpp.o:
-	$(CPP) -c -o $@ $< $(CFLAGS)
+	$(CPP) $(CFLAGS) -c -o $@ $<
 
 clean:
 	rm -f *.[oa] *.bin pedido *.stamp *.h

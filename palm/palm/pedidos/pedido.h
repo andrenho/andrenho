@@ -7,6 +7,7 @@ class Pedido : public Form
 {
 public:
 	Pedido();
+	~Pedido();
 	void event(UInt16 controlID);
 	void loadData();
 

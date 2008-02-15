@@ -21,25 +21,66 @@ void DBCliente::populateDB()
 	adicionaRegistro(&r, sizeof(R_Cliente));
 }
 
-Char* DBCliente::buscaCNPJ(Char* fantasia)
+/*
+R_Cliente* DBCliente::busca(Char* fantasia, bool parcial)
 {
 	MemPtr p;
 	R_Cliente* r;
-	int i;
+	int i, n;
+
+	if(fantasia == NULL)
+		return NULL;
+	if(StrCompare(fantasia, "") == 0)
+		return NULL;
+
+	if(parcial)
+		n = StrLen(fantasia);
 
 	for(i=0; i<DmNumRecords(this->db); i++)
 	{
 		MemHandle h = DmQueryRecord(this->db, i);
 		p = MemHandleLock(h);
 		r = (R_Cliente *)p;
-		if(StrCaselessCompare(fantasia, r->Fantasia) == 0)
-		{
-			MemHandleUnlock(h);
-			return "xxx";
-			// return
-		}
+		if(parcial)
+			if(StrNCaselessCompare(fantasia, r->Fantasia, n) == 0)
+			{
+				MemHandleUnlock(h);
+				return r;
+			}
+		else
+			if(StrCaselessCompare(fantasia, r->Fantasia) == 0)
+			{
+				MemHandleUnlock(h);
+				return r;
+			}
 		MemHandleUnlock(h);
 	}
 	
 	return NULL;
 }
+
+R_Cliente* DBCliente::nComecandoCom(Char* fantasia)
+{
+	MemPtr p;
+	R_Cliente* r;
+	int c, i, n;
+
+	if(fantasia == NULL)
+		return 0;
+	if(StrCompare(fantasia, "") == 0)
+		return 0;
+
+	n = StrLen(fantasia);
+	for(i=0; i<DmNumRecords(this->db); i++)
+	{
+		MemHandle h = DmQueryRecord(this->db, i);
+		p = MemHandleLock(h);
+		r = (R_Cliente *)p;
+		if(StrNCaselessCompare(fantasia, r->Fantasia, n) == 0)
+			c++;
+		MemHandleUnlock(h);
+	}
+	
+	return i;
+}
+*/
