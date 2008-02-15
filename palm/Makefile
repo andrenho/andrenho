@@ -22,7 +22,7 @@ GERAL_O = events.o \
 	  pform.o buscacliente.o \
 	  database.o dbcliente.o 
 
-PEDIDOS_O = main.o \
+PEDIDOS_O = mainpedidos.o \
 	    principal.o pedido.o itens.o
 
 # 
@@ -47,7 +47,7 @@ pedido.stamp: pedido.rcp
 #
 # Regras de compilação
 # 
-main.o: main.cpp 
+mainpedidos.o: mainpedidos.cpp 
 principal.o: principal.cpp principal.h
 pedido.o: pedido.cpp pedido.h
 itens.o: itens.cpp itens.h
