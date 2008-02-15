@@ -38,7 +38,7 @@ void Pedido::event(UInt16 controlID)
 			*/
 			break;
 		case PedidoBuscaCliente:
-			buscaCliente->busca(this, PedidoCNPJ, PedidoCliente, 0);
+			buscaCliente->busca(this, PedidoCNPJ, PedidoCliente, PedidoRazaoSocial);
 			break;
 	}
 }
