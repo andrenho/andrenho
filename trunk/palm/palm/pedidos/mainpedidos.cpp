@@ -12,7 +12,7 @@ UInt32 PilotMain(UInt16 cmd, MemPtr cmdPBP, UInt16 launchFlags)
 	pedido = new Pedido();
 	itens = new Itens();
 	
-	initial = principal;
+	current = principal;
 
 	mainGeral(cmd);
 

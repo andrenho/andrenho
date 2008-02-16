@@ -1,20 +1,23 @@
-#include "events.h"
+#include "main.h"
 #include "extern.h"
 
-Form* initial;
+Form* current;
 BuscaCliente* buscaCliente;
 DBCliente* dbCliente;
+bool appActive;
 
 void mainGeral(UInt16 cmd)
 {
+	appActive = true;
+
 	dbCliente = new DBCliente();
 	buscaCliente = new BuscaCliente();
 
 	if (cmd == sysAppLaunchCmdNormalLaunch)
-	{
-		initial->open();
-		FrmCloseAllForms();
-	}
+		while(appActive)
+			current->open();
+
+	FrmCloseAllForms();
 
 	delete dbCliente;
 	delete buscaCliente;

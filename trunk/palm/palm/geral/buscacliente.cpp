@@ -6,11 +6,13 @@ BuscaCliente::BuscaCliente()
 	this->id = BuscaClienteFrm;
 }
 
-void BuscaCliente::event(UInt16 controlID)
+bool BuscaCliente::event(UInt16 controlID, eventsEnum evt)
 {
-	switch(controlID)
-	{
-	}
+	if(evt == ctlSelectEvent)
+		switch(controlID)
+		{
+		}
+	return false;
 }
 
 void BuscaCliente::loadData()

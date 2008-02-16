@@ -1,6 +1,6 @@
 #include "pform.h"
-
-extern Form* current;
+#include "main.h"
+#include "extern.h"
 
 void Form::open()
 {
@@ -8,11 +8,15 @@ void Form::open()
 	EventType e;
 
 	this->leave_form = false;
+
 	FrmGotoForm(this->id);
 
 	while(!this->leave_form)
 	{
 		EvtGetEvent(&e, 100);
+
+		// PreprocessEvent(&e);
+
 		if (SysHandleEvent(&e))
 			continue;
 		if (MenuHandleEvent(NULL, &e, &err))
@@ -21,28 +25,40 @@ void Form::open()
 		switch(e.eType)
 		{
 			case frmLoadEvent:
-				FrmSetActiveForm(FrmInitForm(e.data.frmLoad.formID));
+				FrmSetActiveForm(FrmInitForm(this->id));
 				break;
 			case frmOpenEvent:
 				FrmDrawForm(getFormType());
 				break;
 			case appStopEvent:
-				this->leave_form = true; // TODO
-				break;
+				appActive = false;
+				return;
 			default:
-				event(e.data.ctlSelect.controlID);
-				if (FrmGetActiveForm())
-					FrmHandleEvent(FrmGetActiveForm(), &e);
+				if(!event(e.data.ctlSelect.controlID, e.eType))
+					//if (FrmGetActiveForm())
+					//	FrmHandleEvent(FrmGetActiveForm(), &e);
+					FrmDispatchEvent(&e);
 				break;
 		}
 	}
+}
+
+void Form::goToForm(Form* form)
+{
+	this->leave_form = true;
+	current = form;
+}
+
+void Form::displayAlert(UInt16 id)
+{
+	//idAlertToDisplay = id;
+	FrmAlert(id);
 }
 
 void Form::load()
 {
 	FrmGotoForm(id);
 	loadData();
-	current = this;
 }
 
 FormType* Form::getFormType()

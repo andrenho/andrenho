@@ -4,5 +4,6 @@
 #include "palmincludes.h"
 
 void mainGeral(UInt16 cmd);
+void mainExit();
 
 #endif

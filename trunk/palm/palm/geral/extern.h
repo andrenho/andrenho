@@ -5,8 +5,9 @@
 #include "buscacliente.h"
 #include "dbcliente.h"
 
-extern Form* initial;
+extern Form* current;
 extern BuscaCliente* buscaCliente;
 extern DBCliente* dbCliente;
+extern bool appActive;
 
 #endif

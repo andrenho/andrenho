@@ -7,7 +7,7 @@ class Itens : public Form
 {
 public:
 	Itens();
-	void event(UInt16 controlID);
+	bool event(UInt16 controlID, eventsEnum evt);
 	void loadData();
 };
 

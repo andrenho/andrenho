@@ -9,17 +9,19 @@ Principal::Principal()
 	this->id = PrincipalFrm;
 }
 
-void Principal::event(UInt16 controlID)
+bool Principal::event(UInt16 controlID, eventsEnum evt)
 {
-	switch(controlID)
-	{
-		case PrincipalNovo:
-			pedido->open();
-			break;
-		case PrincipalConectar:
-			FrmAlert(ToBeDone);
-			break;
-	}
+	if(evt == ctlSelectEvent)
+		switch(controlID)
+		{
+			case PrincipalNovo:
+				goToForm(pedido);
+				return false;
+			case PrincipalConectar:
+				displayAlert(ToBeDone);
+				return true;
+		}
+	return false;
 }
 
 void Principal::loadData()
