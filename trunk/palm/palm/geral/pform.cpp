@@ -4,8 +4,38 @@ extern Form* current;
 
 void Form::open()
 {
-	FrmGotoForm(id);
-	current = this;
+	UInt16 err;
+	EventType e;
+
+	this->leave_form = false;
+	FrmGotoForm(this->id);
+
+	while(!this->leave_form)
+	{
+		EvtGetEvent(&e, 100);
+		if (SysHandleEvent(&e))
+			continue;
+		if (MenuHandleEvent(NULL, &e, &err))
+			continue;
+
+		switch(e.eType)
+		{
+			case frmLoadEvent:
+				FrmSetActiveForm(FrmInitForm(e.data.frmLoad.formID));
+				break;
+			case frmOpenEvent:
+				FrmDrawForm(getFormType());
+				break;
+			case appStopEvent:
+				this->leave_form = true; // TODO
+				break;
+			default:
+				event(e.data.ctlSelect.controlID);
+				if (FrmGetActiveForm())
+					FrmHandleEvent(FrmGetActiveForm(), &e);
+				break;
+		}
+	}
 }
 
 void Form::load()

@@ -3,6 +3,6 @@
 
 #include "palmincludes.h"
 
-void mainLoop(UInt16 cmd);
+void mainGeral(UInt16 cmd);
 
 #endif
