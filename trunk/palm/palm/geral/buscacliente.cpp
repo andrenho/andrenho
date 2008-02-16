@@ -27,9 +27,9 @@ void BuscaCliente::busca(Form* caller, UInt16 campoCNPJ, UInt16 campoFantasia, U
 	Char* fantasia = FldGetTextPtr((FieldType*)caller->getControl(campoFantasia));
 	
 	if(fantasia == NULL)
-		return;
+		goto buscaClientes;
 	if(StrCompare(fantasia, "") == 0)
-		return;
+		goto buscaClientes;
 
 	n = StrLen(fantasia);
 
@@ -50,7 +50,7 @@ void BuscaCliente::busca(Form* caller, UInt16 campoCNPJ, UInt16 campoFantasia, U
 	}
 
 	if(c == 0)
-		FrmAlert(ClienteNaoExiste);
+		displayAlert(ClienteNaoExiste);
 	else if(c == 1)
 	{
 		R_Cliente* r = (R_Cliente*)MemHandleLock(mh[0]);
@@ -61,7 +61,8 @@ void BuscaCliente::busca(Form* caller, UInt16 campoCNPJ, UInt16 campoFantasia, U
 		MemHandleUnlock(mh[0]);
 	}
 	else
-		FrmAlert(ToBeDone);
+buscaClientes:
+		displayAlert(ToBeDone);
 
 	// libera os handles
 	for(i=0; i<c; i++)
