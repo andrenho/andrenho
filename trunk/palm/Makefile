@@ -6,8 +6,8 @@ CPP = m68k-palmos-g++
 # 
 # Diretórios
 # 
-GERAL_DIR = palm/geral
-PEDIDOS_DIR = palm/pedidos
+GERAL_DIR = geral
+PEDIDOS_DIR = pedidos
 VPATH = $(GERAL_DIR) $(PEDIDOS_DIR)
 
 #
@@ -18,7 +18,7 @@ CFLAGS = -O2 -palmos5r4 -I. -I$(GERAL_DIR) -I$(PEDIDOS_DIR)
 # 
 # Objetos
 #
-GERAL_O = events.o \
+GERAL_O = main.o \
 	  pform.o buscacliente.o \
 	  database.o dbcliente.o 
 
@@ -26,9 +26,12 @@ PEDIDOS_O = mainpedidos.o \
 	    principal.o pedido.o itens.o
 
 # 
-# Regra padrão
+# Regras padrão
 #
 all: pedidos
+
+test: pedidos
+	pose -psf session.psf -load_apps pedidos.prc -run_app Pedidos -quit_on_exit
 
 #
 # Regras executáveis Palm
@@ -52,7 +55,7 @@ principal.o: principal.cpp principal.h
 pedido.o: pedido.cpp pedido.h
 itens.o: itens.cpp itens.h
 
-events.o: events.cpp events.h
+main.o: main.cpp main.h
 pform.o: pform.cpp pform.h
 buscacliente.o: buscacliente.cpp buscacliente.h
 database.o: database.cpp database.h
