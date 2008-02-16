@@ -5,11 +5,13 @@ Itens::Itens()
 	this->id = ItensFrm;
 }
 
-void Itens::event(UInt16 controlID)
+bool Itens::event(UInt16 controlID, eventsEnum evt)
 {
-	switch(controlID)
-	{
-	}
+	if(evt == ctlSelectEvent)
+		switch(controlID)
+		{
+		}
+	return false;
 }
 
 void Itens::loadData()

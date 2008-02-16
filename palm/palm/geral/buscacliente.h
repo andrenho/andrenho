@@ -9,7 +9,7 @@ class BuscaCliente : public Form
 public:
 	BuscaCliente();
 	
-	void event(UInt16 controlID);
+	bool event(UInt16 controlID, eventsEnum evt);
 	void loadData();
 	void busca(Form* caller, UInt16 CNPJ, UInt16 campoFantasia, UInt16 campoRazaoSocial);
 };

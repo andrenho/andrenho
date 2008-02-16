@@ -7,7 +7,7 @@ class Principal : public Form
 {
 public:
 	Principal();
-	void event(UInt16 controlID);
+	bool event(UInt16 controlID, eventsEnum evt);
 	void loadData();
 };
 
