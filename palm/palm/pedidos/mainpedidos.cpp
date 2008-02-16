@@ -1,5 +1,5 @@
 #include "palmincludes.h"
-#include "events.h"
+#include "main.h"
 #include "extern_pedidos.h"
 
 Principal* principal;
@@ -12,9 +12,9 @@ UInt32 PilotMain(UInt16 cmd, MemPtr cmdPBP, UInt16 launchFlags)
 	pedido = new Pedido();
 	itens = new Itens();
 	
-	current = principal;
+	initial = principal;
 
-	mainLoop(cmd);
+	mainGeral(cmd);
 
 	delete itens;
 	delete pedido;
