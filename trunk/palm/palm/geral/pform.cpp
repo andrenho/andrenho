@@ -2,6 +2,10 @@
 #include "main.h"
 #include "extern.h"
 
+Form::Form()
+{
+}
+
 void Form::open()
 {
 	UInt16 err;
@@ -14,8 +18,6 @@ void Form::open()
 	while(!this->leave_form)
 	{
 		EvtGetEvent(&e, 100);
-
-		// PreprocessEvent(&e);
 
 		if (SysHandleEvent(&e))
 			continue;
@@ -35,8 +37,6 @@ void Form::open()
 				return;
 			default:
 				if(!event(e.data.ctlSelect.controlID, e.eType))
-					//if (FrmGetActiveForm())
-					//	FrmHandleEvent(FrmGetActiveForm(), &e);
 					FrmDispatchEvent(&e);
 				break;
 		}
@@ -48,7 +48,7 @@ void Form::goToForm(Form* form)
 	this->leave_form = true;
 	current = form;
 }
-
+	
 void Form::displayAlert(UInt16 id)
 {
 	//idAlertToDisplay = id;

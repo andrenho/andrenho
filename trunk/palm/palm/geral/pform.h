@@ -7,10 +7,12 @@
 class Form
 {
 public:
-	void open();
+	Form();
+	virtual void open();
 	void load();
 	void* getControl(UInt16 id);
 	void setField(UInt16 field, Char* s);
+	UInt16 id;
 protected:
 	void goToForm(Form* form);
 	void displayAlert(UInt16 id);
@@ -18,9 +20,8 @@ protected:
 	virtual void loadData() =0;
 	FormType* getFormType();
 
-	UInt16 id;
-private:
 	bool leave_form;
+private:
 };
 
 #endif

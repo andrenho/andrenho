@@ -1,6 +1,6 @@
-#include "itens.h"
+#include "frmitens.h"
 
-FrmItens::FrmItens()
+FrmItens::FrmItens() : Form()
 {
 	this->id = ItensFrm;
 }

@@ -2,23 +2,23 @@
 #include "main.h"
 #include "extern_pedidos.h"
 
-Principal* principal;
-Pedido* pedido;
-Itens* itens;
+FrmPrincipal* frmPrincipal;
+FrmPedido* frmPedido;
+FrmItens* frmItens;
 
 UInt32 PilotMain(UInt16 cmd, MemPtr cmdPBP, UInt16 launchFlags)
 {
-	principal = new Principal();
-	pedido = new Pedido();
-	itens = new Itens();
+	frmPrincipal = new FrmPrincipal();
+	frmPedido = new FrmPedido();
+	frmItens = new FrmItens();
 	
-	current = principal;
+	current = frmPrincipal;
 
 	mainGeral(cmd);
 
-	delete itens;
-	delete pedido;
-	delete principal;
+	delete frmItens;
+	delete frmPedido;
+	delete frmPrincipal;
 
 	return 0;
 }

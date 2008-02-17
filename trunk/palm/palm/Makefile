@@ -19,11 +19,11 @@ CFLAGS = -O2 -palmos5r4 -I. -I$(GERAL_DIR) -I$(PEDIDOS_DIR)
 # Objetos
 #
 GERAL_O = main.o \
-	  pform.o buscacliente.o \
+	  pform.o frmmodal.o buscacliente.o frmcidades.o \
 	  database.o dbcliente.o 
 
 PEDIDOS_O = mainpedidos.o \
-	    principal.o pedido.o itens.o
+	    frmprincipal.o frmpedido.o frmitens.o
 
 # 
 # Regras padrão
@@ -45,19 +45,21 @@ pedido: $(GERAL_O) $(PEDIDOS_O)
 	$(CPP) -o pedido $^
 
 pedido.stamp: pedido.rcp
-	pilrc $^
+	pilrc -q $^
 
 #
 # Regras de compilação
 # 
 mainpedidos.o: mainpedidos.cpp 
-principal.o: principal.cpp principal.h
-pedido.o: pedido.cpp pedido.h
-itens.o: itens.cpp itens.h
+frmprincipal.o: frmprincipal.cpp frmprincipal.h
+frmpedido.o: frmpedido.cpp frmpedido.h
+frmitens.o: frmitens.cpp frmitens.h
 
 main.o: main.cpp main.h
 pform.o: pform.cpp pform.h
+frmmodal.o: frmmodal.cpp frmmodal.h
 buscacliente.o: buscacliente.cpp buscacliente.h
+frmcidades.o: frmcidades.cpp frmcidades.h
 database.o: database.cpp database.h
 dbcliente.o: dbcliente.cpp dbcliente.h
 
