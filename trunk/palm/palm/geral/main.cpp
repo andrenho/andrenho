@@ -5,6 +5,7 @@ Form* current;
 BuscaCliente* buscaCliente;
 DBCliente* dbCliente;
 DBCidade* dbCidade;
+DBPedido* dbPedido;
 bool appActive;
 FrmType frmType;
 
@@ -12,6 +13,7 @@ void mainInit()
 {
 	dbCliente = new DBCliente();
 	dbCidade = new DBCidade();
+	dbPedido = new DBPedido();
 	buscaCliente = new BuscaCliente();
 }
 
@@ -30,4 +32,5 @@ void mainGeral(UInt16 cmd)
 	delete dbCliente;
 	delete buscaCliente;
 	delete dbCidade;
+	delete dbPedido;
 }

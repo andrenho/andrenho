@@ -33,10 +33,15 @@ bool FrmPedido::event(UInt16 controlID, EventType* e)
 			case PedidoCancelar:
 				goToForm(frmPrincipal);
 				return true;
-			case PedidoItens:
-				return true;
 			case PedidoBuscaCliente:
-				buscaCliente->busca(this, PedidoCNPJ, PedidoCliente, PedidoRazaoSocial, cidadeSelecionada);
+				if(!buscaCliente->busca(this, PedidoCNPJ, PedidoCliente, PedidoRazaoSocial, cidadeSelecionada))
+					setField(PedidoCNPJ, "");
+				return true;
+			case PedidoItens:
+				if(getField(PedidoCNPJ) == NULL)
+					mensagemErro("Cliente não selecionado.");
+				else
+					goToForm(frmItens);
 				return true;
 		}
 	else if(e->eType == popSelectEvent)
