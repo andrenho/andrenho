@@ -31,16 +31,21 @@ void Form::open()
 				break;
 			case frmOpenEvent:
 				FrmDrawForm(getFormType());
+				doAfterDrawing();
 				break;
 			case appStopEvent:
 				appActive = false;
 				return;
 			default:
-				if(!event(e.data.ctlSelect.controlID, e.eType))
+				if(!event(e.data.ctlSelect.controlID, &e))
 					FrmDispatchEvent(&e);
 				break;
 		}
 	}
+}
+
+void Form::doAfterDrawing()
+{
 }
 
 void Form::goToForm(Form* form)

@@ -3,18 +3,22 @@
 
 Form* current;
 BuscaCliente* buscaCliente;
-FrmCidades* frmCidades;
 DBCliente* dbCliente;
+DBCidade* dbCidade;
 bool appActive;
 FrmType frmType;
+
+void mainInit()
+{
+	dbCliente = new DBCliente();
+	dbCidade = new DBCidade();
+	buscaCliente = new BuscaCliente();
+}
 
 void mainGeral(UInt16 cmd)
 {
 	appActive = true;
 
-	dbCliente = new DBCliente();
-	buscaCliente = new BuscaCliente();
-	frmCidades = new FrmCidades();
 	frmType = NonModal;
 
 	if (cmd == sysAppLaunchCmdNormalLaunch)
@@ -25,5 +29,5 @@ void mainGeral(UInt16 cmd)
 
 	delete dbCliente;
 	delete buscaCliente;
-	delete frmCidades;
+	delete dbCidade;
 }

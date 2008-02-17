@@ -8,6 +8,7 @@
 class Database
 {
 public:
+	~Database();
 	virtual bool adicionaRegistro(void* r, int size);
 	int numeroRegistros();
 	void* registro(int n);

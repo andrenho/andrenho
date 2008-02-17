@@ -9,9 +9,9 @@ FrmPrincipal::FrmPrincipal() : Form()
 	this->id = PrincipalFrm;
 }
 
-bool FrmPrincipal::event(UInt16 controlID, eventsEnum evt)
+bool FrmPrincipal::event(UInt16 controlID, EventType* e)
 {
-	if(evt == ctlSelectEvent)
+	if(e->eType == ctlSelectEvent)
 		switch(controlID)
 		{
 			case PrincipalNovo:

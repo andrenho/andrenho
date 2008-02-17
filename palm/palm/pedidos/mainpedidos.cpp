@@ -8,6 +8,8 @@ FrmItens* frmItens;
 
 UInt32 PilotMain(UInt16 cmd, MemPtr cmdPBP, UInt16 launchFlags)
 {
+	mainInit();	
+
 	frmPrincipal = new FrmPrincipal();
 	frmPedido = new FrmPedido();
 	frmItens = new FrmItens();

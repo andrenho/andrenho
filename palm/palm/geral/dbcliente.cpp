@@ -3,12 +3,7 @@
 DBCliente::DBCliente()
 {
 	if(!openDB())
-		throw "O BD dos clientes não pôde ser abero.";
-}
-
-DBCliente::~DBCliente()
-{
-	closeDB();
+		throw "O BD dos clientes não pôde ser aberto.";
 }
 
 void DBCliente::populateDB()
@@ -17,6 +12,7 @@ void DBCliente::populateDB()
 	StrCopy(r.CNPJ, "12345");
 	StrCopy(r.Fantasia, "Andre");
 	StrCopy(r.RazaoSocial, "André Wagner");
+	r.cidade = 1;
 
 	adicionaRegistro(&r, sizeof(R_Cliente));
 }

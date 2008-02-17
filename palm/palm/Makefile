@@ -19,8 +19,8 @@ CFLAGS = -O2 -palmos5r4 -I. -I$(GERAL_DIR) -I$(PEDIDOS_DIR)
 # Objetos
 #
 GERAL_O = main.o \
-	  pform.o frmmodal.o buscacliente.o frmcidades.o \
-	  database.o dbcliente.o 
+	  pform.o frmmodal.o buscacliente.o \
+	  database.o dbcliente.o dbcidade.o
 
 PEDIDOS_O = mainpedidos.o \
 	    frmprincipal.o frmpedido.o frmitens.o
@@ -59,9 +59,9 @@ main.o: main.cpp main.h
 pform.o: pform.cpp pform.h
 frmmodal.o: frmmodal.cpp frmmodal.h
 buscacliente.o: buscacliente.cpp buscacliente.h
-frmcidades.o: frmcidades.cpp frmcidades.h
 database.o: database.cpp database.h
 dbcliente.o: dbcliente.cpp dbcliente.h
+dbcidade.o: dbcidade.cpp dbcidade.h
 
 .cpp.o:
 	$(CPP) $(CFLAGS) -c -o $@ $<

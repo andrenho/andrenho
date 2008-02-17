@@ -1,6 +1,11 @@
 #include "database.h"
 #include "pedidos.h"
 
+Database::~Database()
+{
+	closeDB();
+}
+
 bool Database::openDB()
 {
 	LocalID id;

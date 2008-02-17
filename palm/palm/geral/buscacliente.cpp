@@ -6,9 +6,9 @@ BuscaCliente::BuscaCliente()
 	this->id = BuscaClienteFrm;
 }
 
-bool BuscaCliente::event(UInt16 controlID, eventsEnum evt)
+bool BuscaCliente::event(UInt16 controlID, EventType *e)
 {
-	if(evt == ctlSelectEvent)
+	if(e->eType == ctlSelectEvent)
 		switch(controlID)
 		{
 		}
@@ -19,7 +19,7 @@ void BuscaCliente::loadData()
 {
 }
 
-void BuscaCliente::busca(Form* caller, UInt16 campoCNPJ, UInt16 campoFantasia, UInt16 campoRazaoSocial)
+void BuscaCliente::busca(Form* caller, UInt16 campoCNPJ, UInt16 campoFantasia, UInt16 campoRazaoSocial, int cidade)
 {
 	int i, n, c = 0;
 	MemPtr p;
@@ -38,6 +38,11 @@ void BuscaCliente::busca(Form* caller, UInt16 campoCNPJ, UInt16 campoFantasia, U
 	{
 		MemHandle h = DmQueryRecord(dbCliente->db, i);
 		p = MemHandleLock(h);
+		if(((R_Cliente*)p)->cidade != cidade && cidade != -1)
+		{
+			MemHandleUnlock(h);
+			continue;
+		}
 		if(StrNCaselessCompare(fantasia, ((R_Cliente*)p)->Fantasia, n) == 0)
 		{
 			mh[c] = h;
