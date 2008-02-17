@@ -8,17 +8,17 @@ typedef struct
 	char CNPJ[18];
 	char Fantasia[20];
 	char RazaoSocial[50];
+	int cidade;
 } R_Cliente;
 
 class DBCliente : public Database
 {
 public:
 	DBCliente();
-	~DBCliente();
 
 	void populateDB();
 private:
-	const Char* dbName() { return "WagnClientesDB"; }
+	const Char* dbName() { return "WGSFClientesDB"; }
 };
 
 #endif

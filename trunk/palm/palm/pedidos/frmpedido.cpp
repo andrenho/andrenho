@@ -7,41 +7,71 @@
 
 FrmPedido::FrmPedido() : Form()
 {
-	this->id = PedidoFrm;
+	nCidades = 0;
+	cidadeSelecionada = -1;
+	cidades = NULL;
+	codCidades = NULL;
+	id = PedidoFrm;
 }
 
 FrmPedido::~FrmPedido()
 {
+	int i;
+	for(i=0; i<nCidades; i++)
+		MemPtrFree(cidades[i]);
+	if(cidades)
+		MemPtrFree(cidades);
+	if(codCidades)
+		MemPtrFree(codCidades);
 }
 
-bool FrmPedido::event(UInt16 controlID, eventsEnum evt)
+bool FrmPedido::event(UInt16 controlID, EventType* e)
 {
-	if(evt == ctlSelectEvent)
+	if(e->eType == ctlSelectEvent)
 		switch(controlID)
 		{
 			case PedidoCancelar:
 				goToForm(frmPrincipal);
 				return true;
 			case PedidoItens:
-				/*
-				Char* t = FldGetTextPtr((FieldType*)getControl(PedidoCliente));
-				R_Cliente* r = dbCliente->busca(t, false);
-				this->cliente = r ? r->CNPJ : NULL;
-				if(this->cliente == NULL)
-					FrmAlert(ClienteNaoExiste);
-				else
-					itens->open();
-				break;
-				*/
 				return true;
 			case PedidoBuscaCliente:
-				buscaCliente->busca(this, PedidoCNPJ, PedidoCliente, PedidoRazaoSocial);
-				return true;
-			case PedidoCidade:
-				frmCidades->showDialog();
+				buscaCliente->busca(this, PedidoCNPJ, PedidoCliente, PedidoRazaoSocial, cidadeSelecionada);
 				return true;
 		}
+	else if(e->eType == popSelectEvent)
+		if(controlID == PedidoCidade)
+			cidadeSelecionada = codCidades[e->data.popSelect.selection];
 	return false;
+}
+
+void FrmPedido::doAfterDrawing()
+{
+	MemHandle hd;
+	R_Cidade* cidade;
+	Char* pd;
+	Char* pn;
+	int i;
+
+	cidades = (Char**)MemPtrNew(dbCidade->numeroRegistros() * sizeof(Char*) + 1);
+	codCidades = (int*)MemPtrNew(dbCidade->numeroRegistros() * sizeof(int));
+	for(i=0; i<dbCidade->numeroRegistros(); i++)
+	{
+		hd = DmQueryRecord(dbCidade->db, i);
+		cidade = (R_Cidade*)MemHandleLock(hd);
+		pn = (Char*)MemPtrNew((StrLen(cidade->nome) + 1));
+		StrCopy(pn, cidade->nome);
+		cidades[i] = pn;
+		codCidades[i] = cidade->codigo;
+		MemHandleUnlock(hd);
+		nCidades += 1;
+	}
+	LstSetListChoices((ListType*)getControl(PedidoCidadeList), cidades, nCidades);
+	if(nCidades >= 10)
+		LstSetHeight((ListType*)getControl(PedidoCidadeList), 10);
+	else
+		LstSetHeight((ListType*)getControl(PedidoCidadeList), nCidades);
+	LstDrawList((ListType*)getControl(PedidoCidadeList));
 }
 
 void FrmPedido::loadData()

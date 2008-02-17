@@ -5,9 +5,9 @@ FrmItens::FrmItens() : Form()
 	this->id = ItensFrm;
 }
 
-bool FrmItens::event(UInt16 controlID, eventsEnum evt)
+bool FrmItens::event(UInt16 controlID, EventType* e)
 {
-	if(evt == ctlSelectEvent)
+	if(e->eType == ctlSelectEvent)
 		switch(controlID)
 		{
 		}

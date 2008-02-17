@@ -3,7 +3,7 @@
 
 #include "palmincludes.h"
 
+void mainInit();
 void mainGeral(UInt16 cmd);
-void mainExit();
 
 #endif

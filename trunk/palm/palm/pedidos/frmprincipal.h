@@ -7,7 +7,7 @@ class FrmPrincipal : public Form
 {
 public:
 	FrmPrincipal();
-	bool event(UInt16 controlID, eventsEnum evt);
+	bool event(UInt16 controlID, EventType* e);
 	void loadData();
 };
 

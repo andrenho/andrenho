@@ -8,10 +8,17 @@ class FrmPedido : public Form
 public:
 	FrmPedido();
 	~FrmPedido();
-	bool event(UInt16 controlID, eventsEnum evt);
+	bool event(UInt16 controlID, EventType* e);
 	void loadData();
 
 	Char* cliente;
+protected:
+	void doAfterDrawing();
+private:
+	Char** cidades;
+	int* codCidades;
+	int nCidades;
+	int cidadeSelecionada;
 };
 
 #endif
