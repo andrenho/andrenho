@@ -1,20 +1,20 @@
-#include "pedido.h"
-#include "principal.h"
-#include "itens.h"
+#include "frmpedido.h"
+#include "frmprincipal.h"
+#include "frmitens.h"
 #include "buscacliente.h"
 #include "dbcliente.h"
 
-extern Principal* principal;
-extern Itens* itens;
+extern FrmPrincipal* principal;
+extern FrmItens* itens;
 extern BuscaCliente* buscaCliente;
 extern DBCliente* dbCliente;
 
-Pedido::Pedido()
+FrmPedido::FrmPedido()
 {
 	this->id = PedidoFrm;
 }
 
-Pedido::~Pedido()
+FrmPedido::~FrmPedido()
 {
 }
 
@@ -45,6 +45,6 @@ bool Pedido::event(UInt16 controlID, eventsEnum evt)
 	return false;
 }
 
-void Pedido::loadData()
+void FrmPedido::loadData()
 {
 }

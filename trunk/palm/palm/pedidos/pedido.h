@@ -1,13 +1,13 @@
-#ifndef PEDIDO_H
-#define PEDIDO_H
+#ifndef FRMPEDIDO_H
+#define FRMPEDIDO_H
 
 #include "pform.h"
 
-class Pedido : public Form
+class FrmPedido : public Form
 {
 public:
-	Pedido();
-	~Pedido();
+	FrmPedido();
+	~FrmPedido();
 	bool event(UInt16 controlID, eventsEnum evt);
 	void loadData();
 

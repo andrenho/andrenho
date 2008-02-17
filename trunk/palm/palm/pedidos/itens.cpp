@@ -1,11 +1,11 @@
 #include "itens.h"
 
-Itens::Itens()
+FrmItens::FrmItens()
 {
 	this->id = ItensFrm;
 }
 
-bool Itens::event(UInt16 controlID, eventsEnum evt)
+bool FrmItens::event(UInt16 controlID, eventsEnum evt)
 {
 	if(evt == ctlSelectEvent)
 		switch(controlID)
@@ -14,6 +14,6 @@ bool Itens::event(UInt16 controlID, eventsEnum evt)
 	return false;
 }
 
-void Itens::loadData()
+void FrmItens::loadData()
 {
 }

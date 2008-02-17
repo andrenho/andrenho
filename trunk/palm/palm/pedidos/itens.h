@@ -1,12 +1,12 @@
-#ifndef ITENS_H
-#define ITENS_H
+#ifndef FRMITENS_H
+#define FRMITENS_H
 
 #include "pform.h"
 
-class Itens : public Form
+class FrmItens : public Form
 {
 public:
-	Itens();
+	FrmItens();
 	bool event(UInt16 controlID, eventsEnum evt);
 	void loadData();
 };
