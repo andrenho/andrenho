@@ -11,7 +11,7 @@ public:
 	
 	bool event(UInt16 controlID, EventType *e);
 	void loadData();
-	void busca(Form* caller, UInt16 CNPJ, UInt16 campoFantasia, UInt16 campoRazaoSocial, int cidade);
+	bool busca(Form* caller, UInt16 CNPJ, UInt16 campoFantasia, UInt16 campoRazaoSocial, int cidade);
 };
 
 #endif

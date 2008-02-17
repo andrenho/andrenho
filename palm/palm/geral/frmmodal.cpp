@@ -32,7 +32,7 @@ void* FrmModal::showDialog()
 				appActive = false;
 				return NULL;
 			default:
-				if(!event(e.data.ctlSelect.controlID, e.eType))
+				if(!event(e.data.ctlSelect.controlID, &e))
 					FrmDispatchEvent(&e);
 				break;
 		}

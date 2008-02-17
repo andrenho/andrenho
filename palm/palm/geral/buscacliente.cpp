@@ -19,9 +19,10 @@ void BuscaCliente::loadData()
 {
 }
 
-void BuscaCliente::busca(Form* caller, UInt16 campoCNPJ, UInt16 campoFantasia, UInt16 campoRazaoSocial, int cidade)
+bool BuscaCliente::busca(Form* caller, UInt16 campoCNPJ, UInt16 campoFantasia, UInt16 campoRazaoSocial, int cidade)
 {
 	int i, n, c = 0;
+	bool rt = false;
 	MemPtr p;
 	MemHandle mh[200]; // max clientes
 	Char* fantasia = FldGetTextPtr((FieldType*)caller->getControl(campoFantasia));
@@ -55,7 +56,10 @@ void BuscaCliente::busca(Form* caller, UInt16 campoCNPJ, UInt16 campoFantasia, U
 	}
 
 	if(c == 0)
+	{
 		displayAlert(ClienteNaoExiste);
+		rt = false;
+	}
 	else if(c == 1)
 	{
 		R_Cliente* r = (R_Cliente*)MemHandleLock(mh[0]);
@@ -64,6 +68,7 @@ void BuscaCliente::busca(Form* caller, UInt16 campoCNPJ, UInt16 campoFantasia, U
 		if(campoRazaoSocial)
 		 	caller->setField(campoRazaoSocial, r->RazaoSocial);
 		MemHandleUnlock(mh[0]);
+		rt = true;
 	}
 	else
 buscaClientes:
@@ -72,4 +77,6 @@ buscaClientes:
 	// libera os handles
 	for(i=0; i<c; i++)
 		MemHandleUnlock(mh[i]);
+
+	return rt;
 }

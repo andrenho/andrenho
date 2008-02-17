@@ -3,11 +3,15 @@
 
 #include "database.h"
 
+#define CNPJ_CHARS 18
+#define FANTASIA_CHARS 20
+#define RAZAOSOCIAL_CHARS 50
+
 typedef struct
 {
-	char CNPJ[18];
-	char Fantasia[20];
-	char RazaoSocial[50];
+	char CNPJ[CNPJ_CHARS];
+	char Fantasia[FANTASIA_CHARS];
+	char RazaoSocial[RAZAOSOCIAL_CHARS];
 	int cidade;
 } R_Cliente;
 

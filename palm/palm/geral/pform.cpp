@@ -60,6 +60,11 @@ void Form::displayAlert(UInt16 id)
 	FrmAlert(id);
 }
 
+void Form::mensagemErro(Char* message)
+{
+	FrmCustomAlert(MensagemErro, message, " ", " ");
+}
+
 void Form::load()
 {
 	FrmGotoForm(id);
@@ -75,6 +80,11 @@ void* Form::getControl(UInt16 id)
 {
 	FormType* frm = getFormType();
 	return FrmGetObjectPtr(frm, FrmGetObjectIndex(frm, id));
+}
+
+Char* Form::getField(UInt16 field)
+{
+	return FldGetTextPtr((FieldType*)getControl(field));
 }
 
 void Form::setField(UInt16 field, Char* s)

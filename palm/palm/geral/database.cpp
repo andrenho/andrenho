@@ -68,3 +68,7 @@ void* Database::registro(int n)
 	MemHandleUnlock(h);
 	return p;
 }
+
+void Database::populateDB()
+{
+}

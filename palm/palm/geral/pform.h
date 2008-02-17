@@ -11,11 +11,13 @@ public:
 	virtual void open();
 	virtual void load();
 	void* getControl(UInt16 id);
+	Char* getField(UInt16 field);
 	void setField(UInt16 field, Char* s);
 	UInt16 id;
 protected:
 	void goToForm(Form* form);
 	void displayAlert(UInt16 id);
+	void mensagemErro(Char* message);
 	virtual void doAfterDrawing();
 	virtual bool event(UInt16 controlID, EventType* e) =0;
 	virtual void loadData() =0;

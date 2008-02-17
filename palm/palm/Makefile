@@ -20,7 +20,7 @@ CFLAGS = -O2 -palmos5r4 -I. -I$(GERAL_DIR) -I$(PEDIDOS_DIR)
 #
 GERAL_O = main.o \
 	  pform.o frmmodal.o buscacliente.o \
-	  database.o dbcliente.o dbcidade.o
+	  database.o dbcliente.o dbcidade.o dbpedido.o
 
 PEDIDOS_O = mainpedidos.o \
 	    frmprincipal.o frmpedido.o frmitens.o
@@ -62,6 +62,7 @@ buscacliente.o: buscacliente.cpp buscacliente.h
 database.o: database.cpp database.h
 dbcliente.o: dbcliente.cpp dbcliente.h
 dbcidade.o: dbcidade.cpp dbcidade.h
+dbpedido.o: dbpedido.cpp dbpedido.h
 
 .cpp.o:
 	$(CPP) $(CFLAGS) -c -o $@ $<

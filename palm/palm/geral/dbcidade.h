@@ -17,7 +17,7 @@ public:
 	DBCidade();
 	void populateDB();
 private:
-	const Char* dbName() { return "WGSCidadesDB"; }
+	const Char* dbName() { return "WGSFCidadesDB"; }
 };
 
 #endif

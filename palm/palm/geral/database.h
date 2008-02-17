@@ -20,7 +20,7 @@ protected:
 	// MemPtr leRegistro(int n);
 
 	virtual const Char* dbName() =0;
-	virtual void populateDB() =0;
+	virtual void populateDB();
 };
 
 #endif

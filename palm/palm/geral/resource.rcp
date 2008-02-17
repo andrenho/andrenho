@@ -13,7 +13,7 @@ END
 
 ALERT ID ToBeDone WARNING
 BEGIN
-	TITLE "A Fazer"
+	TITLE "WG-Soft"
 	MESSAGE "Esta função não está implementada."
 	BUTTONS "Ok"
 END
@@ -29,5 +29,12 @@ ALERT ID ClienteNaoExiste ERROR
 BEGIN
 	TITLE "Cliente Inválido"
 	MESSAGE "Este cliente não está cadastrado."
+	BUTTONS "Ok"
+END
+
+ALERT ID MensagemErro ERROR
+BEGIN
+	TITLE "WG-Soft"
+	MESSAGE "^1"
 	BUTTONS "Ok"
 END
