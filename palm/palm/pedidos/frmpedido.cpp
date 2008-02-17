@@ -3,13 +3,9 @@
 #include "frmitens.h"
 #include "buscacliente.h"
 #include "dbcliente.h"
+#include "extern_pedidos.h"
 
-extern FrmPrincipal* principal;
-extern FrmItens* itens;
-extern BuscaCliente* buscaCliente;
-extern DBCliente* dbCliente;
-
-FrmPedido::FrmPedido()
+FrmPedido::FrmPedido() : Form()
 {
 	this->id = PedidoFrm;
 }
@@ -18,13 +14,13 @@ FrmPedido::~FrmPedido()
 {
 }
 
-bool Pedido::event(UInt16 controlID, eventsEnum evt)
+bool FrmPedido::event(UInt16 controlID, eventsEnum evt)
 {
 	if(evt == ctlSelectEvent)
 		switch(controlID)
 		{
 			case PedidoCancelar:
-				goToForm(principal);
+				goToForm(frmPrincipal);
 				return true;
 			case PedidoItens:
 				/*
@@ -40,6 +36,9 @@ bool Pedido::event(UInt16 controlID, eventsEnum evt)
 				return true;
 			case PedidoBuscaCliente:
 				buscaCliente->busca(this, PedidoCNPJ, PedidoCliente, PedidoRazaoSocial);
+				return true;
+			case PedidoCidade:
+				frmCidades->showDialog();
 				return true;
 		}
 	return false;

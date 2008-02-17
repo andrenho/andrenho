@@ -2,9 +2,9 @@
 #include "frmpedido.h"
 
 extern Form* current;
-extern FrmPedido* pedido;
+extern FrmPedido* frmPedido;
 
-FrmPrincipal::FrmPrincipal()
+FrmPrincipal::FrmPrincipal() : Form()
 {
 	this->id = PrincipalFrm;
 }
@@ -15,7 +15,7 @@ bool FrmPrincipal::event(UInt16 controlID, eventsEnum evt)
 		switch(controlID)
 		{
 			case PrincipalNovo:
-				goToForm(pedido);
+				goToForm(frmPedido);
 				return false;
 			case PrincipalConectar:
 				displayAlert(ToBeDone);

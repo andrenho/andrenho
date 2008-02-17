@@ -3,9 +3,12 @@ BEGIN
 	TITLE "Clientes"
 END
 
-FORM ID CidadesFrm AT (0 0 159 159) USABLE NOFRAME
+FORM ID CidadesFrm AT (2 1 156 156) MODAL NOFRAME
 BEGIN
-	TITLE "Clientes"
+	TITLE "Cidades"
+	LIST "Novo Hamburgo" "São Leopoldo" ID CidadesLista AT (2 15 RIGHT@150 BOTTOM@115) SEARCH
+	BUTTON "Ok" ID CidadesOK AT (4 140 AUTO AUTO)
+	BUTTON "Cancelar" ID CidadesCancelar AT (PREVRIGHT+5 PREVTOP AUTO AUTO)
 END
 
 ALERT ID ToBeDone WARNING

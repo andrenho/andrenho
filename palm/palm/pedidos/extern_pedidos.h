@@ -2,12 +2,12 @@
 #define EXTERN_PEDIDOS_H
 
 #include "extern.h"
-#include "principal.h"
-#include "pedido.h"
-#include "itens.h"
+#include "frmprincipal.h"
+#include "frmpedido.h"
+#include "frmitens.h"
 
-extern Principal* principal;
-extern Pedido* pedido;
-extern Itens* itens;
+extern FrmPrincipal* frmPrincipal;
+extern FrmPedido* frmPedido;
+extern FrmItens* frmItens;
 
 #endif
