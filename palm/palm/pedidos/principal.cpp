@@ -1,15 +1,15 @@
-#include "principal.h"
-#include "pedido.h"
+#include "frmprincipal.h"
+#include "frmpedido.h"
 
 extern Form* current;
-extern Pedido* pedido;
+extern FrmPedido* pedido;
 
-Principal::Principal()
+FrmPrincipal::FrmPrincipal()
 {
 	this->id = PrincipalFrm;
 }
 
-bool Principal::event(UInt16 controlID, eventsEnum evt)
+bool FrmPrincipal::event(UInt16 controlID, eventsEnum evt)
 {
 	if(evt == ctlSelectEvent)
 		switch(controlID)
@@ -24,6 +24,6 @@ bool Principal::event(UInt16 controlID, eventsEnum evt)
 	return false;
 }
 
-void Principal::loadData()
+void FrmPrincipal::loadData()
 {
 }

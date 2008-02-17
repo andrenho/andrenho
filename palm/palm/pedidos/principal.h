@@ -1,12 +1,12 @@
-#ifndef PRINCIPAL_H
-#define PRINCIPAL_H
+#ifndef FRMPRINCIPAL_H
+#define FRMPRINCIPAL_H
 
 #include "pform.h"
 
-class Principal : public Form
+class FrmPrincipal : public Form
 {
 public:
-	Principal();
+	FrmPrincipal();
 	bool event(UInt16 controlID, eventsEnum evt);
 	void loadData();
 };
