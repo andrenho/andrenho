@@ -1,5 +1,13 @@
 #include "apppedidos.h"
 
+typedef struct
+{
+	int numeroForm;
+	char cnpj[CNPJ_CHARS];
+	char fantasia[FANTASIA_CHARS];
+	char razaoSocial[RAZAOSOCIAL_CHARS];
+} PrefPedido;
+
 FrmPedido::FrmPedido() : Form()
 {
 	nCidades = 0;
@@ -94,4 +102,26 @@ void FrmPedido::salvarDados()
 	ErrFatalDisplayIf(!b, "Registro do pedido não pode ser adicionado.");
 
 	this->nPedidoAtual = n;
+}
+
+void FrmPedido::gravarPreferencias()
+{
+	PrefPedido p;
+	Preferencias pref;
+
+	p.numeroForm = 2;
+	if(getField(PedidoCNPJ))
+		StrCopy(p.cnpj, getField(PedidoCNPJ));
+	else
+		StrCopy(p.cnpj, "");
+	if(getField(PedidoCliente))
+		StrCopy(p.fantasia, getField(PedidoCliente));
+	else
+		StrCopy(p.fantasia, "");
+	if(getField(PedidoRazaoSocial))
+		StrCopy(p.razaoSocial, getField(PedidoRazaoSocial));
+	else
+		StrCopy(p.razaoSocial, "");
+	
+	pref.salvar((void*)&p, sizeof(PrefPedido));
 }

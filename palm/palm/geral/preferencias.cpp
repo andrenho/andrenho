@@ -1,11 +1,12 @@
 #include "preferencias.h"
 #include "palmincludes.h"
 #include "database.h"
+#include "aplicativo.h"
 
 int Preferencias::ler(void* dados)
 {
 	UInt16 size;
-	if(PrefGetAppPreferences(DB_CREATOR, 0, dados, &size, false) == noPreferenceFound)
+	if(PrefGetAppPreferences(DB_CREATOR, app->numeroAplicativo(), dados, &size, false) == noPreferenceFound)
 		return 0;
 	else
 		return size;
@@ -13,5 +14,5 @@ int Preferencias::ler(void* dados)
 
 void Preferencias::salvar(void* dados, int size)
 {
-	PrefSetAppPreferences(DB_CREATOR, 0, 1, dados, size, false);
+	PrefSetAppPreferences(DB_CREATOR, app->numeroAplicativo(), 1, dados, size, false);
 }

@@ -7,6 +7,7 @@ class FrmPrincipal : public Form
 {
 public:
 	FrmPrincipal();
+	void gravarPreferencias();
 	bool event(UInt16 controlID, EventType* e);
 };
 
