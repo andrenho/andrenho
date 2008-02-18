@@ -22,3 +22,9 @@ bool FrmPrincipal::event(UInt16 controlID, EventType* e)
 		}
 	return false;
 }
+
+void FrmPrincipal::gravarPreferencias()
+{
+	Preferencias p;
+	p.salvar(NULL, 0);
+}

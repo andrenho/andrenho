@@ -19,6 +19,7 @@ void Aplicativo::executar(UInt16 cmd)
 	if (cmd == sysAppLaunchCmdNormalLaunch)
 		while(appActive)
 			current->open();
+	current->gravarPreferencias();
 }
 
 Aplicativo::~Aplicativo()

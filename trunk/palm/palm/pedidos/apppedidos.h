@@ -15,6 +15,8 @@ public:
 	FrmPrincipal* frmPrincipal;
 	FrmPedido* frmPedido;
 	FrmItens* frmItens;
+
+	int numeroAplicativo() { return 1; }
 };
 
 extern AppPedidos* appPedidos;

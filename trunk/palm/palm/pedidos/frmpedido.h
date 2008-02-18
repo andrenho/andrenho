@@ -9,6 +9,7 @@ public:
 	FrmPedido();
 	~FrmPedido();
 	bool event(UInt16 controlID, EventType* e);
+	void gravarPreferencias();
 
 	int nPedidoAtual;
 	Char* cliente;

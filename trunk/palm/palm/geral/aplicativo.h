@@ -28,6 +28,8 @@ public:
 	
 	bool appActive;
 	FrmType frmType;
+
+	virtual int numeroAplicativo() =0;
 };
 
 extern Aplicativo* app;

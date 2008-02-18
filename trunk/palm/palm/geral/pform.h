@@ -13,18 +13,20 @@ public:
 	Char* getField(UInt16 field);
 	void setField(UInt16 field, Char* s);
 	UInt16 id;
+
+	virtual void gravarPreferencias() {}
+	virtual void carregarPreferencias(void* info) {}
 protected:
 	void goToForm(Form* form);
 	void displayAlert(UInt16 id);
 	void mensagemErro(Char* message);
 	bool perguntaSimNao(Char* mensagem);
-	virtual void doAfterDrawing();
-	virtual void gravarPreferencias() {}
-	virtual void carregarPreferencias(void* info) {}
-	virtual bool event(UInt16 controlID, EventType* e) =0;
 	FormType* getFormType();
 
 	bool leave_form;
+
+	virtual void doAfterDrawing();
+	virtual bool event(UInt16 controlID, EventType* e) =0;
 private:
 };
 
