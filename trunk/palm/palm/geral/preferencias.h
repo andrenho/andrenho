@@ -1,6 +1,11 @@
 #ifndef PREFERENCIAS_H
 #define PREFERENCIAS_H
 
-#include "palmincludes.h"
+class Preferencias
+{
+public:
+	int ler(void* dados);
+	void salvar(void* dados, int size);
+};
 
 #endif

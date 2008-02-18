@@ -20,11 +20,11 @@ CFLAGS = -O2 -palmos5r4 -I. -I$(GERAL_DIR) -I$(PEDIDOS_DIR) $(ERROR_CHECKING)
 # 
 # Objetos
 #
-GERAL_O = main.o preferencias.o \
+GERAL_O = aplicativo.o preferencias.o \
 	  pform.o frmmodal.o buscacliente.o \
 	  database.o dbcliente.o dbcidade.o dbpedido.o
 
-PEDIDOS_O = mainpedidos.o \
+PEDIDOS_O = apppedidos.o \
 	    frmprincipal.o frmpedido.o frmitens.o
 
 # 
@@ -52,12 +52,12 @@ pedido.stamp: pedido.rcp
 #
 # Regras de compilação
 # 
-mainpedidos.o: mainpedidos.cpp 
+apppedidos.o: apppedidos.cpp apppedidos.h
 frmprincipal.o: frmprincipal.cpp frmprincipal.h
 frmpedido.o: frmpedido.cpp frmpedido.h
 frmitens.o: frmitens.cpp frmitens.h
 
-main.o: main.cpp main.h
+aplicativo.o: aplicativo.cpp aplicativo.h
 preferencias.o: preferencias.cpp preferencias.h
 pform.o: pform.cpp pform.h
 frmmodal.o: frmmodal.cpp frmmodal.h

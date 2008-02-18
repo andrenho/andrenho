@@ -1,6 +1,5 @@
 #include "pform.h"
-#include "main.h"
-#include "extern.h"
+#include "aplicativo.h"
 
 Form::Form()
 {
@@ -34,7 +33,7 @@ void Form::open()
 				doAfterDrawing();
 				break;
 			case appStopEvent:
-				appActive = false;
+				app->appActive = false;
 				return;
 			default:
 				if(!event(e.data.ctlSelect.controlID, &e))
@@ -51,7 +50,7 @@ void Form::doAfterDrawing()
 void Form::goToForm(Form* form)
 {
 	this->leave_form = true;
-	current = form;
+	app->current = form;
 }
 	
 void Form::displayAlert(UInt16 id)
@@ -73,14 +72,6 @@ bool Form::perguntaSimNao(Char* mensagem)
 FormType* Form::getFormType()
 {
 	return FrmGetFormPtr(this->id);
-}
-
-void Form::gravarPreferencias()
-{
-}
-
-void Form::carregarPreferencias(void* info)
-{
 }
 
 void* Form::getControl(UInt16 id)

@@ -3,7 +3,7 @@
 
 #include "palmincludes.h"
 
-#define DB_CREATOR 'WAGN'
+#define DB_CREATOR 'WGSF'
 
 class Database
 {
