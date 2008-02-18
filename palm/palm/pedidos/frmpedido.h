@@ -9,8 +9,8 @@ public:
 	FrmPedido();
 	~FrmPedido();
 	bool event(UInt16 controlID, EventType* e);
-	void loadData();
 
+	int nPedidoAtual;
 	Char* cliente;
 protected:
 	void doAfterDrawing();
@@ -19,6 +19,7 @@ private:
 	int* codCidades;
 	int nCidades;
 	int cidadeSelecionada;
+	void salvarDados();
 };
 
 #endif

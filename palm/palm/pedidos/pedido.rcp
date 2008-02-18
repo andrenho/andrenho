@@ -38,13 +38,12 @@ BEGIN
 	BUTTON "Finalizar" ID ItensFinalizar AT (PREVRIGHT+5 BOTTOM@158 AUTO AUTO)
 END
 
-/*
-ICON "hello.bmp"
-SMALLICON "hellosmall.bmp"
+ICON "pedidos/icon.bmp" "pedidos/icon.bmp" "pedidos/icon.bmp" "pedidos/icon.bmp"
+SMALLICON "pedidos/smallicon.bmp" "pedidos/smallicon.bmp" "pedidos/smallicon.bmp" "pedidos/smallicon.bmp"
 
-BITMAP ID 2005 "hello.bmp"
-*/
+// BITMAP ID 2005 "pedidos/icon.bmp"
+
 VERSION 1 "0.0.1"
 
-// LAUNCHERCATEGORY ID 1000 "Games"
+LAUNCHERCATEGORY ID 1000 "WG-Soft"
 

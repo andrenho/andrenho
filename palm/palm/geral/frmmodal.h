@@ -8,7 +8,6 @@ class FrmModal : public Form
 public:
 	void* showDialog();
 	virtual bool event(UInt16 controlID, EventType* e) =0;
-	virtual void loadData() =0;
 protected:
 	void* returnValue;
 };

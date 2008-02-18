@@ -15,10 +15,6 @@ bool BuscaCliente::event(UInt16 controlID, EventType *e)
 	return false;
 }
 
-void BuscaCliente::loadData()
-{
-}
-
 bool BuscaCliente::busca(Form* caller, UInt16 campoCNPJ, UInt16 campoFantasia, UInt16 campoRazaoSocial, int cidade)
 {
 	int i, n, c = 0;

@@ -20,6 +20,7 @@ class DBPedido : public Database
 {
 public:
 	DBPedido();
+	int ultimoPedido();
 private:
 	const Char* dbName() { return "WGSFPedidosDB"; }
 };

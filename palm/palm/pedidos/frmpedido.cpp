@@ -41,7 +41,10 @@ bool FrmPedido::event(UInt16 controlID, EventType* e)
 				if(getField(PedidoCNPJ) == NULL)
 					mensagemErro("Cliente não selecionado.");
 				else
+				{
 					goToForm(frmItens);
+					salvarDados();
+				}
 				return true;
 		}
 	else if(e->eType == popSelectEvent)
@@ -79,6 +82,21 @@ void FrmPedido::doAfterDrawing()
 	LstDrawList((ListType*)getControl(PedidoCidadeList));
 }
 
-void FrmPedido::loadData()
+void FrmPedido::salvarDados()
 {
+	R_Pedido p;
+	bool b;
+	int n = dbPedido->ultimoPedido() + 1;
+
+	ErrFatalDisplayIf(getField(PedidoCNPJ) == NULL, "CNPJ do cliente está nulo");
+	
+	p.n = n;
+	StrCopy(p.cnpj, getField(PedidoCNPJ));
+	p.status = DIGITANDO;
+
+	b = dbPedido->adicionaRegistro(&p, sizeof(R_Pedido));
+
+	ErrFatalDisplayIf(!b, "Registro do pedido não pode ser adicionado.");
+
+	this->nPedidoAtual = n;
 }
