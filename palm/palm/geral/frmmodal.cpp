@@ -1,5 +1,5 @@
 #include "frmmodal.h"
-#include "extern.h"
+#include "aplicativo.h"
 
 void* FrmModal::showDialog()
 {
@@ -29,7 +29,7 @@ void* FrmModal::showDialog()
 				FrmDrawForm(getFormType());
 				break;
 			case appStopEvent:
-				appActive = false;
+				app->appActive = false;
 				return NULL;
 			default:
 				if(!event(e.data.ctlSelect.controlID, &e))
@@ -38,7 +38,7 @@ void* FrmModal::showDialog()
 		}
 	}
 
-	FrmReturnToForm(current->id);
+	FrmReturnToForm(app->current->id);
 
 	return returnValue;
 }

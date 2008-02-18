@@ -1,5 +1,5 @@
 #include "buscacliente.h"
-#include "extern.h"
+#include "aplicativo.h"
 
 BuscaCliente::BuscaCliente()
 {
@@ -31,9 +31,9 @@ bool BuscaCliente::busca(Form* caller, UInt16 campoCNPJ, UInt16 campoFantasia, U
 	n = StrLen(fantasia);
 
 	// pega handles para todos os clientes
-	for(i=0; i<DmNumRecords(dbCliente->db); i++)
+	for(i=0; i<DmNumRecords(app->dbCliente->db); i++)
 	{
-		MemHandle h = DmQueryRecord(dbCliente->db, i);
+		MemHandle h = DmQueryRecord(app->dbCliente->db, i);
 		p = MemHandleLock(h);
 		if(((R_Cliente*)p)->cidade != cidade && cidade != -1)
 		{

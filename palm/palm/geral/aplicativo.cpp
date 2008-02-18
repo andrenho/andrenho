@@ -1,15 +1,8 @@
-#include "main.h"
-#include "extern.h"
+#include "aplicativo.h"
 
-Form* current;
-BuscaCliente* buscaCliente;
-DBCliente* dbCliente;
-DBCidade* dbCidade;
-DBPedido* dbPedido;
-bool appActive;
-FrmType frmType;
+Aplicativo* app;
 
-void mainInit()
+Aplicativo::Aplicativo()
 {
 	dbCliente = new DBCliente();
 	dbCidade = new DBCidade();
@@ -17,7 +10,7 @@ void mainInit()
 	buscaCliente = new BuscaCliente();
 }
 
-void mainGeral(UInt16 cmd)
+void Aplicativo::executar(UInt16 cmd)
 {
 	appActive = true;
 
@@ -26,7 +19,10 @@ void mainGeral(UInt16 cmd)
 	if (cmd == sysAppLaunchCmdNormalLaunch)
 		while(appActive)
 			current->open();
+}
 
+Aplicativo::~Aplicativo()
+{
 	FrmCloseAllForms();
 
 	delete dbCliente;

@@ -19,8 +19,8 @@ protected:
 	void mensagemErro(Char* message);
 	bool perguntaSimNao(Char* mensagem);
 	virtual void doAfterDrawing();
-	virtual void gravarPreferencias();
-	virtual void carregarPreferencias(void* info);
+	virtual void gravarPreferencias() {}
+	virtual void carregarPreferencias(void* info) {}
 	virtual bool event(UInt16 controlID, EventType* e) =0;
 	FormType* getFormType();
 

@@ -18,13 +18,14 @@ BEGIN
 	LIST ID PedidoCidadeList AT (PREVLEFT PREVTOP 100 AUTO) VISIBLEITEMS 8 NONUSABLE
 	POPUPLIST ID PedidoCidade PedidoCidadeList
 	LABEL "Cliente:" AUTOID AT (2 43) FONT 1
-	FIELD ID PedidoCliente AT (43 PREVTOP 75 AUTO) UNDERLINED MAXCHARS 20 FONT 1
+	FIELD ID PedidoCliente AT (43 PREVTOP 75 AUTO) UNDERLINED MAXCHARS 20 FONT 1 AUTOSHIFT
 	BUTTON "Busca" ID PedidoBuscaCliente AT (RIGHT@157 PREVTOP AUTO AUTO)
 	LABEL "Razão Social:" AUTOID AT (2 PREVBOTTOM+5) FONT 1
 	FIELD ID PedidoRazaoSocial AT (2 PREVBOTTOM+3 154 AUTO) MAXCHARS 80 NONEDITABLE
 	BUTTON "Itens" ID PedidoItens AT (1 BOTTOM@158 AUTO AUTO)
 	BUTTON "Cancelar" ID PedidoCancelar AT (PREVRIGHT+4 BOTTOM@158 AUTO AUTO)
 	BUTTON "Novo Cliente" ID PedidoNovoCliente AT (PREVRIGHT+4 BOTTOM@158 AUTO AUTO)
+	GRAFFITISTATEINDICATOR AT (148 PREVTOP-16)
 	FIELD ID PedidoCNPJ AT (0 100 1 AUTO) MAXCHARS 20 NONUSABLE
 END
 
@@ -41,9 +42,6 @@ END
 ICON "pedidos/icon.bmp" "pedidos/icon.bmp" "pedidos/icon.bmp" "pedidos/icon.bmp"
 SMALLICON "pedidos/smallicon.bmp" "pedidos/smallicon.bmp" "pedidos/smallicon.bmp" "pedidos/smallicon.bmp"
 
-// BITMAP ID 2005 "pedidos/icon.bmp"
-
 VERSION 1 "0.0.1"
 
 LAUNCHERCATEGORY ID 1000 "WG-Soft"
-

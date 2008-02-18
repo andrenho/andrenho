@@ -1,9 +1,4 @@
-#include "frmpedido.h"
-#include "frmprincipal.h"
-#include "frmitens.h"
-#include "buscacliente.h"
-#include "dbcliente.h"
-#include "extern_pedidos.h"
+#include "apppedidos.h"
 
 FrmPedido::FrmPedido() : Form()
 {
@@ -31,10 +26,10 @@ bool FrmPedido::event(UInt16 controlID, EventType* e)
 		switch(controlID)
 		{
 			case PedidoCancelar:
-				goToForm(frmPrincipal);
+				goToForm(appPedidos->frmPrincipal);
 				return true;
 			case PedidoBuscaCliente:
-				if(!buscaCliente->busca(this, PedidoCNPJ, PedidoCliente, PedidoRazaoSocial, cidadeSelecionada))
+				if(!appPedidos->buscaCliente->busca(this, PedidoCNPJ, PedidoCliente, PedidoRazaoSocial, cidadeSelecionada))
 					setField(PedidoCNPJ, "");
 				return true;
 			case PedidoItens:
@@ -42,7 +37,7 @@ bool FrmPedido::event(UInt16 controlID, EventType* e)
 					mensagemErro("Cliente não selecionado.");
 				else
 				{
-					goToForm(frmItens);
+					goToForm(appPedidos->frmItens);
 					salvarDados();
 				}
 				return true;
@@ -61,11 +56,11 @@ void FrmPedido::doAfterDrawing()
 	Char* pn;
 	int i;
 
-	cidades = (Char**)MemPtrNew(dbCidade->numeroRegistros() * sizeof(Char*) + 1);
-	codCidades = (int*)MemPtrNew(dbCidade->numeroRegistros() * sizeof(int));
-	for(i=0; i<dbCidade->numeroRegistros(); i++)
+	cidades = (Char**)MemPtrNew(appPedidos->dbCidade->numeroRegistros() * sizeof(Char*) + 1);
+	codCidades = (int*)MemPtrNew(appPedidos->dbCidade->numeroRegistros() * sizeof(int));
+	for(i=0; i<appPedidos->dbCidade->numeroRegistros(); i++)
 	{
-		hd = DmQueryRecord(dbCidade->db, i);
+		hd = DmQueryRecord(appPedidos->dbCidade->db, i);
 		cidade = (R_Cidade*)MemHandleLock(hd);
 		pn = (Char*)MemPtrNew((StrLen(cidade->nome) + 1));
 		StrCopy(pn, cidade->nome);
@@ -86,7 +81,7 @@ void FrmPedido::salvarDados()
 {
 	R_Pedido p;
 	bool b;
-	int n = dbPedido->ultimoPedido() + 1;
+	int n = appPedidos->dbPedido->ultimoPedido() + 1;
 
 	ErrFatalDisplayIf(getField(PedidoCNPJ) == NULL, "CNPJ do cliente está nulo");
 	
@@ -94,7 +89,7 @@ void FrmPedido::salvarDados()
 	StrCopy(p.cnpj, getField(PedidoCNPJ));
 	p.status = DIGITANDO;
 
-	b = dbPedido->adicionaRegistro(&p, sizeof(R_Pedido));
+	b = appPedidos->dbPedido->adicionaRegistro(&p, sizeof(R_Pedido));
 
 	ErrFatalDisplayIf(!b, "Registro do pedido não pode ser adicionado.");
 
