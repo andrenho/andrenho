@@ -65,15 +65,22 @@ void Form::mensagemErro(Char* message)
 	FrmCustomAlert(MensagemErro, message, " ", " ");
 }
 
-void Form::load()
+bool Form::perguntaSimNao(Char* mensagem)
 {
-	FrmGotoForm(id);
-	loadData();
+	return FrmCustomAlert(PerguntaSimNao, mensagem, " ", " ") == 0 ? true : false;
 }
 
 FormType* Form::getFormType()
 {
 	return FrmGetFormPtr(this->id);
+}
+
+void Form::gravarPreferencias()
+{
+}
+
+void Form::carregarPreferencias(void* info)
+{
 }
 
 void* Form::getControl(UInt16 id)

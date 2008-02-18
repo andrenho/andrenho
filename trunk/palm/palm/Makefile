@@ -13,12 +13,14 @@ VPATH = $(GERAL_DIR) $(PEDIDOS_DIR)
 #
 # Flags
 #
-CFLAGS = -O2 -palmos5r4 -I. -I$(GERAL_DIR) -I$(PEDIDOS_DIR)
+ERROR_CHECKING = -DERROR_CHECK_LEVEL=ERROR_CHECK_FULL
+#ERROR_CHECKING = -DERROR_CHECK_LEVEL=ERROR_CHECK_PARTIAL
+CFLAGS = -O2 -palmos5r4 -I. -I$(GERAL_DIR) -I$(PEDIDOS_DIR) $(ERROR_CHECKING)
 
 # 
 # Objetos
 #
-GERAL_O = main.o \
+GERAL_O = main.o preferencias.o \
 	  pform.o frmmodal.o buscacliente.o \
 	  database.o dbcliente.o dbcidade.o dbpedido.o
 
@@ -56,6 +58,7 @@ frmpedido.o: frmpedido.cpp frmpedido.h
 frmitens.o: frmitens.cpp frmitens.h
 
 main.o: main.cpp main.h
+preferencias.o: preferencias.cpp preferencias.h
 pform.o: pform.cpp pform.h
 frmmodal.o: frmmodal.cpp frmmodal.h
 buscacliente.o: buscacliente.cpp buscacliente.h

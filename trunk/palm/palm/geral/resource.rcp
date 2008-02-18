@@ -38,3 +38,10 @@ BEGIN
 	MESSAGE "^1"
 	BUTTONS "Ok"
 END
+
+ALERT ID PerguntaSimNao ERROR
+BEGIN
+	TITLE "WG-Soft"
+	MESSAGE "^1"
+	BUTTONS "Sim" "Não"
+END

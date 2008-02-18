@@ -23,7 +23,3 @@ bool FrmPrincipal::event(UInt16 controlID, EventType* e)
 		}
 	return false;
 }
-
-void FrmPrincipal::loadData()
-{
-}

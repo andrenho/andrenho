@@ -2,6 +2,7 @@
 #define EXTERN_H
 
 #include "pform.h"
+#include "preferencias.h"
 #include "buscacliente.h"
 #include "dbcliente.h"
 #include "dbcidade.h"
