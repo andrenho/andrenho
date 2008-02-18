@@ -24,5 +24,5 @@ UInt32 PilotMain(UInt16 cmd, MemPtr cmdPBP, UInt16 launchFlags)
 	app = new AppPedidos();
 	appPedidos = (AppPedidos*)app;
 	app->executar(cmd);
-	delete app;
+	delete appPedidos;
 }
