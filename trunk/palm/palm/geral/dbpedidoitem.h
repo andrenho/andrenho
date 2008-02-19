@@ -7,9 +7,12 @@
 
 typedef struct
 {
+	int pedido;
 	int n;
-	// TODO
-	STATUS status;
+	int produto;
+	double quantidade;
+	double valor;
+	DateType dataEntrega;
 } R_PedidoItem;
 
 class DBPedidoItem : public Database

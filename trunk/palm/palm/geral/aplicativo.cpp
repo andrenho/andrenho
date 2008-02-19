@@ -32,9 +32,8 @@ void Aplicativo::executar(UInt16 cmd)
 
 	frmType = NonModal;
 
-	if (cmd == sysAppLaunchCmdNormalLaunch)
-		while(appActive)
-			current->open();
+	while(appActive)
+		current->open();
 	current->gravarPreferencias();
 }
 

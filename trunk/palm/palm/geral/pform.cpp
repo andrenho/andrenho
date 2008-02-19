@@ -1,5 +1,6 @@
 #include "pform.h"
 #include "aplicativo.h"
+#include "util.h"
 
 Form::Form()
 {
@@ -58,7 +59,6 @@ void Form::goToForm(Form* form)
 	
 void Form::displayAlert(UInt16 id)
 {
-	//idAlertToDisplay = id;
 	FrmAlert(id);
 }
 
@@ -86,6 +86,16 @@ void* Form::getControl(UInt16 id)
 Char* Form::getField(UInt16 field)
 {
 	return FldGetTextPtr((FieldType*)getControl(field));
+}
+
+int Form::getFieldI(UInt16 field)
+{
+	return StrAToI(FldGetTextPtr((FieldType*)getControl(field)));
+}
+
+double Form::getFieldD(UInt16 field)
+{
+	return strToDouble(FldGetTextPtr((FieldType*)getControl(field)));
 }
 
 void Form::setField(UInt16 field, Char* s)

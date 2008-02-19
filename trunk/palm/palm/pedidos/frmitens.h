@@ -12,6 +12,7 @@ public:
 	bool event(UInt16 controlID, EventType* e);
 	void carregarPreferencias();
 	void gravarPreferencias();
+	int numeroPedido;
 };
 
 #endif

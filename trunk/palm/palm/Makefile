@@ -24,7 +24,7 @@ GERAL_O = aplicativo.o preferencias.o \
 	  pform.o frmmodal.o buscacliente.o \
 	  database.o dbcliente.o dbcidade.o dbpedido.o dbproduto.o \
 	  dbpedidoitem.o \
-	  debug.o
+	  debug.o util.o
 
 PEDIDOS_O = apppedidos.o \
 	    frmprincipal.o frmpedido.o frmitens.o frmnovoitem.o
@@ -72,6 +72,7 @@ dbpedido.o: dbpedido.cpp dbpedido.h
 dbpedidoitem.o: dbpedidoitem.cpp dbpedidoitem.h
 dbproduto.o: dbproduto.cpp dbproduto.h
 debug.o: debug.cpp debug.h
+util.o: util.cpp util.h
 
 .cpp.o:
 	$(CPP) $(CFLAGS) -c -o $@ $<

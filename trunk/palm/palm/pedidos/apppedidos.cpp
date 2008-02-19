@@ -48,8 +48,11 @@ AppPedidos::~AppPedidos()
 
 UInt32 PilotMain(UInt16 cmd, MemPtr cmdPBP, UInt16 launchFlags)
 {
-	app = new AppPedidos();
-	appPedidos = (AppPedidos*)app;
-	app->executar(cmd);
-	delete appPedidos;
+	if (cmd == sysAppLaunchCmdNormalLaunch)
+	{
+		app = new AppPedidos();
+		appPedidos = (AppPedidos*)app;
+		app->executar(cmd);
+		delete appPedidos;
+	}
 }

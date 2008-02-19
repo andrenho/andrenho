@@ -12,6 +12,15 @@ public:
 	bool event(UInt16 controlID, EventType* e);
 	void carregarPreferencias();
 	void gravarPreferencias();
+	void doAfterDrawing();
+
+	int numeroPedido;
+	int numeroItem;
+private:
+	bool validarDados();
+	void salvarDados();
+
+	int produto;
 };
 
 #endif
