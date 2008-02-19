@@ -10,6 +10,7 @@ Aplicativo::Aplicativo(int numeroAplicativo)
 	dbCliente = new DBCliente();
 	dbCidade = new DBCidade();
 	dbPedido = new DBPedido();
+	dbPedidoItem = new DBPedidoItem();
 	dbProduto = new DBProduto();
 	buscaCliente = new BuscaCliente();
 
@@ -52,4 +53,5 @@ Aplicativo::~Aplicativo()
 	delete buscaCliente;
 	delete dbCidade;
 	delete dbPedido;
+	delete dbPedidoItem;
 }

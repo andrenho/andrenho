@@ -14,8 +14,8 @@ AppPedidos::AppPedidos() : Aplicativo(1)
 	frmNovoItem = new FrmNovoItem();
 
 	if(this->preferencias == NULL)
-		// current = frmPrincipal;
-		current = frmNovoItem;
+		current = frmPrincipal;
+		// current = frmNovoItem;
 	else   
 	{
 		g = (PrefGeral*)this->preferencias;

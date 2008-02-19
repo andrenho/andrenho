@@ -9,7 +9,7 @@ typedef enum
 	DIGITANDO, INSERIDO
 } STATUS;
 
-typedef struct Pedido
+typedef struct
 {
 	int n;
 	char cnpj[CNPJ_CHARS];
