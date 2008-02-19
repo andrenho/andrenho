@@ -7,6 +7,7 @@
 #include "dbcliente.h"
 #include "dbcidade.h"
 #include "dbpedido.h"
+#include "dbproduto.h"
 #include "debug.h"
 
 typedef enum { NonModal, Modal, ReturnFromModal } FrmType;
@@ -30,6 +31,7 @@ public:
 	DBCliente* dbCliente;
 	DBCidade* dbCidade;
 	DBPedido* dbPedido;
+	DBProduto* dbProduto;
 	
 	bool appActive;
 	FrmType frmType;

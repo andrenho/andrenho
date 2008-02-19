@@ -10,6 +10,7 @@ Aplicativo::Aplicativo(int numeroAplicativo)
 	dbCliente = new DBCliente();
 	dbCidade = new DBCidade();
 	dbPedido = new DBPedido();
+	dbProduto = new DBProduto();
 	buscaCliente = new BuscaCliente();
 
 	this->numeroAplicativo = numeroAplicativo;
@@ -46,6 +47,7 @@ Aplicativo::~Aplicativo()
 		MemHandleFree(h);
 	}
 
+	delete dbProduto;
 	delete dbCliente;
 	delete buscaCliente;
 	delete dbCidade;
