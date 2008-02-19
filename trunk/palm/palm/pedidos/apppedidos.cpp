@@ -14,8 +14,9 @@ AppPedidos::AppPedidos() : Aplicativo(1)
 	frmNovoItem = new FrmNovoItem();
 
 	if(this->preferencias == NULL)
-		current = frmPrincipal;
-	else 
+		// current = frmPrincipal;
+		current = frmNovoItem;
+	else   
 	{
 		g = (PrefGeral*)this->preferencias;
 		switch(g->numeroForm)
