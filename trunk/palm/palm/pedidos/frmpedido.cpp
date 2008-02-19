@@ -1,3 +1,4 @@
+#include "frmpedido.h"
 #include "apppedidos.h"
 
 typedef struct
@@ -6,6 +7,8 @@ typedef struct
 	char cnpj[CNPJ_CHARS];
 	char fantasia[FANTASIA_CHARS];
 	char razaoSocial[RAZAOSOCIAL_CHARS];
+	int cidadeSelecionada;
+	char cidadeLista[CIDADE_CHARS];
 } PrefPedido;
 
 FrmPedido::FrmPedido() : Form()
@@ -113,6 +116,8 @@ void FrmPedido::carregarPreferencias()
 	setField(PedidoCNPJ, p->cnpj);
 	setField(PedidoCliente, p->fantasia);
 	setField(PedidoRazaoSocial, p->razaoSocial);
+	this->cidadeSelecionada = p->cidadeSelecionada;
+	CtlSetLabel((ControlType*)getControl(PedidoCidade), p->cidadeLista);
 
 	this->carregaPreferencias = false;
 }
@@ -135,6 +140,14 @@ void FrmPedido::gravarPreferencias()
 		StrCopy(p.razaoSocial, getField(PedidoRazaoSocial));
 	else
 		StrCopy(p.razaoSocial, "");
+	p.cidadeSelecionada = this->cidadeSelecionada;
+	if(CtlGetLabel((ControlType*)getControl(PedidoCidade)))
+		StrCopy(p.cidadeLista, CtlGetLabel((ControlType*)getControl(PedidoCidade)));
+	else
+	{
+		StrCopy(p.cidadeLista, "Selecione");
+		ErrDisplay("Sem cidade para gravar.");
+	}
 	
 	pref.salvar((void*)&p, sizeof(PrefPedido));
 }

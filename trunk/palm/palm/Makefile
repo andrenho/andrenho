@@ -26,7 +26,7 @@ GERAL_O = aplicativo.o preferencias.o \
 	  debug.o
 
 PEDIDOS_O = apppedidos.o \
-	    frmprincipal.o frmpedido.o frmitens.o
+	    frmprincipal.o frmpedido.o frmitens.o frmnovoitem.o
 
 # 
 # Regras padrão
@@ -57,6 +57,7 @@ apppedidos.o: apppedidos.cpp apppedidos.h
 frmprincipal.o: frmprincipal.cpp frmprincipal.h
 frmpedido.o: frmpedido.cpp frmpedido.h
 frmitens.o: frmitens.cpp frmitens.h
+frmnovoitem.o: frmnovoitem.cpp frmnovoitem.h
 
 aplicativo.o: aplicativo.cpp aplicativo.h
 preferencias.o: preferencias.cpp preferencias.h
