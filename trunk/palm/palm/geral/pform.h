@@ -13,9 +13,10 @@ public:
 	Char* getField(UInt16 field);
 	void setField(UInt16 field, Char* s);
 	UInt16 id;
+	bool carregaPreferencias;
 
+	virtual void carregarPreferencias() {}
 	virtual void gravarPreferencias() {}
-	virtual void carregarPreferencias(void* info) {}
 protected:
 	void goToForm(Form* form);
 	void displayAlert(UInt16 id);

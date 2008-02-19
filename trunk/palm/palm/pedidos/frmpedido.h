@@ -3,12 +3,15 @@
 
 #include "pform.h"
 
+#define N_FORM_PEDIDO 1
+
 class FrmPedido : public Form
 {
 public:
 	FrmPedido();
 	~FrmPedido();
 	bool event(UInt16 controlID, EventType* e);
+	void carregarPreferencias();
 	void gravarPreferencias();
 
 	int nPedidoAtual;

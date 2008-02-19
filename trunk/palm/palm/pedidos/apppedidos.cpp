@@ -3,13 +3,26 @@
 
 AppPedidos* appPedidos;
 
-AppPedidos::AppPedidos() : Aplicativo()
+AppPedidos::AppPedidos() : Aplicativo(1)
 {
+	Preferencias pref;
+	PrefGeral* g;
+
 	frmPrincipal = new FrmPrincipal();
 	frmPedido = new FrmPedido();
 	frmItens = new FrmItens();
 
-	current = frmPrincipal;
+	if(this->preferencias == NULL)
+		current = frmPrincipal;
+	else 
+	{
+		g = (PrefGeral*)this->preferencias;
+		if(g->numeroForm == N_FORM_PEDIDO)
+			current = frmPedido;
+		else
+			current = frmPrincipal;
+		current->carregaPreferencias = true;
+	}
 }
 
 AppPedidos::~AppPedidos()
