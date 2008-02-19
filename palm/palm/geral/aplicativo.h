@@ -3,18 +3,23 @@
 
 #include "palmincludes.h"
 #include "pform.h"
-#include "preferencias.h"
 #include "buscacliente.h"
 #include "dbcliente.h"
 #include "dbcidade.h"
 #include "dbpedido.h"
+#include "debug.h"
 
 typedef enum { NonModal, Modal, ReturnFromModal } FrmType;
+typedef struct
+{
+	int numeroForm;
+	void* data;
+} PrefGeral;
 
 class Aplicativo
 {
 public:
-	Aplicativo();
+	Aplicativo(int numeroAplicativo);
 	~Aplicativo();
 
 	void executar(UInt16 cmd);
@@ -29,9 +34,15 @@ public:
 	bool appActive;
 	FrmType frmType;
 
-	virtual int numeroAplicativo() =0;
+	MemPtr preferencias;
+
+	int numeroAplicativo;
+private:
+	MemHandle h;
 };
 
 extern Aplicativo* app;
+
+#include "preferencias.h"
 
 #endif

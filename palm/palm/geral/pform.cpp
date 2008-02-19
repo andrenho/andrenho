@@ -3,6 +3,7 @@
 
 Form::Form()
 {
+	carregaPreferencias = false;
 }
 
 void Form::open()
@@ -45,6 +46,8 @@ void Form::open()
 
 void Form::doAfterDrawing()
 {
+	if(carregaPreferencias)
+		carregarPreferencias();
 }
 
 void Form::goToForm(Form* form)

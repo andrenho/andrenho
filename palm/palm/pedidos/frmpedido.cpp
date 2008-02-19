@@ -83,6 +83,8 @@ void FrmPedido::doAfterDrawing()
 	else
 		LstSetHeight((ListType*)getControl(PedidoCidadeList), nCidades);
 	LstDrawList((ListType*)getControl(PedidoCidadeList));
+
+	Form::doAfterDrawing();
 }
 
 void FrmPedido::salvarDados()
@@ -104,12 +106,23 @@ void FrmPedido::salvarDados()
 	this->nPedidoAtual = n;
 }
 
+void FrmPedido::carregarPreferencias()
+{
+	PrefPedido* p = (PrefPedido*)appPedidos->preferencias;
+
+	setField(PedidoCNPJ, p->cnpj);
+	setField(PedidoCliente, p->fantasia);
+	setField(PedidoRazaoSocial, p->razaoSocial);
+
+	this->carregaPreferencias = false;
+}
+
 void FrmPedido::gravarPreferencias()
 {
 	PrefPedido p;
 	Preferencias pref;
 
-	p.numeroForm = 2;
+	p.numeroForm = N_FORM_PEDIDO;
 	if(getField(PedidoCNPJ))
 		StrCopy(p.cnpj, getField(PedidoCNPJ));
 	else

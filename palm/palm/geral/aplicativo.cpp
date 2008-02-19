@@ -2,12 +2,26 @@
 
 Aplicativo* app;
 
-Aplicativo::Aplicativo()
+Aplicativo::Aplicativo(int numeroAplicativo)
 {
+	Preferencias pref;
+	int n;
+
 	dbCliente = new DBCliente();
 	dbCidade = new DBCidade();
 	dbPedido = new DBPedido();
 	buscaCliente = new BuscaCliente();
+
+	this->numeroAplicativo = numeroAplicativo;
+	n = pref.tamanhoDados(numeroAplicativo);
+	if(n > 0)
+	{
+		h = MemHandleNew(n);
+		preferencias = MemHandleLock(h);
+		pref.ler(numeroAplicativo, preferencias);
+	}
+	else
+		preferencias = NULL;
 }
 
 void Aplicativo::executar(UInt16 cmd)
@@ -25,6 +39,12 @@ void Aplicativo::executar(UInt16 cmd)
 Aplicativo::~Aplicativo()
 {
 	FrmCloseAllForms();
+
+	if(preferencias != NULL)
+	{
+		MemHandleUnlock(h);
+		MemHandleFree(h);
+	}
 
 	delete dbCliente;
 	delete buscaCliente;
