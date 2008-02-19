@@ -4,11 +4,11 @@
 typedef struct
 {
 	int numeroForm;
-	char cnpj[CNPJ_CHARS];
-	char fantasia[FANTASIA_CHARS];
-	char razaoSocial[RAZAOSOCIAL_CHARS];
+	char cnpj[CNPJ_CHARS+1];
+	char fantasia[FANTASIA_CHARS+1];
+	char razaoSocial[RAZAOSOCIAL_CHARS+1];
 	int cidadeSelecionada;
-	char cidadeLista[CIDADE_CHARS];
+	char cidadeLista[CIDADE_CHARS+1];
 } PrefPedido;
 
 FrmPedido::FrmPedido() : Form()
@@ -67,18 +67,21 @@ void FrmPedido::doAfterDrawing()
 	Char* pn;
 	int i;
 
-	cidades = (Char**)MemPtrNew(appPedidos->dbCidade->numeroRegistros() * sizeof(Char*) + 1);
-	codCidades = (int*)MemPtrNew(appPedidos->dbCidade->numeroRegistros() * sizeof(int));
-	for(i=0; i<appPedidos->dbCidade->numeroRegistros(); i++)
+	if(nCidades == 0) // não foi alimentada
 	{
-		hd = DmQueryRecord(appPedidos->dbCidade->db, i);
-		cidade = (R_Cidade*)MemHandleLock(hd);
-		pn = (Char*)MemPtrNew((StrLen(cidade->nome) + 1));
-		StrCopy(pn, cidade->nome);
-		cidades[i] = pn;
-		codCidades[i] = cidade->codigo;
-		MemHandleUnlock(hd);
-		nCidades += 1;
+		cidades = (Char**)MemPtrNew(appPedidos->dbCidade->numeroRegistros() * sizeof(Char*) + 1);
+		codCidades = (int*)MemPtrNew(appPedidos->dbCidade->numeroRegistros() * sizeof(int));
+		for(i=0; i<appPedidos->dbCidade->numeroRegistros(); i++)
+		{
+			hd = DmQueryRecord(appPedidos->dbCidade->db, i);
+			cidade = (R_Cidade*)MemHandleLock(hd);
+			pn = (Char*)MemPtrNew((StrLen(cidade->nome) + 1));
+			StrCopy(pn, cidade->nome);
+			cidades[i] = pn;
+			codCidades[i] = cidade->codigo;
+			MemHandleUnlock(hd);
+			nCidades += 1;
+		}
 	}
 	LstSetListChoices((ListType*)getControl(PedidoCidadeList), cidades, nCidades);
 	if(nCidades >= 10)
@@ -86,6 +89,8 @@ void FrmPedido::doAfterDrawing()
 	else
 		LstSetHeight((ListType*)getControl(PedidoCidadeList), nCidades);
 	LstDrawList((ListType*)getControl(PedidoCidadeList));
+
+	FldGrabFocus((FieldType*)getControl(PedidoCliente));
 
 	Form::doAfterDrawing();
 }
@@ -106,6 +111,7 @@ void FrmPedido::salvarDados()
 
 	ErrFatalDisplayIf(!b, "Registro do pedido não pode ser adicionado.");
 
+	appPedidos->frmItens->numeroPedido = n;
 	this->nPedidoAtual = n;
 }
 

@@ -11,6 +11,8 @@ public:
 	virtual void open();
 	void* getControl(UInt16 id);
 	Char* getField(UInt16 field);
+	int getFieldI(UInt16 field);
+	double getFieldD(UInt16 field);
 	void setField(UInt16 field, Char* s);
 	UInt16 id;
 	bool carregaPreferencias;

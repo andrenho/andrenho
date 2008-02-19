@@ -21,6 +21,7 @@ class DBPedido : public Database
 public:
 	DBPedido();
 	int ultimoPedido();
+	void excluirPedido(int n);
 private:
 	const Char* dbName() { return "WGSFPedidosDB"; }
 };

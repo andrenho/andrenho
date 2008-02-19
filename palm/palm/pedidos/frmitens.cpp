@@ -4,6 +4,7 @@
 typedef struct
 {
 	int numeroForm;
+	int numeroPedido;
 } PrefItens;
 
 FrmItens::FrmItens() : Form()
@@ -18,9 +19,14 @@ bool FrmItens::event(UInt16 controlID, EventType* e)
 		{
 			case ItensCancelar:
 				if(perguntaSimNao("Tem certeza que deseja cancelar a inclusão deste pedido?"))
-					; // TODO
+				{
+					appPedidos->dbPedido->excluirPedido(numeroPedido);
+					goToForm(appPedidos->frmPrincipal);
+				}
 				break;
 			case ItensNovo:
+				appPedidos->frmNovoItem->numeroPedido = this->numeroPedido;
+				appPedidos->frmNovoItem->numeroItem = appPedidos->dbPedidoItem->ultimoItem(numeroPedido);
 				goToForm(appPedidos->frmNovoItem);
 				break;
 		}
@@ -30,6 +36,8 @@ bool FrmItens::event(UInt16 controlID, EventType* e)
 void FrmItens::carregarPreferencias()
 {
 	PrefItens* p = (PrefItens*)appPedidos->preferencias;
+	this->numeroPedido = p->numeroPedido;
+
 	this->carregaPreferencias = false;
 }
 
@@ -39,6 +47,7 @@ void FrmItens::gravarPreferencias()
 	Preferencias pref;
 
 	p.numeroForm = N_FORM_ITENS;
+	p.numeroPedido = this->numeroPedido;
 	
 	pref.salvar((void*)&p, sizeof(PrefItens));
 }
