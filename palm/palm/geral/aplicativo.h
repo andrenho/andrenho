@@ -7,6 +7,7 @@
 #include "dbcliente.h"
 #include "dbcidade.h"
 #include "dbpedido.h"
+#include "dbpedidoitem.h"
 #include "dbproduto.h"
 #include "debug.h"
 
@@ -31,6 +32,7 @@ public:
 	DBCliente* dbCliente;
 	DBCidade* dbCidade;
 	DBPedido* dbPedido;
+	DBPedidoItem* dbPedidoItem;
 	DBProduto* dbProduto;
 	
 	bool appActive;
