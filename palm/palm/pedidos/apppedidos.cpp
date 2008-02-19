@@ -11,22 +11,35 @@ AppPedidos::AppPedidos() : Aplicativo(1)
 	frmPrincipal = new FrmPrincipal();
 	frmPedido = new FrmPedido();
 	frmItens = new FrmItens();
+	frmNovoItem = new FrmNovoItem();
 
 	if(this->preferencias == NULL)
 		current = frmPrincipal;
 	else 
 	{
 		g = (PrefGeral*)this->preferencias;
-		if(g->numeroForm == N_FORM_PEDIDO)
-			current = frmPedido;
-		else
-			current = frmPrincipal;
+		switch(g->numeroForm)
+		{
+			case N_FORM_PEDIDO:
+				current = frmPedido;
+				break;
+			case N_FORM_ITENS:
+				current = frmItens;
+				break;
+			case N_FORM_NOVO_ITEM:
+				current = frmNovoItem;
+				break;
+			default:
+				current = frmPrincipal;
+				break;
+		}
 		current->carregaPreferencias = true;
 	}
 }
 
 AppPedidos::~AppPedidos()
 {
+	delete frmNovoItem;
 	delete frmItens;
 	delete frmPedido;
 	delete frmPrincipal;
