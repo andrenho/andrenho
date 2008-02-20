@@ -7,7 +7,7 @@ class Data
 {
 public:
 	Data();
-	Data(Char* data);
+	Data(const Char* data);
 	Data(char dia, char mes, int ano);
 
 	void formatarTexto(Char* data);

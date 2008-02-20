@@ -13,6 +13,12 @@ public:
 	void carregarPreferencias();
 	void gravarPreferencias();
 	int numeroPedido;
+protected:
+	void doAfterDrawing();
+private:
+	void alimentaLista();
+
+	int itemNoTopo;
 };
 
 #endif

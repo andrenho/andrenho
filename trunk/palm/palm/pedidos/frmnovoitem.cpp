@@ -36,9 +36,19 @@ bool FrmNovoItem::event(UInt16 controlID, EventType* e)
 	if(e->eType == ctlSelectEvent)
 		switch(controlID)
 		{
-			case NovoItemCancelar:
+			case NovoItemProdutoBusca:
+				this->produto = 1; // TODO
+				break;
+			case NovoItemExcluir:
 				if(perguntaSimNao("Tem certeza que deseja cancelar a inclusão deste item?"))
 					goToForm(appPedidos->frmItens);
+				/*
+				if(perguntaSimNao("Tem certeza que deseja excluir este item?"))
+				{
+					appPedidos->dbPedidoItem->excluirItem(numeroPedido, numeroItem);
+					goToForm(appPedidos->frmItens);
+				}
+				*/
 				break;
 			case NovoItemInserir:
 				if(validarDados())
@@ -124,9 +134,8 @@ bool FrmNovoItem::validarDados()
 		mensagemErro("O valor unitário informado é inválido.");
 		return false;
 	}
-
-	// TODO - valida datas
-
+	// TODO verifica se data é menor que hoje
+	
 	return true;
 }
 
@@ -135,18 +144,17 @@ void FrmNovoItem::salvarDados()
 	// esta função assume que os dados já foram validados
 	R_PedidoItem p;
 	bool b;
+	DateType dtPl;
+	Data data(CtlGetLabel(getControl(NovoItemEntrega)));
+	data.formatarPalm(&dtPl);
 
 	p.pedido = this->numeroPedido;
 	p.n = this->numeroItem;
 	p.produto = this->produto;
 	p.quantidade = getFieldD(NovoItemQuantidade);
 	p.valor = getFieldD(NovoItemValor);
-	/*
-	p.diaEntrega = getFieldI(NovoItemDiaEntrega);
-	p.mesEntrega = getFieldI(NovoItemMesEntrega);
-	p.anoEntrega = getFieldI(NovoItemAnoEntrega);
-	*/
+	p.dataEntrega = dtPl;
 
-	b = appPedidos->dbPedido->adicionaRegistro(&p, sizeof(R_PedidoItem));
+	b = appPedidos->dbPedidoItem->adicionaRegistro(&p, sizeof(R_PedidoItem));
 	ErrFatalDisplayIf(!b, "Registro do item do pedido não pode ser adicionado.");
 }

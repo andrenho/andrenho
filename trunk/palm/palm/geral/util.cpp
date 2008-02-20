@@ -14,10 +14,24 @@ Char *StrCopyTest(Char *dst, const Char *src)
 	return dst;
 }
 
-// Routine to convert a string to a double -- Allowed input is in fixed notation ddd.fff
-// This does not use MathLib.
-//
 double strToDouble(Char* str)
 { 
-	return 0; // TODO
+	int pos_virgula = -1;
+	int i;
+	double num;
+	double base = 0.1;
+
+	for(i=0; i<StrLen(str); i++)
+		if(str[i] == '.' || str[i] == ',')
+			pos_virgula = i;
+	num = StrAToI(str);
+	if(pos_virgula != -1)
+		for(i=pos_virgula+1; i<StrLen(str); i++)
+		{
+			num += (str[i] - '0') * base;
+			base /= 10;
+		}
+
+
+        return num;
 }

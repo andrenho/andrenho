@@ -18,7 +18,7 @@ Data::Data(char dia, char mes, int ano)
 	this->ano = ano;
 }
 
-Data::Data(Char* data)
+Data::Data(const Char* data)
 {
 	char b[5];
 	int i;
