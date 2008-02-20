@@ -9,6 +9,7 @@ class FrmNovoItem : public Form
 {
 public:
 	FrmNovoItem();
+	~FrmNovoItem();
 	bool event(UInt16 controlID, EventType* e);
 	void carregarPreferencias();
 	void gravarPreferencias();
@@ -21,6 +22,8 @@ private:
 	void salvarDados();
 
 	int produto;
+	MemHandle hDataEntrega;
+	Char* dataEntrega;
 };
 
 #endif

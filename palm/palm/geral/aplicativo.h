@@ -4,6 +4,7 @@
 #include "palmincludes.h"
 #include "pform.h"
 #include "buscacliente.h"
+#include "frmcalendario.h"
 #include "dbcliente.h"
 #include "dbcidade.h"
 #include "dbpedido.h"
@@ -29,13 +30,13 @@ public:
 	Form* current;
 
 	BuscaCliente* buscaCliente;
+	FrmCalendario* frmCalendario;
 
 	DBCliente* dbCliente;
 	DBCidade* dbCidade;
 	DBPedido* dbPedido;
 	DBPedidoItem* dbPedidoItem;
 	DBProduto* dbProduto;
-
 	
 	bool appActive;
 	FrmType frmType;

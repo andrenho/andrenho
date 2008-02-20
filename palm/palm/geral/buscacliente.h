@@ -8,9 +8,9 @@ class BuscaCliente : public FrmModal
 {
 public:
 	BuscaCliente();
-	
-	bool event(UInt16 controlID, EventType *e);
 	bool busca(Form* caller, UInt16 CNPJ, UInt16 campoFantasia, UInt16 campoRazaoSocial, int cidade);
+protected:
+	bool event(UInt16 controlID, EventType *e);
 };
 
 #endif

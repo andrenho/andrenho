@@ -9,7 +9,7 @@ class Form
 public:
 	Form();
 	virtual void open();
-	void* getControl(UInt16 id);
+	ControlType* getControl(UInt16 id);
 	Char* getField(UInt16 field);
 	int getFieldI(UInt16 field);
 	double getFieldD(UInt16 field);
