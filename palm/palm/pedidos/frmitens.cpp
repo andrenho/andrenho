@@ -10,6 +10,7 @@ typedef struct
 FrmItens::FrmItens() : Form()
 {
 	this->id = ItensFrm;
+	itemNoTopo = 1;
 }
 
 bool FrmItens::event(UInt16 controlID, EventType* e)
@@ -30,6 +31,15 @@ bool FrmItens::event(UInt16 controlID, EventType* e)
 				goToForm(appPedidos->frmNovoItem);
 				break;
 		}
+	else if(e->eType == sclRepeatEvent)
+	{
+		itemNoTopo = e->data.sclRepeat.newValue;
+		alimentaLista();
+	}
+	else if(e->eType == penDownEvent)
+	{
+	}
+
 	return false;
 }
 
@@ -50,4 +60,50 @@ void FrmItens::gravarPreferencias()
 	p.numeroPedido = this->numeroPedido;
 	
 	pref.salvar((void*)&p, sizeof(PrefItens));
+}
+
+void FrmItens::doAfterDrawing()	
+{
+	Form::doAfterDrawing();
+	alimentaLista();
+}
+
+void FrmItens::alimentaLista()
+{
+	int i;
+	int id = 5000 - ((itemNoTopo-1) * 10);
+	int numRegistros = 0;
+	DmOpenRef db = appPedidos->dbPedidoItem->db;
+
+	for(i=0; i<DmNumRecords(db); i++)
+	{
+		MemHandle h = DmQueryRecord(db, i);
+		R_PedidoItem* p = (R_PedidoItem*)MemHandleLock(h);
+		if(p->pedido == numeroPedido)
+		{
+			if(id >= 5000 && id < 5040)
+			{
+				setField(id + 1, "Teste"); // TODO
+				CtlShowControl(getControl(id + 4));
+			}
+			id += 10;
+			numRegistros++;
+		}
+		MemHandleUnlock(h);
+	}
+
+	while(id < 5040)
+	{
+		setField(id + 1, "");
+		setField(id + 2, "");
+		setField(id + 3, "");
+		CtlHideControl(getControl(id + 4));
+		id += 10;
+	}
+
+	if(numRegistros == 0)
+		numRegistros = 1;
+
+	SclSetScrollBar((ScrollBarType*)getControl(ItensScroll),
+			itemNoTopo, 1, numRegistros, 4);
 }

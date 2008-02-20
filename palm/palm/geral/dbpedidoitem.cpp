@@ -22,3 +22,26 @@ int DBPedidoItem::ultimoItem(int nPedido)
 
 	return max;
 }
+
+void DBPedidoItem::excluirItem(int pedido, int item)
+{
+	int i;
+
+	for(i=0; i<DmNumRecords(db); i++)
+	{
+		MemHandle h = DmQueryRecord(db, i);
+		R_PedidoItem* p = (R_PedidoItem*)MemHandleLock(h);
+		if(p->pedido == pedido && p->n == item)
+		{
+			int resp;
+			MemHandleUnlock(h);
+			resp = DmRemoveRecord(db, i);
+			ErrNonFatalDisplayIf(resp == dmErrReadOnly, "dmErrReadOnly excluindo registro de pedido");
+			ErrNonFatalDisplayIf(resp == dmErrIndexOutOfRange, "dmErrIndexOutOfRange excluindo registro de pedido");
+			ErrNonFatalDisplayIf(resp == memErrChunkLocked, "memErrChunkLocked excluindo registro de pedido");
+			ErrNonFatalDisplayIf(resp == memErrInvalidParam, "memErrInvalidParam excluindo registro de pedido");
+		}
+		else	
+			MemHandleUnlock(h);
+	}
+}
