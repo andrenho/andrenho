@@ -8,6 +8,13 @@ AppPedidos::AppPedidos() : Aplicativo(1)
 	Preferencias pref;
 	PrefGeral* g;
 
+	dbCliente = new DBCliente();
+	dbCidade = new DBCidade();
+	dbPedido = new DBPedido();
+	dbPedidoItem = new DBPedidoItem();
+	dbProduto = new DBProduto();
+	buscaCliente = new BuscaCliente();
+
 	frmPrincipal = new FrmPrincipal();
 	frmPedido = new FrmPedido();
 	frmItens = new FrmItens();
@@ -40,6 +47,13 @@ AppPedidos::AppPedidos() : Aplicativo(1)
 
 AppPedidos::~AppPedidos()
 {
+	delete dbProduto;
+	delete dbCliente;
+	delete buscaCliente;
+	delete dbCidade;
+	delete dbPedido;
+	delete dbPedidoItem;
+
 	delete frmNovoItem;
 	delete frmItens;
 	delete frmPedido;
