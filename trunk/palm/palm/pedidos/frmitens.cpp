@@ -36,9 +36,6 @@ bool FrmItens::event(UInt16 controlID, EventType* e)
 		itemNoTopo = e->data.sclRepeat.newValue;
 		alimentaLista();
 	}
-	else if(e->eType == penDownEvent)
-	{
-	}
 
 	return false;
 }
