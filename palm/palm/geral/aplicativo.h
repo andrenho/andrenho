@@ -27,6 +27,7 @@ public:
 	void executar(UInt16 cmd);
 
 	Form* current;
+
 	BuscaCliente* buscaCliente;
 
 	DBCliente* dbCliente;
@@ -34,6 +35,7 @@ public:
 	DBPedido* dbPedido;
 	DBPedidoItem* dbPedidoItem;
 	DBProduto* dbProduto;
+
 	
 	bool appActive;
 	FrmType frmType;
