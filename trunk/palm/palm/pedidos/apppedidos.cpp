@@ -13,7 +13,9 @@ AppPedidos::AppPedidos() : Aplicativo(1)
 	dbPedido = new DBPedido();
 	dbPedidoItem = new DBPedidoItem();
 	dbProduto = new DBProduto();
+
 	buscaCliente = new BuscaCliente();
+	frmCalendario = new FrmCalendario();
 
 	frmPrincipal = new FrmPrincipal();
 	frmPedido = new FrmPedido();
@@ -49,10 +51,12 @@ AppPedidos::~AppPedidos()
 {
 	delete dbProduto;
 	delete dbCliente;
-	delete buscaCliente;
 	delete dbCidade;
 	delete dbPedido;
 	delete dbPedidoItem;
+
+	delete buscaCliente;
+	delete frmCalendario;
 
 	delete frmNovoItem;
 	delete frmItens;

@@ -15,16 +15,16 @@ VPATH = $(GERAL_DIR) $(PEDIDOS_DIR)
 #
 ERROR_CHECKING = -DERROR_CHECK_LEVEL=ERROR_CHECK_FULL
 #ERROR_CHECKING = -DERROR_CHECK_LEVEL=ERROR_CHECK_PARTIAL
-CFLAGS = -O2 -palmos5r4 -I. -I$(GERAL_DIR) -I$(PEDIDOS_DIR) $(ERROR_CHECKING)
+CFLAGS = -O2 -palmos5r4 -I. -I$(GERAL_DIR) -I$(PEDIDOS_DIR) $(ERROR_CHECKING) # -Wall -Werror 
 
 # 
 # Objetos
 #
-GERAL_O = aplicativo.o preferencias.o \
+GERAL_O = aplicativo.o preferencias.o frmcalendario.o \
 	  pform.o frmmodal.o buscacliente.o \
 	  database.o dbcliente.o dbcidade.o dbpedido.o dbproduto.o \
 	  dbpedidoitem.o \
-	  debug.o util.o
+	  debug.o util.o data.o
 
 PEDIDOS_O = apppedidos.o \
 	    frmprincipal.o frmpedido.o frmitens.o frmnovoitem.o
@@ -36,6 +36,9 @@ all: pedidos
 
 test: pedidos
 	pose -psf session.psf -load_apps pedidos.prc -run_app Pedidos -quit_on_exit
+
+doc:
+	CppDoc -autorun -autoquit -suppress-frames-links -overwrite -hier -accept3slash geral pedidos doc/index.html
 
 #
 # Regras executáveis Palm
@@ -62,6 +65,7 @@ frmnovoitem.o: frmnovoitem.cpp frmnovoitem.h
 
 aplicativo.o: aplicativo.cpp aplicativo.h
 preferencias.o: preferencias.cpp preferencias.h
+frmcalendario.o: frmcalendario.cpp frmcalendario.h
 pform.o: pform.cpp pform.h
 frmmodal.o: frmmodal.cpp frmmodal.h
 buscacliente.o: buscacliente.cpp buscacliente.h
@@ -73,6 +77,7 @@ dbpedidoitem.o: dbpedidoitem.cpp dbpedidoitem.h
 dbproduto.o: dbproduto.cpp dbproduto.h
 debug.o: debug.cpp debug.h
 util.o: util.cpp util.h
+data.o: data.cpp data.h
 
 .cpp.o:
 	$(CPP) $(CFLAGS) -c -o $@ $<

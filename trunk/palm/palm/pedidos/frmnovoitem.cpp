@@ -1,6 +1,7 @@
 #include "frmnovoitem.h"
 #include "apppedidos.h"
 #include "util.h"
+#include "data.h"
 
 typedef struct
 {
@@ -13,15 +14,21 @@ typedef struct
 	char quantidade[13];
 	char um[4];
 	char valor[21];
-	char diaEntrega[3];
-	char mesEntrega[3];
-	char anoEntrega[5];
+	char dataEntrega[11];
 	char valorTotal[26];
 } PrefNovoItem;
 
 FrmNovoItem::FrmNovoItem() : Form()
 {
-	this->id = NovoItemFrm;
+	id = NovoItemFrm;
+	hDataEntrega = MemHandleNew(11);
+	dataEntrega = (Char*)MemHandleLock(hDataEntrega);
+}
+
+FrmNovoItem::~FrmNovoItem()
+{
+	MemHandleUnlock(hDataEntrega);
+	MemHandleFree(hDataEntrega);
 }
 
 bool FrmNovoItem::event(UInt16 controlID, EventType* e)
@@ -40,6 +47,12 @@ bool FrmNovoItem::event(UInt16 controlID, EventType* e)
 					goToForm(appPedidos->frmItens);
 				}
 				break;
+			case NovoItemEntrega:
+				Data data; // TODO buscar data no controle
+				appPedidos->frmCalendario->showDialog(&data);
+				data.formatarTexto(dataEntrega);
+				CtlSetLabel(getControl(NovoItemEntrega), dataEntrega);
+				break;
 		}
 	return false;
 }
@@ -48,6 +61,11 @@ void FrmNovoItem::doAfterDrawing()
 {
 	this->produto = -1;
 	FldGrabFocus((FieldType*)getControl(NovoItemProduto));
+
+	Data data;
+	data.formatarTexto(dataEntrega);
+	CtlSetLabel(getControl(NovoItemEntrega), dataEntrega);
+	
 	Form::doAfterDrawing();
 }
 
@@ -63,9 +81,7 @@ void FrmNovoItem::carregarPreferencias()
 	setField(NovoItemQuantidade, p->quantidade);
 	setField(NovoItemUM, p->um);
 	setField(NovoItemValor, p->valor);
-	setField(NovoItemDiaEntrega, p->diaEntrega);
-	setField(NovoItemMesEntrega, p->mesEntrega);
-	setField(NovoItemAnoEntrega, p->anoEntrega);
+	CtlSetLabel(getControl(NovoItemEntrega), p->dataEntrega);
 	setField(NovoItemTotalItem, p->valorTotal);
 
 	this->carregaPreferencias = false;
@@ -85,9 +101,7 @@ void FrmNovoItem::gravarPreferencias()
 	StrCopyTest(p.quantidade, getField(NovoItemQuantidade));
 	StrCopyTest(p.um, getField(NovoItemUM));
 	StrCopyTest(p.valor, getField(NovoItemValor));
-	StrCopyTest(p.diaEntrega, getField(NovoItemDiaEntrega));
-	StrCopyTest(p.mesEntrega, getField(NovoItemMesEntrega));
-	StrCopyTest(p.anoEntrega, getField(NovoItemAnoEntrega));
+	StrCopyTest(p.dataEntrega, CtlGetLabel(getControl(NovoItemEntrega)));
 	StrCopyTest(p.valorTotal, getField(NovoItemTotalItem));
 
 	pref.salvar((void*)&p, sizeof(PrefNovoItem));

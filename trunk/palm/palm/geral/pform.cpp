@@ -2,27 +2,27 @@
 #include "aplicativo.h"
 #include "util.h"
 
-Form::Form()
-{
-	carregaPreferencias = false;
-}
-
-void Form::open()
-{
-	UInt16 err;
-	EventType e;
-
-	this->leave_form = false;
-
-	FrmGotoForm(this->id);
-
-	while(!this->leave_form)
+	Form::Form()
 	{
-		EvtGetEvent(&e, 100);
+		carregaPreferencias = false;
+	}
 
-		if (SysHandleEvent(&e))
-			continue;
-		if (MenuHandleEvent(NULL, &e, &err))
+	void Form::open()
+	{
+		UInt16 err;
+		EventType e;
+
+		this->leave_form = false;
+
+		FrmGotoForm(this->id);
+
+		while(!this->leave_form)
+		{
+			EvtGetEvent(&e, 100);
+
+			if (SysHandleEvent(&e))
+				continue;
+			if (MenuHandleEvent(NULL, &e, &err))
 			continue;
 
 		switch(e.eType)
@@ -77,10 +77,10 @@ FormType* Form::getFormType()
 	return FrmGetFormPtr(this->id);
 }
 
-void* Form::getControl(UInt16 id)
+ControlType* Form::getControl(UInt16 id)
 {
 	FormType* frm = getFormType();
-	return FrmGetObjectPtr(frm, FrmGetObjectIndex(frm, id));
+	return (ControlType*)FrmGetObjectPtr(frm, FrmGetObjectIndex(frm, id));
 }
 
 Char* Form::getField(UInt16 field)
