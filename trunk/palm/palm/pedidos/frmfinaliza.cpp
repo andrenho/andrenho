@@ -28,6 +28,7 @@ bool FrmFinaliza::event(UInt16 controlID, EventType* e)
 		{
 			case FinalizaDescontoDinheiro:
 			{
+				// TODO FldInsert
 				char buf[20];
 				double vlrDesconto = strToDouble(getField(FinalizaDescontoDinheiro));
 				double perc = vlrDesconto / valorPedido * 100;
