@@ -40,8 +40,7 @@ bool FrmNovoItem::event(UInt16 controlID, EventType* e)
 				this->produto = 1; // TODO
 				break;
 			case NovoItemExcluir:
-				if(perguntaSimNao("Tem certeza que deseja cancelar a inclusão deste item?"))
-					goToForm(appPedidos->frmItens);
+				goToForm(appPedidos->frmItens);
 				/*
 				if(perguntaSimNao("Tem certeza que deseja excluir este item?"))
 				{
@@ -59,7 +58,12 @@ bool FrmNovoItem::event(UInt16 controlID, EventType* e)
 				break;
 			case NovoItemEntrega:
 				Data data; // TODO buscar data no controle
-				appPedidos->frmCalendario->showDialog(&data);
+				Int16 dia, mes, ano;
+				dia = data.dia;
+				mes = data.mes;
+				ano = data.ano;
+				SelectDay(selectDayByDay, &mes, &dia, &ano, "Data de Entrega");
+				data.ajusta(dia, mes, ano);
 				data.formatarTexto(dataEntrega);
 				CtlSetLabel(getControl(NovoItemEntrega), dataEntrega);
 				break;
@@ -70,7 +74,7 @@ bool FrmNovoItem::event(UInt16 controlID, EventType* e)
 void FrmNovoItem::doAfterDrawing()
 {
 	this->produto = -1;
-	FldGrabFocus((FieldType*)getControl(NovoItemProduto));
+	FrmSetFocus(getFormType(), FrmGetObjectIndex(getFormType(), NovoItemProduto));
 
 	Data data;
 	data.formatarTexto(dataEntrega);

@@ -20,6 +20,8 @@ class DBPedidoItem : public Database
 public:
 	DBPedidoItem();
 	int ultimoItem(int nPedido);
+	int numeroItens(int nPedido);
+	double valorPedido(int nPedido);
 	void excluirItem(int pedido, int item);
 private:
 	const Char* dbName() { return "WGSFPedItensDB"; }

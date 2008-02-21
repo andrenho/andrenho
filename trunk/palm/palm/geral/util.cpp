@@ -21,6 +21,11 @@ double strToDouble(Char* str)
 	double num;
 	double base = 0.1;
 
+	if(str == NULL)
+		return 0;
+	if(StrCompare(str, "") == 0)
+		return 0;
+
 	for(i=0; i<StrLen(str); i++)
 		if(str[i] == '.' || str[i] == ',')
 			pos_virgula = i;
@@ -34,4 +39,45 @@ double strToDouble(Char* str)
 
 
         return num;
+}
+
+void fmtdbl(double numero, int casas, char* buffer)
+{
+	int inteiro = (int)numero;
+	double decimal = numero - (double)inteiro;
+	double sub;
+	int mult = 1;
+	char b[10];
+	int i;
+	
+	if(casas >= 0)
+	{
+		for(i=0; i<casas; i++)
+			mult *= 10;
+		sub = decimal * mult;
+	
+		StrPrintF(b, "%%d,%%0%dd", casas);
+		StrPrintF(buffer, b, inteiro, (int)sub);
+	}
+	else
+	{
+		if(decimal == 0)
+			StrPrintF(buffer, "%d", inteiro);
+		else
+		{
+			int j;
+			
+			for(i=0; i<4; i++)
+				mult *= 10;
+			sub = decimal * mult;
+			
+			StrPrintF(buffer, "%d,%d", inteiro, (int)sub);
+			j = StrLen(buffer);
+			for(i=(j-1); i--; i>=0)
+				if(buffer[i] == '0')
+					buffer[i] = 0;
+				else
+					break;
+		}
+	}
 }

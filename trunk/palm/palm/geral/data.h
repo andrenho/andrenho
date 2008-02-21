@@ -10,9 +10,10 @@ public:
 	Data(const Char* data);
 	Data(char dia, char mes, int ano);
 
+	void ajusta(char dia, char mes, int ano);
 	void formatarTexto(Char* data);
 	void formatarPalm(DateType* data);
-private:
+//private:
 	char dia, mes;
 	int ano;
 };
