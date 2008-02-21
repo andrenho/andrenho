@@ -21,18 +21,23 @@ bool FrmFinaliza::event(UInt16 controlID, EventType* e)
 {
 	if(e->eType == keyDownEvent)
 	{
-		if(controlID == FinalizaDescontoDinheiro)
+		UInt16 idx = FrmGetFocus(getFormType());
+		if(idx == noFocus)
+			return false;
+		switch(FrmGetObjectId(getFormType(), idx))
 		{
-			char buf[20];
-			double vlrDesconto = strToDouble(getField(FinalizaDescontoDinheiro));
-			double perc = vlrDesconto / valorPedido * 100;
-			fmtdbl(perc, -1, buf);
-			setField(FinalizaDescontoPerc, buf);
-			ErrDisplay(buf);
-			ajustaValorTotal();
-		}
-		else if(controlID == FinalizaDescontoPerc)
-		{
+			case FinalizaDescontoDinheiro:
+			{
+				char buf[20];
+				double vlrDesconto = strToDouble(getField(FinalizaDescontoDinheiro));
+				double perc = vlrDesconto / valorPedido * 100;
+				fmtdbl(perc, -1, buf);
+				setField(FinalizaDescontoPerc, buf);
+				ajustaValorTotal();
+				return true;
+			}
+			case FinalizaDescontoPerc:
+				return true;
 		}
 		return false;
 	}
