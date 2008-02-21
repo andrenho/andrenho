@@ -20,14 +20,14 @@ CFLAGS = -O2 -palmos5r4 -I. -I$(GERAL_DIR) -I$(PEDIDOS_DIR) $(ERROR_CHECKING) # 
 # 
 # Objetos
 #
-GERAL_O = aplicativo.o preferencias.o frmcalendario.o \
+GERAL_O = aplicativo.o preferencias.o \
 	  pform.o frmmodal.o buscacliente.o \
 	  database.o dbcliente.o dbcidade.o dbpedido.o dbproduto.o \
 	  dbpedidoitem.o \
 	  debug.o util.o data.o
 
 PEDIDOS_O = apppedidos.o \
-	    frmprincipal.o frmpedido.o frmitens.o frmnovoitem.o
+	    frmprincipal.o frmpedido.o frmitens.o frmnovoitem.o frmfinaliza.o
 
 # 
 # Regras padrão
@@ -62,10 +62,10 @@ frmprincipal.o: frmprincipal.cpp frmprincipal.h
 frmpedido.o: frmpedido.cpp frmpedido.h
 frmitens.o: frmitens.cpp frmitens.h
 frmnovoitem.o: frmnovoitem.cpp frmnovoitem.h
+frmfinaliza.o: frmfinaliza.cpp frmfinaliza.h
 
 aplicativo.o: aplicativo.cpp aplicativo.h
 preferencias.o: preferencias.cpp preferencias.h
-frmcalendario.o: frmcalendario.cpp frmcalendario.h
 pform.o: pform.cpp pform.h
 frmmodal.o: frmmodal.cpp frmmodal.h
 buscacliente.o: buscacliente.cpp buscacliente.h

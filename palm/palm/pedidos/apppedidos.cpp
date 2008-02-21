@@ -15,12 +15,12 @@ AppPedidos::AppPedidos() : Aplicativo(1)
 	dbProduto = new DBProduto();
 
 	buscaCliente = new BuscaCliente();
-	frmCalendario = new FrmCalendario();
 
 	frmPrincipal = new FrmPrincipal();
 	frmPedido = new FrmPedido();
 	frmItens = new FrmItens();
 	frmNovoItem = new FrmNovoItem();
+	frmFinaliza = new FrmFinaliza();
 
 	if(this->preferencias == NULL)
 		current = frmPrincipal;
@@ -39,6 +39,9 @@ AppPedidos::AppPedidos() : Aplicativo(1)
 			case N_FORM_NOVO_ITEM:
 				current = frmNovoItem;
 				break;
+			case N_FORM_FINALIZA:
+				current = frmFinaliza;
+				break;
 			default:
 				current = frmPrincipal;
 				break;
@@ -56,8 +59,8 @@ AppPedidos::~AppPedidos()
 	delete dbPedidoItem;
 
 	delete buscaCliente;
-	delete frmCalendario;
 
+	delete frmFinaliza;
 	delete frmNovoItem;
 	delete frmItens;
 	delete frmPedido;

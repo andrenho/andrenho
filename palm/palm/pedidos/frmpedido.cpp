@@ -90,7 +90,7 @@ void FrmPedido::doAfterDrawing()
 		LstSetHeight((ListType*)getControl(PedidoCidadeList), nCidades);
 	LstDrawList((ListType*)getControl(PedidoCidadeList));
 
-	FldGrabFocus((FieldType*)getControl(PedidoCliente));
+	FrmSetFocus(getFormType(), FrmGetObjectIndex(getFormType(), PedidoCliente));
 
 	Form::doAfterDrawing();
 }

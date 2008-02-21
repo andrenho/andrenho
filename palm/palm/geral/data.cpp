@@ -36,6 +36,13 @@ Data::Data(const Char* data)
 	// TODO checar validade
 }
 
+void Data::ajusta(char dia, char mes, int ano)
+{
+	this->dia = dia;
+	this->mes = mes;
+	this->ano = ano;
+}
+
 void Data::formatarTexto(Char* data)
 {
 	DateTemplateToAscii("^0z/^3z/^4l", this->mes, this->dia, this->ano, data, 11);

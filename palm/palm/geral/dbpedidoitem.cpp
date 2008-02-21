@@ -23,6 +23,39 @@ int DBPedidoItem::ultimoItem(int nPedido)
 	return max;
 }
 
+int DBPedidoItem::numeroItens(int nPedido)
+{
+	int i, ct = 0;
+
+	for(i=0; i<DmNumRecords(db); i++)
+	{
+		MemHandle h = DmQueryRecord(db, i);
+		R_PedidoItem* p = (R_PedidoItem*)MemHandleLock(h);
+		if(p->pedido == nPedido)
+			ct++;
+		MemHandleUnlock(h);
+	}
+
+	return ct;
+}
+
+double DBPedidoItem::valorPedido(int nPedido)
+{
+	int i;
+	double valor;
+
+	for(i=0; i<DmNumRecords(db); i++)
+	{
+		MemHandle h = DmQueryRecord(db, i);
+		R_PedidoItem* p = (R_PedidoItem*)MemHandleLock(h);
+		if(p->pedido == nPedido)
+			valor += (p->quantidade * p->valor);
+		MemHandleUnlock(h);
+	}
+
+	return valor;
+}
+
 void DBPedidoItem::excluirItem(int pedido, int item)
 {
 	int i;
