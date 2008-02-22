@@ -23,6 +23,7 @@ public:
 	int numeroItens(int nPedido);
 	double valorPedido(int nPedido);
 	void excluirItem(int pedido, int item);
+	void excluirItens(int pedido);
 private:
 	const Char* dbName() { return "WGSFPedItensDB"; }
 };

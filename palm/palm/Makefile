@@ -2,6 +2,7 @@
 # Ferramentas
 #
 CPP = m68k-palmos-g++
+MULTIGEN = m68k-palmos-multigen
 
 # 
 # Diretórios
@@ -27,7 +28,8 @@ GERAL_O = aplicativo.o preferencias.o \
 	  debug.o util.o data.o lista.o
 
 PEDIDOS_O = apppedidos.o \
-	    frmprincipal.o frmpedido.o frmitens.o frmnovoitem.o frmfinaliza.o
+	    frmprincipal.o frmpedido.o frmitens.o frmnovoitem.o \
+	    frmfinaliza.o frmenvio.o
 
 # 
 # Regras padrão
@@ -45,14 +47,20 @@ doc:
 # 
 pedidos: pedidos.prc
 
-pedidos.prc: pedido.stamp pedido
-	build-prc pedidos.prc "Pedidos" TuHe pedido *.bin
+pedidos.prc: pedido.stamp pedido pedidos-sections.ld
+	build-prc pedidos.prc "Pedidos" TuHe pedido *.bin pedidos/pedidos.def
 
-pedido: $(GERAL_O) $(PEDIDOS_O)
-	$(CPP) -o pedido $^
+pedido: $(GERAL_O) $(PEDIDOS_O) pedidos-sections.ld pedidos-sections.o
+	$(CPP) -o pedido $^ pedidos-sections.ld
 
 pedido.stamp: pedido.rcp
 	pilrc -q $^
+
+pedidos-sections.o: pedidos-sections.s
+	$(CPP) -c pedidos-sections.s -o pedidos-sections.o
+
+pedidos-sections.s pedidos-sections.ld: pedidos/pedidos.def
+	$(MULTIGEN) pedidos/pedidos.def
 
 #
 # Regras de compilação
@@ -63,6 +71,7 @@ frmpedido.o: frmpedido.cpp frmpedido.h
 frmitens.o: frmitens.cpp frmitens.h
 frmnovoitem.o: frmnovoitem.cpp frmnovoitem.h
 frmfinaliza.o: frmfinaliza.cpp frmfinaliza.h
+frmenvio.o: frmenvio.cpp frmenvio.h
 
 aplicativo.o: aplicativo.cpp aplicativo.h
 preferencias.o: preferencias.cpp preferencias.h
@@ -71,7 +80,7 @@ frmmodal.o: frmmodal.cpp frmmodal.h
 buscacliente.o: buscacliente.cpp buscacliente.h
 database.o: database.cpp database.h
 dbcliente.o: dbcliente.cpp dbcliente.h
-dbcidade.o: dbcidade.cpp dbcidade.h
+dbCidade.o: dbcidade.cpp dbcidade.h
 dbpedido.o: dbpedido.cpp dbpedido.h
 dbpedidoitem.o: dbpedidoitem.cpp dbpedidoitem.h
 dbproduto.o: dbproduto.cpp dbproduto.h

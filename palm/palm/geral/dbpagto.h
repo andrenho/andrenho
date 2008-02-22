@@ -2,6 +2,7 @@
 #define DBPAGTO_H
 
 #include "database.h"
+#include "lista.h"
 
 typedef struct
 {
@@ -14,6 +15,7 @@ class DBPagto : public Database
 public:
 	DBPagto();
 	int numeroPagtos();
+	void alimentaLista(Lista* l);
 
 	void populateDB();
 private:
