@@ -1,7 +1,9 @@
 #ifndef DEBUG_H
 #define DEBUG_H
 
-void debug(char* s);
-void debug(int i);
+#include "segment.h"
+
+void debug(char* s) GERAL;
+void debug(int i) GERAL;
 
 #endif

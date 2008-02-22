@@ -12,6 +12,7 @@
 #include "dbpagto.h"
 #include "dbparcela.h"
 #include "debug.h"
+#include "segment.h"
 
 typedef enum { NonModal, Modal, ReturnFromModal } FrmType;
 typedef struct
@@ -23,10 +24,10 @@ typedef struct
 class Aplicativo
 {
 public:
-	Aplicativo(int numeroAplicativo);
-	~Aplicativo();
+	Aplicativo(int numeroAplicativo) GERAL;
+	~Aplicativo() GERAL;
 
-	void executar(UInt16 cmd);
+	void executar(UInt16 cmd) GERAL;
 
 	Form* current;
 

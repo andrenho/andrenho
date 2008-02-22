@@ -2,6 +2,7 @@
 #define DBPARCELA_H
 
 #include "database.h"
+#include "segment.h"
 
 typedef struct
 {
@@ -13,9 +14,9 @@ typedef struct
 class DBParcela : public Database
 {
 public:
-	DBParcela();
+	DBParcela() GERAL;
 
-	void populateDB();
+	void populateDB() GERAL;
 private:
 	const Char* dbName() { return "WGSFParcelasDB"; }
 };

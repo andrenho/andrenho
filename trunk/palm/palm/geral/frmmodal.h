@@ -6,7 +6,7 @@
 class FrmModal : public Form
 {
 public:
-	virtual void showDialog(void* returnValue);
+	virtual void showDialog(void* returnValue) GERAL;
 protected:
 	virtual bool event(UInt16 controlID, EventType* e) =0;
 	void* returnValue;

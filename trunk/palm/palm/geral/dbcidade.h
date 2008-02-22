@@ -2,6 +2,7 @@
 #define DBCIDADE_H
 
 #include "database.h"
+#include "segment.h"
 
 #define CIDADE_CHARS 30
 
@@ -14,8 +15,8 @@ typedef struct
 class DBCidade : public Database
 {
 public:
-	DBCidade();
-	void populateDB();
+	DBCidade() GERAL;
+	void populateDB() GERAL;
 private:
 	const Char* dbName() { return "WGSFCidadesDB"; }
 };

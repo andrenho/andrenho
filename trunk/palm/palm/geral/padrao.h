@@ -2,12 +2,13 @@
 #define ITENS_H
 
 #include "extern.h"
+#include "segment.h"
 
 class Itens : public Form
 {
 public:
-	Itens();
-	void event(UInt16 controlID);
+	Itens() GERAL;
+	void event(UInt16 controlID) GERAL;
 };
 
 #endif

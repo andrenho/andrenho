@@ -48,10 +48,10 @@ doc:
 pedidos: pedidos.prc
 
 pedidos.prc: pedido.stamp pedido pedidos-sections.ld
-	build-prc pedidos.prc "Pedidos" TuHe pedido *.bin pedidos/pedidos.def
+	build-prc pedidos/pedidos.def pedido *.bin #"Pedidos" TuHe 
 
-pedido: $(GERAL_O) $(PEDIDOS_O) pedidos-sections.ld pedidos-sections.o
-	$(CPP) -o pedido $^ pedidos-sections.ld
+pedido: $(GERAL_O) $(PEDIDOS_O) pedidos-sections.o pedidos-sections.ld
+	$(CPP) -o pedido $^
 
 pedido.stamp: pedido.rcp
 	pilrc -q $^
@@ -95,6 +95,6 @@ lista.o: lista.cpp lista.h
 	$(CPP) $(CFLAGS) -c -o $@ $<
 
 clean:
-	rm -f *.[oa] *.bin pedido *.stamp *.h
+	rm -f *.[oa] *.bin pedido *.stamp *.h *.ld *.s
 
 .PHONY : pedido
