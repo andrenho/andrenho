@@ -23,6 +23,7 @@ AppPedidos::AppPedidos() : Aplicativo(1)
 	frmItens = new FrmItens();
 	frmNovoItem = new FrmNovoItem();
 	frmFinaliza = new FrmFinaliza();
+	frmEnvio = new FrmEnvio();
 
 	if(this->preferencias == NULL)
 		current = frmPrincipal;
@@ -43,6 +44,9 @@ AppPedidos::AppPedidos() : Aplicativo(1)
 				break;
 			case N_FORM_FINALIZA:
 				current = frmFinaliza;
+				break;
+			case N_FORM_ENVIO:
+				current = frmEnvio;
 				break;
 			default:
 				current = frmPrincipal;
@@ -69,6 +73,7 @@ AppPedidos::~AppPedidos()
 
 	delete buscaCliente;
 
+	delete frmEnvio;
 	delete frmFinaliza;
 	delete frmNovoItem;
 	delete frmItens;

@@ -7,6 +7,7 @@
 #include "frmitens.h"
 #include "frmnovoitem.h"
 #include "frmfinaliza.h"
+#include "frmenvio.h"
 
 class AppPedidos : public Aplicativo
 {
@@ -20,6 +21,7 @@ public:
 	FrmItens* frmItens;
 	FrmNovoItem* frmNovoItem;
 	FrmFinaliza* frmFinaliza;
+	FrmEnvio* frmEnvio;
 
 	int numeroAplicativo() { return 1; }
 };

@@ -15,15 +15,17 @@ public:
 	bool event(UInt16 controlID, EventType* e);
 	void carregarPreferencias();
 	void gravarPreferencias();
-	
+
 	int numeroPedido;
 	double valorPedido;
 protected:
 	void doAfterDrawing();
 private:
-	Char** s;
-	Lista* l;
 	void ajustaValorTotal();
+	void salvarDados();
+	bool validarDados();
+
+	Lista* l;
 	int pagtoSelecionado;
 };
 

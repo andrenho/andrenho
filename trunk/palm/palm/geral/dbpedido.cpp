@@ -1,4 +1,6 @@
 #include "dbpedido.h"
+#include "aplicativo.h"
+#include "debug.h"
 
 DBPedido::DBPedido()
 {
@@ -26,6 +28,8 @@ void DBPedido::excluirPedido(int n)
 {
 	int i;
 
+	app->dbPedidoItem->excluirItens(n);
+
 	for(i=0; i<DmNumRecords(db); i++)
 	{
 		MemHandle h = DmQueryRecord(db, i);
@@ -43,5 +47,25 @@ void DBPedido::excluirPedido(int n)
 		}
 		else	
 			MemHandleUnlock(h);
+	}
+}
+
+void DBPedido::encerraPedido(int nPedido, int pagamento, double valorDesconto)
+{
+	int i;
+	for(i=0; i<DmNumRecords(db); i++)
+	{
+		MemHandle h = DmGetRecord(db, i);
+		R_Pedido* p = (R_Pedido*)MemHandleLock(h);
+		if(p->n == nPedido)
+		{
+			debug("vai escrever");
+			p->status = INSERIDO;
+			p->pagamento = pagamento;
+			p->vlrDesconto = valorDesconto;
+			debug("escrito");
+		}
+		MemHandleUnlock(h);
+		DmReleaseRecord(db, i, false);
 	}
 }

@@ -4,6 +4,7 @@
 Lista::Lista()
 {
 	lista = NULL;
+	ss = NULL;
 }
 
 Lista::~Lista()
@@ -17,6 +18,9 @@ Lista::~Lista()
 		lista = (Registro*)lista->proximo;
 		MemPtrFree(r);
 	}
+
+	if(ss)
+		MemPtrFree(ss);
 }
 
 void Lista::adicionaRegistro(int reg, char* texto)
@@ -30,11 +34,11 @@ void Lista::adicionaRegistro(int reg, char* texto)
 	if(lista != NULL)
 	{
 		anterior = atual;
-		while(atual->proximo != NULL)
+		do
 		{
 			anterior = atual;
 			atual = (Registro*)atual->proximo;
-		}
+		} while(atual);
 		atual = (Registro*)MemPtrNew(sizeof(Registro));
 		anterior->proximo = atual;
 	}
@@ -84,4 +88,38 @@ void Lista::stringLista(Char** s)
 	}
 	else
 		s = NULL;
+}
+
+void Lista::setItensLista(ListType* lista, int maxRegistrosVisiveis)
+{
+	ss = (Char**)MemPtrNew(numeroRegistros() * sizeof(char*));
+	stringLista(ss);
+
+	LstSetListChoices(lista, ss, numeroRegistros());
+	if(numeroRegistros() >= maxRegistrosVisiveis)
+		LstSetHeight(lista, maxRegistrosVisiveis);
+	else
+		LstSetHeight(lista, numeroRegistros());
+	LstDrawList(lista);
+}
+
+int Lista::registro(int posicao)
+{
+	Registro *r = lista;
+
+	if(r)
+	{
+		int i=0;
+		r = lista;
+		do
+		{
+			if(i == posicao)
+				return r->reg;
+			r = (Registro*)r->proximo;
+			i++;
+		} while(r);
+		return -1;
+	}
+	else
+		return -1;
 }

@@ -13,6 +13,8 @@ typedef struct
 {
 	int n;
 	char cnpj[CNPJ_CHARS];
+	int pagamento;
+	double vlrDesconto;
 	STATUS status;
 } R_Pedido;
 
@@ -22,6 +24,7 @@ public:
 	DBPedido();
 	int ultimoPedido();
 	void excluirPedido(int n);
+	void encerraPedido(int nPedido, int pagamento, double valorDesconto);
 private:
 	const Char* dbName() { return "WGSFPedidosDB"; }
 };

@@ -11,12 +11,12 @@ typedef struct
 	char vlrDesconto[13];
 	char percDesconto[5];
 	char pagamento[31];
+	int pagtoSelecionado;
 } PrefFinaliza;
 
 FrmFinaliza::FrmFinaliza()
 {
 	this->id = FinalizaFrm;
-	s = NULL;
 
 	pagtoSelecionado = 1;
 }
@@ -24,20 +24,33 @@ FrmFinaliza::FrmFinaliza()
 void FrmFinaliza::inicializacao()
 {
 	l = new Lista();
-	l->adicionaRegistro(1, "À Vista");
-	l->adicionaRegistro(1, "A Prazo");
+	appPedidos->dbPagto->alimentaLista(l);
 }
 
 FrmFinaliza::~FrmFinaliza()
 {
-	if(s)
-		MemPtrFree(s);
 	delete l;
 }
 
 bool FrmFinaliza::event(UInt16 controlID, EventType* e)
 {
-	if(e->eType == keyDownEvent)
+	if(e->eType == ctlSelectEvent)
+		switch(controlID)
+		{
+			case FinalizaOK:
+				if(validarDados())
+				{
+					salvarDados();
+					goToForm(appPedidos->frmEnvio);
+				}
+				break;
+			case FinalizaVoltar:
+				appPedidos->frmItens->numeroPedido = numeroPedido;
+				goToForm(appPedidos->frmItens);
+				break;
+		}
+
+	else if(e->eType == keyDownEvent)
 	{
 		UInt16 idx = FrmGetFocus(getFormType());
 		if(idx == noFocus)
@@ -77,12 +90,23 @@ bool FrmFinaliza::event(UInt16 controlID, EventType* e)
 		}
 		return false;
 	}
-	/*
-	 * TODO
+
 	else if(e->eType == popSelectEvent)
 		if(controlID == FinalizaPagamento)
-			pagtoSelecionado = codPagtos[e->data.popSelect.selection];
-	*/
+		{
+			int p = l->registro(e->data.popSelect.selection);
+			if(p == 0) /* Outra */
+			{
+				displayAlert(ToBeDone);
+				FrmDispatchEvent(e);
+				CtlSetLabel(getControl(FinalizaPagamento), "À Vista");
+				LstSetSelection((ListType*)getControl(FinalizaPagamentoList), 0);
+				pagtoSelecionado = 1;
+				return true;
+			}
+			else
+				pagtoSelecionado = p;
+		}
 
 	return false;
 }
@@ -96,6 +120,7 @@ void FrmFinaliza::carregarPreferencias()
 	CtlSetLabel(getControl(FinalizaPagamento), p->pagamento);
 	this->valorPedido = p->valorPedido;
 	this->numeroPedido = p->numeroPedido;
+	this->pagtoSelecionado = p->pagtoSelecionado;
 
 	this->carregaPreferencias = false;
 }
@@ -108,6 +133,7 @@ void FrmFinaliza::gravarPreferencias()
 	p.numeroForm = N_FORM_FINALIZA;
 	p.valorPedido = this->valorPedido;
 	p.numeroPedido = this->numeroPedido;
+	p.pagtoSelecionado = this->pagtoSelecionado;
 	StrCopyTest(p.vlrDesconto, getField(FinalizaDescontoDinheiro));
 	StrCopyTest(p.percDesconto, getField(FinalizaDescontoPerc));
 	StrCopyTest(p.pagamento, CtlGetLabel(getControl(FinalizaPagamento)));
@@ -117,17 +143,7 @@ void FrmFinaliza::gravarPreferencias()
 
 void FrmFinaliza::doAfterDrawing()
 {
-	s = (Char**)MemPtrNew(l->numeroRegistros() * sizeof(char*));
-	l->stringLista(s);
-
-	LstSetListChoices((ListType*)getControl(FinalizaPagamentoList), s, l->numeroRegistros());
-	if(l->numeroRegistros() >= 10)
-		LstSetHeight((ListType*)getControl(FinalizaPagamentoList), 10);
-	else
-		LstSetHeight((ListType*)getControl(FinalizaPagamentoList), l->numeroRegistros());
-	LstDrawList((ListType*)getControl(FinalizaPagamentoList));
-
-	FrmSetFocus(getFormType(), FrmGetObjectIndex(getFormType(), FinalizaDescontoDinheiro));
+	l->setItensLista((ListType*)getControl(FinalizaPagamentoList), 10);
 
 	Form::doAfterDrawing();
 	ajustaValorTotal();
@@ -138,4 +154,19 @@ void FrmFinaliza::ajustaValorTotal()
 	char valor[25];
 	fmtdbl(this->valorPedido - strToDouble(getField(FinalizaDescontoDinheiro)), 2, valor);
 	setField(FinalizaTotal, valor);
+}
+
+bool FrmFinaliza::validarDados()
+{
+	if(this->valorPedido - strToDouble(getField(FinalizaDescontoDinheiro)) < 0)
+	{
+		mensagemErro("O valor do desconto não pode ser maior que o valor do pedido.");
+		return false;
+	}
+	return true;
+}
+
+void FrmFinaliza::salvarDados()
+{
+	appPedidos->dbPedido->encerraPedido(numeroPedido, pagtoSelecionado, strToDouble(getField(FinalizaDescontoDinheiro)));
 }
