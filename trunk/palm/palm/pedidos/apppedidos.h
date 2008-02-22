@@ -13,6 +13,7 @@ class AppPedidos : public Aplicativo
 public:
 	AppPedidos();
 	~AppPedidos();
+	void inicializacao();
 
 	FrmPrincipal* frmPrincipal;
 	FrmPedido* frmPedido;

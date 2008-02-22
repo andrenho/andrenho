@@ -13,6 +13,8 @@ AppPedidos::AppPedidos() : Aplicativo(1)
 	dbPedido = new DBPedido();
 	dbPedidoItem = new DBPedidoItem();
 	dbProduto = new DBProduto();
+	dbPagto = new DBPagto();
+	dbParcela = new DBParcela();
 
 	buscaCliente = new BuscaCliente();
 
@@ -50,6 +52,11 @@ AppPedidos::AppPedidos() : Aplicativo(1)
 	}
 }
 
+void AppPedidos::inicializacao()
+{
+	frmFinaliza->inicializacao();
+}
+
 AppPedidos::~AppPedidos()
 {
 	delete dbProduto;
@@ -57,6 +64,8 @@ AppPedidos::~AppPedidos()
 	delete dbCidade;
 	delete dbPedido;
 	delete dbPedidoItem;
+	delete dbPagto;
+	delete dbParcela;
 
 	delete buscaCliente;
 
@@ -73,7 +82,8 @@ UInt32 PilotMain(UInt16 cmd, MemPtr cmdPBP, UInt16 launchFlags)
 	{
 		app = new AppPedidos();
 		appPedidos = (AppPedidos*)app;
-		app->executar(cmd);
+		appPedidos->inicializacao();
+		appPedidos->executar(cmd);
 		delete appPedidos;
 	}
 }
