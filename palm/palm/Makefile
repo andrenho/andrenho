@@ -23,8 +23,8 @@ CFLAGS = -O2 -palmos5r4 -I. -I$(GERAL_DIR) -I$(PEDIDOS_DIR) $(ERROR_CHECKING) # 
 GERAL_O = aplicativo.o preferencias.o \
 	  pform.o frmmodal.o buscacliente.o \
 	  database.o dbcliente.o dbcidade.o dbpedido.o dbproduto.o \
-	  dbpedidoitem.o \
-	  debug.o util.o data.o
+	  dbpedidoitem.o dbpagto.o dbparcela.o \
+	  debug.o util.o data.o lista.o
 
 PEDIDOS_O = apppedidos.o \
 	    frmprincipal.o frmpedido.o frmitens.o frmnovoitem.o frmfinaliza.o
@@ -75,9 +75,12 @@ dbcidade.o: dbcidade.cpp dbcidade.h
 dbpedido.o: dbpedido.cpp dbpedido.h
 dbpedidoitem.o: dbpedidoitem.cpp dbpedidoitem.h
 dbproduto.o: dbproduto.cpp dbproduto.h
+dbpagto.o: dbpagto.cpp dbpagto.h
+dbparcela.o: dbparcela.cpp dbparcela.h
 debug.o: debug.cpp debug.h
 util.o: util.cpp util.h
 data.o: data.cpp data.h
+lista.o: lista.cpp lista.h
 
 .cpp.o:
 	$(CPP) $(CFLAGS) -c -o $@ $<

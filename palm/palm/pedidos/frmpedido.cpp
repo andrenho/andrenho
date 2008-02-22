@@ -17,6 +17,7 @@ FrmPedido::FrmPedido() : Form()
 	cidadeSelecionada = -1;
 	cidades = NULL;
 	codCidades = NULL;
+
 	id = PedidoFrm;
 }
 

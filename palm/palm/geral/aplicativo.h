@@ -9,6 +9,8 @@
 #include "dbpedido.h"
 #include "dbpedidoitem.h"
 #include "dbproduto.h"
+#include "dbpagto.h"
+#include "dbparcela.h"
 #include "debug.h"
 
 typedef enum { NonModal, Modal, ReturnFromModal } FrmType;
@@ -35,6 +37,8 @@ public:
 	DBPedido* dbPedido;
 	DBPedidoItem* dbPedidoItem;
 	DBProduto* dbProduto;
+	DBPagto* dbPagto;
+	DBParcela* dbParcela;
 	
 	bool appActive;
 	FrmType frmType;
