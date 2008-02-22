@@ -2,6 +2,7 @@
 #define DBPRODUTO_H
 
 #include "database.h"
+#include "segment.h"
 
 #define GRUPO_CHARS 3
 #define NUMERO_PRODUTO_CHARS 5
@@ -24,8 +25,8 @@ typedef struct
 class DBProduto : public Database
 {
 public:
-	DBProduto();
-	void populateDB();
+	DBProduto() GERAL;
+	void populateDB() GERAL;
 private:
 	const Char* dbName() { return "WGSFProdutosDB"; }
 };

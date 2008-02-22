@@ -2,6 +2,7 @@
 #define LISTA_H
 
 #include "palmincludes.h"
+#include "segment.h"
 
 typedef struct
 {
@@ -34,27 +35,27 @@ class Lista
 {
 public:
 	/// Cria uma nova lista.
-	Lista();
+	Lista() GERAL;
 
 	/// Destrói a lista e libera a memória.
-	~Lista();
+	~Lista() GERAL;
 
 	/// Adiciona um novo registro à lista.
-	void adicionaRegistro(int reg, char* texto);
+	void adicionaRegistro(int reg, char* texto) GERAL;
 
 	/** Coloca os registros na lista do form. Este método deve ser
 	 *  chamado apenas quando o form fica visível. */
-	void setItensLista(ListType* lista, int maxRegistrosVisiveis);
+	void setItensLista(ListType* lista, int maxRegistrosVisiveis) GERAL;
 
 	/** Retorna a chave do registro selecionado, baseado na posição
 	 *  na lista. 
 	 *
 	 *  @returns -1 se não foi encontrado. */
-	int registro(int posicao);
+	int registro(int posicao) GERAL;
 private:
 	Char** ss;
-	int numeroRegistros();
-	void stringLista(Char** s);
+	int numeroRegistros() GERAL;
+	void stringLista(Char** s) GERAL;
 	Registro* lista;
 };
 

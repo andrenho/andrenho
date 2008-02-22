@@ -3,6 +3,7 @@
 
 #include "database.h"
 #include "dbcliente.h"
+#include "segment.h"
 
 typedef enum
 {
@@ -21,10 +22,10 @@ typedef struct
 class DBPedido : public Database
 {
 public:
-	DBPedido();
-	int ultimoPedido();
-	void excluirPedido(int n);
-	void encerraPedido(int nPedido, int pagamento, double valorDesconto);
+	DBPedido() GERAL;
+	int ultimoPedido() GERAL;
+	void excluirPedido(int n) GERAL;
+	void encerraPedido(int nPedido, int pagamento, double valorDesconto) GERAL;
 private:
 	const Char* dbName() { return "WGSFPedidosDB"; }
 };

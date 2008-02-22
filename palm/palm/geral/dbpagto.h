@@ -3,6 +3,7 @@
 
 #include "database.h"
 #include "lista.h"
+#include "segment.h"
 
 typedef struct
 {
@@ -13,11 +14,11 @@ typedef struct
 class DBPagto : public Database
 {
 public:
-	DBPagto();
-	int numeroPagtos();
-	void alimentaLista(Lista* l);
+	DBPagto() GERAL;
+	int numeroPagtos() GERAL;
+	void alimentaLista(Lista* l) GERAL;
 
-	void populateDB();
+	void populateDB() GERAL;
 private:
 	const Char* dbName() { return "WGSFPagtosDB"; }
 };

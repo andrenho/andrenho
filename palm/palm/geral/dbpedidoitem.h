@@ -4,6 +4,7 @@
 #include "database.h"
 #include "dbpedido.h"
 #include "dbpedidoitem.h"
+#include "segment.h"
 
 typedef struct
 {
@@ -18,12 +19,12 @@ typedef struct
 class DBPedidoItem : public Database
 {
 public:
-	DBPedidoItem();
-	int ultimoItem(int nPedido);
-	int numeroItens(int nPedido);
-	double valorPedido(int nPedido);
-	void excluirItem(int pedido, int item);
-	void excluirItens(int pedido);
+	DBPedidoItem() GERAL;
+	int ultimoItem(int nPedido) GERAL;
+	int numeroItens(int nPedido) GERAL;
+	double valorPedido(int nPedido) GERAL;
+	void excluirItem(int pedido, int item) GERAL;
+	void excluirItens(int pedido) GERAL;
 private:
 	const Char* dbName() { return "WGSFPedItensDB"; }
 };
