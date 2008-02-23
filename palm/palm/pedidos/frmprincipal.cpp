@@ -1,5 +1,6 @@
 #include "frmprincipal.h"
 #include "apppedidos.h"
+#include "util.h"
 
 extern Form* current;
 
@@ -40,8 +41,13 @@ void FrmPrincipal::doAfterDrawing()
 	Form::doAfterDrawing();
 	
 	pedidos = appPedidos->dbPedido->numeroPedidos();
-	StrPrintF(buf, "%d pedido%s não enviado%s", pedidos, pedidos == 1 ? "" : "s", pedidos == 1 ? "" : "s");
-	setField(PrincipalNPedidos, buf);
+	if(pedidos > 0)
+	{
+		StrPrintF(buf, "%d pedido%s não enviado%s", pedidos, pedidos == 1 ? "" : "s", pedidos == 1 ? "" : "s");
+		setField(PrincipalNPedidos, buf);
+	}
+	else
+		setField(PrincipalNPedidos, "");
 
 	alimentaLista();
 }
@@ -65,21 +71,16 @@ void FrmPrincipal::alimentaLista()
 		R_Pedido* p = (R_Pedido*)MemHandleLock(h);
 		if(id >= 4000 && id < 4040)
 		{
-			/*
-			char qtd[12], vlr_unit[16], qtd_vlr[30];
+			char nitens[20];
 			char vlr[20], vlr_total[17];
-			fmtdbl(p->quantidade, -1, qtd);
-			fmtdbl(p->valor, 2, vlr_unit);
-			fmtdbl(p->quantidade * p->valor, 2, vlr_total);
-			StrPrintF(qtd_vlr, "%s x R$ %s", qtd, vlr_unit);
+			int itens = appPedidos->dbPedido->numeroItens(p->n);
+			fmtdbl(appPedidos->dbPedido->valorTotal(p->n), 2, vlr_total);
+			StrPrintF(nitens, "(%d ite%s)", itens, itens == 1 ? "m" : "ns");
 			StrPrintF(vlr, "R$ %s", vlr_total);
-			*/
-			setField(id + 1, "Teste"); // TODO
+			setField(id + 1, p->fantasiaCliente); // TODO
 			FrmShowObject(getFormType(), FrmGetObjectIndex(getFormType(), id + 2));
-			/*
-			setField(id + 3, qtd_vlr);
+			setField(id + 3, nitens);
 			setField(id + 4, vlr);
-			*/
 		}
 		id += 10;
 		numRegistros++;

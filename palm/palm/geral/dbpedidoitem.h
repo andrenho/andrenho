@@ -4,6 +4,7 @@
 #include "database.h"
 #include "dbpedido.h"
 #include "dbpedidoitem.h"
+#include "dbproduto.h"
 #include "segment.h"
 
 typedef struct
@@ -14,6 +15,7 @@ typedef struct
 	double quantidade;
 	double valor;
 	DateType dataEntrega;
+	char descProduto[DESC_PRODUTO_CHARS];
 } R_PedidoItem;
 
 class DBPedidoItem : public Database

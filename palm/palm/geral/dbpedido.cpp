@@ -67,8 +67,8 @@ void DBPedido::encerraPedido(int nPedido, int pagamento, double valorDesconto)
 			novo = (R_Pedido*)MemHandleLock(novoH);
 			MemMove(novo, p, sizeof(R_Pedido));
 			novo->status = INSERIDO;
-			novo->pagamento;
-			novo->vlrDesconto;
+			novo->pagamento = pagamento;
+			novo->vlrDesconto = valorDesconto;
 			DmWrite(p, 0, novo, sizeof(R_Pedido));
 			MemHandleUnlock(novoH);
 			MemHandleFree(novoH);
@@ -81,4 +81,34 @@ void DBPedido::encerraPedido(int nPedido, int pagamento, double valorDesconto)
 int DBPedido::numeroPedidos()
 {
 	return DmNumRecords(db);
+}
+
+int DBPedido::numeroItens(int nPedido)
+{
+	return app->dbPedidoItem->numeroItens(nPedido);
+}
+
+float DBPedido::valorTotal(int nPedido)
+{
+	float total = 0;
+	int i;
+
+	for(i=0; i<DmNumRecords(app->dbPedidoItem->db); i++)
+	{
+		MemHandle h = DmQueryRecord(app->dbPedidoItem->db, i);
+		R_PedidoItem* p = (R_PedidoItem*)MemHandleLock(h);
+		if(p->pedido == nPedido)
+			total += (p->quantidade * p->valor);
+		MemHandleUnlock(h);
+	}
+	for(i=0; i<DmNumRecords(db); i++)
+	{
+		MemHandle h = DmQueryRecord(db, i);
+		R_Pedido* p = (R_Pedido*)MemHandleLock(h);
+		if(p->n == nPedido)
+			total -= p->vlrDesconto;
+		MemHandleUnlock(h);
+	}
+
+	return total;
 }

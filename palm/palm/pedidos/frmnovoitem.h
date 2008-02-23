@@ -2,6 +2,7 @@
 #define FRM_NOVO_ITEM_H
 
 #include "pform.h"
+#include "dbproduto.h"
 
 #define N_FORM_NOVO_ITEM 3
 
@@ -24,6 +25,7 @@ private:
 	int produto;
 	MemHandle hDataEntrega;
 	Char* dataEntrega;
+	char descProduto[DESC_PRODUTO_CHARS];
 };
 
 #endif

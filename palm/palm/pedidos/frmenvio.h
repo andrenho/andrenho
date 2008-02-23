@@ -12,6 +12,10 @@ public:
 	void gravarPreferencias();
 	void carregarPreferencias();
 	bool event(UInt16 controlID, EventType* e);
+
+	int numeroPedido;
+protected:
+	void doAfterDrawing();
 };
 
 #endif

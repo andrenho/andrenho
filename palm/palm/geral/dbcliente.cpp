@@ -13,10 +13,10 @@ void DBCliente::populateDB()
 	StrCopy(r.Fantasia, "Andre");
 	StrCopy(r.RazaoSocial, "André Wagner");
 	r.cidade = 1;
+	StrCopy(r.Email, "andre.nho@gmail.com");
 
 	adicionaRegistro(&r, sizeof(R_Cliente));
 }
-
 /*
 R_Cliente* DBCliente::busca(Char* fantasia, bool parcial)
 {
