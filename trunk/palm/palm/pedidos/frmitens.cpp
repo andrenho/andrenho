@@ -47,7 +47,7 @@ bool FrmItens::event(UInt16 controlID, EventType* e)
 	{
 		itemNoTopo = e->data.sclRepeat.newValue;
 		alimentaLista();
-		return true;
+		return false;
 	}
 
 	return false;
