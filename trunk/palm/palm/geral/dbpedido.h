@@ -17,6 +17,7 @@ typedef struct
 	int pagamento;
 	double vlrDesconto;
 	STATUS status;
+	char fantasiaCliente[FANTASIA_CHARS];
 } R_Pedido;
 
 class DBPedido : public Database
@@ -27,6 +28,8 @@ public:
 	void excluirPedido(int n) GERAL;
 	void encerraPedido(int nPedido, int pagamento, double valorDesconto) GERAL;
 	int numeroPedidos() GERAL;
+	int numeroItens(int nPedido);
+	float valorTotal(int nPedido);
 private:
 	const Char* dbName() { return "WGSFPedidosDB"; }
 };

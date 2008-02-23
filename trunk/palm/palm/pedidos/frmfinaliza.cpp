@@ -42,6 +42,7 @@ bool FrmFinaliza::event(UInt16 controlID, EventType* e)
 				{
 					salvarDados();
 					SndPlaySystemSound(sndConfirmation);
+					appPedidos->frmEnvio->numeroPedido = numeroPedido;
 					goToForm(appPedidos->frmEnvio);
 				}
 				break;

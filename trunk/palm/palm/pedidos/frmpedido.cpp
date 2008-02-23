@@ -107,6 +107,7 @@ void FrmPedido::salvarDados()
 	p.n = numeroPedido;
 	StrCopy(p.cnpj, getField(PedidoCNPJ));
 	p.status = DIGITANDO;
+	StrCopy(p.fantasiaCliente, getField(PedidoCliente));
 
 	b = appPedidos->dbPedido->adicionaRegistro(&p, sizeof(R_Pedido));
 

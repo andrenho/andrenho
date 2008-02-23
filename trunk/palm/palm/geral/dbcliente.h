@@ -7,6 +7,7 @@
 #define CNPJ_CHARS 18
 #define FANTASIA_CHARS 20
 #define RAZAOSOCIAL_CHARS 50
+#define EMAIL_CHARS 100
 
 typedef struct
 {
@@ -14,6 +15,7 @@ typedef struct
 	char Fantasia[FANTASIA_CHARS];
 	char RazaoSocial[RAZAOSOCIAL_CHARS];
 	int cidade;
+	char Email[EMAIL_CHARS];
 } R_Cliente;
 
 class DBCliente : public Database

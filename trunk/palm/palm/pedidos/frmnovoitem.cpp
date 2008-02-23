@@ -37,7 +37,8 @@ bool FrmNovoItem::event(UInt16 controlID, EventType* e)
 		switch(controlID)
 		{
 			case NovoItemProdutoBusca:
-				this->produto = 1; // TODO
+				this->produto = 1;                   // TODO
+				StrCopy(this->descProduto, "Teste"); // TODO
 				break;
 			case NovoItemExcluir:
 				goToForm(appPedidos->frmItens);
@@ -158,6 +159,7 @@ void FrmNovoItem::salvarDados()
 	p.quantidade = getFieldD(NovoItemQuantidade);
 	p.valor = getFieldD(NovoItemValor);
 	p.dataEntrega = dtPl;
+	StrCopy(p.descProduto, descProduto);
 
 	b = appPedidos->dbPedidoItem->adicionaRegistro(&p, sizeof(R_PedidoItem));
 	ErrFatalDisplayIf(!b, "Registro do item do pedido não pode ser adicionado.");

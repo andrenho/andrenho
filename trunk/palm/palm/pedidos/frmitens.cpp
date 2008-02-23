@@ -109,7 +109,7 @@ void FrmItens::alimentaLista()
 				fmtdbl(p->quantidade * p->valor, 2, vlr_total);
 				StrPrintF(qtd_vlr, "%s x R$ %s", qtd, vlr_unit);
 				StrPrintF(vlr, "R$ %s", vlr_total);
-				setField(id + 1, "Teste"); // TODO
+				setField(id + 1, p->descProduto); // TODO
 				FrmShowObject(getFormType(), FrmGetObjectIndex(getFormType(), id + 2));
 				setField(id + 3, qtd_vlr);
 				setField(id + 4, vlr);
