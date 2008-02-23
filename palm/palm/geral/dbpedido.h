@@ -7,7 +7,7 @@
 
 typedef enum
 {
-	DIGITANDO, INSERIDO
+	DIGITANDO = 1, INSERIDO
 } STATUS;
 
 typedef struct
@@ -26,6 +26,7 @@ public:
 	int ultimoPedido() GERAL;
 	void excluirPedido(int n) GERAL;
 	void encerraPedido(int nPedido, int pagamento, double valorDesconto) GERAL;
+	int numeroPedidos() GERAL;
 private:
 	const Char* dbName() { return "WGSFPedidosDB"; }
 };

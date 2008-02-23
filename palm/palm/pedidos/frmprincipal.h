@@ -9,6 +9,12 @@ public:
 	FrmPrincipal();
 	void gravarPreferencias();
 	bool event(UInt16 controlID, EventType* e);
+protected:
+	void doAfterDrawing();
+private:
+	void alimentaLista();
+
+	int itemNoTopo;
 };
 
 #endif

@@ -16,6 +16,9 @@ bool FrmEnvio::event(UInt16 controlID, EventType* e)
 	if(e->eType == ctlSelectEvent)
 		switch(controlID)
 		{
+			case EnvioOK:
+				goToForm(appPedidos->frmPrincipal);
+				break;
 		}
 	return false;
 }

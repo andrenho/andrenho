@@ -49,8 +49,9 @@ bool FrmPedido::event(UInt16 controlID, EventType* e)
 					mensagemErro("Cliente não selecionado.");
 				else
 				{
-					goToForm(appPedidos->frmItens);
 					salvarDados();
+					appPedidos->frmItens->numeroPedido = numeroPedido;
+					goToForm(appPedidos->frmItens);
 				}
 				return true;
 		}
@@ -100,11 +101,10 @@ void FrmPedido::salvarDados()
 {
 	R_Pedido p;
 	bool b;
-	int n = appPedidos->dbPedido->ultimoPedido() + 1;
 
 	ErrFatalDisplayIf(getField(PedidoCNPJ) == NULL, "CNPJ do cliente está nulo");
 	
-	p.n = n;
+	p.n = numeroPedido;
 	StrCopy(p.cnpj, getField(PedidoCNPJ));
 	p.status = DIGITANDO;
 
@@ -112,8 +112,7 @@ void FrmPedido::salvarDados()
 
 	ErrFatalDisplayIf(!b, "Registro do pedido não pode ser adicionado.");
 
-	appPedidos->frmItens->numeroPedido = n;
-	this->nPedidoAtual = n;
+	appPedidos->frmItens->numeroPedido = numeroPedido;
 }
 
 void FrmPedido::carregarPreferencias()

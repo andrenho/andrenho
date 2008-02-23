@@ -16,8 +16,8 @@ int DBPedido::ultimoPedido()
 	{
 		MemHandle h = DmQueryRecord(db, i);
 		R_Pedido* p = (R_Pedido*)MemHandleLock(h);
-		if(p->n > i)
-			i = p->n;
+		if(p->n > max)
+			max = p->n;
 		MemHandleUnlock(h);
 	}
 
@@ -53,19 +53,32 @@ void DBPedido::excluirPedido(int n)
 void DBPedido::encerraPedido(int nPedido, int pagamento, double valorDesconto)
 {
 	int i;
+
 	for(i=0; i<DmNumRecords(db); i++)
 	{
 		MemHandle h = DmGetRecord(db, i);
 		R_Pedido* p = (R_Pedido*)MemHandleLock(h);
+		MemHandle novoH;
+		R_Pedido* novo;
+
 		if(p->n == nPedido)
 		{
-			debug("vai escrever");
-			p->status = INSERIDO;
-			p->pagamento = pagamento;
-			p->vlrDesconto = valorDesconto;
-			debug("escrito");
+			novoH = MemHandleNew(sizeof(R_Pedido));
+			novo = (R_Pedido*)MemHandleLock(novoH);
+			MemMove(novo, p, sizeof(R_Pedido));
+			novo->status = INSERIDO;
+			novo->pagamento;
+			novo->vlrDesconto;
+			DmWrite(p, 0, novo, sizeof(R_Pedido));
+			MemHandleUnlock(novoH);
+			MemHandleFree(novoH);
 		}
 		MemHandleUnlock(h);
 		DmReleaseRecord(db, i, false);
 	}
+}
+
+int DBPedido::numeroPedidos()
+{
+	return DmNumRecords(db);
 }

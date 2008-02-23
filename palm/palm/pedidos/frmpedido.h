@@ -14,7 +14,7 @@ public:
 	void carregarPreferencias();
 	void gravarPreferencias();
 
-	int nPedidoAtual;
+	int numeroPedido;
 	Char* cliente;
 protected:
 	void doAfterDrawing();
