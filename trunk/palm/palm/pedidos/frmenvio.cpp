@@ -41,7 +41,7 @@ void FrmEnvio::doAfterDrawing()
 			{
 				MemHandle h2 = DmQueryRecord(appPedidos->dbCliente->db, j);
 				R_Cliente* p2 = (R_Cliente*)MemHandleLock(h2);
-				if(StrCompare(p2->CNPJ, p->cnpj))
+				if(StrCompare(p2->CNPJ, p->cnpj) == 0)
 				{
 					if(p2->Email)
 						setField(EnvioEmailPara, p2->Email);
