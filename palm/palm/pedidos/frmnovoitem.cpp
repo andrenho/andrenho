@@ -91,7 +91,7 @@ void FrmNovoItem::doAfterDrawing()
 			MemHandle h = DmQueryRecord(appPedidos->dbPedidoItem->db, i);
 			R_PedidoItem* p = (R_PedidoItem*)MemHandleLock(h);
 			
-			
+			// TODO
 
 			MemHandleUnlock(h);
 		}
