@@ -74,12 +74,29 @@ bool FrmNovoItem::event(UInt16 controlID, EventType* e)
 
 void FrmNovoItem::doAfterDrawing()
 {
-	this->produto = -1;
-	FrmSetFocus(getFormType(), FrmGetObjectIndex(getFormType(), NovoItemProduto));
+	if(tipoInsercao == INSERINDO)
+	{
+		this->produto = -1;
+		FrmSetFocus(getFormType(), FrmGetObjectIndex(getFormType(), NovoItemProduto));
 
-	Data data;
-	data.formatarTexto(dataEntrega);
-	CtlSetLabel(getControl(NovoItemEntrega), dataEntrega);
+		Data data;
+		data.formatarTexto(dataEntrega);
+		CtlSetLabel(getControl(NovoItemEntrega), dataEntrega);
+	}
+	else if(tipoInsercao == EDITANDO)
+	{
+		int i;
+		for(i=0; i<DmNumRecords(appPedidos->dbPedidoItem->db); i++)
+		{
+			MemHandle h = DmQueryRecord(appPedidos->dbPedidoItem->db, i);
+			R_PedidoItem* p = (R_PedidoItem*)MemHandleLock(h);
+			
+			
+
+			MemHandleUnlock(h);
+		}
+
+	}
 	
 	Form::doAfterDrawing();
 }

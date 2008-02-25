@@ -5,6 +5,8 @@
 #include "pedidos.h"
 #include "segment.h"
 
+typedef enum { INSERINDO, EDITANDO } TipoInsercao;
+
 class Form
 {
 public:
