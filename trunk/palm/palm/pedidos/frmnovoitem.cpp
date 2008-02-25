@@ -88,9 +88,13 @@ void FrmNovoItem::doAfterDrawing()
 		int i;
 		for(i=0; i<DmNumRecords(appPedidos->dbPedidoItem->db); i++)
 		{
+			char qtd[12];
 			MemHandle h = DmQueryRecord(appPedidos->dbPedidoItem->db, i);
 			R_PedidoItem* p = (R_PedidoItem*)MemHandleLock(h);
 			
+			fmtdbl(p->quantidade, -1, qtd);
+			setField(NovoItemQuantidade, qtd);
+
 			// TODO
 
 			MemHandleUnlock(h);
