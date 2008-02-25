@@ -11,6 +11,7 @@ class Database
 public:
 	~Database() GERAL;
 	virtual bool adicionaRegistro(void* r, int size) GERAL;
+	virtual bool atualizaRegistro(void* r) GERAL;
 	int numeroRegistros() GERAL;
 	void* registro(int n) GERAL;
 

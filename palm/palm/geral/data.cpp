@@ -1,4 +1,5 @@
 #include "data.h"
+#include "debug.h"
 
 Data::Data()
 {
@@ -36,6 +37,14 @@ Data::Data(const Char* data)
 	// TODO checar validade
 }
 
+Data::Data(DateType* dt)
+{
+	this->dia = dt->day;
+	this->mes = dt->month;
+	this->ano = dt->year + 1904;
+//	debug(this->ano);
+}
+
 void Data::ajusta(char dia, char mes, int ano)
 {
 	this->dia = dia;
@@ -52,5 +61,5 @@ void Data::formatarPalm(DateType* data)
 {
 	data->day = this->dia;
 	data->month = this->mes;
-	data->year = this->ano;
+	data->year = this->ano - 1904;
 }

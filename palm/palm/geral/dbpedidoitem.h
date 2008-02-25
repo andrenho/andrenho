@@ -14,7 +14,7 @@ typedef struct
 	int produto;
 	double quantidade;
 	double valor;
-	DateType dataEntrega;
+	char dataEntrega[11];
 	char descProduto[DESC_PRODUTO_CHARS];
 } R_PedidoItem;
 
@@ -27,6 +27,7 @@ public:
 	double valorPedido(int nPedido) GERAL;
 	void excluirItem(int pedido, int item) GERAL;
 	void excluirItens(int pedido) GERAL;
+	bool atualizaRegistro(void* r) GERAL;
 private:
 	const Char* dbName() { return "WGSFPedItensDB"; }
 };

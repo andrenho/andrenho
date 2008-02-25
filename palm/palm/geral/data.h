@@ -10,6 +10,7 @@ public:
 	Data() GERAL;
 	Data(const Char* data) GERAL;
 	Data(char dia, char mes, int ano) GERAL;
+	Data(DateType* dt) GERAL;
 
 	void ajusta(char dia, char mes, int ano) GERAL;
 	void formatarTexto(Char* data) GERAL;
