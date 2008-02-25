@@ -16,6 +16,7 @@ public:
 	void gravarPreferencias();
 	void doAfterDrawing();
 
+	TipoInsercao tipoInsercao;
 	int numeroPedido;
 	int numeroItem;
 private:

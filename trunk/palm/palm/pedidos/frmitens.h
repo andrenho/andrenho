@@ -12,6 +12,8 @@ public:
 	bool event(UInt16 controlID, EventType* e);
 	void carregarPreferencias();
 	void gravarPreferencias();
+
+	TipoInsercao tipoInsercao;
 	int numeroPedido;
 protected:
 	void doAfterDrawing();

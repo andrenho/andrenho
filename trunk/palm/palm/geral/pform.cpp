@@ -2,27 +2,25 @@
 #include "aplicativo.h"
 #include "util.h"
 
-	Form::Form()
+Form::Form()
+{
+	carregaPreferencias = false;
+}
+
+void Form::open()
+{
+	UInt16 err;
+	EventType e;
+
+	this->leave_form = false;
+	FrmGotoForm(this->id);
+
+	while(!this->leave_form)
 	{
-		carregaPreferencias = false;
-	}
-
-	void Form::open()
-	{
-		UInt16 err;
-		EventType e;
-
-		this->leave_form = false;
-
-		FrmGotoForm(this->id);
-
-		while(!this->leave_form)
-		{
-			EvtGetEvent(&e, 100);
-
+		EvtGetEvent(&e, 100);
 			if (SysHandleEvent(&e))
 				continue;
-			if (MenuHandleEvent(NULL, &e, &err))
+		if (MenuHandleEvent(NULL, &e, &err))
 			continue;
 
 		switch(e.eType)
