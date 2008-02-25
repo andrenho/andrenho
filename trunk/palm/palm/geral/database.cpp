@@ -54,6 +54,11 @@ bool Database::adicionaRegistro(void* r, int size)
 	return true;
 }
 
+bool Database::atualizaRegistro(void* r)
+{
+	ErrFatalDisplay("Método virtual não implementado.");
+}
+
 int Database::numeroRegistros()
 {
 	return DmNumRecords(this->db);

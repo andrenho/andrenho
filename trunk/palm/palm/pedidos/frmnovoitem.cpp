@@ -88,20 +88,35 @@ void FrmNovoItem::doAfterDrawing()
 		int i;
 		for(i=0; i<DmNumRecords(appPedidos->dbPedidoItem->db); i++)
 		{
-			char qtd[12];
 			MemHandle h = DmQueryRecord(appPedidos->dbPedidoItem->db, i);
 			R_PedidoItem* p = (R_PedidoItem*)MemHandleLock(h);
-			
-			fmtdbl(p->quantidade, -1, qtd);
-			setField(NovoItemQuantidade, qtd);
 
-			// TODO
+			if(p->pedido == numeroPedido && p->n == numeroItem)
+			{
+				char qtd[12], vlr[20], dt[11];
+
+				this->produto = p->produto;
+				setField(NovoItemDescProduto, p->descProduto);
+
+				fmtdbl(p->quantidade, -1, qtd);
+				setField(NovoItemQuantidade, qtd);
+
+				fmtdbl(p->valor, 2, vlr);
+				setField(NovoItemValor, vlr);
+
+				CtlSetLabel(getControl(NovoItemEntrega), p->dataEntrega);
+
+				MemHandleUnlock(h);
+				goto found;
+			}
 
 			MemHandleUnlock(h);
 		}
 
+		ErrFatalDisplay("Item não encontrado.");
 	}
-	
+
+found:
 	Form::doAfterDrawing();
 }
 
@@ -170,18 +185,18 @@ void FrmNovoItem::salvarDados()
 	// esta função assume que os dados já foram validados
 	R_PedidoItem p;
 	bool b;
-	DateType dtPl;
-	Data data(CtlGetLabel(getControl(NovoItemEntrega)));
-	data.formatarPalm(&dtPl);
 
 	p.pedido = this->numeroPedido;
 	p.n = this->numeroItem;
 	p.produto = this->produto;
 	p.quantidade = getFieldD(NovoItemQuantidade);
 	p.valor = getFieldD(NovoItemValor);
-	p.dataEntrega = dtPl;
+	StrCopy(p.dataEntrega, CtlGetLabel(getControl(NovoItemEntrega)));
 	StrCopy(p.descProduto, descProduto);
 
-	b = appPedidos->dbPedidoItem->adicionaRegistro(&p, sizeof(R_PedidoItem));
+	if(tipoInsercao == INSERINDO)
+		b = appPedidos->dbPedidoItem->adicionaRegistro(&p, sizeof(R_PedidoItem));
+	else if(tipoInsercao == EDITANDO)
+		b = appPedidos->dbPedidoItem->atualizaRegistro(&p);
 	ErrFatalDisplayIf(!b, "Registro do item do pedido não pode ser adicionado.");
 }

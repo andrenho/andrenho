@@ -87,7 +87,7 @@ bool FrmItens::event(UInt16 controlID, EventType* e)
 
 		appPedidos->frmNovoItem->numeroPedido = this->numeroPedido;
 		appPedidos->frmNovoItem->numeroItem = nItem;
-		appPedidos->frmNovoItem->tipoInsercao = INSERINDO;
+		appPedidos->frmNovoItem->tipoInsercao = EDITANDO;
 		goToForm(appPedidos->frmNovoItem);
 
 		return true;
