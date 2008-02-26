@@ -70,6 +70,11 @@ bool Form::perguntaSimNao(Char* mensagem)
 	return FrmCustomAlert(PerguntaSimNao, mensagem, " ", " ") == 0 ? true : false;
 }
 
+bool Form::perguntaAvisoSimNao(Char* mensagem)
+{
+	return FrmCustomAlert(PerguntaAvisoSimNao, mensagem, " ", " ") == 0 ? true : false;
+}
+
 FormType* Form::getFormType()
 {
 	return FrmGetFormPtr(this->id);

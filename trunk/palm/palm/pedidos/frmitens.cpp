@@ -21,7 +21,12 @@ bool FrmItens::event(UInt16 controlID, EventType* e)
 		switch(controlID)
 		{
 			case ItensCancelar:
-				if(perguntaSimNao("Tem certeza que deseja cancelar a inclusão deste pedido?"))
+				bool resp;
+				if(tipoInsercao == INSERINDO)
+					resp = perguntaSimNao("Tem certeza que deseja cancelar a inclusão deste pedido?");
+				else
+					resp = perguntaAvisoSimNao("Tem certeza que deseja EXCLUIR este pedido?");
+				if(resp)
 				{
 					appPedidos->dbPedido->excluirPedido(numeroPedido);
 					goToForm(appPedidos->frmPrincipal);
@@ -29,7 +34,7 @@ bool FrmItens::event(UInt16 controlID, EventType* e)
 				return true;
 			case ItensNovo:
 				appPedidos->frmNovoItem->numeroPedido = this->numeroPedido;
-				appPedidos->frmNovoItem->numeroItem = appPedidos->dbPedidoItem->ultimoItem(numeroPedido);
+				appPedidos->frmNovoItem->numeroItem = appPedidos->dbPedidoItem->ultimoItem(numeroPedido) + 1;
 				appPedidos->frmNovoItem->tipoInsercao = INSERINDO;
 				goToForm(appPedidos->frmNovoItem);
 				return true;
@@ -46,22 +51,22 @@ bool FrmItens::event(UInt16 controlID, EventType* e)
 		}
 	else if(e->eType == penUpEvent)
 	{
-		int n = 0, nItem = 0, i, j;
+		int n = -1, nItem = 0, i, j;
 
 		if(insideRect(e->data.penUp.start.x, e->data.penUp.start.y, 137, 19, 147, 29)
 		&& insideRect(e->data.penUp.end.x, e->data.penUp.end.y, 137, 19, 147, 29))
-			n = 1;
+			n = 0;
 		else if(insideRect(e->data.penUp.start.x, e->data.penUp.start.y, 137, 46, 147, 56)
 		&& insideRect(e->data.penUp.end.x, e->data.penUp.end.y, 137, 46, 147, 56))
-			n = 2;
+			n = 1;
 		else if(insideRect(e->data.penUp.start.x, e->data.penUp.start.y, 137, 73, 147, 83)
 		&& insideRect(e->data.penUp.end.x, e->data.penUp.end.y, 137, 73, 147, 83))
-			n = 3;
+			n = 2;
 		else if(insideRect(e->data.penUp.start.x, e->data.penUp.start.y, 137, 100, 147, 110)
 		&& insideRect(e->data.penUp.end.x, e->data.penUp.end.y, 137, 100, 147, 110))
-			n = 4;
+			n = 3;
 		FrmDispatchEvent(e);
-		if(n == 0)
+		if(n == -1)
 			return true;
 		n += (itemNoTopo - 1);
 
@@ -73,17 +78,18 @@ bool FrmItens::event(UInt16 controlID, EventType* e)
 			R_PedidoItem* p = (R_PedidoItem*)MemHandleLock(h);
 			if(p->pedido == numeroPedido)
 			{
-				j++;
 				if(j == n)
 				{
 					nItem = p->n;
 					MemHandleUnlock(h);
-					break;
+					goto found;
 				}
+				j++;
 			}
 			MemHandleUnlock(h);
 		}
-		ErrNonFatalDisplayIf(nItem, "nItem deve ter algum valor.");
+		ErrNonFatalDisplayIf(nItem, "Item não encontrado.");
+found:
 
 		appPedidos->frmNovoItem->numeroPedido = this->numeroPedido;
 		appPedidos->frmNovoItem->numeroItem = nItem;
@@ -129,6 +135,11 @@ void FrmItens::doAfterDrawing()
 	int itens;
 
 	Form::doAfterDrawing();
+
+	if(tipoInsercao == INSERINDO)
+		CtlSetLabel(getControl(ItensCancelar), "Cancelar");
+	else if (tipoInsercao == EDITANDO)
+		CtlSetLabel(getControl(ItensCancelar), "Excluir...");
 	
 	itens = appPedidos->dbPedidoItem->numeroItens(this->numeroPedido);
 	StrPrintF(buf, "%d ite%s", itens, itens == 1 ? "m" : "ns");
@@ -181,6 +192,10 @@ void FrmItens::alimentaLista()
 	if(numRegistros == 0)
 		numRegistros = 1;
 
-	SclSetScrollBar((ScrollBarType*)getControl(ItensScroll),
-			itemNoTopo, 1, numRegistros, 4);
+	if(numRegistros > 4)
+		SclSetScrollBar((ScrollBarType*)getControl(ItensScroll),
+				itemNoTopo, 1, numRegistros-3, 4);
+	else
+		SclSetScrollBar((ScrollBarType*)getControl(ItensScroll),
+				1, 1, 1, 4);
 }

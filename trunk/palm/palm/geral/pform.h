@@ -27,6 +27,7 @@ protected:
 	void displayAlert(UInt16 id) GERAL;
 	void mensagemErro(Char* message) GERAL;
 	bool perguntaSimNao(Char* mensagem) GERAL;
+	bool perguntaAvisoSimNao(Char* mensagem) GERAL;
 	FormType* getFormType() GERAL;
 
 	bool leave_form;

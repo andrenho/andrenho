@@ -19,6 +19,7 @@ AppPedidos::AppPedidos() : Aplicativo(1)
 	buscaCliente = new BuscaCliente();
 
 	frmPrincipal = new FrmPrincipal();
+	frmConsulta = new FrmConsulta();
 	frmPedido = new FrmPedido();
 	frmItens = new FrmItens();
 	frmNovoItem = new FrmNovoItem();
@@ -78,6 +79,7 @@ AppPedidos::~AppPedidos()
 	delete frmNovoItem;
 	delete frmItens;
 	delete frmPedido;
+	delete frmConsulta;
 	delete frmPrincipal;
 }
 

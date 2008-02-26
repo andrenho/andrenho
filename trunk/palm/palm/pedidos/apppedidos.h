@@ -3,6 +3,7 @@
 
 #include "aplicativo.h"
 #include "frmprincipal.h"
+#include "frmconsulta.h"
 #include "frmpedido.h"
 #include "frmitens.h"
 #include "frmnovoitem.h"
@@ -17,6 +18,7 @@ public:
 	void inicializacao();
 
 	FrmPrincipal* frmPrincipal;
+	FrmConsulta* frmConsulta;
 	FrmPedido* frmPedido;
 	FrmItens* frmItens;
 	FrmNovoItem* frmNovoItem;
