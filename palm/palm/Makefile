@@ -29,7 +29,7 @@ GERAL_O = aplicativo.o preferencias.o \
 
 PEDIDOS_O = apppedidos.o \
 	    frmprincipal.o frmpedido.o frmitens.o frmnovoitem.o \
-	    frmfinaliza.o frmenvio.o
+	    frmfinaliza.o frmenvio.o frmconsulta.o
 
 # 
 # Regras padrão
@@ -67,6 +67,7 @@ pedidos-sections.s pedidos-sections.ld: pedidos/pedidos.def
 # 
 apppedidos.o: apppedidos.cpp apppedidos.h
 frmprincipal.o: frmprincipal.cpp frmprincipal.h
+frmconsulta.o: frmconsulta.cpp frmconsulta.h
 frmpedido.o: frmpedido.cpp frmpedido.h
 frmitens.o: frmitens.cpp frmitens.h
 frmnovoitem.o: frmnovoitem.cpp frmnovoitem.h

@@ -3,6 +3,9 @@
 #include "util.h"
 #include "data.h"
 
+#define NOVO_ITEM   "Novo Item"
+#define EDITAR_ITEM "Editar Item"
+
 typedef struct
 {
 	int numeroForm;
@@ -40,15 +43,15 @@ bool FrmNovoItem::event(UInt16 controlID, EventType* e)
 				this->produto = 1;                   // TODO
 				StrCopy(this->descProduto, "Teste"); // TODO
 				break;
-			case NovoItemExcluir:
+			case NovoItemCancelar:
 				goToForm(appPedidos->frmItens);
-				/*
-				if(perguntaSimNao("Tem certeza que deseja excluir este item?"))
+				break;
+			case NovoItemExcluir:
+				if(perguntaAvisoSimNao("Tem certeza que deseja excluir este item?"))
 				{
 					appPedidos->dbPedidoItem->excluirItem(numeroPedido, numeroItem);
 					goToForm(appPedidos->frmItens);
 				}
-				*/
 				break;
 			case NovoItemInserir:
 				if(validarDados())
@@ -79,6 +82,9 @@ void FrmNovoItem::doAfterDrawing()
 		this->produto = -1;
 		FrmSetFocus(getFormType(), FrmGetObjectIndex(getFormType(), NovoItemProduto));
 
+		FrmHideObject(getFormType(), FrmGetObjectIndex(getFormType(), NovoItemExcluir));
+		FrmSetTitle(getFormType(), NOVO_ITEM);
+
 		Data data;
 		data.formatarTexto(dataEntrega);
 		CtlSetLabel(getControl(NovoItemEntrega), dataEntrega);
@@ -86,6 +92,10 @@ void FrmNovoItem::doAfterDrawing()
 	else if(tipoInsercao == EDITANDO)
 	{
 		int i;
+
+		FrmShowObject(getFormType(), FrmGetObjectIndex(getFormType(), NovoItemExcluir));
+		FrmSetTitle(getFormType(), EDITAR_ITEM);
+
 		for(i=0; i<DmNumRecords(appPedidos->dbPedidoItem->db); i++)
 		{
 			MemHandle h = DmQueryRecord(appPedidos->dbPedidoItem->db, i);
@@ -198,5 +208,5 @@ void FrmNovoItem::salvarDados()
 		b = appPedidos->dbPedidoItem->adicionaRegistro(&p, sizeof(R_PedidoItem));
 	else if(tipoInsercao == EDITANDO)
 		b = appPedidos->dbPedidoItem->atualizaRegistro(&p);
-	ErrFatalDisplayIf(!b, "Registro do item do pedido não pode ser adicionado.");
+	ErrFatalDisplayIf(!b, "Registro do item do pedido não pôde ser adicionado.");
 }

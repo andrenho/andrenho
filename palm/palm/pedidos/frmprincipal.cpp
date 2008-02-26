@@ -31,41 +31,37 @@ bool FrmPrincipal::event(UInt16 controlID, EventType* e)
 	}
 	else if(e->eType == penUpEvent)
 	{
-		int n = 0, nPedido;
+		int n = -1, nPedido;
 		MemHandle h;
 		R_Pedido* p;
 
 		if(insideRect(e->data.penUp.start.x, e->data.penUp.start.y, 137, 19, 147, 29)
 		&& insideRect(e->data.penUp.end.x, e->data.penUp.end.y, 137, 19, 147, 29))
-			n = 1;
+			n = 0;
 		else if(insideRect(e->data.penUp.start.x, e->data.penUp.start.y, 137, 46, 147, 56)
 		&& insideRect(e->data.penUp.end.x, e->data.penUp.end.y, 137, 46, 147, 56))
-			n = 2;
+			n = 1;
 		else if(insideRect(e->data.penUp.start.x, e->data.penUp.start.y, 137, 73, 147, 83)
 		&& insideRect(e->data.penUp.end.x, e->data.penUp.end.y, 137, 73, 147, 83))
-			n = 3;
+			n = 2;
 		else if(insideRect(e->data.penUp.start.x, e->data.penUp.start.y, 137, 100, 147, 110)
 		&& insideRect(e->data.penUp.end.x, e->data.penUp.end.y, 137, 100, 147, 110))
-			n = 4;
+			n = 3;
 		FrmDispatchEvent(e);
-		if(n == 0)
+		if(n == -1)
 			return true;
 		n += (itemNoTopo - 1);
 
 		// pega pedido na ordem
 		h = DmQueryRecord(appPedidos->dbPedido->db, n);
+		ErrFatalDisplayIf(h == NULL, "Pedido não encontrado");
 		p = (R_Pedido*)MemHandleLock(h);
 		nPedido = p->n;
 		MemHandleUnlock(h);
 
 		// abre o pedido para visualização
-		/*
-		 * TODO
-		appPedidos->frmItens->numeroPedido = nPedido;
-		appPedidos->frmItens->tipoInsercao = EDITANDO;
-		goToForm(appPedidos->frmItens);
-		*/
-		displayAlert(ToBeDone);
+		appPedidos->frmConsulta->numeroPedido = nPedido;
+		goToForm(appPedidos->frmConsulta);
 
 		return true;
 	}
@@ -139,6 +135,10 @@ void FrmPrincipal::alimentaLista()
 	if(numRegistros == 0)
 		numRegistros = 1;
 
-	SclSetScrollBar((ScrollBarType*)getControl(PrincipalScroll),
-			itemNoTopo, 1, numRegistros, 4);
+	if(numRegistros > 4)
+		SclSetScrollBar((ScrollBarType*)getControl(PrincipalScroll),
+				itemNoTopo, 1, numRegistros-3, 4);
+	else
+		SclSetScrollBar((ScrollBarType*)getControl(PrincipalScroll),
+				1, 1, 1, 4);
 }

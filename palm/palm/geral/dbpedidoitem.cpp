@@ -1,4 +1,5 @@
 #include "dbpedidoitem.h"
+#include "debug.h"
 
 DBPedidoItem::DBPedidoItem()
 {
@@ -15,8 +16,8 @@ int DBPedidoItem::ultimoItem(int nPedido)
 		MemHandle h = DmQueryRecord(db, i);
 		R_PedidoItem* p = (R_PedidoItem*)MemHandleLock(h);
 		if(p->pedido == nPedido)
-			if(p->n > i)
-				i = p->n;
+			if(p->n > max)
+				max = p->n;
 		MemHandleUnlock(h);
 	}
 
@@ -111,18 +112,9 @@ bool DBPedidoItem::atualizaRegistro(void* r)
 	{
 		MemHandle h = DmGetRecord(db, i);
 		R_PedidoItem* p = (R_PedidoItem*)MemHandleLock(h);
-		MemHandle novoH;
-		R_PedidoItem* novo;
 
 		if(p->pedido == n->pedido && p->n == n->n)
-		{
-			novoH = MemHandleNew(sizeof(R_PedidoItem));
-			novo = (R_PedidoItem*)MemHandleLock(novoH);
-			MemMove(novo, n, sizeof(R_PedidoItem));
-			DmWrite(p, 0, novo, sizeof(R_PedidoItem));
-			MemHandleUnlock(novoH);
-			MemHandleFree(novoH);
-		}
+			DmWrite(p, 0, n, sizeof(R_PedidoItem));
 		MemHandleUnlock(h);
 		DmReleaseRecord(db, i, false);
 	}
