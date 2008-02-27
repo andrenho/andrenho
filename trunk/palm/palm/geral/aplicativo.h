@@ -4,6 +4,7 @@
 #include "palmincludes.h"
 #include "pform.h"
 #include "buscacliente.h"
+#include "buscaproduto.h"
 #include "dbcliente.h"
 #include "dbcidade.h"
 #include "dbpedido.h"
@@ -11,6 +12,7 @@
 #include "dbproduto.h"
 #include "dbpagto.h"
 #include "dbparcela.h"
+#include "dbgrupo.h"
 #include "debug.h"
 #include "segment.h"
 
@@ -32,6 +34,7 @@ public:
 	Form* current;
 
 	BuscaCliente* buscaCliente;
+	BuscaProduto* buscaProduto;
 
 	DBCliente* dbCliente;
 	DBCidade* dbCidade;
@@ -40,6 +43,7 @@ public:
 	DBProduto* dbProduto;
 	DBPagto* dbPagto;
 	DBParcela* dbParcela;
+	DBGrupo* dbGrupo;
 	
 	bool appActive;
 	FrmType frmType;

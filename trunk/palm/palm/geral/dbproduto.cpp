@@ -9,13 +9,10 @@ DBProduto::DBProduto()
 void DBProduto::populateDB()
 {
 	R_Produto p;
-	StrCopy(p.tipo, "01");
-	StrCopy(p.grupo, "01");
-	StrCopy(p.subgrupo1, "01");
-	StrCopy(p.subgrupo2, "01");
-	StrCopy(p.subgrupo3, "01");
-	StrCopy(p.numero, "001");
+	p.n = 1;
+	p.grupo = 2;
 	StrCopy(p.descricao, "Produto teste");
 	StrCopy(p.unid_medida, "UN");
+	StrCopy(p.referencia, "1234");
 	adicionaRegistro(&p, sizeof(R_Produto));
 }

@@ -15,8 +15,10 @@ AppPedidos::AppPedidos() : Aplicativo(1)
 	dbProduto = new DBProduto();
 	dbPagto = new DBPagto();
 	dbParcela = new DBParcela();
+	dbGrupo = new DBGrupo();
 
 	buscaCliente = new BuscaCliente();
+	buscaProduto = new BuscaProduto();
 
 	frmPrincipal = new FrmPrincipal();
 	frmConsulta = new FrmConsulta();
@@ -71,8 +73,10 @@ AppPedidos::~AppPedidos()
 	delete dbPedidoItem;
 	delete dbPagto;
 	delete dbParcela;
+	delete dbGrupo;
 
 	delete buscaCliente;
+	delete buscaProduto;
 
 	delete frmEnvio;
 	delete frmFinaliza;
