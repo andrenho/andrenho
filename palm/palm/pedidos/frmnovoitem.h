@@ -26,7 +26,6 @@ private:
 	int produto;
 	MemHandle hDataEntrega;
 	Char* dataEntrega;
-	char descProduto[DESC_PRODUTO_CHARS];
 };
 
 #endif

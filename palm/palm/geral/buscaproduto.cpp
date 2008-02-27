@@ -1,5 +1,6 @@
 #include "buscaproduto.h"
 #include "aplicativo.h"
+#include "util.h"
 
 BuscaProduto::BuscaProduto()
 {
@@ -15,67 +16,52 @@ bool BuscaProduto::event(UInt16 controlID, EventType *e)
 	return false;
 }
 
-int BuscaProduto::busca(Form* caller, UInt16 referncia, UInt16 descricao)
+int BuscaProduto::busca(Form* caller, UInt16 referencia, UInt16 descricao, UInt16 unidMedida)
 {
-	return 1;
-	/*
-	int i, n, c = 0;
-	bool rt = false;
-	MemPtr p;
-	MemHandle mh[200]; // max clientes
-	Char* fantasia = FldGetTextPtr((FieldType*)caller->getControl(campoFantasia));
+	int i, ct = 0, only;
+	R_Produto* p;
+	Char* ref = FldGetTextPtr((FieldType*)caller->getControl(referencia));
+
+	if(ref == NULL)
+	{
+		ct = 2;
+		goto vazio;
+	}
+
+	for(i=0; i<DmNumRecords(app->dbProduto->db); i++)
+	{
+		MemHandle h = DmQueryRecord(app->dbProduto->db, i);
+		p = (R_Produto*)MemHandleLock(h);
+		if(StrCaselessCompare(ref, p->referencia) == 0)
+		{
+			// found!!!
+			only = i;
+			ct++;
+		}
+		MemHandleUnlock(h);
+	}
 	
-	if(fantasia == NULL)
-		goto buscaClientes;
-	if(StrCompare(fantasia, "") == 0)
-		goto buscaClientes;
-
-	n = StrLen(fantasia);
-
-	// pega handles para todos os clientes
-	for(i=0; i<DmNumRecords(app->dbCliente->db); i++)
+vazio:
+	if(ct == 0)
 	{
-		MemHandle h = DmQueryRecord(app->dbCliente->db, i);
-		p = MemHandleLock(h);
-		if(((R_Cliente*)p)->cidade != cidade && cidade != -1)
-		{
-			MemHandleUnlock(h);
-			continue;
-		}
-		if(StrNCaselessCompare(fantasia, ((R_Cliente*)p)->Fantasia, n) == 0)
-		{
-			mh[c] = h;
-			c++;
-		}
-		else
-			MemHandleUnlock(h);
-		if(c >= 200)
-			break;
+		displayAlert(ProdutoNaoExiste);
+		return -1;
 	}
-
-	if(c == 0)
+	else if(ct == 1)
 	{
-		displayAlert(ClienteNaoExiste);
-		rt = false;
+		int n;
+		MemHandle h = DmQueryRecord(app->dbProduto->db, only);
+		p = (R_Produto*)MemHandleLock(h);
+		n = p->n;
+		caller->setField(referencia, p->referencia);
+		caller->setField(descricao, p->descricao);
+		caller->setField(unidMedida, p->unid_medida);
+		MemHandleUnlock(h);
+		return n;
 	}
-	else if(c == 1)
+	else // ct > 1
 	{
-		R_Cliente* r = (R_Cliente*)MemHandleLock(mh[0]);
-		caller->setField(campoCNPJ, r->CNPJ);
-		caller->setField(campoFantasia, r->Fantasia);
-		if(campoRazaoSocial)
-		 	caller->setField(campoRazaoSocial, r->RazaoSocial);
-		MemHandleUnlock(mh[0]);
-		rt = true;
-	}
-	else
-buscaClientes:
 		displayAlert(ToBeDone);
-
-	// libera os handles
-	for(i=0; i<c; i++)
-		MemHandleUnlock(mh[i]);
-
-	return rt;
-	*/
+		return -1;
+	}
 }
