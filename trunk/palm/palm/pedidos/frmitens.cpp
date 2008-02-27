@@ -139,7 +139,7 @@ void FrmItens::doAfterDrawing()
 	if(tipoInsercao == INSERINDO)
 		CtlSetLabel(getControl(ItensCancelar), "Cancelar");
 	else if (tipoInsercao == EDITANDO)
-		CtlSetLabel(getControl(ItensCancelar), "Excluir...");
+		CtlSetLabel(getControl(ItensCancelar), "Excluir..."); // TODO não está fazendo
 	
 	itens = appPedidos->dbPedidoItem->numeroItens(this->numeroPedido);
 	StrPrintF(buf, "%d ite%s", itens, itens == 1 ? "m" : "ns");

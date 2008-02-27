@@ -40,8 +40,7 @@ bool FrmNovoItem::event(UInt16 controlID, EventType* e)
 		switch(controlID)
 		{
 			case NovoItemProdutoBusca:
-				this->produto = 1;                   // TODO
-				StrCopy(this->descProduto, "Teste"); // TODO
+				this->produto = appPedidos->buscaProduto->busca(this, NovoItemProduto, NovoItemDescProduto, NovoItemUM);
 				break;
 			case NovoItemCancelar:
 				goToForm(appPedidos->frmItens);
@@ -202,7 +201,7 @@ void FrmNovoItem::salvarDados()
 	p.quantidade = getFieldD(NovoItemQuantidade);
 	p.valor = getFieldD(NovoItemValor);
 	StrCopy(p.dataEntrega, CtlGetLabel(getControl(NovoItemEntrega)));
-	StrCopy(p.descProduto, descProduto);
+	StrCopyTest(p.descProduto, getField(NovoItemDescProduto));
 
 	if(tipoInsercao == INSERINDO)
 		b = appPedidos->dbPedidoItem->adicionaRegistro(&p, sizeof(R_PedidoItem));

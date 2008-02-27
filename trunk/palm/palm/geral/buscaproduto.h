@@ -9,7 +9,7 @@ class BuscaProduto : public FrmModal
 {
 public:
 	BuscaProduto() GERAL;
-	int busca(Form* caller, UInt16 referncia, UInt16 descricao) GERAL;
+	int busca(Form* caller, UInt16 referencia, UInt16 descricao, UInt16 unidMedida) GERAL;
 protected:
 	bool event(UInt16 controlID, EventType *e) GERAL;
 };
