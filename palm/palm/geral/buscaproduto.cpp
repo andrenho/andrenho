@@ -1,6 +1,10 @@
 #include "buscaproduto.h"
 #include "aplicativo.h"
 #include "util.h"
+#include "debug.h"
+
+#define LABEL_REFERENCIA "Referência:"
+#define LABEL_DESCRICAO  "Descrição:"
 
 BuscaProduto::BuscaProduto()
 {
@@ -12,6 +16,12 @@ bool BuscaProduto::event(UInt16 controlID, EventType *e)
 	if(e->eType == ctlSelectEvent)
 		switch(controlID)
 		{
+			case BuscaProdutoReferencia:
+				setField(BuscaProdutoLabel, LABEL_REFERENCIA);
+				break;
+			case BuscaProdutoDescricao:
+				setField(BuscaProdutoLabel, LABEL_DESCRICAO);
+				break;
 		}
 	return false;
 }
@@ -34,7 +44,7 @@ int BuscaProduto::busca(Form* caller, UInt16 referencia, UInt16 descricao, UInt1
 		p = (R_Produto*)MemHandleLock(h);
 		if(StrCaselessCompare(ref, p->referencia) == 0)
 		{
-			// found!!!
+			// encontrado!!!
 			only = i;
 			ct++;
 		}
@@ -61,7 +71,13 @@ vazio:
 	}
 	else // ct > 1
 	{
-		displayAlert(ToBeDone);
+		showDialog(NULL);
 		return -1;
 	}
+}
+
+void BuscaProduto::doAfterDrawing()
+{
+	CtlSetValue(getControl(BuscaProdutoReferencia), 1);
+	setField(BuscaProdutoLabel, LABEL_REFERENCIA);
 }
