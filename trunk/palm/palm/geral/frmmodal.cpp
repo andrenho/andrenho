@@ -27,6 +27,7 @@ void FrmModal::showDialog(void* returnValue)
 				break;
 			case frmOpenEvent:
 				FrmDrawForm(getFormType());
+				doAfterDrawing();
 				break;
 			case appStopEvent:
 				app->appActive = false;

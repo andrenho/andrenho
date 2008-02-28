@@ -12,6 +12,7 @@ public:
 	int busca(Form* caller, UInt16 referencia, UInt16 descricao, UInt16 unidMedida) GERAL;
 protected:
 	bool event(UInt16 controlID, EventType *e) GERAL;
+	void doAfterDrawing();
 };
 
 #endif
