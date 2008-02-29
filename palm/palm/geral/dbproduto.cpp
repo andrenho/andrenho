@@ -23,4 +23,60 @@ void DBProduto::populateDB()
 	StrCopy(p.unid_medida, "UN");
 	StrCopy(p.referencia, "1234");
 	adicionaRegistro(&p, sizeof(R_Produto));
+
+	p.n = 3;
+	p.grupo = 2;
+	StrCopy(p.descricao, "Produto teste 3");
+	StrCopy(p.unid_medida, "UN");
+	StrCopy(p.referencia, "1234");
+	adicionaRegistro(&p, sizeof(R_Produto));
+
+	p.n = 4;
+	p.grupo = 2;
+	StrCopy(p.descricao, "Produto teste 4");
+	StrCopy(p.unid_medida, "UN");
+	StrCopy(p.referencia, "1234");
+	adicionaRegistro(&p, sizeof(R_Produto));
+
+	p.n = 5;
+	p.grupo = 2;
+	StrCopy(p.descricao, "Produto teste 5");
+	StrCopy(p.unid_medida, "UN");
+	StrCopy(p.referencia, "1234");
+	adicionaRegistro(&p, sizeof(R_Produto));
+
+	p.n = 6;
+	p.grupo = 2;
+	StrCopy(p.descricao, "Produto teste 6");
+	StrCopy(p.unid_medida, "UN");
+	StrCopy(p.referencia, "1234");
+	adicionaRegistro(&p, sizeof(R_Produto));
+
+	p.n = 7;
+	p.grupo = 2;
+	StrCopy(p.descricao, "Produto teste 7");
+	StrCopy(p.unid_medida, "UN");
+	StrCopy(p.referencia, "1234");
+	adicionaRegistro(&p, sizeof(R_Produto));
+
+	p.n = 8;
+	p.grupo = 2;
+	StrCopy(p.descricao, "Produto teste 8");
+	StrCopy(p.unid_medida, "UN");
+	StrCopy(p.referencia, "1234");
+	adicionaRegistro(&p, sizeof(R_Produto));
+
+	p.n = 9;
+	p.grupo = 2;
+	StrCopy(p.descricao, "Produto teste 9");
+	StrCopy(p.unid_medida, "UN");
+	StrCopy(p.referencia, "1234");
+	adicionaRegistro(&p, sizeof(R_Produto));
+
+	p.n = 10;
+	p.grupo = 2;
+	StrCopy(p.descricao, "Produto teste 10");
+	StrCopy(p.unid_medida, "UN");
+	StrCopy(p.referencia, "1234");
+	adicionaRegistro(&p, sizeof(R_Produto));
 }

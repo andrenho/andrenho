@@ -145,7 +145,7 @@ void FrmFinaliza::gravarPreferencias()
 
 void FrmFinaliza::doAfterDrawing()
 {
-	l->setItensLista((ListType*)getControl(FinalizaPagamentoList), 10);
+	l->setItensLista((ListType*)getControl(FinalizaPagamentoList), 10, true);
 
 	Form::doAfterDrawing();
 	ajustaValorTotal();

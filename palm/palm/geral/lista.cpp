@@ -90,16 +90,19 @@ void Lista::stringLista(Char** s)
 		s = NULL;
 }
 
-void Lista::setItensLista(ListType* lista, int maxRegistrosVisiveis)
+void Lista::setItensLista(ListType* lista, int maxRegistrosVisiveis, bool autoAjusta)
 {
 	ss = (Char**)MemPtrNew(numeroRegistros() * sizeof(char*));
 	stringLista(ss);
 
 	LstSetListChoices(lista, ss, numeroRegistros());
-	if(numeroRegistros() >= maxRegistrosVisiveis)
-		LstSetHeight(lista, maxRegistrosVisiveis);
-	else
-		LstSetHeight(lista, numeroRegistros());
+	if(autoAjusta)
+	{
+		if(numeroRegistros() >= maxRegistrosVisiveis)
+			LstSetHeight(lista, maxRegistrosVisiveis);
+		else
+			LstSetHeight(lista, numeroRegistros());
+	}
 	LstDrawList(lista);
 }
 
