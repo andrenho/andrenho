@@ -45,7 +45,7 @@ public:
 
 	/** Coloca os registros na lista do form. Este método deve ser
 	 *  chamado apenas quando o form fica visível. */
-	void setItensLista(ListType* lista, int maxRegistrosVisiveis) GERAL;
+	void setItensLista(ListType* lista, int maxRegistrosVisiveis, bool autoAjusta) GERAL;
 
 	/** Retorna a chave do registro selecionado, baseado na posição
 	 *  na lista. 
