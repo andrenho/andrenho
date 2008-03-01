@@ -25,6 +25,7 @@ GERAL_O = aplicativo.o preferencias.o \
 	  pform.o frmmodal.o buscacliente.o buscaproduto.o \
 	  database.o dbcliente.o dbcidade.o dbpedido.o dbproduto.o \
 	  dbpedidoitem.o dbpagto.o dbparcela.o dbgrupo.o \
+	  internet.o \
 	  debug.o util.o data.o lista.o
 
 PEDIDOS_O = apppedidos.o \
@@ -89,6 +90,7 @@ dbproduto.o: dbproduto.cpp dbproduto.h
 dbpagto.o: dbpagto.cpp dbpagto.h
 dbparcela.o: dbparcela.cpp dbparcela.h
 dbgrupo.o: dbgrupo.cpp dbgrupo.h
+internet.o: internet.cpp internet.h
 debug.o: debug.cpp debug.h
 util.o: util.cpp util.h
 data.o: data.cpp data.h

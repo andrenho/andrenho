@@ -13,6 +13,7 @@
 #include "dbpagto.h"
 #include "dbparcela.h"
 #include "dbgrupo.h"
+#include "internet.h"
 #include "debug.h"
 #include "segment.h"
 
@@ -44,6 +45,8 @@ public:
 	DBPagto* dbPagto;
 	DBParcela* dbParcela;
 	DBGrupo* dbGrupo;
+
+	Internet* internet;
 	
 	bool appActive;
 	FrmType frmType;

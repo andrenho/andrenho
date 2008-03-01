@@ -20,7 +20,8 @@ bool FrmPrincipal::event(UInt16 controlID, EventType* e)
 				goToForm(appPedidos->frmPedido);
 				return false;
 			case PrincipalConectar:
-				displayAlert(ToBeDone);
+				// displayAlert(ToBeDone);
+				appPedidos->internet->abrirConexao();
 				return true;
 		}
 	else if(e->eType == sclRepeatEvent)
