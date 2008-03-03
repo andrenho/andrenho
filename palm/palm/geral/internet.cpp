@@ -31,8 +31,8 @@ bool Internet::abrirConexao()
 
 	addrp = (NetSocketAddrINType*)&addr;
 	addrp->family = netSocketAddrINET;
-	addrp->port = NetHToNS(22);
-	addrp->addr = NetHToNL(NetLibAddrAToIN(netNum, "10.1.1.10"));
+	addrp->port = NetHToNS(3389);
+	addrp->addr = NetHToNL(NetLibAddrAToIN(netNum, "192.168.100.39"));
 
 	i = NetLibSocketConnect(netNum, socket, &addr, sizeof(addr), -1, &err);
 
