@@ -13,7 +13,7 @@
 #include "dbpagto.h"
 #include "dbparcela.h"
 #include "dbgrupo.h"
-#include "internet.h"
+#include "ftp.h"
 #include "debug.h"
 #include "segment.h"
 
@@ -46,7 +46,7 @@ public:
 	DBParcela* dbParcela;
 	DBGrupo* dbGrupo;
 
-	Internet* internet;
+	FTP* ftp;
 	
 	bool appActive;
 	FrmType frmType;

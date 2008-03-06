@@ -8,7 +8,9 @@ class Internet
 {
 public:
 	Internet() GERAL;
-	bool abrirConexao();
+protected:
+	bool abrirConexao(char* endereco, int porta) GERAL;
+	char recebeByte();
 private:
 	UInt16 netNum;
 	NetSocketRef socket;

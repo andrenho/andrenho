@@ -19,23 +19,40 @@ Internet::Internet()
 		debug("error");
 }
 
-bool Internet::abrirConexao()
+bool Internet::abrirConexao(char* endereco, int porta)
 {
+	// TODO - resolver
+
 	Err err;
 	int i;
-	NetSocketAddrType addr;
 	NetSocketAddrINType* addrp;
+	NetSocketAddrType addr;
 
 	socket = NetLibSocketOpen(netNum, netSocketAddrINET, netSocketTypeStream,
 			netSocketProtoIPTCP, -1, &err);
 
 	addrp = (NetSocketAddrINType*)&addr;
 	addrp->family = netSocketAddrINET;
-	addrp->port = NetHToNS(3389);
-	addrp->addr = NetHToNL(NetLibAddrAToIN(netNum, "192.168.100.39"));
+	addrp->port = NetHToNS(porta);
+	addrp->addr = NetHToNL(NetLibAddrAToIN(netNum, endereco));
 
 	i = NetLibSocketConnect(netNum, socket, &addr, sizeof(addr), -1, &err);
 
-	debug(i);
-	return true;
+	return (i == 0);
+}
+
+char Internet::recebeByte()
+{
+	char buf;
+	Err err;
+	NetSocketAddrType addr;
+	UInt16 nAddr;
+	int i;
+
+	i = NetLibReceive(netNum, socket, &buf, 1, NULL, &addr, &nAddr, -1 /* TODO - timeout */, &err);
+	if(i == 0)
+		debug("conexão encerrada");
+	else if(i == -1)
+		debug("erro");
+	return buf;
 }
