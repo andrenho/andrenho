@@ -28,7 +28,7 @@ AppPedidos::AppPedidos() : Aplicativo(1)
 	frmFinaliza = new FrmFinaliza();
 	frmEnvio = new FrmEnvio();
 
-	internet = new Internet();
+	ftp = new FTP();
 
 	if(this->preferencias == NULL)
 		current = frmPrincipal;
@@ -88,7 +88,7 @@ AppPedidos::~AppPedidos()
 	delete frmConsulta;
 	delete frmPrincipal;
 
-	delete internet;
+	delete ftp;
 }
 
 UInt32 PilotMain(UInt16 cmd, MemPtr cmdPBP, UInt16 launchFlags)
