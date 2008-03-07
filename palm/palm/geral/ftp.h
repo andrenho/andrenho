@@ -6,8 +6,8 @@
 class FTP : public Internet
 {
 public:
-	bool conectar(char* servidor, int porta, char* usuario, char* senha);
-	bool enviaArquivo(char* nome, void* dados, int lenDados);
+	bool conectar(char* servidor, int porta, char* usuario, char* senha) INTERNET;
+	bool enviaArquivo(char* nome, char* dados, int lenDados) INTERNET;
 };
 
 #endif

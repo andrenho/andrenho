@@ -9,13 +9,17 @@ end
 puts 'Socket connected.'
 
 sock.putc '+'
+puts '>> +'
 user = sock.gets
-puts "User: #{user}"
+puts "<< #{user}"
 
 sock.putc '+'
+puts '>> +'
 pass = sock.gets
-puts "Password: #{pass}"
+puts "<< #{pass}"
 
+sock.putc '+'
+puts '>> +'
 buffer = sock.gets("OK")
 
-puts 'file received'
+puts ">> #{buffer}"

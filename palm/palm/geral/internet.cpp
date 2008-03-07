@@ -45,14 +45,43 @@ char Internet::recebeByte()
 {
 	char buf;
 	Err err;
-	NetSocketAddrType addr;
-	UInt16 nAddr;
 	int i;
 
-	i = NetLibReceive(netNum, socket, &buf, 1, NULL, &addr, &nAddr, -1 /* TODO - timeout */, &err);
+	i = NetLibReceive(netNum, socket, &buf, 1, 0, NULL, 0, 20 * SysTicksPerSecond(), &err);
 	if(i == 0)
+	{
 		debug("conexão encerrada");
+		return NULL;
+	}
 	else if(i == -1)
+	{
 		debug("erro");
+		return NULL;
+	}
 	return buf;
+}
+
+bool Internet::enviaDados(char* dados, int tamanho)
+{
+	int aEnviar = tamanho;
+	Err err;
+	
+	while(aEnviar > 0)
+	{
+		int enviado = NetLibSend(netNum, socket, dados, aEnviar, 0, NULL, 0, 20 * SysTicksPerSecond(), &err);
+		if(enviado == 0)
+		{
+			debug("conexão encerrada");
+			return false;
+		}
+		else if(enviado == -1)
+		{
+			debug("erro");
+			return false;
+		}
+		else
+			aEnviar -= enviado;
+	}
+
+	return true;
 }
