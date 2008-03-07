@@ -1,2 +1,2 @@
 application { "Pedidos" "WGSF" }
-multiple code { "geral" }
+multiple code { "geral" "internet" }

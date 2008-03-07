@@ -7,10 +7,11 @@
 class Internet
 {
 public:
-	Internet() GERAL;
+	Internet() INTERNET;
 protected:
-	bool abrirConexao(char* endereco, int porta) GERAL;
-	char recebeByte();
+	bool abrirConexao(char* endereco, int porta) INTERNET;
+	char recebeByte() INTERNET;
+	bool enviaDados(char* dados, int tamanho) INTERNET;
 private:
 	UInt16 netNum;
 	NetSocketRef socket;

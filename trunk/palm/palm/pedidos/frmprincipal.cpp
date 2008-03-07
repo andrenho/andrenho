@@ -22,7 +22,7 @@ bool FrmPrincipal::event(UInt16 controlID, EventType* e)
 			case PrincipalConectar:
 				// displayAlert(ToBeDone);
 				appPedidos->ftp->conectar("192.168.100.39", 21, "123", "abc");
-				appPedidos->ftp->enviaArquivo("teste.txt", (void*)"a", 2);
+				appPedidos->ftp->enviaArquivo("teste.txt", "a", 2);
 				return true;
 		}
 	else if(e->eType == sclRepeatEvent)
