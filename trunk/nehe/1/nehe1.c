@@ -2,6 +2,8 @@
 #include <GL/glu.h>
 #include "SDL.h"
 
+#include <stdbool.h>
+
 SDL_Surface* surface;
 
 int main(int argc, char** argv)
@@ -17,10 +19,10 @@ int main(int argc, char** argv)
 	}
 
 	videoInfo = SDL_GetVideoInfo();
-	flags  = SDL_OPENGL;          /* Enable OpenGL in SDL */
-	flags |= SDL_GL_DOUBLEBUFFER; /* Enable double buffering */
-	flags |= SDL_HWPALETTE;       /* Store the palette in hardware */
-	flags |= SDL_RESIZABLE;       /* Enable window resizing */
+	flags  = SDL_OPENGL;          // Enable OpenGL in SDL
+	flags |= SDL_GL_DOUBLEBUFFER; // Enable double buffering
+	flags |= SDL_HWPALETTE;       // Store the palette in hardware
+	flags |= SDL_RESIZABLE;       // Enable window resizing
 	if(videoInfo->hw_available)
 		flags |= SDL_HWSURFACE;
 	else
@@ -37,6 +39,21 @@ int main(int argc, char** argv)
 				SDL_GetError());
 		SDL_Quit();
 	}
+
+	SDL_Event e;
+	_Bool done = false;
+	while(!done)
+		while(SDL_PollEvent(&e))
+		{
+			switch(e.type)
+			{
+			case SDL_QUIT:
+				done = true;
+				break;
+			default:
+				break;
+			}
+		}
 
 	return 0;
 }
