@@ -1,5 +1,7 @@
 #include "dbggui.h"
 
+#include <string.h>
+
 #include "SDL_gfxPrimitives.h"
 
 const int BLACK = 0x000000ff;
@@ -16,11 +18,21 @@ DebugGUI::DrawStructure(Structure* structure)
 	boxColor(screen, x, y, x+w, y+h, WHITE);
 	rectangleColor(screen, x+1, y+1, x+w-1, y+h-1, BLACK);
 
-	/*
 	char* desc;
-	if(structure->isResidence)
+	if(structure->isResidence())
 	{
 		Residence* r = (Residence*)structure;
-		if(r->
-	*/
+		if(r->info->density == ResidentialInfo::LOW_D 
+		&& r->info->level == ResidentialInfo::LOW)
+			desc = "lr";
+		else
+			abort();
+	}
+	else
+		abort();
+
+	x += w/2 - (strlen(desc) * 8 / 2);
+	y += h/2 - 4;
+
+	stringColor(screen, x, y, desc, BLACK);
 }
