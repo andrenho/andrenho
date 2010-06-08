@@ -22,11 +22,22 @@ DebugGUI::DrawStructure(Structure* structure)
 	if(structure->isResidence())
 	{
 		Residence* r = (Residence*)structure;
-		if(r->info->density == ResidentialInfo::LOW_D 
-		&& r->info->level == ResidentialInfo::LOW)
-			desc = "lr";
+		if(r->info->density == ResidentialInfo::LOW_D)
+			switch(r->info->level)
+			{
+				case ResidentialInfo::LOW:
+					desc = "lr"; break;					
+				default:
+					abort();
+			}
 		else
-			abort();
+			switch(r->info->level)
+			{
+				case ResidentialInfo::LOW:
+					desc = "LR"; break;					
+				default:
+					abort();
+			}
 	}
 	else
 		abort();

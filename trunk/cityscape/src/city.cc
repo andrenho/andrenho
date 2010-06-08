@@ -51,22 +51,17 @@ City::BuildStructure(Structure* structure, int x, int y, bool turned,
 
 
 bool 
-City::BuildResidence(int x, int y, bool turned, ResidentialInfo::Level level,
+City::BuildResidence(int x, int y, bool turned, 
 		ResidentialInfo::Density density)
 {
-	Residence* residence = new Residence();
 	ResidentialInfo* info;
 
-	if(density == ResidentialInfo::LOW_D)
-		switch(level)
-		{
-			case ResidentialInfo::LOW: 
-				info = LowResidence1; break;
-			default: abort();
-		}
+	if(density == ResidentialInfo::LOW_D) // TODO
+		info = LowLDResidenceE;
 	else
-		abort();
+		info = LowHDResidenceE;
 
+	Residence* residence = new Residence(info);
 	if(!BuildStructure(residence, x, y, turned, info))
 	{
 		delete residence;

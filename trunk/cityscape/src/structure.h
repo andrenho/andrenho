@@ -9,28 +9,6 @@ public:
 };
 
 
-class ResidentialInfo : public StructureInfo
-{
-public:
-	enum Level { LOW, MIDDLE, HIGH, VERYHIGH };
-	enum Density { LOW_D, HIGH_D };
-
-	ResidentialInfo(int w, int h, int hh, enum Level level,
-			enum Density density, const ResidentialInfo* nextLevel)
-		: StructureInfo(w, h), households(hh), level(level),
-       		  density(density), nextLevel(nextLevel) { }
-	int households;
-	enum Level level;
-	enum Density density;
-	const ResidentialInfo* nextLevel;
-};
-
-
-extern ResidentialInfo* LowResidence1;
-extern ResidentialInfo* LowResidence2;
-extern ResidentialInfo* LowResidence3;
-
-
 class Structure
 {
 public:
@@ -40,16 +18,6 @@ public:
 	void* data;
 
 	virtual bool isResidence() { return false; }
-};
-
-
-class Residence : public Structure
-{
-public:
-	int occupants;
-	ResidentialInfo* info;
-
-	virtual bool isResidence() { return true; }
 };
 
 #endif

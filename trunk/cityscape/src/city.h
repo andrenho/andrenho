@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "tile.h"
-#include "structure.h"
+#include "residence.h"
 
 class City
 {
@@ -17,7 +17,6 @@ public:
 	std::vector<Structure*> structures;
 
 	bool BuildResidence(int x, int y, bool turned, 
-			ResidentialInfo::Level level, 
 			ResidentialInfo::Density density);
 	Tile* getTile(int x, int y);
 
