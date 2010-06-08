@@ -10,12 +10,13 @@ cppflags = -Wall -Wextra -g
 ifeq ($(OS),Windows_NT)
 	executable = cityscape.exe
 	cppflags += -Ic:/andre/msys/local/include/SDL
-	libs += -Lc:/andre/msys/local/lib/ -lmingw32 -lSDLmain -lSDL -lsdl_gfx -mwindows
+	libs += -Lc:/andre/msys/local/lib/ -lmingw32 -lSDLmain -lSDL -mwindows
 else
 	cppflags += `sdl-config --cflags`
 	libs += `sdl-config --libs`
 endif
 cppflags += -Isrc -Igui -Idbg
+libs += -lSDL_gfx
 
 all: $(executable)
 
