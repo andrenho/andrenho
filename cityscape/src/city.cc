@@ -2,6 +2,8 @@
 
 #include <cstdlib>
 
+#include "person.h"
+
 City::City(char* name, int w, int h)
 	: name(name), w(w), h(h)
 {
@@ -12,6 +14,8 @@ City::City(char* name, int w, int h)
 			tile[y*w+x].x = x;
 			tile[y*w+x].y = y;
 		}
+
+	people.push_back(new Person());
 }
 
 
@@ -25,8 +29,8 @@ City::getTile(int x, int y)
 }
 
 
-bool 
-City::BuildStructure(Structure* structure, int x, int y, bool turned, 
+bool
+City::BuildStructure(Structure* structure, int x, int y, bool turned,
 		StructureInfo* info)
 {
 	structure->info = info;
@@ -50,8 +54,8 @@ City::BuildStructure(Structure* structure, int x, int y, bool turned,
 }
 
 
-bool 
-City::BuildResidence(int x, int y, bool turned, 
+bool
+City::BuildResidence(int x, int y, bool turned,
 		ResidentialInfo::Density density)
 {
 	ResidentialInfo* info;
