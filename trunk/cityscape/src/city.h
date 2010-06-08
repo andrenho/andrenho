@@ -15,13 +15,14 @@ public:
 	int w, h;
 	Tile* tile;
 	std::vector<Structure*> structures;
+	std::vector<Person*> people;
 
-	bool BuildResidence(int x, int y, bool turned, 
+	bool BuildResidence(int x, int y, bool turned,
 			ResidentialInfo::Density density);
 	Tile* getTile(int x, int y);
 
 private:
-	bool BuildStructure(Structure* structure, int x, int y, bool turned, 
+	bool BuildStructure(Structure* structure, int x, int y, bool turned,
 		StructureInfo* info);
 };
 

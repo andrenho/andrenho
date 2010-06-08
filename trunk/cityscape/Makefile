@@ -3,7 +3,7 @@ VPATH = src gui dbg
 cpp = g++
 executable = cityscape
 objects = main.o \
-	  city.o structure.o residence.o \
+	  city.o structure.o person.o residence.o \
 	  dbggui.o dbgscr.o dbgdraw.o
 cppflags = -Wall -Wextra -g
 
