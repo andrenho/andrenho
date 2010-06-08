@@ -72,9 +72,12 @@ DebugGUI::ManageKeyboard(SDL_KeyboardEvent kb)
 		case SDLK_l:
 			t = getHoverTile();
 			if(t)
-				city->BuildResidence(t->x, t->y, false,
-						ResidentialInfo::LOW,
-						ResidentialInfo::LOW_D);
+				if(kb.keysym.mod & KMOD_SHIFT)
+					city->BuildResidence(t->x, t->y, false,
+							ResidentialInfo::HIGH_D);
+				else
+					city->BuildResidence(t->x, t->y, false,
+							ResidentialInfo::LOW_D);
 			break;
 
 		default:

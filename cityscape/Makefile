@@ -3,14 +3,14 @@ VPATH = src gui dbg
 cpp = g++
 executable = cityscape
 objects = main.o \
-	  city.o structure.o \
+	  city.o structure.o residence.o \
 	  dbggui.o dbgscr.o dbgdraw.o
 cppflags = -Wall -Wextra -g
 
 ifeq ($(OS),Windows_NT)
 	executable = cityscape.exe
-	cppflags += -Ic:/andre/msys/local/include/SDL
-	libs += -Lc:/andre/msys/local/lib/ -lmingw32 -lSDLmain -lSDL -mwindows
+	cppflags += -Ic:/andre/programas/msys/local/include/SDL
+	libs += -Lc:/andre/programas/msys/local/lib/ -lmingw32 -lSDLmain -lSDL -mwindows
 else
 	cppflags += `sdl-config --cflags`
 	libs += `sdl-config --libs`

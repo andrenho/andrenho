@@ -18,7 +18,7 @@ DebugGUI::UpdateScreen()
 	/*
 	for(int x=0; x<std::min(screen->w, city->w*TILE); x+=TILE)
 		for(int y=0; y<std::min(screen->h, city->h*TILE); y+=TILE)
-			pixelColor(screen, x+TILE-1, y+TILE-1, black);
+			pixelColor(screen, x+TILE-1, y+TILE-1, BLACK);
 	*/
 
 	// draw structures
