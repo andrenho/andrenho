@@ -59,6 +59,8 @@ DebugGUI::ManageMouseClick(SDL_MouseButtonEvent mb)
 void 
 DebugGUI::ManageKeyboard(SDL_KeyboardEvent kb)
 {
+	Tile* t;
+
 	switch(kb.keysym.sym)
 	{
 		// quit
@@ -68,7 +70,7 @@ DebugGUI::ManageKeyboard(SDL_KeyboardEvent kb)
 
 		// build low class housing
 		case SDLK_l:
-			Tile* t = getHoverTile();
+			t = getHoverTile();
 			if(t)
 				city->BuildResidence(t->x, t->y, false,
 						ResidentialInfo::LOW,

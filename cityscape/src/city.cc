@@ -1,5 +1,7 @@
 #include "city.h"
 
+#include <cstdlib>
+
 City::City(char* name, int w, int h)
 	: name(name), w(w), h(h)
 {
