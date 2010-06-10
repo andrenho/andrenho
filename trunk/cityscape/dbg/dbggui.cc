@@ -26,7 +26,8 @@ DebugGUI::Main()
 	SDL_Event e;
 
 	while(active)
-	{	
+	{
+		city->Process();
 		UpdateScreen();
 
 		Uint32 time = SDL_GetTicks();

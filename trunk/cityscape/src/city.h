@@ -5,6 +5,7 @@
 
 #include "tile.h"
 #include "residence.h"
+#include "person.h"
 
 class City
 {
@@ -17,6 +18,7 @@ public:
 	std::vector<Structure*> structures;
 	std::vector<Person*> people;
 
+	void Process();
 	bool BuildResidence(int x, int y, bool turned,
 			ResidentialInfo::Density density);
 	Tile* getTile(int x, int y);

@@ -29,6 +29,15 @@ City::getTile(int x, int y)
 }
 
 
+void
+City::Process()
+{
+	std::vector<Person*>::iterator itp;
+	for(itp=people.begin(); itp<people.end(); itp++)
+		(*itp)->Move();
+}
+
+
 bool
 City::BuildStructure(Structure* structure, int x, int y, bool turned,
 		StructureInfo* info)

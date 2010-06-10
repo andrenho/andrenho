@@ -47,3 +47,14 @@ DebugGUI::DrawStructure(Structure* structure)
 
 	stringColor(screen, x, y, desc, BLACK);
 }
+
+
+void
+DebugGUI::DrawPerson(Person* person)
+{
+	int x = (int)(person->x * TILE);
+	int y = (int)(person->y * TILE);
+
+	// aacircleColor(screen, (Sint16)x, (Sint16)y, 3, BLACK);
+	aatrigonColor(screen, x, y-3, x-3, y+3, x+3, y+3, BLACK);
+}

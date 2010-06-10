@@ -5,14 +5,18 @@
 class Object
 {
 public:
-	Object() : x(0.0f), y(0.0f) {}
+	Object() : x(1.0f), y(1.0f) {}
 
 	float x, y;
+
+	virtual void Move() = 0;
 };
 
 
 class Person : public Object
 {
+public:
+	void Move();
 };
 
 #endif
