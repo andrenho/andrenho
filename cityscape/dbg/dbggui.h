@@ -22,6 +22,7 @@ private:
 
 	void UpdateScreen();
 	void DrawStructure(Structure* structure);
+	void DrawPerson(Person* person);
 	void ManageMouseClick(SDL_MouseButtonEvent mb);
 	void ManageKeyboard(SDL_KeyboardEvent kb);
 	Tile* getHoverTile();

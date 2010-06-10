@@ -14,6 +14,8 @@ DebugGUI::UpdateScreen()
 {
 	int nl = -8;
 
+	SDL_FillRect(screen, 0x0, white);
+
 	// draw points
 	/*
 	for(int x=0; x<std::min(screen->w, city->w*TILE); x+=TILE)
@@ -25,6 +27,12 @@ DebugGUI::UpdateScreen()
 	std::vector<Structure*>::iterator it;
 	for(it=city->structures.begin(); it<city->structures.end(); it++)
 		DrawStructure(*it);
+
+	// draw people
+	std::vector<Person*>::iterator itp;
+	for(itp=city->people.begin(); itp<city->people.end(); itp++)
+		DrawPerson(*itp);
+	
 
 	// debug box
 	boxColor(screen, screen->w-DBG_BOX, 0, screen->w, screen->h, WHITE);
