@@ -13,7 +13,11 @@ class GUI:
         pygame.display.set_caption('pycity 0.0.1')
         self.screen = pygame.display.get_surface()
         self.clock = pygame.time.Clock()
-        self.font = pygame.font.Font(None, 16)
+        self.font = pygame.font.Font('atari.ttf', 7)
+
+
+    def description(self, structure):
+        return "LR"
 
 
     def draw_structures(self):
@@ -22,9 +26,9 @@ class GUI:
             self.screen.fill((0,0,0), r)
             r.x += 1; r.y += 1; r.w -= 2; r.h -= 2
             self.screen.fill((255,255,255), r)
-            txt = self.font.render("RL", True, (0,0,0))
-            self.screen.blit(txt, (10,10))
-            
+            txt = self.font.render(self.description(s), True, (0,0,0))
+            self.screen.blit(txt, (r.centerx - (txt.get_width()/2), r.centery - (txt.get_height()/2)))
+
 
     def update_screen(self):
         self.screen.fill((255, 255, 255))
