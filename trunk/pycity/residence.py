@@ -14,26 +14,19 @@ class Residence(Structure):
         if density == Residence.LOW:
             if klass == Residence.LOW:
                 self.w, self.h = (1, 1)
-                self.desc = 'rl'
             elif klass == Residence.MEDIUM:
                 self.w, self.h = (2, 2)
-                self.desc = 'rm'
             elif klass == Residence.HIGH:
                 self.w, self.h = (3, 3)
-                self.desc = 'rh'
             elif klass == Residence.VERY_HIGH:
                 self.w, self.h = (4, 4)
-                self.desc = 'rv'
         elif density == Residence.HIGH:
             if klass == Residence.LOW:
                 self.w, self.h = (2, 2)
-                self.desc = 'RL'
             elif klass == Residence.MEDIUM:
                 self.w, self.h = (4, 4)
-                self.desc = 'RM'
             elif klass == Residence.HIGH:
                 self.w, self.h = (6, 6)
-                self.desc = 'RH'
             else:
                 raise Exception('Residence type not supported.')
         else:
