@@ -23,7 +23,8 @@ class City:
 
 
     def process(self):
-        pass
+        for p in self.people:
+            p.process()
 
 
     def build(self, structure):

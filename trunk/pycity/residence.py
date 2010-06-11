@@ -1,6 +1,4 @@
-from structure import *
-
-class Residence(Structure):
+class Residence:
 
     LOW       = 1
     MEDIUM    = 2
