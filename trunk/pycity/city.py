@@ -1,4 +1,5 @@
 from residence import *
+from person import *
 
 
 class Tile:
@@ -15,6 +16,7 @@ class City:
         self.w, self.h = w, h
         self.tiles = dict()
         self.structures = []
+        self.people = [Person()]
         for x in range(0, w):
             for y in range(0, h):
                 self.tiles[(x, y)] = Tile(x, y)

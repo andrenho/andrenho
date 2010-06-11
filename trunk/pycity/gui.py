@@ -30,9 +30,17 @@ class GUI:
             self.screen.blit(txt, (r.centerx - (txt.get_width()/2), r.centery - (txt.get_height()/2)))
 
 
+    def draw_people(self):
+        for p in self.city.people:
+            x, y = int(p.x * GUI.TILE), int(p.y * GUI.TILE)
+            pygame.draw.aalines(self.screen, (0,0,0), True, ((x, y-3), (x-3, y+3), (x+3, y+3)))
+            self.screen.set_at((x+3, y+3), (0,0,0))
+
+
     def update_screen(self):
         self.screen.fill((255, 255, 255))
         self.draw_structures()
+        self.draw_people()
         pygame.display.flip()
 
 
