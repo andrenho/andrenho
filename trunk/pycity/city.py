@@ -1,13 +1,24 @@
 from residence import *
 from person import *
+import sys
 
 
 class Tile:
+
+    WALKING = 1
+    DRIVING = 2
 
     def __init__(self, x, y):
         self.x, self.y = x, y
         self.structure = None
 
+    def speed(self, type):
+        if type == WALKING:
+            return 5
+        elif type == DRIVING:
+            return 20
+        else:
+            sys.exit('aborted')
 
 
 class City:
