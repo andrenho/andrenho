@@ -52,6 +52,13 @@ class Residence : Structure
     }
 
 
+    void promote()
+    {
+        space = 2; // TODO
+        level = 1;
+    }
+
+
     string shortDescription()
     {
         string s;

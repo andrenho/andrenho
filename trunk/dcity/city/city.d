@@ -1,6 +1,7 @@
 module city.city;
 
 import std.array;
+import std.stdio;
 
 import city.basic;
 import city.person;
@@ -36,7 +37,7 @@ class City
             _tile[i] = new Tile(i%w, i/h);
     }
 
-    
+
     Tile tile(uint x, uint y)
     {
         int i = x + (y*w);
@@ -46,13 +47,13 @@ class City
             return _tile[i];
     }
 
-    
+
     void process()
     {
         searchForImmigrants();
     }
 
-    
+
     bool build(Structure structure)
     {
         uint w = structure.turned ? structure.h : structure.w;
@@ -81,8 +82,9 @@ class City
         {
             Residence r;
             if((r = cast(Residence) s) !is null)
-                if(r.dwellers < r.space && r.attractiveness() > threshold[r.klass])
+                if((r.dwellers < r.space || r.level == 0) && r.attractiveness() > threshold[r.klass])
                 {
+                    debug writefln("Citizen emmigrating.");
                     auto p = new Person(0.0, 0.0, r.klass);
                     moveables ~= p;
                     p.buyResidence(r);
