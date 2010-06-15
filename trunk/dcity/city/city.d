@@ -1,5 +1,7 @@
 module city.city;
 
+import city.basic;
+
 class Tile
 {
     uint x, y;
@@ -15,6 +17,7 @@ class Tile
 class City
 {
     private Tile[] _tile;
+    Structure[] structures;
     uint w, h;
 
     this(uint w, uint h)
@@ -29,13 +32,17 @@ class City
     Tile tile(uint x, uint y)
     {
         int i = x + (y*w);
-        if(i < 0 || i >= _tile.length)
+        if(i < 0 || x >= w || y >= h)
             return null;
         else
             return _tile[i];
     }
 
     void process()
+    {
+    }
+
+    void build(Structure structure)
     {
     }
 }
