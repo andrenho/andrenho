@@ -26,8 +26,11 @@ class Person : Moveable
 
     void buyResidence(Residence r)
     {
-        assert(r.dwellers < r.space);
-        residence = r;
+        if(r.level == 0)
+            r.promote();
+        else
+            assert(r.dwellers < r.space);
+        this.residence = r;
         r.dwellers += 1;
     }
 

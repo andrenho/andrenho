@@ -212,7 +212,7 @@ class GUI
     {
         Tile t = mouseOverTile();
         SDL_Rect r = { cast(ushort)(w-debug_w), 0, 1, cast(ushort)h };
-        SDL_FillRect(screen, &r, black);
+        // SDL_FillRect(screen, &r, black);
 
         if(t !is null)
         {
