@@ -7,12 +7,15 @@ import derelict.sdl.ttf;
 import derelict.util.compat;
 
 import city.city;
+import city.basic;
+import city.residence;
 
 class GUI
 {
     const uint fps = 30;
     const uint tileSize = 20;
-    const short debug_w = 150;
+    const uint moveableSize = 2;
+    const short debug_w = 200;
 
     private
     {
@@ -25,6 +28,7 @@ class GUI
         SDL_Surface* screen;
         TTF_Font* font;
     }
+
 
     this(City city)
     {
@@ -63,7 +67,7 @@ class GUI
             writefln("SDL_ttf initialized.");
 
         // load font
-        if((font = TTF_OpenFont("./atari.ttf", 8)) is null)
+        if((font = TTF_OpenFont("./ProFontWindows.ttf", 12)) is null)
             throw new Exception("Could not load font.");
         else debug
             writefln("Font loaded.");
@@ -100,6 +104,9 @@ class GUI
                     case SDL_QUIT:
                         running = false;
                         break;
+                    case SDL_KEYDOWN:
+                        manageKeyboard(event.key);
+                        break;
                     default:
                         break;
                 }
@@ -110,11 +117,94 @@ class GUI
     }
 
 
+    private void manageKeyboard(SDL_KeyboardEvent kb)
+    {
+    	Tile t;
+
+    	switch(kb.keysym.sym)
+	    {
+    		// quit
+	    	case SDLK_q:
+		    	running = false;
+			    break;
+
+    		// build low class housing
+	    	case SDLK_l:
+		    	t = mouseOverTile();
+			    if(t !is null)
+    				if(kb.keysym.mod & KMOD_SHIFT)
+                        city.build(new Residence(t.x, t.y, false, Class.LOW, Density.HIGH));
+			    	else
+                        city.build(new Residence(t.x, t.y, false, Class.LOW, Density.LOW));
+    			break;
+
+	    	default:
+		    	break;
+	    }
+    }
+
+
     private Tile mouseOverTile()
     {
         int x, y;
         SDL_GetMouseState(&x, &y);
         return city.tile(x / tileSize, y / tileSize);
+    }
+
+
+    private void updateScreen()
+    {
+        SDL_FillRect(screen, null, white);
+        updateMouseOver();
+        foreach(Structure s; city.structures)
+            drawStructure(s);
+        foreach(Moveable m; city.moveables)
+            drawMoveable(m);
+        SDL_Flip(screen);
+    }
+
+
+    private void print(string s)
+    {
+        SDL_Color bl = { 0, 0, 0 };
+        SDL_Rect r = { cast(ushort)(w-debug_w+12), cast(ushort)debug_y, 0, 0 };
+        SDL_Surface* surface = TTF_RenderUTF8_Solid(font, toStringz(s), bl);
+        SDL_BlitSurface(surface, null, screen, &r);
+        debug_y += TTF_FontLineSkip(font);
+    }
+
+
+    private void drawStructure(Structure s)
+    {
+        SDL_Rect r = { cast(short)(s.x*tileSize+1), cast(short)(s.y*tileSize+1),
+            cast(short)(s.w*tileSize-2), cast(short)(s.h*tileSize-2) };
+        SDL_FillRect(screen, &r, black);
+        r.x += 1;
+        r.y += 1;
+        r.w -= 2;
+        r.h -= 2;
+        SDL_FillRect(screen, &r, white);
+
+        SDL_Color bl = { 0, 0, 0 };
+        SDL_Surface* surface = TTF_RenderUTF8_Solid(font, toStringz(s.shortDescription()), bl);
+        r.x += (r.w/2) - (surface.w/2);
+        r.y += (r.h/2) - (surface.h/2);
+        SDL_BlitSurface(surface, null, screen, &r);
+    }
+
+
+    private void drawMoveable(Moveable m)
+    {
+        uint x = cast(uint)(m.x * tileSize);
+        uint y = cast(uint)(m.y * tileSize);
+        SDL_Rect r = { cast(short)(x - moveableSize), cast(short)(y - moveableSize),
+            cast(short)(moveableSize * 2), cast(short)(moveableSize * 2) };
+        SDL_FillRect(screen, &r, black);
+        r.x += 1;
+        r.y += 1;
+        r.w -= 2;
+        r.h -= 2;
+        SDL_FillRect(screen, &r, SDL_MapRGB(screen.format, 128, 128, 255));
     }
 
 
@@ -128,25 +218,13 @@ class GUI
         {
             debug_y = 12;
             print(format("%d x %d", t.x, t.y));
+            if(cast(Residence) t.structure)
+            {
+                auto res = cast(Residence)t.structure;
+                print(res.longDescription());
+                print(format("Level: %d", res.level));
+                print(format("%d dwellers", res.dwellers));
+            }
         }
-    }
-
-
-    private void updateScreen()
-    {
-        SDL_FillRect(screen, null, white);
-        updateMouseOver();
-        SDL_Flip(screen);
-    }
-
-
-    private void print(string s)
-    {
-        SDL_Color bl = { 0, 0, 0 };
-        SDL_Color wh = { 255, 255, 255 };
-        SDL_Rect r = { cast(ushort)(w-debug_w+12), cast(ushort)debug_y, 0, 0 };
-        SDL_Surface* surface = TTF_RenderUTF8_Solid(font, toStringz(s), bl);
-        SDL_BlitSurface(surface, null, screen, &r);
-        debug_y += TTF_FontLineSkip(font);
     }
 }
