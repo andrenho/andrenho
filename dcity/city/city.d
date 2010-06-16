@@ -51,6 +51,10 @@ class City
     void process()
     {
         searchForImmigrants();
+        foreach(Structure s; structures)
+            s.process();
+        foreach(Moveable m; moveables)
+            m.move();
     }
 
 

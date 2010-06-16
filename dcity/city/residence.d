@@ -52,6 +52,11 @@ class Residence : Structure
     }
 
 
+    void process()
+    {
+    }
+
+
     void promote()
     {
         space = 2; // TODO

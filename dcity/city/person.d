@@ -14,6 +14,7 @@ class Person : Moveable
     uint salary;
     Class klass;
     Residence residence;
+    Path currentPath = null;
 
     this(float x, float y, Class klass)
     {
@@ -21,6 +22,11 @@ class Person : Moveable
         this.y = y;
         this.klass = klass;
         residence = null;
+    }
+
+
+    void move()
+    {
     }
 
 

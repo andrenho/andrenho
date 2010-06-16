@@ -15,6 +15,7 @@ abstract class Structure : GameObject
     uint x, y, w, h;
     bool turned;
 
+    void process();
     string shortDescription();
     string longDescription();
 }
@@ -26,6 +27,8 @@ alias Tile[] Path;
 abstract class Moveable : GameObject
 {
     float x, y;
+
+    void move();
 
     Path buildPathTo(uint x, uint y)
     {
