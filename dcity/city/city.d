@@ -3,7 +3,8 @@ module city.city;
 import std.array;
 import std.stdio;
 
-import city.basic;
+import city.moveable;
+import city.structures;
 import city.person;
 import city.residence;
 

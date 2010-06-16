@@ -5,7 +5,7 @@ import std.array;
 import std.math;
 
 import city.city;
-import city.basic;
+import city.moveable;
 import city.residence;
 
 const int[Class] threshold;
