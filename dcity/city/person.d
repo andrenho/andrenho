@@ -37,5 +37,6 @@ class Person : Moveable
 
     void emmigrate()
     {
+        Path path = buildPathTo(residence.x, residence.y);
     }
 }
