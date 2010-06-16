@@ -76,6 +76,18 @@ class City
     }
 
 
+    uint population()
+    {
+        uint total = 0;
+        Residence r;
+
+        foreach(Structure s; structures)
+            if((r = cast(Residence) s) !is null)
+                total += r.dwellers;
+        return total;
+    }
+
+
     private void searchForImmigrants()
     {
         foreach(Structure s; structures)
