@@ -1,38 +1,40 @@
-module city.basic;
+module city.moveable;
 
 import city.city;
 
 enum Class { LOW, MIDDLE, HIGH, MILLIONAIRE }
 static const Class[] classes = [ Class.LOW, Class.MIDDLE, Class.HIGH, Class.MILLIONAIRE ];
 
-class GameObject
+
+struct Path
 {
+    Tile destination;
+    Tile[] tiles;
 }
 
 
-abstract class Structure : GameObject
-{
-    uint x, y, w, h;
-    bool turned;
-
-    void process();
-    string shortDescription();
-    string longDescription();
-}
-
-
-alias Tile[] Path;
-
-
-abstract class Moveable : GameObject
+abstract class Moveable
 {
     float x, y;
 
-    void move();
+    void move(City city);
 
-    Path buildPathTo(uint x, uint y)
+    Path buildPathTo(City city, uint x, uint y)
     {
-        Path p;
-        return p;
+        Path path;
+        uint xd, yd;
+        while(xd != x || yd != y)
+        {
+            if(xd > x)
+                xd--;
+            else if(xd < x)
+                xd++;
+            if(yd > y)
+                yd--;
+            else if(yd < y)
+                yd++;
+            path.tiles ~= city.tile(xd, yd);
+        }
+        return path;
     }
 }

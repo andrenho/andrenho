@@ -27,7 +27,7 @@ class City
     Moveable[] moveables;
     uint w, h;
 
-
+    /// Create a new city.
     this(uint w, uint h)
     {
         this.w = w;
@@ -38,6 +38,7 @@ class City
     }
 
 
+    /// Return a given tile of the city.
     Tile tile(uint x, uint y)
     {
         int i = x + (y*w);
@@ -47,17 +48,19 @@ class City
             return _tile[i];
     }
 
-
+    
+    /// Process everything in the city. This is called FPS times per second.
     void process()
     {
         searchForImmigrants();
         foreach(Structure s; structures)
             s.process();
         foreach(Moveable m; moveables)
-            m.move();
+            m.move(this);
     }
 
 
+    /// Build a new structure in the city.
     bool build(Structure structure)
     {
         uint w = structure.turned ? structure.h : structure.w;
@@ -80,6 +83,7 @@ class City
     }
 
 
+    /// Returns the population of the city.
     uint population()
     {
         uint total = 0;
@@ -92,6 +96,7 @@ class City
     }
 
 
+    /// Check if new immigrants are willing to come to the city, and create them.
     private void searchForImmigrants()
     {
         foreach(Structure s; structures)
@@ -104,7 +109,7 @@ class City
                     auto p = new Person(0.0, 0.0, r.klass);
                     moveables ~= p;
                     p.buyResidence(r);
-                    p.emmigrate();
+                    p.emmigrate(this);
                 }
         }
     }
