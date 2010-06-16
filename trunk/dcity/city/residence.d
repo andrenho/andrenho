@@ -1,6 +1,6 @@
 module city.residence;
 
-import city.basic;
+import city.structures;
 
 enum Density { LOW, HIGH }
 
