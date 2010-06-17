@@ -5,10 +5,17 @@ abstract class Structure
     uint x, y, w, h;
     bool turned;
 
+    this(uint x, uint y)
+    {
+        this.x = x;
+        this.y = y;
+    }
+
     void process();
     string shortDescription();
     string longDescription();
 }
+
 
 class Street : Structure
 {
@@ -16,8 +23,7 @@ class Street : Structure
 
     this(uint x, uint y)
     {
-        this.x = x;
-        this.y = y;
+        super(x, y);
         w = h = 1;
         turned = false;
         accelerator = 5;
@@ -29,6 +35,6 @@ class Street : Structure
     }
     
     
-    string shortDescription() { return "s"; }
+    string shortDescription() { return " "; }
     string longDescription() { return "Street"; }
 }

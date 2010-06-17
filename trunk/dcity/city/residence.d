@@ -15,8 +15,7 @@ class Residence : Structure
 
     this(uint x, uint y, bool turned, Class klass, Density density)
     {
-        this.x = x;
-        this.y = y;
+        super(x, y);
         this.turned = turned;
         this.klass = klass;
         this.density = density;

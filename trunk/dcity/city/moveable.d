@@ -1,6 +1,7 @@
 module city.moveable;
 
 import city.city;
+import city.structures;
 
 enum Class { LOW, MIDDLE, HIGH, MILLIONAIRE }
 static const Class[] classes = [ Class.LOW, Class.MIDDLE, Class.HIGH, Class.MILLIONAIRE ];
@@ -19,10 +20,11 @@ abstract class Moveable
 
     void move(City city);
 
-    Path buildPathTo(City city, uint x, uint y)
+    Path buildPathTo(City city, Structure structure)
     {
         Path path;
         uint xd, yd;
+		uint x = structure.x, y = structure.y;
         while(xd != x || yd != y)
         {
             if(xd > x)
