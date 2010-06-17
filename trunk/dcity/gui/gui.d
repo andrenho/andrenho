@@ -11,6 +11,8 @@ import city.structures;
 import city.moveable;
 import city.person;
 import city.residence;
+import city.farm;
+import city.work;
 
 class GUI
 {
@@ -144,6 +146,11 @@ class GUI
                 city.build(new Street(t.x, t.y));
                 break;
 
+            // vegetable farm
+            case SDLK_v:
+                city.build(new VegetableFarm(t.x, t.y));
+                break;
+
 	    	default:
 		    	break;
 	    }
@@ -226,13 +233,21 @@ class GUI
         {
             debug_y = 12;
             print(format("%d x %d", t.x, t.y));
-            if(cast(Residence) t.structure)
-            {
-                auto res = cast(Residence)t.structure;
-                print(res.longDescription());
-                print(format("Level: %d", res.level));
-                print(format("%d dwellers", res.dwellers));
-            }
+			if(t.structure !is null)
+			{
+				print(t.structure.longDescription());
+				if(cast(Residence) t.structure)
+				{
+					auto res = cast(Residence)t.structure;
+					print(format("Level: %d", res.level));
+					print(format("%d dwellers", res.dwellers));
+				}
+				else if(cast(Workplace) t.structure)
+				{
+					auto work = cast(Workplace) t.structure;
+					print(format("%d workers", work.workers()));
+				}
+			} 
         }
     }
 }
