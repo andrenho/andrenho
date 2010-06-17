@@ -4,6 +4,7 @@ import std.stdio;
 
 import gui.gui;
 import city.city;
+import pathfinding.micropather;
 
 void main(string[] args)
 {
