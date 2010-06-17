@@ -10,5 +10,25 @@ abstract class Structure
     string longDescription();
 }
 
+class Street : Structure
+{
+    uint accelerator;
+
+    this(uint x, uint y)
+    {
+        this.x = x;
+        this.y = y;
+        w = h = 1;
+        turned = false;
+        accelerator = 5;
+    }
 
 
+    void process()
+    {
+    }
+    
+    
+    string shortDescription() { return "s"; }
+    string longDescription() { return "Street"; }
+}

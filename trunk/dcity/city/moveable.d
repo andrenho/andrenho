@@ -15,7 +15,7 @@ struct Path
 
 abstract class Moveable
 {
-    float x, y;
+    uint x, y;
 
     void move(City city);
 
