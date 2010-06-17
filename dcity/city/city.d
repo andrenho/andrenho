@@ -18,16 +18,26 @@ class Tile
         this.x = x;
         this.y = y;
     }
+
+    uint accelerator(Moveable m)
+    {
+        Street street = cast(Street) structure;
+        if(street !is null)
+            return street.accelerator;
+
+        return 1;
+    }
 }
 
 
 class City
 {
-    private Tile[] _tile;
     Structure[] structures;
     Moveable[] moveables;
     uint w, h;
 
+    private Tile[] _tile;
+    
     /// Create a new city.
     this(uint w, uint h)
     {
@@ -107,7 +117,7 @@ class City
                 if((r.dwellers < r.space || r.level == 0) && r.attractiveness() > threshold[r.klass])
                 {
                     debug writefln("Citizen emmigrating.");
-                    auto p = new Person(0.0, 0.0, r.klass);
+                    Person p = new Person(0, 0, r.klass);
                     moveables ~= p;
                     p.buyResidence(r);
                     p.emmigrate(this);

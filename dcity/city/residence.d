@@ -1,6 +1,7 @@
 module city.residence;
 
 import city.structures;
+import city.moveable;
 
 enum Density { LOW, HIGH }
 
@@ -59,7 +60,7 @@ class Residence : Structure
 
     void promote()
     {
-        space = 2; // TODO
+        space = 1; // TODO
         level = 1;
     }
 

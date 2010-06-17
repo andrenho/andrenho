@@ -21,13 +21,13 @@ class Person : Moveable
     Residence residence;
     private
     {
-        const float SPEED = 0.1;
+        const uint SPEED = 2;
         Path currentPath;
         Path[] queue;
     }
 
     /// Create a new person.
-    this(float x, float y, Class klass)
+    this(uint x, uint y, Class klass)
     {
         this.x = x;
         this.y = y;
@@ -45,21 +45,23 @@ class Person : Moveable
             return;
 
         Tile next = currentPath.tiles[0];
-        float dest_x = (cast(float) next.x) + 0.5,
-              dest_y = (cast(float) next.y) + 0.5;
+        uint dest_x = next.x * 100 + 50,
+             dest_y = next.y * 100 + 50;
+
+        uint step = city.tile(cast(uint)(x/100), cast(uint)(y/100)).accelerator(this) * SPEED;
 
         // move
         if(x < dest_x)
-            x += SPEED;
+            x += step;
         else if(x > dest_x)
-            x -= SPEED;
+            x -= step;
         if(y < dest_y)
-            y += SPEED;
+            y += step;
         else if(y > dest_y)
-            y -= SPEED;
+            y -= step;
         
         // next step of the path
-        if(approxEqual(x, dest_x) && approxEqual(y, dest_y))
+        if(x == dest_x && y == dest_y)
             currentPath.tiles.popFront();
     }
 
@@ -80,8 +82,10 @@ class Person : Moveable
     void emmigrate(City city)
     {
         Path path = buildPathTo(city, residence.x, residence.y);
+        /*
         foreach(Tile tile; path.tiles)
             writefln("%d x %d", tile.x, tile.y);
+        */
         currentPath = path;
     }
 

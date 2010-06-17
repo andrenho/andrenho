@@ -7,14 +7,16 @@ import derelict.sdl.ttf;
 import derelict.util.compat;
 
 import city.city;
-import city.basic;
+import city.structures;
+import city.moveable;
+import city.person;
 import city.residence;
 
 class GUI
 {
-    const uint fps = 30;
+    const uint FPS = 30;
     const uint tileSize = 20;
-    const uint moveableSize = 2;
+    const uint moveableSize = 1;
     const short debug_w = 200;
 
     private
@@ -93,7 +95,7 @@ class GUI
         while(running)
         {
             SDL_Event event;
-            uint next = SDL_GetTicks() + fps;
+            uint next = SDL_GetTicks() + (1000/FPS);
 
             city.process();
             updateScreen();
@@ -119,7 +121,7 @@ class GUI
 
     private void manageKeyboard(SDL_KeyboardEvent kb)
     {
-    	Tile t;
+    	Tile t = mouseOverTile();
 
     	switch(kb.keysym.sym)
 	    {
@@ -130,13 +132,17 @@ class GUI
 
     		// build low class housing
 	    	case SDLK_l:
-		    	t = mouseOverTile();
 			    if(t !is null)
     				if(kb.keysym.mod & KMOD_SHIFT)
                         city.build(new Residence(t.x, t.y, false, Class.LOW, Density.HIGH));
 			    	else
                         city.build(new Residence(t.x, t.y, false, Class.LOW, Density.LOW));
     			break;
+
+            // street
+            case SDLK_s:
+                city.build(new Street(t.x, t.y));
+                break;
 
 	    	default:
 		    	break;
@@ -195,13 +201,15 @@ class GUI
 
     private void drawMoveable(Moveable m)
     {
-        uint x = cast(uint)(m.x * tileSize);
-        uint y = cast(uint)(m.y * tileSize);
+        uint x = cast(uint) (m.x / 100.0f * tileSize);
+        uint y = cast(uint) (m.y / 100.0f * tileSize);
         SDL_Rect r = { cast(short)(x - moveableSize), cast(short)(y - moveableSize),
             cast(short)(moveableSize * 2), cast(short)(moveableSize * 2) };
         SDL_FillRect(screen, &r, black);
         r.x += 1;
         r.y += 1;
+        if(r.w < 2 || r.h < 2)
+            return;
         r.w -= 2;
         r.h -= 2;
         SDL_FillRect(screen, &r, SDL_MapRGB(screen.format, 128, 128, 255));
