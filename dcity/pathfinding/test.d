@@ -17,5 +17,4 @@ extern(C++)
 void main()
 {
     Map g = getMap();
-	writefln("%d", g.test());
 }
