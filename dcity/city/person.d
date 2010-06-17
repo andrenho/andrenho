@@ -28,6 +28,7 @@ class Person : Moveable
     Job job = null;
 	Action currentAction = Action.NOTHING;
 	uint alarm = 0;
+	bool usingCar = false;
 
     private
     {
@@ -61,25 +62,10 @@ class Person : Moveable
         if(currentPath.tiles.empty)
             return;
 
-        Tile next = currentPath.tiles[0];
-        uint dest_x = next.x * 100 + 50,
-             dest_y = next.y * 100 + 50;
-
-        uint step = city.tile(cast(uint)(x/100), cast(uint)(y/100)).accelerator(this) * SPEED;
-
-        // move
-        if(x < dest_x)
-            x += step;
-        else if(x > dest_x)
-            x -= step;
-        if(y < dest_y)
-            y += step;
-        else if(y > dest_y)
-            y -= step;
-        
-        // next step of the path
-        if(x == dest_x && y == dest_y)
-            currentPath.tiles.popFront();
+		if(usingCar)
+			rideCar(city);
+		else
+			walk(city);        
     }
 
 
@@ -104,6 +90,7 @@ class Person : Moveable
     }
 
 	
+	/// Returns this person's sallary.
 	uint salary()
 	{
 		if(job is null)
@@ -113,6 +100,7 @@ class Person : Moveable
 	}
 
 
+	/// When a action is completed, check what is the next action.
     private void nextAction(City city)
     {
 		Structure goOut;
@@ -152,6 +140,7 @@ class Person : Moveable
     }
 
 
+	/// The person looks for a job.
     private void lookForJob(City city)
     {
 		Workplace w;
@@ -163,8 +152,34 @@ class Person : Moveable
     }
 
 
+	/// In the person period of rest, chooses where the person is going.
+	/// Returns null if the person stays in home.
 	private Structure goOutWhere(City city)
 	{
 		return null;
+	}
+	
+	
+	/// The person goes somewhere walking.
+	private void walk(City city)
+	{
+		assert(!currentPath.tiles.empty);
+
+		uint dest_x = currentPath.tiles[0].x * 100;
+		uint dest_y = currentPath.tiles[0].y * 100;
+		
+		if(x < dest_x) x += SPEED;
+		else if(x > dest_x) x += SPEED;
+		if(y < dest_y) y += SPEED;
+		else if(y > dest_y) y += SPEED;
+		
+		if(x == dest_x && y == dest_y)
+			currentPath.tiles.popFront();
+	}
+	
+	
+	/// The person goes somewhere by car.
+	private void rideCar(City city)
+	{
 	}
 }
