@@ -23,20 +23,8 @@ abstract class Moveable
     Path buildPathTo(City city, Structure structure)
     {
         Path path;
-        uint xd, yd;
-		uint x = structure.x, y = structure.y;
-        while(xd != x || yd != y)
-        {
-            if(xd > x)
-                xd--;
-            else if(xd < x)
-                xd++;
-            if(yd > y)
-                yd--;
-            else if(yd < y)
-                yd++;
-            path.tiles ~= city.tile(xd, yd);
-        }
+        path.destination = city.tile(structure.x, structure.y);
+		path.tiles = city.findPath(city.tile(x, y), path.destination);
         return path;
     }
 }

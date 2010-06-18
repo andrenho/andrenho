@@ -131,13 +131,29 @@ class City
     }
 
 
-	Tile[] findPath(uint fx, uint fy, uint tx, uint ty)
+	/// Calculate a path from one place to the other
+	Tile[] findPath(Tile source, Tile target)
 	{
+		Tile[] neighbors(Tile t)
+		{
+			Tile[] tiles;
+			for(int x = (cast(int)t.x-1); x <= (cast(int)t.x+1); x++)
+				for(int y = (cast(int)t.y-1); y <= (cast(int)t.y+1); y++)
+					if(x >= 0 && x < w && y >= 0 && y < h && tile(x, y) != t)
+						tiles ~= tile(x, y);
+			return tiles;
+		}
+		
+		float distanceBetween(Tile u, Tile v)
+		{
+			if(u.x != v.x && u.y != v.y)
+				return 1.4 * v.cost;
+			else
+				return 1 * v.cost;
+		}
+
 		float[Tile] dist;
 		Tile[Tile] previous;
-		
-		Tile source = tile(fx, fy);
-		Tile target = tile(tx, ty);
 		
 		foreach(Tile t; _tile)
 		{
@@ -196,21 +212,4 @@ class City
 		return S;
 	}
 	
-	private Tile[] neighbors(Tile t)
-	{
-		Tile[] tiles;
-		for(int x = (cast(int)t.x-1); x <= (cast(int)t.x+1); x++)
-			for(int y = (cast(int)t.y-1); y <= (cast(int)t.y+1); y++)
-				if(x >= 0 && x < w && y >= 0 && y < h && tile(x, y) != t)
-					tiles ~= tile(x, y);
-		return tiles;
-	}
-	
-	private float distanceBetween(Tile u, Tile v)
-	{
-		if(u.x != v.x && u.y != v.y)
-			return 1.4 * v.cost;
-		else
-			return 1 * v.cost;
-	}
 }
