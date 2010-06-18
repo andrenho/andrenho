@@ -1,2 +1,1 @@
-dmc -c -IC:\andre\desenv\D\dm\stlport\stlport pathfinding\micropather.cpp
-dmd -IC:\andre\desenv\D\dmd2\src\ext dcity.d gui\gui.d city\city.d city\farm.d city\moveable.d city\person.d city\residence.d city\structures.d city\work.d DerelictSDL.lib DerelictUtil.lib micropather.obj stlp45dm_static.lib
+dmd -IC:\andre\desenv\D\dmd2\src\ext dcity.d gui\gui.d city\city.d city\farm.d city\moveable.d city\person.d city\residence.d city\structures.d city\work.d DerelictSDL.lib DerelictUtil.lib
