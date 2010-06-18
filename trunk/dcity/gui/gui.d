@@ -28,6 +28,7 @@ class GUI
         uint black, white;
         uint w, h;
         uint debug_y;
+        Tile pathBuilderStart;
 
         SDL_Surface* screen;
         TTF_Font* font;
@@ -151,6 +152,20 @@ class GUI
                 city.build(new VegetableFarm(t.x, t.y));
                 break;
 
+            // mark path builder
+            case SDLK_z:
+                if(pathBuilderStart is null)
+                {
+                    pathBuilderStart = t;
+                    debug writefln("Pathfinding activated.");
+                }
+                else
+                {
+                    pathBuilderStart = null;
+                    debug writefln("Pathfinding deactivated.");
+                }
+                break;
+
 	    	default:
 		    	break;
 	    }
@@ -173,6 +188,8 @@ class GUI
             drawStructure(s);
         foreach(Moveable m; city.moveables)
             drawMoveable(m);
+        if(pathBuilderStart !is null)
+            drawPath();
         SDL_Flip(screen);
     }
 
@@ -248,6 +265,22 @@ class GUI
 					print(format("%d workers", work.workers()));
 				}
 			} 
+        }
+    }
+
+
+    private void drawPath()
+    {
+        Tile m = mouseOverTile();
+        if(m is null)
+            return;
+        Tile[] tiles = city.findPath(pathBuilderStart, m);
+        SDL_Rect r = { 0, 0, tileSize/3, tileSize/3 };
+        foreach(Tile t; tiles)
+        {
+            r.x = cast(short)(t.x * tileSize + (tileSize/3));
+            r.y = cast(short)(t.y * tileSize + (tileSize/3));
+            SDL_FillRect(screen, &r, black);
         }
     }
 }

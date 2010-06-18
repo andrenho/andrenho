@@ -28,9 +28,16 @@ class Tile
         return 1;
     }
 
-	uint cost()
+	float cost()
 	{
-		return 1;
+        if(structure !is null)
+        {
+            if(cast(Street) structure)
+                return 1;
+            else
+                return float.max;
+        }
+		return 5;
 	}
 }
 
@@ -137,19 +144,22 @@ class City
 		Tile[] neighbors(Tile t)
 		{
 			Tile[] tiles;
-			for(int x = (cast(int)t.x-1); x <= (cast(int)t.x+1); x++)
-				for(int y = (cast(int)t.y-1); y <= (cast(int)t.y+1); y++)
-					if(x >= 0 && x < w && y >= 0 && y < h && tile(x, y) != t)
-						tiles ~= tile(x, y);
+            foreach(int[2] xy; [[-1,0], [1,0], [0,-1], [0,1]])
+            {
+                int x = xy[0] + t.x;
+                int y = xy[1] + t.y;
+				if(x >= 0 && x < w && y >= 0 && y < h && tile(x, y) != t)
+					tiles ~= tile(x, y);
+            }
 			return tiles;
 		}
 		
 		float distanceBetween(Tile u, Tile v)
 		{
 			if(u.x != v.x && u.y != v.y)
-				return 1.4 * v.cost;
+				return 1.4 * v.cost();
 			else
-				return 1 * v.cost;
+				return 1 * v.cost();
 		}
 
 		float[Tile] dist;
