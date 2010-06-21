@@ -1,0 +1,63 @@
+CityMayor Specification
+André Wagner
+
+
+= Introduction =
+
+CityMayor is a city and resource management game. The player acts as the mayor
+of a city, where he must make the city grow in size and number of inhabitants.
+Residents are attracted by a city that offers them a good quality of life:
+security, culture, entertainment, etc.
+
+Besides that, the mayor must maintain a healty budget for the city. The main
+two sources of money the city has are:
+
+- Property Tax: paid by residentes. The healtier they are, the more taxes they
+  pay.
+- Sales Tax: paid over products sold to other cities. The mayor is responsable
+  for managing the entire chain of production of the city, including the
+  transportation of the goods.
+
+
+The **goal** of the game depends on the type of game chosen. The
+**open-ended game** allows the player to play indefinitely. The **campaign**
+leads the mayor through different cities with diferent goals for each one.
+In this case, the goals could involve:
+
+- Achieving a given rating in one or more categories like: security,
+  education, culture, prosperity, entertainment, population, exports, etc.
+- Producing //x// units of a given good in some specifict timespan.
+- Rescuing the city from a debt.
+- Building a specific building.
+- Some other goal.
+
+
+= Game Initialization =
+
+The game initialization shows a pixel-art city as a background, with the
+following options for the user:
+
+- **New campaign-game** (and tutorial?): this will bring a default 
+  [region #Region], where the user will
+- New open-ended game
+- 
+
+= Region =[Region]
+= City =
+== Terrain ==
+== People ==
+== Structures ==
+=== Residences ===
+=== Commerce / Services ===
+=== Farms / Extraction ===
+=== Factories ===
+== Transport ==
+=== Vehicles ===
+=== Transportation structures ===
+==== Roads ====
+==== Rail =====
+==== Air ====
+==== Sea / River ====
+= Economy =
+== Chain of Production ==
+= User interface =
