@@ -37,27 +37,120 @@ In this case, the goals could involve:
 The game initialization shows a pixel-art city as a background, with the
 following options for the user:
 
-- **New campaign-game** (and tutorial?): this will bring a default 
-  [region #Region], where the user will
-- New open-ended game
-- 
+- **New Game (Campaign)** (and tutorial?): this will bring a default region,
+  where the user will
 
-= Region =[Region]
+- **Free play**: leads the user to a random region (for the first time) or
+  the last region played, where the user can start a new free play game in
+  one city of the region.
+
+- **Options**:
+  - Windowed / fullscreen
+  - Resolution
+  - Etc.
+
+- **Exit game**
+
+
+= Region =
+
+A region is a cluster of cities. It is usually crossed by rivers and has a
+coast. Cities can be //n//x//m//, where //n// and //m// are a size of 1 to 4
+(to be defined the size of the unit).
+
+The region is presented to the user as a isometric minimap of the real cities.
+There minimaps are saved when the user saves the city. The user can choose
+one of the cities, which is the one he will be playing.
+
+
 = City =
+
+The **city** is the core of the game; is the city that the player -- the mayor
+-- will be in control. The city is a grid of //w//x//h// tiles, which is
+presented to the player as isometric tiles.
+
+
 == Terrain ==
+
+Each tile can be land or water, and it is initially empty, except perhaps for
+a few trees. The city is completely flat, without hills, mountains or
+depressions. Water is of the same height as the land, though the appearance
+can show a depression.
+
+A tile with trees is desirable.
+
+
 == People ==
+
+People refers to the inhabitants of the city. People come as **immigrants**,
+when they are attracted to the city by factors such as desirability,
+security, education, entertainment, healthcare, jobs available, goods available,
+etc.
+
+People can have the following attributes:
+
+- **I.Q.**: this affects the jobs a person can get. Education will make
+  people's I.Q. to increase primarily, and culture and entertainment second.
+  Immigrant's I.Q. will usually be dependant of the job openings, though
+  it will usually be lower than the city mean.
+
+- **Salary**: will be directly dependent of the person job (people can get a
+  unemployment security for a few months if unemployed). The person's salary
+  will determine if the person will have a car, and the type of residence
+  the person will live in.
+
+- **Age**: ??
+
+- **Gender**:
+
+- **Family**:
+
+
 == Structures ==
+
+Structures refer to anything that is built on the city. Structures have a
+//xy// position on the city, and a //wh// size. Some structures such as
+residences and companies can hold a number of people, and many residences
+can hold a number of cars as well.
+
+
 === Residences ===
+
+Residences are the houses and apartments where the people live. They can be of:
+
+- **Low density**: houses, that can fit up to 
+- **High density**: buildings and condos, that can fit a great number of people.
+
+There are four classes of residences, according to the sum of the salaries of
+the people.
+
+- **Low class**: salary up to $1500.
+- **Middle class**: salary from $1500 ~ $3000.
+- **High class**: salary from $3000 ~ $10000.
+- **Millionaires**: salary above $10000. This class cannot be a high density.
+
+The mayor can only offer a terrain of a given density/class. People are expected
+to build their homes. Level 0 means a empty terrain, and each house can go from
+level 1 to 4. The level depends on many factors, and will make land value and
+tax collecting change, according to the following table:
+
+TODO
+
+Houses can upgrade and degrade according to the factors described above. But
+this usually take very months to happen.
+
+
 === Commerce / Services ===
 === Farms / Extraction ===
 === Factories ===
-== Transport ==
-=== Vehicles ===
-=== Transportation structures ===
+=== Transportation ===
 ==== Roads ====
-==== Rail =====
+==== Rail ====
 ==== Air ====
 ==== Sea / River ====
+== Transport ==
+=== People ===
+=== Vehicles ===
 = Economy =
 == Chain of Production ==
 = User interface =
