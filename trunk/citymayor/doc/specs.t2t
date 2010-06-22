@@ -143,6 +143,7 @@ Residences are the houses and apartments where the people live. They can be of:
 - **Low density**: houses, that can fit up to 
 - **High density**: buildings and condos, that can fit a great number of people.
 
+
 There are four classes of residences, according to the sum of the salaries of
 the people.
 
@@ -150,6 +151,7 @@ the people.
 - **Middle class**: salary from $1500 ~ $3000.
 - **High class**: salary from $3000 ~ $10000.
 - **Millionaires**: salary above $10000. This class cannot be a high density.
+
 
 The mayor can only offer a terrain of a given density/class. People are expected
 to build their homes. Level 0 means a empty terrain, and each house can go from
@@ -181,6 +183,21 @@ Each job opening has a minimum I.Q. needed.
 
 
 ==== Farms / Extraction ====
+
+Farms, mines, extraction buildings and engeneering houses are structures
+that produce raw material, that is, they produce goods without requiring any
+further goods. Usually, a farm, mine or extraction building will have to be
+placed on a terrain that is rich in the raw material that the structure 
+produces.
+
+This kind of building usually demands the least I.Q., and pays the least
+(except for software houses). They have a limited storage space for the goods
+they produce. When this storage space is exceeded, it stops producing.
+
+The follow table explains the kinds of buildings:
+
+TODO
+
 - Farms
   - Vegetable farm
   - Grain farm
@@ -203,6 +220,15 @@ Each job opening has a minimum I.Q. needed.
 
 
 ==== Factories ====
+
+Factories are buildings that transform one kind of good in another. Some types
+of factories demand two or more types of raw goods.
+
+As with the extraction buildings, the factories have a limited storage space,
+and will stop producing when this storage is full.
+
+Factory table:
+
 - Leather factory
 - Wool factory
 - Iron factory
@@ -225,6 +251,10 @@ Each job opening has a minimum I.Q. needed.
 
 
 ==== Commerce / Services ====
+
+Commerce and services are buildings built by the mayor that serve a wide
+variety of porpouses:
+
 - Warehouse
 - Parking lot
 - Public garage
@@ -236,19 +266,24 @@ Each job opening has a minimum I.Q. needed.
 - Convention Centre
 
 
-==== Religious Structures ====
-- Church
-- Cemetery
-
-
 ==== Governamental buildings ====
+
 ===== Police =====
+
+Police buildings will reduce crime, increasing the feeling of security of the
+people. The police stations are:
+
 - Small Police Station
 - Police Station
 - Police HQ
 
 
 ===== Education =====
+
+Education plays a key role in developing the city, by allowing people to take
+more qualified jobs, producing more tax money for the city. The educational
+structures are:
+
 - Elementary school (normal, large)
 - High school (normal, large)
 - College
@@ -256,9 +291,15 @@ Each job opening has a minimum I.Q. needed.
 - Museum
 - Library
 - Research unit
+- Church
 
 
 ===== Health =====
+
+Health services allow people to go to a doctor and make exams when they are
+sick. The healthier people are, the more satisfied they are, they skip less
+work days and they live longer.
+
 - Clinic
 - Hospital
 - Medical Center
@@ -267,6 +308,14 @@ Each job opening has a minimum I.Q. needed.
 
 ===== Water services =====
 ===== Power services =====
+
+Power services are necessary to provide electricity for the people. Very few
+people are willing to live in a house without electricity. If the power stations
+are too far from the people, a **power line** will be necessary to take energy 
+to them.
+
+The possible stations are:
+
 - Coal power plant
 - Oil power plant
 - Nucelar power plant
@@ -274,6 +323,10 @@ Each job opening has a minimum I.Q. needed.
 - Solar power plant
 - Wind power plant
 - Hydroeletric power plant
+
+
+The further people's houses are from the power station, less energy gets to
+them. If they live too far, a **substation** might be necessary.
 
 
 ===== Culture / Entertainment =====
@@ -297,6 +350,7 @@ Each job opening has a minimum I.Q. needed.
 
 
 === Transportation ===
+
 ==== Roads ====
 - Dirt road
 - Street
