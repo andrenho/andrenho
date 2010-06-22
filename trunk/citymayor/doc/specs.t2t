@@ -110,6 +110,9 @@ People can have the following attributes:
   will marry and leave home when they're 20. Many times, the whole family
   will come together.
 
+When people are unemployed, they'll look for a job that is close to their
+homes and pays well.
+
 
 === Daily Routine ===
 
@@ -130,7 +133,7 @@ Structures refer to anything that is built on the city. Structures have a
 residences and companies can hold a number of people, and many residences
 can hold a number of cars as well.
 
-Structures can be turned 90º, but cannot be placed diagonally.
+Structures can be turned 90°, but cannot be placed diagonally.
 
 
 === Residences ===
@@ -158,21 +161,235 @@ TODO
 Houses can upgrade and degrade according to the factors described above. But
 this usually take very months to happen.
 
+The price to offer a residence terrain for each class is:
+
+TODO
+
 Usually, the richer the house, the more desirable it is.
 
 
-=== Commerce / Services ===
-=== Farms / Extraction ===
-=== Factories ===
+=== Workplaces ===
+
+A workplace are building structures where people work. Each workplace will
+employ a number of people and pay them a salary. A workplace can have openings
+for different jobs (workers, engeneers, management) with different salaries.
+
+A workplace that is missing workers will produce at a slower pace, or will be
+less effective.
+
+Each job opening has a minimum I.Q. needed.
+
+
+==== Farms / Extraction ====
+- Farms
+  - Vegetable farm
+  - Grain farm
+  - Cotton farm
+  - Wheat farm
+  - Livestock farm
+- Mines
+  - Iron ore mine
+  - Sand extraction pit
+  - Coal Mine
+  - Uranium mine
+- Extraction
+  - Sand river extraction (?)
+  - Oil rig
+  - Oil platform
+  - Timber extraction (?)
+  - Salt extraction
+- Engeneering
+  - Software house
+
+
+==== Factories ====
+- Leather factory
+- Wool factory
+- Iron factory
+- Glass factory
+- Computer chip factory
+- Plastic factory
+- Paper factory
+- Enriched uranium factory
+- (Market/Bakery)
+- Food factory
+- Shoe factory
+- Cloth factory
+- Utensils / Office Supply factory
+- Car factory
+- Airplane factory
+- Electrodomestics factory
+- Computer factory
+- Publisher house
+- Furniture factory
+
+
+==== Commerce / Services ====
+- Warehouse
+- Parking lot
+- Public garage
+- Store / Shopping Center
+- Market / Super Market
+- Bank (?)
+- Exporter / Importer
+- Hotel
+- Convention Centre
+
+
+==== Religious Structures ====
+- Church
+- Cemetery
+
+
+==== Governamental buildings ====
+===== Police =====
+- Small Police Station
+- Police Station
+- Police HQ
+
+
+===== Education =====
+- Elementary school (normal, large)
+- High school (normal, large)
+- College
+- University
+- Museum
+- Library
+- Research unit
+
+
+===== Health =====
+- Clinic
+- Hospital
+- Medical Center
+- Medical Research Center
+
+
+===== Water services =====
+===== Power services =====
+- Coal power plant
+- Oil power plant
+- Nucelar power plant
+- Biomass power plant
+- Solar power plant
+- Wind power plant
+- Hydroeletric power plant
+
+
+===== Culture / Entertainment =====
+- Cinema
+- Theather
+- Restaurant
+- Stadium
+- Etc...
+
+
+=== Desirability ===
+- Park (tiny, small, medium, large, huge)
+- Etc...
+
+
+=== Federal Buildings ===
+- Supermax
+- Federal road
+- Army barracks
+- Military airfield
+
+
 === Transportation ===
 ==== Roads ====
+- Dirt road
+- Street
+- Road
+- Avenue
+- Freeway
+  - Freeway entrances
+- Viaduto (?)
+- Oblique parking
+
+
 ==== Rail ====
+- Tracks
+  - Rail station
+- Elevated tracks
+  - Elevated rail station
+- Maglev
+  - Maglev station
+- Subway
+  - Subway station
+
+
 ==== Air ====
+- Airport (small, medium, large)
+
+
 ==== Sea / River ====
+- Port (small, medium, large)
+
+
 == Transport ==
 === People ===
 === Vehicles ===
 = Economy =
+
+== Raw Material ==
+- Farming
+  - Vegetables
+  - Grain
+  - Livestock
+  - Cotton
+  - Wheat
+- Mining / extracting
+  - Iron ore
+  - Sand
+  - Salt
+  - Oil
+  - Timber
+  - Coal
+  - Uranium
+  - Copper
+- Engeneering
+  - Software
+
+
+== Byproducts ==
+- Leather
+- Wool
+- Iron
+- Glass
+- Computer chips
+- Plastic
+- Paper
+- Refined Uranium
+
+
+== Final products ==
+- Food
+  - Vegetable (1p)
+  - Grain (1p)
+  - Meat (2p)
+  - Bread (2p)
+  - Processed Food (2/3p)
+- Utilites
+  - Salt (1p)
+  - Shoes (3p)
+  - Cloth (2/3p)
+  - Utensils (3p)
+  - Cars (3+3+2p)
+  - Airplanes (3+3+3+3p)
+  - Electrodomestics (2+3p)
+  - Computers (3+2p)
+  - Software (1p)
+  - Office Supplies (3p)
+  - Books (3p)
+  - Furniture (2p)
+- Power
+  - Biomass
+  - Oil power
+  - Coal power
+  - Nuclear power
+
+
 == Chain of Production ==
 = Time =
 = User interface =
