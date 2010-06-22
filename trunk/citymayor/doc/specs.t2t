@@ -99,11 +99,28 @@ People can have the following attributes:
   will determine if the person will have a car, and the type of residence
   the person will live in.
 
-- **Age**: ??
+- **Gender**: marriage can only happen between a man and a woman.
 
-- **Gender**:
+- **Age**: a person will marry with 20 and have the first baby with 25 and
+  the second with 30. The time of a person's life depends on the health
+  condition the city offers, and a few others factors like salary. A person
+  never retires.
 
-- **Family**:
+- **Family**: people will marry and have two kids of random gender. The kids
+  will marry and leave home when they're 20. Many times, the whole family
+  will come together.
+
+
+=== Daily Routine ===
+
+Contrary to reality, all people will leave around the same time for work.
+They will work during the day, and then come back home - again, all about
+the same time. Then, they'll either stay at home, or go out somewhere to 
+do something fun (or grocery shopping), and then come back.
+
+People might get sick and go to the doctor during the day.
+
+A few people, like fireman, doctors and policemen, might work during the night.
 
 
 == Structures ==
@@ -112,6 +129,8 @@ Structures refer to anything that is built on the city. Structures have a
 //xy// position on the city, and a //wh// size. Some structures such as
 residences and companies can hold a number of people, and many residences
 can hold a number of cars as well.
+
+Structures can be turned 90º, but cannot be placed diagonally.
 
 
 === Residences ===
@@ -139,6 +158,8 @@ TODO
 Houses can upgrade and degrade according to the factors described above. But
 this usually take very months to happen.
 
+Usually, the richer the house, the more desirable it is.
+
 
 === Commerce / Services ===
 === Farms / Extraction ===
@@ -153,4 +174,5 @@ this usually take very months to happen.
 === Vehicles ===
 = Economy =
 == Chain of Production ==
+= Time =
 = User interface =
