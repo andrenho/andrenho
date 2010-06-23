@@ -363,7 +363,22 @@ government install in the city, and pays the city a sum for that.
 
 === Transportation ===
 
+The transportation structures are blood vessels of the city: through
+them, people and goods go from one place to the other.
+
 ==== Roads ====
+
+Roads are where people walk (on the sideways) and where cars, buses
+and trucks ride. In a T intersection, vehicles always give preference
+to the vehicle that doesn't turn. In X intersections, the preference
+always belongs to the people on the right.
+
+Intersections always have pedestrian crossings, and vehicles will stop
+if a person is crossing. People will only cross on pedestrian crossings,
+except for dirt roads and streets.
+
+Roads allow cars to park.
+
 - Dirt road
 - Street
 - Road
@@ -372,6 +387,8 @@ government install in the city, and pays the city a sum for that.
   - Freeway entrances
 - Viaduto (?)
 - Oblique parking
+- Bus station
+- Bus garage
 
 
 ==== Rail ====
@@ -394,8 +411,10 @@ government install in the city, and pays the city a sum for that.
 
 
 == Transport ==
+This section describes how people and vehicles will move.
 === People ===
 === Vehicles ===
+
 = Economy =
 
 == Raw Material ==
