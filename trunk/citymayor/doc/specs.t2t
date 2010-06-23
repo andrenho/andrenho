@@ -209,6 +209,7 @@ TODO
   - Sand extraction pit
   - Coal Mine
   - Uranium mine
+  - Copper mine
 - Extraction
   - Sand river extraction (?)
   - Oil rig
@@ -264,6 +265,7 @@ variety of porpouses:
 - Exporter / Importer
 - Hotel
 - Convention Centre
+- Bus company/garage
 
 
 ==== Governamental buildings ====
@@ -307,6 +309,10 @@ work days and they live longer.
 
 
 ===== Water services =====
+
+The mayor doesn't have to control water services in the game.
+
+
 ===== Power services =====
 
 Power services are necessary to provide electricity for the people. Very few
@@ -381,14 +387,31 @@ Roads allow cars to park.
 
 - Dirt road
 - Street
+- One way street
 - Road
 - Avenue
 - Freeway
   - Freeway entrances
 - Viaduto (?)
 - Oblique parking
-- Bus station
-- Bus garage
+
+===== Buses =====
+
+Buses are public transport vehicles that travel through predefined routes.
+They'll stop at **bus stops** to pick up passengers, and will return at night
+to the garage for maintance.
+
+Each **bus garage** built will make, at most, 5 (?) buses available. The
+mayor can choose whatever route he wants for the buses (a route is a array
+of bus stops).
+
+
+===== Road additions =====
+
+There are some signs that can be added to the roads, such as:
+
+- Passenger crossing
+- Semaphores
 
 
 ==== Rail ====
@@ -410,12 +433,32 @@ Roads allow cars to park.
 - Port (small, medium, large)
 
 
-== Transport ==
-This section describes how people and vehicles will move.
-=== People ===
-=== Vehicles ===
-
 = Economy =
+
+The budget of the city will depend on several factors:
+- Profit
+  - Property taxes
+  - Export taxes
+  - Federal buildings
+- Expenses
+  - Build expenses
+  - Extraction industry salaries
+  - Factory salaries
+  - Commerce salaries
+  - Transportation maintance
+  - Government
+  - Bond payments (?)
+
+== Taxes ==
+
+**Property taxes** are paid by the people over the land value of the area of 
+the residence. Bigger houses, of course, will pay for all the tiles they are
+sitting over, and high density will pay a percentage much higher than low
+density. Thus, the mayor must strive to get peoples houses the higher level
+possible, since this will mean higher taxes.
+
+**Sales taxes** are paid over the sale of products to other cities.
+
 
 == Raw Material ==
 - Farming
@@ -435,6 +478,8 @@ This section describes how people and vehicles will move.
   - Copper
 - Engeneering
   - Software
+- Other
+  - Reforestation reserve
 
 
 == Byproducts ==
@@ -450,24 +495,24 @@ This section describes how people and vehicles will move.
 
 == Final products ==
 - Food
-  - Vegetable (1p)
-  - Grain (1p)
-  - Meat (2p)
-  - Bread (2p)
-  - Processed Food (2/3p)
+  - Vegetable (1p) - basic
+  - Grain (1p) - basic
+  - Meat (2p) - avg
+  - Bread (2p) - avg
+  - Processed Food (2/3p) - avg
 - Utilites
-  - Salt (1p)
-  - Shoes (3p)
-  - Cloth (2/3p)
-  - Utensils (3p)
-  - Cars (3+3+2p)
-  - Airplanes (3+3+3+3p)
-  - Electrodomestics (2+3p)
-  - Computers (3+2p)
-  - Software (1p)
-  - Office Supplies (3p)
-  - Books (3p)
-  - Furniture (2p)
+  - Salt (1p) - basic
+  - Shoes (3p) - avg
+  - Cloth (2/3p) - basic
+  - Utensils (3p) - avg
+  - Cars (3+3+2p) - luxury
+  - Airplanes (3+3+3+3p) - (export only?)
+  - Electrodomestics (2+3p) - avg
+  - Computers (3+2p) - luxury
+  - Software (1p) - luxury
+  - Office Supplies (3p) - (export only?)
+  - Books (3p) - avg
+  - Furniture (2p) - basic
 - Power
   - Biomass
   - Oil power
@@ -477,4 +522,45 @@ This section describes how people and vehicles will move.
 
 == Chain of Production ==
 = Time =
+
+
 = User interface =
+
+- Toolbar
+  - Terrain
+    - Plant tree
+  - Residence
+    - Density / Class
+  - Structures
+    - Farms / Extraction
+      - List of farms/extraction
+    - Factories
+      - List of factories
+    - Commerce / Services
+      - List of structures
+  - Government
+    - Police
+      - Size
+    - Hospital
+      - Size
+    - Education
+      - List of educational services
+    - Culture
+      - List of buildings
+    - Power
+      - List of plants/structures
+    - Desirability
+      - List of structures
+  - Tranportation
+    - Roads
+      - Road structures
+    - Rail
+    - Seaport
+    - Airport
+  - Destroy
+  - Graphics
+    - ...
+  - Budget
+  - Options
+    - Return to region
+    - Quit to Unix
