@@ -330,6 +330,10 @@ them. If they live too far, a **substation** might be necessary.
 
 
 ===== Culture / Entertainment =====
+
+Entertainment buildings increase entertanment and cultural ratings of the city,
+and increase a little people's I.Q.
+
 - Cinema
 - Theather
 - Restaurant
@@ -338,11 +342,19 @@ them. If they live too far, a **substation** might be necessary.
 
 
 === Desirability ===
+
+Desirability structures increase the desability of the surroundings. They
+usually don't employ people.
+
 - Park (tiny, small, medium, large, huge)
 - Etc...
 
 
 === Federal Buildings ===
+
+Federal buildings are (usually) undesirable buildings that the country
+government install in the city, and pays the city a sum for that.
+
 - Supermax
 - Federal road
 - Army barracks
