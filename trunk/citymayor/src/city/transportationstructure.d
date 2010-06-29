@@ -1,7 +1,8 @@
 module city.transportationstructure;
 
-import city.structure;
+public import city.structure;
 
 abstract class TransportationStructure : Structure
 {
+	this(StructureData dt) { super(dt); }
 }
