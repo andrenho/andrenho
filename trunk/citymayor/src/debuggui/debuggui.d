@@ -1,5 +1,6 @@
 module debuggui.debuggui;
 
+import std.stdio;
 import derelict.sdl.sdl;
 import derelict.sdl.ttf;
 import derelict.util.compat;
