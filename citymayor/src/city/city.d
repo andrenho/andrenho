@@ -41,6 +41,6 @@ class City
 	
 	string serialize()
 	{
-		
+		return "";
 	}
 }
