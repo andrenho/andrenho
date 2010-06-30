@@ -7,6 +7,7 @@ import gui.gui;
 import debuggui.debuggui;
 import city.data;
 
+
 void main()
 {
 	initializeStaticData();

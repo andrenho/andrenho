@@ -1,5 +1,7 @@
 module city.tile;
 
+import std.string, std.xml, std.conv;
+
 import city.structure;
 
 class Tile
@@ -11,5 +13,20 @@ class Tile
 	{
 		this.x = x;
 		this.y = y;
+	}
+	
+	//
+	// Serialization
+	//
+	
+	string serialize()
+	{
+		return format("<tile x=\"%d\" y=\"%d\" />", x, y);
+	}
+	
+	this(Element e)
+	{
+		x = to!uint(e.tag.attr["x"]);
+		y = to!uint(e.tag.attr["y"]);
 	}
 }
