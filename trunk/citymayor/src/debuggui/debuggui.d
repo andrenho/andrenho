@@ -9,6 +9,7 @@ import gui.gui;
 import city.city;
 import city.structure;
 import city.tile;
+import city.road;
 
 class DebugGUI : GUI
 {
@@ -153,9 +154,10 @@ class DebugGUI : GUI
 	
 				// save city
 				case SDLK_s:
-					if(kb.keysym.mod | KMOD_CTRL)
+					if(kb.keysym.mod & KMOD_CTRL)
 						saveCity("city.xml");
-					//city.build(new Street(t.x, t.y));
+                    else
+                        city.build(new Road(Road.data["street"]), t);
 					break;
 					
 				// load city
