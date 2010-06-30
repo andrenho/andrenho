@@ -1,15 +1,20 @@
 module city.structure;
 
+public import std.conv, std.xml;
+
+public import city.city;
 import city.tile;
 
 abstract class StructureData
 {
+	string identifier;
 	string name;
 	uint w, h;
 	uint price;
 	
-	this(string name, uint w, uint h, uint price)
+	this(string identifier, string name, uint w, uint h, uint price)
 	{
+		this.identifier = identifier;
 		this.name = name;
 		this.w = w;
 		this.h = h;
@@ -26,5 +31,10 @@ abstract class Structure
 	
 	this(StructureData dt) {
 		this.dt = dt;
+		assert(dt !is null);
 	}
+	
+	protected this() { }
+	
+	abstract string serialize();
 }

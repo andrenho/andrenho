@@ -22,7 +22,8 @@ void initializeStaticData()
 	
 	// load roads
 	foreach(ConfigNode cn; config["Roads"])
-		Road.data[cn["Identifier"]] = new RoadData(cn["Name"], 
+		Road.data[cn["Identifier"]] = new RoadData(cn["Identifier"],
+													cn["Name"], 
 													w(cn["Size"]),
 													h(cn["Size"]),
 													to!uint(cn["Price"]), 

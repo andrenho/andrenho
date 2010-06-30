@@ -8,6 +8,7 @@ import derelict.util.compat;
 import gui.gui;
 import city.city;
 import city.structure;
+import city.tile;
 
 class DebugGUI : GUI
 {
@@ -63,7 +64,7 @@ class DebugGUI : GUI
 	}
 	
 	
-	void run()
+	override void run()
 	{
         while(running)
         {
@@ -80,7 +81,7 @@ class DebugGUI : GUI
                         running = false;
                         break;
                     case SDL_KEYDOWN:
-                        // manageKeyboard(event.key);
+                        manageKeyboard(event.key);
                         break;
                     default:
                         break;
@@ -102,6 +103,7 @@ class DebugGUI : GUI
 			SDL_Flip(scr);
 		}
 		
+		
 		void drawGrid()
 		{
 			for(uint x=0; x<city.w; x++)
@@ -111,6 +113,7 @@ class DebugGUI : GUI
 					SDL_FillRect(scr, &r, grey);
 				}
 		}
+		
 		
 		void drawStructures()
 		{
@@ -125,6 +128,44 @@ class DebugGUI : GUI
 				SDL_FillRect(scr, &r, grey);
 				r.x++; r.y++; r.w-=2; r.h-=2;
 				SDL_FillRect(scr, &r, white);
+			}
+		}
+	
+	
+		Tile mouseOverTile()
+		{
+			int x, y;
+			SDL_GetMouseState(&x, &y);
+			return city.tile[x / tileSize][y / tileSize];
+		}
+		
+		
+		void manageKeyboard(SDL_KeyboardEvent kb)
+		{
+			Tile t = mouseOverTile();
+			
+			switch(kb.keysym.sym)
+			{
+				// quit
+				case SDLK_q:
+					running = false;
+					break;
+	
+				// save city
+				case SDLK_s:
+					if(kb.keysym.mod | KMOD_CTRL)
+						saveCity("city.xml");
+					//city.build(new Street(t.x, t.y));
+					break;
+					
+				// load city
+				case SDLK_l:
+					if(kb.keysym.mod | KMOD_CTRL)
+						loadCity("city.xml");
+					break;
+		
+				default:
+					break;
 			}
 		}
 	}
