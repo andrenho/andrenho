@@ -4,8 +4,7 @@ import std.xml, std.string, std.conv, std.stdio;
 
 import city.tile;
 import city.structure;
-
-import city.road; // TODO
+import city.road;
 
 class City
 {
@@ -24,27 +23,30 @@ class City
 			for(uint y; y<h; y++)
 				tile[x][y] = new Tile(x, y);
 		}
-		
-		Road r = new Road(Road.data["street"]);
-		build(r, tile[2][2]);
 	}
 	
 	
-	void build(Structure structure, Tile tile)
+	bool build(Structure structure, Tile tile)
 	{
-		addStructureToCity(structure, tile);
+		return addStructureToCity(structure, tile);
 	}
 	
 	
 	private
 	{
-		void addStructureToCity(Structure structure, Tile tile)
+		bool addStructureToCity(Structure structure, Tile tile)
 		{
+			for(uint x=tile.x; x<(tile.x + structure.dt.w); x++)
+				for(uint y=tile.y; y<(tile.y + structure.dt.h); y++)
+                    if(this.tile[x][y].structure !is null)
+                        return false;
+
 			structure.tile = tile;
-			for(uint xx=tile.x; xx<(tile.x + structure.dt.w); xx++)
-				for(uint yy=tile.y; yy<(tile.y + structure.dt.h); yy++)
-					this.tile[xx][yy].structure = structure;
+			for(uint x=tile.x; x<(tile.x + structure.dt.w); x++)
+				for(uint y=tile.y; y<(tile.y + structure.dt.h); y++)
+					this.tile[x][y].structure = structure;
 			structures ~= structure;
+            return true;
 		}
 	}
 	
@@ -113,9 +115,9 @@ class City
 								assert(false);
 						}
 						
-						uint x = 2; //to!uint(es.tag.attr["x"]);
-						uint y = 2; //to!uint(es.tag.attr["y"]);
-						addStructureToCity(str, tile[x][y]);
+						uint x = to!uint(es.tag.attr["x"]);
+						uint y = to!uint(es.tag.attr["y"]);
+						assert(addStructureToCity(str, tile[x][y]));
 					}
 					break;
 				default:

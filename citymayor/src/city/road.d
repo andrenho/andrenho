@@ -20,7 +20,7 @@ class RoadData : StructureData
 class Road : Structure
 {
 	static RoadData[string] data;
-	
+
 	this(StructureData dt)
 	{
 		super(dt);
