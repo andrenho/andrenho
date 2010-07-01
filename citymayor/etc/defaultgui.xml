@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<gui>
+    <images>
+        <image id="button" image="button.png" />
+    </images>
+    <buttons>
+        <button image="road_butto.png" type="road" />
+    </buttons>
+</gui>
