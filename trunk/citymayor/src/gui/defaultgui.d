@@ -33,7 +33,7 @@ class DefaultGUI : GUI
 	override void displayException(Exception e)
 	{
 		SDL_FillRect(screen, null, 0);
-		SDL_Surface* s = TTF_RenderText_Solid(font, e.msg.toStringz(), whiteColor);
+		SDL_Surface* s = TTF_RenderText_Solid(mono, e.msg.toStringz(), whiteColor);
 		SDL_Rect r = { cast(short)((screen.w/2) - (s.w/2)), 
 		               cast(short)((screen.h/2) - (s.h/2)) };
 		SDL_BlitSurface(s, null, screen, &r);
@@ -70,7 +70,7 @@ class DefaultGUI : GUI
 	{
 		SDL_Surface* screen;
 		SDL_Surface*[string] images;
-		TTF_Font* font;
+		TTF_Font* mono;
 		const SDL_Color whiteColor = { 255, 255, 255 };
 		uint white;
 		Button[] buttons;
@@ -92,7 +92,7 @@ class DefaultGUI : GUI
 				writefln("SDL_ttf initialized.");
 				
 			// load font
-			if((font = TTF_OpenFont("./data/font/FIPPS___.TTF", 16)) is null)
+			if((mono = TTF_OpenFont("./data/font/04B_03__.TTF", 16)) is null)
 				throw new Exception("Could not load font FIPPS___.TTF.");
 			else debug
 				writefln("Font FIPPS___.TTF loaded.");
