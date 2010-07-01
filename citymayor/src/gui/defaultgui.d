@@ -11,6 +11,7 @@ import derelict.util.compat;
 
 import gui.gui;
 import gui.button;
+import gui.cityview;
 import city.city;
 
 class DefaultGUI : GUI
@@ -27,6 +28,17 @@ class DefaultGUI : GUI
 	override void run()
 	{
 		loadConfig("etc/defaultgui.xml");
+        cityView = new CityView(city, images);
+        SDL_BlitSurface(cityView, null, screen, null);
+        SDL_Flip(screen);
+
+        SDL_Event e;
+        while(running)
+        {
+            SDL_PollEvent(&e);
+            if(e.type == SDL_QUIT)
+                running = false;
+        }
 	}
 	
 	
@@ -74,6 +86,8 @@ class DefaultGUI : GUI
 		const SDL_Color whiteColor = { 255, 255, 255 };
 		uint white;
 		Button[] buttons;
+        bool running = true;
+        CityView cityView;
 		
 		void initializeSDL(uint w, uint h)
 		{
@@ -98,7 +112,7 @@ class DefaultGUI : GUI
 				writefln("Font FIPPS___.TTF loaded.");
 
 			// create window
-			if((screen = SDL_SetVideoMode(w, h, 0, SDL_SWSURFACE|SDL_RESIZABLE)) == null)
+			if((screen = SDL_SetVideoMode(w, h, 32, SDL_SWSURFACE|SDL_RESIZABLE)) == null)
 				throw new Exception("Failed to set video mode: " ~ toDString(SDL_GetError()));
 			else debug
 				writefln("Window created.");
