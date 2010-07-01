@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <gui>
     <images>
+        <image id="land" image="land.png" />
         <image id="button" image="button.png" />
     </images>
     <buttons>
