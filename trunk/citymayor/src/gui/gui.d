@@ -17,6 +17,12 @@ abstract class GUI
 	void run();
 	
 	
+	void displayException(Exception e)
+	{
+		throw e;
+	}
+	
+	
 	void saveCity(string file)
 	{
 		auto f = File(file, "w");
