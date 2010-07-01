@@ -4,6 +4,6 @@
         <image id="button" image="button.png" />
     </images>
     <buttons>
-        <button image="road_butto.png" type="road" />
+        <button image="road_button.png" type="road" />
     </buttons>
 </gui>
