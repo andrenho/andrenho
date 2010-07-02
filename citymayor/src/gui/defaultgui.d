@@ -22,7 +22,7 @@ class DefaultGUI : GUI
 	{
 		Button.gui = this;
 		
-		initializeSDL(640, 480);
+		initializeSDL(800, 600);
 		super(city);
 	}
 
@@ -53,8 +53,8 @@ class DefaultGUI : GUI
 					break;
 			}
 			
-			while(SDL_GetTicks() < next)
-                SDL_Delay(1);
+		//	while(SDL_GetTicks() < next)
+        //        SDL_Delay(1);
         }
 	}
 	
@@ -87,7 +87,7 @@ class DefaultGUI : GUI
 		if(image !is null)
 		{
 			debug writefln("Loading image %s... ok!", file);
-			SDL_SetColorKey(image, SDL_RLEACCEL, image.format.colorkey);
+			//SDL_SetColorKey(image, SDL_RLEACCEL, image.format.colorkey);
 		}
 		else
 			throw new Exception(format("Error loading image %s.", file));
@@ -197,7 +197,8 @@ class DefaultGUI : GUI
 		{
 			SDL_Rect r = { rel_x, rel_y };
 			SDL_BlitSurface(cityview, null, screen, &r);
-			SDL_Flip(screen);		}
+			SDL_Flip(screen);		
+        }
 		
 		
 		bool quit()
@@ -208,7 +209,7 @@ class DefaultGUI : GUI
 		
 		void mouseButton(SDL_MouseButtonEvent e)
 		{
-			if(e.button == SDL_BUTTON_LEFT)
+			if(e.button == SDL_BUTTON_RIGHT)
 			{
 			}
 		}
@@ -216,24 +217,26 @@ class DefaultGUI : GUI
 		
 		void mouseMotion(SDL_MouseMotionEvent e)
 		{
-			int x, y;
-			SDL_GetMouseState(&x, &y);
-			int xrel = x - last_x;
-			int yrel = y - last_y;
-			last_x = x;
-			last_y = y;
+            int xrel = e.x - last_x;
+			int yrel = e.y - last_y;
+			last_x = e.x;
+			last_y = e.y;
 			
 			// right button pressed
 			if(e.state & SDL_BUTTON(3))
 			{
-				if(rel_x + xrel > 0)// && rel_x > (screen.w - cityview.w))
+                if(cityview.w < screen.w)
+                    rel_x = 0;
+                else if(rel_x + xrel > 0)
 					rel_x = 0;
 				else if(rel_x + xrel < (screen.w - cityview.w))
 					rel_x = cast(short)(screen.w - cityview.w);
 				else
 					rel_x += xrel;
 					
-				if(rel_y + yrel > 0)
+                if(cityview.h < screen.h)
+                    rel_y = 0;
+                else if(rel_y + yrel > 0)
 					rel_y = 0;
 				else if(rel_y + yrel < (screen.h - cityview.h))
 					rel_y = cast(short)(screen.h - cityview.h);
