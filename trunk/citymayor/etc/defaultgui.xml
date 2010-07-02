@@ -2,6 +2,7 @@
 <gui>
     <images>
         <image id="land" image="land.png" />
+        <image id="grid" image="grid.png" />
         <image id="button" image="button.png" />
     </images>
     <buttons>
