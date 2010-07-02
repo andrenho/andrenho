@@ -31,7 +31,12 @@ class CityView
 
     void redraw()
     {
-        drawBackground();
+        // drawBackground();
+		SDL_FillRect(sf, null, SDL_MapRGB(sf.format, 255, 255, 255));
+		
+		SDL_Rect r = { 100, 100, 10, 10 };
+		r.x = 200; r.y = 200;
+		SDL_FillRect(sf, &r, 0);
     }
 
     private
@@ -39,9 +44,9 @@ class CityView
         void drawBackground()
         {
             float r = 180, g = 228, b = 237;
-            float rinc = (255-r) / cast(float)sf.h;
-            float ginc = (255-g) / cast(float)sf.h;
-            float binc = (255-b) / cast(float)sf.h;
+            const float rinc = (255-r) / cast(float)sf.h;
+            const float ginc = (255-g) / cast(float)sf.h;
+            const float binc = (255-b) / cast(float)sf.h;
 
             for(uint y=0; y<sf.h; y++)
             {
