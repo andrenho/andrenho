@@ -20,7 +20,7 @@ class DefaultGUI : GUI
 	{
 		Button.gui = this;
 		
-		initializeSDL(800, 600);
+		initializeSDL(640, 480);
 		super(city);
 	}
 
