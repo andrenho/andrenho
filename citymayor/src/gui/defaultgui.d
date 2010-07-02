@@ -16,6 +16,8 @@ import city.city;
 
 class DefaultGUI : GUI
 {
+	const uint FPS = 60;
+	
 	this(City city)
 	{
 		Button.gui = this;
@@ -28,16 +30,31 @@ class DefaultGUI : GUI
 	override void run()
 	{
 		loadConfig("etc/defaultgui.xml");
-        cityView = new CityView(city, images);
-        SDL_BlitSurface(cityView, null, screen, null);
-        SDL_Flip(screen);
+        cityview = new CityView(city, images);
 
         SDL_Event e;
         while(running)
         {
+			uint next = SDL_GetTicks() + (1000/FPS);
+			updateScreen();
+			
             SDL_PollEvent(&e);
-            if(e.type == SDL_QUIT)
-                running = false;
+			final switch(e.type)
+			{
+				case SDL_QUIT:
+					running = quit();
+					break;
+				case SDL_MOUSEBUTTONDOWN:
+				case SDL_MOUSEBUTTONUP:
+					mouseButton(e.button);
+					break;
+				case SDL_MOUSEMOTION:
+					mouseMotion(e.motion);
+					break;
+			}
+			
+			while(SDL_GetTicks() < next)
+                SDL_Delay(1);
         }
 	}
 	
@@ -87,7 +104,9 @@ class DefaultGUI : GUI
 		uint white;
 		Button[] buttons;
         bool running = true;
-        CityView cityView;
+        CityView cityview;
+		short rel_x = 0, rel_y = 0;
+		int last_x, last_y;
 		
 		void initializeSDL(uint w, uint h)
 		{
@@ -126,6 +145,9 @@ class DefaultGUI : GUI
 	
 			// setup colors
 			white = SDL_MapRGB(screen.format, 255, 255, 255);
+			
+			// get pointer position
+			SDL_GetMouseState(&last_x, &last_y);
 		}
 
 
@@ -168,6 +190,56 @@ class DefaultGUI : GUI
 		{
 			foreach(string key, string path; paths)
 				images[key] = loadImage(path);
+		}
+		
+		
+		void updateScreen()
+		{
+			SDL_Rect r = { rel_x, rel_y };
+			SDL_BlitSurface(cityview, null, screen, &r);
+			SDL_Flip(screen);		}
+		
+		
+		bool quit()
+		{
+			return false;
+		}
+		
+		
+		void mouseButton(SDL_MouseButtonEvent e)
+		{
+			if(e.button == SDL_BUTTON_LEFT)
+			{
+			}
+		}
+		
+		
+		void mouseMotion(SDL_MouseMotionEvent e)
+		{
+			int x, y;
+			SDL_GetMouseState(&x, &y);
+			int xrel = x - last_x;
+			int yrel = y - last_y;
+			last_x = x;
+			last_y = y;
+			
+			// right button pressed
+			if(e.state & SDL_BUTTON(3))
+			{
+				if(rel_x + xrel > 0)// && rel_x > (screen.w - cityview.w))
+					rel_x = 0;
+				else if(rel_x + xrel < (screen.w - cityview.w))
+					rel_x = cast(short)(screen.w - cityview.w);
+				else
+					rel_x += xrel;
+					
+				if(rel_y + yrel > 0)
+					rel_y = 0;
+				else if(rel_y + yrel < (screen.h - cityview.h))
+					rel_y = cast(short)(screen.h - cityview.h);
+				else
+					rel_y += yrel;
+			}
 		}
 	}
 }

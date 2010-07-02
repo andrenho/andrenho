@@ -31,12 +31,13 @@ class CityView
 
     void redraw()
     {
-        // drawBackground();
-		SDL_FillRect(sf, null, SDL_MapRGB(sf.format, 255, 255, 255));
-		
-		SDL_Rect r = { 100, 100, 10, 10 };
-		r.x = 200; r.y = 200;
-		SDL_FillRect(sf, &r, 0);
+        drawBackground();
+		/*
+		SDL_Rect r = { 10, 10, cast(short)(sf.w-20), cast(short)(sf.h-20) };
+		SDL_FillRect(sf, &r, SDL_MapRGB(sf.format, 255, 255, 255));
+		SDL_Rect r2 = { 50, 50, 10, 10 };
+		SDL_FillRect(sf, &r2, 0);
+		*/
     }
 
     private
