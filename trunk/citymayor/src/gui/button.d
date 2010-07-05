@@ -40,6 +40,10 @@ class Buttons
 			x += w;
 		}
 	}
+	
+	void click(short x, short y)
+	{
+	}
 }
 
 
