@@ -17,7 +17,7 @@ void main(string[] args)
 	
 	initializeStaticData();
 	
-	City city = new City(15, 15);
+	City city = new City(40, 40);
 	
 	GUI gui;
 	if(debug_gui)
