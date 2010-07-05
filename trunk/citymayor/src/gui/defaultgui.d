@@ -201,6 +201,8 @@ class DefaultGUI : GUI
 					default:
 						assert(false);
 				}
+				
+			buttons.initialize();
 		}
 
 
@@ -218,17 +220,8 @@ class DefaultGUI : GUI
 			SDL_BlitSurface(cityview, null, screen, &r);
 			
 			// draw buttons
-			/*
-			short w = 0;
-			foreach(Button b; buttons)
-				w += b.sf.w;
-			short x = cast(short)(screen.w/2 - w/2);
-			foreach(Button b; buttons)
-			{
-				SDL_Rect r2 = { x, 0 };
-				SDL_BlitSurface(b.sf, null, screen, &r2);
-			}
-			*/
+			SDL_Rect r2 = { cast(short)(screen.w/2 - buttons.sf.w/2), 0 };
+			SDL_BlitSurface(buttons.sf, null, screen, &r2);
 			
 			SDL_Flip(screen);
         }

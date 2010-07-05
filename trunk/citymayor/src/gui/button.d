@@ -28,6 +28,18 @@ class Buttons
 		buttons ~= null;
 		w += separatorLength;
 	}
+	
+	void initialize()
+	{
+		sf = SDL_CreateRGBSurface(SDL_SWSURFACE, w, h, 32, 0, 0, 0, 0);
+		int x = 0;
+		foreach(Button b; buttons)
+		{
+			SDL_Rect r = { cast(short) x, 0 };
+			SDL_BlitSurface(b.sf, null, sf, &r);
+			x += w;
+		}
+	}
 }
 
 
