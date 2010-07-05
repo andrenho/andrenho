@@ -38,20 +38,23 @@ class DefaultGUI : GUI
 			uint next = SDL_GetTicks() + (1000/FPS);
 			updateScreen();
 			
-            SDL_PollEvent(&e);
-			final switch(e.type)
-			{
-				case SDL_QUIT:
-					running = quit();
-					break;
-				case SDL_MOUSEBUTTONDOWN:
-				case SDL_MOUSEBUTTONUP:
-					mouseButton(e.button);
-					break;
-				case SDL_MOUSEMOTION:
-					mouseMotion(e.motion);
-					break;
-			}
+            while(SDL_PollEvent(&e))
+    			final switch(e.type)
+	    		{
+		    		case SDL_QUIT:
+			    		running = quit();
+				    	break;
+    				case SDL_MOUSEBUTTONDOWN:
+	    			case SDL_MOUSEBUTTONUP:
+		        		mouseButton(e.button);
+				    	break;
+    				case SDL_MOUSEMOTION:
+	    				mouseMotion(e.motion);
+		    			break;
+                    case SDL_KEYDOWN:
+                        keyPress(e.key);
+                        break;
+			    }
 			
 		//	while(SDL_GetTicks() < next)
         //        SDL_Delay(1);
@@ -219,7 +222,8 @@ class DefaultGUI : GUI
 		{
             int xrel = e.x - last_x;
 			int yrel = e.y - last_y;
-			last_x = e.x;
+                
+            last_x = e.x;
 			last_y = e.y;
 			
 			// right button pressed
@@ -244,5 +248,17 @@ class DefaultGUI : GUI
 					rel_y += yrel;
 			}
 		}
+
+
+        void keyPress(SDL_KeyboardEvent e)
+        {
+            final switch(e.keysym.sym)
+            {
+                case SDLK_g:
+                    cityview.displayGrid = !cityview.displayGrid;
+                    cityview.redraw();
+                    break;
+            }
+        }
 	}
 }

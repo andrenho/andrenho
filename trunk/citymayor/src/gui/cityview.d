@@ -9,6 +9,7 @@ class CityView
 {
 	alias sf this;
 	SDL_Surface* sf;
+    bool displayGrid = true;
 	
 	private
 	{
@@ -38,10 +39,6 @@ class CityView
         for(uint x=0; x < city.w; x++)
             for(uint y=0; y < city.h; y++)
                 drawTile(city.tile[x][y]);
-		//SDL_Rect r = { 10, 10, cast(short)(sf.w-20), cast(short)(sf.h-20) };
-		//SDL_FillRect(sf, &r, SDL_MapRGB(sf.format, 255, 255, 255));
-		//SDL_Rect r2 = { 50, 50, 10, 10 };
-		//SDL_FillRect(sf, &r2, 0);
     }
 
     private
@@ -78,8 +75,12 @@ class CityView
             {
                 SDL_Rect r = { cast(short)x, cast(short)y };
                 SDL_BlitSurface(images["land"], null, sf, &r);
-                SDL_Rect r2 = { cast(short)(x+(tile_w/2)), cast(short)y };
-                SDL_BlitSurface(images["grid"], null, sf, &r);
+                if(displayGrid)
+                {
+                    SDL_Rect r2 = { cast(short)(x+(tile_w/2)), cast(short)y };
+                    SDL_BlitSurface(images["grid"], null, sf, &r);
+                }
+
             }
         }
     }
