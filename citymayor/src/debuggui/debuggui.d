@@ -65,6 +65,9 @@ class DebugGUI : GUI
 	}
 	
 	
+	override void initialize() { }
+	
+	
 	override void run()
 	{
         while(running)

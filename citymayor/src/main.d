@@ -27,6 +27,7 @@ void main(string[] args)
 		
 	try
 	{
+		gui.initialize();
 		gui.run();
 	}
 	catch(Exception e)

@@ -3,7 +3,9 @@
     <images>
         <image id="land" image="land.png" />
         <image id="grid" image="grid.png" />
-        <image id="button" image="button.png" />
+        <image id="buttonpressed" image="buttonpressed.png" />
+        <image id="buttonmiddle" image="buttonmiddle.png" />
+        <image id="buttonunpressed" image="buttonunpressed.png" />
     </images>
     <buttons>
         <button image="road_button.png" type="road" />

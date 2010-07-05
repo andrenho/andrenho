@@ -17,19 +17,25 @@ import city.city;
 class DefaultGUI : GUI
 {
 	const uint FPS = 60;
+	SDL_Surface*[string] images;
+	Buttons buttons;
 	
 	this(City city)
 	{
-		Button.gui = this;
-		
-		initializeSDL(800, 600);
+		initializeSDL(400, 300);
+		buttons = new Buttons();
 		super(city);
+	}
+	
+	
+	override void initialize()
+	{
+		loadConfig("etc/defaultgui.xml");
 	}
 
 	
 	override void run()
 	{
-		loadConfig("etc/defaultgui.xml");
         cityview = new CityView(city, images);
 
         SDL_Event e;
@@ -54,6 +60,10 @@ class DefaultGUI : GUI
                     case SDL_KEYDOWN:
                         keyPress(e.key);
                         break;
+					case SDL_VIDEORESIZE:
+						screen = SDL_SetVideoMode(e.resize.w, e.resize.h, 32, screen.flags);
+						updateScreen();
+						break;
 			    }
 			
 		//	while(SDL_GetTicks() < next)
@@ -101,11 +111,9 @@ class DefaultGUI : GUI
 	private
 	{
 		SDL_Surface* screen;
-		SDL_Surface*[string] images;
 		TTF_Font* mono;
 		const SDL_Color whiteColor = { 255, 255, 255 };
 		uint white;
-		Button[] buttons;
         bool running = true;
         CityView cityview;
 		short rel_x = 0, rel_y = 0;
@@ -161,16 +169,23 @@ class DefaultGUI : GUI
 			auto xml = new Document(s);
 			assert(xml.tag.name == "gui");
 			foreach(Element e; xml.elements)
+				if(e.tag.name == "images")
+				{
+					string[string] image_paths;
+					foreach(Element ei; e.elements)
+					{
+						assert(ei.tag.name == "image");
+						image_paths[ei.tag.attr["id"]] = ei.tag.attr["image"];
+					}
+					loadImages(image_paths);
+				}
+
+			Button.loadImages(images);
+
+			foreach(Element e; xml.elements)
 				switch(e.tag.name)
 				{
 					case "images":
-						string[string] image_paths;
-						foreach(Element ei; e.elements)
-						{
-							assert(ei.tag.name == "image");
-							image_paths[ei.tag.attr["id"]] = ei.tag.attr["image"];
-						}
-						loadImages(image_paths);
 						break;
 					case "buttons":
 						foreach(Element ei; e.elements)
@@ -178,7 +193,7 @@ class DefaultGUI : GUI
 							if(ei.tag.name == "button")
 								buttons ~= new Button(ei);
 							else if(ei.tag.name == "separator")
-								buttons ~= null;
+								buttons.addSeparator();
 							else
 								assert(false);
 						}
@@ -198,9 +213,24 @@ class DefaultGUI : GUI
 		
 		void updateScreen()
 		{
+			// draw cityview
 			SDL_Rect r = { rel_x, rel_y };
 			SDL_BlitSurface(cityview, null, screen, &r);
-			SDL_Flip(screen);		
+			
+			// draw buttons
+			/*
+			short w = 0;
+			foreach(Button b; buttons)
+				w += b.sf.w;
+			short x = cast(short)(screen.w/2 - w/2);
+			foreach(Button b; buttons)
+			{
+				SDL_Rect r2 = { x, 0 };
+				SDL_BlitSurface(b.sf, null, screen, &r2);
+			}
+			*/
+			
+			SDL_Flip(screen);
         }
 		
 		
