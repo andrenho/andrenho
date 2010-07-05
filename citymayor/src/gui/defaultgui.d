@@ -237,10 +237,10 @@ class DefaultGUI : GUI
 		{
 			if(e.button == SDL_BUTTON_LEFT)
 			{
-				if(e.button.x >= cast(short)(screen.w/2 - buttons.sf.w/2)
-				&& e.button.x <= cast(short)(screen.w/2 + buttons.sf.w/2)
-				&& e.button.y <= cast(short)buttons.sf.h)
-					buttons.click(e.button.x - cast(short)(screen.w/2 - buttons.sf.w/2));
+				if(e.x >= cast(short)(screen.w/2 - buttons.sf.w/2)
+				&& e.x <= cast(short)(screen.w/2 + buttons.sf.w/2)
+				&& e.y <= cast(short)buttons.sf.h)
+					buttons.click(cast(short)(e.x - (screen.w/2 - buttons.sf.w/2)), e.y);
 			}
 		}
 		

@@ -32,6 +32,10 @@ class Buttons
 	void initialize()
 	{
 		sf = SDL_CreateRGBSurface(SDL_SWSURFACE, w, h, 32, 0, 0, 0, 0);
+        uint magenta = SDL_MapRGB(sf.format, 255, 0, 255);
+        SDL_FillRect(sf, null, magenta);
+        SDL_SetColorKey(sf, SDL_SRCCOLORKEY, magenta);
+
 		int x = 0;
 		foreach(Button b; buttons)
 		{
@@ -63,7 +67,7 @@ class Button
 	}
 	
 	
-	SDL_Surface* sf; 
+	SDL_Surface* sf, image;
 	string type;
 	private State state;
 	
@@ -71,7 +75,11 @@ class Button
 	{
 		assert(e.tag.name == "button");
 		type = e.tag.attr["type"];
+        image = images[e.tag.attr["image"]];
 		sf = SDL_CreateRGBSurface(SDL_SWSURFACE, imageUnpressed.w, imageUnpressed.h, 32, 0, 0, 0, 0);
+        uint magenta = SDL_MapRGB(sf.format, 255, 0, 255);
+        SDL_FillRect(sf, null, magenta);
+        SDL_SetColorKey(sf, SDL_SRCCOLORKEY, magenta);
 		setState(State.RELEASED);
 	}
 	
