@@ -9,7 +9,7 @@ class CityView
 {
 	alias sf this;
 	SDL_Surface* sf;
-    bool displayGrid = true;
+    bool displayGrid = false;
 	
 	private
 	{
@@ -36,9 +36,11 @@ class CityView
     void redraw()
     {
         drawBackground();
+		
         for(uint x=0; x < city.w; x++)
             for(uint y=0; y < city.h; y++)
                 drawTile(city.tile[x][y]);
+		//SDL_FillRect(sf, null, SDL_MapRGB(sf.format, 255, 255, 255));
     }
 
     private

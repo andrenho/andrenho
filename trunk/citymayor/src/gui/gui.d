@@ -14,7 +14,8 @@ abstract class GUI
 	}
 	
 	
-	void run();
+	abstract void run();
+	abstract void initialize();
 	
 	
 	void displayException(Exception e)
