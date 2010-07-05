@@ -235,8 +235,12 @@ class DefaultGUI : GUI
 		
 		void mouseButton(SDL_MouseButtonEvent e)
 		{
-			if(e.button == SDL_BUTTON_RIGHT)
+			if(e.button == SDL_BUTTON_LEFT)
 			{
+				if(e.button.x >= cast(short)(screen.w/2 - buttons.sf.w/2)
+				&& e.button.x <= cast(short)(screen.w/2 + buttons.sf.w/2)
+				&& e.button.y <= cast(short)buttons.sf.h)
+					buttons.click(e.button.x - cast(short)(screen.w/2 - buttons.sf.w/2));
 			}
 		}
 		
