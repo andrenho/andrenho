@@ -123,7 +123,7 @@ class Button
 
 	void setState(Button.State state)
 	{
-		SDL_Rect r = { cast(short)(sf.w/2 - image.w/2), cast(short)(sf.h/2 - image.h/2) };
+		SDL_Rect r = { cast(short)(sf.w/2 - image.w/2-1), cast(short)(sf.h/2 - image.h/2) };
 		final switch(state)
 		{
 			case State.PRESSED:
@@ -131,6 +131,7 @@ class Button
 				SDL_BlitSurface(image, null, sf, &r);
 				break;
 			case State.RELEASED:
+                r.x+=2;
 				SDL_BlitSurface(imageUnpressed, null, sf, null);
 				SDL_BlitSurface(image, null, sf, &r);
 				break;
