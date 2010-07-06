@@ -8,6 +8,11 @@
         <image id="buttonunpressed" image="buttonunpressed.png" />
     </images>
     <buttons>
-        <button image="road_button.png" type="road" />
+        <button image="options.png">
+            <option image="exit.png">
+                <title>Exit to $OS</title>
+                <description>Exit to the operating system, saving the city.</description>
+            </option>
+        </button>
     </buttons>
 </gui>
