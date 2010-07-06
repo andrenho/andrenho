@@ -147,7 +147,7 @@ class DefaultGUI : GUI
 				throw new Exception("Could not load font 04B_03__.TTF.");
 			else debug
 				writefln("Font 04B_03__.TTF loaded.");
-			if((titleFont = TTF_OpenFont("./data/font/Hardpixel.OTF", 8)) is null)
+			if((titleFont = TTF_OpenFont("./data/font/Hardpixel.OTF", 20)) is null)
 				throw new Exception("Could not load font Hardpixel.OTF.");
 			else debug
 				writefln("Font Hardpixel.OTF loaded.");
@@ -233,6 +233,9 @@ class DefaultGUI : GUI
 			// draw buttons
 			SDL_Rect r2 = { cast(short)(screen.w/2 - buttons.sf.w/2), 0 };
 			SDL_BlitSurface(buttons.sf, null, screen, &r2);
+
+            // draw options
+            buttons.drawOptions(screen, r2.x);
 			
 			SDL_Flip(screen);
         }
