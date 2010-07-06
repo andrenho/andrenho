@@ -13,7 +13,8 @@ class Buttons
 	private const int separatorLength;
 
 	private Button[] buttons;
-	SDL_Surface* sf;
+	SDL_Surface* sf, optionMenu;
+	int optionMenuX;
 	int w, h;
 
 	void opOpAssign(string s)(Button b) if (s == "~")
@@ -42,13 +43,13 @@ class Buttons
 
     void click(short x, short y)
 	{
-        writefln("%d x %d", x, y);
         foreach(Button b; buttons)
-            if(b.x >= x && (b.x + b.sf.w) < x)
+            if(b.x <= x && (b.x + b.sf.w) > x)
             {
                 unclickAll();
                 b.setState(Button.State.PRESSED);
                 drawButtons();
+				optionMenuX = b.x;
                 return;
             }
 	}
@@ -56,7 +57,10 @@ class Buttons
 
     void unclickAll()
     {
-        // TODO
+        foreach(Button b; buttons)
+			b.setState(Button.State.RELEASED);
+		drawButtons();
+		optionMenuX = -1;
     }
 
 
