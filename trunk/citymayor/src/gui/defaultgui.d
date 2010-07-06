@@ -18,11 +18,16 @@ class DefaultGUI : GUI
 {
 	const uint FPS = 60;
 	SDL_Surface*[string] images;
+	SDL_Surface* screen;
 	Buttons buttons;
+	TTF_Font* monoBig, monoSmall, titleFont;
 	
 	this(City city)
 	{
-		initializeSDL(400, 300);
+		version(test)
+			initializeSDL(400, 300);
+		else
+			initializeSDL(800, 600);
 		buttons = new Buttons();
 		super(city);
 	}
@@ -31,13 +36,12 @@ class DefaultGUI : GUI
 	override void initialize()
 	{
 		loadConfig("etc/defaultgui.xml");
+        cityview = new CityView(city, images);
 	}
 
 	
 	override void run()
 	{
-        cityview = new CityView(city, images);
-
         SDL_Event e;
         while(running)
         {
@@ -75,7 +79,7 @@ class DefaultGUI : GUI
 	override void displayException(Exception e)
 	{
 		SDL_FillRect(screen, null, 0);
-		SDL_Surface* s = TTF_RenderText_Solid(mono, e.msg.toStringz(), whiteColor);
+		SDL_Surface* s = TTF_RenderText_Solid(monoBig, e.msg.toStringz(), whiteColor);
 		SDL_Rect r = { cast(short)((screen.w/2) - (s.w/2)), 
 		               cast(short)((screen.h/2) - (s.h/2)) };
 		SDL_BlitSurface(s, null, screen, &r);
@@ -96,22 +100,21 @@ class DefaultGUI : GUI
 	
 	SDL_Surface* loadImage(string file)
 	{
-		SDL_Surface* image = IMG_Load(toStringz("data/art/" ~ file));
-		if(image !is null)
+		SDL_Surface* image2, image1 = IMG_Load(toStringz("data/art/" ~ file));
+		if(image1 !is null)
 		{
 			debug writefln("Loading image %s... ok!", file);
-			//SDL_SetColorKey(image, SDL_RLEACCEL, image.format.colorkey);
+			image2 = SDL_ConvertSurface(image1, screen.format, SDL_SWSURFACE);
+			SDL_FreeSurface(image1);
+			SDL_SetColorKey(image2, SDL_SRCCOLORKEY|SDL_RLEACCEL, image2.format.colorkey);
+			return image2;
 		}
 		else
 			throw new Exception(format("Error loading image %s.", file));
-			
-		return image;
 	}
 
 	private
 	{
-		SDL_Surface* screen;
-		TTF_Font* mono;
 		const SDL_Color whiteColor = { 255, 255, 255 };
 		uint white;
         bool running = true;
@@ -136,10 +139,18 @@ class DefaultGUI : GUI
 				writefln("SDL_ttf initialized.");
 				
 			// load font
-			if((mono = TTF_OpenFont("./data/font/04B_03__.TTF", 16)) is null)
-				throw new Exception("Could not load font FIPPS___.TTF.");
+			if((monoBig = TTF_OpenFont("./data/font/04B_03__.TTF", 16)) is null)
+				throw new Exception("Could not load font 04B_03__.TTF.");
 			else debug
-				writefln("Font FIPPS___.TTF loaded.");
+				writefln("Font 04B_03__.TTF loaded.");
+			if((monoSmall = TTF_OpenFont("./data/font/04B_03__.TTF", 8)) is null)
+				throw new Exception("Could not load font 04B_03__.TTF.");
+			else debug
+				writefln("Font 04B_03__.TTF loaded.");
+			if((titleFont = TTF_OpenFont("./data/font/Hardpixel.OTF", 8)) is null)
+				throw new Exception("Could not load font Hardpixel.OTF.");
+			else debug
+				writefln("Font Hardpixel.OTF loaded.");
 
 			// create window
 			if((screen = SDL_SetVideoMode(w, h, 32, SDL_SWSURFACE|SDL_RESIZABLE)) == null)
@@ -191,7 +202,7 @@ class DefaultGUI : GUI
 						foreach(Element ei; e.elements)
 						{
 							if(ei.tag.name == "button")
-								buttons ~= new Button(ei);
+								buttons ~= new Button(ei, this);
 							else if(ei.tag.name == "separator")
 								buttons.addSeparator();
 							else
@@ -285,6 +296,19 @@ class DefaultGUI : GUI
                     cityview.displayGrid = !cityview.displayGrid;
                     cityview.redraw();
                     break;
+
+				case SDLK_r:
+					//if(e.keysym.mod & KMOD_CTRL)
+					{
+						write("Redrawing screen... ");
+						uint ticks = SDL_GetTicks();
+						cityview.redraw();
+						writef("done in %d ms... ", SDL_GetTicks() - ticks);
+						ticks = SDL_GetTicks();
+						updateScreen();
+						writef("screen updated in %d ms!", SDL_GetTicks() - ticks);
+					}
+					break;
             }
         }
 	}
