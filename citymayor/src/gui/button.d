@@ -64,6 +64,23 @@ class Buttons
     }
 
 
+    void drawOptions(SDL_Surface* screen, short x)
+    {
+        Button set;
+        foreach(Button b; buttons)
+            if(b.state == Button.State.PRESSED)
+                set = b;
+        if(!set)
+            return;
+
+        foreach(Option o; set.options)
+        {
+            SDL_Rect r = { cast(short)(x + set.x), cast(short)set.sf.h };
+            SDL_BlitSurface(o.sf, null, screen, &r);
+        }
+    }
+
+
     private
     {
         void drawButtons()
@@ -123,7 +140,7 @@ class Button
 
 	void setState(Button.State state)
 	{
-		SDL_Rect r = { cast(short)(sf.w/2 - image.w/2-1), cast(short)(sf.h/2 - image.h/2) };
+		SDL_Rect r = { cast(short)(sf.w/2 - image.w/2 - 1), cast(short)(sf.h/2 - image.h/2) };
 		final switch(state)
 		{
 			case State.PRESSED:
@@ -131,7 +148,7 @@ class Button
 				SDL_BlitSurface(image, null, sf, &r);
 				break;
 			case State.RELEASED:
-                r.x+=2;
+                r.x++;
 				SDL_BlitSurface(imageUnpressed, null, sf, null);
 				SDL_BlitSurface(image, null, sf, &r);
 				break;
@@ -142,10 +159,11 @@ class Button
 
 class Option
 {
-	const uint w = 200;
-	const uint yellow = 0xffffb400; // light yellow
+	const uint w = 300;
+	const uint yellow = 0xffffa0; // light yellow
+    const SDL_Color black = { 0, 0, 0 };
 
-	SDL_Surface* image;
+	SDL_Surface* sf;
 	string title, description;
 
 	this(Element e, DefaultGUI gui)
@@ -158,11 +176,11 @@ class Option
 				case "title":
 					title = et.text();
 					version(Windows)
-						title.replace("$OS", "Windows");
+						title = title.replace("$OS", "Windows");
 					version(linux)
-						title.replace("$OS", "Linux");
+						title = title.replace("$OS", "Linux");
 					else
-						title.replace("$OS", "System");
+						title = title.replace("$OS", "System");
 					break;
 				case "description":
 					description = et.text();
@@ -179,11 +197,26 @@ class Option
 
 	void createImage(SDL_Surface* icon, DefaultGUI gui)
 	{
-		string[]  text = description.wrap(80).split("\n");
+		string[] text = description.wrap(80).split("\n");
 		uint h = 100 + (text.length * TTF_FontLineSkip(gui.monoSmall));
-		image = SDL_CreateRGBSurface(SDL_SWSURFACE, w, h, 32, 0, 0, 0, 0);
-		SDL_FillRect(image, null, yellow);
+		sf = SDL_CreateRGBSurface(SDL_SWSURFACE, w, h, 32, 0, 0, 0, 0);
+		SDL_FillRect(sf, null, yellow);
 		SDL_Rect r1 = { 20, 20 };
-        SDL_BlitSurface(icon, null, image, &r1);
+        SDL_BlitSurface(icon, null, sf, &r1);
+
+        SDL_Surface* txt = TTF_RenderText_Solid(gui.titleFont, title.toStringz(), black);
+        SDL_Rect r2 = { 65, 12 };
+        SDL_BlitSurface(txt, null, sf, &r2);
+        SDL_FreeSurface(txt);
+
+        short y = 24;
+        foreach(string t; text)
+        {
+            txt = TTF_RenderText_Solid(gui.monoSmall, t.toStringz(), black);
+            r2.y = y;
+            SDL_BlitSurface(txt, null, sf, &r2);
+            SDL_FreeSurface(txt);
+            y += TTF_FontLineSkip(gui.monoSmall);
+        }
 	}
 }
