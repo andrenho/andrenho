@@ -335,6 +335,21 @@ class DefaultGUI : GUI
                     cityview.displayGrid = !cityview.displayGrid;
                     cityview.redraw();
 					break;
+                case "fullscreen":
+                    version(linux)
+                        SDL_WM_ToggleFullScreen(screen);
+                    else
+                    {
+                        uint flags = screen.flags;
+                        screen = SDL_SetVideoMode(0, 0, 0, screen.flags ^ SDL_FULLSCREEN);
+                        if(screen is null)
+                            screen = SDL_SetVideoMode(0, 0, 0, flags);
+                    }
+                    SDL_Event e;
+                    SDL_WaitEvent(&e);
+                    assert(screen);
+                    updateScreen();
+                    break;
 				case "quit":
 					running = quit();
 					break;
