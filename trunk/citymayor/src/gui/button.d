@@ -6,6 +6,7 @@ import derelict.sdl.ttf;
 import std.xml, std.string, std.stdio;
 
 import gui.defaultgui;
+import util.sdl;
 
 
 class Buttons
@@ -15,7 +16,7 @@ class Buttons
 	private Button[] buttons;
 	SDL_Surface* sf, optionMenu;
 	int optionMenuX;
-	int w, h;
+	int x, w, h;
 
 	void opOpAssign(string s)(Button b) if (s == "~")
 	{
@@ -44,12 +45,17 @@ class Buttons
     void click(short x, short y)
 	{
         foreach(Button b; buttons)
-            if(b.x <= x && (b.x + b.sf.w) > x)
+            if(x >= b.x && x < (b.x + b.sf.w))
             {
-                unclickAll();
-                b.setState(Button.State.PRESSED);
-                drawButtons();
-				optionMenuX = b.x;
+				if(b.state == Button.State.RELEASED)
+				{
+					unclickAll();
+					b.setState(Button.State.PRESSED);
+					optionMenuX = b.x;
+					drawButtons();
+				}
+				else
+					unclickAll();
                 return;
             }
 	}
@@ -66,19 +72,52 @@ class Buttons
 
     void drawOptions(SDL_Surface* screen, short x)
     {
-        Button set;
+        Button set = null;
         foreach(Button b; buttons)
             if(b.state == Button.State.PRESSED)
                 set = b;
-        if(!set)
+        if(set is null)
             return;
 
+		int y;
         foreach(Option o; set.options)
         {
-            SDL_Rect r = { cast(short)(x + set.x), cast(short)set.sf.h };
+            SDL_Rect r = { cast(short)(x + set.x), cast(short)(set.sf.h + y) };
             SDL_BlitSurface(o.sf, null, screen, &r);
+			y += o.sf.h-4;
         }
+
+        this.x = x;
     }
+
+
+	Button buttonPressed()
+	{
+		foreach(Button b; buttons)
+			if(b.state == Button.State.PRESSED)
+				return b;
+		return null;
+	}
+
+
+	string optionClicked(short x, short y)
+	{
+		Button b = buttonPressed();
+		if(b is null)
+			return null;
+			
+		int yy = h;
+        x -= this.x;
+		if(y > h && x >= optionMenuX && x <= (optionMenuX + Option.w))
+			foreach(Option o; b.options)
+			{
+				if(y > yy && y < (yy + o.sf.h))
+					return o.command;
+				yy += o.sf.h;
+			}
+		
+		return null;
+	}
 
 
     private
@@ -91,7 +130,7 @@ class Buttons
 			    SDL_Rect r = { cast(short) x, 0 };
 			    SDL_BlitSurface(b.sf, null, sf, &r);
 			    b.x = x;
-			    x += w;
+			    x += b.sf.w;
 		    }
         }
     }
@@ -153,22 +192,28 @@ class Button
 				SDL_BlitSurface(image, null, sf, &r);
 				break;
 		}
+		this.state = state;
 	}
 }
 
 
 class Option
 {
-	const uint w = 300;
-	const uint yellow = 0xffffa0; // light yellow
-    const SDL_Color black = { 0, 0, 0 };
+	static const uint w = 250;
+	static const uint yellow = 0xffffa0; // light yellow
+	static const uint yellowDark = 0xb0b070;
+	static const uint yellowLight = 0xffffe0;
+    static const SDL_Color black = { 0, 0, 0 };
 
 	SDL_Surface* sf;
 	string title, description;
+	string command;
 
 	this(Element e, DefaultGUI gui)
 	{
 		assert(e.tag.name == "option");
+		command = e.tag.attr["command"];
+
 		foreach(Element et; e.elements)
 		{
 			switch(et.tag.name)
@@ -197,19 +242,25 @@ class Option
 
 	void createImage(SDL_Surface* icon, DefaultGUI gui)
 	{
-		string[] text = description.wrap(80).split("\n");
-		uint h = 100 + (text.length * TTF_FontLineSkip(gui.monoSmall));
+		// draw box
+		string[] text = description.wrap(40).split("\n");
+		uint h = 64;
 		sf = SDL_CreateRGBSurface(SDL_SWSURFACE, w, h, 32, 0, 0, 0, 0);
 		SDL_FillRect(sf, null, yellow);
-		SDL_Rect r1 = { 20, 20 };
-        SDL_BlitSurface(icon, null, sf, &r1);
+		draw3DBox(sf, 0, 0, cast(ushort)(sf.w-1), cast(ushort)(sf.h-1), yellowLight, yellowDark, Effect3D.BEVEL);
+		
+		// draw image
+		draw3DBox(sf, 16, 13, 35, 35, yellowLight, yellowDark, Effect3D.BEVEL);
+        SDL_BlitSurface(icon, null, sf, &SDL_Rect(18, 15));
 
-        SDL_Surface* txt = TTF_RenderText_Solid(gui.titleFont, title.toStringz(), black);
+		// draw title
+        SDL_Surface* txt = TTF_RenderText_Solid(gui.titleSmall, title.toStringz(), black);
         SDL_Rect r2 = { 65, 12 };
         SDL_BlitSurface(txt, null, sf, &r2);
         SDL_FreeSurface(txt);
 
-        short y = 24;
+		// draw text
+        short y = 32;
         foreach(string t; text)
         {
             txt = TTF_RenderText_Solid(gui.monoSmall, t.toStringz(), black);
