@@ -1,3 +1,15 @@
+/* TODO:
+ * 
+ * - Interface
+ * - Minimap / info window
+ * - Fullscreen
+ * - Configurable keys
+ * - File packing
+ * - About
+ * - Window decorations
+ * - I18N
+ */
+
 module gui.defaultgui;
 
 import  std.stdio,
@@ -20,7 +32,7 @@ class DefaultGUI : GUI
 	SDL_Surface*[string] images;
 	SDL_Surface* screen;
 	Buttons buttons;
-	TTF_Font* monoBig, monoSmall, titleFont;
+	TTF_Font* monoBig, monoSmall, titleFont, titleSmall;
 	
 	this(City city)
 	{
@@ -151,6 +163,10 @@ class DefaultGUI : GUI
 				throw new Exception("Could not load font Hardpixel.OTF.");
 			else debug
 				writefln("Font Hardpixel.OTF loaded.");
+			if((titleSmall = TTF_OpenFont("./data/font/Hardpixel.OTF", 10)) is null)
+				throw new Exception("Could not load font Hardpixel.OTF.");
+			else debug
+				writefln("Font Hardpixel.OTF loaded.");
 
 			// create window
 			if((screen = SDL_SetVideoMode(w, h, 32, SDL_SWSURFACE|SDL_RESIZABLE)) == null)
@@ -249,12 +265,21 @@ class DefaultGUI : GUI
 		
 		void mouseButton(SDL_MouseButtonEvent e)
 		{
-			if(e.button == SDL_BUTTON_LEFT)
+			if(e.button == SDL_BUTTON_LEFT && e.state == SDL_PRESSED)
 			{
+				string command;
+				
 				if(e.x >= cast(short)(screen.w/2 - buttons.sf.w/2)
 				&& e.x <= cast(short)(screen.w/2 + buttons.sf.w/2)
 				&& e.y <= cast(short)buttons.sf.h)
 					buttons.click(cast(short)(e.x - (screen.w/2 - buttons.sf.w/2)), e.y);
+				else if((command = buttons.optionClicked(e.x, e.y)) !is null)
+				{
+					buttons.unclickAll();
+					doCommand(command);
+				}
+				else
+					buttons.unclickAll();
 			}
 		}
 		
@@ -296,23 +321,26 @@ class DefaultGUI : GUI
             final switch(e.keysym.sym)
             {
                 case SDLK_g:
-                    cityview.displayGrid = !cityview.displayGrid;
-                    cityview.redraw();
+					doCommand("grid");
                     break;
-
-				case SDLK_r:
-					//if(e.keysym.mod & KMOD_CTRL)
-					{
-						write("Redrawing screen... ");
-						uint ticks = SDL_GetTicks();
-						cityview.redraw();
-						writef("done in %d ms... ", SDL_GetTicks() - ticks);
-						ticks = SDL_GetTicks();
-						updateScreen();
-						writef("screen updated in %d ms!", SDL_GetTicks() - ticks);
-					}
-					break;
             }
         }
+
+
+		void doCommand(string command)
+		{
+			switch(command)
+			{
+				case "grid":
+                    cityview.displayGrid = !cityview.displayGrid;
+                    cityview.redraw();
+					break;
+				case "quit":
+					running = quit();
+					break;
+				default:
+					assert(false, format("Unknown command '%s'.", command));
+			}
+		}
 	}
 }
