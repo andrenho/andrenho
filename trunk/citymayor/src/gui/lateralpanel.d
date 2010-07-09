@@ -6,6 +6,7 @@ module gui.lateralpanel;
 import derelict.sdl.sdl;
 
 import gui.defaultgui;
+import gui.minimap;
 import util.sdl;
 
 class LateralPanel
@@ -13,6 +14,7 @@ class LateralPanel
 	enum State { OPEN, CLOSED, OPENING, CLOSING };
 	const ushort widthOpen = 200;
 	State state = State.OPEN;
+	MiniMap minimap;
 
 	private
 	{
@@ -21,8 +23,9 @@ class LateralPanel
 		SDL_Surface* sf;
 	}
 	
-	this(uint maxH, DefaultGUI gui)
+	this(uint maxH, DefaultGUI gui, MiniMap minimap)
 	{
+		this.minimap = minimap;
 		_w = widthOpen;
 		sf = SDL_CreateRGBSurface(SDL_SWSURFACE, widthOpen+2, maxH+4, 32, 0, 0, 0, 0);
 		fillRectMarble(sf, null);
