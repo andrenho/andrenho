@@ -30,6 +30,7 @@ import gui.button;
 import gui.cityview;
 import gui.dialog;
 import gui.lateralpanel;
+import gui.minimap;
 import util.sdl;
 import city.city;
 
@@ -57,7 +58,7 @@ class DefaultGUI : GUI
 		Button.initialize();
 		loadConfig("etc/defaultgui.xml");
 		dialog = new Dialog(this);
-		lateralPanel = new LateralPanel(desktopH, this);
+		lateralPanel = new LateralPanel(desktopH, this, new MiniMap(city));
         cityview = new CityView(city, images, lateralPanel.widthOpen);
 	}
 
