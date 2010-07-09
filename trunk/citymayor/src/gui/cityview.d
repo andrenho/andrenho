@@ -21,14 +21,14 @@ class CityView
         const hspace = 100;
 	}
 	
-	this(City city, SDL_Surface*[string] images)
+	this(City city, SDL_Surface*[string] images, uint extraRight)
 	{
 		this.city = city;
         this.images = images;
         assert(images["land"]);
         tile_w = images["land"].w + 2;
         tile_h = images["land"].h;
-        uint w = (tile_w/2 * city.w) + (tile_w/2 * city.h) + (wspace*2);
+        uint w = (tile_w/2 * city.w) + (tile_w/2 * city.h) + (wspace*2) + extraRight;
         uint h = (tile_h/2 * city.w) + (tile_h/2 * city.h) + (hspace*2);
 		background = createBackground(w, h);
         sf = SDL_CreateRGBSurface(SDL_SWSURFACE, w, h, 32, 0, 0, 0, 0);

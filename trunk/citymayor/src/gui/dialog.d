@@ -21,12 +21,13 @@ class Dialog
 		TTF_Font* font;
 		SDL_Surface* screen, imgDefault;
 		const uint buttonSeparator = 40;
+		const uint dialogWidth = 400;
 	}
 	
 	
 	this(DefaultGUI gui)
 	{
-		font = gui.titleFont;
+		font = gui.pico;
 		screen = gui.screen;
 		imgDefault = gui.images["default"];
 	}
@@ -64,8 +65,8 @@ class Dialog
 			if(img.w > maxOptW)
 				maxOptW = cast(ushort)img.w;
 		}
-		if(bw < 600)
-			w = 600;
+		if(bw < dialogWidth)
+			w = dialogWidth;
 		else
 			w = bw;
 		
@@ -86,7 +87,7 @@ class Dialog
 		// draw options
 		SDL_Rect[] areas;
 		y += 20;
-		x = cast(short)((screen.w/2) - (imageOptions.length * (maxOptW / 2 + buttonSeparator / 2)));
+		x = cast(short)((screen.w/2) - ((imageOptions.length-0.5) * (maxOptW + buttonSeparator) / 2)); // TODO - not centralized
 		uint i=0;
 		foreach(SDL_Surface* img; imageOptions)
 		{

@@ -1,10 +1,9 @@
 /* TODO:
  * 
- * - Interface
  * - Minimap / info window
  * - Fullscreen
  * - Configurable keys
- * - File packing
+ * - File packing / image loading (load all images)
  * - About
  * - Window decorations
  * - I18N
@@ -29,6 +28,7 @@ import gui.gui;
 import gui.button;
 import gui.cityview;
 import gui.dialog;
+import gui.lateralpanel;
 import util.sdl;
 import city.city;
 
@@ -38,7 +38,7 @@ class DefaultGUI : GUI
 	SDL_Surface*[string] images;
 	SDL_Surface* screen;
 	Buttons buttons;
-	TTF_Font* monoBig, monoSmall, titleFont, titleSmall;
+	TTF_Font* monoBig, monoSmall, titleFont, titleSmall, pico;
 	
 	this(City city)
 	{
@@ -56,7 +56,8 @@ class DefaultGUI : GUI
 		Button.initialize();
 		loadConfig("etc/defaultgui.xml");
 		dialog = new Dialog(this);
-        cityview = new CityView(city, images);
+		lateralPanel = new LateralPanel(desktopH, this);
+        cityview = new CityView(city, images, lateralPanel.widthOpen);
 	}
 
 	
@@ -95,8 +96,9 @@ class DefaultGUI : GUI
 						break;
 			    }
 			
-		//	while(SDL_GetTicks() < next)
-        //        SDL_Delay(1);
+			version(Windows)
+				while(SDL_GetTicks() < next)
+					SDL_Delay(1);
         }
 	}
 	
@@ -151,6 +153,7 @@ class DefaultGUI : GUI
 		uint desktopW, desktopH;
 		uint windowW, windowH;
 		bool fullscreen = false;
+		LateralPanel lateralPanel;
 		
 		void initializeSDL(uint w, uint h)
 		{
@@ -185,6 +188,10 @@ class DefaultGUI : GUI
 				throw new Exception("Could not load font Hardpixel.OTF.");
 			else debug
 				writefln("Font Hardpixel.OTF loaded.");
+			if((pico = TTF_OpenFont("./data/font/Pic0.ttf", 16)) is null)
+				throw new Exception("Could not load font pic0.ttf.");
+			else debug
+				writefln("Font pic0.ttf loaded.");
 
 			// get desktop size
 			const SDL_VideoInfo* info = SDL_GetVideoInfo(); 
@@ -267,16 +274,21 @@ class DefaultGUI : GUI
 		void updateScreen()
 		{
 			// draw cityview
-			SDL_Rect r = { rel_x, rel_y };
-			SDL_BlitSurface(cityview, null, screen, &r);
+			SDL_SetClipRect(screen, &SDL_Rect(0, 0, cast(ushort)(screen.w - lateralPanel.w), cast(ushort)screen.h));
+			SDL_BlitSurface(cityview, null,	screen, &SDL_Rect(rel_x, rel_y));
+			SDL_SetClipRect(screen, null);
+			
+			// draw lateral panel
+			lateralPanel.draw(screen);
 			
 			// draw buttons
-			SDL_Rect r2 = { cast(short)(screen.w/2 - buttons.sf.w/2), 0 };
+			uint x = lateralPanel.w;
+			SDL_Rect r2 = { cast(ushort)((screen.w-x)/2 - buttons.sf.w/2), 0 };
 			SDL_BlitSurface(buttons.sf, null, screen, &r2);
 
             // draw options
             buttons.drawOptions(screen, r2.x);
-			
+
 			SDL_Flip(screen);
         }
 		
@@ -305,10 +317,10 @@ class DefaultGUI : GUI
 			{
 				string command;
 				
-				if(e.x >= cast(short)(screen.w/2 - buttons.sf.w/2)
-				&& e.x <= cast(short)(screen.w/2 + buttons.sf.w/2)
+				if(e.x >= cast(short)((screen.w-lateralPanel.w)/2 - buttons.sf.w/2)
+				&& e.x <= cast(short)((screen.w-lateralPanel.w)/2 + buttons.sf.w/2)
 				&& e.y <= cast(short)buttons.sf.h)
-					buttons.click(cast(short)(e.x - (screen.w/2 - buttons.sf.w/2)), e.y);
+					buttons.click(cast(short)(e.x - ((screen.w-lateralPanel.w)/2 - buttons.sf.w/2)), e.y);
 				else if((command = buttons.optionClicked(e.x, e.y)) !is null)
 				{
 					buttons.unclickAll();
