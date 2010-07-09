@@ -141,17 +141,22 @@ class Buttons
 class Button
 {
 	enum State { PRESSED, RELEASED };
+	const uint buttonSize = 32;
 
-	private static SDL_Surface*[string] images;
-	private static SDL_Surface* imagePressed, imageMiddle, imageUnpressed;
+	private static SDL_Surface* imagePressed, imageUnpressed;
 	public uint x;
 
-	static void loadImages(SDL_Surface*[string] images)
+	static void initialize()
 	{
-		this.images = images;
-		imagePressed = images["buttonpressed"];
-		imageMiddle = images["buttonmiddle"];
-		imageUnpressed = images["buttonunpressed"];
+		imageUnpressed = SDL_CreateRGBSurface(SDL_SWSURFACE, buttonSize, buttonSize, 32, 0, 0, 0, 0);
+		SDL_FillRect(imageUnpressed, null, 0xff00ff);
+		SDL_SetColorKey(imageUnpressed, SDL_SRCCOLORKEY, 0xff00ff);
+		fillRectMarble(imageUnpressed, null);
+
+		imagePressed = SDL_CreateRGBSurface(SDL_SWSURFACE, buttonSize, buttonSize, 32, 0, 0, 0, 0);
+		SDL_FillRect(imagePressed, null, 0xff00ff);
+		SDL_SetColorKey(imagePressed, SDL_SRCCOLORKEY, 0xff00ff);
+		fillRectMarble(imagePressed, null, Effect3D.LOWER);
 	}
 
 
@@ -222,7 +227,7 @@ class Option
 					title = et.text();
 					version(Windows)
 						title = title.replace("$OS", "Windows");
-					version(linux)
+					else version(linux)
 						title = title.replace("$OS", "Linux");
 					else
 						title = title.replace("$OS", "System");
@@ -235,7 +240,14 @@ class Option
 			}
 		}
 
-		SDL_Surface *icon = gui.loadImage(e.tag.attr["image"]);
+		string img = e.tag.attr["image"];
+		version(Windows)
+			img = img.replace("$OS", "windows");
+		else version(linux)
+			img = img.replace("$OS", "linux");
+		else
+			img = "exit.png";
+		SDL_Surface *icon = gui.loadImage(img);
 		assert(icon.w == 32 && icon.h == 32, "Icon image must be 32x32");
 		createImage(icon, gui);
 	}
