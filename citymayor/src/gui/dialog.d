@@ -1,4 +1,6 @@
-// TODO - ampersand for keyboard
+// TODO: 
+//  * ampersand for keyboard shortcut
+//  * quit/resize
 
 module gui.dialog;
 
@@ -17,7 +19,7 @@ class Dialog
 	private
 	{
 		TTF_Font* font;
-		SDL_Surface* screen;
+		SDL_Surface* screen, imgDefault;
 		const uint buttonSeparator = 40;
 	}
 	
@@ -26,6 +28,7 @@ class Dialog
 	{
 		font = gui.titleFont;
 		screen = gui.screen;
+		imgDefault = gui.images["default"];
 	}
 	
 	
@@ -84,6 +87,7 @@ class Dialog
 		SDL_Rect[] areas;
 		y += 20;
 		x = cast(short)((screen.w/2) - (imageOptions.length * (maxOptW / 2 + buttonSeparator / 2)));
+		uint i=0;
 		foreach(SDL_Surface* img; imageOptions)
 		{
 			SDL_Rect r = { cast(short)(x+(img.w/2)-(maxOptW/2)-10), cast(short)(y-10), cast(short)(maxOptW+20), cast(short)(img.h+20) };
@@ -91,6 +95,9 @@ class Dialog
 			fillRectMarble(screen, &r);
 			SDL_BlitSurface(img, null, screen, &SDL_Rect(x, y));
 			x += maxOptW + buttonSeparator;
+			if(i == _default)
+				SDL_BlitSurface(imgDefault, null, screen, &SDL_Rect(cast(short)(r.x+4), cast(short)(r.y+4)));
+			i++;
 		}
 				
 		SDL_Flip(screen);
@@ -102,7 +109,7 @@ class Dialog
 			SDL_WaitEvent(&e);
 			if(e.type == SDL_MOUSEBUTTONDOWN)
 			{
-				uint i = 0;
+				i = 0;
 				foreach(SDL_Rect area; areas)
 				{
 					if(e.button.x >= area.x && e.button.x < (area.x + area.w)
