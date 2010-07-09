@@ -13,7 +13,7 @@
                 <title>Fullscreen</title>
                 <description>Exhibits the game in fullscreen.</description>
             </option>
-            <option image="exit.png" command="quit">
+            <option image="menu-$OS.png" command="quit">
                 <title>Exit to $OS</title>
                 <description>Exit to the operating system, saving the city.</description>
             </option>

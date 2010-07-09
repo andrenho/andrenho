@@ -8,6 +8,10 @@
  * - About
  * - Window decorations
  * - I18N
+ * - city earth
+ * - save city on exit
+ * - initial screen, region
+ * - documentation
  */
 
 module gui.defaultgui;
@@ -24,6 +28,8 @@ import derelict.util.compat;
 import gui.gui;
 import gui.button;
 import gui.cityview;
+import gui.dialog;
+import util.sdl;
 import city.city;
 
 class DefaultGUI : GUI
@@ -47,7 +53,9 @@ class DefaultGUI : GUI
 	
 	override void initialize()
 	{
+		Button.initialize();
 		loadConfig("etc/defaultgui.xml");
+		dialog = new Dialog(this);
         cityview = new CityView(city, images);
 	}
 
@@ -77,8 +85,13 @@ class DefaultGUI : GUI
                         keyPress(e.key);
                         break;
 					case SDL_VIDEORESIZE:
-						screen = SDL_SetVideoMode(e.resize.w, e.resize.h, 32, screen.flags);
-						updateScreen();
+						if(!fullscreen)
+						{
+							screen = SDL_SetVideoMode(e.resize.w, e.resize.h, 32, screen.flags);
+							windowW = e.resize.w;
+							windowH = e.resize.h;
+							updateScreen();
+						}
 						break;
 			    }
 			
@@ -127,12 +140,17 @@ class DefaultGUI : GUI
 
 	private
 	{
+		Dialog dialog;
 		const SDL_Color whiteColor = { 255, 255, 255 };
 		uint white;
         bool running = true;
         CityView cityview;
 		short rel_x = 0, rel_y = 0;
 		int last_x, last_y;
+		uint screenFlags;
+		uint desktopW, desktopH;
+		uint windowW, windowH;
+		bool fullscreen = false;
 		
 		void initializeSDL(uint w, uint h)
 		{
@@ -168,12 +186,20 @@ class DefaultGUI : GUI
 			else debug
 				writefln("Font Hardpixel.OTF loaded.");
 
+			// get desktop size
+			const SDL_VideoInfo* info = SDL_GetVideoInfo(); 
+			desktopW = info.current_w; 
+			desktopH = info.current_h; 
+	
 			// create window
-			if((screen = SDL_SetVideoMode(w, h, 32, SDL_SWSURFACE|SDL_RESIZABLE)) == null)
+			screenFlags = SDL_SWSURFACE|SDL_RESIZABLE;
+			windowW = w;
+			windowH = h;
+			if((screen = SDL_SetVideoMode(w, h, 32, screenFlags)) == null)
 				throw new Exception("Failed to set video mode: " ~ toDString(SDL_GetError()));
 			else debug
 				writefln("Window created.");
-	
+				
 			// initialize SDL_image
             DerelictSDLImage.load();
 			if(!IMG_Init(IMG_INIT_PNG))
@@ -206,8 +232,6 @@ class DefaultGUI : GUI
 					}
 					loadImages(image_paths);
 				}
-
-			Button.loadImages(images);
 
 			foreach(Element e; xml.elements)
 				switch(e.tag.name)
@@ -259,7 +283,17 @@ class DefaultGUI : GUI
 		
 		bool quit()
 		{
-			return false;
+			version(test)
+				return 1;
+			
+			string os;
+			version(Windows)
+				os = "Windows";
+			else version(linux)
+				os = "Linux";
+			else
+				os = "the Operating System";
+			return !dialog.yesNo("Are you sure you want to quit to " ~ os ~ "?", Dialog.Image.WARNING, true);
 		}
 		
 		
@@ -335,24 +369,30 @@ class DefaultGUI : GUI
                     cityview.displayGrid = !cityview.displayGrid;
                     cityview.redraw();
 					break;
+					
                 case "fullscreen":
-                    version(linux)
-                        SDL_WM_ToggleFullScreen(screen);
-                    else
-                    {
-                        uint flags = screen.flags;
-                        screen = SDL_SetVideoMode(0, 0, 0, screen.flags ^ SDL_FULLSCREEN);
+					if(!fullscreen)
+					{
+						writefln("%d x %d", desktopW, desktopH);
+						screen = SDL_SetVideoMode(desktopW, desktopH, 32, screenFlags ^ SDL_FULLSCREEN);
                         if(screen is null)
-                            screen = SDL_SetVideoMode(0, 0, 0, flags);
-                    }
-                    SDL_Event e;
-                    SDL_WaitEvent(&e);
+                            screen = SDL_SetVideoMode(windowW, windowH, 32, screenFlags);
+						else
+							fullscreen = true;
+					}
+					else
+					{
+						screen = SDL_SetVideoMode(windowW, windowH, 32, screenFlags);
+						fullscreen = false;
+					}
                     assert(screen);
                     updateScreen();
                     break;
+
 				case "quit":
 					running = quit();
 					break;
+					
 				default:
 					assert(false, format("Unknown command '%s'.", command));
 			}
