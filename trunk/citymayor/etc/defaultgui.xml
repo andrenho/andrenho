@@ -5,7 +5,8 @@
         <image id="grid" image="grid.png" />
         <image id="buttonpressed" image="buttonpressed.png" />
         <image id="buttonmiddle" image="buttonmiddle.png" />
-        <image id="buttonunpressed" image="buttonunpressed.png" />
+	<image id="buttonunpressed" image="buttonunpressed.png" />
+	<image id="default" image="default.png" />
     </images>
     <buttons>
         <button image="options.png">

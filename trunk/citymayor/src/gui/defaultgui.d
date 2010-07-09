@@ -284,16 +284,18 @@ class DefaultGUI : GUI
 		bool quit()
 		{
 			version(test)
-				return 1;
-			
-			string os;
-			version(Windows)
-				os = "Windows";
-			else version(linux)
-				os = "Linux";
-			else
-				os = "the Operating System";
-			return !dialog.yesNo("Are you sure you want to quit to " ~ os ~ "?", Dialog.Image.WARNING, true);
+				return 0;
+			else 
+			{			
+				string os;
+				version(Windows)
+					os = "Windows";
+				else version(linux)
+					os = "Linux";
+				else
+					os = "the Operating System";
+				return !dialog.yesNo("Are you sure you want to quit to " ~ os ~ "?", Dialog.Image.WARNING, true);
+			}
 		}
 		
 		
