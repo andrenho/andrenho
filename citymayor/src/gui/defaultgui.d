@@ -335,6 +335,10 @@ class DefaultGUI : GUI
 				&&     e.x < screen.w - lateralPanel.w + 20
 				&&     e.y < 20)
 					lateralPanel.close();
+				else if(lateralPanel.state == LateralPanel.State.CLOSED
+				&&     e.x >= screen.w - 15
+				&&     e.y < 20)
+					lateralPanel.open();
 				else
 					buttons.unclickAll();
 			}

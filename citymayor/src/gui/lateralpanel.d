@@ -16,7 +16,7 @@ class LateralPanel
 
 	private
 	{
-		const ushort widthClosed = 10;
+		const ushort widthClosed = 15;
 		ushort _w;
 		SDL_Surface* sf;
 	}
@@ -26,7 +26,7 @@ class LateralPanel
 		_w = widthOpen;
 		sf = SDL_CreateRGBSurface(SDL_SWSURFACE, widthOpen+2, maxH+4, 32, 0, 0, 0, 0);
 		fillRectMarble(sf, null);
-		SDL_BlitSurface(gui.images["lateralarrow"], null, sf, &SDL_Rect(8, 8));
+		SDL_BlitSurface(gui.images["lateralarrow"], null, sf, &SDL_Rect(4, 6));
 	}
 	
 	void draw(SDL_Surface* screen)
@@ -42,13 +42,37 @@ class LateralPanel
 	
 	void process()
 	{
+		final switch(state)
+		{
+			case State.OPEN:
+			case State.CLOSED:
+				return;
+			case State.CLOSING:
+				_w -= 4;
+				if(_w <= widthClosed)
+				{
+					_w = widthClosed;
+					state = State.CLOSED;
+				}
+				break;
+			case State.OPENING:
+				_w += 4;
+				if(_w >= widthOpen)
+				{
+					_w = widthOpen;
+					state = State.OPEN;
+				}
+				break;
+		}
 	}
 	
 	void close()
 	{
+		state = State.CLOSING;
 	}
 	
 	void open()
 	{
+		state = State.OPENING;
 	}
 }
