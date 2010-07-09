@@ -11,6 +11,7 @@
  * - save city on exit
  * - initial screen, region
  * - documentation
+ * - save current configurations
  */
 
 module gui.defaultgui;
@@ -67,6 +68,7 @@ class DefaultGUI : GUI
         while(running)
         {
 			uint next = SDL_GetTicks() + (1000/FPS);
+			lateralPanel.process();
 			updateScreen();
 			
             while(SDL_PollEvent(&e))
@@ -96,9 +98,11 @@ class DefaultGUI : GUI
 						break;
 			    }
 			
-			version(Windows)
-				while(SDL_GetTicks() < next)
+			while(SDL_GetTicks() < next)
+				version(Windows)
 					SDL_Delay(1);
+				else
+				{}
         }
 	}
 	
@@ -326,6 +330,11 @@ class DefaultGUI : GUI
 					buttons.unclickAll();
 					doCommand(command);
 				}
+				else if(lateralPanel.state == LateralPanel.State.OPEN
+				&&     e.x >= screen.w - lateralPanel.w
+				&&     e.x < screen.w - lateralPanel.w + 20
+				&&     e.y < 20)
+					lateralPanel.close();
 				else
 					buttons.unclickAll();
 			}
