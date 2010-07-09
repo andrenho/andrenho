@@ -10,7 +10,9 @@ import util.sdl;
 
 class LateralPanel
 {
+	enum State { OPEN, CLOSED, OPENING, CLOSING };
 	const ushort widthOpen = 200;
+	State state = State.OPEN;
 
 	private
 	{
@@ -36,5 +38,17 @@ class LateralPanel
 	ushort w()
 	{
 		return _w;
+	}
+	
+	void process()
+	{
+	}
+	
+	void close()
+	{
+	}
+	
+	void open()
+	{
 	}
 }
