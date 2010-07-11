@@ -194,7 +194,7 @@ class DefaultGUI : GUI
 				throw new Exception("Could not load font pic0.ttf.");
 			else debug
 				writefln("Font pic0.ttf loaded.");
-			if((pico = TTF_OpenFont("./data/font/AthensClassic.ttf", 16)) is null)
+			if((athens = TTF_OpenFont("./data/font/AthensClassic.ttf", 22)) is null)
 				throw new Exception("Could not load font AthensClassic.ttf.");
 			else debug
 				writefln("Font AthensClassic.ttf loaded.");
