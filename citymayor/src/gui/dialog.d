@@ -28,7 +28,7 @@ class Dialog
 	
 	this(DefaultGUI gui)
 	{
-		font = gui.titleFont;
+		font = gui.athens;
 		screen = gui.screen;
 		imgDefault = gui.images["default"];
 	}
