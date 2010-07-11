@@ -12,6 +12,7 @@ class City
 	uint w, h;
 	Structure[] structures;
     string name = "Unnamed";
+    int funds;
 	
 	this(uint w, uint h)
 	{
@@ -31,6 +32,12 @@ class City
 	{
 		return addStructureToCity(structure, tile);
 	}
+
+
+    uint population()
+    {
+        return 0;
+    }
 	
 	
 	private

@@ -1,13 +1,17 @@
 // TODO
 //   * open and close
-
 module gui.lateralpanel;
 
+import std.string;
+
 import derelict.sdl.sdl;
+import derelict.sdl.ttf;
 
 import gui.defaultgui;
 import gui.minimap;
 import util.sdl;
+
+import city.city;
 
 class LateralPanel
 {
@@ -24,12 +28,17 @@ class LateralPanel
 		const ushort widthClosed = 15;
 		ushort _w;
 		SDL_Surface* sf;
-        uint minimapPosX, minimapPosY;
+        DefaultGUI gui;
+        City city;
+        const ushort cityInfoX = 25, cityInfoY = 10;
+        const uint minimapPosX, minimapPosY;
 	}
 	
 	this(uint maxH, DefaultGUI gui, MiniMap minimap)
 	{
 		this.minimap = minimap;
+        this.gui = gui;
+        this.city = gui.city;
 		_w = widthOpen;
 
         // draw panel
@@ -51,6 +60,10 @@ class LateralPanel
 	{
 		// TODO - check, maybe don't update every frame
         
+        // city info
+        SDL_Surface* sft = TTF_RenderText_Solid(gui.pico, city.name.toStringz, SDL_Color(0, 0, 0));
+        SDL_BlitSurface(sft, null, sf, &SDL_Rect(cityInfoX, cityInfoY));
+
         // draw minimap
         minimap.redraw(); // TODO - here???
         SDL_BlitSurface(minimap.sf, null, sf,
