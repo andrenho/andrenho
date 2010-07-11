@@ -21,13 +21,14 @@ class Dialog
 		TTF_Font* font;
 		SDL_Surface* screen, imgDefault;
 		const uint buttonSeparator = 40;
-		const uint dialogWidth = 400;
+		const uint dialogWidth = 600;
+        const uint buttonWide = 20;
 	}
 	
 	
 	this(DefaultGUI gui)
 	{
-		font = gui.pico;
+		font = gui.titleFont;
 		screen = gui.screen;
 		imgDefault = gui.images["default"];
 	}
@@ -91,11 +92,11 @@ class Dialog
 		uint i=0;
 		foreach(SDL_Surface* img; imageOptions)
 		{
-			SDL_Rect r = { cast(short)(x+(img.w/2)-(maxOptW/2)-10), cast(short)(y-10), cast(short)(maxOptW+20), cast(short)(img.h+20) };
+			SDL_Rect r = { cast(short)(x+(img.w/2)-(maxOptW/2)-buttonWide), cast(short)(y-10), cast(short)(maxOptW+buttonWide*2), cast(short)(img.h+20) };
 			areas ~= r;
 			fillRectMarble(screen, &r);
 			SDL_BlitSurface(img, null, screen, &SDL_Rect(x, y));
-			x += maxOptW + buttonSeparator;
+			x += maxOptW + buttonWide + buttonSeparator;
 			if(i == _default)
 				SDL_BlitSurface(imgDefault, null, screen, &SDL_Rect(cast(short)(r.x+4), cast(short)(r.y+4)));
 			i++;

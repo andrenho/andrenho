@@ -18,6 +18,7 @@ void main(string[] args)
 	initializeStaticData();
 	
 	City city = new City(40, 40);
+    city.name = "Testville";
 	
 	GUI gui;
 	if(debug_gui)
