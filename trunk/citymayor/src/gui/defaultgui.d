@@ -40,7 +40,7 @@ class DefaultGUI : GUI
 	SDL_Surface*[string] images;
 	SDL_Surface* screen;
 	Buttons buttons;
-	TTF_Font* monoBig, monoSmall, titleFont, titleSmall, pico;
+	TTF_Font* monoBig, monoSmall, titleFont, titleSmall, pico, athens;
 	
 	this(City city)
 	{
@@ -100,10 +100,7 @@ class DefaultGUI : GUI
 			    }
 			
 			while(SDL_GetTicks() < next)
-				version(Windows)
-					SDL_Delay(1);
-				else
-				{}
+				SDL_Delay(1);
         }
 	}
 	
@@ -197,6 +194,10 @@ class DefaultGUI : GUI
 				throw new Exception("Could not load font pic0.ttf.");
 			else debug
 				writefln("Font pic0.ttf loaded.");
+			if((pico = TTF_OpenFont("./data/font/AthensClassic.ttf", 16)) is null)
+				throw new Exception("Could not load font AthensClassic.ttf.");
+			else debug
+				writefln("Font AthensClassic.ttf loaded.");
 
 			// get desktop size
 			const SDL_VideoInfo* info = SDL_GetVideoInfo(); 

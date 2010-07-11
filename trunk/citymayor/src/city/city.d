@@ -11,6 +11,7 @@ class City
 	Tile[][] tile;
 	uint w, h;
 	Structure[] structures;
+    string name = "Unnamed";
 	
 	this(uint w, uint h)
 	{
