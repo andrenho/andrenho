@@ -61,8 +61,12 @@ class LateralPanel
 		// TODO - check, maybe don't update every frame
         
         // city info
-        SDL_Surface* sft = TTF_RenderText_Solid(gui.pico, city.name.toStringz, SDL_Color(0, 0, 0));
+        SDL_Surface* sft = TTF_RenderText_Solid(gui.pico, city.name.toStringz, SDL_Color(255, 255, 255));
+        SDL_BlitSurface(sft, null, sf, &SDL_Rect(cityInfoX, cityInfoY+1));
+        SDL_FreeSurface(sft);
+        sft = TTF_RenderText_Solid(gui.pico, city.name.toStringz, SDL_Color(0, 0, 0));
         SDL_BlitSurface(sft, null, sf, &SDL_Rect(cityInfoX, cityInfoY));
+        SDL_FreeSurface(sft);
 
         // draw minimap
         minimap.redraw(); // TODO - here???
