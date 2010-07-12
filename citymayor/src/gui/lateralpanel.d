@@ -32,6 +32,7 @@ class LateralPanel
         City city;
         const ushort cityInfoX = 25, cityInfoY = 10;
         const uint minimapPosX, minimapPosY;
+		short financesY;
 	}
 	
 	this(uint maxH, DefaultGUI gui, MiniMap minimap)
@@ -52,6 +53,10 @@ class LateralPanel
         minimapPosX = (widthOpen-(minimapMargin*2))/2 - minimap.sf.w/2;
         minimapPosY = (widthOpen-(minimapMargin*2))/2 - minimap.sf.h/2;
 
+		// draw finances box
+		financesY = cast(short)(minimapY + widthOpen-(minimapMargin*2))+10;
+		fillRectMarble(sf, &SDL_Rect(minimapMargin, financesY, widthOpen-(minimapMargin*2), 60), Effect3D.LOWER);
+
         // lateral arrow
 		SDL_BlitSurface(gui.images["lateralarrow"], null, sf, &SDL_Rect(4, 6));
 	}
@@ -61,18 +66,41 @@ class LateralPanel
 		// TODO - check, maybe don't update every frame
         
         // city info
-        SDL_Surface* sft = TTF_RenderText_Solid(gui.pico, city.name.toStringz, SDL_Color(255, 255, 255));
-        SDL_BlitSurface(sft, null, sf, &SDL_Rect(cityInfoX, cityInfoY+1));
-        SDL_FreeSurface(sft);
-        sft = TTF_RenderText_Solid(gui.pico, city.name.toStringz, SDL_Color(0, 0, 0));
-        SDL_BlitSurface(sft, null, sf, &SDL_Rect(cityInfoX, cityInfoY));
-        SDL_FreeSurface(sft);
+		short y = cast(short)(surfaceWrite(sf, city.name, cityInfoX, cityInfoY, gui.pico));
+		y = surfaceWrite(sf, format("pop. %d", city.population), cityInfoX, y, gui.titleSmall);
+		y = surfaceWrite(sf, format("City funds: $%d", city.funds), cityInfoX, y, gui.titleSmall);
 
         // draw minimap
         minimap.redraw(); // TODO - here???
         SDL_BlitSurface(minimap.sf, null, sf,
                 &SDL_Rect(cast(ushort)(minimapMargin+minimapPosX), 
                           cast(ushort)(minimapY+minimapPosY)));
+		y = cast(short)(minimapY + widthOpen-(minimapMargin*2));
+
+		// city fincances
+		uint expenses = city.monthlyExpenses, income = city.monthlyIncome;
+		surfaceWrite(sf, "M. Income", cast(short)(minimapMargin+4), cast(short)(financesY+4), 
+				gui.titleSmall, SDL_Color(0, 0, 220));
+		y = surfaceWrite(sf, format("$%d", income), cast(short)(widthOpen-(minimapMargin*2)+4), cast(short)(financesY+4), 
+				gui.titleSmall, SDL_Color(0, 0, 220), Align.RIGHT);
+		surfaceWrite(sf, "M. Expenses", cast(short)(minimapMargin+4), y, 
+				gui.titleSmall, SDL_Color(168, 0, 0));
+		y = surfaceWrite(sf, format("$%d", expenses), cast(short)(widthOpen-(minimapMargin*2)+4), y,
+				gui.titleSmall, SDL_Color(168, 0, 0), Align.RIGHT);
+		SDL_FillRect(sf, &SDL_Rect(cast(short)(minimapMargin+8), cast(short)(y+4), widthOpen-(minimapMargin*2)-16, 1), 0);
+		SDL_Color colorBalance;
+		if(expenses > income)
+			colorBalance = SDL_Color(168, 0, 0);
+		else if(expenses < income)
+			colorBalance = SDL_Color(0, 0, 220);
+		else
+			colorBalance = SDL_Color(0, 0, 0);
+		surfaceWrite(sf, "Balance", cast(short)(minimapMargin+4), cast(short)(y+10), 
+				gui.titleSmall, colorBalance);
+		surfaceWrite(sf, format("$%d", income-expenses), cast(short)(widthOpen-(minimapMargin*2)+4), cast(short)(y+10),
+				gui.titleSmall, colorBalance, Align.RIGHT);
+		
+		
 
         // draw panel on screen
 		SDL_BlitSurface(sf, null, screen, &SDL_Rect(cast(ushort)(screen.w - _w), -2));

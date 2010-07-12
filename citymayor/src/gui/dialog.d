@@ -21,14 +21,14 @@ class Dialog
 		TTF_Font* font;
 		SDL_Surface* screen, imgDefault;
 		const uint buttonSeparator = 40;
-		const uint dialogWidth = 600;
+		const uint dialogWidth = 450;
         const uint buttonWide = 20;
 	}
 	
 	
 	this(DefaultGUI gui)
 	{
-		font = gui.athens;
+		font = gui.pico;
 		screen = gui.screen;
 		imgDefault = gui.images["default"];
 	}
