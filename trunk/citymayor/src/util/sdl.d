@@ -1,8 +1,9 @@
 module util.sdl;
 
-import std.random, std.stdio;
+import std.random, std.stdio, std.string;
 
 import derelict.sdl.sdl;
+import derelict.sdl.ttf;
 
 enum Effect3D { BEVEL, UPPER, LOWER };
 
@@ -17,6 +18,17 @@ void draw3DBox(SDL_Surface* sf, short x, short y, ushort w, ushort h, uint color
 		SDL_FillRect(sf, &SDL_Rect(cast(short)(x+w), cast(short)(y+1), 1, h), colorDark);
 		SDL_FillRect(sf, &SDL_Rect(x, y, 1, h), colorLight);
 		SDL_FillRect(sf, &SDL_Rect(x, y, w, 1), colorLight);
+		SDL_FillRect(sf, &SDL_Rect(x, cast(short)(y+h-1), w, 1), colorLight);
+		SDL_FillRect(sf, &SDL_Rect(cast(short)(x+w-1), y, 1, h), colorLight);
+	}
+	else if(effect3D == Effect3D.LOWER)
+	{
+		SDL_FillRect(sf, &SDL_Rect(cast(short)(x+1), cast(short)(y+1), 1, h), colorDark);
+		SDL_FillRect(sf, &SDL_Rect(cast(short)(x+1), cast(short)(y+1), w, 1), colorDark);
+		SDL_FillRect(sf, &SDL_Rect(cast(short)(x+1), cast(short)(y+h), w, 1), colorLight);
+		SDL_FillRect(sf, &SDL_Rect(cast(short)(x+w), cast(short)(y+1), 1, h), colorLight);
+		SDL_FillRect(sf, &SDL_Rect(x, y, 1, h), colorDark);
+		SDL_FillRect(sf, &SDL_Rect(x, y, w, 1), colorDark);
 		SDL_FillRect(sf, &SDL_Rect(x, cast(short)(y+h-1), w, 1), colorLight);
 		SDL_FillRect(sf, &SDL_Rect(cast(short)(x+w-1), y, 1, h), colorLight);
 	}
@@ -71,4 +83,18 @@ void fillRectMarble(SDL_Surface* sf, SDL_Rect* r, Effect3D effect3D = Effect3D.U
 	
 	if(SDL_MUSTLOCK(sf))
 		SDL_UnlockSurface(sf);
+}
+
+const SDL_Color black = {0,0,0};
+
+enum Align { RIGHT, LEFT };
+
+short surfaceWrite(SDL_Surface* sf, string text, ushort x, ushort y, TTF_Font* font, SDL_Color color=black, Align alignment=Align.LEFT)
+{
+	SDL_Surface* sft = TTF_RenderText_Solid(font, text.toStringz, color);
+	if(alignment == Align.RIGHT)
+		x -= sft.w;
+	SDL_BlitSurface(sft, null, sf, &SDL_Rect(x, y));
+	SDL_FreeSurface(sft);
+	return cast(short)(TTF_FontLineSkip(font) + y);
 }

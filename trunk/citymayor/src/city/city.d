@@ -38,6 +38,18 @@ class City
     {
         return 0;
     }
+
+
+	uint monthlyExpenses()
+	{
+		return 0;
+	}
+	
+	
+	uint monthlyIncome()
+	{
+		return 0;
+	}
 	
 	
 	private
