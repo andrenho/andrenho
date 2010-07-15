@@ -44,7 +44,7 @@ class DefaultGUI : GUI
 	this(City city)
 	{
 		version(test)
-			initializeSDL(400, 300);
+			initializeSDL(400, 500);
 		else
 			initializeSDL(800, 600);
 		buttons = new Buttons();

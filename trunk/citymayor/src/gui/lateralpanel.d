@@ -1,5 +1,3 @@
-// TODO
-//   * open and close
 module gui.lateralpanel;
 
 import std.string;
@@ -9,6 +7,7 @@ import derelict.sdl.ttf;
 
 import gui.defaultgui;
 import gui.minimap;
+import gui.infobox;
 import util.sdl;
 
 import city.city;
@@ -22,6 +21,7 @@ class LateralPanel
 	enum State { OPEN, CLOSED, OPENING, CLOSING };
 	State state = State.OPEN;
 	MiniMap minimap;
+	InfoBox infobox;
 
 	private
 	{
@@ -31,6 +31,7 @@ class LateralPanel
         DefaultGUI gui;
         City city;
         const ushort cityInfoX = 25, cityInfoY = 10;
+		ushort infoboxY;
         const uint minimapPosX, minimapPosY;
 		short financesY;
 	}
@@ -49,13 +50,17 @@ class LateralPanel
         // draw minimap
         fillRectMarble(sf, &SDL_Rect(minimapMargin, minimapY, widthOpen-(minimapMargin*2), widthOpen-(minimapMargin*2)), Effect3D.LOWER);
         // TODO - why doesn't the line below works???
-        SDL_FillRect(sf, &SDL_Rect(minimapMargin+2, minimapY+2, widthOpen-(minimapMargin*2)-4, widthOpen-(minimapMargin*2))-4, 0);
+//        SDL_FillRect(sf, &SDL_Rect(minimapMargin, minimapY, widthOpen-(minimapMargin*2)-4, widthOpen-(minimapMargin*2))-4, 0);
         minimapPosX = (widthOpen-(minimapMargin*2))/2 - minimap.sf.w/2;
         minimapPosY = (widthOpen-(minimapMargin*2))/2 - minimap.sf.h/2;
 
 		// draw finances box
 		financesY = cast(short)(minimapY + widthOpen-(minimapMargin*2))+10;
 		fillRectMarble(sf, &SDL_Rect(minimapMargin, financesY, widthOpen-(minimapMargin*2), 60), Effect3D.LOWER);
+		
+		// draw info box
+		infoboxY = cast(ushort)(financesY + 70);
+		infobox = new InfoBox(gui, widthOpen-(minimapMargin*2));
 
         // lateral arrow
 		SDL_BlitSurface(gui.images["lateralarrow"], null, sf, &SDL_Rect(4, 6));
@@ -100,7 +105,13 @@ class LateralPanel
 		surfaceWrite(sf, format("$%d", income-expenses), cast(short)(widthOpen-(minimapMargin*2)+4), cast(short)(y+10),
 				gui.titleSmall, colorBalance, Align.RIGHT);
 		
-		
+		// infobox
+		fillRectMarble(sf, &SDL_Rect(minimapMargin, infoboxY, infobox.w, infobox.h), Effect3D.LOWER);
+		if(infobox.dirty)
+		{
+			SDL_BlitSurface(infobox.sf, null, screen, &SDL_Rect(cast(short)(minimapMargin+2), cast(short)(infoboxY+2)));
+			infobox.dirty = false;
+		}
 
         // draw panel on screen
 		SDL_BlitSurface(sf, null, screen, &SDL_Rect(cast(ushort)(screen.w - _w), -2));
