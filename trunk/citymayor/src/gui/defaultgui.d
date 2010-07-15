@@ -1,7 +1,6 @@
 /* TODO:
  * 
  * - Minimap / info window
- * - Fullscreen
  * - Configurable keys
  * - File packing / image loading (load all images)
  * - About
