@@ -3,8 +3,8 @@ import derelict.sdl.sdl;
 void draws(float x, float y, float w, float h)
 {
 	SDL_Rect r = {
-		cast(short)(x * 100 + 10),
-		cast(short)(y * 100 + 10),
+		cast(short)(x * 100 + 20),
+		cast(short)(y * 100 + 100),
 		1, 1 };
 	SDL_FillRect(sf, &r, 0);
 }
@@ -13,6 +13,7 @@ void draws(float x, float y, float w, float h)
 void drawi(float x, float y, float w, float h)
 {
 }
+
 
 SDL_Surface *sf;
 
