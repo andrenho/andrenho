@@ -106,16 +106,7 @@
   \item O número de subconjuntos de $k$ elementos possíveis em um conjunto de $n$
         elementos é denotado por $\binom{n}{k}$.
   $$\binom{n}{k} = \frac{n!}{k!(n-k)!}$$
-  \item O triângulo de Pascal facilita o cálculo dos coeficientes binomiais:
-
-\begin{tabular}{rccccccccc}
-$n=0$:&    &    &    &    &    &  1\\\noalign{\smallskip\smallskip}
-$n=1$:&    &    &    &    &  1 &    &  1\\\noalign{\smallskip\smallskip}
-$n=2$:&    &    &    &  1 &    &  2 &    &  1\\\noalign{\smallskip\smallskip}
-$n=3$:&    &    &  1 &    &  3 &    &  3 &    &  1\\\noalign{\smallskip\smallskip}
-$n=4$:&    &  1 &    &  4 &    &  6 &    &  4 &    &  1\\\noalign{\smallskip\smallskip}
-\end{tabular}
-
+  \item O triângulo de Pascal facilita o cálculo dos coeficientes binomiais.
 \end{itemize}
 
 
@@ -147,6 +138,48 @@ $n=4$:&    &  1 &    &  4 &    &  6 &    &  4 &    &  1\\\noalign{\smallskip\sma
         transitiva.
   \item Uma \textbf{relação inversa} $R^{-1}$ é definida como 
         $R^{-1}=\{(y,x)|(x,y)\in R\}$. Exemplo: $(\geq)^{-1} = \leq$.
+  \item Uma \textbf{classe de equivalência} ``particiona'' um conjunto em várias partes,
+        onde todos os elementos do conjunto $A$ se relacionam com $[a]$ através da
+        relação $R$ quando $[a] = \{x \in R : x\;R\;a\}$.
+  \begin{itemize}
+    \item O conjunto $\Z$ pode ser divido entre os pares (isto é, entre os
+          elementos $x$ onde $x\equiv 0\pmod 2$) e os ímpares (isto é, entre os
+          elementos $x$ onde $x\equiv 1\pmod 2$). Isto significa que, para esta relação
+          de equivalência ($a\pmod 2$), $[0]$ é o conjunto de todos os números pares,
+          e $[1]$ o conjunto dos números ímpares.
+    \item Assim, $[a]\cap [b] = \emptyset$.
+  \end{itemize}
 \end{itemize}
+
+
+\subsection{Funções}
+\begin{itemize}
+  \item Uma \textbf{função} é uma relação $f$ onde se $(a,b) \in f$ e $(a,c) \in f$,
+        então $b=c$. Caso contrário, a relação não é uma função.
+  \item Isto significa que uma função só pode ter uma saída para cada entrada.
+  \item Num gráfico, uma linha nunca pode cruzar o eixo $y$ mais de uma vez.
+  \item As seguintes fórmulas se referem à mesma função:
+  \begin{itemize}
+    \item $f(x) = x^2$
+    \item $f = \{(x,y): x,y \in \Z, y=x^2\}$
+    \item $f = \{\dotsc, (-2,4), (-1,1), (0,0), (1,1), (2,4),\dotsc\}$
+  \end{itemize}
+  \item Se $f: A \mapsto B$, o conjunto $A$ se chama \textbf{domínio}
+        e o conjunto $B$ se chama \textbf{imagem}.
+  \item As funções podem ser:
+  \begin{itemize}
+    \item \textbf{Um-a-um}, quando cada valor de entrada resulta num valor de saída
+          diferente (sempre que $(x,b),(y,b)\in f$, então $x=y$).
+    \item \textbf{Sobre}, quando em $f: A \mapsto B$, sempre existe um valor em $B$ existe
+          um valor em $A$ correspondente.
+    \item \textbf{Bijeção}, quando a função é ao mesmo tempo um-a-um e sobre.
+  \end{itemize}
+  \item Em $f: A \mapsto B$, se $|A|>|B|$, então $f$ não é um-a-um. Se $|B|>|A|$, então
+        $f$ não é sobre.
+  \item Funções compostas são funções que são aplicadas sobre outras funções. Exemplo:
+        $(g \circ f)(a) = g(f(a))$.
+  \item $h \circ (g \circ f) = (h \circ g) \circ f$
+\end{itemize}
+
 
 \end{document}
