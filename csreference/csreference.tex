@@ -1,4 +1,5 @@
-\documentclass[a4paper, twocolumn]{article}
+%\documentclass[a4paper, twocolumn]{article}
+\documentclass[a4paper]{article}
 
 \usepackage[portuguese]{babel}
 \usepackage[latin1]{inputenc}
@@ -9,7 +10,7 @@
 
 \usepackage{amssymb,amsmath}
 %\usepackage{extraipa}
-\usepackage{euler}
+%\usepackage{euler}
 %\everymath{\displaystyle}
 
 \DeclareMathOperator{\N}{\mathbb{N}}
@@ -179,6 +180,101 @@
   \item Funções compostas são funções que são aplicadas sobre outras funções. Exemplo:
         $(g \circ f)(a) = g(f(a))$.
   \item $h \circ (g \circ f) = (h \circ g) \circ f$
+\end{itemize}
+
+
+\subsection{Grafos}
+
+\subsubsection{Definições}
+\begin{itemize}
+  \item Um \textbf{grafo} é um par $G = (V,E)$, onde $V$ representa o conjunto de
+        \emph{vérices} do grafo, e $E$ é um conjunto de \emph{arestas} (\emph{edges}), 
+        cada uma um par de vértices presentes em $V$.
+  \item Se $u,v \in V$, então $u$ e $v$ são \textbf{adjacentes} se $\{u,v\}\in E$.    
+        Isto pode ser representado como $u \sim v$.
+  \begin{itemize}
+    \item O conjunto de todos os vértices adjacentes (\textbf{vizinhos}) de $v$ é
+          denotado por $N(v)$.
+    \item O \textbf{grau} de um vértice é o número de vizinhos do mesmo, e é denotado
+          por $d_G(v)$ ou $d(v)$.
+    \item A soma dos graus dos vértices é o dobro do número de arestas, ou seja,
+          $\sum_{v\in V}d(v) = 2|E|$.
+  \end{itemize}
+  \item Outras definições a respeito dos grafos:
+    \begin{itemize}
+      \item \textbf{Grau máximo e mínimo} são denotados por $\Delta(G)$ 
+            e $\delta(G)$ respectivamente.
+      \item \textbf{Grafo regular} é um grafo onde todos os vértices tem o mesmo grau.
+      \item O conjunto de vértices e arestas pode ser denotado por $V(G)$ e $E(G)$
+            respectivamente.
+      \item A \textbf{ordem} de $G$ é o número de vértices em $G$ e é denotado por
+            $n$ ou $\nu(G)$.
+      \item O \textbf{tamanho} de $G$ é o número de arestas em $G$ e é denotado por
+            $m$ ou $\epsilon(G)$.
+      \item Um \textbf{grafo completo} é um onde todos os vértices são adjacentes
+            uns aos outros. Um grafo sem vértices é chamado de \textbf{grafo vazio}.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Subgrafos}
+\begin{itemize}
+  \item $G$ é um \textbf{subgrafo} de $H$ se $V(G) \subseteq V(H)$ e 
+        $E(G) \subseteq E(H)$.
+  \item $G$ é um \textbf{grafo gerador} de $H$ se $H$ é um grafo que possui as mesmas 
+        arestas de $G$ (ou seja, $V(G) = V(H)$ e $E(G) \subseteq E(H)$).
+  \item A eliminação de vértices em um grafo implica na eliminação das arestas
+        conectadas aos vértices.
+  \item Um grafo formado através da eliminação de vértices de $G$ é chamado de
+        \textbf{subgrafo induzido} de $G$.
+  \begin{itemize}
+    \item Se o subconjunto de vértices for chamado $A$, então o subgrado induzido
+          é denotado por $G[A]$.
+  \end{itemize}
+  \item Uma \textbf{panela} é um conjunto de vértices de um grafo onde todos estão
+        conectados por arestas.
+  \begin{itemize}
+    \item O \textbf{número de panela} é o tamanho da maior panela e é denotado por
+          $\omega(G)$.
+  \end{itemize}
+  \item Um \textbf{conjunto independente} é um conjunto de vértices de um grafo que
+        não contenham arestas conectando nenhum deles.
+  \item O \textbf{complemento} de $G$ é um grafo obtido removendo-se todas as arestas
+        de $G$ e substituindo por todas arestas possíveis que não estão em $G$. É
+        denotado por $\bar{G}$.
+  \begin{itemize}
+    \item $\omega(G) = \alpha(\bar{G})$ e $\alpha(G) = \omega(\bar{G})$.
+    \item Se $G$ tem ao menos 6 vértices, então $\omega(G)\geq 3$ ou 
+          $\omega(\bar{G})\geq 3$.
+  \end{itemize}
+\end{itemize}
+
+\subsubsection{Conexões}
+\begin{itemize}
+  \item Um \textbf{passeio} é uma seqüência em $G$ onde cada vértice é adjacente ao
+        seguinte. O comprimento do passeio é $l$.
+  \item Uma \textbf{concatenação} é uma união de passeios.
+  \item Um \textbf{caminho} é um passeio em que nenhum vértice é repetido.
+  \item Se $u,v \in V(G)$, então $u$ é \textbf{ligado} a $v$ se existe um 
+        caminho em que o primeiro vértice é $u$ e o último é $v$.
+  \item Um grafo é \textbf{conexo} se cada par de vértices é ligado por um caminho.
+\end{itemize}
+
+\subsubsection{Ciclos}
+\begin{itemize}
+  \item Um \textbf{ciclo} é um passeio de onde $l\leq 3$ em que o primeiro e o último
+        vértices coincidem, mas nenhum outro vértice é repetido.
+  \item Se um grafo não contém ciclos, ele se chama \textbf{acíclico} ou 
+        \textbf{floresta}.
+  \item Uma \textbf{árvore} é um grafo conexo e aciclico.
+  \begin{itemize}
+    \item Se $T$ é uma árvore, e $a,b \in T$, então existe um único caminho entre
+          $a$ e $b$.
+    \item Uma \textbf{folha} é um vértice de grau 1.
+    \item Se $T$ é uma árvore e $v$ é uma folha de $T$, então $T-v$ é uma árvore.
+  \end{itemize}
+  \item Uma \textbf{árvore geradora} de $G$ é um subgrafo gerador de $G$ que é uma
+        árvore.
+  
 \end{itemize}
 
 
