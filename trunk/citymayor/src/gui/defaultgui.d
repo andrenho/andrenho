@@ -32,6 +32,7 @@ import gui.lateralpanel;
 import gui.minimap;
 import util.sdl;
 import city.city;
+import city.tile;
 
 class DefaultGUI : GUI
 {
@@ -316,6 +317,12 @@ class DefaultGUI : GUI
 		}
 		
 		
+		Tile tileClicked(short x, short y)
+		{
+			return null;
+		}
+		
+		
 		void mouseButton(SDL_MouseButtonEvent e)
 		{
 			if(e.button == SDL_BUTTON_LEFT && e.state == SDL_PRESSED)
@@ -340,7 +347,12 @@ class DefaultGUI : GUI
 				&&     e.x >= screen.w - 15)
 					lateralPanel.open();
 				else
+				{
 					buttons.unclickAll();
+					Tile tile = tileClicked(e.x, e.y);
+					if(tile !is null)
+						writefln("%d x %d", tile.x, tile.y);
+				}
 			}
 		}
 		
