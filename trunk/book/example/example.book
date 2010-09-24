@@ -2,11 +2,10 @@
   title="Livro teste"
   author="Teste de autoria">
 
-<chapter name="Something">
+<chapter name="Something" />
 Teste de texto. Teste <b>negrito</b>. Teste <u>sublinhado</u>.
 Teste <i>itálico</i>. Teste <b><i>negrito e itálico</i></b>.
 
 Novo parágrafo.
-</chapter>
 
 </book>
