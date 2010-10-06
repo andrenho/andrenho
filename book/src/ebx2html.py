@@ -3,7 +3,9 @@ from xml.sax.handler import ContentHandler
 from xml.sax import make_parser
 import sys
 
+#
 # get parameters
+#
 prs = OptionParser(usage="usage: %prog [options] [filename]",
                    version="%prog 0.1")
 prs.add_option("-o", "--output", metavar="FILE",
@@ -22,7 +24,9 @@ elif len(args) == 1:
 else:
     raise Exception('Too many arguments.')
 
+#
 # convert to HTML5
+#
 class EbookXMLHandler(ContentHandler):
     
     def startDocument(self):
@@ -30,6 +34,12 @@ class EbookXMLHandler(ContentHandler):
         print('<html>')
 
     def startElement(self, name, attrs):
+        pass
+
+    def characters(self, content):
+        print(content)
+
+    def endElement(self, name):
         pass
 
     def endDocument(self):
