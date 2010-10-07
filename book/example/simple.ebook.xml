@@ -1,4 +1,4 @@
 <?xml version='1.0' encoding='utf-8'?>
-<book name="Simple text">
+<book title="Simple text" language='en'>
   <p>Hello World!</p>
 </book>
