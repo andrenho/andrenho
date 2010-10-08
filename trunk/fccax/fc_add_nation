@@ -1,0 +1,23 @@
+#!/usr/bin/python3
+
+from context import *
+from optparse import OptionParser
+import sys
+
+# parse arguments
+prs = OptionParser(version='%prog 0.1 [name]',
+                   description='[fccax] add a nation to the game.')
+(options, args) = prs.parse_args()
+
+if len(args) != 1:
+    prs.print_help()
+    exit
+
+# input context
+ct = Context(sys.stdin)
+
+# add the new nation
+ct.nations.append(Nation(args[0]))
+
+# output context
+ct.print(sys.stdout)
