@@ -17,7 +17,9 @@ if len(args) != 1:
 ct = Context(sys.stdin)
 
 # add the new nation
-ct.nations.append(Nation(args[0]))
+nation = Nation(args[0])
+nation.units[0] = Unit()
+ct.nations.append(nation)
 
 # output context
 ct.print(sys.stdout)
