@@ -1,0 +1,54 @@
+xdock
+=====
+
+__xdock__ is a software that emulates the Window Maker docks, with the following 
+differences:
+
+* __runs in any window manager__
+* __client/server__ - it works in a client/server way, where a server sits in 
+                      the right side of the screen, and the docks are clients 
+                      that connect to that server;
+* __easy to program__ - programming the Window Maker docks was a hard job. But 
+                        xdock provides a API that makes programming much easier!
+
+Installing
+==========
+
+Simple basic UNIX program installation:
+
+    $ ./configure
+    $ make
+    $ su
+    # make install
+    # ldconfig
+
+Just remember that it requires both Imlib and Xlib to compile.
+
+Running
+=======
+
+__xdock__ works as a client/server: the server is the main program, that sits
+on the right side of the screen, and the clients are the docks, that connect
+to the server.
+
+To start a server, simply type:
+
+    xdockserver &
+
+this will put the server in background. If your window manager already has a 
+taskbar, you might want to skip a few pixels, typing:
+
+    xdockserver -y 32 &
+
+Then, start a client, such as:
+
+    xdmemory &
+
+that will start a example dock and connect it to the server.
+
+Programming docks
+=================
+
+Programming docks is very simple. You can follow the tutorial 
+(<http://xdock.sourceforge.net/tutorial.html>) and the API documentation is in
+(<http://xdock.sourceforge.net/api.html>).
