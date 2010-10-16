@@ -1,0 +1,43 @@
+.\" Process with
+.\" groff -man -Tascii xdockserver.1
+.\"
+
+.TH XDOCKSERVER 1 "September 2007" Linux "User Manuals"
+.SH NAME
+xdockserver \- applet server that emulates Window Maker docks
+
+.SH SYNOPSIS
+.B xdockserver [options]
+
+.br
+.SH DESCRIPTION
+Xdockserver is a applet server that emulates Window Maker docks.
+It sits at the right side of the screen and waits for clients to
+connect at it. All clients have 64x64 pixels.
+
+.SH OPTIONS
+.TP
+\fB-y\fR, \fB\-\-vertical-position=n_pixels\fR
+Define the number of vertical pixels the first dock will skip. This can be used when there's
+already a taskbar on the screen.
+.TP
+\fB-v\fR, \fB\-\-version\fR
+display application version
+.TP
+\fB-h\fR, \fB\-\-help\fR
+display application help
+
+.SH AUTHOR
+Andre' Wagner <andre.nho@gmail.com>.
+.PP
+All development is done at http://xdock.sourceforge.net/
+.PP
+This manual page was written by Andre' Wagner <andre.nho@gmail.com>.
+
+.SH COPYRIGHT
+Copyright  (C)  2007 Andre' Wagner
+.PP
+There is NO warranty.
+You may redistribute this software under the terms of  the  GNU
+General  Public License.  For more information about these matters, see
+the files named COPYING.
