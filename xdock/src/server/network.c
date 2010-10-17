@@ -14,6 +14,10 @@
 #include "options.h"
 #include "debug.h"
 #include "window.h"
+#include "parser.h"
+
+
+static int sock; // main communication socket
 
 
 // send data to client
@@ -36,17 +40,11 @@ static void inline say(int socket_fd, char* fmt, ...)
 }
 
 
-// Parse input received from the client.
-static void net_parse_input(Client* client, unsigned char* input, size_t bytes)
-{
-}
-
-
 // This thread is created when a new client connects.
 static void *net_new_client(void* v_socket_fd)
 {
 	size_t bytes;
-	unsigned char input[4096];
+	char input[4096];
 	int socket_fd = (int)(long)v_socket_fd;
 	
 	debug("Server", "Client connected to socket %d.", socket_fd);
@@ -62,7 +60,7 @@ static void *net_new_client(void* v_socket_fd)
 	while(bytes != 0)
 	{
 		bytes = recv(client->socket_fd, input, 4096, 0);
-		net_parse_input(client, input, bytes);
+		parse_input(client, input, bytes);
 	}
 
 	// remove client
@@ -78,7 +76,7 @@ static void *net_accept_connections(void* v_sock)
 	struct sockaddr_in client_address;
 	unsigned int client_address_length;
 	pthread_t* thread;
-	int sock = (int)(long)v_sock;
+	sock = (int)(long)v_sock;
 
 	// accept incoming connections
 	for(;;)
@@ -134,4 +132,16 @@ void net_startup()
 
 	pthread_create(&thread, NULL, net_accept_connections, 
 			(void*)(long)sock);
+}
+
+
+void net_quit()
+{
+	Client* c = client;
+	while(c != NULL)
+	{
+		close(c->socket_fd);
+		c = c->next;
+	}
+	close(sock);
 }
