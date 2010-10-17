@@ -48,7 +48,8 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_xdockserver_OBJECTS = main.$(OBJEXT) debug.$(OBJEXT) \
-	options.$(OBJEXT) network.$(OBJEXT) window.$(OBJEXT)
+	options.$(OBJEXT) parser.$(OBJEXT) network.$(OBJEXT) \
+	window.$(OBJEXT)
 xdockserver_OBJECTS = $(am_xdockserver_OBJECTS)
 xdockserver_LDADD = $(LDADD)
 xdockserver_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
@@ -188,10 +189,11 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-AM_CPPFLAGS = -Wall
+AM_CPPFLAGS = -Wall -Wextra
 xdockserver_SOURCES = main.c \
 		      debug.h   debug.c   \
 		      options.h options.c \
+		      parser.h  parser.c  \
 		      network.h network.c \
 		      window.h  window.c
 
@@ -287,6 +289,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/network.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/options.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/parser.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/window.Po@am__quote@
 
 .c.o:
