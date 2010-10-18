@@ -9,6 +9,7 @@ void quit(int sig)
 {
 	net_quit();
 	wm_quit();
+	exit(0);
 }
 
 
