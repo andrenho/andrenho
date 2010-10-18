@@ -89,7 +89,7 @@ class EbookXMLHandler(ContentHandler):
 
     def characters(self, content):
         if self.writing:
-            self.f.write(content)
+            self.f.write(str(content))
 
     def endElement(self, name):
         if name in ('p', 'center'):
@@ -108,6 +108,6 @@ class EbookXMLHandler(ContentHandler):
 saxparser = make_parser()
 datasource = sys.stdin
 if in_f != None:
-    datasource = in_f
+    datasource = open(in_f, 'r', encoding='utf-8')
 saxparser.setContentHandler(EbookXMLHandler(out_f))
 saxparser.parse(datasource)
