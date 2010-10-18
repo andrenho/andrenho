@@ -35,7 +35,8 @@ newPiece = Piece T D0 3 0
 
 
 pieceH :: Piece -> Int
-pieceH p = length (break (== [No,No,No,No]) (pieceImage (image p) (rot p)))
+pieceH p = length (fst (break (== [No,No,No,No]) 
+                              (pieceImage (image p) (rot p))))
 
 
 move :: Piece -> Direction -> Piece
@@ -89,7 +90,7 @@ joinBoardAndPiece b p = zipWith merge b (pieceOnEmptyBoard p w h)
 
 overlap :: Board -> Piece -> Bool
 overlap b p = False
-
+    where cmpLine line = foldl (\x y -> x && y == No) True line
 
 lockPiece :: Board -> Piece -> Board
 lockPiece b p = b
@@ -106,3 +107,7 @@ step b p = if overlap b (move p MDown)
 
 b = makeBoard 8 12
 p = Piece T D0 2 2
+
+
+tmp :: [Status] -> Bool
+tmp line = foldl (\x y -> x && y == No) True line

@@ -1,7 +1,7 @@
 AM_CPPFLAGS = -Wall -Wextra
 
 bin_PROGRAMS = xdockserver
-xdockserver_SOURCES = main.c \
+xdockserver_SOURCES = main.c    client.h  \
 		      debug.h   debug.c   \
 		      options.h options.c \
 		      parser.h  parser.c  \
