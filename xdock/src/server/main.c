@@ -19,7 +19,7 @@ int main(int argc, char* argv[])
 	opt_parse(argc, argv);
 
 	// create window
-	wm_create();
+	wm_initialize();
 
 	// initialize signal
 	signal(SIGINT, quit);

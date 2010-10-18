@@ -1,7 +1,10 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
-void wm_create();
+#include "parser.h"
+
+void wm_initialize();
+void wm_execute(CommandQueue** queue);
 void wm_quit();
 
 #endif
