@@ -2,8 +2,11 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <stdarg.h>
 #include <unistd.h>
+#include <error.h>
+#include <errno.h>
 #include <pthread.h>
 
 #if _WIN32
@@ -15,6 +18,7 @@
 #  include <sys/types.h>
 #  include <netinet/in.h>
 #  include <arpa/inet.h>
+#  include <fcntl.h>
 #endif
 
 #include "options.h"
@@ -26,74 +30,46 @@
 
 static int sock; // main communication socket
 
-/*
-// send data to client
-static void inline say(int socket_fd, char* fmt, ...)
+int net_receive_client_data(ClientNetwork *net)
 {
-	va_list ap;
-	char data[4096];
+	/* Here, we read a new string at the end of the old.
+	   This will make sure that, even if our message got in two or more
+	   chunks, it'll be still intact. */
+	int len = strlen(net->unprocessed_data);
+	int b;
+again:
+	b = recv(net->socket_fd, 
+			&net->unprocessed_data[len], 4096 - len, 0);
 
-	va_start(ap, fmt);
-	int sz = vsprintf(data, fmt, ap);
-	va_end(ap);
-
-	data[sz] = '\n'; // trailing eol
-	sz++;
-
-	ssize_t written = 0;
-	do
-		written += send(socket_fd, &data[written], sz - written, 0);
-	while(written < sz);
+	if(b == 0) // end-of-communication
+		return 0;
+	else if(b > 0)
+		net->unprocessed_data[len+b] = '\0'; // close the string
+		
+	return 1;
 }
 
 
-// This thread is created when a new client connects.
-static void *net_new_client(void* v_socket_fd)
+void* net_client_add(void* v_socket)
 {
-	size_t bytes;
-	char input[4096];
-	int socket_fd = (int)(long)v_socket_fd;
-	
-	debug("Server", "Client connected to socket %d.", socket_fd);
+	int socket_fd = (int)(long)v_socket;
 
-	// create client
-	Client* client = win_new_client(socket_fd);
+	debug("Server", "New client added.");
 
-	// say hello
-	say(client->socket_fd, "HELLO xdockserver 0.3.0"); // TODO - version
-
-	// listen
-	bytes = 1;
-	while(bytes != 0)
+	// set socket as non-blocking
+	int flags = fcntl(socket_fd, F_GETFL, 0);
+	if(fcntl(socket_fd, F_SETFL, flags | O_NONBLOCK) < 0)
 	{
-		bytes = recv(client->socket_fd, input, 4096, 0);
-		parse_input(client, input, bytes);
+		perror("fcntl");
+		exit(1);
 	}
 
-	// remove client
-	win_remove_client(client);
+	// add the client, and enter the main loop
+	client_add(socket_fd);
 
-	return NULL;
-}
+	// if we get here, it means the client got disconnected
+	debug("Server", "Client disconnected.");
 
-
-// This thread waits for new client connections.
-static void *net_accept_connections(void* v_sock)
-{
-
-
-	return NULL;
-}
-*/
-
-void net_receive_client_data(ClientNetwork *net)
-{
-}
-
-
-void* *net_client_add(void* v_socket)
-{
-	(void) client_add((int)(long)v_socket);
 	return NULL;
 }
 
@@ -118,14 +94,21 @@ void net_startup()
 	// create socket
 	if((sock = socket(AF_INET, SOCK_STREAM, 0)) == -1)
 	{
-		fprintf(stderr, "Error opening socket.\n");
+		perror("socket");
+		exit(1);
+	}
+
+	// reuse socket
+	int tr = 1;
+	if(setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &tr, sizeof(int)) < 0)
+	{
+		perror("setsockopt");
 		exit(1);
 	}
 
 	// choose who the server is going to list to
 	address.sin_family = AF_INET;
 	address.sin_addr.s_addr = INADDR_ANY;
-/* TODO
 	if(opt.listen_to == LOCALHOST) // only localhost
 		if(!inet_aton("127.0.0.1", &address.sin_addr))
 		{
@@ -133,13 +116,12 @@ void net_startup()
 					"address.\n");
 			exit(1);
 		}
-*/
 	address.sin_port = htons(52530);
 
 	// bind socket
 	if(bind(sock, (struct sockaddr*)&address, sizeof(address)) < 0)
 	{
-		fprintf(stderr, "Can't bind socket.\n");
+		perror("bind");
 		exit(1);
 	}
 

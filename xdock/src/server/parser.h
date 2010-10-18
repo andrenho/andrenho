@@ -11,6 +11,6 @@ typedef struct CommandQueue {
 	struct CommandQueue* next;
 } CommandQueue;
 
-void parse_data(UnprocessedData** data, CommandQueue** queue);
+int parse_data(char data[4096], CommandQueue** queue);
 
 #endif
