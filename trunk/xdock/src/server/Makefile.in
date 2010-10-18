@@ -47,9 +47,9 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_xdockserver_OBJECTS = main.$(OBJEXT) debug.$(OBJEXT) \
-	options.$(OBJEXT) parser.$(OBJEXT) network.$(OBJEXT) \
-	window.$(OBJEXT)
+am_xdockserver_OBJECTS = main.$(OBJEXT) client.$(OBJEXT) \
+	debug.$(OBJEXT) options.$(OBJEXT) parser.$(OBJEXT) \
+	network.$(OBJEXT) window.$(OBJEXT)
 xdockserver_OBJECTS = $(am_xdockserver_OBJECTS)
 xdockserver_LDADD = $(LDADD)
 xdockserver_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
@@ -188,13 +188,14 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AM_CPPFLAGS = -Wall -Wextra
 xdockserver_SOURCES = main.c    client.h  \
+		      client.h  client.c  \
 		      debug.h   debug.c   \
 		      options.h options.c \
 		      parser.h  parser.c  \
 		      network.h network.c \
 		      window.h  window.c
 
-xdockserver_LDFLAGS = $(PTHREAD) $(X11)
+xdockserver_LDFLAGS = $(PTHREAD) $(X11) $(MMS_BITFIELDS) $(WINSOCK)
 all: all-am
 
 .SUFFIXES:
@@ -282,6 +283,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/client.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/debug.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/network.Po@am__quote@

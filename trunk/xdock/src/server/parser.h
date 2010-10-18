@@ -1,8 +1,16 @@
 #ifndef PARSER_H
 #define PARSER_H
 
-#include "client.h"
+#include "network.h"
 
-void parse_input(Client* client, char* input, int bytes);
+typedef struct {
+} Command;
+
+typedef struct CommandQueue {
+	Command command;
+	struct CommandQueue* next;
+} CommandQueue;
+
+void parse_data(UnprocessedData** data, CommandQueue** queue);
 
 #endif

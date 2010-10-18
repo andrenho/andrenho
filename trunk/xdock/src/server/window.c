@@ -3,7 +3,12 @@
 #include <stdlib.h>
 
 
-void wm_create()
+void wm_initialize()
+{
+}
+
+
+void wm_execute(CommandQueue** queue)
 {
 }
 

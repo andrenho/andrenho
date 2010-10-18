@@ -7,6 +7,7 @@
 #include <pthread.h>
 
 #if _WIN32
+#  include <windows.h>
 #  include <winsock.h>
 #else
 #  include <resolv.h>
@@ -85,6 +86,17 @@ static void *net_accept_connections(void* v_sock)
 }
 */
 
+void net_receive_client_data(ClientNetwork *net)
+{
+}
+
+
+void* *net_client_add(void* v_socket)
+{
+	(void) client_add((int)(long)v_socket);
+	return NULL;
+}
+
 // Initialize network and open port.
 void net_startup()
 {
@@ -95,6 +107,13 @@ void net_startup()
 	pthread_t* thread;
 
 	debug("Server", "Initializing network...");
+
+#if _WIN32
+	WORD sockVersion;
+	WSADATA wsaData;
+	sockVersion = MAKEWORD(1, 1);
+	WSAStartup(sockVersion, &wsaData);
+#endif
 
 	// create socket
 	if((sock = socket(AF_INET, SOCK_STREAM, 0)) == -1)
@@ -135,7 +154,7 @@ void net_startup()
 		int socket_fd = accept(sock, (struct sockaddr*)&client_address, 
 				&client_address_length);
 		thread = malloc(sizeof(pthread_t));
-		pthread_create(thread, NULL, client_add, 
+		pthread_create(thread, NULL, net_client_add, 
 				(void*)(long)socket_fd);
 	}
 }

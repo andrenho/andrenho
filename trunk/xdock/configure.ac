@@ -32,7 +32,7 @@ AC_SUBST([PTHREAD])
 
 # Checks for typedefs, structures, and compiler characteristics.
 case $OSTYPE in
-  *msys*) MMS_BITFIELDS='-mms-bitfields' ; WINSOCK='-lws2_32' ;;
+  *msys*) MMS_BITFIELDS='-mms-bitfields' ; WINSOCK='-lws2_32' PTHREAD='-lpthreadGC2';;
   *)      MMS_BITFIELDS='' ; WINSOCK='' ;;
 esac
 AC_SUBST([MMS_BITFIELDS])
