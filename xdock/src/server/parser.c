@@ -32,13 +32,27 @@ static char* expect_id(char* command)
 }
 
 
-static int parse_command(char* command, int len)
+static char* expect_number(char* command, long* data)
 {
-	char* cmd = strdup(command);
+	int i;
+	char* nx = next(command);
+	for(i=0; command[i] != 0; i++)
+		if(!isdigit(command[i]))
+			return NULL;
+	*data = strtol(command, NULL, 10);
+	return nx;
+}
+
+
+static int parse_command(char* command, int len, Client* client)
+{
+	char *cmd = strdup(command);
+	char *store_cmd = cmd;
 	cmd[len-1] = '\0'; // we replace '\n' here
 	if(cmd[len-2] == '\r')
 		cmd[len-2] = '\0';
-	int pos = 0;
+
+	debug("Server < Client", "%s", cmd);
 	
 	// read command
 	char* nx = expect_id(cmd);
@@ -46,19 +60,29 @@ static int parse_command(char* command, int len)
 		return 0;
 
 	// parse command
-	if(strcmp(cmd, "PANEL"))
+	if(strcmp(cmd, "PANEL") == 0)
 	{
-		// do something
+		long x1, x2, y1, y2;
+		if((nx = expect_number(nx, (long*)&x1)) == NULL) 
+			return 0;
+		if((nx = expect_number(nx, (long*)&x2)) == NULL) 
+			return 0;
+		if((nx = expect_number(nx, (long*)&y1)) == NULL) 
+			return 0;
+		if((nx = expect_number(nx, (long*)&y2)) == NULL) 
+			return 0;
+		if(!x11_draw_panel(client, x1, x2, y1, y2))
+			return 0;
 	}
 	else
 		return 0;
 
-	free(cmd);
+	free(store_cmd);
 	return 1;
 }
 
 
-int parse_data(char data[4096], CommandQueue** queue)
+int parse_data(char data[4096], Client* client)
 {
 	int len = strlen(data);
 	char* incomplete = NULL;
@@ -72,7 +96,7 @@ int parse_data(char data[4096], CommandQueue** queue)
 	{
 		char* last_n = strrchr(data, '\n');
 		if(last_n == NULL) // the whole command is incomplete
-			return; 
+			return 1; 
 		else
 			incomplete = last_n + 1;
 	}
@@ -82,7 +106,7 @@ int parse_data(char data[4096], CommandQueue** queue)
 	while(strchr(cur, '\n'))
 	{
 		char* next = strchr(cur, '\n') + 1;
-		if(!parse_command(cur, next-cur))
+		if(!parse_command(cur, next-cur, client))
 			return 0;
 		cur = next;
 	}

@@ -2,15 +2,8 @@
 #define PARSER_H
 
 #include "network.h"
+#include "client.h"
 
-typedef struct {
-} Command;
-
-typedef struct CommandQueue {
-	Command command;
-	struct CommandQueue* next;
-} CommandQueue;
-
-int parse_data(char data[4096], CommandQueue** queue);
+int parse_data(char data[4096], Client* client);
 
 #endif

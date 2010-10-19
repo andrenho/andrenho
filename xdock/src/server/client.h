@@ -2,11 +2,9 @@
 #define CLIENT_H
 
 #include "network.h"
-#include "parser.h"
 
 typedef struct Client {
 	ClientNetwork net;
-	CommandQueue* command_queue;
 	struct Client* next;
 } Client;
 

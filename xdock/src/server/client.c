@@ -1,7 +1,7 @@
 #include "client.h"
 #include "network.h"
 #include "debug.h"
-#include "window.h"
+#include "x11.h"
 
 #include <stdlib.h>
 
@@ -18,7 +18,6 @@ void client_add(int socket_fd)
 	new_client->net.socket_fd = socket_fd;
 	new_client->net.authorized = 0;
 	new_client->net.unprocessed_data[0] = '\0';
-	new_client->command_queue = NULL;
 
 	// add client to the list
 	if(clients == NULL)
@@ -32,13 +31,14 @@ void client_add(int socket_fd)
 	}
 
 	// initialize client on the WM
-	wm_setup_client(new_client);
+	x11_setup_client(new_client);
 
 	// client main loop
 	client_main_loop(new_client);
 
 	// destroy the client on the WM
-	wm_destroy_client(new_client);
+	net_disconnect_client(new_client->net.socket_fd);
+	x11_destroy_client(new_client);
 
 	free(new_client);
 }
@@ -49,17 +49,14 @@ static void client_main_loop(Client* c)
 	// receive data and update client
 	while(net_receive_client_data(&c->net))
 	{
-		if(!parse_data(c->net.unprocessed_data, &c->command_queue))
+		if(!parse_data(c->net.unprocessed_data, c))
 		{
 			// TODO - warn client of syntax error
 			break;
 		}
-		wm_execute(&c->command_queue);
 
 		// check for events and send data to client
 		// TODO
 
 	}
-
-	// TODO - force connection termination
 }

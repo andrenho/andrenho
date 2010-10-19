@@ -1,17 +1,18 @@
 #include <signal.h>
+#include <stdlib.h>
 
 #include "options.h"
+#include "x11.h"
 #include "network.h"
-#include "window.h"
 
 // catch quit signal
 void quit(int sig)
 {
+	(void) sig;
 	net_quit();
-	wm_quit();
+	x11_quit();
 	exit(0);
 }
-
 
 // main procedure
 int main(int argc, char* argv[])
@@ -20,7 +21,7 @@ int main(int argc, char* argv[])
 	opt_parse(argc, argv);
 
 	// create window
-	wm_initialize();
+	x11_initialize();
 
 	// initialize signal
 	signal(SIGINT, quit);

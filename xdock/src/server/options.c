@@ -8,4 +8,6 @@ Options opt = {
 
 void opt_parse(int argc, char* argv[])
 {
+	(void) argc;
+	(void) argv;
 }
