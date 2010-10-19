@@ -21,7 +21,7 @@ AC_PROG_MAKE_SET
 #		echo "Unable to find Xlib libraries. You must have the Xlib development libraries installed in order to install xdock."
 #		exit -1
 #])
-#AC_SUBST([X11])
+AC_SUBST([X11])
 
 # Check for pthreads
 AC_CHECK_LIB([pthread], [pthread_create], [PTHREAD=-lpthread])
@@ -32,7 +32,7 @@ AC_SUBST([PTHREAD])
 
 # Checks for typedefs, structures, and compiler characteristics.
 case $OSTYPE in
-  *msys*) MMS_BITFIELDS='-mms-bitfields' ; WINSOCK='-lws2_32' PTHREAD='-lpthreadGC2';;
+  *msys*) MMS_BITFIELDS='-mms-bitfields' ; WINSOCK='-lws2_32' ; PTHREAD='-lpthreadGC2' ; X11='-lX11 -lXau' ;;
   *)      MMS_BITFIELDS='' ; WINSOCK='' ;;
 esac
 AC_SUBST([MMS_BITFIELDS])

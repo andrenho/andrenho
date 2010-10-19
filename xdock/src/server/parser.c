@@ -71,7 +71,7 @@ static int parse_command(char* command, int len, Client* client)
 			return 0;
 		if((nx = expect_number(nx, (long*)&y2)) == NULL) 
 			return 0;
-		if(!x11_draw_panel(client, x1, x2, y1, y2))
+		if(!x11_draw_panel(&client->wm, x1, x2, y1, y2))
 			return 0;
 	}
 	else

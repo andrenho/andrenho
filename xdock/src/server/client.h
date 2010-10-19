@@ -2,9 +2,11 @@
 #define CLIENT_H
 
 #include "network.h"
+#include "x11.h"
 
 typedef struct Client {
 	ClientNetwork net;
+	WM wm;
 	struct Client* next;
 } Client;
 

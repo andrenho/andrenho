@@ -607,6 +607,7 @@ LIBOBJS
 WINSOCK
 MMS_BITFIELDS
 PTHREAD
+X11
 CPP
 OTOOL64
 OTOOL
@@ -11148,7 +11149,7 @@ fi
 #		echo "Unable to find Xlib libraries. You must have the Xlib development libraries installed in order to install xdock."
 #		exit -1
 #])
-#AC_SUBST([X11])
+
 
 # Check for pthreads
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for pthread_create in -lpthread" >&5
@@ -11198,7 +11199,7 @@ fi
 
 # Checks for typedefs, structures, and compiler characteristics.
 case $OSTYPE in
-  *msys*) MMS_BITFIELDS='-mms-bitfields' ; WINSOCK='-lws2_32' PTHREAD='-lpthreadGC2';;
+  *msys*) MMS_BITFIELDS='-mms-bitfields' ; WINSOCK='-lws2_32' ; PTHREAD='-lpthreadGC2' ; X11='-lX11 -lXau' ;;
   *)      MMS_BITFIELDS='' ; WINSOCK='' ;;
 esac
 

@@ -1,6 +1,7 @@
 #include "client.h"
 #include "network.h"
 #include "debug.h"
+#include "parser.h"
 #include "x11.h"
 
 #include <stdlib.h>
@@ -31,14 +32,14 @@ void client_add(int socket_fd)
 	}
 
 	// initialize client on the WM
-	x11_setup_client(new_client);
+	x11_setup_client(&new_client->wm);
 
 	// client main loop
 	client_main_loop(new_client);
 
 	// destroy the client on the WM
 	net_disconnect_client(new_client->net.socket_fd);
-	x11_destroy_client(new_client);
+	x11_destroy_client(&new_client->wm);
 
 	free(new_client);
 }
