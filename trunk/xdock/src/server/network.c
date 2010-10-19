@@ -23,7 +23,7 @@
 
 #include "options.h"
 #include "debug.h"
-#include "window.h"
+#include "x11.h"
 #include "parser.h"
 #include "client.h"
 

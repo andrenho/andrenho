@@ -49,7 +49,7 @@ am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_xdockserver_OBJECTS = main.$(OBJEXT) client.$(OBJEXT) \
 	debug.$(OBJEXT) options.$(OBJEXT) parser.$(OBJEXT) \
-	network.$(OBJEXT) window.$(OBJEXT) wm_x11.$(OBJEXT)
+	network.$(OBJEXT) x11.$(OBJEXT)
 xdockserver_OBJECTS = $(am_xdockserver_OBJECTS)
 xdockserver_LDADD = $(LDADD)
 xdockserver_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
@@ -194,8 +194,7 @@ xdockserver_SOURCES = main.c    client.h  \
 		      options.h options.c \
 		      parser.h  parser.c  \
 		      network.h network.c \
-		      window.h  window.c  \
-		      wm_x11.h  wm_x11.c
+		      x11.h     x11.c
 
 xdockserver_LDFLAGS = $(PTHREAD) $(X11) $(MMS_BITFIELDS) $(WINSOCK)
 all: all-am
@@ -291,8 +290,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/network.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/options.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/parser.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/window.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/wm_x11.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/x11.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
