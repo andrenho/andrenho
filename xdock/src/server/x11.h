@@ -5,6 +5,7 @@
 
 typedef struct {
 	Window* window;
+	Colormap colormap;
 } WM;
 
 void x11_initialize();
