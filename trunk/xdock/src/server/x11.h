@@ -4,6 +4,7 @@
 #include <X11/Xlib.h>
 
 typedef struct {
+	Window* window;
 } WM;
 
 void x11_initialize();

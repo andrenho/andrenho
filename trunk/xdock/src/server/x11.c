@@ -26,6 +26,47 @@ void x11_initialize()
 
 int x11_setup_client(WM* wm)
 {
+	wm->window = XCreateSimpleWindow(display,
+			DefaultRootWindow(display),
+			50, 50,   // origin
+			64, 64,   // size
+			0, white, // border
+			white);  // backgd
+
+	XMapWindow(display, wm->window);
+
+	long eventMask = StructureNotifyMask;
+/*
+XSelectInput( dsp, win, eventMask );
+ 
+  XEvent evt;
+  do{
+    XNextEvent( dsp, &evt );   // calls XFlush
+  }while( evt.type != MapNotify );
+ 
+ 
+  GC gc = XCreateGC( dsp, win,
+                     0,        // mask of values
+                     NULL );   // array of values
+  XSetForeground( dsp, gc, black );
+ 
+ 
+  XDrawLine(dsp, win, gc, 10, 10,190,190); //from-to
+  XDrawLine(dsp, win, gc, 10,190,190, 10); //from-to
+ 
+ 
+  eventMask = ButtonPressMask|ButtonReleaseMask;
+  XSelectInput(dsp,win,eventMask); // override prev
+ 
+  do{
+    XNextEvent( dsp, &evt );   // calls XFlush()
+  }while( evt.type != ButtonRelease );
+ 
+ 
+  XDestroyWindow( dsp, win );
+  XCloseDisplay( dsp );
+*/
+
 	return 1;
 }
 
