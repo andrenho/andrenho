@@ -5,7 +5,6 @@
 #include <string.h>
 #include <stdarg.h>
 #include <unistd.h>
-#include <error.h>
 #include <errno.h>
 #include <pthread.h>
 
@@ -13,6 +12,7 @@
 #  include <windows.h>
 #  include <winsock.h>
 #else
+#  include <error.h>
 #  include <resolv.h>
 #  include <sys/socket.h>
 #  include <sys/types.h>
@@ -36,9 +36,7 @@ int net_receive_client_data(ClientNetwork *net)
 	   This will make sure that, even if our message got in two or more
 	   chunks, it'll be still intact. */
 	int len = strlen(net->unprocessed_data);
-	int b;
-again:
-	b = recv(net->socket_fd, 
+	int b = recv(net->socket_fd, 
 			&net->unprocessed_data[len], 4096 - len, 0);
 
 	if(b == 0) // end-of-communication
@@ -57,12 +55,17 @@ void* net_client_add(void* v_socket)
 	debug("Server", "New client added.");
 
 	// set socket as non-blocking
+#if _WIN32
+	unsigned long iMode=1;
+	ioctlsocket(socket_fd, FIONBIO, &iMode);
+#else
 	int flags = fcntl(socket_fd, F_GETFL, 0);
 	if(fcntl(socket_fd, F_SETFL, flags | O_NONBLOCK) < 0)
 	{
 		perror("fcntl");
 		exit(1);
 	}
+#endif
 
 	// add the client, and enter the main loop
 	client_add(socket_fd);
@@ -92,7 +95,7 @@ void net_startup()
 #endif
 
 	// create socket
-	if((sock = socket(AF_INET, SOCK_STREAM, 0)) == -1)
+	if((sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) == -1)
 	{
 		perror("socket");
 		exit(1);
@@ -100,7 +103,8 @@ void net_startup()
 
 	// reuse socket
 	int tr = 1;
-	if(setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &tr, sizeof(int)) < 0)
+	if(setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, (void*)&tr, 
+				sizeof(int)) < 0)
 	{
 		perror("setsockopt");
 		exit(1);
@@ -109,6 +113,7 @@ void net_startup()
 	// choose who the server is going to list to
 	address.sin_family = AF_INET;
 	address.sin_addr.s_addr = INADDR_ANY;
+#if 0 // TODO
 	if(opt.listen_to == LOCALHOST) // only localhost
 		if(!inet_aton("127.0.0.1", &address.sin_addr))
 		{
@@ -116,6 +121,7 @@ void net_startup()
 					"address.\n");
 			exit(1);
 		}
+#endif
 	address.sin_port = htons(52530);
 
 	// bind socket
@@ -139,6 +145,12 @@ void net_startup()
 		pthread_create(thread, NULL, net_client_add, 
 				(void*)(long)socket_fd);
 	}
+}
+
+
+void net_disconnect_client(int socket_fd)
+{
+	shutdown(socket_fd, 2);
 }
 
 

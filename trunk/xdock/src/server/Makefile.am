@@ -7,5 +7,5 @@ xdockserver_SOURCES = main.c    client.h  \
 		      options.h options.c \
 		      parser.h  parser.c  \
 		      network.h network.c \
-		      window.h  window.c
+		      x11.h     x11.c
 xdockserver_LDFLAGS = $(PTHREAD) $(X11) $(MMS_BITFIELDS) $(WINSOCK)
