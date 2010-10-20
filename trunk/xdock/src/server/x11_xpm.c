@@ -19,37 +19,67 @@ static char * blarg_xpm[] = {
 
 #define MAX(x,y) ((x) > (y) ? (x) : (y))
 #define MIN(x,y) ((x) < (y) ? (x) : (y))
+#define CH1(n) ('.' + (n % ('`'-'.')))
+#define CH2(n) ('.' + (n / ('`'-'.')))
 
 char** square_xpm(long color)
 {
-	int r = (color & 0xff0000) >> 24,
-	    g = (color & 0xff00) >> 16,
+	int ln = 0;
+	int r = (color & 0xff0000) >> 16,
+	    g = (color & 0xff00) >> 8,
 	    b = (color & 0xff);
-	int cr = r-46, cg = g-46, cb = b-46;
+	int cr = r+46, cg = g+46, cb = b+46;
 
 	char** sq = malloc(sizeof(char*) * (1 + 93 + 96));
 	
 	// values
-	sq[0] = strdup("96 96 93 2");
+	sq[ln++] = strdup("96 96 93 2");
 
 	// colors
-	sq[1] = strdup("``\tc #ffffff");
-	char c1 = '.', c2 = '.';
+	sq[ln++] = strdup("``\tc #ffffff");
 	int i;
 	for(i=0; i<92; i++)
 	{
-		sq[i+2] = malloc(13);
-		sprintf(sq[i+2], "%c%c\tc #%02X%02X%02X", c1, c2,
+		sq[ln] = malloc(13);
+		sprintf(sq[ln++], "%c%c\tc #%02X%02X%02X", CH1(i), CH2(i),
 				MIN(MAX(cr, 0), 255),
 				MIN(MAX(cg, 0), 255),
 				MIN(MAX(cb, 0), 255));
-		cr++; cg++; cb++;
-		c1++;
-		if(c1 > '`')
+		cr--; cg--; cb--;
+	}
+
+	int x, y;
+	for(y=0; y<=1; y++)
+	{
+		sq[ln] = malloc((96 * 2) + 1);
+		for(x=0; x<=96; x++)
+			sq[ln][x] = sq[ln][x+1] = '`';
+		sq[ln][(96 * 2)] = '\0';
+		ln++;
+	}
+
+	for(y=2; y<94; y++)
+	{
+		int color = (y - 2) / 2;
+		sq[ln] = malloc((96 * 2) + 1);
+		strcpy(sq[ln], "````");
+		strcpy(&sq[ln][94*2], "````\0");
+		for(x=2; x<94; x+=2)
 		{
-			c1 = '.';
-			c2++;
+			sq[ln][x*2] = sq[ln][x*2+2] = CH1(color);
+			sq[ln][x*2+1] = sq[ln][x*2+3] = CH2(color);
+			color++;
 		}
+		ln++;
+	}
+
+	for(y=94; y<=95; y++)
+	{
+		sq[ln] = malloc((96 * 2) + 1);
+		for(x=0; x<=96; x++)
+			sq[ln][x] = sq[ln][x+1] = '`';
+		sq[ln][(96 * 2)] = '\0';
+		ln++;
 	}
 
 	for(i=0; i<(1 + 93 + 96); i++)
@@ -193,11 +223,9 @@ int main()
 			0,        // mask of values
 			NULL );   // array of values
 
-	Pixmap pixmap = xpm_to_pixmap(blarg_xpm, display, wm->window);
+	Pixmap pixmap = xpm_to_pixmap(square_xpm(0x808080), display, wm->window);
 	XCopyArea(display, pixmap, wm->window, wm->gc,
-			0, 0, 16, 7, 0, 0);
-
-	square_xpm(0x808080);
+			0, 0, 96, 96, 0, 0);
 
 	while(1)
 	{
