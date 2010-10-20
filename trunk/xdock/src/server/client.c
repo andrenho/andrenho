@@ -57,7 +57,6 @@ static void client_main_loop(Client* c)
 		}
 
 		// check for events and send data to client
-		// TODO
-
+		x11_do_events(c);
 	}
 }

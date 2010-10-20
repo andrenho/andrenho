@@ -5,11 +5,12 @@
 
 typedef struct {
 	Window* window;
-	Colormap colormap;
+	GC gc;
 } WM;
 
 void x11_initialize();
 int x11_setup_client(WM* wm);
+void x11_do_events(WM* wm);
 void x11_destroy_client(WM* wm);
 void x11_quit();
 
