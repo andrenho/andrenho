@@ -28,22 +28,46 @@ int x11_setup_client(WM* wm)
 {
 	XEvent evt;
 
+	// create window
 	wm->window = XCreateSimpleWindow(display,
 			DefaultRootWindow(display),
-			50, 50,   // origin
-			64, 64,   // size
+			0, 0,     // origin
+			96, 96,   // size
 			0, white, // border
-			white);  // backgd
+			white);   // backgd
 
+	XSelectInput(display, wm->window, StructureNotifyMask);
 	XMapWindow(display, wm->window);
 
-	long eventMask = StructureNotifyMask;
-	XSelectInput(display, wm->window, eventMask);
 	do 
 		XNextEvent(display, &evt);
 	while(evt.type != MapNotify);
 
+	// select input
+	XSelectInput(display, wm->window, 
+			  ExposureMask 
+			| StructureNotifyMask);
+
+	// create GC
+	wm->gc = XCreateGC(display, wm->window,
+			0,        // mask of values
+			NULL );   // array of values
+
 	return 1;
+}
+
+
+void x11_do_events(WM* wm)
+{
+	while(1)
+	{
+		XNextEvent(display, &evt);
+		switch(evt.type)
+		{
+			case Expose:
+				break;
+		}
+	}
 }
 
 
