@@ -134,6 +134,7 @@ char** square_xpm(long color)
 
 void free_xpm(char** xpm)
 {
+	(void) xpm;
 	// TODO
 }
 
@@ -151,9 +152,10 @@ Pixmap xpm_to_pixmap(char* xpm[], Display* display, Window window)
 	free(values);
 
 	// create pixmap
-	int tmp, depth;
+	int tmp;
+	unsigned int depth, utmp;
 	Window tmpw;
-	XGetGeometry(display, window, &tmpw, &tmp, &tmp, &tmp, &tmp, &tmp, 
+	XGetGeometry(display, window, &tmpw, &tmp, &tmp, &utmp, &utmp, &utmp, 
 			&depth);
 	Pixmap pixmap = XCreatePixmap(display, window, w, h, depth);
 	GC gc = XCreateGC(display, pixmap,

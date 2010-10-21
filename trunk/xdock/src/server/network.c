@@ -140,11 +140,13 @@ void net_receive_data()
 		{
 			// client disconnected
 			client_destroy(c);
+			break;
 		}
 		else if(parse_data(c->net.unprocessed_data, c) == 0)
 		{
 			// syntax error, disconnect client
 			client_destroy(c);
+			break;
 		}
 		c = c->next;
 	}
