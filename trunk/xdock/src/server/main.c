@@ -1,6 +1,8 @@
 #include <signal.h>
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
+#include <time.h>
 #include <sys/time.h>
 
 #include "options.h"
@@ -16,10 +18,20 @@ void quit(int sig)
 	running = 0;
 }
 
+// catch the alarm signal
+void loop(int sig)
+{
+	(void) sig;
+	net_check_for_clients();
+	net_receive_data();
+	x11_do_events();
+}
+
 // main procedure
 int main(int argc, char* argv[])
 {
-	struct timeval start, end;
+	struct sigaction sa;
+	struct itimerval timer;
 
 	// parse arguments
 	opt_parse(argc, argv);
@@ -27,31 +39,33 @@ int main(int argc, char* argv[])
 	// create window
 	x11_initialize();
 
-	// initialize signal
-	signal(SIGINT, quit);
-
 	// initialize the network
 	net_startup();
 
+	// initialize signal
+	signal(SIGINT, quit);
+
+	// configure signals to catch
+	sigset_t mask, oldmask;
+	sigfillset(&mask);
+	sigdelset(&mask, SIGALRM);
+	sigdelset(&mask, SIGINT);
+
+	// configure timer
+	memset(&sa, 0, sizeof(sa));
+	sa.sa_handler = &loop;
+	sigaction(SIGALRM, &sa, NULL);
+	timer.it_value.tv_sec = timer.it_interval.tv_sec = 0;
+	timer.it_value.tv_usec = timer.it_interval.tv_usec = 1000000/60;
+	setitimer(ITIMER_REAL, &timer, NULL);
+
 	// main loop
 	while(running)
-	{
-		gettimeofday(&start, NULL);
-
-		// do events
-		net_check_for_clients();
-		net_receive_data();
-		x11_do_events();
-
-		// wait
-		gettimeofday(&end, NULL);
-		if(end.tv_usec - start.tv_usec < 1000/60)
-			usleep(1000/60 - (end.tv_usec - start.tv_usec));
-	}
+		sigsuspend(&mask);
 
 	// quit
 	net_quit();
 	x11_quit();
 
-	return 0;
+	return EXIT_SUCCESS;
 }
