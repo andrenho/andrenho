@@ -13,7 +13,7 @@ static int white;
 static int screen_w, screen_h;
 static char** xpm_sq;
 
-static void x11_do_events_window(WM* wm);
+static void x11_do_events_window(WM* wm, XEvent* evt);
 
 void x11_initialize()
 {
@@ -84,7 +84,6 @@ int x11_setup_client(WM* wm)
 
 	// create background square
 	wm->pixmap = xpm_to_pixmap(xpm_sq, display, wm->window);
-	XCopyArea(display, wm->pixmap, wm->window, wm->gc, 0, 0, 96, 96, 0, 0);
 
 	return 1;
 }
@@ -103,7 +102,7 @@ void x11_do_events()
 		{
 			if(c->wm.window == evt.xany.window)
 			{
-				x11_do_events_window(&c->wm);
+				x11_do_events_window(&c->wm, &evt);
 				break;
 			}
 			c = c->next;
@@ -112,8 +111,15 @@ void x11_do_events()
 }
 
 
-static void x11_do_events_window(WM* wm)
+static void x11_do_events_window(WM* wm, XEvent* evt)
 {
+	switch(evt->type)
+	{
+		case Expose:
+			XCopyArea(display, wm->pixmap, wm->window, wm->gc, 
+					0, 0, 96, 96, 0, 0);
+			break;
+	}
 }
 
 
