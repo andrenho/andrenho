@@ -29,6 +29,7 @@ void client_add(int socket_fd)
 			c = c->next;
 		c->next = new_client;
 	}
+	new_client->next = NULL;
 
 	// initialize client on the WM
 	x11_setup_client(&new_client->wm);

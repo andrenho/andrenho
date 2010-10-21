@@ -149,16 +149,18 @@ static void x11_do_events_window(WM* wm, XEvent* evt)
 
 void x11_destroy_client(WM* wm)
 {
+	/*
 	XEvent evt;
 
 	long eventMask = StructureNotifyMask;
 	XSelectInput(display, wm->window, eventMask);
-	
+	*/
 	XDestroyWindow(display, wm->window);
-	
+	/*
 	do 
 		XNextEvent(display, &evt);
 	while(evt.type != MapNotify);
+	*/
 }
 
 
