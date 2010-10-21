@@ -4,13 +4,14 @@
 #include <X11/Xlib.h>
 
 typedef struct {
-	Window* window;
+	Window window;
 	GC gc;
+	Pixmap pixmap;
 } WM;
 
 void x11_initialize();
 int x11_setup_client(WM* wm);
-void x11_do_events(WM* wm);
+void x11_do_events();
 void x11_destroy_client(WM* wm);
 void x11_quit();
 

@@ -6,7 +6,6 @@
 #include <stdarg.h>
 #include <unistd.h>
 #include <errno.h>
-#include <pthread.h>
 
 #if _WIN32
 #  include <windows.h>
@@ -28,62 +27,14 @@
 #include "client.h"
 
 
+static int net_receive_client_data(ClientNetwork *net);
+
 static int sock; // main communication socket
-
-int net_receive_client_data(ClientNetwork *net)
-{
-	/* Here, we read a new string at the end of the old.
-	   This will make sure that, even if our message got in two or more
-	   chunks, it'll be still intact. */
-	int len = strlen(net->unprocessed_data);
-	int b = recv(net->socket_fd, 
-			&net->unprocessed_data[len], 4096 - len, 0);
-
-	if(b == 0) // end-of-communication
-		return 0;
-	else if(b > 0)
-		net->unprocessed_data[len+b] = '\0'; // close the string
-		
-	return 1;
-}
-
-
-void* net_client_add(void* v_socket)
-{
-	int socket_fd = (int)(long)v_socket;
-
-	debug("Server", "New client added.");
-
-	// set socket as non-blocking
-#if _WIN32
-	unsigned long iMode=1;
-	ioctlsocket(socket_fd, FIONBIO, &iMode);
-#else
-	int flags = fcntl(socket_fd, F_GETFL, 0);
-	if(fcntl(socket_fd, F_SETFL, flags | O_NONBLOCK) < 0)
-	{
-		perror("fcntl");
-		exit(1);
-	}
-#endif
-
-	// add the client, and enter the main loop
-	client_add(socket_fd);
-
-	// if we get here, it means the client got disconnected
-	debug("Server", "Client disconnected.");
-
-	return NULL;
-}
 
 // Initialize network and open port.
 void net_startup()
 {
-	static int sock;
 	struct sockaddr_in address;
-	struct sockaddr_in client_address;
-	unsigned int client_address_length;
-	pthread_t* thread;
 
 	debug("Server", "Initializing network...");
 
@@ -110,6 +61,19 @@ void net_startup()
 		exit(1);
 	}
 
+	// mark socket as non-blocking
+#if _WIN32
+	unsigned long iMode=1;
+	ioctlsocket(sock, FIONBIO, &iMode);
+#else
+	int flags = fcntl(sock, F_GETFL, 0);
+	if(fcntl(sock, F_SETFL, flags | O_NONBLOCK) < 0)
+	{
+		perror("fcntl");
+		exit(1);
+	}
+#endif
+
 	// choose who the server is going to list to
 	address.sin_family = AF_INET;
 	address.sin_addr.s_addr = INADDR_ANY;
@@ -134,17 +98,74 @@ void net_startup()
 	// listen on socket
 	listen(sock, 5);
 	debug("Server", "Network initialized, waiting connections.");
+}
 	
+
+void net_check_for_clients()
+{
+	struct sockaddr_in client_address;
+	unsigned int client_address_length;
+
 	// accept incoming connections
-	for(;;)
+	client_address_length = sizeof(client_address);
+	int socket_fd = accept(sock, (struct sockaddr*)&client_address, 
+			&client_address_length);
+
+	
+	if(socket_fd >= 0) // a new client connected
 	{
-		client_address_length = sizeof(client_address);
-		int socket_fd = accept(sock, (struct sockaddr*)&client_address, 
-				&client_address_length);
-		thread = malloc(sizeof(pthread_t));
-		pthread_create(thread, NULL, net_client_add, 
-				(void*)(long)socket_fd);
+		// set socket as non-blocking
+#if _WIN32
+		unsigned long iMode=1;
+		ioctlsocket(socket_fd, FIONBIO, &iMode);
+#else
+		int flags = fcntl(socket_fd, F_GETFL, 0);
+		if(fcntl(socket_fd, F_SETFL, flags | O_NONBLOCK) < 0)
+		{
+			perror("fcntl");
+			exit(1);
+		}
+#endif
+		client_add(socket_fd);
 	}
+}
+
+
+void net_receive_data()
+{
+	Client* c = clients;
+	while(c)
+	{
+		if(net_receive_client_data(&c->net) == 0)
+		{
+			// client disconnected
+			client_destroy(c);
+		}
+		else if(parse_data(c->net.unprocessed_data, c) == 0)
+		{
+			// syntax error, disconnect client
+			client_destroy(c);
+		}
+		c = c->next;
+	}
+}
+
+
+static int net_receive_client_data(ClientNetwork *net)
+{
+	/* Here, we read a new string at the end of the old.
+	   This will make sure that, even if our message got in two or more
+	   chunks, it'll be still intact. */
+	int len = strlen(net->unprocessed_data);
+	int b = recv(net->socket_fd, 
+			&net->unprocessed_data[len], 4096 - len, 0);
+
+	if(b == 0) // end-of-communication
+		return 0;
+	else if(b > 0)
+		net->unprocessed_data[len+b] = '\0'; // close the string
+		
+	return 1;
 }
 
 
