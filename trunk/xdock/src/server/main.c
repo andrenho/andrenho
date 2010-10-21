@@ -7,13 +7,13 @@
 #include "x11.h"
 #include "network.h"
 
+static int running = 1;
+
 // catch quit signal
 void quit(int sig)
 {
 	(void) sig;
-	net_quit();
-	x11_quit();
-	exit(0);
+	running = 0;
 }
 
 // main procedure
@@ -34,7 +34,7 @@ int main(int argc, char* argv[])
 	net_startup();
 
 	// main loop
-	for(;;)
+	while(running)
 	{
 		gettimeofday(&start, NULL);
 
@@ -48,6 +48,10 @@ int main(int argc, char* argv[])
 		if(end.tv_usec - start.tv_usec < 1000/60)
 			usleep(1000/60 - (end.tv_usec - start.tv_usec));
 	}
+
+	// quit
+	net_quit();
+	x11_quit();
 
 	return 0;
 }
