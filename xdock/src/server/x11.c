@@ -12,6 +12,7 @@ static Display* display;
 static int white;
 static int screen_w, screen_h;
 static char** xpm_sq;
+static int xrel, yrel;
 
 static void x11_do_events_window(WM* wm, XEvent* evt);
 
@@ -57,12 +58,14 @@ int x11_setup_client(WM* wm)
 			XA_ATOM, 32, PropModeReplace,
 			(unsigned char*) atoms,
 			1);
+	/*
 	strut = XInternAtom(display, "_NET_WM_STRUT_PARTIAL", False);
-	struts[1] = 64;
-	struts[6] = 64;
-	struts[7] = 64;
+	struts[1] = 96;
+	struts[6] = 96;
+	struts[7] = 96;
 	XChangeProperty(display, wm->window, strut, XA_CARDINAL, 32, PropModeReplace,
 			(unsigned char*)&struts, 12);
+	*/
 
 	// map window
 	XSelectInput(display, wm->window, StructureNotifyMask);
@@ -72,9 +75,12 @@ int x11_setup_client(WM* wm)
 	while(evt.type != MapNotify);
 
 	// select input
-	XSelectInput(display, wm->window, 
-			  ExposureMask 
-			| StructureNotifyMask);
+	XSelectInput(display, wm->window, ExposureMask 
+					| StructureNotifyMask
+					| PointerMotionMask
+					| ButtonPressMask
+					| ButtonReleaseMask);
+
 	XResizeWindow(display, wm->window, 96, 96);
 
 	// create GC
@@ -84,6 +90,7 @@ int x11_setup_client(WM* wm)
 
 	// create background square
 	wm->pixmap = xpm_to_pixmap(xpm_sq, display, wm->window);
+	XCopyArea(display, wm->pixmap, wm->window, wm->gc, 0, 0, 96, 96, 0, 0);
 
 	return 1;
 }
@@ -93,7 +100,7 @@ void x11_do_events()
 {
 	XEvent evt;
 
-	if(XPending(display))
+	while(XPending(display))
 	{
 		XNextEvent(display, &evt);
 
@@ -116,8 +123,25 @@ static void x11_do_events_window(WM* wm, XEvent* evt)
 	switch(evt->type)
 	{
 		case Expose:
-			XCopyArea(display, wm->pixmap, wm->window, wm->gc, 
-					0, 0, 96, 96, 0, 0);
+			break;
+		case ButtonPress:
+			if(evt->xbutton.button == Button1)
+			{
+				Window wtmp;
+				int tmp;
+				unsigned int utmp;
+				XQueryPointer(display, wm->window, &wtmp, &wtmp,
+					&tmp, &tmp, &xrel, &yrel, &utmp);
+			}
+			break;
+		case MotionNotify:
+			if(evt->xmotion.state & Button1MotionMask)
+			{
+				XRaiseWindow(display, wm->window);
+				XMoveWindow(display, wm->window,
+						evt->xmotion.x_root - xrel,
+						evt->xmotion.y_root - yrel);
+			}
 			break;
 	}
 }
