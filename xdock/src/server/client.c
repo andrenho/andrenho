@@ -9,11 +9,10 @@
 Client* clients = NULL;
 
 
-static void client_main_loop(Client* c);
-
-
 void client_add(int socket_fd)
 {
+	debug("Server", "New client added.");
+
 	// create new client
 	Client* new_client = malloc(sizeof(Client));
 	new_client->net.socket_fd = socket_fd;
@@ -33,30 +32,25 @@ void client_add(int socket_fd)
 
 	// initialize client on the WM
 	x11_setup_client(&new_client->wm);
-
-	// client main loop
-	client_main_loop(new_client);
-
-	// destroy the client on the WM
-	net_disconnect_client(new_client->net.socket_fd);
-	x11_destroy_client(&new_client->wm);
-
-	free(new_client);
 }
 
 
-static void client_main_loop(Client* c)
+void client_destroy(Client* client)
 {
-	// receive data and update client
-	while(net_receive_client_data(&c->net))
-	{
-		if(!parse_data(c->net.unprocessed_data, c))
-		{
-			// TODO - warn client of syntax error
-			break;
-		}
+	// kills connection with client and X11
+	net_disconnect_client(client->net.socket_fd);
+	x11_destroy_client(&client->wm);
 
-		// check for events and send data to client
-		x11_do_events(c);
+	// remove from list
+	if(client != clients)
+	{
+		Client* c = clients;
+		while(c && c->next != client)
+			c = c->next;
+		c->next = client->next;
 	}
+	else
+		clients = client->next;
+
+	free(client);
 }

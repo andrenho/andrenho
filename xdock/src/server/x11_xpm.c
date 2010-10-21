@@ -1,26 +1,14 @@
 #include <X11/Xlib.h>
+#include <X11/Xatom.h>
 
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 
-static char * blarg_xpm[] = {
-"16 7 2 1",
-"* c #000000",
-". c #ffffff",
-"**..*...........",
-"*.*.*...........",
-"**..*..**.**..**",
-"*.*.*.*.*.*..*.*",
-"**..*..**.*...**",
-"...............*",
-".............**."
-};
-
 #define MAX(x,y) ((x) > (y) ? (x) : (y))
 #define MIN(x,y) ((x) < (y) ? (x) : (y))
-#define CH1(n) ('.' + (n % ('`'-'.')))
-#define CH2(n) ('.' + (n / ('`'-'.')))
+#define CH1(n) ('.' + ((n) % ('`'-'.')))
+#define CH2(n) ('.' + ((n) / ('`'-'.')))
 
 char** square_xpm(long color)
 {
@@ -30,12 +18,12 @@ char** square_xpm(long color)
 	    b = (color & 0xff);
 	int cr = r+46, cg = g+46, cb = b+46;
 
-	char** sq = malloc(sizeof(char*) * (1 + 93 + 96));
+	char** sq = malloc(sizeof(char*) * (1 + 1 + 92 + 49 + 49 + 1 + 96));
 	
 	// values
-	sq[ln++] = strdup("96 96 93 2");
+	sq[ln++] = strdup("96 96 192 2");
 
-	// colors
+	// inner square colors
 	sq[ln++] = strdup("``\tc #ffffff");
 	int i;
 	for(i=0; i<92; i++)
@@ -48,44 +36,105 @@ char** square_xpm(long color)
 		cr--; cg--; cb--;
 	}
 
+	// outer square color
+	cr = r+100; cg = g+100; cb = b+100;
+	for(i=0; i<49; i++)
+	{
+		sq[ln] = malloc(13);
+		sprintf(sq[ln++], "%c%c\tc #%02X%02X%02X", CH1(i+92), CH2(i+92),
+				MIN(MAX(cr, 0), 255),
+				MIN(MAX(cg, 0), 255),
+				MIN(MAX(cb, 0), 255));
+		cr--; cg--; cb--;
+	}
+	cr = r-45; cg = g-45; cb = b-45;
+	for(i=0; i<49; i++)
+	{
+		sq[ln] = malloc(13);
+		sprintf(sq[ln++], "%c%c\tc #%02X%02X%02X", CH1(i+140), CH2(i+140),
+				MIN(MAX(cr, 0), 255),
+				MIN(MAX(cg, 0), 255),
+				MIN(MAX(cb, 0), 255));
+		cr--; cg--; cb--;
+	}
+	sq[ln++] = strdup("xx\tc #000000");
+
+	// upper border
 	int x, y;
 	for(y=0; y<=1; y++)
 	{
 		sq[ln] = malloc((96 * 2) + 1);
-		for(x=0; x<=96; x++)
-			sq[ln][x] = sq[ln][x+1] = '`';
-		sq[ln][(96 * 2)] = '\0';
+		for(x=0; x<94; x+=2)
+		{
+			sq[ln][x*2] = sq[ln][x*2+2] = CH1(((x/2)+y) + 92);
+			sq[ln][x*2+1] = sq[ln][x*2+3] = CH2(((x/2)+y) + 92);
+		}
+		if(y == 0)
+		{
+			sq[ln][188] = CH1(46);
+			sq[ln][189] = CH2(46);
+		}
+		else
+		{
+			sq[ln][188] = CH1(141);
+			sq[ln][189] = CH2(141);
+		}
+		sq[ln][190] = sq[ln][191] = 'x';
+		sq[ln][192] = '\0';
 		ln++;
 	}
 
+	// middle of the square
 	for(y=2; y<94; y++)
 	{
 		int color = (y - 2) / 2;
 		sq[ln] = malloc((96 * 2) + 1);
-		strcpy(sq[ln], "````");
-		strcpy(&sq[ln][94*2], "````\0");
+
+		sq[ln][0] = CH1(color+92);
+		sq[ln][1] = CH2(color+92);
+		sq[ln][2] = CH1(color+93);
+		sq[ln][3] = CH2(color+93);
+
 		for(x=2; x<94; x+=2)
 		{
 			sq[ln][x*2] = sq[ln][x*2+2] = CH1(color);
 			sq[ln][x*2+1] = sq[ln][x*2+3] = CH2(color);
 			color++;
 		}
+
+		sq[ln][188] = CH1(((y - 2) / 2)+141);
+		sq[ln][189] = CH2(((y - 2) / 2)+141);
+		sq[ln][190] = sq[ln][191] = 'x';
+		sq[ln][192] = '\0';
+
 		ln++;
 	}
 
-	for(y=94; y<=95; y++)
+	// lower border
+	sq[ln] = malloc((96 * 2) + 1);
+	sq[ln][0]  = CH1(46);
+	sq[ln][1] = CH2(46);
+	for(x=1; x<96; x++)
 	{
-		sq[ln] = malloc((96 * 2) + 1);
-		for(x=0; x<=96; x++)
-			sq[ln][x] = sq[ln][x+1] = '`';
-		sq[ln][(96 * 2)] = '\0';
-		ln++;
+		sq[ln][x*2]  = CH1(((x/2)+(y-94)) + 141);
+		sq[ln][x*2+1] = CH2(((x/2)+(y-94)) + 141);
 	}
+	sq[ln][190] = sq[ln][191] = 'x';
+	sq[ln][192] = '\0';
+	ln++;
 
-	for(i=0; i<(1 + 93 + 96); i++)
-		printf("%s\n", sq[i]);
+	sq[ln] = malloc((96 * 2) + 1);
+	for(x=0; x<(96*2); x++)
+		sq[ln][x] = 'x';
+	ln++;
 
 	return sq;
+}
+
+
+void free_xpm(char** xpm)
+{
+	// TODO
 }
 
 
@@ -158,87 +207,4 @@ Pixmap xpm_to_pixmap(char* xpm[], Display* display, Window window)
 	free(color);
 
 	return pixmap;
-}
-
-
-typedef struct {
-	Window window;
-	GC gc;
-} WM;
-
-static Display* display;
-static int white, black;
-static int screen_w, screen_h;
-
-int main()
-{
-	WM* wm = malloc(sizeof(WM));
-	
-	//
-	// initialize X11
-	//
-	XInitThreads();
-
-	display = XOpenDisplay(NULL);
-	if(!display)
-	{
-		fprintf(stderr, "Could not open display.\n");
-		return 0;
-	}
-
-	white = WhitePixel(display, DefaultScreen(display));
-	black = BlackPixel(display, DefaultScreen(display));
-
-	screen_w = XDisplayWidth(display, DefaultScreen(display));
-	screen_h = XDisplayHeight(display, DefaultScreen(display));
-
-	//
-	// setup client
-	//
-
-	XEvent evt;
-
-	// create window
-	wm->window = XCreateSimpleWindow(display,
-			DefaultRootWindow(display),
-			0, 0,     // origin
-			96, 96,   // size
-			0, white, // border
-			white);   // backgd
-
-	XSelectInput(display, wm->window, StructureNotifyMask);
-	XMapWindow(display, wm->window);
-
-	do 
-		XNextEvent(display, &evt);
-	while(evt.type != MapNotify);
-
-	// select input
-	XSelectInput(display, wm->window, 
-			  ExposureMask 
-			| StructureNotifyMask);
-
-	// create GC
-	wm->gc = XCreateGC(display, wm->window,
-			0,        // mask of values
-			NULL );   // array of values
-
-	Pixmap pixmap = xpm_to_pixmap(square_xpm(0x808080), display, wm->window);
-	XCopyArea(display, pixmap, wm->window, wm->gc,
-			0, 0, 96, 96, 0, 0);
-
-	while(1)
-	{
-		XNextEvent(display, &evt);
-		switch(evt.type)
-		{
-			case Expose:
-				break;
-		}
-	}
-
-	for(;;);
-
-	return 0;
-
 }

@@ -13,5 +13,6 @@ typedef struct Client {
 extern Client* clients;
 
 void client_add(int socket_fd);
+void client_destroy(Client* client);
 
 #endif
