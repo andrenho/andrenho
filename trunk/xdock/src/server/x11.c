@@ -9,6 +9,7 @@
 #include "client.h"
 
 static Display* display;
+static Colormap colormap;
 static int white;
 static int screen_w, screen_h;
 static char** xpm_sq;
@@ -27,12 +28,24 @@ void x11_initialize()
 		exit(1);
 	}
 
+	colormap = DefaultColormap(display, DefaultScreen(display));
+
 	white = WhitePixel(display, DefaultScreen(display));
 
 	screen_w = XDisplayWidth(display, DefaultScreen(display));
 	screen_h = XDisplayHeight(display, DefaultScreen(display));
 
 	xpm_sq = square_xpm(opt.dock_color);
+}
+
+
+static inline int add_color(WM* wm, char* color)
+{
+	XColor xcolor;
+	XParseColor(display, colormap, color, &xcolor);
+	XAllocColor(display, colormap, &xcolor);
+	wm->color[wm->n_colors++] = xcolor.pixel;
+	return wm->n_colors-1;
 }
 
 
@@ -91,6 +104,10 @@ int x11_setup_client(WM* wm)
 	// create background square
 	wm->pixmap = xpm_to_pixmap(xpm_sq, display, wm->window);
 	XCopyArea(display, wm->pixmap, wm->window, wm->gc, 0, 0, 96, 96, 0, 0);
+
+	// setup colors
+	wm->n_colors = 0;
+	// TODO
 
 	return 1;
 }
@@ -173,7 +190,15 @@ void x11_quit()
 //
 // Commands
 //
-int x11_draw_panel(WM* wm, int x1, int x2, int y1, int y2)
+int x11_panel(WM* wm, int x, int y, int w, int h)
 {
+	return 1;
+}
+
+
+int x11_update(WM* wm)
+{
+	XCopyArea(display, wm->pixmap, wm->window, wm->gc, 0, 0, 96, 96, 0, 0);
+	XFlush(display);
 	return 1;
 }

@@ -1,0 +1,9 @@
+[led]
+panel_bg = #1b1b1b
+panel_lt = #d0d0d0
+panel_sw = #000000
+unlit    = #004840
+lit      = #188880
+bright   = #20b0a8
+glow     = #00e800
+warning  = #e90000

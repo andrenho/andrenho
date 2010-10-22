@@ -1,3 +1,12 @@
+TODO:
+=====
+ - Communication / protocol
+ - Themes
+ - Library
+ - Bindings
+ - Win32 (v.2)
+
+
 Font file example:
 ==================
 
