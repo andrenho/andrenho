@@ -9,76 +9,38 @@
 #include "client.h"
 
 
-static char* next(char* command)
+inline static int syntax_error(char* cmd)
 {
-	while(command[0] == ' ') // ignore spaces before
-		command++;
-
-	while(command[0] != ' ' && command[0] != 0)
-		command++;
-	command[0] = '\0';
-	return ++command;
+	fprintf(stderr, "Syntax error from client: invalid syntax for "
+			"command %s.\n", cmd);
+	return 0;
 }
 
 
-static char* expect_id(char* command)
+static int parse_command(char* command, Client* client)
 {
-	int i;
-	char* nx = next(command);
-	for(i=0; command[i] != 0; i++)
-		if(!isupper(command[i]))
-			return NULL;
-	return nx;
-}
+	char cmd[30];
+	sscanf(command, "%30s", cmd);
 
-
-static char* expect_number(char* command, long* data)
-{
-	int i;
-	char* nx = next(command);
-	for(i=0; command[i] != 0; i++)
-		if(!isdigit(command[i]))
-			return NULL;
-	*data = strtol(command, NULL, 10);
-	return nx;
-}
-
-
-static int parse_command(char* command, int len, Client* client)
-{
-	char *cmd = strdup(command);
-	char *store_cmd = cmd;
-	cmd[len-1] = '\0'; // we replace '\n' here
-	if(cmd[len-2] == '\r')
-		cmd[len-2] = '\0';
-
-	debug("Server < Client", "%s", cmd);
-	
-	// read command
-	char* nx = expect_id(cmd);
-	if(nx == NULL)
-		return 0;
-
-	// parse command
-	if(strcmp(cmd, "PANEL") == 0)
+	if(!strcmp(cmd, "PANEL"))
 	{
-		long x1, x2, y1, y2;
-		if((nx = expect_number(nx, (long*)&x1)) == NULL) 
-			return 0;
-		if((nx = expect_number(nx, (long*)&x2)) == NULL) 
-			return 0;
-		if((nx = expect_number(nx, (long*)&y1)) == NULL) 
-			return 0;
-		if((nx = expect_number(nx, (long*)&y2)) == NULL) 
-			return 0;
-		if(!x11_draw_panel(&client->wm, x1, x2, y1, y2))
-			return 0;
+		int x, y, w, h;
+		if(sscanf(command, "%s %d %d %d %d", cmd, &x, &y, &w, &h) != 5)
+			return syntax_error(cmd);
+		x11_panel(&client->wm, x, y, w, h);
+		return 1;
+	}
+	else if(!strcmp(cmd, "UPDATE"))
+	{
+		x11_update(&client->wm);
+		return 1;
 	}
 	else
+	{
+		fprintf(stderr, "Parse error from client: invalid command %s.",
+				cmd);
 		return 0;
-
-	free(store_cmd);
-	return 1;
+	}
 }
 
 
@@ -106,7 +68,7 @@ int parse_data(char data[4096], Client* client)
 	while(strchr(cur, '\n'))
 	{
 		char* next = strchr(cur, '\n') + 1;
-		if(!parse_command(cur, next-cur, client))
+		if(!parse_command(cur, /*next-cur,*/ client))
 			return 0;
 		cur = next;
 	}
