@@ -1,0 +1,55 @@
+Font file example:
+==================
+
+[LED]
+panel_bg = #1b1b1b
+panel_lt = #d0d0d0
+panel_sw = #000000
+unlit    = #004840
+lit      = #188880
+bright   = #20b0a8
+glow     = #00e800
+warning  = #e90000
+
+
+Protocol
+========
+
+Connection
+----------
+CONNECT ???
+DISCONNECT
+VERSION  =>  major middle minor
+
+Drawing
+-------
+PANEL x y w h [round] [shadow]
+PIXEL color x y [x y]
+LINE color x1 y2 x2 y2 [x1 y2 x2 y2]
+RECTANGLE color x1 y1 x2 y2
+BOX color x1 y1 x2 y2
+ARC x y w h angle1 angle2 (v.2)
+UPDATE
+
+Drawing (advanced)
+------------------
+MOVEBOX x1 y1 x2 y2 dir steps bg_color
+SEND_IMAGE n type data
+DRAW_IMAGE n x y
+BUTTON x y w h image  =>  number
+
+Configuration
+-------------
+COLOR r g b  =>  number
+FONT (v.2)
+
+Text
+----
+WRITE font x y text
+
+Events
+------
+DRAGAREA x t w h
+EVENT  =>   mouse_up/down btn x y
+            button n
+            drag old_x old_y new_x new_y
