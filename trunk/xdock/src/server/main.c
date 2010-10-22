@@ -30,9 +30,6 @@ void loop(int sig)
 // main procedure
 int main(int argc, char* argv[])
 {
-	struct sigaction sa;
-	struct itimerval timer;
-
 	// parse arguments
 	opt_parse(argc, argv);
 
@@ -44,6 +41,17 @@ int main(int argc, char* argv[])
 
 	// initialize signal
 	signal(SIGINT, quit);
+
+#if _WIN32
+	while(running)
+	{
+		loop(0);
+		usleep(1000000/60);
+	}
+
+#else
+	struct sigaction sa;
+	struct itimerval timer;
 
 	// configure signals to catch
 	sigset_t mask, oldmask;
@@ -62,6 +70,7 @@ int main(int argc, char* argv[])
 	// main loop
 	while(running)
 		sigsuspend(&mask);
+#endif
 
 	// quit
 	net_quit();
