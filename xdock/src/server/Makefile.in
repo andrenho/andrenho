@@ -49,7 +49,8 @@ am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_xdockserver_OBJECTS = main.$(OBJEXT) client.$(OBJEXT) \
 	debug.$(OBJEXT) options.$(OBJEXT) parser.$(OBJEXT) \
-	network.$(OBJEXT) x11.$(OBJEXT) x11_xpm.$(OBJEXT)
+	network.$(OBJEXT) x11.$(OBJEXT) x11_cmd.$(OBJEXT) \
+	x11_xpm.$(OBJEXT)
 xdockserver_OBJECTS = $(am_xdockserver_OBJECTS)
 xdockserver_LDADD = $(LDADD)
 xdockserver_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
@@ -136,6 +137,7 @@ STRIP = @STRIP@
 VERSION = @VERSION@
 WINSOCK = @WINSOCK@
 X11 = @X11@
+XMKMF = @XMKMF@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
@@ -172,6 +174,7 @@ libdir = @libdir@
 libexecdir = @libexecdir@
 localedir = @localedir@
 localstatedir = @localstatedir@
+lt_ECHO = @lt_ECHO@
 mandir = @mandir@
 mkdir_p = @mkdir_p@
 oldincludedir = @oldincludedir@
@@ -188,14 +191,15 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AM_CPPFLAGS = -Wall -Wextra
-xdockserver_SOURCES = main.c    client.h  \
-		      client.h  client.c  \
-		      debug.h   debug.c   \
-		      options.h options.c \
-		      parser.h  parser.c  \
-		      network.h network.c \
-		      x11.h     x11.c     \
-		      x11_xpm.c x11_xpm.h
+xdockserver_SOURCES = main.c     client.h  \
+		      client.h   client.c  \
+		      debug.h    debug.c   \
+		      options.h  options.c \
+		      parser.h   parser.c  \
+		      network.h  network.c \
+		      x11.h      x11.c     \
+		      x11_cmd.c  x11_cmd.h \
+		      x11_xpm.c  x11_xpm.h
 
 xdockserver_LDFLAGS = $(PTHREAD) $(X11) $(MMS_BITFIELDS) $(WINSOCK)
 all: all-am
@@ -292,6 +296,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/options.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/parser.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/x11.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/x11_cmd.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/x11_xpm.Po@am__quote@
 
 .c.o:

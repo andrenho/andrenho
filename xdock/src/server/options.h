@@ -18,6 +18,7 @@ typedef struct {
 	int debug;
 	long dock_color;
 	char* theme;
+	int attract;
 } Options;
 
 extern Options opt;

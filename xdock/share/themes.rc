@@ -1,5 +1,5 @@
 [led]
-panel_bg = #1b1b1b
+panel_bg = #282828
 panel_lt = #d0d0d0
 panel_sw = #000000
 unlit    = #004840
