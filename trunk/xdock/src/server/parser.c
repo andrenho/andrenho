@@ -7,6 +7,24 @@
 
 #include "debug.h"
 #include "client.h"
+#include "x11_cmd.h"
+
+
+inline static int translate_color(char* color)
+{
+	int n_color;
+	// TODO
+	n_color = strtol(color, NULL, 10);
+	return n_color;
+}
+
+
+inline static int assert_cmd(int value, char* cmd)
+{
+	if(!value)
+		fprintf(stderr, "From client: error executing command %s.\n", cmd);
+	return value;
+}
 
 
 inline static int syntax_error(char* cmd)
@@ -27,8 +45,38 @@ static int parse_command(char* command, Client* client)
 		int x, y, w, h;
 		if(sscanf(command, "%s %d %d %d %d", cmd, &x, &y, &w, &h) != 5)
 			return syntax_error(cmd);
-		x11_panel(&client->wm, x, y, w, h);
-		return 1;
+		return assert_cmd(x11_panel(&client->wm, x, y, w, h), cmd);
+	}
+	else if(!strcmp(cmd, "PIXEL"))
+	{
+		char color[25];
+		int n_color, x, y;
+		if(sscanf(command, "%s %25s %d %d", cmd, color, &x, &y) != 4)
+			return syntax_error(cmd);
+		n_color = translate_color(color);
+		return assert_cmd(x11_pixel(&client->wm, n_color, x, y), cmd);
+	}
+	else if(!strcmp(cmd, "LINE"))
+	{
+		char color[25];
+		int n_color, x1, x2, y1, y2;
+		if(sscanf(command, "%s %25s %d %d %d %d", cmd, color, 
+					&x1, &y1, &x2, &y2) != 6)
+			return syntax_error(cmd);
+		n_color = translate_color(color);
+		return assert_cmd(x11_line(&client->wm, n_color, 
+					x1, y1, x2, y2), cmd);
+	}
+	else if(!strcmp(cmd, "RECTANGLE"))
+	{
+		char color[25];
+		int n_color, x, y, w, h;
+		if(sscanf(command, "%s %25s %d %d %d %d", cmd, color, 
+					&x, &y, &w, &h) != 6)
+			return syntax_error(cmd);
+		n_color = translate_color(color);
+		return assert_cmd(x11_rectangle(&client->wm, n_color, 
+					x, y, w, h), cmd);
 	}
 	else if(!strcmp(cmd, "UPDATE"))
 	{
@@ -37,8 +85,8 @@ static int parse_command(char* command, Client* client)
 	}
 	else
 	{
-		fprintf(stderr, "Parse error from client: invalid command %s.",
-				cmd);
+		fprintf(stderr, "Parse error from client: invalid "
+				"command %s.\n", cmd);
 		return 0;
 	}
 }
