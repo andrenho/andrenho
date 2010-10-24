@@ -56,6 +56,17 @@ int x11_rectangle(WM* wm, int color, int x, int y, int w, int h)
 }
 
 
+int x11_box(WM* wm, int color, int x, int y, int w, int h)
+{
+	if(x < 0 || y < 0 || x+w >= 96 || y+h >= 96 || w < 0 || h < 0)
+		return 0;
+	if(color >= wm->n_colors)
+		return 0;
+	XSetForeground(display, wm->gc, wm->color[color]);
+	XDrawLine(display, wm->pixmap, wm->gc, x, y, w, h);
+	return 1;
+}
+
 int x11_update(WM* wm)
 {
 	XCopyArea(display, wm->pixmap, wm->window, wm->gc, 0, 0, 96, 96, 0, 0);
