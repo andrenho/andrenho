@@ -78,6 +78,17 @@ static int parse_command(char* command, Client* client)
 		return assert_cmd(x11_rectangle(&client->wm, n_color, 
 					x, y, w, h), cmd);
 	}
+	else if(!strcmp(cmd, "BOX"))
+	{
+		char color[25];
+		int n_color, x, y, w, h;
+		if(sscanf(command, "%s %25s %d %d %d %d", cmd, color, 
+					&x, &y, &w, &h) != 6)
+			return syntax_error(cmd);
+		n_color = translate_color(color);
+		return assert_cmd(x11_box(&client->wm, n_color, 
+					x, y, w, h), cmd);
+	}
 	else if(!strcmp(cmd, "UPDATE"))
 	{
 		x11_update(&client->wm);
