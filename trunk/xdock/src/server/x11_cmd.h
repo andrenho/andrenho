@@ -13,5 +13,6 @@ int x11_movebox(WM* wm, int x, int y, int w, int h, int move_x, int move_y,
 		int bg_color);
 int x11_update(WM* wm);
 int x11_add_image(WM* wm, char** xpm, int themed);
+int x11_draw_image(WM* wm, int image, int x, int y);
 
 #endif

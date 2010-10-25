@@ -10,6 +10,7 @@
 #define CH1(n) ('.' + ((n) % ('`'-'.')))
 #define CH2(n) ('.' + ((n) / ('`'-'.')))
 
+// TODO - check for errors
 char** square_xpm(long color)
 {
 	int ln = 0;
