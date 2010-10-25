@@ -1,3 +1,5 @@
+// TODO - check error messages
+
 #include "parser.h"
 
 #include <ctype.h>
@@ -8,6 +10,7 @@
 #include "debug.h"
 #include "client.h"
 #include "x11_cmd.h"
+
 
 
 inline static int translate_color(char* color)
@@ -37,6 +40,43 @@ inline static int syntax_error(char* cmd)
 
 static int parse_command(char* command, Client* client)
 {
+	// remove enter from the end
+	char* pos = strchr(command, '\n');
+	if(pos)
+		pos[0] = '\0';
+	debug("Server < Client", "%s", command);
+
+	printf("== %d ==\n", client->net.mode);
+	if(client->net.mode == XPM)
+	{
+		if(strcmp(command, ".") == 0)
+		{
+			int n = x11_add_image(&client->wm, 
+					client->net.xpm_file.xpm, 0);
+			if(!net_send_client_data(&client->net, "OK %d\n", n))
+				syntax_error("SEND_XPM"); // TODO
+			client->net.mode = COMMAND;
+			return 1;
+		}
+		else
+		{
+			if(client->net.xpm_file.current_line == 0)
+			{
+				int x, y, c, s;
+				if(sscanf(command, "%d %d %d %d", &x, &y, &c, 
+							&s) != 4)
+					syntax_error("SEND_XPM");
+				client->net.xpm_file.max_lines = 1 + c + y;
+				client->net.xpm_file.xpm = malloc(client->net.xpm_file.max_lines);
+			}
+			if(client->net.xpm_file.current_line == client->net.xpm_file.max_lines)
+				syntax_error("SEND_XPM"); // TODO
+			client->net.xpm_file.xpm[client->net.xpm_file.current_line++] = strdup(command);
+			return 1;
+		}
+	}
+
+	// get command name
 	char cmd[30];
 	sscanf(command, "%30s", cmd);
 
@@ -92,6 +132,25 @@ static int parse_command(char* command, Client* client)
 	else if(!strcmp(cmd, "UPDATE"))
 	{
 		x11_update(&client->wm);
+		return 1;
+	}
+	else if(!strcmp(cmd, "MOVEBOX"))
+	{
+		char bg_color[25];
+		int x, y, w, h, move_x, move_y, n_color;
+		if(sscanf(command, "%s %d %d %d %d %d %d %s", cmd, &x, &y, 
+					&w, &h, &move_x, &move_y, 
+					bg_color) != 8)
+			return syntax_error(cmd);
+		n_color = translate_color(bg_color);
+		return assert_cmd(x11_movebox(&client->wm, x, y, w, h,
+					move_x, move_y, n_color), cmd);
+	}
+	else if(!strcmp(cmd, "SEND_XPM"))
+	{
+		// TODO - themed
+		client->net.mode = XPM;
+		client->net.xpm_file.current_line = 0;
 		return 1;
 	}
 	else

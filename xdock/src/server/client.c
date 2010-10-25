@@ -9,15 +9,12 @@
 Client* clients = NULL;
 
 
-void client_add(int socket_fd)
+Client* client_add(int socket_fd)
 {
 	debug("Server", "New client added.");
 
 	// create new client
 	Client* new_client = malloc(sizeof(Client));
-	new_client->net.socket_fd = socket_fd;
-	new_client->net.authorized = 0;
-	new_client->net.unprocessed_data[0] = '\0';
 
 	// add client to the list
 	if(clients == NULL)
@@ -33,6 +30,8 @@ void client_add(int socket_fd)
 
 	// initialize client on the WM
 	x11_setup_client(&new_client->wm);
+
+	return new_client;
 }
 
 
