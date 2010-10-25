@@ -9,10 +9,6 @@
 #define ABS(x) ((x) < 0 ? -(x) : (x))
 
 
-int n_images = 0;
-static Pixmap image[255];
-
-
 int x11_panel(WM* wm, int x, int y, int w, int h)
 {
 	if(x < 0 || y < 0 || x+w >= 96 || y+h >= 96 || w < 0 || h < 0)
@@ -122,6 +118,25 @@ int x11_add_image(WM* wm, char** xpm, int themed)
 	(void) themed; // TODO
 	Pixmap pixmap = xpm_to_pixmap(xpm, display, wm->window);
 	free_xpm(xpm);
-	image[n_images++] = pixmap;
-	return n_images-1;
+	wm->image[wm->n_images++] = pixmap;
+	return wm->n_images-1;
+}
+
+
+int x11_draw_image(WM* wm, int image, int x, int y)
+{
+	Window tmpw;
+	int t;
+	unsigned int w, h, ut;
+
+	if(x < 0 || y < 0 || x >= 96 || y >= 96)
+		return 0;
+	if(image >= wm->n_images)
+		return 0;
+
+	XGetGeometry(display, wm->pixmap, &tmpw, &t, &t,
+			&w, &h, &ut, &ut);	
+	XCopyArea(display, wm->image[image], wm->pixmap, wm->gc, 0, 0, w, h,
+			x, y);
+	return 1;
 }

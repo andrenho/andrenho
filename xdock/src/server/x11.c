@@ -102,6 +102,8 @@ int x11_setup_client(WM* wm)
 	XCopyArea(display, wm->pixmap, wm->window, wm->gc, 0, 0, 96, 96, 0, 0);
 	XFlush(display);
 
+	wm->n_images = 0;
+
 	// setup colors
 	x11_setup_colors(wm);
 

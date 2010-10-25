@@ -4,6 +4,7 @@
 #include <X11/Xlib.h>
 
 #define MAX_COLORS 16384
+#define MAX_IMAGES 256
 
 enum { BLACK, WHITE, PANEL_BG, PANEL_LT, PANEL_SW, UNLIT, LIT, BRIGHT, GLOW,
 	WARNING };
@@ -17,6 +18,8 @@ typedef struct {
 				   of the column (from right to left) */
 	int color[MAX_COLORS];
 	int n_colors;
+	int n_images;
+	Pixmap image[255];
 } WM;
 
 extern Display* display;

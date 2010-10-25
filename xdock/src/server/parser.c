@@ -46,6 +46,11 @@ static int parse_command(char* command, Client* client)
 		pos[0] = '\0';
 	debug("Server < Client", "%s", command);
 
+	// ignore comments
+	if(command[0] == '#')
+		return 1;
+	
+	// check for XPM data - TODO - this should be in a function of its own
 	if(client->net.mode == XPM)
 	{
 		if(strcmp(command, ".") == 0)
@@ -66,7 +71,7 @@ static int parse_command(char* command, Client* client)
 							&s) != 4)
 					syntax_error("SEND_XPM");
 				client->net.xpm_file.max_lines = 1 + c + y;
-				client->net.xpm_file.xpm = malloc(client->net.xpm_file.max_lines);
+				client->net.xpm_file.xpm = malloc(client->net.xpm_file.max_lines * sizeof(char*));
 			}
 			if(client->net.xpm_file.current_line == client->net.xpm_file.max_lines)
 				syntax_error("SEND_XPM"); // TODO
@@ -151,6 +156,13 @@ static int parse_command(char* command, Client* client)
 		client->net.mode = XPM;
 		client->net.xpm_file.current_line = 0;
 		return 1;
+	}
+	else if(!strcmp(cmd, "DRAW_IMAGE"))
+	{
+		int n, x, y;
+		if(sscanf(command, "%s %d %d %d", cmd, &n, &x, &y) != 4)
+			return syntax_error(cmd);
+		return assert_cmd(x11_draw_image(&client->wm, n, x, y), cmd);
 	}
 	else
 	{
