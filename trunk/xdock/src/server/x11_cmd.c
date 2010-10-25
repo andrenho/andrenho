@@ -1,6 +1,17 @@
+// TODO - check error messages
+
 #include "x11_cmd.h"
 
 #include <X11/Xlib.h>
+
+#include "x11_xpm.h"
+
+#define ABS(x) ((x) < 0 ? -(x) : (x))
+
+
+int n_images = 0;
+static Pixmap image[255];
+
 
 int x11_panel(WM* wm, int x, int y, int w, int h)
 {
@@ -63,7 +74,7 @@ int x11_box(WM* wm, int color, int x, int y, int w, int h)
 	if(color >= wm->n_colors)
 		return 0;
 	XSetForeground(display, wm->gc, wm->color[color]);
-	XDrawLine(display, wm->pixmap, wm->gc, x, y, w, h);
+	XFillRectangle(display, wm->pixmap, wm->gc, x, y, w, h);
 	return 1;
 }
 
@@ -72,4 +83,45 @@ int x11_update(WM* wm)
 	XCopyArea(display, wm->pixmap, wm->window, wm->gc, 0, 0, 96, 96, 0, 0);
 	XFlush(display);
 	return 1;
+}
+
+
+int x11_movebox(WM* wm, int x, int y, int w, int h, int move_x, int move_y,
+		int bg_color)
+{
+	if(x < 0 || y < 0 || x+w >= 96 || y+h >= 96 || w < 0 || h < 0)
+		return 0;
+	if(bg_color >= wm->n_colors)
+		return 0;
+
+	// move area
+	XCopyArea(display, wm->pixmap, wm->pixmap, wm->gc, x, y, w, h, 
+			x+move_x, y+move_y);
+
+	// draw background
+	int bg_x, bg_y;
+	XSetForeground(display, wm->gc, wm->color[bg_color]);
+	if(move_x < 0)
+		bg_x = x + w + move_x;
+	else 
+		bg_x = x + move_x;
+	XFillRectangle(display, wm->pixmap, wm->gc, bg_x, y, ABS(move_x), h);
+
+	if(move_y < 0)
+		bg_y = y + h + move_y;
+	else
+		bg_y = y + move_y;
+	XFillRectangle(display, wm->pixmap, wm->gc, x, bg_y, ABS(move_y), w);
+
+	return 1;
+}
+
+
+int x11_add_image(WM* wm, char** xpm, int themed)
+{
+	(void) themed; // TODO
+	Pixmap pixmap = xpm_to_pixmap(xpm, display, wm->window);
+	free_xpm(xpm);
+	image[n_images++] = pixmap;
+	return n_images-1;
 }

@@ -37,15 +37,17 @@ PIXEL color x y [x y]
 LINE color x1 y2 x2 y2 [x1 y2 x2 y2]
 RECTANGLE color x1 y1 x2 y2
 BOX color x1 y1 x2 y2
-ARC x y w h angle1 angle2 (v.2)
+ARC color x y w h angle1 angle2 (v.2)
 UPDATE
 
 Drawing (advanced)
 ------------------
-MOVEBOX x1 y1 x2 y2 dir steps bg_color
-SEND_IMAGE n type data
+MOVEBOX x1 y1 x2 y2 move_x move_y bg_color
+SEND_XPM themed
+  data
+  .  =>  OK n
 DRAW_IMAGE n x y
-BUTTON x y w h image  =>  number
+BUTTON x y w h image  =>  number (v.2)
 
 Configuration
 -------------

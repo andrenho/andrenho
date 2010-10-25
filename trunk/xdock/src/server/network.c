@@ -126,7 +126,11 @@ void net_check_for_clients()
 			exit(1);
 		}
 #endif
-		client_add(socket_fd);
+		Client* client = client_add(socket_fd);
+		client->net.socket_fd = socket_fd;
+		client->net.authorized = 0;
+		client->net.unprocessed_data[0] = '\0';
+		client->net.mode = COMMAND;
 	}
 }
 
@@ -167,6 +171,26 @@ static int net_receive_client_data(ClientNetwork *net)
 	else if(b > 0)
 		net->unprocessed_data[len+b] = '\0'; // close the string
 		
+	return 1;
+}
+
+
+int net_send_client_data(ClientNetwork* net, char* fmt, ...)
+{
+	va_list ap;
+	char buffer[2048];
+
+	// parse and message
+	va_start(ap, fmt);
+	int n = vsnprintf(buffer, 2048, fmt, ap);
+	va_end(ap);
+
+	// send data
+	int pos = 0;
+	while((pos += send(net->socket_fd, &buffer[pos], n - pos, 0)) < n);
+
+	debug("Server > Client", "%s", buffer);
+
 	return 1;
 }
 
