@@ -46,7 +46,6 @@ static int parse_command(char* command, Client* client)
 		pos[0] = '\0';
 	debug("Server < Client", "%s", command);
 
-	printf("== %d ==\n", client->net.mode);
 	if(client->net.mode == XPM)
 	{
 		if(strcmp(command, ".") == 0)
