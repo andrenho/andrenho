@@ -5,6 +5,7 @@ typedef struct {
 	char** xpm;
 	int current_line;
 	int max_lines;
+	char* name;
 } XPM_File;
 
 typedef struct {

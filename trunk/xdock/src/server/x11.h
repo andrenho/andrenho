@@ -2,12 +2,27 @@
 #define X11_H
 
 #include <X11/Xlib.h>
+#include <stdbool.h>
 
-#define MAX_COLORS 16384
-#define MAX_IMAGES 256
+#include "uthash.h"
 
-enum { BLACK, WHITE, PANEL_BG, PANEL_LT, PANEL_SW, UNLIT, LIT, BRIGHT, GLOW,
-	WARNING };
+struct Color {
+	char name[25];
+	int pixel;
+	UT_hash_handle hh;
+};
+
+struct Image {
+	char name[25];
+	Pixmap pixmap;
+	UT_hash_handle hh;
+};
+
+struct Font {
+	char name[25];
+	Pixmap chr[255];
+	UT_hash_handle hh;
+};
 
 typedef struct {
 	Window window;
@@ -16,13 +31,13 @@ typedef struct {
 	int locked_column;	/* if the window is locked in the right side
 				   of the screen, this variable has the number
 				   of the column (from right to left) */
-	int color[MAX_COLORS];
-	int n_colors;
-	int n_images;
-	Pixmap image[255];
+	struct Color* colors;
+	struct Image* images;
+	struct Font* fonts;
 } WM;
 
 extern Display* display;
+extern Colormap colormap;
 
 void x11_initialize();
 int x11_setup_client(WM* wm);

@@ -3,76 +3,100 @@
 #include "x11_cmd.h"
 
 #include <X11/Xlib.h>
+#include <stdlib.h>
 
 #include "x11_xpm.h"
 
 #define ABS(x) ((x) < 0 ? -(x) : (x))
 
 
+static int x11_set_fg(WM* wm, char* color)
+{
+	int pixel;
+	struct Color* c;
+
+	HASH_FIND_STR(wm->colors, color, c);
+	if(c)
+		pixel = c->pixel;
+	else
+	{
+		XColor xcolor;
+		XParseColor(display, colormap, color, &xcolor); // TODO - check
+		XAllocColor(display, colormap, &xcolor);
+		pixel = xcolor.pixel;
+	
+		struct Color* new_color = malloc(sizeof(struct Color));
+		strcpy(new_color->name, color);
+		new_color->pixel = xcolor.pixel;
+		HASH_ADD_STR(wm->colors, name, new_color);
+	}
+
+	XSetForeground(display, wm->gc, pixel);
+	return 1;
+}
+
+
 int x11_panel(WM* wm, int x, int y, int w, int h)
 {
 	if(x < 0 || y < 0 || x+w >= 96 || y+h >= 96 || w < 0 || h < 0)
 		return 0;
-	XSetForeground(display, wm->gc, wm->color[PANEL_BG]);
+	x11_set_fg(wm, "panel_bg");
 	XFillRectangle(display, wm->pixmap, wm->gc, x+1, y+1, w-1, h-1);
 
 	XPoint shadow[] =  { { x, y+h-1 }, { x, y }, { x+w, y } },
 	       light[] = { { x+w, y+1 }, { x+w, y+h }, { x, y+h } };
-	XSetForeground(display, wm->gc, wm->color[PANEL_LT]);
+	x11_set_fg(wm, "panel_lt");
 	XDrawLines(display, wm->pixmap, wm->gc, light, 3, CoordModeOrigin);
-	XSetForeground(display, wm->gc, wm->color[PANEL_SW]);
+	x11_set_fg(wm, "panel_sw");
 	XDrawLines(display, wm->pixmap, wm->gc, shadow, 3, CoordModeOrigin);
 	return 1;
 }
 
 
-int x11_pixel(WM* wm, int color, int x, int y)
+int x11_pixel(WM* wm, char* color, int x, int y)
 {
 	if(x < 0 || y < 0 || x >= 96 || y >= 96)
 		return 0;
-	if(color >= wm->n_colors)
+	if(!x11_set_fg(wm, color))
 		return 0;
-	XSetForeground(display, wm->gc, wm->color[color]);
 	XDrawPoint(display, wm->pixmap, wm->gc, x, y);
 	return 1;
 }
 
 
-int x11_line(WM* wm, int color, int x1, int y1, int x2, int y2)
+int x11_line(WM* wm, char* color, int x1, int y1, int x2, int y2)
 {
 	if(x1 < 0 || y1 < 0 || x1 >= 96 || y1 >= 96
 	|| x2 < 0 || y2 < 0 || x2 >= 96 || y2 >= 96)
 		return 0;
-	if(color >= wm->n_colors)
+	if(!x11_set_fg(wm, color))
 		return 0;
-	XSetForeground(display, wm->gc, wm->color[color]);
 	XDrawLine(display, wm->pixmap, wm->gc, x1, y1, x2, y2);
 	return 1;
 }
 
 
-int x11_rectangle(WM* wm, int color, int x, int y, int w, int h)
+int x11_rectangle(WM* wm, char* color, int x, int y, int w, int h)
 {
 	if(x < 0 || y < 0 || x+w >= 96 || y+h >= 96 || w < 0 || h < 0)
 		return 0;
-	if(color >= wm->n_colors)
+	if(!x11_set_fg(wm, color))
 		return 0;
-	XSetForeground(display, wm->gc, wm->color[color]);
 	XDrawLine(display, wm->pixmap, wm->gc, x, y, w, h);
 	return 1;
 }
 
 
-int x11_box(WM* wm, int color, int x, int y, int w, int h)
+int x11_box(WM* wm, char* color, int x, int y, int w, int h)
 {
 	if(x < 0 || y < 0 || x+w >= 96 || y+h >= 96 || w < 0 || h < 0)
 		return 0;
-	if(color >= wm->n_colors)
+	if(!x11_set_fg(wm, color))
 		return 0;
-	XSetForeground(display, wm->gc, wm->color[color]);
 	XFillRectangle(display, wm->pixmap, wm->gc, x, y, w, h);
 	return 1;
 }
+
 
 int x11_update(WM* wm)
 {
@@ -83,11 +107,9 @@ int x11_update(WM* wm)
 
 
 int x11_movebox(WM* wm, int x, int y, int w, int h, int move_x, int move_y,
-		int bg_color)
+		char* bg_color)
 {
 	if(x < 0 || y < 0 || x+w >= 96 || y+h >= 96 || w < 0 || h < 0)
-		return 0;
-	if(bg_color >= wm->n_colors)
 		return 0;
 
 	// move area
@@ -96,7 +118,8 @@ int x11_movebox(WM* wm, int x, int y, int w, int h, int move_x, int move_y,
 
 	// draw background
 	int bg_x, bg_y;
-	XSetForeground(display, wm->gc, wm->color[bg_color]);
+	if(!x11_set_fg(wm, bg_color))
+		return 0;
 	if(move_x < 0)
 		bg_x = x + w + move_x;
 	else 
@@ -113,17 +136,22 @@ int x11_movebox(WM* wm, int x, int y, int w, int h, int move_x, int move_y,
 }
 
 
-int x11_add_image(WM* wm, char** xpm, int themed)
+int x11_add_image(WM* wm, char name[25], char** xpm, int themed)
 {
 	(void) themed; // TODO
-	Pixmap pixmap = xpm_to_pixmap(xpm, display, wm->window);
+
+	Pixmap pixmap = xpm_to_pixmap(xpm, display, wm);
 	free_xpm(xpm);
-	wm->image[wm->n_images++] = pixmap;
-	return wm->n_images-1;
+
+	struct Image* new_image = malloc(sizeof(struct Image));
+	strncpy(new_image->name, name, 25);
+	new_image->pixmap = pixmap;
+	HASH_ADD_STR(wm->images, name, new_image);
+	return 1;
 }
 
 
-int x11_draw_image(WM* wm, int image, int x, int y)
+int x11_draw_image(WM* wm, char* img, int x, int y)
 {
 	Window tmpw;
 	int t;
@@ -131,12 +159,38 @@ int x11_draw_image(WM* wm, int image, int x, int y)
 
 	if(x < 0 || y < 0 || x >= 96 || y >= 96)
 		return 0;
-	if(image >= wm->n_images)
-		return 0;
+
+	struct Image* image;
+	HASH_FIND_STR(wm->images, img, image);
+	if(!image)
+		return 0; // TODO - display error
 
 	XGetGeometry(display, wm->pixmap, &tmpw, &t, &t,
 			&w, &h, &ut, &ut);	
-	XCopyArea(display, wm->image[image], wm->pixmap, wm->gc, 0, 0, w, h,
+	XCopyArea(display, image->pixmap, wm->pixmap, wm->gc, 0, 0, w, h,
 			x, y);
+	return 1;
+}
+
+
+int x11_new_font(WM* wm, char name[25])
+{
+	struct Font* font = malloc(sizeof(Font));
+	strncpy(font->name, name, 25);
+	int i;
+	for(i=0; i<255; i++)
+		font->chr[i] = 0;
+	return 1;
+}
+
+
+int x11_font_char(WM* wm, char font[25], char c, Pixmap p)
+{
+	return 1;
+}
+
+
+int x11_print(WM* wm, char font[25], int x, int y, char* text)
+{
 	return 1;
 }
