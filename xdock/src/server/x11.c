@@ -10,16 +10,17 @@
 #include "x11_xpm.h"
 
 Display* display;
+Colormap colormap;
 
-static Colormap colormap;
 static int white;
 static int screen_w, screen_h;
 static char** xpm_sq;
 static int xrel, yrel;
 
-static void x11_setup_colors(WM* wm);
 static void x11_do_events_window(WM* wm, XEvent* evt);
 static int x11_move_window(WM* wm, int x, int y);
+static void x11_initialize_colors(WM* wm);
+
 
 void x11_initialize()
 {
@@ -98,42 +99,34 @@ int x11_setup_client(WM* wm)
 			NULL );   // array of values
 
 	// create background square
-	wm->pixmap = xpm_to_pixmap(xpm_sq, display, wm->window);
+	wm->pixmap = xpm_to_pixmap(xpm_sq, display, wm);
 	XCopyArea(display, wm->pixmap, wm->window, wm->gc, 0, 0, 96, 96, 0, 0);
 	XFlush(display);
 
-	wm->n_images = 0;
-
-	// setup colors
-	x11_setup_colors(wm);
+	// initialize variables
+	wm->images = NULL;
+	wm->colors = NULL;
+	wm->fonts = NULL;
+	x11_initialize_colors(wm);
 
 	return 1;
 }
 
 
-static inline int add_color(WM* wm, char* color)
+static void x11_initialize_colors(WM* wm)
 {
-	XColor xcolor;
-	XParseColor(display, colormap, color, &xcolor);
-	XAllocColor(display, colormap, &xcolor);
-	wm->color[wm->n_colors++] = xcolor.pixel;
-	return wm->n_colors-1;
-}
+	struct ThemeColor* tc;
+	for(tc = opt.colors; tc != NULL; tc = tc->hh.next)
+	{
+		XColor xcolor;
+		XParseColor(display, colormap, tc->color, &xcolor); // TODO - check
+		XAllocColor(display, colormap, &xcolor);
 
-
-static void x11_setup_colors(WM* wm)
-{
-	wm->n_colors = 0;
-	add_color(wm, "black");
-	add_color(wm, "white");
-	add_color(wm, theme.panel_bg);
-	add_color(wm, theme.panel_lt);
-	add_color(wm, theme.panel_sw);
-	add_color(wm, theme.unlit);
-	add_color(wm, theme.lit);
-	add_color(wm, theme.bright);
-	add_color(wm, theme.glow);
-	add_color(wm, theme.warning);
+		struct Color* new_color = malloc(sizeof(struct Color));
+		strcpy(new_color->name, tc->name);
+		new_color->pixel = xcolor.pixel;
+		HASH_ADD_STR(wm->colors, name, new_color);
+	}
 }
 
 
@@ -268,6 +261,7 @@ void x11_destroy_client(WM* wm)
 		XNextEvent(display, &evt);
 	while(evt.type != MapNotify);
 	*/
+	// TODO - clear stored images/fonts
 }
 
 

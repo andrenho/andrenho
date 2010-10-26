@@ -1,6 +1,9 @@
+// TODO - organize this file, it's messed up
+
+#include "x11_xpm.h"
+
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -140,25 +143,22 @@ void free_xpm(char** xpm)
 }
 
 
-Pixmap xpm_to_pixmap(char* xpm[], Display* display, Window window)
+Pixmap xpm_to_pixmap(char* xpm[], Display* display, WM* wm)
 {
 	Colormap colormap = DefaultColormap(display, DefaultScreen(display));
 
 	// <values>
-	char* values = strdup(xpm[0]);
-	char *ws = strtok(values, " \t"), *hs = strtok(NULL, " \t"),
-	     *sncol = strtok(NULL, " \t"), *sszcol = strtok(NULL, " \t");
-	int w = strtol(ws, NULL, 10), h = strtol(hs, NULL, 10), 
-	    ncol = strtol(sncol, NULL, 10), szcol = strtol(sszcol, NULL, 10);
-	free(values);
+	int w, h, ncol, szcol;
+	if(sscanf(xpm[0], "%d %d %d %d", &w, &h, &ncol, &szcol) != 4)
+		return 0;
 
 	// create pixmap
 	int tmp;
 	unsigned int depth, utmp;
 	Window tmpw;
-	XGetGeometry(display, window, &tmpw, &tmp, &tmp, &utmp, &utmp, &utmp, 
+	XGetGeometry(display, wm->window, &tmpw, &tmp, &tmp, &utmp, &utmp, &utmp, 
 			&depth);
-	Pixmap pixmap = XCreatePixmap(display, window, w, h, depth);
+	Pixmap pixmap = XCreatePixmap(display, wm->window, w, h, depth);
 	GC gc = XCreateGC(display, pixmap,
 			0,        // mask of values
 			NULL );   // array of values
@@ -171,19 +171,36 @@ Pixmap xpm_to_pixmap(char* xpm[], Display* display, Window window)
 	int i;
 	for(i=0; i<ncol; i++)
 	{
-		XColor xcolor;
-		char *chr = malloc(szcol + 1);
-		strncpy(chr, xpm[i+1], szcol);
-		chr[szcol] = '\0';
-		char* cl = strdup(&xpm[i+1][szcol+1]);
-		char *type = strtok(cl, " \t"), 
-		     *cl_value = strtok(NULL, " \t");
-		(void) type;
-		XParseColor(display, colormap, cl_value, &xcolor);
+		char chr[4], type, cl_value[25], type2 = '\0', cl_value2[25];
+		int n = sscanf(xpm[i+1], "%4s %c %25s %c %25s", chr, &type, 
+				cl_value, &type2, cl_value2);
 		color[i].str = strdup(chr);
-		XAllocColor(display, colormap, &xcolor);
-		color[i].x_color = xcolor.pixel;
-		free(cl);
+
+		if(n == 5 || type == 's')
+		{
+			if(type == 's')
+			{
+				type2 = type;
+				strncpy(cl_value2, cl_value, 25);
+			}
+			struct Color* c;
+			HASH_FIND_STR(wm->colors, cl_value2, c);
+			if(!c)
+			{
+				fprintf(stderr, "Color %s not found.\n", cl_value2);
+				return 0;
+			}
+			color[i].x_color = c->pixel;
+		}
+		else if(n == 3)
+		{
+			XColor xcolor;
+			XParseColor(display, colormap, cl_value, &xcolor);
+			XAllocColor(display, colormap, &xcolor);
+			color[i].x_color = xcolor.pixel;
+		}
+		else
+			return 0;
 	}
 
 	// pixels

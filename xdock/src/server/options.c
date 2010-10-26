@@ -10,12 +10,12 @@ Options opt = {
 	.debug = 1,
 	.dock_color = 0x909090,
 	.theme = "led",
+	.colors = NULL,
 	.attract = 40,
 };
 
-Theme theme;
 
-static void parse_theme(char* theme, Theme* t)
+static void parse_theme()
 {
 	char buf[255];
 	FILE* f = fopen("../../share/themes.rc", "r"); // TODO
@@ -28,7 +28,8 @@ static void parse_theme(char* theme, Theme* t)
 	do
 	{
 		ret = fscanf(f, "%255s", buf);
-		if(buf[0] == '[' && !strncmp(&buf[1], theme, strlen(theme)-2))
+		if(buf[0] == '[' 
+		&& !strncmp(&buf[1], opt.theme, strlen(opt.theme)-2))
 		{
 			char color_name[25];
 			do
@@ -50,39 +51,15 @@ static void parse_theme(char* theme, Theme* t)
 					exit(EXIT_FAILURE);
 				}
 
-				// select color
-				if(!strcmp(color_name, "panel_bg"))
-					t->panel_bg = strdup(color);
-				else if(!strcmp(color_name, "panel_lt"))
-					t->panel_lt = strdup(color);
-				else if(!strcmp(color_name, "panel_lt"))
-					t->panel_lt = strdup(color);
-				else if(!strcmp(color_name, "panel_sw"))
-					t->panel_sw = strdup(color);
-				else if(!strcmp(color_name, "unlit"))
-					t->unlit = strdup(color);
-				else if(!strcmp(color_name, "lit"))
-					t->lit = strdup(color);
-				else if(!strcmp(color_name, "bright"))
-					t->bright = strdup(color);
-				else if(!strcmp(color_name, "glow"))
-					t->glow = strdup(color);
-				else if(!strcmp(color_name, "warning"))
-					t->warning = strdup(color);
-				else
-					fprintf(stderr, "Color not found on theme file: %s.\n",
-							color);
+				struct ThemeColor* cl = malloc(sizeof(struct ThemeColor));
+				strncpy(cl->name, color_name, 25);
+				strncpy(cl->color, color, 20);
+				HASH_ADD_STR(opt.colors, name, cl);
 			} while(color_name[0] != '[');
 		}
 	} while(ret != EOF);
 
-	// check for valid theme
-	if((t->panel_bg && t->panel_lt && t->panel_sw && t->unlit
-	&& t->lit && t->bright && t->glow && t->warning) == 0)
-	{
-		fprintf(stderr, "Invalid theme %s.\n", theme);
-		exit(EXIT_FAILURE);
-	}
+	// TODO - check that all colors are there
 
 	fclose(f);
 }
@@ -94,6 +71,5 @@ void opt_parse(int argc, char* argv[])
 	(void) argv;
 
 	// TODO - parse options
-	memset(&theme, 0, sizeof(Theme));
-	parse_theme(opt.theme, &theme);
+	parse_theme();
 }

@@ -1,16 +1,13 @@
 #ifndef OPTIONS_H
 #define OPTIONS_H
 
-typedef struct {
-	char *panel_bg,
-	     *panel_lt,
-	     *panel_sw,
-	     *unlit,
-	     *lit,
-	     *bright,
-	     *glow,
-	     *warning;
-} Theme;
+#include "uthash.h"
+
+struct ThemeColor {
+	char name[25];
+	char color[20];
+	UT_hash_handle hh;
+};
 
 typedef struct {
 	enum { NO_VIEW, X11 } toolkit;
@@ -18,11 +15,11 @@ typedef struct {
 	int debug;
 	long dock_color;
 	char* theme;
+	struct ThemeColor* colors;
 	int attract;
 } Options;
 
 extern Options opt;
-extern Theme theme;
 
 void opt_parse(int argc, char* argv[]);
 

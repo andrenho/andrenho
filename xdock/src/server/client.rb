@@ -7,10 +7,10 @@ PANEL 4 4 88 88
 UPDATE
 
 # sending XPM
-SEND_XPM
+SEND_XPM blarg
 16 7 2 1
-* c #000000
-. c #ffffff
+* c #000000 s lit
+. c #ffffff s panel_bg
 **..*...........
 *.*.*...........
 **..*..**.**..**
@@ -19,9 +19,8 @@ SEND_XPM
 ...............*
 .............**.
 .
-DRAW_IMAGE 0 10 10
+DRAW_IMAGE blarg 10 10
 UPDATE
 EOF
-print s.gets
 
 while true; end

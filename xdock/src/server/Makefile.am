@@ -7,6 +7,7 @@ xdockserver_SOURCES = main.c     client.h  \
 		      options.h  options.c \
 		      parser.h   parser.c  \
 		      network.h  network.c \
+		      uthash.h             \
 		      x11.h      x11.c     \
 		      x11_cmd.c  x11_cmd.h \
 		      x11_xpm.c  x11_xpm.h

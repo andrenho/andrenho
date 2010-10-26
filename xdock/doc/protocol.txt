@@ -43,24 +43,20 @@ UPDATE
 Drawing (advanced)
 ------------------
 MOVEBOX x1 y1 x2 y2 move_x move_y bg_color
-SEND_XPM themed
+SEND_XPM name
   data
-  .  =>  OK n
-DRAW_IMAGE n x y
+  .
+DRAW_IMAGE image x y
 BUTTON x y w h image  =>  number (v.2)
-
-Configuration
--------------
-COLOR r g b  =>  number
-FONT (v.2)
 
 Text
 ----
 WRITE font x y text
+FONT (v.2)
 
 Events
 ------
-DRAGAREA x t w h
+DRAGAREA x t w h (v.2)
 EVENT  =>   mouse_up/down btn x y
-            button n
+            button n (v.2)
             drag old_x old_y new_x new_y
