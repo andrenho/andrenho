@@ -26,9 +26,7 @@ Protocol
 
 Connection
 ----------
-CONNECT ???
-DISCONNECT
-VERSION  =>  major middle minor
+XDOCK api_version <= HELLO nettype
 
 Drawing
 -------
