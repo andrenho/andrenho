@@ -172,8 +172,10 @@ Pixmap xpm_to_pixmap(char* xpm[], Display* display, WM* wm)
 	for(i=0; i<ncol; i++)
 	{
 		char chr[4], type, cl_value[25], type2 = '\0', cl_value2[25];
-		int n = sscanf(xpm[i+1], "%4s %c %25s %c %25s", chr, &type, 
+		int n = sscanf(&xpm[i+1][szcol], "%c %25s %c %25s", &type, 
 				cl_value, &type2, cl_value2);
+		strncpy(chr, xpm[i+1], szcol);
+		chr[szcol] = '\0';
 		color[i].str = strdup(chr);
 
 		if(n == 5 || type == 's')
