@@ -37,9 +37,25 @@ static int parse_command(char* command, Client* client)
 		pos[0] = '\0';
 	debug("Server < Client", "%s", command);
 
-	// ignore comments
-	if(command[0] == '#')
+	// ignore comments and white lines
+	if(command[0] == '#' || command[0] == '\0')
 		return 1;
+
+	// check for authentication
+	if(!client->net.authorized)
+	{
+		if(strncmp(command, "HELLO", 5) == 0)
+		{
+			char cmd[30], id[25];
+			if(sscanf(command, "%29s %24s", cmd, id) != 2)
+				return syntax_error(cmd);
+			strncpy(client->net.id, id, 25);
+			client->net.authorized = 1;
+			return 1;
+		}
+		else
+			return 0; // TODO
+	}
 	
 	// check for XPM data - TODO - this should be in a function of its own
 	if(client->net.mode == XPM)
@@ -72,7 +88,7 @@ static int parse_command(char* command, Client* client)
 
 	// get command name
 	char cmd[30];
-	sscanf(command, "%30s", cmd);
+	sscanf(command, "%29s", cmd);
 
 	if(!strcmp(cmd, "PANEL"))
 	{

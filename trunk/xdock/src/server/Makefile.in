@@ -137,6 +137,7 @@ STRIP = @STRIP@
 VERSION = @VERSION@
 WINSOCK = @WINSOCK@
 X11 = @X11@
+XMKMF = @XMKMF@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
@@ -173,6 +174,7 @@ libdir = @libdir@
 libexecdir = @libexecdir@
 localedir = @localedir@
 localstatedir = @localstatedir@
+lt_ECHO = @lt_ECHO@
 mandir = @mandir@
 mkdir_p = @mkdir_p@
 oldincludedir = @oldincludedir@
@@ -188,13 +190,14 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-AM_CPPFLAGS = -Wall -Wextra
+AM_CPPFLAGS = -Wall -Wextra -DVERSION=\"$(VERSION)\"
 xdockserver_SOURCES = main.c      client.h   \
 		      client.h    client.c   \
 		      debug.h     debug.c    \
 		      options.h   options.c  \
 		      parser.h    parser.c   \
 		      network.h   network.c  \
+		      structures.h           \
 		      uthash.h               \
 		      x11.h       x11.c      \
 		      x11_cmd.c   x11_cmd.h  \

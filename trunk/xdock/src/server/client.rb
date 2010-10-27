@@ -1,7 +1,12 @@
 require 'socket'
 
 s = TCPSocket.new('localhost', 52530)
+
+puts s.gets
+
 s.puts <<EOF
+HELLO HELLO
+
 # create panel
 PANEL 5 5 86 86
 UPDATE
@@ -27,6 +32,6 @@ DRAW_IMAGE blarg 10 10
 UPDATE
 EOF
 
-print s.gets
+puts s.gets
 
 while true; end
