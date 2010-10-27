@@ -13,15 +13,6 @@
 
 
 
-inline static int translate_color(char* color)
-{
-	int n_color;
-	// TODO
-	n_color = strtol(color, NULL, 10);
-	return n_color;
-}
-
-
 inline static int assert_cmd(int value, char* cmd)
 {
 	if(!value)

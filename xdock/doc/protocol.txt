@@ -37,6 +37,7 @@ PIXEL color x y [x y]
 LINE color x1 y2 x2 y2 [x1 y2 x2 y2]
 RECTANGLE color x1 y1 x2 y2
 BOX color x1 y1 x2 y2
+LIGHT color on/off
 ARC color x y w h angle1 angle2 (v.2)
 UPDATE
 
@@ -51,7 +52,7 @@ BUTTON x y w h image  =>  number (v.2)
 
 Text
 ----
-WRITE font x y text
+WRITE font x y "text"
 FONT (v.2)
 
 Events
@@ -59,4 +60,4 @@ Events
 DRAGAREA x t w h (v.2)
 EVENT  =>   mouse_up/down btn x y
             button n (v.2)
-            drag old_x old_y new_x new_y
+            drag old_x old_y new_x new_y (v.2)
