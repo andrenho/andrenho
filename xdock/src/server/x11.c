@@ -5,9 +5,13 @@
 #include <stdlib.h>
 
 #include "client.h"
+#include "debug.h"
 #include "options.h"
 #include "x11_cmd.h"
-#include "x11_xpm.h"
+#include "x11_util.h"
+
+#include "font_led3.xpm"
+
 
 Display* display;
 Colormap colormap;
@@ -20,6 +24,7 @@ static int xrel, yrel;
 static void x11_do_events_window(WM* wm, XEvent* evt);
 static int x11_move_window(WM* wm, int x, int y);
 static void x11_initialize_colors(WM* wm);
+static void x11_initialize_fonts(WM* wm);
 
 
 void x11_initialize()
@@ -108,6 +113,7 @@ int x11_setup_client(WM* wm)
 	wm->colors = NULL;
 	wm->fonts = NULL;
 	x11_initialize_colors(wm);
+	x11_initialize_fonts(wm);
 
 	return 1;
 }
@@ -115,6 +121,8 @@ int x11_setup_client(WM* wm)
 
 static void x11_initialize_colors(WM* wm)
 {
+	debug("Server", "Initializing colors...");
+
 	struct ThemeColor* tc;
 	for(tc = opt.colors; tc != NULL; tc = tc->hh.next)
 	{
@@ -126,6 +134,24 @@ static void x11_initialize_colors(WM* wm)
 		strcpy(new_color->name, tc->name);
 		new_color->pixel = xcolor.pixel;
 		HASH_ADD_STR(wm->colors, name, new_color);
+	}
+}
+
+
+static void x11_initialize_fonts(WM* wm)
+{
+	int i;
+
+	debug("Server", "Initializing fonts...");
+
+	x11_new_font(wm, "led3");
+	i = 0;
+	while(font_led3[i].xpm)
+	{
+		Pixmap p = xpm_to_pixmap(font_led3[i].xpm, display, wm);
+		if(p)
+			x11_font_char(wm, "led3", font_led3[i].c, p);
+		i++;
 	}
 }
 
@@ -256,6 +282,7 @@ void x11_destroy_client(WM* wm)
 	XSelectInput(display, wm->window, eventMask);
 	*/
 	XDestroyWindow(display, wm->window);
+	debug("Server", "Client window destroyed.");
 	/*
 	do 
 		XNextEvent(display, &evt);
