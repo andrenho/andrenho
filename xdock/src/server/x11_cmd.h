@@ -1,6 +1,7 @@
 #ifndef X11_CMD_H
 #define X11_CMD_H
 
+#include "client.h"
 #include "x11.h"
 
 // TODO - always use unsigned
@@ -23,5 +24,8 @@ int x11_draw_image(WM* wm, char* img, int x, int y);
 int x11_new_font(WM* wm, char name[25]);
 int x11_font_char(WM* wm, char font[25], unsigned char c, Pixmap p);
 int x11_print(WM* wm, char font[25], int x, int y, unsigned char* text);
+
+// events
+int x11_pointer_event(Client* c, char* type, int x, int y);
 
 #endif

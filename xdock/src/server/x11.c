@@ -21,7 +21,7 @@ static int screen_w, screen_h;
 static char** xpm_sq;
 static int xrel, yrel;
 
-static void x11_do_events_window(WM* wm, XEvent* evt);
+static void x11_do_events_client(Client* c, XEvent* evt);
 static int x11_move_window(WM* wm, int x, int y);
 static void x11_initialize_colors(WM* wm);
 static void x11_initialize_fonts(WM* wm);
@@ -73,7 +73,7 @@ int x11_setup_client(WM* wm)
 	// put window in the correct position in the screen
 	wm->locked_column = -1;
 	int x = screen_w - 96,
-	    y = 0; // TODO - ?
+	    y = 0;
 	while(!x11_move_window(wm, x, y))
 	{
 		y += 96;
@@ -169,7 +169,7 @@ void x11_do_events()
 		{
 			if(c->wm.window == evt.xany.window)
 			{
-				x11_do_events_window(&c->wm, &evt);
+				x11_do_events_client(c, &evt);
 				break;
 			}
 			c = c->next;
@@ -244,7 +244,7 @@ static int x11_move_window(WM* wm, int x, int y)
 }
 
 
-static void x11_do_events_window(WM* wm, XEvent* evt)
+static void x11_do_events_client(Client* c, XEvent* evt)
 {
 	switch(evt->type)
 	{
@@ -255,16 +255,24 @@ static void x11_do_events_window(WM* wm, XEvent* evt)
 			if(evt->xbutton.button == Button1)
 			{
 				Window wtmp; int tmp; unsigned int utmp;
-				XQueryPointer(display, wm->window, &wtmp, &wtmp,
-					&tmp, &tmp, &xrel, &yrel, &utmp);
-				XRaiseWindow(display, wm->window);
+				XQueryPointer(display, c->wm.window, &wtmp, 
+						&wtmp, &tmp, &tmp, &xrel, 
+						&yrel, &utmp);
+				XRaiseWindow(display, c->wm.window);
 			}
+			x11_pointer_event(c, "down", evt->xbutton.x,
+					evt->xbutton.y);
+			break;
+
+		case ButtonRelease:
+			x11_pointer_event(c, "up", evt->xbutton.x,
+					evt->xbutton.y);
 			break;
 
 		case MotionNotify:
 			if(evt->xmotion.state & Button1MotionMask)
 			{
-				x11_move_window(wm, 
+				x11_move_window(&c->wm, 
 						evt->xmotion.x_root - xrel,
 						evt->xmotion.y_root - yrel);
 			}
@@ -275,19 +283,8 @@ static void x11_do_events_window(WM* wm, XEvent* evt)
 
 void x11_destroy_client(WM* wm)
 {
-	/*
-	XEvent evt;
-
-	long eventMask = StructureNotifyMask;
-	XSelectInput(display, wm->window, eventMask);
-	*/
 	XDestroyWindow(display, wm->window);
 	debug("Server", "Client window destroyed.");
-	/*
-	do 
-		XNextEvent(display, &evt);
-	while(evt.type != MapNotify);
-	*/
 	// TODO - clear stored images/fonts
 }
 
