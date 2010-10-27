@@ -5,7 +5,7 @@
 #include <X11/Xlib.h>
 #include <stdlib.h>
 
-#include "x11_xpm.h"
+#include "x11_util.h"
 
 #define ABS(x) ((x) < 0 ? -(x) : (x))
 
@@ -175,22 +175,50 @@ int x11_draw_image(WM* wm, char* img, int x, int y)
 
 int x11_new_font(WM* wm, char name[25])
 {
-	struct Font* font = malloc(sizeof(Font));
+	struct Font* font = malloc(sizeof(struct Font));
 	strncpy(font->name, name, 25);
 	int i;
 	for(i=0; i<255; i++)
 		font->chr[i] = 0;
+	HASH_ADD_STR(wm->fonts, name, font);
 	return 1;
 }
 
 
-int x11_font_char(WM* wm, char font[25], char c, Pixmap p)
+int x11_font_char(WM* wm, char fontname[25], unsigned char c, Pixmap p)
 {
+	struct Font* font;
+	HASH_FIND_STR(wm->fonts, fontname, font);
+	if(!font)
+		return 0; // TODO
+	font->chr[c] = p;
 	return 1;
 }
 
 
-int x11_print(WM* wm, char font[25], int x, int y, char* text)
+int x11_print(WM* wm, char fontname[25], int x, int y, unsigned char* text)
 {
+	struct Font* font;
+	Window tmpw;
+	int t;
+	unsigned int w, h, ut;
+
+	// get font
+	HASH_FIND_STR(wm->fonts, fontname, font);
+	if(!font)
+		return 0; // TODO
+
+	// print chars
+	int i=0;
+	while(text[i] != 0)
+	{
+		XGetGeometry(display, font->chr[text[i]], &tmpw, &t, &t, &w, &h, 
+				&ut, &ut);	
+		XCopyArea(display, font->chr[text[i]], wm->pixmap, wm->gc, 
+				0, 0, w, h, x, y);
+		x += w;
+		i++;
+	}
+
 	return 1;
 }

@@ -1,5 +1,5 @@
-#ifndef X11_XPM_H
-#define X11_XPM_H
+#ifndef X11_UTIL_H
+#define X11_UTIL_H
 
 #include <X11/Xlib.h>
 

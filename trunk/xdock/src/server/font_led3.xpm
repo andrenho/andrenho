@@ -1,0 +1,889 @@
+#include <stdlib.h>
+
+/* XPM */
+static char* font_led_space[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+" ...  ",
+".   . ",
+".   . ",
+" ...  ",
+".   . ",
+".   . ",
+" ...  "};
+
+static char* font_led_A[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"+ooo+ ",
+"o   o ",
+"o   o ",
+"+ooo+ ",
+"o   o ",
+"o   o ",
+"+...+ "};
+
+static char* font_led_B[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"+ooo+ ",
+"o   o ",
+"o   o ",
+"+ooo  ",
+"o   o ",
+"o   o ",
+"+ooo+ "};
+
+static char* font_led_C[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"+ooo+ ",
+"o   . ",
+"o   . ",
+"+...  ",
+"o   . ",
+"o   . ",
+"+ooo+ "};
+
+static char* font_led_D[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"oooo  ",
+"o   o ",
+"o   o ",
+"+...+ ",
+"o   o ",
+"o   o ",
+"oooo  "};
+
+static char* font_led_E[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"+ooo+ ",
+"o   . ",
+"o   . ",
+"+ooo  ",
+"o   . ",
+"o   . ",
+"+ooo+ "};
+
+static char* font_led_F[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"+ooo+ ",
+"o   . ",
+"o   . ",
+"+ooo  ",
+"o   . ",
+"o   . ",
+"+...  "};
+
+static char* font_led_G[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"+ooo+ ",
+"o   . ",
+"o   . ",
+"+.+o+ ",
+"o   o ",
+"o   o ",
+"+ooo+ "};
+
+static char* font_led_H[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"+...+ ",
+"o   o ",
+"o   o ",
+"+ooo+ ",
+"o   o ",
+"o   o ",
+"+...+ "};
+
+static char* font_led_I[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+" ...+ ",
+".   o ",
+".   o ",
+" ...+ ",
+".   o ",
+".   o ",
+" ...+ "};
+
+static char* font_led_J[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"+ooo+ ",
+".   o ",
+".   o ",
+"+...+ ",
+"o   o ",
+"o   o ",
+"+ooo+ "};
+
+static char* font_led_K[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"+...+ ",
+"o   o ",
+"o   o ",
+"+ooo  ",
+"o   o ",
+"o   o ",
+"+...+ "};
+
+static char* font_led_L[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"+...  ",
+"o   . ",
+"o   . ",
+"+...  ",
+"o   . ",
+"o   . ",
+"+ooo+ "};
+
+static char* font_led_M[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"o...o ",
+"oo oo ",
+"o o o ",
+"+...+ ",
+"o   o ",
+"o   o ",
+"+...+ "};
+
+static char* font_led_N[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"+ooo  ",
+"o   o ",
+"o   o ",
+"+...+ ",
+"o   o ",
+"o   o ",
+"+...+ "};
+
+static char* font_led_O[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"+ooo+ ",
+"o   o ",
+"o   o ",
+"+...+ ",
+"o   o ",
+"o   o ",
+"+ooo+ "};
+
+static char* font_led_P[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"+ooo+ ",
+"o   o ",
+"o   o ",
+"+ooo+ ",
+"o   . ",
+"o   . ",
+"+...  "};
+
+static char* font_led_Q[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"+ooo+ ",
+"o   o ",
+"o   o ",
+"+...+ ",
+"o o o ",
+"o  oo ",
+"+oooo "};
+
+static char* font_led_R[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"+ooo+ ",
+"o   o ",
+"o   o ",
+"+ooo  ",
+"o   o ",
+"o   o ",
+"+...+ "};
+
+static char* font_led_S[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"+ooo+ ",
+"o   . ",
+"o   . ",
+"+ooo+ ",
+".   o ",
+".   o ",
+"+ooo+ "};
+
+static char* font_led_T[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"+ooo+ ",
+". o . ",
+". o . ",
+" .+.  ",
+". o . ",
+". o . ",
+" .+.  "};
+
+static char* font_led_U[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"+...+ ",
+"o   o ",
+"o   o ",
+"+...+ ",
+"o   o ",
+"o   o ",
+"+ooo+ "};
+
+static char* font_led_V[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"+...+ ",
+"o   o ",
+"o   o ",
+"+...+ ",
+"o  .o ",
+".o o. ",
+" .o.  "};
+
+static char* font_led_W[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"+...+ ",
+"o   o ",
+"o   o ",
+"+...+ ",
+"o o o ",
+"oo oo ",
+"o...o "};
+
+static char* font_led_X[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"+...+ ",
+"o   o ",
+".o o. ",
+" .+.  ",
+".o o. ",
+"o   o ",
+"+...+ "};
+
+static char* font_led_Y[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"+...+ ",
+"o   o ",
+"o   o ",
+"+o+o+ ",
+". o . ",
+". o . ",
+" .+.  "};
+
+static char* font_led_Z[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"+ooo+ ",
+".   o ",
+".  oo ",
+" +o+  ",
+"oo  . ",
+"o   . ",
+"+ooo+ "};
+
+static char* font_led_one[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+" ...+ ",
+".   o ",
+".   o ",
+" ...+ ",
+".   o ",
+".   o ",
+" ...+ "};
+
+static char* font_led_2[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"+ooo+ ",
+".   o ",
+".   o ",
+"+ooo+ ",
+"o   . ",
+"o   . ",
+"+ooo+ "};
+
+static char* font_led_3[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"+ooo+ ",
+".   o ",
+".   o ",
+"+ooo+ ",
+".   o ",
+".   o ",
+"+ooo+ "};
+
+static char* font_led_4[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"+...+ ",
+"o   o ",
+"o   o ",
+"+ooo+ ",
+".   o ",
+".   o ",
+" ...+ "};
+
+static char* font_led_5[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"+ooo+ ",
+"o   . ",
+"o   . ",
+"+ooo+ ",
+".   o ",
+".   o ",
+"+ooo+ "};
+
+static char* font_led_6[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"+ooo+ ",
+"o   . ",
+"o   . ",
+"+ooo+ ",
+"o   o ",
+"o   o ",
+"+ooo+ "};
+
+static char* font_led_7[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"+ooo+ ",
+".   o ",
+".   o ",
+" ...+ ",
+".   o ",
+".   o ",
+" ...+ "};
+
+static char* font_led_8[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"+ooo+ ",
+"o   o ",
+"o   o ",
+"+ooo+ ",
+"o   o ",
+"o   o ",
+"+ooo+ "};
+
+static char* font_led_9[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"+ooo+ ",
+"o   o ",
+"o   o ",
+"+ooo+ ",
+".   o ",
+".   o ",
+"+ooo+ "};
+
+static char* font_led_0[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+" ooo  ",
+"o   o ",
+"o   o ",
+"+...+ ",
+"o   o ",
+"o   o ",
+" ooo  "};
+
+static char* font_led_exclamation[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+" ...+ ",
+".   o ",
+".   o ",
+" ...o ",
+".   + ",
+".     ",
+" ...o "};
+
+static char* font_led_at[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"+ooo+ ",
+"o   o ",
+"o   o ",
+"+ooo+ ",
+"o   . ",
+"o   . ",
+"+ooo+ "};
+
+static char* font_led_dollar[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"+ooo+ ",
+"o o . ",
+"o o . ",
+"+o+o+ ",
+". o o ",
+". o o ",
+"+ooo+ "};
+
+static char* font_led_percent[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"+o..+ ",
+"o+  o ",
+".  o. ",
+" .o.  ",
+".o  . ",
+"o  +o ",
+"+..o+ "};
+
+static char* font_led_plus[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+" .+.  ",
+". o . ",
+". o . ",
+"+o+o+ ",
+". o . ",
+". o . ",
+" .+.  "};
+
+static char* font_led_minus[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+" ...  ",
+".   . ",
+".   . ",
+"+ooo+ ",
+".   . ",
+".   . ",
+" ...  "};
+
+static char* font_led_slash[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+" ...+ ",
+".   o ",
+".  o. ",
+" .+.  ",
+".o  . ",
+"o   . ",
+"+...  "};
+
+static char* font_led_backslash[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"+...  ",
+"o   . ",
+".o  . ",
+" .+.  ",
+".  o. ",
+".   o ",
+" ...+ "};
+
+static char* font_led_degree[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"+ooo+ ",
+"o   o ",
+"o   o ",
+"+ooo+ ",
+".   . ",
+".   . ",
+" ...  "};
+
+static char* font_led_question[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"+ooo+ ",
+"o   o ",
+"+   o ",
+" .+o+ ",
+". o . ",
+".   . ",
+" .o.  "};
+
+static char* font_led_lt[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+" ..o  ",
+". o . ",
+".o  . ",
+"o...  ",
+".o  . ",
+". o . ",
+" ..o  "};
+
+static char* font_led_gt[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"o...  ",
+".o  . ",
+". o . ",
+" ..o  ",
+". o . ",
+".o  . ",
+"o...  "};
+
+static char* font_led_eq[] = {
+"6 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+" ...  ",
+".   . ",
+"+ooo+ ",
+" ...  ",
+"+ooo+ ",
+".   . ",
+" ...  "};
+
+static char* font_led_dot[] = {
+"2 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"  ",
+"  ",
+"  ",
+"  ",
+"  ",
+"o ",
+"+ "};
+
+static char* font_led_colon[] = {
+"2 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"  ",
+"o ",
+"+ ",
+"  ",
+"o ",
+"+ ",
+"  "};
+
+static char* font_led_comma[] = {
+"3 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"   ",
+"   ",
+"   ",
+"   ",
+"   ",
+" o ",
+"o+ "};
+
+static char* font_led_semicolon[] = {
+"3 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"   ",
+"   ",
+" o ",
+" + ",
+"   ",
+" o ",
+"o+ "};
+
+static char* font_led_whitespace[] = {
+"3 7 4 1",
+" 	c #1B1B1B s panel_bg",
+".	c #004840 s unlit",
+"+	c #007C70 s halflit",
+"o	c #20B0A8 s bright",
+        
+"   ",
+"   ",
+"   ",
+"   ",
+"   ",
+"   ",
+"   "};
+
+struct {
+	unsigned char c;
+	char** xpm;
+} font_led3[] = {
+	{ ' ', font_led_space },
+	{ 'A', font_led_A },
+	{ 'B', font_led_B },
+	{ 'C', font_led_C },
+	{ 'D', font_led_D },
+	{ 'E', font_led_E },
+	{ 'F', font_led_F },
+	{ 'G', font_led_G },
+	{ 'H', font_led_H },
+	{ 'I', font_led_I },
+	{ 'J', font_led_J },
+	{ 'K', font_led_K },
+	{ 'L', font_led_L },
+	{ 'M', font_led_M },
+	{ 'N', font_led_N },
+	{ 'O', font_led_O },
+	{ 'P', font_led_P },
+	{ 'Q', font_led_Q },
+	{ 'R', font_led_R },
+	{ 'S', font_led_S },
+	{ 'T', font_led_T },
+	{ 'U', font_led_U },
+	{ 'V', font_led_V },
+	{ 'W', font_led_W },
+	{ 'X', font_led_X },
+	{ 'Y', font_led_Y },
+	{ 'Z', font_led_Z },
+	{ '1', font_led_one },
+	{ '2', font_led_2 },
+	{ '3', font_led_3 },
+	{ '4', font_led_4 },
+	{ '5', font_led_5 },
+	{ '6', font_led_6 },
+	{ '7', font_led_7 },
+	{ '8', font_led_8 },
+	{ '9', font_led_9 },
+	{ '0', font_led_0 },
+	{ '!', font_led_exclamation },
+	{ '@', font_led_at },
+	{ '$', font_led_dollar },
+	{ '%', font_led_percent },
+	{ '+', font_led_plus },
+	{ '-', font_led_minus },
+	{ '/', font_led_slash },
+	{ '\\', font_led_backslash },
+	{ 'º', font_led_degree },
+	{ '?', font_led_question },
+	{ '<', font_led_lt },
+	{ '>', font_led_gt },
+	{ '=', font_led_eq },
+	{ '.', font_led_dot },
+	{ ':', font_led_colon },
+	{ ',', font_led_comma },
+	{ ';', font_led_semicolon },
+	{ '_', font_led_whitespace },
+	{ '\0', NULL }
+};

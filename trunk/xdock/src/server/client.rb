@@ -3,7 +3,11 @@ require 'socket'
 s = TCPSocket.new('localhost', 52530)
 s.puts <<EOF
 # create panel
-PANEL 4 4 88 88
+PANEL 5 5 86 86
+UPDATE
+
+# write chars
+WRITE led3 10 30 "HELLO_WORLD"
 UPDATE
 
 # sending XPM
@@ -22,5 +26,8 @@ SEND_XPM blarg
 DRAW_IMAGE blarg 10 10
 UPDATE
 EOF
+
+=begin
+=end
 
 while true; end

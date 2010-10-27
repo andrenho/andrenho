@@ -94,7 +94,7 @@ static int parse_command(char* command, Client* client)
 	{
 		char color[25];
 		int x, y;
-		if(sscanf(command, "%s %25s %d %d", cmd, color, &x, &y) != 4)
+		if(sscanf(command, "%s %24s %d %d", cmd, color, &x, &y) != 4)
 			return syntax_error(cmd);
 		return assert_cmd(x11_pixel(&client->wm, color, x, y), cmd);
 	}
@@ -102,7 +102,7 @@ static int parse_command(char* command, Client* client)
 	{
 		char color[25];
 		int x1, x2, y1, y2;
-		if(sscanf(command, "%s %25s %d %d %d %d", cmd, color, 
+		if(sscanf(command, "%s %24s %d %d %d %d", cmd, color, 
 					&x1, &y1, &x2, &y2) != 6)
 			return syntax_error(cmd);
 		return assert_cmd(x11_line(&client->wm, color, 
@@ -112,7 +112,7 @@ static int parse_command(char* command, Client* client)
 	{
 		char color[25];
 		int x, y, w, h;
-		if(sscanf(command, "%s %25s %d %d %d %d", cmd, color, 
+		if(sscanf(command, "%s %24s %d %d %d %d", cmd, color, 
 					&x, &y, &w, &h) != 6)
 			return syntax_error(cmd);
 		return assert_cmd(x11_rectangle(&client->wm, color, 
@@ -122,7 +122,7 @@ static int parse_command(char* command, Client* client)
 	{
 		char color[25];
 		int x, y, w, h;
-		if(sscanf(command, "%s %25s %d %d %d %d", cmd, color, 
+		if(sscanf(command, "%s %24s %d %d %d %d", cmd, color, 
 					&x, &y, &w, &h) != 6)
 			return syntax_error(cmd);
 		return assert_cmd(x11_box(&client->wm, color, 
@@ -137,7 +137,7 @@ static int parse_command(char* command, Client* client)
 	{
 		char bg_color[25];
 		int x, y, w, h, move_x, move_y;
-		if(sscanf(command, "%s %d %d %d %d %d %d %s", cmd, &x, &y, 
+		if(sscanf(command, "%s %d %d %d %d %d %d %24s", cmd, &x, &y, 
 					&w, &h, &move_x, &move_y, 
 					bg_color) != 8)
 			return syntax_error(cmd);
@@ -146,9 +146,8 @@ static int parse_command(char* command, Client* client)
 	}
 	else if(!strcmp(cmd, "SEND_XPM"))
 	{
-		// TODO - themed
 		char img_name[25];
-		if(sscanf(command, "%s %s", cmd, img_name) != 2)
+		if(sscanf(command, "%s %24s", cmd, img_name) != 2)
 			return syntax_error(cmd);
 		client->net.mode = XPM;
 		client->net.xpm_file.current_line = 0;
@@ -159,9 +158,19 @@ static int parse_command(char* command, Client* client)
 	{
 		char img[25];
 		int x, y;
-		if(sscanf(command, "%s %25s %d %d", cmd, img, &x, &y) != 4)
+		if(sscanf(command, "%s %24s %d %d", cmd, img, &x, &y) != 4)
 			return syntax_error(cmd);
 		return assert_cmd(x11_draw_image(&client->wm, img, x, y), cmd);
+	}
+	else if(!strcmp(cmd, "WRITE"))
+	{
+		char font[25];
+		unsigned char text[255];
+		int x, y;
+		if(sscanf(command, "%s %24s %d %d \"%254[^\"]\"", cmd, font, 
+					&x, &y, text) != 5)
+			return syntax_error(cmd);
+		return assert_cmd(x11_print(&client->wm, font, x, y, text), cmd);
 	}
 	else
 	{

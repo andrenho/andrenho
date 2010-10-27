@@ -197,6 +197,7 @@ int net_send_client_data(ClientNetwork* net, char* fmt, ...)
 
 void net_disconnect_client(int socket_fd)
 {
+	debug("Server", "Client disconnected.");
 	shutdown(socket_fd, 2);
 }
 

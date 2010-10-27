@@ -1,6 +1,4 @@
-// TODO - organize this file, it's messed up
-
-#include "x11_xpm.h"
+#include "x11_util.h"
 
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
@@ -172,13 +170,19 @@ Pixmap xpm_to_pixmap(char* xpm[], Display* display, WM* wm)
 	for(i=0; i<ncol; i++)
 	{
 		char chr[4], type, cl_value[25], type2 = '\0', cl_value2[25];
-		int n = sscanf(&xpm[i+1][szcol], "%c %25s %c %25s", &type, 
-				cl_value, &type2, cl_value2);
 		strncpy(chr, xpm[i+1], szcol);
 		chr[szcol] = '\0';
+
+		int p = szcol;
+		while(xpm[i+1][p] == ' ' || xpm[i+1][p] == '\t')
+			p++;
+		int n = sscanf(&xpm[i+1][p], "%c %25s %c %25s", &type, 
+				cl_value, &type2, cl_value2);
+		printf("%s %c %s\n", chr, type, cl_value);
+
 		color[i].str = strdup(chr);
 
-		if(n == 5 || type == 's')
+		if(n == 4 || type == 's')
 		{
 			if(type == 's')
 			{
@@ -194,7 +198,7 @@ Pixmap xpm_to_pixmap(char* xpm[], Display* display, WM* wm)
 			}
 			color[i].x_color = c->pixel;
 		}
-		else if(n == 3)
+		else if(n == 2)
 		{
 			XColor xcolor;
 			XParseColor(display, colormap, cl_value, &xcolor);
