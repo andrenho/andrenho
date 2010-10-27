@@ -1,5 +1,4 @@
 
-
    main
     |
     |-- opt_parse                              Initialization functions:
@@ -12,28 +11,28 @@
     |
     |                                          The main loop starts here.
     |
- ,->|-- net_check_for_clients                  Check for new clients. If a new
- .  |    |                                     client has connected, initialize
- .  |    '-- client_add                        the client in the memory and
- .  |         |                                create a window for it.
- .  |         '-- x11_setup_client
- .  |              |
+ ,->|-- net_check_for_clients                  Check for new clients.
+ .  |    |
+ .  |    '-- client_add                        If a new client has connected,
+ .  |         |                                initialize the client in the
+ .  |         '-- x11_setup_client             memory and create a window for
+ .  |              |                           it.
  .  |              |-- x11_initialize_colors
  .  |              '-- x11_initialize_fonts
  .  |
  .  |
  .  |-- net_receive_data                       Receive data from each client.
- .  |    |                                     If data has been received,
- .  |    |-- net_receive_client_data           parse the data and call the 
- .  |    |    |                                appropriate functions.
- .  |    |    '-- client_destroy
- .  |    |         |
- .  |    |         |-- net_disconnect_client
+ .  |    |
+ .  |    |-- net_receive_client_data
+ .  |    |    |
+ .  |    |    '-- client_destroy               If the client has disconnected,
+ .  |    |         |                           close the connection and 
+ .  |    |         |-- net_disconnect_client   destroy the window.
  .  |    |         '-- x11_destroy_client
  .  |    |
- .  |    '-- parse_data
- .  |         | 
- .  |         '-- parse_command
+ .  |    '-- parse_data                        If data has been received,
+ .  |         |                                parse the data and call the 
+ .  |         '-- parse_command                appropriate functions.
  .  |              |
  .  |              |-- x11_panel               These functions are in x11_cmd.c.
  .  |              |-- x11_pixel
@@ -59,6 +58,7 @@
     |                                          its correct position.
     |
     |                                          The main loop ends here.
+    |
     |
     |-- net_quit                               Do some cleanup before exiting.
     |
