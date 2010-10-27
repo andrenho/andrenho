@@ -1,4 +1,4 @@
-AM_CPPFLAGS = -Wall -Wextra
+AM_CPPFLAGS = -Wall -Wextra -DVERSION=\"$(VERSION)\"
 
 bin_PROGRAMS = xdockserver
 xdockserver_SOURCES = main.c      client.h   \
@@ -7,6 +7,7 @@ xdockserver_SOURCES = main.c      client.h   \
 		      options.h   options.c  \
 		      parser.h    parser.c   \
 		      network.h   network.c  \
+		      structures.h           \
 		      uthash.h               \
 		      x11.h       x11.c      \
 		      x11_cmd.c   x11_cmd.h  \

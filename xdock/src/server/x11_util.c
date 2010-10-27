@@ -178,7 +178,6 @@ Pixmap xpm_to_pixmap(char* xpm[], Display* display, WM* wm)
 			p++;
 		int n = sscanf(&xpm[i+1][p], "%c %25s %c %25s", &type, 
 				cl_value, &type2, cl_value2);
-		printf("%s %c %s\n", chr, type, cl_value);
 
 		color[i].str = strdup(chr);
 

@@ -99,7 +99,7 @@ void net_startup()
 	listen(sock, 5);
 	debug("Server", "Network initialized, waiting connections.");
 }
-	
+
 
 void net_check_for_clients()
 {
@@ -131,6 +131,8 @@ void net_check_for_clients()
 		client->net.authorized = 0;
 		client->net.unprocessed_data[0] = '\0';
 		client->net.mode = COMMAND;
+
+		net_send_client_data(client, "XDOCK %d\n", API_VERSION);
 	}
 }
 
