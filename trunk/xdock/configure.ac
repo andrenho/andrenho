@@ -1,5 +1,5 @@
 # AC_PREREQ(2.50)
-AC_INIT(xdock, 0.2.0)
+AC_INIT(xdock, 0.3.0)
 AM_INIT_AUTOMAKE([-Wall])
 AM_CONFIG_HEADER(config.h)
 
