@@ -50,7 +50,7 @@ PROGRAMS = $(bin_PROGRAMS)
 am_xdockserver_OBJECTS = main.$(OBJEXT) client.$(OBJEXT) \
 	debug.$(OBJEXT) options.$(OBJEXT) parser.$(OBJEXT) \
 	network.$(OBJEXT) x11.$(OBJEXT) x11_cmd.$(OBJEXT) \
-	x11_util.$(OBJEXT) xpm.$(OBJEXT)
+	x11_util.$(OBJEXT)
 xdockserver_OBJECTS = $(am_xdockserver_OBJECTS)
 xdockserver_LDADD = $(LDADD)
 xdockserver_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
@@ -199,7 +199,6 @@ xdockserver_SOURCES = main.c      client.h   \
 		      x11.h       x11.c      \
 		      x11_cmd.c   x11_cmd.h  \
 		      x11_util.c  x11_util.h \
-		      xpm.c       xpm.h      \
 		      font_led_3.xpm
 
 xdockserver_LDFLAGS = $(PTHREAD) $(X11) $(MMS_BITFIELDS) $(WINSOCK)
@@ -299,7 +298,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/x11.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/x11_cmd.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/x11_util.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xpm.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<

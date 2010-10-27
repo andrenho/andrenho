@@ -17,6 +17,7 @@ typedef struct {
 	char* theme;
 	struct ThemeColor* colors;
 	int attract;
+	int server_port;
 } Options;
 
 extern Options opt;

@@ -27,7 +27,6 @@ DRAW_IMAGE blarg 10 10
 UPDATE
 EOF
 
-=begin
-=end
+print s.gets
 
 while true; end

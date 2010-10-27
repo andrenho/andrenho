@@ -12,6 +12,7 @@ Options opt = {
 	.theme = "led",
 	.colors = NULL,
 	.attract = 40,
+	.server_port = 52530,
 };
 
 

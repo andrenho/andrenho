@@ -86,7 +86,7 @@ void net_startup()
 			exit(1);
 		}
 #endif
-	address.sin_port = htons(52530);
+	address.sin_port = htons(opt.server_port);
 
 	// bind socket
 	if(bind(sock, (struct sockaddr*)&address, sizeof(address)) < 0)
@@ -177,6 +177,8 @@ static int net_receive_client_data(ClientNetwork *net)
 
 int net_send_client_data(ClientNetwork* net, char* fmt, ...)
 {
+	// TODO - timeout???
+	
 	va_list ap;
 	char buffer[2048];
 

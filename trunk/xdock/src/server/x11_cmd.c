@@ -5,6 +5,7 @@
 #include <X11/Xlib.h>
 #include <stdlib.h>
 
+#include "network.h"
 #include "x11_util.h"
 
 #define ABS(x) ((x) < 0 ? -(x) : (x))
@@ -192,6 +193,7 @@ int x11_font_char(WM* wm, char fontname[25], unsigned char c, Pixmap p)
 	if(!font)
 		return 0; // TODO
 	font->chr[c] = p;
+	// TODO - what if a char doesn't exist?
 	return 1;
 }
 
@@ -220,5 +222,11 @@ int x11_print(WM* wm, char fontname[25], int x, int y, unsigned char* text)
 		i++;
 	}
 
+	return 1;
+}
+
+int x11_pointer_event(Client* c, char* type, int x, int y)
+{
+	net_send_client_data(&c->net, "EVENT %s %d %d\n", type, x, y);
 	return 1;
 }
