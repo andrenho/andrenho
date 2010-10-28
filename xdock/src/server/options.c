@@ -62,7 +62,7 @@ static void parse_config_file()
 
 
 // Parse the theme file.
-static void parse_theme()
+void parse_theme()
 {
 	char buf[255];
 	FILE* f = fopen("../../share/themes.rc", "r"); // TODO
@@ -76,7 +76,7 @@ static void parse_theme()
 	{
 		ret = fscanf(f, "%255s", buf);
 		if(buf[0] == '[' 
-		&& !strncmp(&buf[1], opt.theme, strlen(opt.theme)-2))
+		&& !strncmp(&buf[1], opt.theme, strlen(opt.theme)))
 		{
 			char color_name[25];
 			do

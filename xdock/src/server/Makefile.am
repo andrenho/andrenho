@@ -1,4 +1,4 @@
-AM_CPPFLAGS = -Wall -Wextra -DVERSION=\"$(VERSION)\"
+AM_CPPFLAGS = -Wall -Wextra -DVERSION=\"$(VERSION)\" -DSHAREDIR=\"$(datarootdir)/$(PACKAGE)\"
 
 bin_PROGRAMS = xdockserver
 xdockserver_SOURCES = main.c      client.h   \
