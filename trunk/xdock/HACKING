@@ -3,15 +3,17 @@
     |
     |-- opt_parse                              Initialization functions:
     |    |                                     parse arguments and initialize
-    |    '-- parse_themes                      X11 and network connections.
+    |    |-- parse_themes                      X11 and network connections.
+    |    '-- parse_config_file
     |
     |-- x11_initialize
     |
     |-- net_startup
     |
-    |                                          The main loop starts here.
-    |
- ,->|-- net_check_for_clients                  Check for new clients.
+ ,->|..........................................The main loop starts here.
+ .  |
+ .  |
+ .  |-- net_check_for_clients                  Check for new clients.
  .  |    |
  .  |    '-- client_add                        If a new client has connected,
  .  |         |                                initialize the client in the
@@ -54,10 +56,11 @@
  .  |         |    |
  .  |         |    '-- net_send_client_data
  .  |         |
- '-<|         '-- x11_move_window              If a window has moved, calculate
-    |                                          its correct position.
-    |
-    |                                          The main loop ends here.
+ .  |         '-- x11_move_window              If a window has moved, calculate
+ .  |                                          its correct position.
+ .  |
+ .  |
+ '-<|..........................................The main loop ends here.
     |
     |
     |-- net_quit                               Do some cleanup before exiting.

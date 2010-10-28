@@ -1,3 +1,8 @@
+/* Main program file. Here is the server main loop.
+ *
+ * Author: André Wagner
+ * This source file is covered by GNU Public License v.2. */
+
 #include <signal.h>
 #include <stdlib.h>
 #include <string.h>
@@ -9,7 +14,8 @@
 #include "x11.h"
 #include "network.h"
 
-static int running = 1;
+static int running = 1; // True while the server is running.
+
 
 // catch quit signal
 void quit(int sig)
@@ -18,63 +24,43 @@ void quit(int sig)
 	running = 0;
 }
 
-// catch the alarm signal
-void loop(int sig)
-{
-	(void) sig;
-	net_check_for_clients();
-	net_receive_data();
-	x11_do_events();
-}
 
 // main procedure
 int main(int argc, char* argv[])
 {
+	struct timeval start, end;
+
 	// parse arguments
 	opt_parse(argc, argv);
 
-	// create window
+	// initialize connection to X11
 	x11_initialize();
 
 	// initialize the network
 	net_startup();
 
-	// initialize signal
+	// setup a CTRL+C signal
 	signal(SIGINT, quit);
 
-#if _WIN32
+	// main loop. It'll execute every 1/60 second.
 	while(running)
 	{
-		loop(0);
-		usleep(1000000/60);
+		gettimeofday(&start, NULL);
+
+		// main loop functions
+		net_check_for_clients();  // check if a new client has connected
+		net_receive_data();       // receive data from clients
+		x11_do_events();          // process X11 events
+
+		// if 1/60 of a second hasn't passed yet, sleeps the program
+		// until the time has completed.
+		gettimeofday(&end, NULL);
+		if(end.tv_usec - start.tv_usec < 1000000/60)
+			usleep(1000000/60 - (end.tv_usec - start.tv_usec));
 	}
 
-#else
-	struct sigaction sa;
-	struct itimerval timer;
-
-	// configure signals to catch
-	sigset_t mask, oldmask;
-	sigfillset(&mask);
-	sigdelset(&mask, SIGALRM);
-	sigdelset(&mask, SIGINT);
-
-	// configure timer
-	memset(&sa, 0, sizeof(sa));
-	sa.sa_handler = &loop;
-	sigaction(SIGALRM, &sa, NULL);
-	timer.it_value.tv_sec = timer.it_interval.tv_sec = 0;
-	timer.it_value.tv_usec = timer.it_interval.tv_usec = 1000000/60;
-	setitimer(ITIMER_REAL, &timer, NULL);
-
-	// main loop
-	while(running)
-		sigsuspend(&mask);
-#endif
-
-	// quit
+	// The user pressed CTRL+C, quitting now...
 	net_quit();
 	x11_quit();
-
 	return EXIT_SUCCESS;
 }

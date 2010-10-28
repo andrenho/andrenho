@@ -77,7 +77,7 @@ void net_startup()
 	// choose who the server is going to list to
 	address.sin_family = AF_INET;
 	address.sin_addr.s_addr = INADDR_ANY;
-#if 0 // TODO
+#if !_WIN32 // TODO
 	if(opt.listen_to == LOCALHOST) // only localhost
 		if(!inet_aton("127.0.0.1", &address.sin_addr))
 		{
