@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 Options opt = {
-	.toolkit = NO_VIEW,
+	.toolkit = X11,
 	.listen_to = LOCALHOST,
 	.debug = 1,
 	.dock_color = 0x909090,

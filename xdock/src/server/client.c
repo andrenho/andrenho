@@ -9,12 +9,13 @@
 Client* clients = NULL;
 
 
-Client* client_add(int socket_fd)
+Client* client_add()
 {
-	debug("Server", "New client added.");
+	debug("New client added.");
 
 	// create new client
 	Client* new_client = malloc(sizeof(Client));
+	new_client->id[0] = '\0';
 
 	// add client to the list
 	if(clients == NULL)
@@ -29,7 +30,7 @@ Client* client_add(int socket_fd)
 	new_client->next = NULL;
 
 	// initialize client on the WM
-	x11_setup_client(&new_client->wm);
+	x11_setup_client(new_client);
 
 	return new_client;
 }
@@ -38,8 +39,8 @@ Client* client_add(int socket_fd)
 void client_destroy(Client* client)
 {
 	// kills connection with client and X11
-	net_disconnect_client(client->net.socket_fd);
-	x11_destroy_client(&client->wm);
+	net_disconnect_client(client->socket_fd);
+	x11_destroy_client(client);
 
 	// remove from list
 	if(client != clients)

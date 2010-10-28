@@ -27,7 +27,7 @@
 #include "client.h"
 
 
-static int net_receive_client_data(ClientNetwork *net);
+static int net_receive_client_data(Client* c);
 
 static int sock; // main communication socket
 
@@ -36,7 +36,7 @@ void net_startup()
 {
 	struct sockaddr_in address;
 
-	debug("Server", "Initializing network...");
+	debug("Initializing network...");
 
 #if _WIN32
 	WORD sockVersion;
@@ -97,7 +97,7 @@ void net_startup()
 
 	// listen on socket
 	listen(sock, 5);
-	debug("Server", "Network initialized, waiting connections.");
+	debug("Network initialized, waiting connections.");
 }
 
 
@@ -126,11 +126,11 @@ void net_check_for_clients()
 			exit(1);
 		}
 #endif
-		Client* client = client_add(socket_fd);
-		client->net.socket_fd = socket_fd;
-		client->net.authorized = 0;
-		client->net.unprocessed_data[0] = '\0';
-		client->net.mode = COMMAND;
+		Client* client = client_add();
+		client->socket_fd = socket_fd;
+		client->authorized = 0;
+		client->unprocessed_data[0] = '\0';
+		client->mode = COMMAND;
 
 		net_send_client_data(client, "XDOCK %d\n", API_VERSION);
 	}
@@ -142,13 +142,13 @@ void net_receive_data()
 	Client* c = clients;
 	while(c)
 	{
-		if(net_receive_client_data(&c->net) == 0)
+		if(net_receive_client_data(c) == 0)
 		{
 			// client disconnected
 			client_destroy(c);
 			break;
 		}
-		else if(parse_data(c->net.unprocessed_data, c) == 0)
+		else if(parse_data(c->unprocessed_data, c) == 0)
 		{
 			// syntax error, disconnect client
 			client_destroy(c);
@@ -159,25 +159,25 @@ void net_receive_data()
 }
 
 
-static int net_receive_client_data(ClientNetwork *net)
+static int net_receive_client_data(Client* c)
 {
 	/* Here, we read a new string at the end of the old.
 	   This will make sure that, even if our message got in two or more
 	   chunks, it'll be still intact. */
-	int len = strlen(net->unprocessed_data);
-	int b = recv(net->socket_fd, 
-			&net->unprocessed_data[len], 4096 - len, 0);
+	int len = strlen(c->unprocessed_data);
+	int b = recv(c->socket_fd, 
+			&c->unprocessed_data[len], 4096 - len, 0);
 
 	if(b == 0) // end-of-communication
 		return 0;
 	else if(b > 0)
-		net->unprocessed_data[len+b] = '\0'; // close the string
+		c->unprocessed_data[len+b] = '\0'; // close the string
 		
 	return 1;
 }
 
 
-int net_send_client_data(ClientNetwork* net, char* fmt, ...)
+int net_send_client_data(Client* c, char* fmt, ...)
 {
 	// TODO - timeout???
 	
@@ -191,9 +191,9 @@ int net_send_client_data(ClientNetwork* net, char* fmt, ...)
 
 	// send data
 	int pos = 0;
-	while((pos += send(net->socket_fd, &buffer[pos], n - pos, 0)) < n);
+	while((pos += send(c->socket_fd, &buffer[pos], n - pos, 0)) < n);
 
-	debug("Server > Client", "%s", buffer);
+	debug_comm(c, TO, "%s", buffer);
 
 	return 1;
 }
@@ -201,7 +201,7 @@ int net_send_client_data(ClientNetwork* net, char* fmt, ...)
 
 void net_disconnect_client(int socket_fd)
 {
-	debug("Server", "Client disconnected.");
+	debug("Client disconnected.");
 	shutdown(socket_fd, 2);
 }
 

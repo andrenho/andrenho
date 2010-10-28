@@ -7,6 +7,6 @@
 
 char** square_xpm(long color);
 void free_xpm(char** xpm);
-Pixmap xpm_to_pixmap(char* xpm[], Display* display, WM* wm);
+Pixmap xpm_to_pixmap(char* xpm[], Display* display, Client* c);
 
 #endif

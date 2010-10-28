@@ -35,22 +35,22 @@ static int parse_command(char* command, Client* client)
 	char* pos = strchr(command, '\n');
 	if(pos)
 		pos[0] = '\0';
-	debug("Server < Client", "%s", command);
+	debug_comm(client, FROM, "%s", command);
 
 	// ignore comments and white lines
 	if(command[0] == '#' || command[0] == '\0')
 		return 1;
 
 	// check for authentication
-	if(!client->net.authorized)
+	if(!client->authorized)
 	{
 		if(strncmp(command, "HELLO", 5) == 0)
 		{
 			char cmd[30], id[25];
 			if(sscanf(command, "%29s %24s", cmd, id) != 2)
 				return syntax_error(cmd);
-			strncpy(client->net.id, id, 25);
-			client->net.authorized = 1;
+			strncpy(client->id, id, 25);
+			client->authorized = 1;
 			return 1;
 		}
 		else
@@ -58,30 +58,30 @@ static int parse_command(char* command, Client* client)
 	}
 	
 	// check for XPM data - TODO - this should be in a function of its own
-	if(client->net.mode == XPM)
+	if(client->mode == XPM)
 	{
 		if(strcmp(command, ".") == 0)
 		{
-			int n = x11_add_image(&client->wm,
-					client->net.xpm_file.name,
-					client->net.xpm_file.xpm, 0); // TODO - check return
-			client->net.mode = COMMAND;
+			int n = x11_add_image(client,
+					client->xpm_file.name,
+					client->xpm_file.xpm, 0); // TODO - check return
+			client->mode = COMMAND;
 			return 1;
 		}
 		else
 		{
-			if(client->net.xpm_file.current_line == 0)
+			if(client->xpm_file.current_line == 0)
 			{
 				int x, y, c, s;
 				if(sscanf(command, "%d %d %d %d", &x, &y, &c, 
 							&s) != 4)
 					syntax_error("SEND_XPM");
-				client->net.xpm_file.max_lines = 1 + c + y;
-				client->net.xpm_file.xpm = malloc(client->net.xpm_file.max_lines * sizeof(char*));
+				client->xpm_file.max_lines = 1 + c + y;
+				client->xpm_file.xpm = malloc(client->xpm_file.max_lines * sizeof(char*));
 			}
-			if(client->net.xpm_file.current_line == client->net.xpm_file.max_lines)
+			if(client->xpm_file.current_line == client->xpm_file.max_lines)
 				syntax_error("SEND_XPM"); // TODO
-			client->net.xpm_file.xpm[client->net.xpm_file.current_line++] = strdup(command);
+			client->xpm_file.xpm[client->xpm_file.current_line++] = strdup(command);
 			return 1;
 		}
 	}
@@ -95,7 +95,7 @@ static int parse_command(char* command, Client* client)
 		int x, y, w, h;
 		if(sscanf(command, "%s %d %d %d %d", cmd, &x, &y, &w, &h) != 5)
 			return syntax_error(cmd);
-		return assert_cmd(x11_panel(&client->wm, x, y, w, h), cmd);
+		return assert_cmd(x11_panel(client, x, y, w, h), cmd);
 	}
 	else if(!strcmp(cmd, "PIXEL"))
 	{
@@ -103,7 +103,7 @@ static int parse_command(char* command, Client* client)
 		int x, y;
 		if(sscanf(command, "%s %24s %d %d", cmd, color, &x, &y) != 4)
 			return syntax_error(cmd);
-		return assert_cmd(x11_pixel(&client->wm, color, x, y), cmd);
+		return assert_cmd(x11_pixel(client, color, x, y), cmd);
 	}
 	else if(!strcmp(cmd, "LINE"))
 	{
@@ -112,7 +112,7 @@ static int parse_command(char* command, Client* client)
 		if(sscanf(command, "%s %24s %d %d %d %d", cmd, color, 
 					&x1, &y1, &x2, &y2) != 6)
 			return syntax_error(cmd);
-		return assert_cmd(x11_line(&client->wm, color, 
+		return assert_cmd(x11_line(client, color, 
 					x1, y1, x2, y2), cmd);
 	}
 	else if(!strcmp(cmd, "RECTANGLE"))
@@ -122,7 +122,7 @@ static int parse_command(char* command, Client* client)
 		if(sscanf(command, "%s %24s %d %d %d %d", cmd, color, 
 					&x, &y, &w, &h) != 6)
 			return syntax_error(cmd);
-		return assert_cmd(x11_rectangle(&client->wm, color, 
+		return assert_cmd(x11_rectangle(client, color, 
 					x, y, w, h), cmd);
 	}
 	else if(!strcmp(cmd, "BOX"))
@@ -132,12 +132,12 @@ static int parse_command(char* command, Client* client)
 		if(sscanf(command, "%s %24s %d %d %d %d", cmd, color, 
 					&x, &y, &w, &h) != 6)
 			return syntax_error(cmd);
-		return assert_cmd(x11_box(&client->wm, color, 
+		return assert_cmd(x11_box(client, color, 
 					x, y, w, h), cmd);
 	}
 	else if(!strcmp(cmd, "UPDATE"))
 	{
-		x11_update(&client->wm);
+		x11_update(client);
 		return 1;
 	}
 	else if(!strcmp(cmd, "MOVEBOX"))
@@ -148,7 +148,7 @@ static int parse_command(char* command, Client* client)
 					&w, &h, &move_x, &move_y, 
 					bg_color) != 8)
 			return syntax_error(cmd);
-		return assert_cmd(x11_movebox(&client->wm, x, y, w, h,
+		return assert_cmd(x11_movebox(client, x, y, w, h,
 					move_x, move_y, bg_color), cmd);
 	}
 	else if(!strcmp(cmd, "SEND_XPM"))
@@ -156,9 +156,9 @@ static int parse_command(char* command, Client* client)
 		char img_name[25];
 		if(sscanf(command, "%s %24s", cmd, img_name) != 2)
 			return syntax_error(cmd);
-		client->net.mode = XPM;
-		client->net.xpm_file.current_line = 0;
-		client->net.xpm_file.name = strdup(img_name);
+		client->mode = XPM;
+		client->xpm_file.current_line = 0;
+		client->xpm_file.name = strdup(img_name);
 		return 1;
 	}
 	else if(!strcmp(cmd, "DRAW_IMAGE"))
@@ -167,7 +167,7 @@ static int parse_command(char* command, Client* client)
 		int x, y;
 		if(sscanf(command, "%s %24s %d %d", cmd, img, &x, &y) != 4)
 			return syntax_error(cmd);
-		return assert_cmd(x11_draw_image(&client->wm, img, x, y), cmd);
+		return assert_cmd(x11_draw_image(client, img, x, y), cmd);
 	}
 	else if(!strcmp(cmd, "WRITE"))
 	{
@@ -177,7 +177,7 @@ static int parse_command(char* command, Client* client)
 		if(sscanf(command, "%s %24s %d %d \"%254[^\"]\"", cmd, font, 
 					&x, &y, text) != 5)
 			return syntax_error(cmd);
-		return assert_cmd(x11_print(&client->wm, font, x, y, text), cmd);
+		return assert_cmd(x11_print(client, font, x, y, text), cmd);
 	}
 	else
 	{
