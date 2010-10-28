@@ -14,7 +14,7 @@ struct ThemeColor {
 
 
 typedef struct {
-	enum { NO_VIEW, X11 } toolkit;
+	enum { X11 } toolkit;
 	enum { EVERYONE, LOCALHOST } listen_to;
 	int debug;
 	long dock_color;
@@ -54,7 +54,15 @@ struct Font {
 };
 
 
-typedef struct {
+typedef struct Client {
+	/*
+	 * Client information
+	 */
+	char id[25];
+
+	/*
+	 * Window Manager information
+	 */
 	Window window;
 	GC gc;
 	Pixmap pixmap;
@@ -64,23 +72,20 @@ typedef struct {
 	struct Color* colors;
 	struct Image* images;
 	struct Font* fonts;
-} WM;
 
-
-typedef struct {
+	/* 
+	 * Network information
+	 */
 	int socket_fd;
 	int authorized;
 	char unprocessed_data[4096];
-	char id[25];
 
+	/*
+	 * Parser information
+	 */
 	XPM_File xpm_file;
 	enum { COMMAND=0, XPM } mode;
-} ClientNetwork;
 
-
-typedef struct Client {
-	ClientNetwork net;
-	WM wm;
 	struct Client* next;
 } Client;
 

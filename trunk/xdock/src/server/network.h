@@ -6,7 +6,7 @@
 void net_startup();
 void net_check_for_clients();
 void net_receive_data();
-int net_send_client_data(ClientNetwork* net, char* fmt, ...);
+int net_send_client_data(Client* c, char* fmt, ...);
 void net_disconnect_client(int socket_fd);
 void net_quit();
 

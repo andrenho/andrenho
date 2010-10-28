@@ -4,8 +4,9 @@
 #include <stdarg.h>
 
 #include "options.h"
+#include "structures.h"
 
-inline void debug(char* origin, char* fmt, ...)
+inline void debug(char* fmt, ...)
 {
 	va_list ap;
 
@@ -15,8 +16,27 @@ inline void debug(char* origin, char* fmt, ...)
 
 	// parse and print message
 	va_start(ap, fmt);
-	fprintf(stderr, "[%s] ", origin);
+	fprintf(stderr, "[Server] ");
 	vfprintf(stderr, fmt, ap);
 	fprintf(stderr, "\n");
 	va_end(ap);
 }
+
+
+inline void debug_comm(Client* c, Direction dir, char* fmt, ...)
+{
+	va_list ap;
+
+	// check if debug is on
+	if(!opt.debug) 
+		return;
+
+	// parse and print message
+	va_start(ap, fmt);
+	fprintf(stderr, "[Server %c %s] ", dir == FROM ? '<' : '>',
+			c->id[0] == '\0' ? "Unidentified client" : c->id);
+	vfprintf(stderr, fmt, ap);
+	fprintf(stderr, "\n");
+	va_end(ap);
+}
+

@@ -7,7 +7,7 @@
 
 extern Client* clients;
 
-Client* client_add(int socket_fd);
+Client* client_add();
 void client_destroy(Client* client);
 
 #endif

@@ -22,9 +22,9 @@ static char** xpm_sq;
 static int xrel, yrel;
 
 static void x11_do_events_client(Client* c, XEvent* evt);
-static int x11_move_window(WM* wm, int x, int y);
-static void x11_initialize_colors(WM* wm);
-static void x11_initialize_fonts(WM* wm);
+static int x11_move_window(Client* c, int x, int y);
+static void x11_initialize_colors(Client* c);
+static void x11_initialize_fonts(Client* c);
 
 
 void x11_initialize()
@@ -49,12 +49,12 @@ void x11_initialize()
 }
 
 
-int x11_setup_client(WM* wm)
+int x11_setup_client(Client* c)
 {
 	XEvent evt;
 
 	// create window
-	wm->window = XCreateSimpleWindow(display,
+	c->window = XCreateSimpleWindow(display,
 			DefaultRootWindow(display),
 			0, 0,     // origin
 			96, 96,   // size
@@ -64,17 +64,17 @@ int x11_setup_client(WM* wm)
 	// setup X11 properties
 	Atom atoms[2] = { None, None };
 	atoms[0] = XInternAtom(display, "_NET_WM_WINDOW_TYPE_DOCK", False);
-	XChangeProperty(display, wm->window,
+	XChangeProperty(display, c->window,
 			XInternAtom(display, "_NET_WM_WINDOW_TYPE", False),
 			XA_ATOM, 32, PropModeReplace,
 			(unsigned char*) atoms,
 			1);
 
 	// put window in the correct position in the screen
-	wm->locked_column = -1;
+	c->locked_column = -1;
 	int x = screen_w - 96,
 	    y = 0;
-	while(!x11_move_window(wm, x, y))
+	while(!x11_move_window(c, x, y))
 	{
 		y += 96;
 		if(y > screen_h + 96)
@@ -85,43 +85,43 @@ int x11_setup_client(WM* wm)
 	}
 
 	// map window
-	XSelectInput(display, wm->window, StructureNotifyMask);
-	XMapWindow(display, wm->window);
+	XSelectInput(display, c->window, StructureNotifyMask);
+	XMapWindow(display, c->window);
 	do 
 		XNextEvent(display, &evt);
 	while(evt.type != MapNotify);
 
 	// select input
-	XSelectInput(display, wm->window, ExposureMask 
+	XSelectInput(display, c->window, ExposureMask 
 					| StructureNotifyMask
 					| PointerMotionMask
 					| ButtonPressMask
 					| ButtonReleaseMask);
 
 	// create GC
-	wm->gc = XCreateGC(display, wm->window,
+	c->gc = XCreateGC(display, c->window,
 			0,        // mask of values
 			NULL );   // array of values
 
 	// create background square
-	wm->pixmap = xpm_to_pixmap(xpm_sq, display, wm);
-	XCopyArea(display, wm->pixmap, wm->window, wm->gc, 0, 0, 96, 96, 0, 0);
+	c->pixmap = xpm_to_pixmap(xpm_sq, display, c);
+	XCopyArea(display, c->pixmap, c->window, c->gc, 0, 0, 96, 96, 0, 0);
 	XFlush(display);
 
 	// initialize variables
-	wm->images = NULL;
-	wm->colors = NULL;
-	wm->fonts = NULL;
-	x11_initialize_colors(wm);
-	x11_initialize_fonts(wm);
+	c->images = NULL;
+	c->colors = NULL;
+	c->fonts = NULL;
+	x11_initialize_colors(c);
+	x11_initialize_fonts(c);
 
 	return 1;
 }
 
 
-static void x11_initialize_colors(WM* wm)
+static void x11_initialize_colors(Client *c)
 {
-	debug("Server", "Initializing colors...");
+	debug("Initializing colors...");
 
 	struct ThemeColor* tc;
 	for(tc = opt.colors; tc != NULL; tc = tc->hh.next)
@@ -133,24 +133,24 @@ static void x11_initialize_colors(WM* wm)
 		struct Color* new_color = malloc(sizeof(struct Color));
 		strcpy(new_color->name, tc->name);
 		new_color->pixel = xcolor.pixel;
-		HASH_ADD_STR(wm->colors, name, new_color);
+		HASH_ADD_STR(c->colors, name, new_color);
 	}
 }
 
 
-static void x11_initialize_fonts(WM* wm)
+static void x11_initialize_fonts(Client* c)
 {
 	int i;
 
-	debug("Server", "Initializing fonts...");
+	debug("Initializing fonts...");
 
-	x11_new_font(wm, "led3");
+	x11_new_font(c, "led3");
 	i = 0;
 	while(font_led3[i].xpm)
 	{
-		Pixmap p = xpm_to_pixmap(font_led3[i].xpm, display, wm);
+		Pixmap p = xpm_to_pixmap(font_led3[i].xpm, display, c);
 		if(p)
-			x11_font_char(wm, "led3", font_led3[i].c, p);
+			x11_font_char(c, "led3", font_led3[i].c, p);
 		i++;
 	}
 }
@@ -167,7 +167,7 @@ void x11_do_events()
 		Client* c = clients;
 		while(c)
 		{
-			if(c->wm.window == evt.xany.window)
+			if(c->window == evt.xany.window)
 			{
 				x11_do_events_client(c, &evt);
 				break;
@@ -178,21 +178,21 @@ void x11_do_events()
 }
 
 
-static int x11_move_window(WM* wm, int x, int y)
+static int x11_move_window(Client* c, int x, int y)
 {
 	Atom strut;
 	unsigned long struts[12] = { 0, };
 
-	// find the maximum locked color
-	Client* c = clients;
+	// find the maximum locked column
+	Client* client = clients;
 	int max_column = -1;
-	while(c)
+	while(client)
 	{
-		if(&c->wm != wm)
-			max_column = (max_column > c->wm.locked_column 
+		if(client != c)
+			max_column = (max_column > client->locked_column 
 					? max_column 
-					: c->wm.locked_column);
-		c = c->next;
+					: client->locked_column);
+		client = client->next;
 	}
 
 	// confine window to the screen
@@ -218,28 +218,28 @@ static int x11_move_window(WM* wm, int x, int y)
 
 	// refuse if there's another client in the same place
 	XWindowAttributes xwa;
-	c = clients;
-	while(c)
+	client = clients;
+	while(client)
 	{
-		XGetWindowAttributes(display, c->wm.window, &xwa);
+		XGetWindowAttributes(display, client->window, &xwa);
 		if(x == xwa.x && y == xwa.y)
 			return 0;
-		c = c->next;
+		client = client->next;
 	}
 
-	if(new_locked_column != wm->locked_column)
+	if(new_locked_column != c->locked_column)
 	{
-		wm->locked_column = new_locked_column;
+		c->locked_column = new_locked_column;
 		strut = XInternAtom(display, "_NET_WM_STRUT_PARTIAL", False);
-		struts[1] = (wm->locked_column + 1) * 96;
-		struts[6] = (wm->locked_column + 1) * 96;
-		struts[7] = (wm->locked_column + 1) * 96;
-		XChangeProperty(display, wm->window, strut, XA_CARDINAL, 32, 
+		struts[1] = (c->locked_column + 1) * 96;
+		struts[6] = (c->locked_column + 1) * 96;
+		struts[7] = (c->locked_column + 1) * 96;
+		XChangeProperty(display, c->window, strut, XA_CARDINAL, 32, 
 				PropModeReplace, (unsigned char*)&struts, 12);
 	}
 
 	// move the window
-	XMoveWindow(display, wm->window, x, y);
+	XMoveWindow(display, c->window, x, y);
 	return 1;
 }
 
@@ -255,10 +255,10 @@ static void x11_do_events_client(Client* c, XEvent* evt)
 			if(evt->xbutton.button == Button1)
 			{
 				Window wtmp; int tmp; unsigned int utmp;
-				XQueryPointer(display, c->wm.window, &wtmp, 
+				XQueryPointer(display, c->window, &wtmp, 
 						&wtmp, &tmp, &tmp, &xrel, 
 						&yrel, &utmp);
-				XRaiseWindow(display, c->wm.window);
+				XRaiseWindow(display, c->window);
 			}
 			x11_pointer_event(c, "down", evt->xbutton.x,
 					evt->xbutton.y);
@@ -272,7 +272,7 @@ static void x11_do_events_client(Client* c, XEvent* evt)
 		case MotionNotify:
 			if(evt->xmotion.state & Button1MotionMask)
 			{
-				x11_move_window(&c->wm, 
+				x11_move_window(c, 
 						evt->xmotion.x_root - xrel,
 						evt->xmotion.y_root - yrel);
 			}
@@ -281,10 +281,10 @@ static void x11_do_events_client(Client* c, XEvent* evt)
 }
 
 
-void x11_destroy_client(WM* wm)
+void x11_destroy_client(Client* c)
 {
-	XDestroyWindow(display, wm->window);
-	debug("Server", "Client window destroyed.");
+	XDestroyWindow(display, c->window);
+	debug("Client window destroyed.");
 	// TODO - clear stored images/fonts
 }
 

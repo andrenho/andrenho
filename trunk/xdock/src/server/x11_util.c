@@ -141,7 +141,7 @@ void free_xpm(char** xpm)
 }
 
 
-Pixmap xpm_to_pixmap(char* xpm[], Display* display, WM* wm)
+Pixmap xpm_to_pixmap(char* xpm[], Display* display, Client *c)
 {
 	Colormap colormap = DefaultColormap(display, DefaultScreen(display));
 
@@ -154,9 +154,9 @@ Pixmap xpm_to_pixmap(char* xpm[], Display* display, WM* wm)
 	int tmp;
 	unsigned int depth, utmp;
 	Window tmpw;
-	XGetGeometry(display, wm->window, &tmpw, &tmp, &tmp, &utmp, &utmp, &utmp, 
+	XGetGeometry(display, c->window, &tmpw, &tmp, &tmp, &utmp, &utmp, &utmp, 
 			&depth);
-	Pixmap pixmap = XCreatePixmap(display, wm->window, w, h, depth);
+	Pixmap pixmap = XCreatePixmap(display, c->window, w, h, depth);
 	GC gc = XCreateGC(display, pixmap,
 			0,        // mask of values
 			NULL );   // array of values
@@ -188,14 +188,14 @@ Pixmap xpm_to_pixmap(char* xpm[], Display* display, WM* wm)
 				type2 = type;
 				strncpy(cl_value2, cl_value, 25);
 			}
-			struct Color* c;
-			HASH_FIND_STR(wm->colors, cl_value2, c);
-			if(!c)
+			struct Color* cl;
+			HASH_FIND_STR(c->colors, cl_value2, cl);
+			if(!cl)
 			{
 				fprintf(stderr, "Color %s not found.\n", cl_value2);
 				return 0;
 			}
-			color[i].x_color = c->pixel;
+			color[i].x_color = cl->pixel;
 		}
 		else if(n == 2)
 		{
