@@ -10,11 +10,6 @@ AC_PROG_CC
 AC_LANG_C
 AC_PROG_MAKE_SET
 
-# Checks for GTK
-#PKG_CHECK_MODULES(DEPS, gtk+-2.0 >= 2.2) 
-#AC_SUBST(DEPS_CFLAGS)
-#AC_SUBST(DEPS_LIBS)
-
 # Check for X
 AC_PATH_X
 AC_CHECK_LIB(X11, XFlush, [X11=-lX11], [
@@ -27,12 +22,9 @@ AC_SUBST([X11])
 AC_CHECK_LIB([pthread], [pthread_create], [PTHREAD=-lpthread])
 AC_SUBST([PTHREAD])
 
-# Checks for header files.
-#AC_HEADER_STDC
-
 # Checks for typedefs, structures, and compiler characteristics.
 case $OSTYPE in
-  *msys*) MMS_BITFIELDS='-mms-bitfields' ; WINSOCK='-lws2_32' ; PTHREAD='-lpthreadGC2' ; X11='-lX11 -lXau' ;;
+  *msys*) MMS_BITFIELDS='-mms-bitfields' ; WINSOCK='-lws2_32' ; X11='-lX11 -lXau' ;;
   *)      MMS_BITFIELDS='' ; WINSOCK='' ;;
 esac
 AC_SUBST([MMS_BITFIELDS])
@@ -41,7 +33,8 @@ AC_SUBST([WINSOCK])
 # Checks for library functions.
 AC_CONFIG_FILES([Makefile
                  src/Makefile
-                 src/server/Makefile])
+                 src/server/Makefile
+		 share/Makefile])
 #                src/lib/Makefile
 #                src/docks/Makefile])
 AC_OUTPUT
