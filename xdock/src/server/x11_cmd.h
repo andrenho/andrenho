@@ -4,8 +4,6 @@
 #include "client.h"
 #include "x11.h"
 
-// TODO - always use unsigned
-
 // commands
 int x11_panel(Client* c, int x, int y, int w, int h);
 int x11_pixel(Client* c, char* color, int x, int y);
@@ -17,7 +15,7 @@ int x11_movebox(Client* c, int x, int y, int w, int h, int move_x, int move_y,
 int x11_update(Client* c);
 
 // images
-int x11_add_image(Client* c, char name[25], char** xpm, int themed);
+int x11_add_image(Client* c, char name[25], char** xpm);
 int x11_draw_image(Client* c, char* img, int x, int y);
 
 // text

@@ -7,7 +7,7 @@
 Display* display;
 
 // looks for the maximum "docking height" of all children of this window
-static int top_panel_height(Window window)
+static int x11_panel_height(Window window)
 {
 	int height = 0;		// maximum height
 	Window w;
@@ -48,7 +48,7 @@ static int top_panel_height(Window window)
 		}
 
 		// recursively, traverse the tree of all children of children
-		int children_max_height = top_panel_height(children[i]);
+		int children_max_height = x11_panel_height(children[i]);
 		if(children_max_height > height)
 			height = children_max_height;
 	}

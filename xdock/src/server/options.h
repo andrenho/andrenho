@@ -3,6 +3,9 @@
 
 #include "structures.h"
 
+#define THEME_COLORS "panel_bg", "panel_lt", "panel_sw", "unlit", "halflit", \
+	             "lit", "bright", "glow", "warning", "warning_unlit"
+
 // The list of the user options. This structure is in structures.h.
 extern Options opt;
 

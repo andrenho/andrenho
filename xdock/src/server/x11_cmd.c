@@ -4,6 +4,7 @@
 
 #include <X11/Xlib.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "network.h"
 #include "x11_util.h"
@@ -11,6 +12,9 @@
 #define ABS(x) ((x) < 0 ? -(x) : (x))
 
 
+// Sets a new foreground color. It'll lookup in the hash if this color is already
+// stored. If it isn't, calculates the pixel color (X11) and store in the hash.
+// The `color` parameter can be a X11 color or a theme color.
 static int x11_set_fg(Client* c, char* color)
 {
 	int pixel;
@@ -37,6 +41,7 @@ static int x11_set_fg(Client* c, char* color)
 }
 
 
+// Draw a 3D carved panel.
 int x11_panel(Client* c, int x, int y, int w, int h)
 {
 	if(x < 0 || y < 0 || x+w >= 96 || y+h >= 96 || w < 0 || h < 0)
@@ -54,6 +59,7 @@ int x11_panel(Client* c, int x, int y, int w, int h)
 }
 
 
+// Draw a pixel.
 int x11_pixel(Client* c, char* color, int x, int y)
 {
 	if(x < 0 || y < 0 || x >= 96 || y >= 96)
@@ -65,6 +71,7 @@ int x11_pixel(Client* c, char* color, int x, int y)
 }
 
 
+// Draw a line.
 int x11_line(Client* c, char* color, int x1, int y1, int x2, int y2)
 {
 	if(x1 < 0 || y1 < 0 || x1 >= 96 || y1 >= 96
@@ -77,6 +84,7 @@ int x11_line(Client* c, char* color, int x1, int y1, int x2, int y2)
 }
 
 
+// Draw a hollow rectangle.
 int x11_rectangle(Client* c, char* color, int x, int y, int w, int h)
 {
 	if(x < 0 || y < 0 || x+w >= 96 || y+h >= 96 || w < 0 || h < 0)
@@ -88,6 +96,7 @@ int x11_rectangle(Client* c, char* color, int x, int y, int w, int h)
 }
 
 
+// Draw a filled rectangle.
 int x11_box(Client* c, char* color, int x, int y, int w, int h)
 {
 	if(x < 0 || y < 0 || x+w >= 96 || y+h >= 96 || w < 0 || h < 0)
@@ -99,6 +108,7 @@ int x11_box(Client* c, char* color, int x, int y, int w, int h)
 }
 
 
+// Commit all changes made to the surface.
 int x11_update(Client* c)
 {
 	XCopyArea(display, c->pixmap, c->window, c->gc, 0, 0, 96, 96, 0, 0);
@@ -107,6 +117,8 @@ int x11_update(Client* c)
 }
 
 
+// Move a area in the image to a given direction, and fill the moved area with
+// `bg_color`. It's useful for moving graphs.
 int x11_movebox(Client* c, int x, int y, int w, int h, int move_x, int move_y,
 		char* bg_color)
 {
@@ -137,12 +149,12 @@ int x11_movebox(Client* c, int x, int y, int w, int h, int move_x, int move_y,
 }
 
 
-int x11_add_image(Client* c, char name[25], char** xpm, int themed)
+// Send a XPM image to the server. The image can contain themed colors.
+int x11_add_image(Client* c, char name[25], char** xpm)
 {
-	(void) themed; // TODO
-
 	Pixmap pixmap = xpm_to_pixmap(xpm, display, c);
-	free_xpm(xpm);
+	if(!pixmap)
+		return 0;
 
 	struct Image* new_image = malloc(sizeof(struct Image));
 	strncpy(new_image->name, name, 25);
@@ -152,6 +164,7 @@ int x11_add_image(Client* c, char name[25], char** xpm, int themed)
 }
 
 
+// Draw a image in the dock.
 int x11_draw_image(Client* c, char* img, int x, int y)
 {
 	Window tmpw;
@@ -164,8 +177,11 @@ int x11_draw_image(Client* c, char* img, int x, int y)
 	struct Image* image;
 	HASH_FIND_STR(c->images, img, image);
 	if(!image)
-		return 0; // TODO - display error
-
+	{
+		fprintf(stderr, "From client %s: image %s doesn't exist in the "
+				"server.\n", c->id, img);
+		return 0;
+	}
 	XGetGeometry(display, c->pixmap, &tmpw, &t, &t,
 			&w, &h, &ut, &ut);	
 	XCopyArea(display, image->pixmap, c->pixmap, c->gc, 0, 0, w, h,
@@ -174,6 +190,7 @@ int x11_draw_image(Client* c, char* img, int x, int y)
 }
 
 
+// Create a new font.
 int x11_new_font(Client* c, char name[25])
 {
 	struct Font* font = malloc(sizeof(struct Font));
@@ -186,18 +203,23 @@ int x11_new_font(Client* c, char name[25])
 }
 
 
+// Sets the image from a given char in the given font.
 int x11_font_char(Client* c, char fontname[25], unsigned char ch, Pixmap p)
 {
 	struct Font* font;
 	HASH_FIND_STR(c->fonts, fontname, font);
 	if(!font)
-		return 0; // TODO
+	{
+		fprintf(stderr, "On comand from %s: font %s not found.\n",
+				c->id, fontname);
+		return 0;
+	}
 	font->chr[ch] = p;
-	// TODO - what if a char doesn't exist?
 	return 1;
 }
 
 
+// Write a message on the dock.
 int x11_print(Client* c, char fontname[25], int x, int y, unsigned char* text)
 {
 	struct Font* font;
@@ -208,23 +230,38 @@ int x11_print(Client* c, char fontname[25], int x, int y, unsigned char* text)
 	// get font
 	HASH_FIND_STR(c->fonts, fontname, font);
 	if(!font)
-		return 0; // TODO
+	if(!font)
+	{
+		fprintf(stderr, "On comand from %s: font %s not found.\n",
+				c->id, fontname);
+		return 0;
+	}
 
 	// print chars
 	int i=0;
 	while(text[i] != 0)
 	{
-		XGetGeometry(display, font->chr[text[i]], &tmpw, &t, &t, &w, &h, 
-				&ut, &ut);	
-		XCopyArea(display, font->chr[text[i]], c->pixmap, c->gc, 
-				0, 0, w, h, x, y);
-		x += w;
+		if(font->chr[text[i]] == 0)
+		{
+			fprintf(stderr, "On comand from %s: char '%c' not found "
+					"on font %s\n", c->id, text[i], fontname);
+		}
+		else
+		{
+			XGetGeometry(display, font->chr[text[i]], &tmpw, &t, &t, 
+					&w, &h, &ut, &ut);	
+			XCopyArea(display, font->chr[text[i]], c->pixmap, c->gc, 
+					0, 0, w, h, x, y);
+			x += w;
+		}
 		i++;
 	}
 
 	return 1;
 }
 
+
+// When there is a event, send data to the client.
 int x11_pointer_event(Client* c, char* type, int x, int y)
 {
 	net_send_client_data(c, "EVENT %s %d %d\n", type, x, y);

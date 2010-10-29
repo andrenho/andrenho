@@ -1,7 +1,4 @@
-/* Main program file. Here is the server main loop.
- *
- * Author: André Wagner
- * This source file is covered by GNU Public License v.2. */
+// Main program file. Here is the server main loop.
 
 #include <signal.h>
 #include <stdlib.h>
