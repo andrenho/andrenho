@@ -1,5 +1,3 @@
-// TODO - check error messages
-
 #include "parser.h"
 
 #include <ctype.h>
@@ -10,25 +8,29 @@
 #include "debug.h"
 #include "client.h"
 #include "x11_cmd.h"
+#include "x11_util.h"
 
 
-
-inline static int assert_cmd(int value, char* cmd)
+// Returns a error if value is 0. Used to check if a command failed.
+inline static int assert_cmd(int value, char* command, Client* c)
 {
 	if(!value)
-		fprintf(stderr, "From client: error executing command %s.\n", cmd);
+		fprintf(stderr, "Error executing command '%s' from client %s.\n", 
+				c->id, command);
 	return value;
 }
 
 
-inline static int syntax_error(char* cmd)
+// Returns a syntax error.
+inline static int syntax_error(Client* c, char* command)
 {
-	fprintf(stderr, "Syntax error from client: invalid syntax for "
-			"command %s.\n", cmd);
+	fprintf(stderr, "Syntax error from client %s: invalid syntax for "
+			"command '%s'.\n", c->id ? c->id : "unknown", command);
 	return 0;
 }
 
 
+// Parse a command sent by the client, and executes it.
 static int parse_command(char* command, Client* client)
 {
 	// remove enter from the end
@@ -48,23 +50,34 @@ static int parse_command(char* command, Client* client)
 		{
 			char cmd[30], id[25];
 			if(sscanf(command, "%29s %24s", cmd, id) != 2)
-				return syntax_error(cmd);
+				return syntax_error(NULL, cmd);
 			strncpy(client->id, id, 25);
 			client->authorized = 1;
 			return 1;
 		}
 		else
-			return 0; // TODO
+		{
+			fprintf(stderr, "Client didn't say HELLO and was "
+					"disconnected.\n");
+			return 0;
+		}
 	}
 	
-	// check for XPM data - TODO - this should be in a function of its own
+	// check for XPM data
 	if(client->mode == XPM)
 	{
 		if(strcmp(command, ".") == 0)
 		{
-			int n = x11_add_image(client,
+			if(x11_add_image(client,
 					client->xpm_file.name,
-					client->xpm_file.xpm, 0); // TODO - check return
+					client->xpm_file.xpm) == 0)
+			{
+				fprintf(stderr, "Client %s sent invalid XPM "
+						"image data.\n", client->id);
+				free_xpm(client->xpm_file.xpm);
+				return 0;
+			}
+			free_xpm(client->xpm_file.xpm);
 			client->mode = COMMAND;
 			return 1;
 		}
@@ -75,12 +88,17 @@ static int parse_command(char* command, Client* client)
 				int x, y, c, s;
 				if(sscanf(command, "%d %d %d %d", &x, &y, &c, 
 							&s) != 4)
-					syntax_error("SEND_XPM");
+					syntax_error(client, command);
 				client->xpm_file.max_lines = 1 + c + y;
 				client->xpm_file.xpm = malloc(client->xpm_file.max_lines * sizeof(char*));
 			}
 			if(client->xpm_file.current_line == client->xpm_file.max_lines)
-				syntax_error("SEND_XPM"); // TODO
+			{
+				fprintf(stderr, "Client %s sent invalid XPM "
+						"image data.\n", client->id);
+				free_xpm(client->xpm_file.xpm);
+				return 0;
+			}
 			client->xpm_file.xpm[client->xpm_file.current_line++] = strdup(command);
 			return 1;
 		}
@@ -94,16 +112,18 @@ static int parse_command(char* command, Client* client)
 	{
 		int x, y, w, h;
 		if(sscanf(command, "%s %d %d %d %d", cmd, &x, &y, &w, &h) != 5)
-			return syntax_error(cmd);
-		return assert_cmd(x11_panel(client, x, y, w, h), cmd);
+			return syntax_error(client, command);
+		return assert_cmd(x11_panel(client, x, y, w, h), 
+				command, client);
 	}
 	else if(!strcmp(cmd, "PIXEL"))
 	{
 		char color[25];
 		int x, y;
 		if(sscanf(command, "%s %24s %d %d", cmd, color, &x, &y) != 4)
-			return syntax_error(cmd);
-		return assert_cmd(x11_pixel(client, color, x, y), cmd);
+			return syntax_error(client, command);
+		return assert_cmd(x11_pixel(client, color, x, y), 
+				command, client);
 	}
 	else if(!strcmp(cmd, "LINE"))
 	{
@@ -111,9 +131,9 @@ static int parse_command(char* command, Client* client)
 		int x1, x2, y1, y2;
 		if(sscanf(command, "%s %24s %d %d %d %d", cmd, color, 
 					&x1, &y1, &x2, &y2) != 6)
-			return syntax_error(cmd);
+			return syntax_error(client, command);
 		return assert_cmd(x11_line(client, color, 
-					x1, y1, x2, y2), cmd);
+					x1, y1, x2, y2), command, client);
 	}
 	else if(!strcmp(cmd, "RECTANGLE"))
 	{
@@ -121,9 +141,9 @@ static int parse_command(char* command, Client* client)
 		int x, y, w, h;
 		if(sscanf(command, "%s %24s %d %d %d %d", cmd, color, 
 					&x, &y, &w, &h) != 6)
-			return syntax_error(cmd);
+			return syntax_error(client, command);
 		return assert_cmd(x11_rectangle(client, color, 
-					x, y, w, h), cmd);
+					x, y, w, h), command, client);
 	}
 	else if(!strcmp(cmd, "BOX"))
 	{
@@ -131,9 +151,9 @@ static int parse_command(char* command, Client* client)
 		int x, y, w, h;
 		if(sscanf(command, "%s %24s %d %d %d %d", cmd, color, 
 					&x, &y, &w, &h) != 6)
-			return syntax_error(cmd);
+			return syntax_error(client, command);
 		return assert_cmd(x11_box(client, color, 
-					x, y, w, h), cmd);
+					x, y, w, h), command, client);
 	}
 	else if(!strcmp(cmd, "UPDATE"))
 	{
@@ -147,15 +167,16 @@ static int parse_command(char* command, Client* client)
 		if(sscanf(command, "%s %d %d %d %d %d %d %24s", cmd, &x, &y, 
 					&w, &h, &move_x, &move_y, 
 					bg_color) != 8)
-			return syntax_error(cmd);
+			return syntax_error(client, command);
 		return assert_cmd(x11_movebox(client, x, y, w, h,
-					move_x, move_y, bg_color), cmd);
+					move_x, move_y, bg_color), 
+				command, client);
 	}
 	else if(!strcmp(cmd, "SEND_XPM"))
 	{
 		char img_name[25];
 		if(sscanf(command, "%s %24s", cmd, img_name) != 2)
-			return syntax_error(cmd);
+			return syntax_error(client, command);
 		client->mode = XPM;
 		client->xpm_file.current_line = 0;
 		client->xpm_file.name = strdup(img_name);
@@ -166,8 +187,9 @@ static int parse_command(char* command, Client* client)
 		char img[25];
 		int x, y;
 		if(sscanf(command, "%s %24s %d %d", cmd, img, &x, &y) != 4)
-			return syntax_error(cmd);
-		return assert_cmd(x11_draw_image(client, img, x, y), cmd);
+			return syntax_error(client, command);
+		return assert_cmd(x11_draw_image(client, img, x, y), 
+				command, client);
 	}
 	else if(!strcmp(cmd, "WRITE"))
 	{
@@ -176,8 +198,9 @@ static int parse_command(char* command, Client* client)
 		int x, y;
 		if(sscanf(command, "%s %24s %d %d \"%254[^\"]\"", cmd, font, 
 					&x, &y, text) != 5)
-			return syntax_error(cmd);
-		return assert_cmd(x11_print(client, font, x, y, text), cmd);
+			return syntax_error(client, command);
+		return assert_cmd(x11_print(client, font, x, y, text), 
+				command, client);
 	}
 	else
 	{
@@ -188,6 +211,8 @@ static int parse_command(char* command, Client* client)
 }
 
 
+// Checks the data received from the client, splits it into signle commands,
+// and call parse_command on them.
 int parse_data(char data[4096], Client* client)
 {
 	int len = strlen(data);

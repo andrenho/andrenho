@@ -134,13 +134,21 @@ char** square_xpm(long color)
 }
 
 
+// Free a XPM. Be aware that the XPM might be in a read-only memory area.
 void free_xpm(char** xpm)
 {
-	(void) xpm;
-	// TODO
+	int w, h, ncol, szcol;
+	if(sscanf(xpm[0], "%d %d %d %d", &w, &h, &ncol, &szcol) != 4)
+		return;
+
+	int i;
+	for(i=0; i<1+ncol+h; i++)
+		free(xpm[i]);
+	free(xpm);
 }
 
 
+// Convert a XPM to a X11 pixmap.
 Pixmap xpm_to_pixmap(char* xpm[], Display* display, Client *c)
 {
 	Colormap colormap = DefaultColormap(display, DefaultScreen(display));

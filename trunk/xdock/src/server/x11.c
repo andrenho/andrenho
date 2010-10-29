@@ -3,6 +3,7 @@
 #include <X11/Xatom.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <limits.h>
 
 #include "client.h"
 #include "debug.h"
@@ -13,31 +14,36 @@
 #include "font_led3.xpm"
 
 
-Display* display;
-Colormap colormap;
+Display* display;		// the X display
+Colormap colormap;		// colormap of the display
 
-static int white;
-static int screen_w, screen_h;
-static char** xpm_sq;
-static int xrel, yrel;
+static int white;		// white color index
+static int screen_w, screen_h;	// size of the screen, in pixels
+static int top_y;		// height of a possible top dock
+static char** xpm_sq;		// XPM image of the docks
+static int xrel, yrel;		// last click, used to control dragging
 
+
+// Function prototypes
 static void x11_do_events_client(Client* c, XEvent* evt);
 static int x11_move_window(Client* c, int x, int y);
-static void x11_initialize_colors(Client* c);
-static void x11_initialize_fonts(Client* c);
+static int x11_initialize_colors(Client* c);
+static int x11_initialize_fonts(Client* c);
+static int x11_panel_height(Window window);
 
 
+// Initialize X11 display.
 void x11_initialize()
 {
-	XInitThreads();
-
+	// Initialize display
 	display = XOpenDisplay(NULL);
 	if(!display)
 	{
 		fprintf(stderr, "Could not open display.\n");
 		exit(1);
 	}
-
+	
+	// Get basic information about the screen
 	colormap = DefaultColormap(display, DefaultScreen(display));
 
 	white = WhitePixel(display, DefaultScreen(display));
@@ -45,10 +51,16 @@ void x11_initialize()
 	screen_w = XDisplayWidth(display, DefaultScreen(display));
 	screen_h = XDisplayHeight(display, DefaultScreen(display));
 
+	// Get the size of the upper panel
+	top_y = x11_panel_height(RootWindow(display, DefaultScreen(display)));
+
+	// Create the dock background image (XPM)
 	xpm_sq = square_xpm(opt.dock_color);
 }
 
 
+// This function is called when a client connects. It creates and setup the
+// window of the dock.
 int x11_setup_client(Client* c)
 {
 	XEvent evt;
@@ -73,13 +85,13 @@ int x11_setup_client(Client* c)
 	// put window in the correct position in the screen
 	c->locked_column = -1;
 	int x = screen_w - 96,
-	    y = 0;
+	    y = top_y;
 	while(!x11_move_window(c, x, y))
 	{
 		y += 96;
 		if(y > screen_h + 96)
 		{
-			y = 0;
+			y = top_y;
 			x -= 96;
 		}
 	}
@@ -87,7 +99,7 @@ int x11_setup_client(Client* c)
 	// map window
 	XSelectInput(display, c->window, StructureNotifyMask);
 	XMapWindow(display, c->window);
-	do 
+	do
 		XNextEvent(display, &evt);
 	while(evt.type != MapNotify);
 
@@ -112,14 +124,17 @@ int x11_setup_client(Client* c)
 	c->images = NULL;
 	c->colors = NULL;
 	c->fonts = NULL;
-	x11_initialize_colors(c);
-	x11_initialize_fonts(c);
+	if(!x11_initialize_colors(c))
+		return 0;
+	if(!x11_initialize_fonts(c))
+		return 0;
 
 	return 1;
 }
 
 
-static void x11_initialize_colors(Client *c)
+// Initialize the theme colors of the window.
+static int x11_initialize_colors(Client *c)
 {
 	debug("Initializing colors...");
 
@@ -127,7 +142,11 @@ static void x11_initialize_colors(Client *c)
 	for(tc = opt.colors; tc != NULL; tc = tc->hh.next)
 	{
 		XColor xcolor;
-		XParseColor(display, colormap, tc->color, &xcolor); // TODO - check
+		if(XParseColor(display, colormap, tc->color, &xcolor) == BadColor)
+		{
+			fprintf(stderr, "Invalid X11 color %s.\n", tc->color);
+			return 0;
+		}
 		XAllocColor(display, colormap, &xcolor);
 
 		struct Color* new_color = malloc(sizeof(struct Color));
@@ -135,11 +154,15 @@ static void x11_initialize_colors(Client *c)
 		new_color->pixel = xcolor.pixel;
 		HASH_ADD_STR(c->colors, name, new_color);
 	}
+	return 1;
 }
 
 
-static void x11_initialize_fonts(Client* c)
+// Load XPM fonts
+static int x11_initialize_fonts(Client* c)
 {
+	// TODO - create fonts
+	
 	int i;
 
 	debug("Initializing fonts...");
@@ -151,11 +174,18 @@ static void x11_initialize_fonts(Client* c)
 		Pixmap p = xpm_to_pixmap(font_led3[i].xpm, display, c);
 		if(p)
 			x11_font_char(c, "led3", font_led3[i].c, p);
+		else
+			fprintf(stderr, "warning: error creating character '%c' "
+					"for the font %s.\n", font_led3[i].c,
+					"led3");
 		i++;
 	}
+	return 1;
 }
 
 
+// Verify all windows for events. If there's any event, x11_do_events_client
+// is called.
 void x11_do_events()
 {
 	XEvent evt;
@@ -178,6 +208,9 @@ void x11_do_events()
 }
 
 
+// On startup of the client, or when the user drags the mouse over the window,
+// this function is called to calculate where the window should be moved to,
+// and moves it.
 static int x11_move_window(Client* c, int x, int y)
 {
 	Atom strut;
@@ -198,8 +231,8 @@ static int x11_move_window(Client* c, int x, int y)
 	// confine window to the screen
 	if(x < 0)
 		x = 0;
-	if(y < 0)
-		y = 0;
+	if(y < top_y)
+		y = top_y;
 	if(x > screen_w - 96)
 		x = screen_w - 96;
 	if(y > screen_h - 96)
@@ -210,7 +243,7 @@ static int x11_move_window(Client* c, int x, int y)
 	if(x > screen_w - (96 * (max_column+2)) - opt.attract)
 	{
 		x = ((x - screen_w - 48) / 96) * 96 + screen_w;
-		y = ((y+48) / 96) * 96;
+		y = ((y+48) / 96) * 96; // TODO - top_y?
 		new_locked_column = ((screen_w - x) / 96 - 1);
 	}
 	else
@@ -244,6 +277,8 @@ static int x11_move_window(Client* c, int x, int y)
 }
 
 
+// Check window for events. If there's a mouse click, the event is sent to the
+// client. If the user drags the mouse, x11_move_window is called.
 static void x11_do_events_client(Client* c, XEvent* evt)
 {
 	switch(evt->type)
@@ -281,14 +316,99 @@ static void x11_do_events_client(Client* c, XEvent* evt)
 }
 
 
-void x11_destroy_client(Client* c)
+// This is a very X11 specific function, that looks for the size of the
+// upper dock (like a panel). This is necessary so that the dock doesn't
+// get over the panel.
+static int x11_panel_height(Window window)
 {
-	XDestroyWindow(display, c->window);
-	debug("Client window destroyed.");
-	// TODO - clear stored images/fonts
+	unsigned int height = 0;		// maximum height
+	Window w;
+	Window* children;
+	unsigned int n_children;
+
+	XQueryTree(display, window, &w, &w, &children, &n_children);
+	
+	// looks for each one of the children
+	unsigned int i;
+	for(i=0; i<n_children; i++)
+	{
+		// this is the property we're looking for
+		Atom strut = XInternAtom(display, "_NET_WM_STRUT_PARTIAL", 
+				False);
+		Atom type_return;
+		int actual_type;
+		unsigned long nitems, bytes;
+		unsigned char* data = NULL;
+		
+		// load window attributes (we only want to know about the
+		//                         windows where y = 0)
+		XWindowAttributes xwa;
+		XGetWindowAttributes(display, window, &xwa);
+
+		// load the property _NET_WM_STRUT_PARTIAL
+		int s = XGetWindowProperty(display, window, strut, 0, LONG_MAX, 
+				False, 
+				XA_CARDINAL, &type_return, &actual_type,
+				&nitems, &bytes, (unsigned char**)&data);
+		if(s == Success)
+		{
+			Atom *state = (Atom *) data;
+			// state[2] contains the "dock height"
+			if(xwa.y == 0 && nitems > 0 && state[2])
+				if(state[2] > height)
+					height = state[2];
+		}
+
+		// recursively, traverse the tree of all children of children
+		unsigned int children_max_height = x11_panel_height(children[i]);
+		if(children_max_height > height)
+			height = children_max_height;
+	}
+
+	return height;
 }
 
 
+// When the client disconnects, this function destroy the window.
+void x11_destroy_client(Client* c)
+{
+	// free colors
+	struct Color *color, *tmpc;
+	HASH_ITER(hh, c->colors, color, tmpc)
+	{
+		HASH_DEL(c->colors, color);
+		free(color);
+	}
+
+	// free images
+	struct Image *image, *tmpi;
+	HASH_ITER(hh, c->images, image, tmpi)
+	{
+		HASH_DEL(c->images, image);
+		if(image->pixmap)
+			XFreePixmap(display, image->pixmap);
+		free(image);
+	}
+	
+	// free fonts
+	struct Font *font, *tmpf;
+	HASH_ITER(hh, c->fonts, font, tmpf)
+	{
+		HASH_DEL(c->fonts, font);
+		int i;
+		for(i=0; i<255; i++)
+			if(font->chr[i])
+				XFreePixmap(display, font->chr[i]);
+		free(font);
+	}
+
+	// destroy window
+	XDestroyWindow(display, c->window);
+	debug("Client window destroyed.");
+}
+
+
+// Close the connection with X.
 void x11_quit()
 {
 	XCloseDisplay(display);

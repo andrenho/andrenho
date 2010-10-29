@@ -1,3 +1,5 @@
+// This file contains all network related functions.
+
 #include "network.h"
 
 #include <stdio.h>
@@ -11,13 +13,13 @@
 #  include <windows.h>
 #  include <winsock.h>
 #else
-#  include <error.h>
 #  include <resolv.h>
 #  include <sys/socket.h>
 #  include <sys/types.h>
 #  include <netinet/in.h>
 #  include <arpa/inet.h>
 #  include <fcntl.h>
+#  include <error.h>
 #endif
 
 #include "options.h"
@@ -26,10 +28,11 @@
 #include "parser.h"
 #include "client.h"
 
+static int sock; // main communication socket
 
+// Function prototypes
 static int net_receive_client_data(Client* c);
 
-static int sock; // main communication socket
 
 // Initialize network and open port.
 void net_startup()
@@ -77,15 +80,17 @@ void net_startup()
 	// choose who the server is going to list to
 	address.sin_family = AF_INET;
 	address.sin_addr.s_addr = INADDR_ANY;
-#if !_WIN32 // TODO
 	if(opt.listen_to == LOCALHOST) // only localhost
-		if(!inet_aton("127.0.0.1", &address.sin_addr))
+#if _WIN32
+		if(!inet_addr("127.0.0.1"))
+#else
+		if(!inet_addr("127.0.0.1", &address.sin_addr))
+#endif
 		{
 			fprintf(stderr, "It was not possible to get localhost "
 					"address.\n");
 			exit(1);
 		}
-#endif
 	address.sin_port = htons(opt.server_port);
 
 	// bind socket
@@ -96,11 +101,16 @@ void net_startup()
 	}
 
 	// listen on socket
-	listen(sock, 5);
+	if(listen(sock, 5) == -1)
+	{
+		perror("listen");
+		exit(1);
+	}
 	debug("Network initialized, waiting connections.");
 }
 
 
+// Check asynchronously if a new client has connected.
 void net_check_for_clients()
 {
 	struct sockaddr_in client_address;
@@ -137,6 +147,8 @@ void net_check_for_clients()
 }
 
 
+// Receive data from the clients. Calls net_receive_client_data for each client.
+// If there's data, parse it.
 void net_receive_data()
 {
 	Client* c = clients;
@@ -159,6 +171,7 @@ void net_receive_data()
 }
 
 
+// Check if the client has sent data. If he didn't, returns immediately.
 static int net_receive_client_data(Client* c)
 {
 	/* Here, we read a new string at the end of the old.
@@ -177,6 +190,7 @@ static int net_receive_client_data(Client* c)
 }
 
 
+// Send data to the client.
 int net_send_client_data(Client* c, char* fmt, ...)
 {
 	// TODO - timeout???
@@ -208,6 +222,5 @@ void net_disconnect_client(int socket_fd)
 
 void net_quit()
 {
-	// TODO
 	close(sock);
 }

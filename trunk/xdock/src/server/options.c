@@ -1,9 +1,16 @@
+/* This file contain the functions that parse the command line arguments
+ * and the configuration files (themes.rc and config.rc).
+ *
+ * Author: André Wagner
+ * This source file is covered by GNU Public License v.2. */
+
 #include "options.h"
 
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <getopt.h>
+#include <sys/stat.h>
 
 Options opt = {
 	.toolkit = X11,
@@ -57,21 +64,111 @@ static void print_usage(FILE* f)
 // Parse the configuration file.
 static void parse_config_file()
 {
-	// TODO
+	// open config file
+	char filename[1024];
+	sprintf(filename, "%s/.xdock/config.rc", getenv("HOME"));
+	FILE* f = fopen(filename, "r");
+	if(f == NULL)
+		return;
+
+	// parse config file
+	char cmd[255], val[255];
+	int ret;
+	while((ret = fscanf(f, "%255s = %255s", cmd, val)) != EOF)
+	{
+		if(ret != 2)
+		{
+			fprintf(stderr, "warning: invalid syntax in config file.\n");
+			return;
+		}
+
+		if(!strcmp(cmd, "debug"))
+		{
+			if(!strcmp(val, "0") || !strcmp(val, "no"))
+				opt.debug = 0;
+			else 
+				opt.debug = 1;
+		}
+		else if(!strcmp(cmd, "theme"))
+		{
+			opt.theme = strdup(val);
+		}
+		else if(!strcmp(cmd, "color"))
+		{
+			char r[3], g[3], b[3];
+			if(sscanf(val, "#%2s%2s%2s", r, g, b) != 3)
+			{
+				fprintf(stderr, "Invalid color %s in config file.\n", 
+						val);
+				return;
+			}
+			opt.dock_color = (strtol(r, NULL, 16) << 16) + 
+				         (strtol(g, NULL, 16) << 8)  + 
+					 strtol(b, NULL, 16);
+		}
+		else if(!strcmp(cmd, "attract"))
+		{
+			opt.attract = strtol(val, NULL, 10);
+		}
+		else if(!strcmp(cmd, "listen"))
+		{
+			if(strcmp(val, "localhost") == 0)
+				opt.listen_to = LOCALHOST;
+			else if(strcmp(val, "all") == 0)
+				opt.listen_to = EVERYONE;
+			else
+			{
+				fprintf(stderr, "Invalid value %s to parameter"
+					"listen in config file. Valid values are "
+					"`localhost` and `all`.\n",
+					val);
+				return;
+			}
+		}
+		else if(!strcmp(cmd, "port"))
+		{
+			int port = strtol(val, NULL, 10);
+			if(opt.server_port == 0)
+			{
+				fprintf(stderr, "Invalid port %s. in config file\n",
+						val);
+				return;
+			}
+			else
+				opt.server_port = port;
+		}
+		else
+			fprintf(stderr, "Invalid variable %s in config file.\n",
+					cmd);
+	}
 }
 
 
 // Parse the theme file.
 void parse_theme()
 {
-	char buf[255];
-	FILE* f = fopen("../../share/themes.rc", "r"); // TODO
+	// open theme file
+	char filename[1024];
+	sprintf(filename, "%s/.xdock/themes.rc", getenv("HOME"));
+	FILE* f = fopen(filename, "r");
 	if(f == NULL)
 	{
-		perror("fopen");
-		exit(EXIT_FAILURE);
+		f = fopen(SHAREDIR "/themes.rc", "r");
+		if(f == NULL)
+		{
+			f = fopen("../../share/themes.rc", "r");
+			if(f == NULL)
+			{
+				fprintf(stderr, "Error opening theme file.");
+				perror("fopen");
+				exit(EXIT_FAILURE);
+			}
+		}
 	}
+
+	// parse theme
 	int ret;
+	char buf[255];
 	do
 	{
 		ret = fscanf(f, "%255s", buf);
@@ -106,7 +203,21 @@ void parse_theme()
 		}
 	} while(ret != EOF);
 
-	// TODO - check that all colors are there
+	// check that the theme contain all colors
+	int i = 0;
+	char* theme_colors[] = { THEME_COLORS, NULL };
+	while(theme_colors[i])
+	{
+		struct ThemeColor* tc;
+		HASH_FIND_STR(opt.colors, theme_colors[i], tc);
+		if(tc == NULL)
+		{
+			fprintf(stderr, "Color %s not found in theme.\n",
+					theme_colors[i]);
+			exit(EXIT_FAILURE);
+		}
+		i++;
+	}
 
 	fclose(f);
 }
@@ -116,6 +227,11 @@ void parse_theme()
 void opt_parse(int argc, char* argv[])
 {
 	char r[3], g[3], b[3];
+
+	// check that a home directory exists
+	char filename[1024];
+	sprintf(filename, "%s/.xdock", getenv("HOME"));
+	mkdir(filename, 0755);
 
 	// parse config file
 	parse_config_file();
@@ -161,7 +277,7 @@ void opt_parse(int argc, char* argv[])
 			case 'c':
 				if(sscanf(optarg, "#%2s%2s%2s", r, g, b) != 3)
 				{
-					fprintf(stderr, "Invalid color %s.",
+					fprintf(stderr, "Invalid color %s.\n",
 							optarg);
 					exit(EXIT_FAILURE);
 				}
@@ -183,7 +299,7 @@ void opt_parse(int argc, char* argv[])
 				{
 					fprintf(stderr, "Invalid value %s to "
 						"parameter. Valid values are "
-						"`localhost` and `all`.",
+						"`localhost` and `all`.\n",
 						optarg);
 					exit(EXIT_FAILURE);
 				}
