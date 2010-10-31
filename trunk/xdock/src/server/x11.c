@@ -7,11 +7,10 @@
 
 #include "client.h"
 #include "debug.h"
+#include "font_led.h"
 #include "options.h"
 #include "x11_cmd.h"
 #include "x11_util.h"
-
-#include "font_led3.xpm"
 
 
 Display* display;		// the X display
@@ -165,13 +164,13 @@ static int x11_initialize_fonts(Client* c)
 		char* font_name;
 		XPM_Font* font;
 	} fonts [] = {
-		{ "led3", font_led3 },
+		{ "led3", led3 },
 		{ NULL, NULL },
 	};
-	int i, j;
 
 	debug("Initializing fonts...");
 
+	int i, j;
 	for(j=0; fonts[j].font_name; j++)
 	{
 		x11_new_font(c, fonts[j].font_name);

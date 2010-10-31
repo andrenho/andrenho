@@ -1,11 +1,14 @@
 #include "font_led.h"
 
+#include "font_led3.xpm"
+
+
 typedef struct {
 	char ch; 
 	char* model;
 } FontModel;
 
-static char* model_led2[] = {
+static char* led2_xpm_model[] = {
 "12 20 3 1",
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
@@ -33,6 +36,25 @@ static char* model_led2[] = {
 };
 
 
-void init_font(FontModel* model, char** xpm_model, XPM_Font* font)
+FontModel led2_model[] = {
+	{ ' ', "" },
+	{ '0', "12456" },
+};
+
+
+XPM_Font* led2;
+
+
+XPM_Font* init_font(FontModel* model, char** xpm_model)
 {
+	XPM_Font* led2 = malloc(sizeof(XPM_Font) *
+		       	(sizeof(xpm_model) / sizeof(FontModel)));
+
+	return led2;
+}
+
+
+void font_led_init()
+{
+	led2 = init_font(led2_model, led2_xpm_model);
 }
