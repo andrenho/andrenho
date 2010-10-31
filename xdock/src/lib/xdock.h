@@ -1,6 +1,8 @@
 #ifndef XDOCK_H
 #define XDOCK_H
 
+// TODO - document this!!!
+
 typedef struct {
 	int socket_fd;
 	int API_version;

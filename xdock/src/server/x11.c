@@ -161,24 +161,33 @@ static int x11_initialize_colors(Client *c)
 // Load XPM fonts
 static int x11_initialize_fonts(Client* c)
 {
-	// TODO - create fonts
-	
-	int i;
+	struct {
+		char* font_name;
+		XPM_Font* font;
+	} fonts [] = {
+		{ "led3", font_led3 },
+		{ NULL, NULL },
+	};
+	int i, j;
 
 	debug("Initializing fonts...");
 
-	x11_new_font(c, "led3");
-	i = 0;
-	while(font_led3[i].xpm)
+	for(j=0; fonts[j].font_name; j++)
 	{
-		Pixmap p = xpm_to_pixmap(font_led3[i].xpm, display, c);
-		if(p)
-			x11_font_char(c, "led3", font_led3[i].c, p);
-		else
-			fprintf(stderr, "warning: error creating character '%c' "
-					"for the font %s.\n", font_led3[i].c,
-					"led3");
-		i++;
+		x11_new_font(c, fonts[j].font_name);
+		for(i=0; fonts[j].font[i].xpm; i++)
+		{
+			Pixmap p = xpm_to_pixmap(fonts[j].font[i].xpm, 
+					display, c);
+			if(p)
+				x11_font_char(c, fonts[j].font_name, 
+						fonts[j].font[i].c, p);
+			else
+				fprintf(stderr, "warning: error creating "
+						"character '%c' for the font "
+						"%s.\n", fonts[j].font[i].c,
+						fonts[j].font_name);
+		}
 	}
 	return 1;
 }
