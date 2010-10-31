@@ -34,8 +34,8 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-bin_PROGRAMS = xdockserver$(EXEEXT)
-subdir = src/server
+bin_PROGRAMS = xdhello$(EXEEXT)
+subdir = src/docks
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
@@ -47,15 +47,9 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_xdockserver_OBJECTS = main.$(OBJEXT) client.$(OBJEXT) \
-	debug.$(OBJEXT) options.$(OBJEXT) parser.$(OBJEXT) \
-	network.$(OBJEXT) x11.$(OBJEXT) x11_cmd.$(OBJEXT) \
-	x11_util.$(OBJEXT)
-xdockserver_OBJECTS = $(am_xdockserver_OBJECTS)
-xdockserver_LDADD = $(LDADD)
-xdockserver_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
-	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
-	$(xdockserver_LDFLAGS) $(LDFLAGS) -o $@
+am_xdhello_OBJECTS = xdhello.$(OBJEXT)
+xdhello_OBJECTS = $(am_xdhello_OBJECTS)
+xdhello_DEPENDENCIES =
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -69,8 +63,8 @@ CCLD = $(CC)
 LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
-SOURCES = $(xdockserver_SOURCES)
-DIST_SOURCES = $(xdockserver_SOURCES)
+SOURCES = $(xdhello_SOURCES)
+DIST_SOURCES = $(xdhello_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -190,21 +184,9 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-AM_CPPFLAGS = -Wall -Wextra -DVERSION=\"$(VERSION)\" -DSHAREDIR=\"$(datarootdir)/$(PACKAGE)\"
-xdockserver_SOURCES = main.c      client.h   \
-		      client.h    client.c   \
-		      debug.h     debug.c    \
-		      options.h   options.c  \
-		      parser.h    parser.c   \
-		      network.h   network.c  \
-		      structures.h           \
-		      uthash.h               \
-		      x11.h       x11.c      \
-		      x11_cmd.c   x11_cmd.h  \
-		      x11_util.c  x11_util.h \
-		      font_led_3.xpm
-
-xdockserver_LDFLAGS = $(PTHREAD) $(X11) $(MMS_BITFIELDS) $(WINSOCK)
+AM_CPPFLAGS = -I../lib
+xdhello_SOURCES = xdhello.c
+xdhello_LDADD = -lxdock -L../lib
 all: all-am
 
 .SUFFIXES:
@@ -218,9 +200,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu src/server/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu src/docks/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu src/server/Makefile
+	  $(AUTOMAKE) --gnu src/docks/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
@@ -282,9 +264,9 @@ clean-binPROGRAMS:
 	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
 	echo " rm -f" $$list; \
 	rm -f $$list
-xdockserver$(EXEEXT): $(xdockserver_OBJECTS) $(xdockserver_DEPENDENCIES) 
-	@rm -f xdockserver$(EXEEXT)
-	$(xdockserver_LINK) $(xdockserver_OBJECTS) $(xdockserver_LDADD) $(LIBS)
+xdhello$(EXEEXT): $(xdhello_OBJECTS) $(xdhello_DEPENDENCIES) 
+	@rm -f xdhello$(EXEEXT)
+	$(LINK) $(xdhello_OBJECTS) $(xdhello_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -292,15 +274,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/client.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/debug.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/network.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/options.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/parser.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/x11.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/x11_cmd.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/x11_util.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xdhello.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<

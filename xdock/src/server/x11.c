@@ -243,7 +243,7 @@ static int x11_move_window(Client* c, int x, int y)
 	if(x > screen_w - (96 * (max_column+2)) - opt.attract)
 	{
 		x = ((x - screen_w - 48) / 96) * 96 + screen_w;
-		y = ((y+48) / 96) * 96; // TODO - top_y?
+		y = ((y+48) / 96) * 96 + top_y;
 		new_locked_column = ((screen_w - x) / 96 - 1);
 	}
 	else
