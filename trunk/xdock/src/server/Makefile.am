@@ -4,6 +4,7 @@ bin_PROGRAMS = xdockserver
 xdockserver_SOURCES = main.c      client.h   \
 		      client.h    client.c   \
 		      debug.h     debug.c    \
+		      font_led.c  font_led.h \
 		      options.h   options.c  \
 		      parser.h    parser.c   \
 		      network.h   network.c  \

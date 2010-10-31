@@ -11,7 +11,7 @@
 
 Options opt = {
 	.toolkit = X11,
-	.debug = 1,
+	.debug = 0,
 	.theme = "led",
 	.dock_color = 0x909090,
 	.attract = 40,
@@ -257,6 +257,10 @@ void opt_parse(int argc, char* argv[])
 		switch(c)
 		{
 			case 0: // set flag
+				break;
+
+			case 'd':
+				opt.debug = 1; // TODO -- ???
 				break;
 
 			case 'v':

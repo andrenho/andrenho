@@ -48,9 +48,9 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_xdockserver_OBJECTS = main.$(OBJEXT) client.$(OBJEXT) \
-	debug.$(OBJEXT) options.$(OBJEXT) parser.$(OBJEXT) \
-	network.$(OBJEXT) x11.$(OBJEXT) x11_cmd.$(OBJEXT) \
-	x11_util.$(OBJEXT)
+	debug.$(OBJEXT) font_led.$(OBJEXT) options.$(OBJEXT) \
+	parser.$(OBJEXT) network.$(OBJEXT) x11.$(OBJEXT) \
+	x11_cmd.$(OBJEXT) x11_util.$(OBJEXT)
 xdockserver_OBJECTS = $(am_xdockserver_OBJECTS)
 xdockserver_LDADD = $(LDADD)
 xdockserver_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
@@ -194,6 +194,7 @@ AM_CPPFLAGS = -Wall -Wextra -DVERSION=\"$(VERSION)\" -DSHAREDIR=\"$(datarootdir)
 xdockserver_SOURCES = main.c      client.h   \
 		      client.h    client.c   \
 		      debug.h     debug.c    \
+		      font_led.c  font_led.h \
 		      options.h   options.c  \
 		      parser.h    parser.c   \
 		      network.h   network.c  \
@@ -294,6 +295,7 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/client.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/debug.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/font_led.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/network.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/options.Po@am__quote@
