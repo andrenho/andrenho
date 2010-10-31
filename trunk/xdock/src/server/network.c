@@ -84,7 +84,7 @@ void net_startup()
 #if _WIN32
 		if(!inet_addr("127.0.0.1"))
 #else
-		if(!inet_addr("127.0.0.1", &address.sin_addr))
+		if(!inet_aton("127.0.0.1", &address.sin_addr))
 #endif
 		{
 			fprintf(stderr, "It was not possible to get localhost "

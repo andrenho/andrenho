@@ -34,4 +34,4 @@ EOF
 
 puts s.gets
 
-while true; end
+while true; sleep 1; end

@@ -1,8 +1,5 @@
 /* This file contain the functions that parse the command line arguments
- * and the configuration files (themes.rc and config.rc).
- *
- * Author: André Wagner
- * This source file is covered by GNU Public License v.2. */
+ * and the configuration files (themes.rc and config.rc). */
 
 #include "options.h"
 
@@ -48,7 +45,7 @@ static void print_usage(FILE* f)
 	fprintf(f, "  -t, --theme    Choose the theme used to display the docks. Common themes\n");
 	fprintf(f, "                 names are `led` and `lcd`. The themes are registered in\n");
 	fprintf(f, "                 $SHARE/xdock/themes.rc or $HOME/.xdock/themes.rc.\n");
-	fprintf(f, "  -c, --color    Color of the docks, in the format #rrggbb.\n");
+	fprintf(f, "  -c, --color    Color of the docks, in the format rrggbb.\n");
 	fprintf(f, "  -a, --attract  Distance (in pixels) from the right border where the dock will\n");
 	fprintf(f, "                 start to be attracted.\n");
 	fprintf(f, "  -l, --listen   Address the server will listen to. Possible values are\n");
@@ -96,7 +93,7 @@ static void parse_config_file()
 		else if(!strcmp(cmd, "color"))
 		{
 			char r[3], g[3], b[3];
-			if(sscanf(val, "#%2s%2s%2s", r, g, b) != 3)
+			if(sscanf(val, "%2s%2s%2s", r, g, b) != 3)
 			{
 				fprintf(stderr, "Invalid color %s in config file.\n", 
 						val);
@@ -275,7 +272,7 @@ void opt_parse(int argc, char* argv[])
 				break;
 
 			case 'c':
-				if(sscanf(optarg, "#%2s%2s%2s", r, g, b) != 3)
+				if(sscanf(optarg, "%2s%2s%2s", r, g, b) != 3)
 				{
 					fprintf(stderr, "Invalid color %s.\n",
 							optarg);
@@ -321,16 +318,14 @@ void opt_parse(int argc, char* argv[])
 			default:
 				abort();
 		}
-
-		if (optind < argc)
-		{
-			fprintf(stderr, "Invalid option %s.\n", argv[optind]);
-			exit(EXIT_FAILURE);
-		}
 	}
 
+	if (optind < argc)
+	{
+		fprintf(stderr, "Invalid option %s.\n", argv[optind]);
+		exit(EXIT_FAILURE);
+	}
 		
 	// parse theme file
 	parse_theme();
-
 }
