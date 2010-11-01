@@ -16,7 +16,7 @@ inline static int assert_cmd(int value, char* command, Client* c)
 {
 	if(!value)
 		fprintf(stderr, "Error executing command '%s' from client %s.\n", 
-				c->id, command);
+				command, c->id);
 	return value;
 }
 

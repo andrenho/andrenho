@@ -14,6 +14,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <stdlib.h>
+#include <errno.h>
 
 int net_connect(char* host, int port)
 {
@@ -60,9 +61,21 @@ int net_connect(char* host, int port)
 	}
 	else
 	{
-		fcntl(sock, F_SETFL, O_NONBLOCK); // set the socket as non-blocking
-		return sock;
+		// set socket as nonblocking
+#if _WIN32
+		unsigned long iMode=1;
+		ioctlsocket(sock, FIONBIO, &iMode);
+#else
+		int flags = fcntl(sock, F_GETFL, 0);
+		if(fcntl(sock, F_SETFL, flags | O_NONBLOCK) < 0)
+		{
+			perror("fcntl");
+			exit(1);
+		}
+#endif
 	}
+
+	return sock;
 }
 
 int net_send(int sock, char* fmt, ...)
@@ -80,7 +93,10 @@ again:
 	sent = send(sock, &buf[n], bytes - n, 0);
 	if(sent == -1)
 	{
+		goto again;
+		buf[bytes-1] = '\0';
 		fprintf(stderr, "Error sending message '%s'.\n", buf);
+		perror("send");
 		return 0;
 	}
 	else if(sent + n < bytes)

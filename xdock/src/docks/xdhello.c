@@ -12,7 +12,7 @@ int main(int argc, char* argv[])
 	xd_write(cn, "led3", 8, 8, "HELLO WORLD!");
 	xd_update(cn);
 	for(;;)
-		sleep(1);
+	;//	sleep(1);
 
 	return 0;
 }

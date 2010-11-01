@@ -12,23 +12,11 @@ PANEL 5 5 86 86
 UPDATE
 
 # write chars
-WRITE led3 10 30 "HELLO_WORLD"
+WRITE led2 10 10 "01234"
+WRITE led2 10 36 "STUVWX"
+WRITE led2 10 62 "YZ"
 UPDATE
 
-# sending XPM
-SEND_XPM blarg
-16 7 2 1
-* c #000000 s lit
-. c #ffffff s panel_bg
-**..*...........
-*.*.*...........
-**..*..**.**..**
-*.*.*.*.*.*..*.*
-**..*..**.*...**
-...............*
-.............**.
-.
-DRAW_IMAGE blarg 10 10
 UPDATE
 EOF
 

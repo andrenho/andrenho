@@ -234,6 +234,9 @@ Pixmap xpm_to_pixmap(char* xpm[], Display* display, Client *c)
 			}
 		}
 
+	for(i=0; i<1+ncol+h; i++)
+		printf("--> %s\n", xpm[i]);
+
 	// free everything
 	for(i=0; i<ncol; i++)
 		free(color[i].str);

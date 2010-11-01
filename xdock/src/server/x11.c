@@ -55,6 +55,11 @@ void x11_initialize()
 
 	// Create the dock background image (XPM)
 	xpm_sq = square_xpm(opt.dock_color);
+
+	// initialize fonts
+	debug("Initializing fonts.");
+	font_led_init();
+	debug("Fonts initialized.");
 }
 
 
@@ -164,6 +169,7 @@ static int x11_initialize_fonts(Client* c)
 		char* font_name;
 		XPM_Font* font;
 	} fonts [] = {
+		{ "led2", led2 },
 		{ "led3", led3 },
 		{ NULL, NULL },
 	};
