@@ -13,7 +13,7 @@ UPDATE
 
 # write chars
 WRITE led2 10 10 "01234"
-WRITE led2 10 36 "STUVWX"
+WRITE led2 10 36 "SMUVWX"
 WRITE led2 10 62 "YZ"
 UPDATE
 
