@@ -7,7 +7,7 @@
 char date_format[30];
 int hour = 24;
 int show_date = 1;
-int show_seconds = 1;
+int show_seconds = 0;
 int uptime = 0;
 
 static void show_help(FILE* f)
@@ -36,30 +36,37 @@ static void show_version()
 
 void make_display(char* hour, char* seconds, char* date)
 {
-	strcpy(hour, "12:00");
+	strcpy(hour, " 8:12");
 	strcpy(seconds, "39");
-	strcpy(date, "01 JAN 2010");
+	strcpy(date, "01 ZAO 2010");
 }
 
 
 int main(int argc, char* argv[])
 {
 	char hour[6], seconds[3], date[25];
+
+	// calculate position
+	int hour_x = show_seconds ? 14 : 22;
+	int hour_y = show_date ? 29 : 36;
 	
+	// open connection
 	XD_Connection *cn = xd_connect(argc, argv, "HELLO");
 	if(!cn)
 		return 1;
 
+	// draw panel
 	xd_panel(cn, 4, 4, 88, 88);
 	
-	make_display(hour, seconds, date);
-	xd_write(cn, "lcd3", show_seconds ? 14 : 18, 28, hour);
-	if(show_seconds)
-		xd_write(cn, "led3", 69, 39, seconds);
-	xd_update(cn);
-
 	for(;;)
+	{
+		make_display(hour, seconds, date);
+		xd_write(cn, "lcd3", hour_x, hour_y, hour);
+		if(show_seconds)
+			xd_write(cn, "led3", hour_x+55, hour_y+11, seconds);
+		if(show_date)
+			xd_write(cn, "led4", 16, hour_y+30, date);
+		xd_update(cn);
 		usleep(1000000);
-
-	return 0;
+	}
 }
