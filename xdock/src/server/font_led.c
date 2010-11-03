@@ -81,6 +81,7 @@ typedef struct {
  * 4 5
  *  6  */
 FontModel font_model[] = {
+	{ '_', "" },
 	{ ' ', "" },
 	{ '0', "012456" },
 	{ '1', "25" },
