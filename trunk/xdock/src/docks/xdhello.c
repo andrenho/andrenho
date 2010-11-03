@@ -9,10 +9,12 @@ int main(int argc, char* argv[])
 		return 1;
 
 	xd_panel(cn, 4, 4, 88, 88);
-	xd_write(cn, "led3", 8, 8, "HELLO WORLD!");
+	xd_write(cn, "led4", 8, 8, "HELLO WORLD!");
 	xd_update(cn);
+
+	XD_Event e;
 	for(;;)
-	;//	sleep(1);
+		usleep(1000000);
 
 	return 0;
 }

@@ -230,7 +230,6 @@ int x11_print(Client* c, char fontname[25], int x, int y, unsigned char* text)
 	// get font
 	HASH_FIND_STR(c->fonts, fontname, font);
 	if(!font)
-	if(!font)
 	{
 		fprintf(stderr, "On comand from %s: font %s not found.\n",
 				c->id, fontname);

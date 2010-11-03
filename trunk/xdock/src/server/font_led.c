@@ -1,12 +1,14 @@
 #include "font_led.h"
 
+#include <assert.h>
 #include <stdio.h>
 #include <string.h>
 
-#include "font_led3.xpm"
+#include "font_lcd3.xpm"
+#include "font_led4.xpm"
 
 
-static char* led2_xpm_model[] = {
+static char* lcd3_xpm_model[] = {
 "12 20 12 1",
 " 	c #1B1B1B s panel_bg",
 "0	c #004840 s unlit",
@@ -53,7 +55,7 @@ typedef struct {
  *  3
  * 4 5
  *  6  */
-FontModel led2_model[] = {
+FontModel lcd3_model[] = {
 	{ ' ', "" },
 	{ '0', "012456" },
 	{ '1', "25" },
@@ -95,10 +97,10 @@ FontModel led2_model[] = {
 };
 
 
-XPM_Font* led2;
+XPM_Font* lcd3;
 
 
-XPM_Font* init_font(FontModel* model, char** xpm_model)
+static XPM_Font* init_font(FontModel* model, char** xpm_model)
 {
 	XPM_Font* xpm_font = malloc(sizeof(XPM_Font) *
 		       	(sizeof(xpm_model) / sizeof(FontModel) + 1));
@@ -123,7 +125,8 @@ XPM_Font* init_font(FontModel* model, char** xpm_model)
 			if(strchr(model[i].model, ch))
 			{
 				xpm_font[i].xpm[j] = malloc(sizeof(char) * 40);
-				sprintf(xpm_font[i].xpm[j], "%c\tc #20B0A8 s bright", ch);
+				sprintf(xpm_font[i].xpm[j], 
+						"%c\tc #20B0A8 s lit", ch);
 			}
 			else
 				xpm_font[i].xpm[j] = strdup(xpm_model[j]);
@@ -144,7 +147,22 @@ XPM_Font* init_font(FontModel* model, char** xpm_model)
 }
 
 
+static void add_char(XPM_Font* font, char c, char** xpm)
+{
+	assert(font[0].xpm);
+
+	int i=0;
+	while(font[i].c)
+		i++;
+	font[i].c = c;
+	font[i].xpm = xpm;
+	font[i+1].c = '\0';
+	font[i+1].xpm = NULL;
+}
+
+
 void font_led_init()
 {
-	led2 = init_font(led2_model, led2_xpm_model);
+	lcd3 = init_font(lcd3_model, lcd3_xpm_model);
+	add_char(lcd3, ':', lcd3_colon);
 }
