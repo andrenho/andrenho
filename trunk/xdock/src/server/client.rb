@@ -12,7 +12,7 @@ PANEL 5 5 86 86
 UPDATE
 
 # write chars
-WRITE led2 10 10 "12:34"
+WRITE lcd3 10 10 "AXEY"
 UPDATE
 
 UPDATE

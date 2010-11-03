@@ -45,6 +45,31 @@ static char* lcd3_xpm_model[] = {
 };
 
 
+static char* led3_xpm_model[] = {
+"7 9 12 1",
+" 	c #1B1B1B s panel_bg",
+"0	c #004840 s unlit",
+"1	c #004840 s unlit",
+"2	c #004840 s unlit",
+"3	c #004840 s unlit",
+"4	c #004840 s unlit",
+"5	c #004840 s unlit",
+"6	c #004840 s unlit",
+"7	c #004840 s panel_bg",
+"8	c #004840 s panel_bg",
+"x	c #004840 s panel_bg",
+"y	c #004840 s panel_bg",
+" 0000  ",
+"1  772 ",
+"1 77 2 ",
+"177  2 ",
+" 3333  ",
+"488  5 ",
+"4 88 5 ",
+"4  885 ",
+" 6666  "};
+
+
 typedef struct {
 	char ch; 
 	char* model;
@@ -55,7 +80,7 @@ typedef struct {
  *  3
  * 4 5
  *  6  */
-FontModel lcd3_model[] = {
+FontModel font_model[] = {
 	{ ' ', "" },
 	{ '0', "012456" },
 	{ '1', "25" },
@@ -90,14 +115,12 @@ FontModel lcd3_model[] = {
 	{ 'U', "12456" },
 	{ 'V', "1258" },
 	{ 'W', "12456y" },
-	{ 'X', "12345" },
-	{ 'Y', "1235" },
 	{ 'Z', "02346" },
 	{ '\0', NULL }
 };
 
 
-XPM_Font* lcd3;
+XPM_Font *lcd3, *led3;
 
 
 static XPM_Font* init_font(FontModel* model, char** xpm_model)
@@ -163,6 +186,10 @@ static void add_char(XPM_Font* font, char c, char** xpm)
 
 void font_led_init()
 {
-	lcd3 = init_font(lcd3_model, lcd3_xpm_model);
+	lcd3 = init_font(font_model, lcd3_xpm_model);
+	add_char(lcd3, 'X', lcd3_x);
+	add_char(lcd3, 'Y', lcd3_y);
 	add_char(lcd3, ':', lcd3_colon);
+
+	led3 = init_font(font_model, led3_xpm_model);
 }
