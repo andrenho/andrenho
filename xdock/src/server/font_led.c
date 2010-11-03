@@ -4,11 +4,11 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "font_lcd3.xpm"
-#include "font_led4.xpm"
+#include "font_led20.xpm"
+#include "font_led7.xpm"
 
 
-static char* lcd3_xpm_model[] = {
+static char* led20_xpm_model[] = {
 "12 20 12 1",
 " 	c #1B1B1B s panel_bg",
 "0	c #004840 s unlit",
@@ -45,7 +45,7 @@ static char* lcd3_xpm_model[] = {
 };
 
 
-static char* led3_xpm_model[] = {
+static char* led9_xpm_model[] = {
 "7 9 12 1",
 " 	c #1B1B1B s panel_bg",
 "0	c #004840 s unlit",
@@ -121,7 +121,7 @@ FontModel font_model[] = {
 };
 
 
-XPM_Font *lcd3, *led3;
+XPM_Font *led20, *led9;
 
 
 static XPM_Font* init_font(FontModel* model, char** xpm_model)
@@ -187,10 +187,10 @@ static void add_char(XPM_Font* font, char c, char** xpm)
 
 void font_led_init()
 {
-	lcd3 = init_font(font_model, lcd3_xpm_model);
-	add_char(lcd3, 'X', lcd3_x);
-	add_char(lcd3, 'Y', lcd3_y);
-	add_char(lcd3, ':', lcd3_colon);
+	led20 = init_font(font_model, led20_xpm_model);
+	add_char(led20, 'X', led20_x);
+	add_char(led20, 'Y', led20_y);
+	add_char(led20, ':', led20_colon);
 
-	led3 = init_font(font_model, led3_xpm_model);
+	led9 = init_font(font_model, led9_xpm_model);
 }
