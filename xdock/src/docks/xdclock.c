@@ -4,21 +4,25 @@
 
 #define VERSION "0.1"
 
+char date_format[30];
+int hour = 24;
+int show_date = 1;
+int show_seconds = 1;
+int uptime = 0;
+
 static void show_help(FILE* f)
 {
 	fprintf(f,"\
-Usage: xdclock [OPTION]...\n
-Clock applet to display the date/hour using xdock.\n
-\n
-All arguments are optional.\n
-  -f, --date-format=FORMAT      Use a date format, according to the formats in\n
-                                strftime.\n
-  -h, --hour=VALUE              Choose between 12-hour or 24-hour clock\n
-                                (possible values: 12 or 24).\n
-  -n, --no-date                 Don't display the date.\n
-  -i, --inexact=LEVEL           Display a inexact clock, where the level of\n
-                                inexactitude is between 1 and 3.\n
-  -s, --seconds                 Display the seconds in the clock.\n
+Usage: xdclock [OPTION]...\n\
+Clock applet to display the date/hour using xdock.\n\
+\n\
+All arguments are optional.\n\
+  -f, --date-format=FORMAT      Use a date format, according to the formats in\n\
+                                strftime.\n\
+  -h, --hour=VALUE              Choose between 12-hour or 24-hour clock\n\
+                                (possible values: 12 or 24).\n\
+  -n, --no-date                 Don't display the date.\n\
+  -s, --seconds                 Display the seconds in the clock.\n\
   -u, --uptime                  Display uptime instead of current time.\n");
 }
 
@@ -33,16 +37,26 @@ static void show_version()
 void make_display(char* hour, char* seconds, char* date)
 {
 	strcpy(hour, "12:00");
-
+	strcpy(seconds, "39");
+	strcpy(date, "01 JAN 2010");
 }
 
 
 int main(int argc, char* argv[])
 {
+	char hour[6], seconds[3], date[25];
+	
 	XD_Connection *cn = xd_connect(argc, argv, "HELLO");
 	if(!cn)
 		return 1;
 
+	xd_panel(cn, 4, 4, 88, 88);
+	
+	make_display(hour, seconds, date);
+	xd_write(cn, "lcd3", show_seconds ? 14 : 18, 28, hour);
+	if(show_seconds)
+		xd_write(cn, "led3", 69, 39, seconds);
+	xd_update(cn);
 
 	for(;;)
 		usleep(1000000);

@@ -6,7 +6,7 @@ typedef struct {
 	char** xpm;
 } XPM_Font;
 
-extern XPM_Font *lcd3, led4[];
+extern XPM_Font *lcd3, *led3, led4[];
 
 void font_led_init();
 
