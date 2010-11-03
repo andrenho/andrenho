@@ -57,9 +57,8 @@ void x11_initialize()
 	xpm_sq = square_xpm(opt.dock_color);
 
 	// initialize fonts
-	debug("Initializing fonts.");
+	debug("Initializing all fonts.");
 	font_led_init();
-	debug("Fonts initialized.");
 }
 
 
@@ -169,8 +168,8 @@ static int x11_initialize_fonts(Client* c)
 		char* font_name;
 		XPM_Font* font;
 	} fonts [] = {
-		{ "led2", led2 },
-		{ "led3", led3 },
+		{ "lcd3", lcd3 },
+		{ "led4", led4 },
 		{ NULL, NULL },
 	};
 

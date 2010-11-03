@@ -8,6 +8,11 @@ typedef struct {
 	int API_version;
 } XD_Connection;
 
+typedef struct {
+	enum { MOUSE_UP, MOUSE_DOWN } type;
+	int x, y;
+} XD_Event;
+
 XD_Connection* xd_connect(int argc, char** argv, char id[25]);
 void xd_disconnect(XD_Connection *c);
 
@@ -23,5 +28,7 @@ void xd_move_box(XD_Connection* c, int x, int y, int w, int h, int move_x,
 void xd_send_xpm(XD_Connection* c, char name[25], char** xpm);
 void xd_draw_image(XD_Connection* c, char image[25], int x, int y);
 void xd_write(XD_Connection* c, char font[25], int x, int y, char text[255]);
+
+int xd_event(XD_Connection* c, XD_Event* e);
 
 #endif

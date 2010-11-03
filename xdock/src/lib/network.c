@@ -108,25 +108,34 @@ again:
 		return 1;
 }
 
-int net_recv(int sock, char msg[255])
+int net_recv(int sock, char msg[4096])
 {
-	/*
-	unsigned char* c = malloc(length);
-	int i = recv(sock, c, length, 0);
-	if(i == -1)
+	int i=0;
+
+	while(i < 255)
 	{
-		free(c);;
-		return NULL;
+		int c = recv(sock, &msg[i], 1, 0);
+		if(c == -1) // no data
+		{
+			msg[0] = '\0';
+			return 0;
+		}
+		else if(c == 0) // connection lost
+		{
+			msg[0] = '\0';
+			fprintf(stderr, "Connection lost.\n");
+			return 0;
+		}
+		else if(msg[i] == '\n')
+		{
+			msg[i+1] = '\0';
+			return 1;
+		}
+		i++;
 	}
-	else if(i == 0)
-	{
-		fprintf(stderr, "Connection lost.\n");
-		exit(1);
-	}
-	else
-		return c;
-	*/
-	return 1;
+
+	fprintf(stderr, "Message too long from the server.\n");
+	exit(1);
 }
 
 void net_disconnect(int sock)

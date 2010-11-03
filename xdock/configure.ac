@@ -11,11 +11,11 @@ AC_LANG_C
 AC_PROG_MAKE_SET
 
 # Check for X
-AC_PATH_X
-AC_CHECK_LIB(X11, XFlush, [X11=-lX11], [
-		echo "Unable to find Xlib libraries. You must have the Xlib development libraries installed in order to install xdock."
-		exit -1
-])
+#AC_PATH_X
+#AC_CHECK_LIB(X11, XFlush, [X11=-lX11], [
+#		echo "Unable to find Xlib libraries. You must have the Xlib development libraries installed in order to install xdock."
+#		exit -1
+#])
 AC_SUBST([X11])
 
 # Check for pthreads
