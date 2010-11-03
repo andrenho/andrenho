@@ -826,7 +826,7 @@ static char* font_led_whitespace[] = {
 "   ",
 "   "};
 
-XPM_Font led4[] = {
+XPM_Font led7[] = {
 	{ ' ', font_led_space },
 	{ 'A', font_led_A },
 	{ 'B', font_led_B },

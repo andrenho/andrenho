@@ -168,9 +168,9 @@ static int x11_initialize_fonts(Client* c)
 		char* font_name;
 		XPM_Font* font;
 	} fonts [] = {
-		{ "lcd3", lcd3 },
-		{ "led3", led3 },
-		{ "led4", led4 },
+		{ "led20", led20 },
+		{ "led9", led9 },
+		{ "led7", led7 },
 		{ NULL, NULL },
 	};
 
