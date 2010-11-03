@@ -42,18 +42,18 @@ static void print_usage(FILE* f)
 	fprintf(f, "\n");
 	fprintf(f, "No arguments are mandatory. These arguments override the options set in the\n");
 	fprintf(f, "config file ($HOME/.xdock/xdock.rc).\n");
-	fprintf(f, "  -t, --theme    Choose the theme used to display the docks. Common themes\n");
-	fprintf(f, "                 names are `led` and `lcd`. The themes are registered in\n");
-	fprintf(f, "                 $SHARE/xdock/themes.rc or $HOME/.xdock/themes.rc.\n");
-	fprintf(f, "  -c, --color    Color of the docks, in the format rrggbb.\n");
 	fprintf(f, "  -a, --attract  Distance (in pixels) from the right border where the dock will\n");
 	fprintf(f, "                 start to be attracted.\n");
+	fprintf(f, "  -c, --color    Color of the docks, in the format rrggbb.\n");
+	fprintf(f, "  -d, --debug    Show debug information.\n");
 	fprintf(f, "  -l, --listen   Address the server will listen to. Possible values are\n");
 	fprintf(f, "                 `localhost` and `all`.\n");
 	fprintf(f, "  -p, --port     Server port.\n");
-	fprintf(f, "  -d, --debug    Show debug information.\n");
+	fprintf(f, "  -t, --theme    Choose the theme used to display the docks. Common themes\n");
+	fprintf(f, "                 names are `led` and `lcd`. The themes are registered in\n");
+	fprintf(f, "                 $SHARE/xdock/themes.rc or $HOME/.xdock/themes.rc.\n");
 	fprintf(f, "  -h, --help     Display this help and exit.\n");
-	fprintf(f, "  -v, --version  Display version information and exit.\n");
+	fprintf(f, "  -V, --version  Display version information and exit.\n");
 	exit(EXIT_SUCCESS);
 }
 
@@ -238,7 +238,7 @@ void opt_parse(int argc, char* argv[])
 	while(1)
 	{
 		static struct option long_options[] = {
-			{ "version",  no_argument,          0, 'v' },
+			{ "version",  no_argument,          0, 'V' },
 			{ "help",     no_argument,          0, 'h' },
 			{ "theme",    required_argument,    0, 't' },
 			{ "color",    required_argument,    0, 'c' },
@@ -263,7 +263,7 @@ void opt_parse(int argc, char* argv[])
 				opt.debug = 1; // TODO -- ???
 				break;
 
-			case 'v':
+			case 'V':
 				print_version();
 				break;
 
