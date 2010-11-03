@@ -7,8 +7,7 @@ static char* font_led_space[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
-        
+"o	c #20B0A8 s lit",
 " ...  ",
 ".   . ",
 ".   . ",
@@ -22,7 +21,7 @@ static char* font_led_A[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "+ooo+ ",
 "o   o ",
@@ -37,7 +36,7 @@ static char* font_led_B[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "+ooo+ ",
 "o   o ",
@@ -52,7 +51,7 @@ static char* font_led_C[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "+ooo+ ",
 "o   . ",
@@ -67,7 +66,7 @@ static char* font_led_D[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "oooo  ",
 "o   o ",
@@ -82,7 +81,7 @@ static char* font_led_E[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "+ooo+ ",
 "o   . ",
@@ -97,7 +96,7 @@ static char* font_led_F[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "+ooo+ ",
 "o   . ",
@@ -112,7 +111,7 @@ static char* font_led_G[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "+ooo+ ",
 "o   . ",
@@ -127,7 +126,7 @@ static char* font_led_H[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "+...+ ",
 "o   o ",
@@ -142,7 +141,7 @@ static char* font_led_I[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 " ...+ ",
 ".   o ",
@@ -157,7 +156,7 @@ static char* font_led_J[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "+ooo+ ",
 ".   o ",
@@ -172,7 +171,7 @@ static char* font_led_K[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "+...+ ",
 "o   o ",
@@ -187,7 +186,7 @@ static char* font_led_L[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "+...  ",
 "o   . ",
@@ -202,7 +201,7 @@ static char* font_led_M[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "o...o ",
 "oo oo ",
@@ -217,7 +216,7 @@ static char* font_led_N[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "+ooo  ",
 "o   o ",
@@ -232,7 +231,7 @@ static char* font_led_O[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "+ooo+ ",
 "o   o ",
@@ -247,7 +246,7 @@ static char* font_led_P[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "+ooo+ ",
 "o   o ",
@@ -262,7 +261,7 @@ static char* font_led_Q[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "+ooo+ ",
 "o   o ",
@@ -277,7 +276,7 @@ static char* font_led_R[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "+ooo+ ",
 "o   o ",
@@ -292,7 +291,7 @@ static char* font_led_S[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "+ooo+ ",
 "o   . ",
@@ -307,7 +306,7 @@ static char* font_led_T[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "+ooo+ ",
 ". o . ",
@@ -322,7 +321,7 @@ static char* font_led_U[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "+...+ ",
 "o   o ",
@@ -337,7 +336,7 @@ static char* font_led_V[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "+...+ ",
 "o   o ",
@@ -352,7 +351,7 @@ static char* font_led_W[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "+...+ ",
 "o   o ",
@@ -367,7 +366,7 @@ static char* font_led_X[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "+...+ ",
 "o   o ",
@@ -382,7 +381,7 @@ static char* font_led_Y[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "+...+ ",
 "o   o ",
@@ -397,7 +396,7 @@ static char* font_led_Z[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "+ooo+ ",
 ".   o ",
@@ -412,7 +411,7 @@ static char* font_led_one[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 " ...+ ",
 ".   o ",
@@ -427,7 +426,7 @@ static char* font_led_2[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "+ooo+ ",
 ".   o ",
@@ -442,7 +441,7 @@ static char* font_led_3[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "+ooo+ ",
 ".   o ",
@@ -457,7 +456,7 @@ static char* font_led_4[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "+...+ ",
 "o   o ",
@@ -472,7 +471,7 @@ static char* font_led_5[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "+ooo+ ",
 "o   . ",
@@ -487,7 +486,7 @@ static char* font_led_6[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "+ooo+ ",
 "o   . ",
@@ -502,7 +501,7 @@ static char* font_led_7[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "+ooo+ ",
 ".   o ",
@@ -517,7 +516,7 @@ static char* font_led_8[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "+ooo+ ",
 "o   o ",
@@ -532,7 +531,7 @@ static char* font_led_9[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "+ooo+ ",
 "o   o ",
@@ -547,7 +546,7 @@ static char* font_led_0[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 " ooo  ",
 "o   o ",
@@ -562,7 +561,7 @@ static char* font_led_exclamation[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 " ...+ ",
 ".   o ",
@@ -577,7 +576,7 @@ static char* font_led_at[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "+ooo+ ",
 "o   o ",
@@ -592,7 +591,7 @@ static char* font_led_dollar[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "+ooo+ ",
 "o o . ",
@@ -607,7 +606,7 @@ static char* font_led_percent[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "+o..+ ",
 "o+  o ",
@@ -622,7 +621,7 @@ static char* font_led_plus[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 " .+.  ",
 ". o . ",
@@ -637,7 +636,7 @@ static char* font_led_minus[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 " ...  ",
 ".   . ",
@@ -652,7 +651,7 @@ static char* font_led_slash[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 " ...+ ",
 ".   o ",
@@ -667,7 +666,7 @@ static char* font_led_backslash[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "+...  ",
 "o   . ",
@@ -682,7 +681,7 @@ static char* font_led_degree[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "+ooo+ ",
 "o   o ",
@@ -697,7 +696,7 @@ static char* font_led_question[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "+ooo+ ",
 "o   o ",
@@ -712,7 +711,7 @@ static char* font_led_lt[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 " ..o  ",
 ". o . ",
@@ -727,7 +726,7 @@ static char* font_led_gt[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "o...  ",
 ".o  . ",
@@ -742,7 +741,7 @@ static char* font_led_eq[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 " ...  ",
 ".   . ",
@@ -757,7 +756,7 @@ static char* font_led_dot[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "  ",
 "  ",
@@ -772,7 +771,7 @@ static char* font_led_colon[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "  ",
 "o ",
@@ -787,7 +786,7 @@ static char* font_led_comma[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "   ",
 "   ",
@@ -802,7 +801,7 @@ static char* font_led_semicolon[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "   ",
 "   ",
@@ -817,7 +816,7 @@ static char* font_led_whitespace[] = {
 " 	c #1B1B1B s panel_bg",
 ".	c #004840 s unlit",
 "+	c #007C70 s halflit",
-"o	c #20B0A8 s bright",
+"o	c #20B0A8 s lit",
         
 "   ",
 "   ",
