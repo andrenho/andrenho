@@ -1,9 +1,10 @@
 #include <xdock.h>
 #include <ctype.h>
+#include <getopt.h>
 #include <stdio.h>
-#include <time.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include <unistd.h>
 #if !_WIN32 && !__CYGWIN__
 #  include <sys/sysinfo.h>
@@ -37,7 +38,7 @@ static const char* pm_xpm[] = {
 
 static int hour_system = 24;
 static int show_date = 1;
-static int show_seconds = 1;
+static int show_seconds = 0;
 static int uptime = 0;
 
 static void show_help(FILE* f)
@@ -47,11 +48,13 @@ Usage: xdclock [OPTION]...\n\
 Clock applet to display the date/hour using xdock.\n\
 \n\
 All arguments are optional.\n\
-  -h, --hour=VALUE              Choose between 12-hour or 24-hour clock\n\
+  -c, --clock=VALUE             Choose between 12-hour or 24-hour clock\n\
                                 (possible values: 12 or 24).\n\
   -n, --no-date                 Don't display the date.\n\
   -s, --seconds                 Display the seconds in the clock.\n\
-  -u, --uptime                  Display uptime instead of current time.\n");
+  -u, --uptime                  Display uptime instead of current time.\n\
+  -h, --help                    This help message.\n\
+  -V, --version                 The application version.\n");
 }
 
 
@@ -103,9 +106,81 @@ static int make_display(char* hour, char* seconds, char* date)
 }
 
 
+static void parse_arguments(int argc, char* argv[])
+{
+	int c;
+	while(1)
+	{
+		static struct option long_options[] = {
+			{ "clock",	required_argument, 0, 'c' },
+			{ "no-date",    no_argument,	   0, 'n' },
+			{ "seconds",	no_argument,	   0, 's' },
+			{ "uptime",	no_argument,	   0, 'u' },
+			{ "help",	no_argument,	   0, 'h' },
+			{ "version",	no_argument,	   0, 'V' },
+			{ 0, 0, 0, 0 }
+		};
+		int optidx = 0;
+		c = getopt_long(argc, argv, "c:nsuhV", long_options, &optidx);
+		if(c == -1)
+			break;
+
+		switch(c)
+		{
+			case 'c':
+				if(!strcmp(optarg, "24"))
+					hour_system = 24;
+				else if(!strcmp(optarg, "12"))
+					hour_system = 12;
+				else
+				{
+					fprintf(stderr, "Accepted values for "
+							"clock: 12 or 24.\n");
+					exit(EXIT_FAILURE);
+				}
+				break;
+
+			case 'n':
+				show_date = 0;
+				break;
+
+			case 's':
+				show_seconds = 1;
+				break;
+
+			case 'u':
+				uptime = 1;
+				break;
+
+			case 'h':
+				show_help(stdout);
+				exit(EXIT_SUCCESS);
+
+			case 'V':
+				show_version();
+				exit(EXIT_SUCCESS);
+			
+			case '?':
+				show_help(stderr);
+				exit(EXIT_FAILURE);
+
+			default: abort();
+		}
+	}
+	if(optind < argc)
+	{
+		show_help(stderr);
+		exit(EXIT_FAILURE);
+	}
+}
+
+
 int main(int argc, char* argv[])
 {
 	char hour[6], seconds[3], date[25];
+
+	// parse arguments
+	parse_arguments(argc, argv);
 
 	// calculate position
 	int hour_x = (show_seconds || (hour_system == 12) ? 14 : 22);
