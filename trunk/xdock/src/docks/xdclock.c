@@ -1,14 +1,19 @@
 #include <xdock.h>
+#include <ctype.h>
 #include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
+#include <sys/sysinfo.h>
 
 #define VERSION "0.1"
 
 char date_format[30];
-int hour = 24;
+int hour_system = 24;
 int show_date = 1;
-int show_seconds = 0;
-int uptime = 0;
+int show_seconds = 1;
+int uptime = 1;
 
 static void show_help(FILE* f)
 {
@@ -34,11 +39,40 @@ static void show_version()
 }
 
 
+static char* upcase(char* str)
+{
+	char* i;
+	for(i=str; i[0]; i[0] = toupper(i[0]), i++);
+	return str;
+}
+
+
 void make_display(char* hour, char* seconds, char* date)
 {
-	strcpy(hour, " 8:12");
-	strcpy(seconds, "39");
-	strcpy(date, "01 ZAO 2010");
+	time_t t;
+	struct tm *tmp;
+	t = time(NULL);
+	tmp = localtime(&t);
+
+	if(uptime)
+	{
+		struct sysinfo info;
+		sysinfo(&info);
+		int updays = (int)info.uptime / (60*60*24);
+		int uphours = (updays * (60*60*24)) - (int)info.uptime / (60*60);
+		int upminutes = (uphours * (60*60)) - (int)info.uptime / 60;
+		int upseconds = (upminutes * 60) - (int)info.uptime;
+		sprintf(hour, "%d:%d", uphours, upminutes);
+		sprintf(seconds, "%d", upseconds);
+		sprintf(date, "%d DAYS", updays);
+	}
+	else
+	{
+		strftime(hour, 6, hour_system == 24 ? "%H:%M" : "%I:%M", tmp);
+		strftime(seconds, 3, "%S", tmp);
+		strftime(date, 25, "%d %b %Y",tmp);
+		upcase(date);
+	}
 }
 
 
@@ -61,11 +95,11 @@ int main(int argc, char* argv[])
 	for(;;)
 	{
 		make_display(hour, seconds, date);
-		xd_write(cn, "lcd3", hour_x, hour_y, hour);
+		xd_write(cn, "led20", hour_x, hour_y, hour);
 		if(show_seconds)
-			xd_write(cn, "led3", hour_x+55, hour_y+11, seconds);
+			xd_write(cn, "led9", hour_x+55, hour_y+11, seconds);
 		if(show_date)
-			xd_write(cn, "led4", 16, hour_y+30, date);
+			xd_write(cn, "led7", 16, hour_y+30, date);
 		xd_update(cn);
 		usleep(1000000);
 	}
