@@ -81,7 +81,6 @@ typedef struct {
  * 4 5
  *  6  */
 FontModel font_model[] = {
-	{ '_', "" },
 	{ ' ', "" },
 	{ '0', "012456" },
 	{ '1', "25" },
@@ -126,8 +125,9 @@ XPM_Font *led20, *led9;
 
 static XPM_Font* init_font(FontModel* model, char** xpm_model)
 {
-	XPM_Font* xpm_font = malloc(sizeof(XPM_Font) *
-		       	(sizeof(xpm_model) / sizeof(FontModel) + 1));
+	int c;
+	for(c=0; model[c].ch; c++);
+	XPM_Font* xpm_font = malloc(sizeof(XPM_Font) * c);
 
 	int i, j;
 	for(i=0; model[i].ch; i++)

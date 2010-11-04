@@ -5,7 +5,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <sys/sysinfo.h>
+#if !_WIN32 && !__CYGWIN__
+#  include <sys/sysinfo.h>
+#endif
 
 #define VERSION "0.1"
 
@@ -13,7 +15,7 @@ char date_format[30];
 int hour_system = 24;
 int show_date = 1;
 int show_seconds = 1;
-int uptime = 1;
+int uptime = 0;
 
 static void show_help(FILE* f)
 {
@@ -54,6 +56,7 @@ void make_display(char* hour, char* seconds, char* date)
 	t = time(NULL);
 	tmp = localtime(&t);
 
+#if !_WIN32 && !__CYGWIN__
 	if(uptime)
 	{
 		struct sysinfo info;
@@ -67,6 +70,7 @@ void make_display(char* hour, char* seconds, char* date)
 		sprintf(date, "%d DAYS", updays);
 	}
 	else
+#endif
 	{
 		strftime(hour, 6, hour_system == 24 ? "%H:%M" : "%I:%M", tmp);
 		strftime(seconds, 3, "%S", tmp);
