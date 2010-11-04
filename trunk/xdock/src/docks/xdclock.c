@@ -87,15 +87,15 @@ int main(int argc, char* argv[])
 	// calculate position
 	int hour_x = show_seconds ? 14 : 22;
 	int hour_y = show_date ? 29 : 36;
-	
+
 	// open connection
-	XD_Connection *cn = xd_connect(argc, argv, "HELLO");
+	XD_Connection *cn = xd_connect(argc, argv, "CLOCK");
 	if(!cn)
 		return 1;
 
 	// draw panel
 	xd_panel(cn, 4, 4, 88, 88);
-	
+
 	for(;;)
 	{
 		make_display(hour, seconds, date);
