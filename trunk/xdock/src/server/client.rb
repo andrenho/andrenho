@@ -11,11 +11,6 @@ HELLO HELLO
 PANEL 5 5 86 86
 UPDATE
 
-# write chars
-WRITE lcd3 10 10 "AXEY"
-UPDATE
-
-UPDATE
 EOF
 
 puts s.gets

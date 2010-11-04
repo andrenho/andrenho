@@ -19,7 +19,7 @@
 #  include <netinet/in.h>
 #  include <arpa/inet.h>
 #  include <fcntl.h>
-#  include <error.h>
+//#  include <error.h>
 #endif
 
 #include "options.h"
