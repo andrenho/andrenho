@@ -126,7 +126,7 @@ void xd_rectangle(XD_Connection* c, char color[25], int x, int y, int w, int h)
 void xd_box(XD_Connection* c, char color[25], int x, int y, int w, int h)
 {
 	assert(c);
-	net_send(c->socket_fd, "RECTANGLE %s %d %d %d %d\n", color, x, y, w, h);
+	net_send(c->socket_fd, "BOX %s %d %d %d %d\n", color, x, y, w, h);
 }
 
 
