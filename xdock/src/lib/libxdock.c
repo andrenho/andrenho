@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 
 #include "network.h"
 
@@ -172,7 +173,7 @@ void xd_write(XD_Connection* c, char font[25], int x, int y, char text[255])
 static int invalid_message(char* msg)
 {
 	fprintf(stderr, "Invalid message from the server: %s.\n", msg);
-	return 0;
+	exit(1);
 }
 
 
@@ -204,4 +205,11 @@ int xd_event(XD_Connection* c, XD_Event* e)
 	}
 	else
 		return 0;
+}
+
+
+void xd_wait_event(XD_Connection* c, XD_Event* e)
+{
+	while(!xd_event(c, e))
+		usleep(1000000/60);
 }

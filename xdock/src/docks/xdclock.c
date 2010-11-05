@@ -51,8 +51,10 @@ All arguments are optional.\n\
   -c, --clock=VALUE             Choose between 12-hour or 24-hour clock\n\
                                 (possible values: 12 or 24).\n\
   -n, --no-date                 Don't display the date.\n\
-  -s, --seconds                 Display the seconds in the clock.\n\
+  -d, --seconds                 Display the seconds in the clock.\n\
   -u, --uptime                  Display uptime instead of current time.\n\
+  -s, --server                  Server address (default: localhost).\n\
+  -p, --port                    Server port (default: 52530).\n\
   -h, --help                    This help message.\n\
   -V, --version                 The application version.\n");
 }
@@ -118,19 +120,24 @@ static void parse_arguments(int argc, char* argv[])
 		static struct option long_options[] = {
 			{ "clock",	required_argument, 0, 'c' },
 			{ "no-date",    no_argument,	   0, 'n' },
-			{ "seconds",	no_argument,	   0, 's' },
+			{ "seconds",	no_argument,	   0, 'd' },
 			{ "uptime",	no_argument,	   0, 'u' },
+			{ "server",     required_argument, 0, 's' },
+			{ "port",       required_argument, 0, 'p' },
 			{ "help",	no_argument,	   0, 'h' },
 			{ "version",	no_argument,	   0, 'V' },
 			{ 0, 0, 0, 0 }
 		};
 		int optidx = 0;
-		c = getopt_long(argc, argv, "c:nsuhV", long_options, &optidx);
+		c = getopt_long(argc, argv, "c:ndus:p:hV", long_options, &optidx);
 		if(c == -1)
 			break;
 
 		switch(c)
 		{
+			case 's':
+			case 'p':
+				break; // parsed by the library
 			case 'c':
 				if(!strcmp(optarg, "24"))
 					hour_system = 24;
@@ -148,11 +155,16 @@ static void parse_arguments(int argc, char* argv[])
 				show_date = 0;
 				break;
 
-			case 's':
+			case 'd':
 				show_seconds = 1;
 				break;
 
 			case 'u':
+#if !_WIN32 && !__CYGWIN__
+				fprintf(stderr, "Uptime is not supported on "
+						"Windows.\n");
+				exit(EXIT_FAILURE);
+#endif
 				uptime = 1;
 				break;
 

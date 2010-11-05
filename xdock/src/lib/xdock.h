@@ -30,5 +30,6 @@ void xd_draw_image(XD_Connection* c, char image[25], int x, int y);
 void xd_write(XD_Connection* c, char font[25], int x, int y, char text[255]);
 
 int xd_event(XD_Connection* c, XD_Event* e);
+void xd_wait_event(XD_Connection* c, XD_Event* e);
 
 #endif
