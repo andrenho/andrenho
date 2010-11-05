@@ -12,7 +12,7 @@
 
 #define VERSION "0.1"
 
-static const char* am_xpm[] = {
+static char* am_xpm[] = {
 "11 6 3 1",
 " 	s panel_bg",
 ".	s unlit",
@@ -24,7 +24,7 @@ static const char* am_xpm[] = {
 "x   x .    ",
 "x   x .    " };
 
-static const char* pm_xpm[] = {
+static char* pm_xpm[] = {
 "11 6 3 1",
 " 	s panel_bg",
 ".	s unlit",
@@ -93,7 +93,7 @@ static int make_display(char* hour, char* seconds, char* date)
 		sprintf(hour, "%2d:%02d", uphours, upminutes);
 		sprintf(seconds, "%02d", upseconds);
 		sprintf(date, "%3d DAY%s UP  ", updays, updays != 1 ? "S" : "");
-		return uphours > 12;
+		return 0;
 	}
 	else
 #endif
@@ -102,6 +102,10 @@ static int make_display(char* hour, char* seconds, char* date)
 		strftime(seconds, 3, "%S", tmp);
 		strftime(date, 25, "%d %b %Y",tmp);
 		upcase(date);
+
+		char tm[3];
+		strftime(tm, 3, "%P", tmp);
+		return !strcmp(tm, "pm");
 	}
 }
 
