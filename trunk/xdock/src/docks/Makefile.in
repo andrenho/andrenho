@@ -34,7 +34,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-bin_PROGRAMS = xdhello$(EXEEXT) xdclock$(EXEEXT)
+bin_PROGRAMS = xdclock$(EXEEXT) xdcalendar$(EXEEXT)
 subdir = src/docks
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -47,13 +47,13 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
+am_xdcalendar_OBJECTS = xdcalendar.$(OBJEXT)
+xdcalendar_OBJECTS = $(am_xdcalendar_OBJECTS)
+am__DEPENDENCIES_1 =
+xdcalendar_DEPENDENCIES = $(am__DEPENDENCIES_1)
 am_xdclock_OBJECTS = xdclock.$(OBJEXT)
 xdclock_OBJECTS = $(am_xdclock_OBJECTS)
-am__DEPENDENCIES_1 =
 xdclock_DEPENDENCIES = $(am__DEPENDENCIES_1)
-am_xdhello_OBJECTS = xdhello.$(OBJEXT)
-xdhello_OBJECTS = $(am_xdhello_OBJECTS)
-xdhello_DEPENDENCIES = $(am__DEPENDENCIES_1)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -67,8 +67,8 @@ CCLD = $(CC)
 LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
-SOURCES = $(xdclock_SOURCES) $(xdhello_SOURCES)
-DIST_SOURCES = $(xdclock_SOURCES) $(xdhello_SOURCES)
+SOURCES = $(xdcalendar_SOURCES) $(xdclock_SOURCES)
+DIST_SOURCES = $(xdcalendar_SOURCES) $(xdclock_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -191,10 +191,10 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AM_CPPFLAGS = -I../lib
-xdhello_SOURCES = xdhello.c
-xdhello_LDADD = -lxdock -L../lib $(MMS_BITFIELDS)
 xdclock_SOURCES = xdclock.c
 xdclock_LDADD = -lxdock -L../lib $(MMS_BITFIELDS)
+xdcalendar_SOURCES = xdcalendar.c
+xdcalendar_LDADD = -lxdock -L../lib $(MMS_BITFIELDS)
 all: all-am
 
 .SUFFIXES:
@@ -272,12 +272,12 @@ clean-binPROGRAMS:
 	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
 	echo " rm -f" $$list; \
 	rm -f $$list
+xdcalendar$(EXEEXT): $(xdcalendar_OBJECTS) $(xdcalendar_DEPENDENCIES) 
+	@rm -f xdcalendar$(EXEEXT)
+	$(LINK) $(xdcalendar_OBJECTS) $(xdcalendar_LDADD) $(LIBS)
 xdclock$(EXEEXT): $(xdclock_OBJECTS) $(xdclock_DEPENDENCIES) 
 	@rm -f xdclock$(EXEEXT)
 	$(LINK) $(xdclock_OBJECTS) $(xdclock_LDADD) $(LIBS)
-xdhello$(EXEEXT): $(xdhello_OBJECTS) $(xdhello_DEPENDENCIES) 
-	@rm -f xdhello$(EXEEXT)
-	$(LINK) $(xdhello_OBJECTS) $(xdhello_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -285,8 +285,8 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xdcalendar.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xdclock.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/xdhello.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
