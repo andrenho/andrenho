@@ -6,6 +6,8 @@
 
 #include "font_led20.xpm"
 #include "font_led7.xpm"
+#include "font_led5.xpm"
+#include "font_led5l.xpm"
 
 
 static char* led20_xpm_model[] = {

@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <time.h>
 
 #define VERSION "0.1"
 
@@ -82,10 +83,16 @@ static void parse_arguments(int argc, char* argv[])
 }
 
 
-static void calendar_data(char month_year[20], char weekdays[7],
+static void calendar_data(char* month_year, char weekdays[7],
 		char days[35][3])
 {
-	strcpy(month_year, "MAY 2010");
+	time_t t;
+	struct tm *tmp;
+	t = time(NULL);
+	tmp = localtime(&t);
+
+	strftime(month_year, 19, "%b %Y", tmp);
+	upcase(month_year);
 	strcpy(weekdays, "STQQSSD");
 	int i;
 	for(i=0; i<35; i++)
@@ -118,20 +125,20 @@ int main(int argc, char* argv[])
 	xd_panel(cn, 4, 4, 88, 88);
 
 	// draw calendar
-	xd_write(cn, "led7", (96/2) - (strlen(month_year) * 3), 8, month_year);
+	xd_write(cn, "led7", (96/2) - (strlen(month_year) * 3), 10, month_year);
 
 	int i;
 	for(i=0; i<7; i++)
 	{
 		char s[2];
 		sprintf(s, "%c", weekdays[i]);
-		xd_write(cn, "led7", (i+1) * 11 + 5, 20, s);
+		xd_write(cn, "led7", (i+1) * 12, 26, s);
 	}
 
 	int x, y, n=0;
 	for(y=0; y<5; y++)
 		for(x=0; x<7; x++)
-			xd_write(cn, "led7", x * 13 + 5, (y * 10) +30, days[n++]);
+			xd_write(cn, "led5_l", x * 12 + 7, (y * 10) +40, days[n++]);
 
 	xd_update(cn);
 
