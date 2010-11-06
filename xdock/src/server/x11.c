@@ -171,6 +171,8 @@ static int x11_initialize_fonts(Client* c)
 		{ "led20", led20 },
 		{ "led9", led9 },
 		{ "led7", led7 },
+		{ "led5", led5 },
+		{ "led5_l", led5_l },
 		{ NULL, NULL },
 	};
 
