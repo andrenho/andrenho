@@ -83,26 +83,42 @@ static void parse_arguments(int argc, char* argv[])
 }
 
 
-static void calendar_data(char* month_year, char weekdays[7],
-		char days[35][3])
+static int calendar_data(char* month_year, char days[35][3])
 {
+	// get days
+	int i;
 	time_t t;
 	struct tm *tmp;
 	t = time(NULL);
 	tmp = localtime(&t);
 
+	// get month
 	strftime(month_year, 19, "%b %Y", tmp);
 	upcase(month_year);
-	strcpy(weekdays, "STQQSSD");
-	int i;
+
+	// get days
+	struct tm tm = { 0, 0, 0, 1, tmp->tm_mon, tmp->tm_year, 0, 0, 0 };
+	mktime(&tm);
+	int max_d, d = 1;
+	if(tmp->tm_mon == 2)
+		max_d = 28;
+	else if(tmp->tm_mon == 4 || tmp->tm_mon == 6 || tmp->tm_mon == 9
+	||      tmp->tm_mon == 11)
+		max_d = 30;
+	else
+		max_d = 31;
+	int today = -1;
 	for(i=0; i<35; i++)
-		if(i<31)
-			sprintf(days[i], "%2d", i+1);
+		if(i<tm.tm_wday || d > max_d)
+			strcpy(days[i], "  ");
 		else
 		{
-			days[i][0] = ' ';
-			days[i][1] = '\0';
+			if(d == tmp->tm_mday && tm.tm_mon == tmp->tm_mon
+			&& tm.tm_year == tmp->tm_year)
+				today = i;
+			sprintf(days[i], "%2d", d++);
 		}
+	return today;
 }
 
 
@@ -117,28 +133,30 @@ int main(int argc, char* argv[])
 		return 1;
 
 	char month_year[20];
-	char weekdays[7];
+	char* weekdays[] = { "SU", "MO", "TU", "WE", "TH", "FR", "SA" };
 	char days[35][3];
-	calendar_data(month_year, weekdays, days);
+	int today = calendar_data(month_year, days);
 
 	// draw panel
 	xd_panel(cn, 4, 4, 88, 88);
 
 	// draw calendar
 	xd_write(cn, "led7", (96/2) - (strlen(month_year) * 3), 10, month_year);
+	xd_line(cn, "halflit", 10, 21, 86, 21);
 
 	int i;
 	for(i=0; i<7; i++)
-	{
-		char s[2];
-		sprintf(s, "%c", weekdays[i]);
-		xd_write(cn, "led7", (i+1) * 12, 26, s);
-	}
+		xd_write(cn, "led5_l", (i+1) * 12 - 4, 29, weekdays[i]);
 
 	int x, y, n=0;
 	for(y=0; y<5; y++)
 		for(x=0; x<7; x++)
+		{
+			if(n == today)
+				xd_rectangle(cn, "lit", x * 12 + 5, 
+						(y * 10) +37, 12, 10);
 			xd_write(cn, "led5_l", x * 12 + 7, (y * 10) +40, days[n++]);
+		}
 
 	xd_update(cn);
 

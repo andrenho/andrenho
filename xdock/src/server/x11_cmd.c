@@ -91,7 +91,7 @@ int x11_rectangle(Client* c, char* color, int x, int y, int w, int h)
 		return 0;
 	if(!x11_set_fg(c, color))
 		return 0;
-	XDrawLine(display, c->pixmap, c->gc, x, y, w, h);
+	XDrawRectangle(display, c->pixmap, c->gc, x, y, w, h);
 	return 1;
 }
 

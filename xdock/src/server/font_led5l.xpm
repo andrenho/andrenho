@@ -268,11 +268,11 @@ static char* font_led5l_T[] = {
 "+	c #007C70 s halflit",
 "o	c #20B0A8 s lit",
         
-"+..  ",
-"o  . ",
-"+oo  ",
-"o  . ",
-"+oo  "};
+"ooo+ ",
+".+ . ",
+" o.  ",
+".+ . ",
+" o.  "};
 
 static char* font_led5l_U[] = {
 " 5 5 4 1",
