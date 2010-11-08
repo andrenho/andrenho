@@ -49,6 +49,6 @@ that will start a example dock and connect it to the server.
 Programming docks
 =================
 
-A full documentation on how to write docks is not yet available. If you want to
-write a dock, you can check xdock.h and the example docks that are provided
-with the application.
+The API file included in this distribution contains the API documentation to
+write docks. A tutorial is not yet avaliable. If you want to write new docks,
+you can use the docks that are included in this distribution as an example.
