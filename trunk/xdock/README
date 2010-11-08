@@ -22,7 +22,8 @@ Simple basic UNIX program installation:
     # make install
     # ldconfig
 
-Just remember that it requires both Imlib and Xlib to compile.
+Just remember that it requires Xlib to compile (you probably have this in your
+sistem).
 
 Running
 =======
@@ -35,20 +36,19 @@ To start a server, simply type:
 
     xdockserver &
 
-this will put the server in background. If your window manager already has a 
-taskbar, you might want to skip a few pixels, typing:
+If you want to use a different theme, just type (for example):
 
-    xdockserver -y 32 &
+    xdockserver -t lcd &
 
 Then, start a client, such as:
 
-    xdmemory &
+    xdclock &
 
 that will start a example dock and connect it to the server.
 
 Programming docks
 =================
 
-Programming docks is very simple. You can follow the tutorial 
-(<http://xdock.sourceforge.net/tutorial.html>) and the API documentation is in
-(<http://xdock.sourceforge.net/api.html>).
+A full documentation on how to write docks is not yet available. If you want to
+write a dock, you can check xdock.h and the example docks that are provided
+with the application.

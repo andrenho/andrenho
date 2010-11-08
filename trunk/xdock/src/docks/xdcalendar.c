@@ -39,8 +39,8 @@ static char* xpm_right[] = {
 static void show_help(FILE* f)
 {
 	fprintf(f,"\
-Usage: XXXXXX [OPTION]...\n\
-Description XXXXXXXXXXXXXXXXX...\n\
+Usage: xdcalendar [OPTION]...\n\
+Create a calendar xdock.\n\
 \n\
 All arguments are optional.\n\
   -s, --server                  Server address (default: localhost).\n\
@@ -52,7 +52,7 @@ All arguments are optional.\n\
 
 static void show_version()
 {
-	printf("XXXXXX version " VERSION "\n"); // TODO
+	printf("xdcalendar version " VERSION "\n"); // TODO
 	exit(0);
 }
 
@@ -124,8 +124,8 @@ static int calendar_data(char* month_year, char days[35][3])
 	int max_d, d = 1;
 	if(selected->tm_mon == 2)
 		max_d = 28;
-	else if(selected->tm_mon == 4 || selected->tm_mon == 6 
-	|| selected->tm_mon == 9 || selected->tm_mon == 11)
+	else if(selected->tm_mon == 3 || selected->tm_mon == 5 
+	|| selected->tm_mon == 8 || selected->tm_mon == 10)
 		max_d = 30;
 	else
 		max_d = 31;
@@ -161,13 +161,24 @@ int main(int argc, char* argv[])
 	xd_send_xpm(cn, "left", xpm_left);
 	xd_send_xpm(cn, "right", xpm_right);
 
+	// TODO - if it is a new day, change the day on the calendar
+
 	// get TODAY and set as the selected month
 	time_t t = time(NULL);
 	today = localtime(&t);
-	selected = &(struct tm) { 0, 0, 0, 
-		1, today->tm_mon, today->tm_year, 
-		0, 0, 0 };
+#if _WIN32 // hack for mingw bug
+	void* tmp = malloc(sizeof(struct tm));
+	memcpy(tmp, today, sizeof(struct tm));
+#endif
+	selected = malloc(sizeof(struct tm));
+	memset(selected, 0, sizeof(struct tm));
+	selected->tm_mday = 1;
+	selected->tm_mon = today->tm_mon;
+	selected->tm_year = today->tm_year;
 	mktime(selected);
+#if _WIN32 // hack for mingw bug
+	memcpy(today, tmp, sizeof(struct tm));
+#endif
 
 	// get info to create the calendar month
 	char month_year[20];
@@ -212,7 +223,8 @@ int main(int argc, char* argv[])
 
 		// events
 		xd_wait_event(cn, &e);
-		if(e.type == MOUSE_DOWN)
+		if(e.type == MOUSE_DOWN 
+		&& (e.x > 4 && e.x < 92 && e.y > 4 && e.y < 92))
 		{
 			int m = selected->tm_mon,
 			    y = selected->tm_year;
@@ -236,6 +248,9 @@ int main(int argc, char* argv[])
 			}
 			selected = &(struct tm) { 0, 0, 0, 1, m, y, 0, 0, 0 };
 			mktime(selected);
+#if _WIN32 // hack for mingw bug
+			memcpy(today, tmp, sizeof(struct tm));
+#endif
 		}
 	}
 }
