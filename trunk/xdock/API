@@ -1,12 +1,11 @@
-xdock API (version 0.0.1)
+xdock API (version 0.3.0)
 =========================
 
 This document describes the API used to develop **xdock** clients. 
 
 Important:
 
-* the dock is 64x64 pixels, so all position parameters must be between 0 and 63.
-* `uchar` means `unsigned char`.
+* the dock is 96x96 pixels, so all position parameters must be between 0 and 95.
 
 --------------------------------------------------------------
 
@@ -23,82 +22,77 @@ Connection functions
 
 These functions deal with the connection with the xdock server.
 
-### `int xd_connect()`
+### `XD_Connection* xd_connect(int argc, char** argv, char id[25])`
 
 > _Description_: connects to the server in localhost and creates a blank square. It must be called before any other **xdock** function is called.
 
-> _Returns_: -1 if connection was sucessful, 0 is not.
+> _Parameters_:
+> * argc and argv - the same argc and argv from the main procedure of the
+>                   application. The library will check from the parameters
+>                   -s and -p (or --server and --port) to know where to
+>                   connect to. These parameters are NOT removed from the 
+>                   list.
+> * id: the ID of the client application (currently used only in debug reports).
 
-### `void xd_disconnect()`
+> _Returns_: the connection structure in case of success, else NULL;
+
+### `xd_disconnect(XD_Connection *c)`
 
 > _Description_: closes the connection with the server. It's not necessary to call this function at the end of the execution of the program, use it to close the connection during the execution.
 
-### `void xd_flush()`
+### `xd_update(XD_Connection* c)`
 
 > _Description_: all changes to the dock are made to memory only. Use this function to update all operations to the screen.
 
 --------------------------------------------------------------
 
-Versions
---------
-
-### `const char* xd_version()`
-
-> _Description_: returns the xdock version.
-
---------------------------------------------------------------
 
 Basic drawing functions
 -----------------------
 
 These functions perform basic drawing.
 
-### `void xd_draw_point(uchar color, uchar x, uchar y)`
+### `xd_pixel(XD_Connection* c, char color[25], int x, int y)`
 
-> _Description_: draw a point (one pixel).
+> _Description_: draw a single pixel.
 
 > _Parameters_:
 > * `color` - color of the point
 > * `x`, `y` - the position of the point
 
-### `xd_draw_line(uchar color, uchar x1, uchar y1, uchar x2, uchar y2)`
+### `xd_line(XD_Connection* c, char color[25], int x1, int y1, int x2, int y2)`
 
-> _Description_: draw a line
+> _Description_: draw a line.
 
 > _Parameters_:
 > * `color` - color of the line
 > * `x1`, `y1` - position of the beginning of the line
 > * `x2`, `y2` - position of the end of the line
 
-### `xd_draw_rectangle(uchar color, uchar x1, uchar y1, uchar x2, uchar y2)`
+### `xd_rectangle(XD_Connection* c, char color[25], int x, int y, int w, int h)`
 
-> _Description_: draw a rectangle
+> _Description_: draw a rectangle.
 
 > _Parameters_:
 > * `color` - color of the rectangle lines
-> * `x1`, `y1` - position of the top/left of the rectangle
-> * `x2`, `y2` - position of the bottom/right of the rectangle
+> * `x`, `y` - position of the top/left of the rectangle
+> * `w`, `h` - height and width of the rectangle
 
-### `xd_draw_box(uchar fgcolor, uchar bgcolor, uchar x1, uchar y1, uchar x2, uchar y2)`
+### `xd_box(XD_Connection* c, char color[25], int x, int y, int w, int h)`
 
-> _Description_: draw a filled rectangle
+> _Description_: draw a filled rectangle.
 
 > _Parameters_:
-> * `bgcolor` - color of the rectangle lines
-> * `fgcolor` - color of the rectangle background
-> * `x1`, `y1` - position of the top/left of the rectangle
-> * `x2`, `y2` - position of the bottom/right of the rectangle
+> * `color` - color of the rectangle
+> * `x`, `y` - position of the top/left of the rectangle
+> * `w`, `h` - height and width of the rectangle
 
---------------------------------------------------------------
+### `xd_panel(XD_Connection* c, int x, int y, int w, int h)`
 
-Themed commands
----------------
-
-These function perform drawing based on a theme. Currently, only the LED theme is available.
-
-### `void xd_led_draw_panel(uchar x1, uchar y1, uchar x2, uchar y2)`
-
-> _Description_: draw a filled rectangle that serves as a LED panel. The berder of the panel is 2 pixel wide, so remember to make _move_ operations one pixel inside the panel. The background of the panel is the color `XD_LED_BG`.
+> _Description_: draw a filled 3D rectangle that serves as a panel. 
+>                The border of the panel is 2 pixel wide, so remember to make 
+>                _move_ operations one pixel inside the panel. The background 
+>                of the panel is the color `panel_bg`.
 
 > _Parameters_:
 > * `x1`, `y1` - position of the top/left of the panel
@@ -111,106 +105,67 @@ Advanced operations
 
 These functions are more advanced drawing operations.
 
-### `void xd_move_box(uchar x1, uchar y1, uchar x2, uchar y2, uchar direction, uchar step, uchar bg_color)`
+### `xd_move_box(XD_Connection* c, int x, int y, int w, int h, int move_x, int move_y, char bg_color[25]);`
 
-> _Description_: move the contents inside the square (defined by x1, y1, x2, y2) a few pixels to a given direction.
+> _Description_: move the contents inside the square (defined by x, y, w, h) a few pixels to a given direction.
 
 > _Parameters_:
-> * `x1`, `y1` - position of the top/left of the box
-> * `x2`, `y2` - position of the bottom/right of the box
-> * `direction` - direction where the contents of the box will move to. Possible options are: `XD_UP`, `XD_DOWN`, `XD_LEFT` and `XD_RIGHT`.
-> * `step`: number of pixels the contents of the box will move.
+> * `x`, `y` - position of the top/left of the box
+> * `w`, `h` - width/height of the box
+> * `move_x`, `move_y` - how many pixels to move to each direction. It can be negative, positive or zero.
 > * `bg_color`: the color that will be left where there were pixels, before moving.
 
-### `void xd_write(uchar font, uchar x, uchar y, const char* text)`
+### `xd_write(XD_Connection* c, char font[25], int x, int y, char text[255])`
 
 > _Description_: write text on the box.
 
 > _Parameters_:
-> * `font` - the font to be used. Currently, the only option is `XD_FONT_LED_1`.
+> * `font` - the font to be used. A few options are `led5`, `led5_l`, `led7`, `led9` and `led20`.
 > * `x`, `y` - position of the top/left of the text
 > * `text` - text to be written. Must be `null` terminated.
 
-### `void xd_send_xpm(uchar n, char** xpm)`
+### `xd_send_xpm(XD_Connection* c, char name[25], char** xpm)`
 
-> _Description_: send a XPM image to the server. A XPM image can be created with [GIMP](http://www.gimp.org/) and linked into the executable. The colors of the image need not to be defined with `xd_set_color`.
+> _Description_: send a XPM image to the server. A XPM image can be created with [GIMP](http://www.gimp.org/) and linked into the executable. Remeber to use images of the type *s* to use themed colors.
 
 > _Parameters:_
-> * `n` - the number of the image. It can be any number from 0 to 255. This number will be used to refer to the image when drawing it.
+> * `name` - a string that'll identify the image.
 > * `xpm` - the XPM structure.
 
-### `void xd_draw_image(uchar n, uchar x, uchar y)`
+### `xd_draw_image(XD_Connection* c, char image[25], int x, int y)`
 
 > _Description_: draw a XPM image defined with `xd_send_xpm`.
 
 > _Parameters_:
-> * `n` - the number of the image, defined when the image was sent to the server.
+> * `name` - the name of the image, defined when the image was sent to the server.
 > * `x`, `y` - position of the top/left of the image.
-
-### `void xd_set_color(uchar color, uchar r, uchar g, uchar b)`
-
-> _Description_: define a new color.
-
-> _Parameters:_
-> * `color` - the number of the color. It must be between 128 and 255. Colors below 128 are reserved.
-> * `r`, `g` and `b`: amount of red, green and blue, respectively. Between 0 and 255.
 
 --------------------------------------------------------------
 
 Events
 ------
 
-### `void xd_grab_events(uchar event_mask, uchar x1, uchar y1, uchar x2, uchar y2)`
+### `int xd_event(XD_Connection* c, XD_Event* e)`
 
-> _Description:_ calling this function means that the server will start sending to the client all events (such as mousepresses) that occur within the area described by the parameters x1, y1, x2 and x2. Only the parameters set my the event_mask parameters will be caught. If this function is called more than once, then the last call replaces the previous one.
-> The area outside outside the defined event area is used to drag the dock to a new position. It is recommended that is left a area of at least 4 pixels in each side.
-
-> _Parameters_:
-> * `event_mask` - the type of event that'll be caught. It can be one of: MOUSE_DOWN, MOUSE_UP and MOUSE_PRESS. MOUSE_PRESS emulates a click on a button, when the mouse is pressed and released without moving.
-> * `x1`, `y2`, `x2` and `y2` - the confined area where the events will be caught. Any mousepresses ouside this area will drag the dock.
-
-### `xd_next_event(xd_event_t* event)`
-
-> _Description_: gets the next event from the server. It's a non blocking function, and it will return 1 if a event is on the queue, and 0 if the queue is empty. The event is returned in the parameter `event`, that has this structure:
+> _Description_: gets the next event from the server. It's a non blocking function, and it will return 1 if a event is on the queue, and 0 if the queue is empty. The event is returned in the parameter `e`, that has this structure:
 
     typedef struct
     {
-        unsigned char type; // Type of event: MOUSE_DOWN, MOUSE_UP or MOUSE_PRESS
-        unsigned char x;
-        unsigned char y;
-        unsigned char button; // Mouse button pressed: 1 (left), 2 (middle) or 3(right)
+	enum { MOUSE_UP, MOUSE_DOWN } type; // event type
+	int x, y;                           // pointer position
     } xd_event_t;
 
 > _Parameters_:
-> * `event` - a event structure that will return the event. The structure of this parameter is defined above. Don't pass NULL on this parameter.
+> * `e` - a event structure that will return the event. The structure of this parameter is defined above. Don't pass NULL on this parameter.
 
 --------------------------------------------------------------
 
 Standard color list
 -------------------
 
-The following colors are available standard from **xdock**. You can create your own colors with `xd_set_color`.
+The following colors are *themed colors*. They can change according to the theme the user chose. It always recommended to use themed colors.
 
-<table border="1">
-<tr><th>Name</th><th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th>R</th><th>G</th><th>B</th></tr>
-
-<tr><td>XD_BLACK</td><td bgcolor="#000000"></td><td>00</td><td>00</td><td>00</td></tr>
-<tr><td>XD_GRAY_10</td><td bgcolor="#191919"></td><td>19</td><td>19</td><td>19</td></tr>
-<tr><td>XD_GRAY_20</td><td bgcolor="#333333"></td><td>33</td><td>33</td><td>33</td></tr>
-<tr><td>XD_GRAY_30</td><td bgcolor="#4C4C4C"></td><td>4C</td><td>4C</td><td>4C</td></tr>
-<tr><td>XD_GRAY_40</td><td bgcolor="#656565"></td><td>65</td><td>65</td><td>65</td></tr>
-<tr><td>XD_GRAY_50</td><td bgcolor="#7F7F7F"></td><td>7F</td><td>7F</td><td>7F</td></tr>
-<tr><td>XD_GRAY_60</td><td bgcolor="#989898"></td><td>98</td><td>98</td><td>98</td></tr>
-<tr><td>XD_GRAY_70</td><td bgcolor="#B1B1B1"></td><td>B1</td><td>B1</td><td>B1</td></tr>
-<tr><td>XD_GRAY_80</td><td bgcolor="#CACACA"></td><td>CA</td><td>CA</td><td>CA</td></tr>
-<tr><td>XD_GRAY_90</td><td bgcolor="#E3E3E3"></td><td>E3</td><td>E3</td><td>E3</td></tr>
-<tr><td>XD_WHITE</td><td bgcolor="#FFFFFF"></td><td>FF</td><td>FF</td><td>FF</td></tr>
-
-<tr><td>XD_LED_BG</td><td bgcolor="#1B1B1B"></td>     <td>1B</td><td>1B</td><td>1B</td></tr>
-<tr><td>XD_LED_UNLIT_1</td><td bgcolor="#004840"></td><td>00</td><td>48</td><td>40</td></tr>
-<tr><td>XD_LED_UNLIT_2</td><td bgcolor="#007C70"></td><td>00</td><td>7C</td><td>70</td></tr>
-<tr><td>XD_LED_LIT_1</td><td bgcolor="#188880"></td>  <td>18</td><td>88</td><td>80</td></tr>
-<tr><td>XD_LED_LIT_2</td><td bgcolor="#20B0A8"></td>  <td>20</td><td>B0</td><td>A8</td></tr>
-<tr><td>XD_LED_GLOW</td><td bgcolor="#00E800"></td>   <td>00</td><td>E8</td><td>00</td></tr>
-
-</table>
+* `panel_bg`, `panel_lt`, `panel_sw`: used for drawing the panel. The color `panel_bg` is the background color of the dock.
+* `unlit`, `halflit`, `lit`: this are the regular colors, that is used for drawing pixels in the panel. The pixel led can be `lit`, `unlit` or `halflit`.
+* `glow`: a very strong color
+* `warning_unlit`, `halfwarning`, `warning`: the same as `unlit`, `halflit` and `lit`, but indicates a warning (it is usually red).

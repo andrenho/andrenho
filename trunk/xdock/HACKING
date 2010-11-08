@@ -1,14 +1,22 @@
+If you want to hack xdockserver, the graphic below is the tree of procedures
+that are called.
 
    main
     |
-    |-- opt_parse                              Initialization functions:
-    |    |                                     parse arguments and initialize
-    |    |-- parse_themes                      X11 and network connections.
+    |-- opt_parse                              Parse arguments, read config
+    |    |                                     file and theme file.
+    |    |-- parse_themes                      
     |    '-- parse_config_file
     |
-    |-- x11_initialize
+    |-- x11_initialize                         Initialize X11.
+    |    |
+    |    |-- x11_panel_height                  Check for height of the top panel.
+    |    | 
+    |    '-- font_led_init                     Initialize fonts.
+    |         |
+    |         '-- font_init
     |
-    |-- net_startup
+    |-- net_startup                            Initialize network.
     |
  ,->|..........................................The main loop starts here.
  .  |
