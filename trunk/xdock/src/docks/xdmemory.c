@@ -21,19 +21,6 @@ struct Usage {
 	int percent;
 };
 
-static char* am_xpm[] = {
-"11 6 3 1",
-" 	s panel_bg",
-".	s unlit",
-"x	s lit",
-"  x   .... ",
-" x x  .   .",
-" x x  .   .",
-"xxxxx .... ",
-"x   x .    ",
-"x   x .    " };
-
-
 static void show_help(FILE* f)
 {
 	fprintf(f,"\
@@ -113,27 +100,63 @@ static void parse_arguments(int argc, char* argv[])
 }
 
 
-void memory_usage(struct Usage *usage)
+inline static char* upcase(char* str)
 {
-	// command = ps -eo %mem,comm --sort:-rss
-	
-	strcpy(usage->top[0].name, "CHROMIUM");
-	usage->top[0].usage = 12.4;
-	strcpy(usage->top[1].name, "XORG");
-	usage->top[1].usage = 6.2;
-	strcpy(usage->top[2].name, "INIT");
-	usage->top[2].usage = 0.2;
-	strcpy(usage->top[3].name, "TOP");
-	usage->top[3].usage = 0.1;
-	strcpy(usage->top[4].name, "MIGRATION");
-	usage->top[4].usage = 0.0;
-	strcpy(usage->top[5].name, "SSHD");
-	usage->top[5].usage = 0.0;
-	strcpy(usage->top[6].name, "AIO/0");
-	usage->top[6].usage = 0.0;
-	usage->percent = 86;
+	char* i;
+	for(i=str; i[0]; i[0] = toupper(i[0]), i++);
+	return str;
 }
 
+
+void memory_usage(struct Usage *usage)
+{
+	// run command = ps -eo %mem,comm --sort:-rss
+	int fd[2];
+	pipe(fd);
+
+	if(!fork())
+	{
+		// child
+		dup2(fd[1], 1);
+		close(fd[0]);
+		close(fd[1]);
+		char* const args[] = { 
+			"ps", "-eo", "comm,%mem", "--sort:-rss", NULL
+		};
+		execv("/bin/ps", args);
+		perror("execv");
+	}
+	else
+	{
+		// parent
+		dup2(fd[0], 0);
+		close(fd[0]);
+		close(fd[1]);
+
+		char buf[512];
+		fscanf(stdin, "%s %s", buf, buf);
+		
+		float sum = 0.0;
+		int i;
+		for(i=0; i<8; i++)
+		{
+			fscanf(stdin, "%255s %f", buf,
+					&usage->top[i].usage);
+			strncpy(usage->top[i].name, buf, 10);
+			usage->top[i].name[10] = '\0';
+			upcase(usage->top[i].name);
+			sum += usage->top[i].usage;
+		}
+
+		float v;
+		while(fscanf(stdin, "%255s %f", buf, &v) != EOF)
+			sum += v;
+		printf("%f\n", sum);
+		usage->percent = sum;
+	}
+}
+
+XD_Connection *cn;
 
 int main(int argc, char* argv[])
 {
@@ -141,7 +164,7 @@ int main(int argc, char* argv[])
 	parse_arguments(argc, argv);
 
 	// open connection
-	XD_Connection *cn = xd_connect(argc, argv, "CLOCK");
+	cn = xd_connect(argc, argv, "CLOCK");
 	if(!cn)
 		return 1;
 
@@ -157,8 +180,10 @@ int main(int argc, char* argv[])
 		// draw processes
 		int i;
 		for(i=0; i<TOP_PROCESSES; i++)
+		{
 			xd_write(cn, "led7", 7, 7 + (i*9), "%-10s_%4.1f",
 					usage.top[i].name, usage.top[i].usage);
+		}
 
 		// draw graph
 		int x;
