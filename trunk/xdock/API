@@ -115,14 +115,14 @@ These functions are more advanced drawing operations.
 > * `move_x`, `move_y` - how many pixels to move to each direction. It can be negative, positive or zero.
 > * `bg_color`: the color that will be left where there were pixels, before moving.
 
-### `xd_write(XD_Connection* c, char font[25], int x, int y, char text[255])`
+### `xd_write(XD_Connection* c, char font[25], int x, int y, char* fmt, ...)`
 
 > _Description_: write text on the box.
 
 > _Parameters_:
 > * `font` - the font to be used. A few options are `led5`, `led5_l`, `led7`, `led9` and `led20`.
 > * `x`, `y` - position of the top/left of the text
-> * `text` - text to be written. Must be `null` terminated.
+> * `fmt` - text to be written. Must be `null` terminated.
 
 ### `xd_send_xpm(XD_Connection* c, char name[25], char** xpm)`
 

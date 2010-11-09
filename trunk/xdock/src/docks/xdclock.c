@@ -218,7 +218,7 @@ int main(int argc, char* argv[])
 		int pm = make_display(hour, seconds, date);
 
 		// draw hours
-		xd_write(cn, "led20", hour_x, hour_y, hour);
+		xd_write(cn, "led20", hour_x, hour_y, "%s", hour);
 		if(strtol(seconds, NULL, 10) % 2 == 1)
 			xd_box(cn, "panel_bg", hour_x+25, hour_y+3, 3, 12);
 
@@ -233,7 +233,7 @@ int main(int argc, char* argv[])
 		// draw date
 		if(show_date || uptime)
 			xd_write(cn, "led7", 16 - (uptime ? 6 : 0), 
-					hour_y+30, date);
+					hour_y+30, "%s", date);
 
 		xd_update(cn);
 		usleep(1000000);

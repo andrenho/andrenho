@@ -72,7 +72,7 @@ void xd_send_xpm(XD_Connection* c, char name[25], char** xpm);
 void xd_draw_image(XD_Connection* c, char image[25], int x, int y);
 
 // Write a text using the given font.
-void xd_write(XD_Connection* c, char font[25], int x, int y, char text[255]);
+void xd_write(XD_Connection* c, char font[25], int x, int y, char* fmt, ...);
 
 // Check if there is a events, and returns immediately. If there is a event, 1
 // is returned and the XD_Event structure is filled. If not, 0 is returned.
