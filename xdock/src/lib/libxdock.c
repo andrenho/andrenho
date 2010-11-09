@@ -1,6 +1,7 @@
 #include "xdock.h"
 
 #include <assert.h>
+#include <stdarg.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -18,7 +19,10 @@ static void quit(int sig)
 {
 	int i;
 	for(i=0; i<n_connections; i++)
+	{
+		printf("done\n");
 		xd_disconnect(connections[i]);
+	}
 	exit(0);
 }
 #endif
@@ -163,10 +167,17 @@ void xd_draw_image(XD_Connection* c, char image[25], int x, int y)
 }
 
 
-void xd_write(XD_Connection* c, char font[25], int x, int y, char text[255])
+void xd_write(XD_Connection* c, char font[25], int x, int y, char *fmt, ...)
 {
 	assert(c);
-	net_send(c->socket_fd, "WRITE %s %d %d \"%s\"\n", font, x, y, text);
+
+	char buf[255];
+	va_list ap;
+	va_start(ap, fmt);
+	vsnprintf(buf, 254, fmt, ap);
+	va_end(ap);
+
+	net_send(c->socket_fd, "WRITE %s %d %d \"%s\"\n", font, x, y, buf);
 }
 
 
