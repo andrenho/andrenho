@@ -32,9 +32,9 @@ AC_SUBST([WINSOCK])
 
 # Checks for library functions.
 AC_CONFIG_FILES([Makefile
+                 share/Makefile
                  src/Makefile
                  src/server/Makefile
-		 share/Makefile
                  src/lib/Makefile
                  src/docks/Makefile])
 AC_OUTPUT

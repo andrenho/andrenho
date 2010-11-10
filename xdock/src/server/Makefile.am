@@ -13,6 +13,8 @@ xdockserver_SOURCES = main.c      client.h   \
 		      x11.h       x11.c      \
 		      x11_cmd.c   x11_cmd.h  \
 		      x11_util.c  x11_util.h \
-		      font_led_2.xpm         \
-		      font_led_3.xpm
+		      font_led5.xpm          \
+		      font_led5l.xpm         \
+		      font_led7.xpm          \
+		      font_led20.xpm
 xdockserver_LDFLAGS = $(PTHREAD) $(X11) $(MMS_BITFIELDS) $(WINSOCK)

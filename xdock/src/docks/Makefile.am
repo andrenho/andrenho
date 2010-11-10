@@ -1,4 +1,4 @@
-AM_CPPFLAGS = -I../lib
+AM_CPPFLAGS = -I$(top_srcdir)/src/lib
 
 bin_PROGRAMS = xdclock xdcalendar xdmemory
 

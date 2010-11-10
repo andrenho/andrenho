@@ -1,2 +1,2 @@
 xdockdatarootdir = $(datarootdir)/${PACKAGE}
-xdockdataroot_DATA = themes.rc
+dist_xdockdataroot_DATA = themes.rc
