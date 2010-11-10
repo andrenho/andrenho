@@ -1,2 +1,1 @@
-#SUBDIRS = lib server docks
-SUBDIRS = server
+SUBDIRS = lib server docks

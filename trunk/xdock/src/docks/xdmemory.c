@@ -151,7 +151,6 @@ void memory_usage(struct Usage *usage)
 		float v;
 		while(fscanf(stdin, "%255s %f", buf, &v) != EOF)
 			sum += v;
-		printf("%f\n", sum);
 		usage->percent = sum;
 	}
 }
