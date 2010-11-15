@@ -10,6 +10,8 @@ IS			(u|U|l|L)*
 #include "parser.tab.h"
 
 void count();
+void comment();
+int check_type();
 %}
 
 %%
@@ -113,13 +115,13 @@ L?\"(\\.|[^\\"])*\"	{ count(); return(STRING_LITERAL); }
 
 %%
 
-yywrap()
+int yywrap()
 {
 	return(1);
 }
 
 
-comment()
+void comment()
 {
 	char c, c1;
 
@@ -152,7 +154,7 @@ void count()
 		else
 			column++;
 
-	ECHO;
+	// ECHO;
 }
 
 
@@ -172,4 +174,4 @@ int check_type()
 */
 
 	return(IDENTIFIER);
-} 
+}
