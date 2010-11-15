@@ -9,6 +9,8 @@ IS			(u|U|l|L)*
 #include <stdio.h>
 #include "parser.tab.h"
 
+#define YYSTYPE char*
+
 void count();
 void comment();
 int check_type();
@@ -54,7 +56,7 @@ int check_type();
 
 0[xX]{H}+{IS}?		{ count(); return(CONSTANT); }
 0{D}+{IS}?		{ count(); return(CONSTANT); }
-{D}+{IS}?		{ count(); return(CONSTANT); }
+{D}+{IS}?		{ yylval = yytext; count(); return(CONSTANT); }
 L?'(\\.|[^\\'])+'	{ count(); return(CONSTANT); }
 
 {D}+{E}{FS}?		{ count(); return(CONSTANT); }

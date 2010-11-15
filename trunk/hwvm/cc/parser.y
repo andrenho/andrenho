@@ -1,8 +1,13 @@
 %{
+
 #include "util.h"
+
+#define YYSTYPE char*
 
 int yylex();
 void yyerror(char *s);
+extern char yytext[];
+
 %}
 
 %token IDENTIFIER CONSTANT STRING_LITERAL SIZEOF
@@ -22,7 +27,7 @@ void yyerror(char *s);
 
 primary_expression
 	: IDENTIFIER
-	| CONSTANT
+	| CONSTANT { output("push %s", $1); }
 	| STRING_LITERAL
 	| '(' expression ')'
 	;
@@ -424,7 +429,6 @@ function_definition
 %%
 #include <stdio.h>
 
-extern char yytext[];
 extern int column;
 
 void yyerror(char* s)
@@ -435,6 +439,7 @@ void yyerror(char* s)
 
 int main()
 {
+	initialize();
 	yyparse();
 	return 0;
 }
