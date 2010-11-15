@@ -27,7 +27,7 @@ extern char yytext[];
 
 primary_expression
 	: IDENTIFIER
-	| CONSTANT { output("push %s", $1); }
+	| CONSTANT { output("mov a, %s", $1); }
 	| STRING_LITERAL
 	| '(' expression ')'
 	;
@@ -73,14 +73,14 @@ cast_expression
 
 multiplicative_expression
 	: cast_expression
-	| multiplicative_expression '*' cast_expression
+	| multiplicative_expression { output("push a"); } '*' cast_expression { output("pop b"); output("mul"); }
 	| multiplicative_expression '/' cast_expression
 	| multiplicative_expression '%' cast_expression
 	;
 
 additive_expression
 	: multiplicative_expression
-	| additive_expression '+' multiplicative_expression { output("pop b"); output("pop a"); output("add"); }
+	| additive_expression { output("push a"); } '+' multiplicative_expression { output("pop b"); output("add"); }
 	| additive_expression '-' multiplicative_expression
 	;
 

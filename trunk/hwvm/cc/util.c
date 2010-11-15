@@ -10,6 +10,8 @@ void initialize()
 {
 	context = NULL;
 	new_context(GLOBAL, NULL);
+	output("call main");
+	output("syscall EXIT");
 }
 
 
