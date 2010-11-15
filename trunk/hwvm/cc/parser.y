@@ -74,14 +74,14 @@ cast_expression
 multiplicative_expression
 	: cast_expression
 	| multiplicative_expression { output("push a"); } '*' cast_expression { output("pop b"); output("mul"); }
-	| multiplicative_expression '/' cast_expression
-	| multiplicative_expression '%' cast_expression
+	| multiplicative_expression { output("push a"); } '/' cast_expression { output("pop b"); output("div"); }
+	| multiplicative_expression { output("push a"); } '%' cast_expression { output("pop b"); output("div"); output("swap"); }
 	;
 
 additive_expression
 	: multiplicative_expression
 	| additive_expression { output("push a"); } '+' multiplicative_expression { output("pop b"); output("add"); }
-	| additive_expression '-' multiplicative_expression
+	| additive_expression { output("push a"); } '-' multiplicative_expression { output("pop b"); output("swap"); output("sub"); }
 	;
 
 shift_expression
