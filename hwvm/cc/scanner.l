@@ -56,7 +56,7 @@ int check_type();
 
 0[xX]{H}+{IS}?		{ count(); return(CONSTANT); }
 0{D}+{IS}?		{ count(); return(CONSTANT); }
-{D}+{IS}?		{ yylval = yytext; count(); return(CONSTANT); }
+{D}+{IS}?		{ yylval = strdup(yytext); count(); return(CONSTANT); }
 L?'(\\.|[^\\'])+'	{ count(); return(CONSTANT); }
 
 {D}+{E}{FS}?		{ count(); return(CONSTANT); }
@@ -175,5 +175,6 @@ int check_type()
 *	it actually will only return IDENTIFIER
 */
 
+	yylval = strdup(yytext);
 	return(IDENTIFIER);
 }

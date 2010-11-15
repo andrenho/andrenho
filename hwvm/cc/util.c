@@ -8,11 +8,40 @@ Context* context;
 
 void initialize()
 {
-	context = malloc(sizeof(Context));
-	context->type = GLOBAL;
-	context->previous = NULL;
+	context = NULL;
+	new_context(GLOBAL);
 }
 
+
+void new_context(ContextType type)
+{
+	Context* c = context;
+	context = malloc(sizeof(Context));
+	context->type = type;
+	context->previous = c;
+}
+
+
+void exit_context()
+{
+	if(context->type == GLOBAL)
+	{
+		fprintf(stderr, "Internal error: can't free global context.\n");
+		abort();
+	}
+
+	Context* c = context;
+	context = context->previous;
+	free(c);
+}
+
+void print(char* fmt, ...)
+{
+	va_list ap;
+	va_start(ap, fmt);
+	vprintf(fmt, ap);
+	printf("\n");
+}
 
 void output(char* fmt, ...)
 {
@@ -22,3 +51,4 @@ void output(char* fmt, ...)
 	vprintf(fmt, ap);
 	printf("\n");
 }
+
