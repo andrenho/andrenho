@@ -80,7 +80,7 @@ multiplicative_expression
 
 additive_expression
 	: multiplicative_expression
-	| additive_expression '+' multiplicative_expression
+	| additive_expression '+' multiplicative_expression { output("pop b"); output("pop a"); output("add"); }
 	| additive_expression '-' multiplicative_expression
 	;
 
