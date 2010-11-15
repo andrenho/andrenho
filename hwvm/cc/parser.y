@@ -421,7 +421,7 @@ external_declaration
 
 function_definition
 	: declaration_specifiers declarator declaration_list compound_statement
-	| declaration_specifiers declarator { print("%s:", $2); } compound_statement
+	| declaration_specifiers declarator { print("%s:", $2); new_context(FUNCTION, $2); } compound_statement { exit_context(); }
 	| declarator declaration_list compound_statement
 	| declarator compound_statement
 	;
