@@ -9,12 +9,14 @@ Context* context;
 void initialize()
 {
 	context = NULL;
-	new_context(GLOBAL);
+	new_context(GLOBAL, NULL);
 }
 
 
-void new_context(ContextType type)
+void new_context(ContextType type, char* fct_name)
 {
+	(void) fct_name;
+
 	Context* c = context;
 	context = malloc(sizeof(Context));
 	context->type = type;

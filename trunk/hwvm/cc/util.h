@@ -9,7 +9,7 @@ typedef struct Context {
 } Context;
 
 void initialize();
-void new_context(ContextType type);
+void new_context(ContextType type, char* fct_name);
 void exit_context();
 void print(char* fmt, ...);
 void output(char* fmt, ...);
