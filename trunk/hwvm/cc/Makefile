@@ -1,4 +1,4 @@
-cc: lex.yy.c parser.tab.c parser.tab.h
+cc: lex.yy.c parser.tab.c parser.tab.h util.h util.c
 	gcc -g -Wall -Wextra -o $@ $^ -lfl
 
 lex.yy.c: scanner.l
