@@ -1,4 +1,6 @@
 %{
+#include "util.h"
+
 int yylex();
 void yyerror(char *s);
 %}
@@ -399,7 +401,7 @@ jump_statement
 	| CONTINUE ';'
 	| BREAK ';'
 	| RETURN ';'
-	| RETURN expression ';'
+	| RETURN expression ';' { output("ret"); }
 	;
 
 translation_unit
