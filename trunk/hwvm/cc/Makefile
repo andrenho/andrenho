@@ -8,7 +8,7 @@ parser.tab.c parser.tab.h: parser.y
 	bison -d parser.y
 
 clean:
-	rm *.o lex.yy.c parser.tab.c parser.tab.h cc
+	rm -f lex.yy.c parser.tab.c parser.tab.h cc
 
 test: cc
 	./cc <teste.c
