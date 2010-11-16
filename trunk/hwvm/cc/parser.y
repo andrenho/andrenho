@@ -2,8 +2,6 @@
 
 #include "util.h"
 
-#define YYSTYPE char*
-
 int yylex();
 void yyerror(char *s);
 extern char yytext[];
@@ -27,7 +25,7 @@ extern char yytext[];
 
 primary_expression
 	: IDENTIFIER
-	| CONSTANT { output("mov a, %s", $1); }
+	| CONSTANT { gettype($$); output("mov a, %s", $$.value); }
 	| STRING_LITERAL
 	| '(' expression ')'
 	;
@@ -73,15 +71,15 @@ cast_expression
 
 multiplicative_expression
 	: cast_expression
-	| multiplicative_expression '*' cast_expression 
+	| multiplicative_expression { output("push a"); } '*' cast_expression { output("pop b"); $$ = cast($1, $3); output("mul"); }
 	| multiplicative_expression '/' cast_expression
 	| multiplicative_expression '%' cast_expression
 	;
 
 additive_expression
 	: multiplicative_expression
-	| additive_expression { output("push a"); } '+' multiplicative_expression { output("pop b"); output("add"); }
-	| additive_expression { output("push a"); } '-' multiplicative_expression
+	| additive_expression { output("push a"); } '+' multiplicative_expression { output("pop b"); $$ = cast($1, $3); output("add"); }
+	| additive_expression '-' multiplicative_expression
 	;
 
 shift_expression
@@ -421,7 +419,7 @@ external_declaration
 
 function_definition
 	: declaration_specifiers declarator declaration_list compound_statement
-	| declaration_specifiers declarator { print("%s:", $2); new_context(FUNCTION, $2); } compound_statement { exit_context(); }
+	| declaration_specifiers declarator compound_statement
 	| declarator declaration_list compound_statement
 	| declarator compound_statement
 	;

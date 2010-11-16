@@ -56,3 +56,12 @@ void output(char* fmt, ...)
 	printf("\n");
 }
 
+void gettype(YYSTYPE v)
+{
+	v.type = 1;
+}
+
+YYSTYPE cast(YYSTYPE val1, YYSTYPE val2)
+{
+	return (YYSTYPE) { NULL, 1 };
+}
