@@ -1,12 +1,17 @@
 %{
 
+#include <stdlib.h>
+
 #include "types.h"
 #include "compiler.h"
 #include "util.h"
 
 int yylex();
 void yyerror(char *s);
+void not_supported();
 extern char yytext[];
+
+static Type type = { OBJECT, _INT, true, NULL, NULL, 0 };
 
 %}
 
@@ -164,8 +169,11 @@ constant_expression
 	;
 
 declaration
-	: declaration_specifiers ';'
-	| declaration_specifiers init_declarator_list ';'
+/*	: declaration_specifiers ';' */
+	: declaration_specifiers init_declarator_list ';' { 
+								// reboot type
+								type = (Type) { OBJECT, _INT, true, NULL, NULL, 0 }; 
+							  }
 	;
 
 declaration_specifiers
@@ -188,26 +196,26 @@ init_declarator
 	;
 
 storage_class_specifier
-	: TYPEDEF
-	| EXTERN
-	| STATIC
-	| AUTO
-	| REGISTER
+	: TYPEDEF   { not_supported(); }
+	| EXTERN    /* TODO */
+	| STATIC    /* TODO */
+	| AUTO      /* do nothing */
+	| REGISTER  /* do nothing */
 	;
 
 type_specifier
-	: VOID
-	| CHAR
-	| SHORT
-	| INT
-	| LONG
-	| FLOAT
-	| DOUBLE
-	| SIGNED
-	| UNSIGNED
-	| struct_or_union_specifier
-	| enum_specifier
-	| TYPE_NAME
+	: VOID 		{ type.basic_type = _VOID; }
+	| CHAR		{ type.basic_type = _CHAR; }
+	| SHORT		{ type.basic_type = _SHORT; }
+	| INT           /* do nothing */
+	| LONG		{ type.basic_type = _LONG; }
+	| FLOAT		{ not_supported(); }
+	| DOUBLE	{ not_supported(); }
+	| SIGNED	{ type._signed = true; }
+	| UNSIGNED	{ type._signed = false; }
+	| struct_or_union_specifier { not_supported(); }
+	| enum_specifier { not_supported(); }
+	| TYPE_NAME	{ not_supported(); }
 	;
 
 struct_or_union_specifier
@@ -436,6 +444,12 @@ void yyerror(char* s)
 {
 	fflush(stdout);
 	printf("\n%*s\n%*s\n", column, "^", column, s);
+}
+
+void not_supported()
+{
+	yyerror("This feature is not yet supported.");
+	exit(1);
 }
 
 int main()
