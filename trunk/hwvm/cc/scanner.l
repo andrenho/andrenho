@@ -7,7 +7,8 @@ IS			(u|U|l|L)*
 
 %{
 #include <stdio.h>
-#include "util.h"
+#include <string.h>
+#include "types.h"
 #include "parser.tab.h"
 
 void count();
@@ -54,14 +55,14 @@ int check_type();
 
 {L}({L}|{D})*		{ count(); return(check_type()); }
 
-0[xX]{H}+{IS}?		{ count(); return(CONSTANT); }
-0{D}+{IS}?		{ count(); return(CONSTANT); }
+0[xX]{H}+{IS}?		{ yylval.value = strdup(yytext); count(); return(CONSTANT); }
+0{D}+{IS}?		{ yylval.value = strdup(yytext); count(); return(CONSTANT); }
 {D}+{IS}?		{ yylval.value = strdup(yytext); count(); return(CONSTANT); }
-L?'(\\.|[^\\'])+'	{ count(); return(CONSTANT); }
+L?'(\\.|[^\\'])+'	{ yylval.value = strdup(yytext); count(); return(CONSTANT); }
 
-{D}+{E}{FS}?		{ count(); return(CONSTANT); }
-{D}*"."{D}+({E})?{FS}?	{ count(); return(CONSTANT); }
-{D}+"."{D}*({E})?{FS}?	{ count(); return(CONSTANT); }
+{D}+{E}{FS}?		{ yylval.value = strdup(yytext); count(); return(CONSTANT); }
+{D}*"."{D}+({E})?{FS}?	{ yylval.value = strdup(yytext); count(); return(CONSTANT); }
+{D}+"."{D}*({E})?{FS}?	{ yylval.value = strdup(yytext); count(); return(CONSTANT); }
 
 L?\"(\\.|[^\\"])*\"	{ count(); return(STRING_LITERAL); }
 

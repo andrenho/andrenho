@@ -1,5 +1,7 @@
 %{
 
+#include "types.h"
+#include "compiler.h"
 #include "util.h"
 
 int yylex();
@@ -21,11 +23,12 @@ extern char yytext[];
 %token CASE DEFAULT IF ELSE SWITCH WHILE DO FOR GOTO CONTINUE BREAK RETURN
 
 %start translation_unit
+
 %%
 
 primary_expression
 	: IDENTIFIER
-	| CONSTANT { gettype($$); output("mov a, %s", $$.value); }
+	| CONSTANT { parse_constant($$); output("mov a, %s", $$.value); }
 	| STRING_LITERAL
 	| '(' expression ')'
 	;
