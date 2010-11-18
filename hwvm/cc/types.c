@@ -62,7 +62,21 @@ void parse_constant(YYSTYPE v)
 	}
 }
 
+
+void clear_type()
+{
+	type = (Type) { OBJECT, _INT, true, NULL, NULL, 0 };
+}
+
+
 YYSTYPE cast(YYSTYPE val1, YYSTYPE val2)
 {
 	// return (YYSTYPE) { NULL, { VALUE } };
+}
+
+
+void cast_to(Type from, Type to)
+{
+	if(from.type == OBJECT && (to.type == VALUE || to.type == FUNCTION))
+		output("mov $a, [$a]");
 }

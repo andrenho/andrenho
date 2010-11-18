@@ -18,6 +18,8 @@ typedef struct Type {
 	int references;
 } Type;
 
+extern Type type;
+
 struct YYSTYPE {
 	char* value;
 	Type type;
@@ -26,6 +28,8 @@ struct YYSTYPE {
 
 void parse_constant(YYSTYPE type);
 YYSTYPE cast(YYSTYPE val1, YYSTYPE val2);
+void cast_to(Type from, Type to);
+void clear_type();
 
 #define _CHAR_MAX  	0x7f
 #define _UCHAR_MAX	0xff

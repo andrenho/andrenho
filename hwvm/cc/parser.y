@@ -4,6 +4,7 @@
 
 #include "types.h"
 #include "compiler.h"
+#include "identifier.h"
 #include "util.h"
 
 int yylex();
@@ -11,7 +12,7 @@ void yyerror(char *s);
 void not_supported();
 extern char yytext[];
 
-static Type type = { OBJECT, _INT, true, NULL, NULL, 0 };
+Type type = { OBJECT, _INT, true, NULL, NULL, 0 };
 
 %}
 
@@ -32,8 +33,8 @@ static Type type = { OBJECT, _INT, true, NULL, NULL, 0 };
 %%
 
 primary_expression
-	: IDENTIFIER
-	| CONSTANT { parse_constant($$); output("mov a, %s", $$.value); }
+	: IDENTIFIER { get_var(&$$); output("mov $a, %s", $$.value); }
+	| CONSTANT { parse_constant($$); output("mov $a, %s", $$.value); }
 	| STRING_LITERAL
 	| '(' expression ')'
 	;
@@ -170,10 +171,7 @@ constant_expression
 
 declaration
 /*	: declaration_specifiers ';' */
-	: declaration_specifiers init_declarator_list ';' { 
-								// reboot type
-								type = (Type) { OBJECT, _INT, true, NULL, NULL, 0 }; 
-							  }
+	: declaration_specifiers init_declarator_list ';' { clear_type(); }
 	;
 
 declaration_specifiers
@@ -191,8 +189,8 @@ init_declarator_list
 	;
 
 init_declarator
-	: declarator
-	| declarator '=' initializer
+	: declarator { output("mov $a, 0"); declare_var(type, $$); }
+	| declarator '=' initializer { declare_var(type, $$); }
 	;
 
 storage_class_specifier
@@ -273,8 +271,8 @@ enumerator
 	;
 
 type_qualifier
-	: CONST
-	| VOLATILE
+	: CONST     /* TODO */
+	| VOLATILE  /* do nothing */
 	;
 
 declarator
@@ -415,7 +413,7 @@ jump_statement
 	| CONTINUE ';'
 	| BREAK ';'
 	| RETURN ';'
-	| RETURN expression ';' { output("ret"); }
+	| RETURN expression ';' { cast_to($2.type, function_type()); output("ret"); }
 	;
 
 translation_unit
@@ -430,7 +428,7 @@ external_declaration
 
 function_definition
 	: declaration_specifiers declarator declaration_list compound_statement
-	| declaration_specifiers declarator compound_statement
+	| declaration_specifiers declarator { function(type, $2); } compound_statement { end_function(); }
 	| declarator declaration_list compound_statement
 	| declarator compound_statement
 	;

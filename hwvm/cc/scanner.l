@@ -176,6 +176,6 @@ int check_type()
 *	it actually will only return IDENTIFIER
 */
 
-	//yylval = strdup(yytext);
+	yylval.value = strdup(yytext);
 	return(IDENTIFIER);
 }
