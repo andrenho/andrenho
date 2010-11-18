@@ -10,19 +10,20 @@ Context* context;
 void initialize()
 {
 	context = NULL;
-	new_context(_GLOBAL, NULL);
+	new_context(_GLOBAL, "global");
 //	output("call main");
 //	output("syscall EXIT");
 }
 
 
-void new_context(ContextType type, char* fct_name)
+void new_context(ContextType type, char* name)
 {
-	(void) fct_name;
-
 	Context* c = context;
 	context = malloc(sizeof(Context));
 	context->type = type;
+	context->name = name;
+	context->variables = NULL;
+	context->stack = 0;
 	context->previous = c;
 }
 
