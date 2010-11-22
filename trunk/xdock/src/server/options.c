@@ -52,6 +52,8 @@ static void print_usage(FILE* f)
 	fprintf(f, "  -t, --theme    Choose the theme used to display the docks. Common themes\n");
 	fprintf(f, "                 names are `led` and `lcd`. The themes are registered in\n");
 	fprintf(f, "                 $SHARE/xdock/themes.rc or $HOME/.xdock/themes.rc.\n");
+	fprintf(f, "  -w, --wm       Window manager to be used. Possible options:\n");
+	fprintf(f, "                 x11 and w32.\n");
 	fprintf(f, "  -h, --help     Display this help and exit.\n");
 	fprintf(f, "  -V, --version  Display version information and exit.\n");
 	exit(EXIT_SUCCESS);
@@ -133,6 +135,21 @@ static void parse_config_file()
 			}
 			else
 				opt.server_port = port;
+		}
+		else if(!strcmp(cmd, "wm"))
+		{
+			if(strcmp(val, "x11") == 0)
+				opt.toolkit = X11;
+			else if(strcmp(val, "w32") == 0)
+				opt.toolkit = W32;
+			else
+			{
+				fprintf(stderr, "Invalid value %s to parameter"
+					"wm in config file. Valid values are "
+					"`x11` and `w32`.\n",
+					val);
+				return;
+			}		
 		}
 		else
 			fprintf(stderr, "Invalid variable %s in config file.\n",

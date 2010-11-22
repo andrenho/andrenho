@@ -17,7 +17,7 @@ struct ThemeColor {
 
 // Set of user changeable options.
 typedef struct {
-	enum { X11 } toolkit;	// Toolkit used (not implemented)
+	enum { X11, W32 } toolkit;	// Toolkit used
 	int debug;		// Show debug information
 	long dock_color;	// Color of the dock
 	char* theme;		// Theme used
