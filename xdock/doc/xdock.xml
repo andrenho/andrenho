@@ -1,0 +1,17 @@
+<!DOCTYPE book PUBLIC "-//OASIS/DTD DocBook V4.5//EN"
+    "/usr/share/xml/docbook/schema/dtd/4.5/docbookx.dtd">
+<book>
+  <bookinfo>
+    <title>xdock documentation</title>
+    <author>
+      <personname>
+        <firstname>André</firstname>
+        <surname>Wagner</surname>
+      </personname>
+    </author>
+  </bookinfo>
+  <chapter id="ch_user">
+    <title>Usage documentation</title>
+    <para>Usage documentation.</para>
+  </chapter>
+</book>
