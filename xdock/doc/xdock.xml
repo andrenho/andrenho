@@ -1,6 +1,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS/DTD DocBook V4.5//EN"
     "/usr/share/xml/docbook/schema/dtd/4.5/docbookx.dtd">
 <book>
+
   <bookinfo>
     <title>xdock documentation</title>
     <author>
@@ -10,8 +11,79 @@
       </personname>
     </author>
   </bookinfo>
+
   <chapter id="ch_user">
-    <title>Usage documentation</title>
-    <para>Usage documentation.</para>
+    <title>User documentation</title>
+
+    <section>
+      <title>What is xdock?</title>
+      <para><bold>xdock</bold> is...</para>
+
+    </section>
+
+    <section>
+      <title>Invoking xdock</title>
+    </section>
+
+    <section>
+      <title>Server options</title>
+    </section>
+
+    <section>
+      <title>Client options</title>
+    </section>
+
   </chapter>
+
+
+
+  <chapter id="ch_dev">
+    <title>Developer documentation</title>
+
+    <section>
+      <title>Inner workings</title>
+    </section>
+
+    <section>
+      <title>Communication Protocol</title>
+    </section>
+
+    <section>
+      <title>libxdock, a C Library</title>
+    </section>
+
+  </chapter>
+
+
+
+
+  <chapter id="ch_tut">
+    <title>Applet writing tutorial</title>
+
+    <section>
+      <title>Hello World</title>
+    </section>
+
+    <section>
+      <title>Graphics</title>
+    </section>
+
+    <section>
+      <title>XPM Images</title>
+    </section>
+
+    <section>
+      <title>Events</title>
+    </section>
+    
+  </chapter>
+
 </book>
+
+<!--
+
+    <section>
+      <title></title>
+    </section>
+
+    -->
