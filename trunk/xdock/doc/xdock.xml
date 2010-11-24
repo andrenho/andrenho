@@ -29,11 +29,16 @@
         <ulink url="http://windowmaker.org/">WindowMaker</ulink> dock applets.
       </para>
 
+<!--
       <mediaobject>
         <imageobject>
           <imagedata fileref="shot0.3.png" format="PNG"/>
         </imageobject>
       </mediaobject>
+-->
+      <screenshot>
+        <graphic fileref="shot0.3.png" />
+      </screenshot>
 
       <para>
         The motivation for this project is to present a more modern platform
@@ -201,9 +206,11 @@
         <para>A example file could be:</para>
 
         <programlisting>
+<![CDATA[
 theme = lcd
 color = #8844cc
 debug = true
+]]>
         </programlisting>
 
       </section>
