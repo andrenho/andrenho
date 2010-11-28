@@ -52,7 +52,7 @@ function new_game(w, h, nations)
       units = {},
     }
     table.insert(G.nations, #G.nations+1, nat)
-		create_unit(G, nat, SOLDIER, 1, 1)
+    create_unit(G, nat, SOLDIER, 1, 1)
   end
 
   map(w, h)
@@ -69,12 +69,12 @@ end
 -- Create unit
 --
 function create_unit(G, nation, military, x, y)
-	table.insert(nation.units, #nation.units+1, {
-		military = military,
-		x = x,
-		y = y,
-	})
-	return G
+  table.insert(nation.units, #nation.units+1, {
+    military = military,
+    x = x,
+    y = y,
+  })
+  return G
 end
 
 
@@ -82,15 +82,15 @@ end
 -- Unit in position x,y
 --
 function units_in_xy(G, x, y)
-	units = {}
-	for _,nation in ipairs(G.nations) do
-		for _,unit in ipairs(nation.units) do
-			if unit.x == x and unit.y == y then
-				table.insert(units, 0, unit)
-			end
-		end
-	end
-	return units
+  units = {}
+  for _,nation in ipairs(G.nations) do
+    for _,unit in ipairs(nation.units) do
+      if unit.x == x and unit.y == y then
+        table.insert(units, 0, unit)
+      end
+    end
+  end
+  return units
 end
 
 
@@ -99,16 +99,16 @@ end
 --
 function print_game(G)
   for i,t in ipairs(G.map) do
-		units = units_in_xy(G, (i+1) % G.w, (i+1) / G.h)
-		if #units == 0 then
-			if t.terrain == OCEAN then
-				io.write('~')
-			elseif t.terrain == GRASSLAND then
-				io.write(' ')
-			end
-		else
-			io.write('S')
-		end
+    units = units_in_xy(G, (i+1) % G.w, (i+1) / G.h)
+    if #units == 0 then
+      if t.terrain == OCEAN then
+        io.write('~')
+      elseif t.terrain == GRASSLAND then
+        io.write(' ')
+      end
+    else
+      io.write('S')
+    end
     if (i+1) % G.w == 0 then 
       io.write('\n')
     end
