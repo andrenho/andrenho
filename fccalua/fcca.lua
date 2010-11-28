@@ -51,8 +51,8 @@ function new_game(w, h, nations)
       gold = 0,
       units = {},
     }
-    table.insert(G.nations, #G.nations+1, nat)
-    create_unit(G, nat, SOLDIER, 1, 1)
+    table.insert(G.nations, nat)
+    create_unit(G, nat, SOLDIER, 2, 2)
   end
 
   map(w, h)
@@ -69,7 +69,7 @@ end
 -- Create unit
 --
 function create_unit(G, nation, military, x, y)
-  table.insert(nation.units, #nation.units+1, {
+  table.insert(nation.units, {
     military = military,
     x = x,
     y = y,
@@ -86,7 +86,7 @@ function units_in_xy(G, x, y)
   for _,nation in ipairs(G.nations) do
     for _,unit in ipairs(nation.units) do
       if unit.x == x and unit.y == y then
-        table.insert(units, 0, unit)
+        table.insert(units, unit)
       end
     end
   end
