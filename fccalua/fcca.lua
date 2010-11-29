@@ -5,18 +5,19 @@ end
 SOLDIER = military()
 
 -- terrains
-function terrain(is_sea)
-  return { is_sea = is_sea, }
+function terrain(is_sea, char)
+  return { is_sea = is_sea, char = char }
 end
-OCEAN = terrain(true)
-GRASSLAND = terrain(false)
+OCEAN = terrain(true, 'o ')
+GRASSLAND = terrain(false, 'g ')
 
 
 --
 -- New Game
 --
-function new_game(w, h, nations)
+function new_game(w, h)
 
+  local nations = { 'Assyria' }
   local G = {
     year = -2000,
     nations = {},
@@ -94,12 +95,18 @@ function units_in_xy(G, x, y)
 end
 
 
+--
+-- Return map image
+--
+
+
+
 -- 
 -- Print game information
 --
 function print_game(G)
   for i,t in ipairs(G.map) do
-    units = units_in_xy(G, (i+1) % G.w, (i+1) / G.h)
+    units = units_in_xy(G, (i+1) % G.w, math.floor((i+1) / G.h))
     if #units == 0 then
       if t.terrain == OCEAN then
         io.write('~')
@@ -117,5 +124,5 @@ end
 
 
 
-G = new_game(10, 10, { 'Assyria' })
-print_game(G)
+--G = new_game(10, 10, { 'Assyria' })
+--print_game(G)
