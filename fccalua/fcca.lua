@@ -29,6 +29,8 @@ function military(name)
 end
 SOLDIER = military(_("Soldier"))
 
+static = { OCEAN, GRASSLAND, SOLDIER }
+
 
 -----------------
 --             --
@@ -83,6 +85,20 @@ function Nation.new(name)
   self.name = name
   self.gold = 0
   self.units = {}
+
+  return self
+end
+
+--
+-- Unit
+--
+Unit = {}
+function Unit.new(military, x, y)
+  local self = {}
+
+  self.military = military
+  self.x = x
+  self.y = y
 
   return self
 end
