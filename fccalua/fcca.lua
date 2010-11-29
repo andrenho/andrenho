@@ -15,19 +15,20 @@ end
 ---------------------
 
 -- Terrains
-function terrain(name_unforested, name_forested, is_water)
-  return { name_unforested = name_unforested,
+function terrain(lua_name, name_unforested, name_forested, is_water)
+  return { lua_name = lua_name, 
+           name_unforested = name_unforested,
            name_forested = name_forested,
            is_water = is_water }
 end
-OCEAN = terrain(_("Ocean"), _("Error"), true)
-GRASSLAND = terrain(_("Grassland"), _("Forest (?)"), false)
+OCEAN = terrain('OCEAN', _("Ocean"), _("Error"), true)
+GRASSLAND = terrain('GRASSLAND', _("Grassland"), _("Forest (?)"), false)
 
 -- Militaries
-function military(name)
-  return { name = name }
+function military(lua_name, name)
+  return { lua_name = lua_name, name = name }
 end
-SOLDIER = military(_("Soldier"))
+SOLDIER = military('SOLDIER', _("Soldier"))
 
 static = { OCEAN, GRASSLAND, SOLDIER }
 
@@ -63,7 +64,11 @@ function dump(name, value, saved)
       io.write(saved[value], '\n')
     else
       saved[value] = name
-      io.write('{}\n')
+      if value.dump_create then
+        io.write(value.dump_create() .. '\n')
+      else
+        io.write('{}\n')
+      end
       for k,v in pairs(value) do
         local fieldname = string.format('%s[%s]', name,
                                         basicSerialize(k))
@@ -103,6 +108,15 @@ function Game.new(w, h, nation_names)
     return self
   end
 
+  function self.dump_create()
+    local n = {}
+    for nat in ipairs(self.nations) do
+      table.insert(n, string.format("%q", 'Assyria')) -- TODO nat.name))
+    end
+    return string.format("Game.new(%d, %d, { %s })", self.map_w, self.map_h,
+                         table.concat(n, ', '))
+  end
+
   function self.map(x, y)
     return self._map[(y * self.map_w) + (x % self.map_w)]
   end
@@ -133,6 +147,10 @@ function Tile.new(G, x, y, terrain)
     return units
   end
 
+  function self.dump_create()
+    return string.format('Tile.new(G, %d, %d, %s)', self.x, self.y, self.terrain.lua_name)
+  end
+
   return self
 end
 
@@ -150,6 +168,10 @@ function Nation.new(G, name)
     Unit.new(G, SOLDIER, 2, 2)
   }
 
+  function self.dump_create()
+    return string.format('Nation.new(G, %q)', self.name)
+  end
+
   return self
 end
 
@@ -165,13 +187,17 @@ function Unit.new(G, military, x, y)
   self.x = x
   self.y = y
 
+  function self.dump_create()
+    return string.format('Unit.new(G, %s, %d, %d)', self.military.lua_name, self.x, self.y)
+  end
+
   return self
 end
 
 --------------
 --------------
 
---dofile('temp.lua')
---print(#G._map[8].units())
---G = Game.new(10, 10, { 'Assyria' })
+dofile('temp.lua')
+print(#G.map(2,2).units())
+--G = Game.new(3, 3, { 'Assyria' })
 --dump("G", G)
