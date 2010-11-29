@@ -45,7 +45,7 @@ Game = {}
 function Game.new(w, h, nation_names)
   local self = {}
 
-  self.year = -2000
+  self.year  = -2000
   self.map_w = w
   self.map_h = h
   self._map = {}
