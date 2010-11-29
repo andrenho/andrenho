@@ -1,128 +1,95 @@
--- militaries
-function military()
-  return {}
-end
-SOLDIER = military()
-
--- terrains
-function terrain(is_sea, char)
-  return { is_sea = is_sea, char = char }
-end
-OCEAN = terrain(true, 'o ')
-GRASSLAND = terrain(false, 'g ')
-
-
---
--- New Game
---
-function new_game(w, h)
-
-  local nations = { 'Assyria' }
-  local G = {
-    year = -2000,
-    nations = {},
-    map = {},
-    nations = {},
-  }
-
-  function tile(x, y, terrain)
-    return { x=x, y=y, terrain=terrain }
-  end
-  
-  function map(w, h)
-    G.map = {}
-    for i=0, (w*h) do
-      G.map[i] = tile(0, 0, GRASSLAND)
-    end
-    G.w = w
-    G.h = h
-  end
-
-  function landmass()
-    for x=3,5 do
-      for y=3,5 do
-        G.map[(y*G.w)+x].terrain = OCEAN
-      end
-    end
-  end
-
-  function add_nation(nation)
-    local nat = {
-      name = nation,
-      gold = 0,
-      units = {},
-    }
-    table.insert(G.nations, nat)
-    create_unit(G, nat, SOLDIER, 2, 2)
-  end
-
-  map(w, h)
-  landmass()
-  for _,nation in ipairs(nations) do
-    add_nation(nation)
-  end
-  return G
-
+---------------------
+--                 --
+--   Translation   --
+--                 --
+---------------------
+function _(s)
+  return s
 end
 
 
---
--- Create unit
---
-function create_unit(G, nation, military, x, y)
-  table.insert(nation.units, {
-    military = military,
-    x = x,
-    y = y,
-  })
-  return G
+---------------------
+--                 --
+--   Static Data   --
+--                 --
+---------------------
+
+-- Terrains
+function terrain(name_unforested, name_forested, is_water)
+  return { name_unforested = name_unforested,
+           name_forested = name_forested,
+           is_water = is_water }
 end
+OCEAN = terrain(_("Ocean"), _("Error"), true)
+GRASSLAND = terrain(_("Grassland"), _("Forest (?)"), false)
+
+-- Militaries
+function military(name)
+  return { name = name }
+end
+SOLDIER = military(_("Soldier"))
 
 
+-----------------
+--             --
+--   Classes   --
+--             --
+-----------------
+
 --
--- Unit in position x,y
+-- Game
 --
-function units_in_xy(G, x, y)
-  units = {}
-  for _,nation in ipairs(G.nations) do
-    for _,unit in ipairs(nation.units) do
-      if unit.x == x and unit.y == y then
-        table.insert(units, unit)
-      end
-    end
+Game = {}
+function Game.new(w, h, nation_names)
+  local self = {}
+
+  self.year = -2000
+  self.map_w = w
+  self.map_h = h
+  self._map = {}
+  self.nations = {}
+
+  function self.map(x, y)
+    return self._map[(y * self.map_w) + (math.floor(x % self.map_w))]
   end
-  return units
-end
 
-
---
--- Return map image
---
-
-
-
--- 
--- Print game information
---
-function print_game(G)
-  for i,t in ipairs(G.map) do
-    units = units_in_xy(G, (i+1) % G.w, math.floor((i+1) / G.h))
-    if #units == 0 then
-      if t.terrain == OCEAN then
-        io.write('~')
-      elseif t.terrain == GRASSLAND then
-        io.write(' ')
-      end
-    else
-      io.write('S')
-    end
-    if (i+1) % G.w == 0 then 
-      io.write('\n')
-    end
+  -- create map
+  for i=0,(self.map_w * self.map_h)-1 do
+    table.insert(self._map, tile(GRASSLAND))
   end
+
+  -- create nations
+  for _,n in ipairs(nation_names) do
+    table.insert(self.nations, Nation.new(n))
+  end
+
+  return self
 end
 
+--
+-- Tile
+--
+function tile(terrain)
+  return { terrain = terrain }
+end
 
+--
+-- Nation
+--
+Nation = {}
+function Nation.new(name)
+  local self = {}
 
---G = new_game(10, 10, { 'Assyria' })
---print_game(G)
+  self.name = name
+  self.gold = 0
+  self.units = {}
+
+  return self
+end
+
+--------------
+--------------
+
+G = Game.new(10, 10, { 'Assyria' })
+print(G.year)
+print(G.map(2,3).terrain.name_unforested)

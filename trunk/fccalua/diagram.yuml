@@ -1,0 +1,11 @@
+[Game]->[Map]
+[Map]->[Tile]
+[Tile]->[Terrain{bg:orange}]
+[Game]->[Nation]
+[Nation]->[Unit]
+[Unit]->[Military{bg:orange}]
+[Unit]->[Skill{bg:orange}]
+[Unit]->[Job{bg:orange}]
+[Unit]->[Cargo]
+[Cargo]->[Good{bg:orange}]
+
