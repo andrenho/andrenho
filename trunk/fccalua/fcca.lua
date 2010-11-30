@@ -38,11 +38,20 @@ end
 SOLDIER = military(_("Soldier"), false, 2)
 
 
------------------
---             --
---   Classes   --
---             --
------------------
+-------------------------
+--                     --
+--   Helper functions  --
+--                     --
+-------------------------
+function inext(T, i)
+  if i == nil then return T[1] end
+  idx = -1
+  for k,v in ipairs(T) do
+    if v == i then idx = k end
+  end
+  if idx == -1 then error 'Key not found' end
+  return T[idx+1]
+end
 
 --
 -- Serialization
@@ -105,6 +114,12 @@ function dump(name, value, saved)
   end
 end
 
+-----------------
+--             --
+--   Classes   --
+--             --
+-----------------
+
 --
 -- Game
 --
@@ -131,7 +146,8 @@ function Game.new(w, h, human_players, computer_players)
       table.insert(self.nations, Nation.new(self, n, 'H'))
     end
     self.player = self.nations[1]
-    self.selected = self.player.units[1]
+    self.selected = self.player.units[1] -- TODO
+    self.player.init_turn()
 
     return self
   end
@@ -149,11 +165,12 @@ function Game.new(w, h, human_players, computer_players)
   end
 
   function self.next_player()
-    self.player = next(self.nations, self.player)
+    self.player = inext(self.nations, self.player)
     if self.player == nil then
-      self.player = self.nations[1]
       self.year = self.year + 1
+      self.player = self.nations[1]
     end
+    self.player.init_turn()
   end
 
   function self.dump_create()
@@ -221,13 +238,13 @@ function Nation.new(G, name, player_type)
     return string.format('Nation.new(G, %q)', self.name)
   end
 
-  --
-  -- end turn
-  --
-  function self.end_turn()
+  function self.init_turn()
     for _,u in ipairs(self.units) do
       u.new_turn()
     end
+  end
+
+  function self.end_turn()
     self.G.next_player()
   end
 
