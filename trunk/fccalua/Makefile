@@ -1,5 +1,5 @@
 INCLUDES=
-LIBS=-lcurses
+LIBS=-lcurses -llua -lm
 
 all:
 	gcc -g -Wall -o fccacurses fccacurses.c $(INCLUDES) $(LIBS)
