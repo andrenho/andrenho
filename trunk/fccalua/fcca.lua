@@ -16,26 +16,28 @@ end
 static = {}
 
 -- Terrains
-function terrain(name_unforested, name_forested, is_water, cost_to_enter)
-  local t = { name_unforested = name_unforested,
+function terrain(char, name_unforested, name_forested, is_water, cost_to_enter)
+  local t = { char = char,
+              name_unforested = name_unforested,
               name_forested = name_forested,
               is_water = is_water,
               cost_to_enter = cost_to_enter}
   table.insert(static, t)
   return t
 end
-OCEAN = terrain(_("Ocean"), _("Error"), true, 1)
-GRASSLAND = terrain(_("Grassland"), _("Forest (?)"), false, 1)
+OCEAN = terrain('O', _("Ocean"), _("Error"), true, 1)
+GRASSLAND = terrain('G', _("Grassland"), _("Forest (?)"), false, 1)
 
 -- Militaries
-function military(name, sea_unit, moves)
-  local m = { name=name, 
+function military(char, name, sea_unit, moves)
+  local m = { char=char,
+              name=name, 
               sea_unit=sea_unit, 
               moves=moves }
   table.insert(static, m)
   return m
 end
-SOLDIER = military(_("Soldier"), false, 2)
+SOLDIER = military('S', _("Soldier"), false, 2)
 
 
 -------------------------
@@ -157,11 +159,13 @@ function Game.new(w, h, human_players, computer_players)
   end
 
   function self.setup_map()
+    --[[
     for x=3,5 do
       for y=3,5 do
         self.map(x,y).terrain = OCEAN
       end
-    end
+    end 
+    ]]
   end
 
   function self.next_player()
@@ -231,6 +235,7 @@ function Nation.new(G, name, player_type)
   self.player_type = player_type
   self.gold = 0
   self.units = {
+    Unit.new(self.G, SOLDIER, 1, 1),
     Unit.new(self.G, SOLDIER, 1, 1)
   }
 
@@ -242,6 +247,21 @@ function Nation.new(G, name, player_type)
     for _,u in ipairs(self.units) do
       u.new_turn()
     end
+    G.selected = nil
+    self.next_unit()
+  end
+
+  function self.next_unit()
+    local unit = inext(self.units, G.selected)
+    local original = G.selected
+    while unit and unit.moves == 0 do
+      unit = inext(self.units, unit)
+      if unit == original then
+        G.selected = nil
+        return
+      end
+    end
+    G.selected = unit
   end
 
   function self.end_turn()
@@ -297,6 +317,10 @@ function Unit.new(G, military, x, y)
     return true
   end
 
+  function self.name()
+    return self.military.name
+  end
+
   function self.new_turn()
     self.moves = self.military.moves
   end
@@ -312,7 +336,9 @@ end
 --------------
 
 --dofile('temp.lua')
---G = Game.new(3, 3, { 'Assyria' })
+G = Game.new(10, 10, { 'Assyria' })
+G.player.next_unit()
+G.player.next_unit()
 --print(#G.map(2,2).units())
 --print(G.nations[1].name)
 --dump("G", G)
