@@ -10,9 +10,12 @@
 int running = 1;
 lua_State* L;
 int rx, ry = 0;
-int map_w = 10, map_h = 10;
+int map_w = 40, map_h = 20;
 int colors = 1;
 
+enum Colors {
+	GRASSLAND=1, OCEAN, PLAYER
+};
 
 void close_curses();
 
@@ -116,33 +119,50 @@ void load_script()
 	lua_do("G = Game.new(%d, %d, { 'Assyria' })", map_w, map_h);
 }
 
+void init_colors()
+{
+	start_color();
+	init_pair(GRASSLAND, COLOR_WHITE, COLOR_GREEN);
+	init_pair(OCEAN, COLOR_WHITE, COLOR_BLUE);
+	init_pair(PLAYER, COLOR_BLACK, COLOR_WHITE);
+}
+
 void init_curses()
 {
 	initscr();
 //	raw();
 	noecho();
 	keypad(stdscr, TRUE);
+	if(colors && has_colors())
+		init_colors();
 }
 
 void draw_tile(int x, int y)
 {
 	if(lua_int("# G.map(%d,%d).units()",x, y) == 0)
 	{
+		attron(A_DIM);
 		switch(lua_char("G.map(%d,%d).terrain.char", x+rx, y+ry))
 		{
 			case 'O':
+				attron(COLOR_PAIR(OCEAN));
 				mvaddch(y, x, '~');
+				attroff(COLOR_PAIR(OCEAN));
 				break;
 			case 'G':
+				attron(COLOR_PAIR(GRASSLAND));
 				mvaddch(y, x, ' ');
+				attroff(COLOR_PAIR(GRASSLAND));
 				break;
 			default:
 				abort();
 		}
+		attroff(A_DIM);
 	}
 	else
 	{
-		switch(lua_char("G.map(%d,%d).units()[1].military.char"))
+		attron(COLOR_PAIR(PLAYER));
+		switch(lua_char("G.map(%d,%d).units()[1].military.char", x, y))
 		{
 			case 'S':
 				mvaddch(y, x, 'S');
@@ -150,6 +170,7 @@ void draw_tile(int x, int y)
 			default:
 				abort();
 		}
+		attroff(COLOR_PAIR(PLAYER));
 	}
 }
 
@@ -207,23 +228,23 @@ void event()
 		case 'q':
 			running = 0;
 			break;
-		case '1':
+		case '1': case 'j':
 			if(!lua_is_nil("G.selected"))
 				lua_do("G.selected.move(-1, 1)");
 			break;
-		case '2':
+		case '2': case 'k':
 			if(!lua_is_nil("G.selected"))
 				lua_do("G.selected.move(0, 1)");
 			break;
-		case '3':
+		case '3': case 'l':
 			if(!lua_is_nil("G.selected"))
 				lua_do("G.selected.move(1, 1)");
 			break;
-		case '4':
+		case '4': case 'u':
 			if(!lua_is_nil("G.selected"))
 				lua_do("G.selected.move(-1, 0)");
 			break;
-		case '6':
+		case '6': case 'o':
 			if(!lua_is_nil("G.selected"))
 				lua_do("G.selected.move(1, 0)");
 			break;

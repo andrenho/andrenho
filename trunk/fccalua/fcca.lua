@@ -1,3 +1,12 @@
+-----------------
+--             --
+--   Options   --
+--             --
+-----------------
+options = {
+  auto_end_turn = true
+}
+
 ---------------------
 --                 --
 --   Translation   --
@@ -45,6 +54,8 @@ SOLDIER = military('S', _("Soldier"), false, 2)
 --   Helper functions  --
 --                     --
 -------------------------
+
+-- ordered next
 function inext(T, i)
   if i == nil then return T[1] end
   idx = -1
@@ -54,6 +65,20 @@ function inext(T, i)
   if idx == -1 then error 'Key not found' end
   return T[idx+1]
 end
+
+-- circular next
+function cnext(T, i)
+  idx = -1
+  for k,v in ipairs(T) do
+    if v == i then idx = k end
+  end
+  if T[idx+1] then
+    return T[idx+1]
+  else
+    return T[1]
+  end
+end
+  
 
 --
 -- Serialization
@@ -159,13 +184,11 @@ function Game.new(w, h, human_players, computer_players)
   end
 
   function self.setup_map()
-    --[[
     for x=3,5 do
       for y=3,5 do
         self.map(x,y).terrain = OCEAN
       end
     end 
-    ]]
   end
 
   function self.next_player()
@@ -235,8 +258,8 @@ function Nation.new(G, name, player_type)
   self.player_type = player_type
   self.gold = 0
   self.units = {
-    Unit.new(self.G, SOLDIER, 1, 1),
-    Unit.new(self.G, SOLDIER, 1, 1)
+    Unit.new(self.G, self, SOLDIER, 1, 1),
+    Unit.new(self.G, self, SOLDIER, 1, 1)
   }
 
   function self.dump_create()
@@ -252,16 +275,31 @@ function Nation.new(G, name, player_type)
   end
 
   function self.next_unit()
-    local unit = inext(self.units, G.selected)
+    -- no units
+    if #self.units == 0 then 
+      G.selected = nil
+      return 
+    end
+    -- no selection
+    if not G.selected then 
+      G.selected = self.units[1] 
+      if G.selected.moves > 0 then return end
+    end
+    -- find next
     local original = G.selected
-    while unit and unit.moves == 0 do
-      unit = inext(self.units, unit)
-      if unit == original then
-        G.selected = nil
+    while true do
+      G.selected = cnext(self.units, G.selected)
+      if G.selected.moves > 0 then return end
+      if G.selected == original then
+        if G.selected.moves > 0 then 
+          G.selected = original
+        else
+          G.selected = nil
+          if options.auto_end_turn then self.end_turn() end
+        end
         return
       end
     end
-    G.selected = unit
   end
 
   function self.end_turn()
@@ -275,7 +313,7 @@ end
 -- Unit
 --
 Unit = {}
-function Unit.new(G, military, x, y)
+function Unit.new(G, nation, military, x, y)
   local self = {}
 
   self.G = G
@@ -283,6 +321,7 @@ function Unit.new(G, military, x, y)
   self.x = x
   self.y = y
   self.moves = military.moves
+  self.nation = nation
 
   --
   -- move unit
@@ -293,7 +332,7 @@ function Unit.new(G, military, x, y)
     assert(ydir >= -1 and ydir <= 1)
     fx = self.x + xdir
     fy = self.y + ydir
-    if fx < 0 or fx >= self.G.map_w or fy < 0 or fy >= self.G.map_h then
+    if fx < 0 or fx >= self.G.map_w-1 or fy < 0 or fy >= self.G.map_h-1 then
       return false
     end
     ft = self.G.map(fx, fy)
@@ -314,6 +353,7 @@ function Unit.new(G, military, x, y)
     self.x = fx
     self.y = fy
     self.moves = self.moves - ft.cost_to_enter()
+    if self.moves == 0 then self.nation.next_unit() end
     return true
   end
 
@@ -336,9 +376,15 @@ end
 --------------
 
 --dofile('temp.lua')
+--[[
 G = Game.new(10, 10, { 'Assyria' })
+G.selected.move(1,0)
+G.selected.move(1,0)
 G.player.next_unit()
+G.selected.move(1,0)
+G.selected.move(1,0)
 G.player.next_unit()
+]]
 --print(#G.map(2,2).units())
 --print(G.nations[1].name)
 --dump("G", G)
