@@ -23,7 +23,7 @@ options = {
 -- Game
 --
 Game = {}
-function Game.new(w, h, human_players, computer_players)
+function Game.new(w, h, player)
   local self = {}
 
   self.year = -2000
@@ -41,9 +41,7 @@ function Game.new(w, h, human_players, computer_players)
     self.setup_map()
 
     -- create nations
-    for _,n in ipairs(human_players) do
-      table.insert(self.nations, Nation.new(self, n, 'H'))
-    end
+    table.insert(self.nations, Nation.new(self, player, 'H'))
     self.player = self.nations[1]
     self.selected = self.player.units[1] -- TODO
     self.player.init_turn()
