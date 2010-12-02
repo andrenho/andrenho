@@ -20,6 +20,11 @@ enum Colors {
 void close_curses();
 
 
+/***********
+ *         *
+ *   Lua   *
+ *         *
+ ***********/
 void error(lua_State *L, const char *fmt, ...) 
 {
 	close_curses();
@@ -118,6 +123,7 @@ void load_script()
 				lua_tostring(L, -1));
 	lua_do("G = Game.new(%d, %d, { 'Assyria' })", map_w, map_h);
 }
+
 
 void init_colors()
 {
