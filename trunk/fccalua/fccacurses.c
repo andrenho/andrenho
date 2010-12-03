@@ -1,4 +1,3 @@
-#include <curses.h>
 #include <lua.h>
 #include <lauxlib.h>
 #include <lualib.h>
@@ -13,12 +12,6 @@ int rx, ry = 0;
 int map_w = 40, map_h = 20;
 int colors = 1;
 
-enum Colors {
-	GRASSLAND=1, OCEAN, PLAYER
-};
-
-void close_curses();
-
 
 /***********
  *         *
@@ -26,9 +19,7 @@ void close_curses();
  *         *
  ***********/
 void error(lua_State *L, const char *fmt, ...) 
-{
-	close_curses();
-
+{	
 	va_list argp;
 	va_start(argp, fmt);
 	vfprintf(stderr, fmt, argp);
@@ -118,70 +109,71 @@ void load_script()
 {
 	L = lua_open();
 	luaL_openlibs(L);
-	if(luaL_dofile(L, "fcca.lua"))
+	if(luaL_dofile(L, "cradle.lua"))
 		error(L, "cannot run configuration file: %s", 
 				lua_tostring(L, -1));
 	lua_do("G = Game.new(%d, %d, { 'Assyria' })", map_w, map_h);
 }
 
-
-void init_colors()
+void unload_lua()
 {
-	start_color();
-	init_pair(GRASSLAND, COLOR_WHITE, COLOR_GREEN);
-	init_pair(OCEAN, COLOR_WHITE, COLOR_BLUE);
-	init_pair(PLAYER, COLOR_BLACK, COLOR_WHITE);
+	lua_close(L);
 }
 
+
+
+/************
+ *          *
+ *  Curses  *
+ *          *
+ ************/
 void init_curses()
 {
-	initscr();
-//	raw();
-	noecho();
-	keypad(stdscr, TRUE);
-	if(colors && has_colors())
-		init_colors();
+	/*
+tcod.console.initRoot(80, 50, 'CoC')
+root=libtcod.TCODConsole_root
+if not options.colors then
+  root:setDefaultBackground(tcod.color.white)
+  root:setDefaultForeground(tcod.color.darkGrey)
+end
+	*/
 }
 
 void draw_tile(int x, int y)
 {
 	if(lua_int("# G.map(%d,%d).units()",x, y) == 0)
 	{
-		attron(A_DIM);
 		switch(lua_char("G.map(%d,%d).terrain.char", x+rx, y+ry))
 		{
 			case 'O':
-				attron(COLOR_PAIR(OCEAN));
-				mvaddch(y, x, '~');
-				attroff(COLOR_PAIR(OCEAN));
+				/*
+          root:putCharEx(x+rx, y+ry, string.byte(chr[1]),
+                      chr[2], chr[3])
+*/
 				break;
 			case 'G':
-				attron(COLOR_PAIR(GRASSLAND));
-				mvaddch(y, x, ' ');
-				attroff(COLOR_PAIR(GRASSLAND));
+				// ...
 				break;
 			default:
 				abort();
 		}
-		attroff(A_DIM);
 	}
 	else
 	{
-		attron(COLOR_PAIR(PLAYER));
 		switch(lua_char("G.map(%d,%d).units()[1].military.char", x, y))
 		{
 			case 'S':
-				mvaddch(y, x, 'S');
+				// ...
 				break;
 			default:
 				abort();
 		}
-		attroff(COLOR_PAIR(PLAYER));
 	}
 }
 
 void draw_status_line()
 {
+	/*
 	// nation
 	char* name = lua_string("G.player.name");
 	char* unit = strdup("");
@@ -199,10 +191,14 @@ void draw_status_line()
 	// general info
 	int year = lua_int("G.year") * -1;
 	mvprintw(LINES-1, 1, "Year: %d B.C.", year);
+	*/
 }
 
 void draw_screen()
 {	
+	int LINES = 80;
+	int COLS = 80;
+
 	// draw map
 	int x, y;
 	for(y=0; y<LINES-2; y++)
@@ -214,21 +210,21 @@ void draw_screen()
 	// status line
 	draw_status_line();
 	
-	refresh();
+	// refresh(); tcod.console.flush()
 
 	// set cursor in the focused unit
 	if(!lua_is_nil("G.selected"))
 	{
 		x = lua_int("G.selected.x");
 		y = lua_int("G.selected.y");
-		if(x+rx >= 0 && x+rx < map_w-1 && y+ry >= 0 && y+ry <= map_h-1)
-			move(y+ry, x+rx);
+//		if(x+rx >= 0 && x+rx < map_w-1 && y+ry >= 0 && y+ry <= map_h-1)
+//			move(y+ry, x+rx);
 	}
 }
 
 void event()
 {
-	int ch = getch();
+	int ch;// = getch(); ... tcod.console.waitForKeypress(true)
 	switch(ch)
 	{
 		case 'q':
@@ -275,16 +271,6 @@ void event()
 	}
 }
 
-void close_curses()
-{
-	endwin();
-}
-
-void unload_lua()
-{
-	lua_close(L);
-}
-
 int main(int argc, char* argv[])
 {
 	int i;
@@ -294,7 +280,6 @@ int main(int argc, char* argv[])
 
 	load_script();
 	init_curses();
-	atexit(close_curses);
 
 	while(running)
 	{
