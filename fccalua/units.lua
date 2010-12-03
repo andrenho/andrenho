@@ -13,8 +13,7 @@ function Nation.new(G, name, player_type)
    self.player_type = player_type
    self.gold = 0
    self.units = {
-      Unit.new(self.G, self, SOLDIER, 1, 1),
-      Unit.new(self.G, self, SOLDIER, 1, 1)
+      Unit.new(self.G, self, PEASANT, 1, 1),
    }
 
 

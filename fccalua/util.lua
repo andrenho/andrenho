@@ -32,6 +32,14 @@ function cnext(T, i)
       return T[1]
    end
 end
+
+-- return if a table contains a value
+function table.contains(T, i)
+  for _,v in pairs(T) do
+    if v == i then return true end
+  end
+  return false
+end
    
 
 --
