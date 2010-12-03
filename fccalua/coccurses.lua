@@ -2,7 +2,7 @@ require 'coc'
 require 'libtcodlua'
 
 options = {
-  colors = true,
+  colors = false,
   map_w = 50,
   map_h = 40,
 }
