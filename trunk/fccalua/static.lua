@@ -12,8 +12,8 @@ function terrain(char, name_unforested, name_forested, is_water, cost_to_enter)
    table.insert(static, t)
    return t
 end
-OCEAN = terrain('O', _("Ocean"), _("Error"), true, 1)
-GRASSLAND = terrain('G', _("Grassland"), _("Forest (?)"), false, 1)
+OCEAN = terrain('O', _('Ocean'), _('Error'), true, 1)
+GRASSLAND = terrain('G', _('Grassland'), _('Forest (?)'), false, 1)
 
 --
 -- Militaries
@@ -26,4 +26,5 @@ function military(char, name, sea_unit, moves)
    table.insert(static, m)
    return m
 end
-SOLDIER = military('S', _("Soldier"), false, 2)
+PEASANT = military('@', _('Peasant'), false, 2)
+SOLDIER = military('S', _('Soldier'), false, 4)

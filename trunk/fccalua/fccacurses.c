@@ -1,3 +1,4 @@
+#include <libtcod.h>
 #include <lua.h>
 #include <lauxlib.h>
 #include <lualib.h>
@@ -11,6 +12,9 @@ lua_State* L;
 int rx, ry = 0;
 int map_w = 40, map_h = 20;
 int colors = 1;
+int LINES = 50;
+int COLS = 80;
+
 
 
 /***********
@@ -105,6 +109,21 @@ int lua_int(const char *fmt, ...)
 	return (int)lua_tointeger(L, -1);
 }
 
+int lua_bool(const char *fmt, ...)
+{
+	char buf[1024] = "return ";
+	va_list argp;
+	va_start(argp, fmt);
+	vsnprintf(&buf[7], 1024, fmt, argp);
+	va_end(argp);
+
+	if(luaL_dostring(L, buf))
+		error(L, "error running command '%s': %s", 
+				buf, lua_tostring(L, -1));
+
+	return lua_toboolean(L, -1);
+}
+
 void load_script()
 {
 	L = lua_open();
@@ -129,30 +148,31 @@ void unload_lua()
  ************/
 void init_curses()
 {
-	/*
-tcod.console.initRoot(80, 50, 'CoC')
-root=libtcod.TCODConsole_root
-if not options.colors then
-  root:setDefaultBackground(tcod.color.white)
-  root:setDefaultForeground(tcod.color.darkGrey)
-end
-	*/
+	TCOD_console_init_root(80, 50, "Cradle of Civilization", false, 
+			TCOD_RENDERER_SDL);
+	if(!colors)
+	{
+		TCOD_console_set_default_background(NULL, TCOD_white);
+		TCOD_console_set_default_foreground(NULL, TCOD_dark_grey);
+	}
 }
 
 void draw_tile(int x, int y)
 {
+	int c = -1;
+	bool selected = false;
+	TCOD_color_t bg, fg;
 	if(lua_int("# G.map(%d,%d).units()",x, y) == 0)
 	{
 		switch(lua_char("G.map(%d,%d).terrain.char", x+rx, y+ry))
 		{
 			case 'O':
-				/*
-          root:putCharEx(x+rx, y+ry, string.byte(chr[1]),
-                      chr[2], chr[3])
-*/
+				c = '~';
+				bg = TCOD_darker_blue; fg = TCOD_light_yellow;
 				break;
 			case 'G':
-				// ...
+				c = ' ';
+				bg = TCOD_darker_green;
 				break;
 			default:
 				abort();
@@ -160,20 +180,46 @@ void draw_tile(int x, int y)
 	}
 	else
 	{
+		bg = TCOD_light_cyan;
+		fg = TCOD_black;
 		switch(lua_char("G.map(%d,%d).units()[1].military.char", x, y))
 		{
 			case 'S':
-				// ...
+				c = 'S';
+				break;
+			case '@':
+				c = '@';
 				break;
 			default:
 				abort();
 		}
+	
+		// set cursor in the focused unit
+		selected = lua_bool("table.contains(G.map(%d,%d).units(), G.selected)", x, y);
+	}
+	if(colors)
+	{
+		if(selected)
+		{
+			TCOD_color_t tmp;
+			tmp = fg;
+			fg = bg;
+			bg = tmp;
+		}
+		TCOD_console_put_char_ex(NULL, x+rx, y+ry, c, fg, bg);
+	}
+	else
+	{
+		if(selected)
+			TCOD_console_put_char_ex(NULL, x+rx, y+ry, c, 
+					TCOD_white, TCOD_dark_grey);
+		else
+			TCOD_console_set_char(NULL, x+rx, y+ry, c);
 	}
 }
 
 void draw_status_line()
 {
-	/*
 	// nation
 	char* name = lua_string("G.player.name");
 	char* unit = strdup("");
@@ -184,20 +230,18 @@ void draw_status_line()
 		unit = lua_string("G.selected.name()");
 		moves = lua_int("G.selected.moves");
 	}
-	mvprintw(LINES-2, 1, "%s   %s  M:%d", name, unit, moves);
+	TCOD_console_print(NULL, 1, LINES-2, "%s   %s  M:%d", name, unit, moves);
 
 	free(unit);
 
 	// general info
 	int year = lua_int("G.year") * -1;
-	mvprintw(LINES-1, 1, "Year: %d B.C.", year);
-	*/
+	TCOD_console_print(NULL, 1, LINES-1, "Year: %d B.C.", year);
 }
 
 void draw_screen()
 {	
-	int LINES = 80;
-	int COLS = 80;
+	TCOD_console_clear(NULL);
 
 	// draw map
 	int x, y;
@@ -210,22 +254,13 @@ void draw_screen()
 	// status line
 	draw_status_line();
 	
-	// refresh(); tcod.console.flush()
-
-	// set cursor in the focused unit
-	if(!lua_is_nil("G.selected"))
-	{
-		x = lua_int("G.selected.x");
-		y = lua_int("G.selected.y");
-//		if(x+rx >= 0 && x+rx < map_w-1 && y+ry >= 0 && y+ry <= map_h-1)
-//			move(y+ry, x+rx);
-	}
+	TCOD_console_flush();
 }
 
 void event()
 {
-	int ch;// = getch(); ... tcod.console.waitForKeypress(true)
-	switch(ch)
+	TCOD_key_t ch = TCOD_console_wait_for_keypress(true);
+	switch(ch.c)
 	{
 		case 'q':
 			running = 0;
