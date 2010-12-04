@@ -136,7 +136,7 @@ void load_script()
 	if(luaL_dofile(L, "cradle.lua"))
 		error(L, "cannot run configuration file: %s", 
 				lua_tostring(L, -1));
-	lua_do("G = Game.new(%d, %d, { 'Assyria' })", map_w, map_h);
+	lua_do("G = Game.new(%d, %d, 'Assyria')", map_w, map_h);
 }
 
 /************
@@ -291,6 +291,17 @@ void event()
 			break;
 		case ' ':
 			lua_do("G.player.end_turn()");
+			break;
+		case 'b':
+			if(!lua_is_nil("G.selected"))
+			{
+				char city[31] = "";
+				mvprintw(0, 0, "What is the name of the city? ");
+				echo();
+				getnstr(city, 30);
+				noecho();
+				lua_do("G.selected.build_town('%s')", city);
+			}
 			break;
 		case 'w':
 			lua_do("G.player.next_unit()");

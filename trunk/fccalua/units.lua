@@ -15,6 +15,7 @@ function Nation.new(G, name, player_type)
    self.units = {
       Unit.new(self.G, self, PEASANT, 1, 1),
    }
+   self.towns = {}
 
 
    --
@@ -131,6 +132,16 @@ function Unit.new(G, nation, military, x, y)
       self.moves = self.moves - ft.cost_to_enter()
       if self.moves == 0 then self.nation.next_unit() end
       return true
+   end
+
+
+   -- 
+   -- Build a new town
+   --
+   function self.build_town(name)
+      local t = Town.new(self.G, self.nation, name, self.x, self.y, self)
+      if t then table.insert(self.nation.towns, t) end
+      return t == true
    end
 
 
