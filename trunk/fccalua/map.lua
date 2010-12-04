@@ -12,6 +12,7 @@ function Tile.new(G, x, y, terrain)
    self.G = G
    self.terrain = terrain
    self.x, self.y = x, y
+   self.town = nil
 
 
    --

@@ -105,8 +105,8 @@ end
 --------------
 
 --dofile('temp.lua')
---[[
 G = Game.new(10, 10, { 'Assyria' })
+--[[
 G.selected.move(1,0)
 G.selected.move(1,0)
 G.player.next_unit()
