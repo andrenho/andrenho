@@ -1,4 +1,4 @@
-require 'coc'
+require 'cradle'
 require 'libtcodlua'
 
 options = {

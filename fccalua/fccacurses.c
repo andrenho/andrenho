@@ -1,4 +1,4 @@
-#include <libtcod.h>
+#include <curses.h>
 #include <lua.h>
 #include <lauxlib.h>
 #include <lualib.h>
@@ -12,9 +12,12 @@ lua_State* L;
 int rx, ry = 0;
 int map_w = 40, map_h = 20;
 int colors = 1;
-int LINES = 50;
-int COLS = 80;
 
+enum Colors {
+	GRASSLAND=1, OCEAN, PLAYER
+};
+
+void close_curses();
 
 
 /***********
@@ -23,7 +26,9 @@ int COLS = 80;
  *         *
  ***********/
 void error(lua_State *L, const char *fmt, ...) 
-{	
+{
+	close_curses();
+
 	va_list argp;
 	va_start(argp, fmt);
 	vfprintf(stderr, fmt, argp);
@@ -134,87 +139,67 @@ void load_script()
 	lua_do("G = Game.new(%d, %d, { 'Assyria' })", map_w, map_h);
 }
 
-void unload_lua()
-{
-	lua_close(L);
-}
-
-
-
 /************
  *          *
  *  Curses  *
  *          *
  ************/
+
+void init_colors()
+{
+	start_color();
+	init_pair(GRASSLAND, COLOR_WHITE, COLOR_GREEN);
+	init_pair(OCEAN, COLOR_WHITE, COLOR_BLUE);
+	init_pair(PLAYER, COLOR_BLACK, COLOR_WHITE);
+}
+
 void init_curses()
 {
-	TCOD_console_init_root(80, 50, "Cradle of Civilization", false, 
-			TCOD_RENDERER_SDL);
-	if(!colors)
-	{
-		TCOD_console_set_default_background(NULL, TCOD_white);
-		TCOD_console_set_default_foreground(NULL, TCOD_dark_grey);
-	}
+	initscr();
+//	raw();
+	noecho();
+	keypad(stdscr, TRUE);
+	if(colors && has_colors())
+		init_colors();
 }
 
 void draw_tile(int x, int y)
 {
-	int c = -1;
-	bool selected = false;
-	TCOD_color_t bg, fg;
 	if(lua_int("# G.map(%d,%d).units()",x, y) == 0)
 	{
+		attron(A_DIM);
 		switch(lua_char("G.map(%d,%d).terrain.char", x+rx, y+ry))
 		{
 			case 'O':
-				c = '~';
-				bg = TCOD_darker_blue; fg = TCOD_light_yellow;
+				attron(COLOR_PAIR(OCEAN));
+				mvaddch(y, x, '~');
+				attroff(COLOR_PAIR(OCEAN));
 				break;
 			case 'G':
-				c = ' ';
-				bg = TCOD_darker_green;
+				attron(COLOR_PAIR(GRASSLAND));
+				mvaddch(y, x, ' ');
+				attroff(COLOR_PAIR(GRASSLAND));
 				break;
 			default:
 				abort();
 		}
+		attroff(A_DIM);
 	}
 	else
 	{
-		bg = TCOD_light_cyan;
-		fg = TCOD_black;
+		attron(COLOR_PAIR(PLAYER));
 		switch(lua_char("G.map(%d,%d).units()[1].military.char", x, y))
 		{
 			case 'S':
-				c = 'S';
+				mvaddch(y, x, 'S');
 				break;
 			case '@':
-				c = '@';
+				mvaddch(y, x, '@');
 				break;
 			default:
 				abort();
 		}
-	
-		// set cursor in the focused unit
-		selected = lua_bool("table.contains(G.map(%d,%d).units(), G.selected)", x, y);
-	}
-	if(colors)
-	{
-		if(selected)
-		{
-			TCOD_color_t tmp;
-			tmp = fg;
-			fg = bg;
-			bg = tmp;
-		}
-		TCOD_console_put_char_ex(NULL, x+rx, y+ry, c, fg, bg);
-	}
-	else
-	{
-		if(selected)
-			TCOD_console_put_char_ex(NULL, x+rx, y+ry, c, 
-					TCOD_white, TCOD_dark_grey);
-		else
-			TCOD_console_set_char(NULL, x+rx, y+ry, c);
+		attroff(COLOR_PAIR(PLAYER));
 	}
 }
 
@@ -230,19 +215,17 @@ void draw_status_line()
 		unit = lua_string("G.selected.name()");
 		moves = lua_int("G.selected.moves");
 	}
-	TCOD_console_print(NULL, 1, LINES-2, "%s   %s  M:%d", name, unit, moves);
+	mvprintw(LINES-2, 1, "%s   %s  M:%d", name, unit, moves);
 
 	free(unit);
 
 	// general info
 	int year = lua_int("G.year") * -1;
-	TCOD_console_print(NULL, 1, LINES-1, "Year: %d B.C.", year);
+	mvprintw(LINES-1, 1, "Year: %d B.C.", year);
 }
 
 void draw_screen()
 {	
-	TCOD_console_clear(NULL);
-
 	// draw map
 	int x, y;
 	for(y=0; y<LINES-2; y++)
@@ -254,13 +237,22 @@ void draw_screen()
 	// status line
 	draw_status_line();
 	
-	TCOD_console_flush();
+	refresh();
+
+	// set cursor in the focused unit
+	if(!lua_is_nil("G.selected"))
+	{
+		x = lua_int("G.selected.x");
+		y = lua_int("G.selected.y");
+		if(x+rx >= 0 && x+rx < map_w-1 && y+ry >= 0 && y+ry <= map_h-1)
+			move(y+ry, x+rx);
+	}
 }
 
 void event()
 {
-	TCOD_key_t ch = TCOD_console_wait_for_keypress(true);
-	switch(ch.c)
+	int ch = getch();
+	switch(ch)
 	{
 		case 'q':
 			running = 0;
@@ -306,6 +298,16 @@ void event()
 	}
 }
 
+void close_curses()
+{
+	endwin();
+}
+
+void unload_lua()
+{
+	lua_close(L);
+}
+
 int main(int argc, char* argv[])
 {
 	int i;
@@ -315,6 +317,7 @@ int main(int argc, char* argv[])
 
 	load_script();
 	init_curses();
+	atexit(close_curses);
 
 	while(running)
 	{
