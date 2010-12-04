@@ -14,7 +14,7 @@ int map_w = 40, map_h = 20;
 int colors = 1;
 
 enum Colors {
-	GRASSLAND=1, OCEAN, PLAYER
+	GRASSLAND=1, OCEAN, PLAYER, TOWN
 };
 
 void close_curses();
@@ -151,6 +151,7 @@ void init_colors()
 	init_pair(GRASSLAND, COLOR_WHITE, COLOR_GREEN);
 	init_pair(OCEAN, COLOR_WHITE, COLOR_BLUE);
 	init_pair(PLAYER, COLOR_BLACK, COLOR_WHITE);
+	init_pair(TOWN, COLOR_BLACK, COLOR_YELLOW);
 }
 
 void init_curses()
@@ -165,7 +166,29 @@ void init_curses()
 
 void draw_tile(int x, int y)
 {
-	if(lua_int("# G.map(%d,%d).units()",x, y) == 0)
+	if(lua_int("# G.map(%d,%d).units()",x, y) > 0)
+	{
+		attron(COLOR_PAIR(PLAYER));
+		switch(lua_char("G.map(%d,%d).units()[1].military.char", x, y))
+		{
+			case 'S':
+				mvaddch(y, x, 'S');
+				break;
+			case '@':
+				mvaddch(y, x, '@');
+				break;
+			default:
+				abort();
+		}
+		attroff(COLOR_PAIR(PLAYER));
+	}
+	else if(lua_bool("G.map(%d,%d).town", x, y))
+	{
+		attron(COLOR_PAIR(TOWN));
+		mvaddch(y, x, 'T');
+		attroff(COLOR_PAIR(TOWN));
+	}
+	else
 	{
 		attron(A_DIM);
 		switch(lua_char("G.map(%d,%d).terrain.char", x+rx, y+ry))
@@ -184,22 +207,6 @@ void draw_tile(int x, int y)
 				abort();
 		}
 		attroff(A_DIM);
-	}
-	else
-	{
-		attron(COLOR_PAIR(PLAYER));
-		switch(lua_char("G.map(%d,%d).units()[1].military.char", x, y))
-		{
-			case 'S':
-				mvaddch(y, x, 'S');
-				break;
-			case '@':
-				mvaddch(y, x, '@');
-				break;
-			default:
-				abort();
-		}
-		attroff(COLOR_PAIR(PLAYER));
 	}
 }
 
