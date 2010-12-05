@@ -307,7 +307,9 @@ void event()
 				echo();
 				getnstr(city, 30);
 				noecho();
-				lua_do("G.selected.build_town('%s')", city);
+				if(city[0] != '\0')
+					lua_do("G.selected.build_town('%s')", 
+							city);
 			}
 			break;
 		case 'w':

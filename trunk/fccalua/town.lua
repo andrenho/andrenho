@@ -9,10 +9,11 @@ function Town.new(G, nation, name, x, y, unit)
    self.nation = nation
    self.name = name
    self.x, self.y = x, y
-   self.unit = unit
 
    function self.initialize()
       self.G.map(self.x, self.y).town = self
+      self.G.selected = nil
+      unit.town = self
       return self
    end
 
