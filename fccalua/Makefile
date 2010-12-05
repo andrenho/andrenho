@@ -1,5 +1,5 @@
 INCLUDES=-I/usr/include/lua5.1
-LIBS=-lncurses -llua -lm
+LIBS=-lncurses -llua5.1 -lm
 #INCLUDES=-IC:\andre\desenv\curses -IC:\andre\desenv\lua\include
 #LIBS=-LC:\andre\desenv\curses -LC:\andre\desenv\lua -lpdcurses -llua5.1
 

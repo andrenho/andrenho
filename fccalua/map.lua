@@ -22,7 +22,7 @@ function Tile.new(G, x, y, terrain)
       local units = {}
       for _,n in ipairs(G.nations) do
          for _,u in ipairs(n.units) do
-            if u.x == self.x and u.y == self.y then
+            if u.x == self.x and u.y == self.y and not u.town then
                table.insert(units, u)
             end
          end

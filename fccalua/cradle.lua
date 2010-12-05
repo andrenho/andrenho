@@ -1,6 +1,7 @@
 require 'util'
 require 'static'
 require 'map'
+require 'nation'
 require 'units'
 require 'town'
 
