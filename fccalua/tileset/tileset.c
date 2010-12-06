@@ -31,6 +31,26 @@ inline static Tileset* get_ts(lua_State* L)
 }
 
 
+static int Tileset_update(lua_State* L)
+{
+	Tileset* ts = get_ts(L);
+
+	int i, x, y;
+	for(i=0; i<3; i++)
+		for(x=0; x<ts->w; x++)
+			for(y=0; y<ts->h; y++)
+			{
+				unsigned char c = ts->layer[i][x+(y*ts->w)];
+				SDL_BlitSurface(ts->image[i][c], NULL, 
+					ts->scr,
+					&(SDL_Rect){ x * ts->tile_w,
+				                     y * ts->tile_h });
+			}
+	SDL_Flip(ts->scr);
+	return 0;
+}
+
+
 // Tileset.set_char(layer, char, x, y)
 static int Tileset_set_char(lua_State* L)
 {
@@ -81,15 +101,20 @@ static int Tileset_load_image(lua_State* L)
 
 	// load image
 	SDL_Surface* sf = IMG_Load(image);
+	SDL_Surface* sf2 = SDL_ConvertSurface(sf, ts->scr->format, 0);
 	if(!sf)
 		luaL_error(L, "Invalid image file '%s'.", image);
+	if(x + ts->tile_w > sf->w || y + ts->tile_h > sf->h)
+		luaL_error(L, "X and Y can't be outside the image.");
 
 	// create image
-	image[layer][ch] = SDL_CreateRGBSurface(SDL_SWSURFACE, ts->tile_w,
-			ts->tile_h, 32, 0, 0, 0, 0);
-	// TODO ...
+	ts->image[layer][ch] = SDL_CreateRGBSurface(SDL_SWSURFACE, 
+			ts->tile_w, ts->tile_h, 32, 0, 0, 0, 0);
+	SDL_BlitSurface(sf2, &(SDL_Rect) { x, y, ts->tile_w, ts->tile_h },
+			ts->image[layer][ch], NULL);
 	
 	SDL_FreeSurface(sf);
+	SDL_FreeSurface(sf2);
 	return 0;
 }
 
@@ -113,6 +138,7 @@ static int Tileset_new(lua_State* L)
 	// functions
 	SET_FUNCTION("self", "set_char", Tileset_set_char);
 	SET_FUNCTION("self", "load_image", Tileset_load_image);
+	SET_FUNCTION("self", "update", Tileset_update);
 
 	// initialize scr
 	SDL_Init(SDL_INIT_VIDEO);
@@ -125,11 +151,15 @@ static int Tileset_new(lua_State* L)
 
 	// initialize layers
 	int i, j;
+	SDL_Surface* blank = SDL_CreateRGBSurface(SDL_SWSURFACE, 
+			ts->tile_w, ts->tile_h, 32, 0, 0, 0, 0);
 	for(i=0; i<3; i++)
 	{
 		ts->layer[i] = malloc(ts->w * ts->h);
 		for(j=0; j<(ts->w * ts->h); j++)
 			ts->layer[i][j] = ' ';
+		for(j=0; j<256; j++)
+			ts->image[i][j] = blank;
 	}
 
 	// return self
