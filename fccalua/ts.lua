@@ -7,8 +7,10 @@ local function load_sdl()
    SDL.SDL_Init:types('int', 'long')
    SDL_INIT_VIDEO = 0x00000020
    SDL.SDL_SetVideoMode:types('pointer', 'int', 'int', 'int', 'long')
-   SDL.SDL_CreateRGBSurface('long', 'int', 'int', 'int', 'long', 'long',
-            'long', 'long')
+   SDL.SDL_CreateRGBSurface:types('pointer', 'long', 'int', 'int', 'int', 'long', 'long', 'long', 'long')
+end
+
+local function get_color(r, g, b)
 end
 
 
@@ -24,14 +26,17 @@ function TS.new(tile_w, tile_h)
    
    function self.init_video(w, h)
       SDL.SDL_Init(SDL_INIT_VIDEO)
-      SDL.SDL_SetVideoMode(w * self.tile_w, h * self.tile_h, 0, 0)
+      video = SDL.SDL_SetVideoMode(w * self.tile_w, h * self.tile_h, 0, 0)
+      
 
       -- space
-      white = 
+--      white = SDL.SDL_CreateRGBSurface(0, self.tile_w, self.tile_h, 32, 0, 0, 0, 0)
+
+      self.load_char(1, ' ', white, 0, 0)
    end
 
    
-   function self.load_char(char, image, x, y)
+   function self.load_char(level, char, image, x, y)
    end
 
    
