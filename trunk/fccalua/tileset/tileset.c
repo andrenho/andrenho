@@ -51,6 +51,7 @@ static int Tileset_new(lua_State* L)
 	ts->scr = SDL_SetVideoMode(ts->w * ts->tile_w, ts->h * ts->tile_h,
 			32, SDL_SWSURFACE);
 	SDL_FillRect(ts->scr, NULL, SDL_MapRGB(ts->scr->format, 255, 255, 255));
+	SDL_Flip(ts->scr);
 
 	// return self
 	lua_getglobal(L, "self");
