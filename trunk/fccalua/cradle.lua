@@ -1,7 +1,6 @@
-require 'ts'
-require 'cradle'
+package.path = package.path .. ';.\\tileset\\?.dll'
+print(package.path)
+require 'tileset'
+require 'game'
 
-ts = TS.new(12, 12)
-ts.init_video(80, 60)
-
-while true do end
+ts = TS.new(8, 8)
