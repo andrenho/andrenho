@@ -31,6 +31,71 @@ inline static Tileset* get_ts(lua_State* L)
 }
 
 
+static int Tileset_get_event(lua_State* L)
+{
+	int err;
+	SDL_Event e;
+event:	SDL_WaitEvent(&e);
+	if(e.type == SDL_KEYDOWN)
+	{
+		static struct {
+			SDLKey key;
+			const char* desc;
+		} special[] = {
+			{ SDLK_UP, 	"up" },
+			{ SDLK_DOWN, 	"down" },
+			{ SDLK_LEFT, 	"left" },
+			{ SDLK_RIGHT, 	"right" },
+			{ SDLK_KP0, 	"kp_0" },
+			{ SDLK_KP1, 	"kp_1" },
+			{ SDLK_KP2, 	"kp_2" },
+			{ SDLK_KP3, 	"kp_3" },
+			{ SDLK_KP4, 	"kp_4" },
+			{ SDLK_KP5, 	"kp_5" },
+			{ SDLK_KP6, 	"kp_6" },
+			{ SDLK_KP7, 	"kp_7" },
+			{ SDLK_KP8, 	"kp_8" },
+			{ SDLK_KP9, 	"kp_9" },
+			{ 0, NULL }
+		};
+
+		char buf[1024] = "";
+		int i = 0, found = 0;
+		while(special[i].key != 0)
+		{
+			if(e.key.keysym.sym == special[i].key)
+			{
+				snprintf(buf, 1024, 
+					"return { type = 'key', key = '%s', "
+					"ascii = %d }",
+					special[i].desc, e.key.keysym.sym);
+				found = 1;
+			}
+			i++;
+		}
+		if(!found)	
+			snprintf(buf, 1024, 
+				"return { type = 'key', key = '%c', ascii = %d }",
+				e.key.keysym.sym, e.key.keysym.sym);
+		err = luaL_dostring(L, buf);
+	}
+	else if(e.type == SDL_QUIT)
+	{
+		err = luaL_dostring(L, "return { type = 'quit' }");
+	}
+	else
+		goto event;
+
+	if(err)
+	{
+		fprintf(stderr, "%s", lua_tostring(L, -1));
+		exit(1);
+	}
+
+	return 1;
+}
+
+
 static int Tileset_update(lua_State* L)
 {
 	Tileset* ts = get_ts(L);
@@ -41,10 +106,10 @@ static int Tileset_update(lua_State* L)
 			for(y=0; y<ts->h; y++)
 			{
 				unsigned char c = ts->layer[i][x+(y*ts->w)];
+				SDL_Rect r = { x * ts->tile_w,
+			                       y * ts->tile_h };
 				SDL_BlitSurface(ts->image[i][c], NULL, 
-					ts->scr,
-					&(SDL_Rect){ x * ts->tile_w,
-				                     y * ts->tile_h });
+						ts->scr, &r);
 			}
 	SDL_Flip(ts->scr);
 	return 0;
@@ -80,6 +145,7 @@ static int Tileset_set_char(lua_State* L)
 	return 0;
 }
 
+// Tileset.load_image(layer, char, image, x, y)
 static int Tileset_load_image(lua_State* L)
 {
 	// parameters
@@ -139,6 +205,7 @@ static int Tileset_new(lua_State* L)
 	SET_FUNCTION("self", "set_char", Tileset_set_char);
 	SET_FUNCTION("self", "load_image", Tileset_load_image);
 	SET_FUNCTION("self", "update", Tileset_update);
+	SET_FUNCTION("self", "get_event", Tileset_get_event);
 
 	// initialize scr
 	SDL_Init(SDL_INIT_VIDEO);
