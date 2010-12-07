@@ -21,6 +21,8 @@ typedef struct {
 	unsigned char* layer[3];
 	SDL_Surface* image[3][256];
 } Tileset;
+static const char* last_image = "";
+SDL_Surface* last_sf = NULL;
 
 
 inline static Tileset* get_ts(lua_State* L)
@@ -31,6 +33,7 @@ inline static Tileset* get_ts(lua_State* L)
 }
 
 
+// Tileset.get_event()
 static int Tileset_get_event(lua_State* L)
 {
 	int err;
@@ -56,6 +59,8 @@ event:	SDL_WaitEvent(&e);
 			{ SDLK_KP7, 	"kp_7" },
 			{ SDLK_KP8, 	"kp_8" },
 			{ SDLK_KP9, 	"kp_9" },
+			{ SDLK_KP_ENTER,"return" },
+			{ SDLK_RETURN, 	"return" },
 			{ 0, NULL }
 		};
 
@@ -96,6 +101,7 @@ event:	SDL_WaitEvent(&e);
 }
 
 
+// Tileset.update()
 static int Tileset_update(lua_State* L)
 {
 	Tileset* ts = get_ts(L);
@@ -166,21 +172,37 @@ static int Tileset_load_image(lua_State* L)
 		luaL_error(L, "Layer must be between 0 and 2");
 
 	// load image
-	SDL_Surface* sf = IMG_Load(image);
-	SDL_Surface* sf2 = SDL_ConvertSurface(sf, ts->scr->format, 0);
-	if(!sf)
-		luaL_error(L, "Invalid image file '%s'.", image);
-	if(x + ts->tile_w > sf->w || y + ts->tile_h > sf->h)
+	SDL_Surface* sf2;
+	if(strcmp(last_image, image) == 0)
+	{
+		sf2 = last_sf;
+	}
+	else
+	{
+		SDL_Surface* sf = IMG_Load(image);
+		// sf2 = SDL_ConvertSurface(sf, ts->scr->format, SDL_SWSURFACE);
+		if(!sf)
+			luaL_error(L, "Invalid image file '%s'.", image);
+		sf2 = SDL_DisplayFormat(sf);
+		SDL_FreeSurface(sf);
+
+		if(last_sf != NULL)
+			SDL_FreeSurface(last_sf);
+		last_sf = sf2;
+		last_image = image;
+	}
+	if(x + ts->tile_w > sf2->w || y + ts->tile_h > sf2->h)
 		luaL_error(L, "X and Y can't be outside the image.");
 
 	// create image
-	ts->image[layer][ch] = SDL_CreateRGBSurface(SDL_SWSURFACE, 
+	ts->image[layer][ch] = SDL_CreateRGBSurface(
+			SDL_SWSURFACE, 
 			ts->tile_w, ts->tile_h, 32, 0, 0, 0, 0);
+	SDL_SetColorKey(ts->image[layer][ch], SDL_SRCCOLORKEY, 
+				SDL_MapRGB(ts->image[layer][ch]->format, 255, 0, 255));
 	SDL_BlitSurface(sf2, &(SDL_Rect) { x, y, ts->tile_w, ts->tile_h },
 			ts->image[layer][ch], NULL);
-	
-	SDL_FreeSurface(sf);
-	SDL_FreeSurface(sf2);
+
 	return 0;
 }
 
@@ -190,7 +212,8 @@ static int Tileset_new(lua_State* L)
 	int h = luaL_checknumber(L, 2);
 
 	// self = {}
-	lua_newtable(L);
+	//lua_newtable(L);
+	lua_getglobal(L, "AbstractTileset");
 	lua_setglobal(L, "self");
 
 	// self.data
@@ -218,6 +241,7 @@ static int Tileset_new(lua_State* L)
 	int i, j;
 	SDL_Surface* blank = SDL_CreateRGBSurface(SDL_SWSURFACE, 
 			ts->tile_w, ts->tile_h, 32, 0, 0, 0, 0);
+	SDL_SetColorKey(blank, SDL_SRCCOLORKEY, 0);
 	for(i=0; i<3; i++)
 	{
 		ts->layer[i] = malloc(ts->w * ts->h);
@@ -232,7 +256,7 @@ static int Tileset_new(lua_State* L)
 	return 1;
 }
 
-int luaopen_tileset(lua_State *L)
+int luaopen_libtileset(lua_State *L)
 {
 	// Tileset = {}
 	lua_newtable(L);
