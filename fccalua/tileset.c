@@ -114,8 +114,9 @@ static int Tileset_update(lua_State* L)
 				unsigned char c = ts->layer[i][x+(y*ts->w)];
 				SDL_Rect r = { x * ts->tile_w,
 			                       y * ts->tile_h };
-				SDL_BlitSurface(ts->image[i][c], NULL, 
-						ts->scr, &r);
+				if(i == 0 || (i != 0 && c != ' '))
+					SDL_BlitSurface(ts->image[i][c], NULL, 
+							ts->scr, &r);
 			}
 	SDL_Flip(ts->scr);
 	return 0;
@@ -180,10 +181,10 @@ static int Tileset_load_image(lua_State* L)
 	else
 	{
 		SDL_Surface* sf = IMG_Load(image);
-		sf2 = SDL_ConvertSurface(sf, ts->scr->format, SDL_SWSURFACE);
+		sf2 = SDL_DisplayFormat(sf);
+		//sf2 = SDL_ConvertSurface(sf, ts->scr->format, SDL_SWSURFACE|SDL_SRCALPHA);
 		if(!sf)
 			luaL_error(L, "Invalid image file '%s'.", image);
-		//sf2 = SDL_DisplayFormat(sf);
 		SDL_FreeSurface(sf);
 
 		if(last_sf != NULL)
@@ -196,10 +197,11 @@ static int Tileset_load_image(lua_State* L)
 
 	// create image
 	ts->image[layer][ch] = SDL_CreateRGBSurface(
-			SDL_SWSURFACE|SDL_SRCALPHA, 
+			SDL_SWSURFACE, 
 			ts->tile_w, ts->tile_h, 32, 0, 0, 0, 0);
-//	SDL_SetColorKey(ts->image[layer][ch], SDL_SRCCOLORKEY, 
-//				SDL_MapRGB(ts->scr->format, 255, 0, 255));
+	//ts->image[layer][ch] = SDL_DisplayFormat(ts->image[layer][ch]);
+	//if(layer==0)
+	SDL_SetColorKey(ts->image[layer][ch], SDL_SRCCOLORKEY, SDL_MapRGB(ts->image[layer][ch]->format, 0, 0, 0));
 	SDL_BlitSurface(sf2, &(SDL_Rect) { x, y, ts->tile_w, ts->tile_h },
 			ts->image[layer][ch], NULL);
 
