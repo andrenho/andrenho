@@ -5,7 +5,7 @@ SDL_INCLUDE_LIBS=`sdl-config --cflags --libs` -lSDL_image
 CFLAGS=-Wall -g $(LUA_INCLUDES) $(LUA_LIB) $(SDL_INCLUDE_LIBS) -fPIC -shared 
 
 all:
-	gcc -o tileset.dll tileset.c $(CFLAGS)
+	gcc -o libtileset.dll tileset.c $(CFLAGS)
 
 clean:
 	rm tileset.so
