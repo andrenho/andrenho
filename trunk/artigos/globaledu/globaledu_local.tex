@@ -1,0 +1,111 @@
+\documentclass[preprint]{elsarticle}
+%\documentclass{article}
+
+\begin{document}
+
+%
+% Autores
+%
+\title{Learning in Small and Large Ubiquitous Computing Environment}
+
+\author[unisinos]{J.~Barbosa} 
+\ead{jbarbosa@unisinos.br}
+
+\author[unisinos]{R.~Hahn} 
+\ead{rodrigo.rmh@gmail.com}
+
+\author[unisinos]{A.~Wagner} 
+\ead{andre.nho@gmail.com}
+
+\author[unilasalle]{D.N.F.~Barbosa} 
+\ead{nice@unilasalle.edu.br}
+
+\author[ufrgs]{C.F.R.~Geyer} 
+\ead{geyer@inf.ufrgs.br}
+
+\address[unisinos]{PIPCA/Unisinos, São Leoplodo, RS, Brazil}
+\address[unilasalle]{UniLasalle, Canoas, RS, Brazil} 
+\address[ufrgs]{UFRGS, Porto Alegre, RS, Brazil}
+
+%
+% Abstract
+%
+\begin{abstract}
+
+GlobalEdu is a generic model created to support learning in ubiquitous
+computing environments. This model has the necessary support to implement
+learning-related functionalities in ubiquitous environments. The basic
+ubiquitous computing support must be supplied by a middleware where GlobalEdu
+lays atop. This paper1 proposes the integration of GlobalEdu with two
+middlewares: ISAM and LOCAL. ISAM supports the creation of large-scale
+ubiquitous systems. As such, its integration with GlobalEdu results in
+large-scale ubiquitous learning environments. On the other hand, LOCAL is
+dedicated to create small-scale, location and context-aware ubiquitous
+learning environments. The integration between GlobalEdu and LOCAL results in
+a local ubiquitous learning system. We created a practical scenario, where our
+proposal was evaluated.
+
+\end{abstract}
+
+\maketitle
+
+
+%
+% Texto
+%
+\section{Introduction}
+
+Mobile computing \citet{lamport94} is a computational paradigm emerging from wireless networks
+and distributed systems technologies. Mobility allows the existence of various
+scenarios, from nomadic computing to ubiquitous computing [1, 2]. In the last
+scenario, the users, carrying portable devices (such as handhelds and
+notebooks) have access to a shared infrastructure, independently from their
+physical location or displacement form. In the viewpoint of ubiquitous
+computing, the computational power will be available anytime and everywhere. 
+
+In this scenario, new learning perspectives are essential, due to the
+relationship between teaching and learning changes [3]. In our point of view,
+a great amount of educational resources will soon be distributed in a global
+network, and learning processes will need to explore this diversity
+everywhere, anytime and in any device the learners may be employing in their
+activities. Educational applications will explore all the learning
+opportunities, joining contextual information (for example, a work of art in a
+museum that is being visited) with educational objectives (the learner can be
+studying history of art). 
+
+GlobalEdu is a model oriented to ubiquitous learning. It supplies the
+necessary support to explore the new learning opportunities available in
+ubiquitous environments. GlobalEdu is structured into layers (detailed in
+section 3) and can also be coupled with an ubiquitous computing middleware
+(considered the third layer). This paper proposes the integration of GlobalEdu
+with two middleware projects: ISAM [4, 5] and LOCAL [6, 7]. The ISAM project
+focuses on the building and management of large-scale ubiquitous computing
+environments [8], and is being developed at UFRGS (Federal University of Rio
+Grande do Sul, Brazil). On the other hand, LOCAL aims to support small-scale,
+location-and-context-aware computing environments. It is being developed at
+UNISINOS (University of Vale do Rio dos Sinos, Brazil).
+
+% TODO - reorganizar seções
+This paper is organized as follows. Section 2 presents the definitions and
+standards associated with ubiquitous learning. Section 3 details GlobalEdu.
+Section 4 proposes the integration between GlobalEdu and the middleware
+projects ISAM and LOCAL. The fifth section describes a practical approach
+where a small-scale scenario is being evaluated. Section 6 compares our
+proposal with others in the same area. Finally, section 7 presents some
+conclusions and plans for future work.
+
+%
+% Bibliografia
+%
+\begin{thebibliography}{9}
+
+\bibitem{lamport94}
+  Leslie Lamport,
+  \emph{\LaTeX: A Document Preparation System}.
+  Addison Wesley, Massachusetts,
+  2nd Edition,
+  1994.
+
+\end{thebibliography}
+
+\end{document}
