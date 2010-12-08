@@ -1,5 +1,5 @@
 \documentclass[5p,authoryear]{elsarticle}
-%\usepackage{paralist}
+\usepackage{booktabs}
 %\documentclass{article}
 
 \begin{document}
@@ -24,7 +24,7 @@
 \author[ufrgs]{C.F.R.~Geyer} 
 \ead{geyer@inf.ufrgs.br}
 
-\address[unisinos]{PIPCA/Unisinos, São Leoplodo, RS, Brazil}
+\address[unisinos]{PIPCA/Unisinos, S\~{a}o Leopoldo, RS, Brazil}
 \address[unilasalle]{UniLasalle, Canoas, RS, Brazil} 
 \address[ufrgs]{UFRGS, Porto Alegre, RS, Brazil}
 
@@ -58,9 +58,9 @@ proposal was evaluated.
 %
 \section{Introduction}
 
-Mobile computing \citep{weiser91} is a computational paradigm emerging from
-wireless networks and distributed systems technologies. Mobility allows the
-existence of various scenarios, from nomadic computing to ubiquitous computing
+Mobile computing is a computational paradigm emerging from wireless networks
+and distributed systems technologies. Mobility allows the existence of various
+scenarios, from nomadic computing to ubiquitous computing
 \citep{weiser91,satyanarayanan01}. In the last scenario, the users, carrying
 portable devices (such as handhelds and notebooks) have access to a shared
 infrastructure, independently from their physical location or displacement
@@ -285,15 +285,16 @@ The LOCAL project \citep{barbosa07,barbosa08} aims to provide a
 location-and-context-aware ubiquitous architecture geared to create small-scale
 learning environments.  LOCAL is composed by seven subsystems (see
 Figure~\ref{fig:local-arch}): (1)~\emph{User Profiles}, which store information
-related to the users using the PAPI standard [14]; (2)~\emph{Personal
-Assistant}, which acts as the system's interface, residing in the user's mobile
-device; (3)~\emph{Location System}, used to determine the physical position of
-the mobile devices; (4)~\emph{Learning Objects Repository}, which stores and
-indexes content related to the teaching process; (5)~\emph{Tutor}, an analysis
-engine capable of making inferences by using the data supplied by the profiles
-and the location system; (6)~\emph{Communication System}, used to establish
-communication between the different parts of LOCAL, and between the system and
-its users; (7)~\emph{Event System}, used to schedule tasks. 
+related to the users using the PAPI standard \citep{ieee08a};
+(2)~\emph{Personal Assistant}, which acts as the system's interface, residing
+in the user's mobile device; (3)~\emph{Location System}, used to determine the
+physical position of the mobile devices; (4)~\emph{Learning Objects
+Repository}, which stores and indexes content related to the teaching process;
+(5)~\emph{Tutor}, an analysis engine capable of making inferences by using the
+data supplied by the profiles and the location system; (6)~\emph{Communication
+System}, used to establish communication between the different parts of LOCAL,
+and between the system and its users; (7)~\emph{Event System}, used to schedule
+tasks. 
 
 \begin{figure}[h!] 
   \includegraphics[width=0.5\textwidth]{media/local-arch}
@@ -318,7 +319,7 @@ context the learner is in. The tutor uses this information, as well as the
 learner's profile data, to select the objects meeting the learner's goals and
 the context. The objects meeting these criteria are then forwarded to the
 learner.  The metadata specification for Learning Objects in LOCAL was made in
-accordance with the IEEE LTSC \citep{ieee08a}. The \emph{tutor} uses profile
+accordance with the IEEE LTSC \citep{ieee08b}. The \emph{tutor} uses profile
 and location data to find learning opportunities. It can act in two ways:
 (1)~providing relevant, contextualized learning objects and (2)~stimulating
 interaction between learners, by using learner profile data to create bonds
@@ -332,6 +333,12 @@ Context Management Module is supported by the Learning Object Repository and
 the Profile Management by the User Profiles System. Communication Support
 Module is mapped to the LOCAL Communication System. Other Support Modules are
 not used. 
+
+\begin{figure}[h!] 
+  \includegraphics[width=0.5\textwidth]{media/local-ge}
+  \caption{LOCAL adapted for GlobalEdu} 
+  \label{fig:local-ge} 
+\end{figure}
   
 LOCAL is oriented to small-scale ubiquitous environments and its architecture
 was projected to a centralized execution (only one server). As such, there is
@@ -342,16 +349,218 @@ devices.
 
 \section{Practical scenario: GlobalEdu and LOCAL} \label{sec:scenario}
 
+Our first choice in order to evaluate our proposal was the creation of a
+small-scale ubiquitous learning scenario. We used the integration
+GlobalEdu/LOCAL described in the section~\ref{sec:ge-local}. The prototype
+scenario encloses nine rooms, covered by four wireless access points (see
+Figure\ref{fig:scenario}). The location system has two parts: (1)~a webservice
+created in C\# and (2)~a database which stores context information. The
+Personal Assistant was developed in C\#, using the .NET Compact Framework. The
+assistant runs in iPAQs hx4700 and tablet PCs tc1100. It reads potency
+information from the four wireless access points and forwards it to the
+location system. The system uses this information to determine the position of
+users' mobile devices. The profile system was implemented using MySQL. The
+tutor and message system were also implemented as web services in C\#.
+
+\begin{figure}[h!] 
+  \includegraphics[width=0.5\textwidth]{media/scenario}
+  \caption{Prototype Scenario} 
+  \label{fig:scenario} 
+\end{figure}
+
+
+\begin{table}
+  \footnotesize
+  \begin{tabular}{p{0.12cm}p{0.45cm}p{0.45cm}p{1cm}p{5cm}}
+    \toprule
+    & Initial Time & Final Time & Actor & Action \\
+    \midrule
+    \textbf{1} & - & 07:00 & Professor & Inserts an appointment, to be sent between 7:30 and 10:00, to all users in room 216. \\
+    \midrule
+    \textbf{2} & 07:30 & 08:00 & Learners & 7 users enter the room (authentication). \\
+    \cmidrule(r){2-5}
+    & 07:30 & 08:00 & System & Begins tracking the 7 users location. \\
+    \cmidrule(r){2-5}
+    & 07:30 & 08:00 & System & Message system sends the previously appointed message to all users in room 216. \\
+    \midrule
+    \textbf{3} & 08:00 & 08:10 & Professor & Solicits the creation groups for the debate. \\
+    \cmidrule(r){2-5}
+    & 08:10 & 08:10 & System & Sends messages, creates groups: A (4 users, Java), B (2 users, C\#) and C (1 user, C++). \\  
+    \cmidrule(r){2-5}
+    & 08:10 & 08:30 & Learners & The debate starts. \\
+    \cmidrule(r){2-5}
+    & 08:30 & 08:30 & Learners & 2 users enter the room (authentication).  \\
+    \cmidrule(r){2-5}
+    & 08:30 & 08:30 & System & Begins tracking position of the last 2 users. Sends appointed message to these 2 users. Informs where they should participate. \\  
+    \cmidrule(r){2-5}
+    & 08:30 & 09:00 & Learners & The debate comes to a conclusion. \\
+    \midrule
+    \textbf{4} & 09:00 & 09:10 & Learner & The last user arrives (authentication). \\  
+    \cmidrule(r){2-5}
+    & 09:10 & 09:10 & System & Begins tracking the last user position. \\
+    \bottomrule
+  \end{tabular}
+  \caption{Simulated test}
+  \label{tab:simulated}
+\end{table}
+
+The first moment occurs before the lesson. The professor sets an appointment
+consisting of a message with the subject of the upcoming debate, as well as a
+list of online resources. This appointment spans the whole duration of the
+lesson. This message is tied to room 216, where the debate will occur. The
+second moment corresponds to the start of the lesson. Seven students enter the
+classroom, and are promptly detected by the location system. They receive the
+appointed message. In the third moment, the professor requests the formation of
+groups for debating. The groups are formed according with similarity between
+user interests for ``Programming Languages''. In this particular case, three
+groups were formed: one (A)~with four students interested in Java; the second
+(B)~with two students interested in C\# and another one (C)~with just one
+student, interested in C++. The debate starts, where each group presents the
+pros and cons of each language. At this time, two students come late. Both
+receive the appointed message, and are also informed about what group they
+should participate in. One enters group A, and the other one enters group C. In
+the fourth moment, another late student arrives, and receives the appointed
+messages. However, the debate had already ended, and he is not directed to any
+group. The fifth moment occurs after the ending of the lesson. The system
+registers student attendance via sampled location data. A student is considered
+present if he was in the classroom for at least 60\% of the meeting's duration.
+The last student was considered absent.
+
+The initial technological results proved that it was possible to: (1)~create
+groups of students via profile and physical location data; (2)~distribute
+material based on their profiles and in the debate theme; (3)~automatically
+handle student attendances in the classroom, based on location data.
+
+The previous simulated test couldn't present evidence of usability in a real
+environment. In order to validate ubiquitous learning using GlobalEdu/LOCAL,
+another experiment was conducted. This new experiment involved a sample
+consisting of 20 individuals, between learners and professors of a Computer
+Engineering undergraduate course at University of Vale do Rio dos Sinos
+(Unisinos, Brazil).
+
+This test was realized into five moments: each moment, a set of four
+individuals interacted with the system. The following steps were considered:
+1)~each participant was given an HP iPAQ hx4700 mobile device, which they used
+to authenticate into the system; 2)~the participants then received suggestions
+to participate in one of two workshops (based into user profile data); 3)~the
+participants were notified whenever a professor they wanted to chat with was
+available; 4)~in the fourth step, the system searched for matches between
+participants' profiles, suggesting learning resources related to their
+interests; 5)~the users were instructed to go to the workshop rooms. The
+ubiquitous system then made available on the iPAQs the program of the chosen
+event (per user). 
+
+After following these steps, the users were asked to answer a survey, with
+questions relating to their experience. The questions had answers in a scale
+going from 1 (very weak) to 5 (excellent). An answer with the value 0 (zero)
+meant the user had no particular opinion about that feature. The relation of
+questions in the survey presented to participants is seen in
+Table~\ref{tab:questions}. Several considerations can be made from the analysis
+of each question. In order to demonstrate this, we have chosen charts
+representative of the most important questions. 
+
+% TODO - table 2
+\begin{table}
+  \footnotesize
+  \begin{tabular}{cp{7.5cm}}
+    \toprule
+    \# & ``What was your evaluation of\ldots'' \\
+    \midrule
+     1 & \ldots{}notifications about the availability of professors? \\ 
+     2 & \ldots{}notifications about events, based on location and your profile data? \\
+     3 & \ldots{}notification about the availability of physical resources? \\
+     4 & \ldots{}information about users related to your interests, at your location? \\
+     5 & \ldots{}the presentation of content related to events at your location? \\
+     6 & \ldots{}the usefulness of this system for teaching? \\
+     7 & \ldots{}the use of this system to determine your physical location? \\
+     8 & \ldots{}the stimulus to interaction between users in the same location? \\
+     9 & \ldots{}the possibility of using this system in daily activities? \\
+    10 & \ldots{}the possibility of using this system in the classroom? \\  
+    \bottomrule
+  \end{tabular}
+  \caption{Relation of questions}
+  \label{tab:questions}
+\end{table}
+
+
+The aspects of context-awareness were analyzed through questions 1 to 7. There
+was special interest into the adequate presentation of content related to
+pedagogical events, and the use of the system to track user location.
+Figure~\ref{fig:context} presents the results of these questions, as answered
+by 20 test subjects. As can be seen, results indicate good acceptance in
+relation to contextual information. 
+
+\begin{figure}[h!] 
+  \includegraphics[width=0.5\textwidth]{media/context}
+  \caption{Context data (questions 1 to 7)} 
+  \label{fig:context} 
+\end{figure}
+
+The proposed daily use of the system as learning tool in the classroom, as well
+as interaction between users and contextual elements were analyzed through
+questions 8 to 10. These relate mostly to the usability of the system. The
+results in Figure~\ref{fig:daily} indicate a good acceptance by the test
+subjects. Over 60\% of those subjects considered the system \emph{good} or
+\emph{excellent}. If we take into consideration the test was performed in a
+limited and controlled scenario, the 32\% of people that considered the system
+\emph{satisfactory} are also a good indication that this system is well fit for
+daily usage. 
+
+It should be noted that, in this survey, adaptability aspects were not given a
+proper analysis. These aspects could be better analyzed if the test involved an
+heterogeneous sample of mobile devices (desktop PCs, tablet PCs and iPAQs).
+
+\begin{figure}[h!] 
+  \includegraphics[width=0.5\textwidth]{media/daily}
+  \caption{Daily usage (questions 8 to 10)} 
+  \label{fig:daily} 
+\end{figure}
 
 \section{Related work} \label{sec:related}
+
+Some projects are investigating the use of ubiquitous computing to provide new
+learning perspectives. \citet{ogata03} present JAPELAS, a context-aware system
+to support learning of Japanese language expressions. Learners carrying PDAs
+are assisted by the system to help identify the adequate polite expressions,
+considering the context where they are. JAPELAS is directed for a specific
+content. With GlobalEdu's \emph{Content} Management it's possible to learn
+about any kind of content. 
+
+The Ambient Wood Project \citep{rogers05} is dedicated to the design and
+building of pervasive environments. WiFi and sensor-based technologies are
+connected with a variety of mobile and standalone computational devices. The
+proposal is that digital augmentation offers a promising way for enhancing both
+indoors and outdoors learning processes. The GlobalEdu \emph{Context Managment}
+module uses the Social and Physical information to improve the learning
+process. LOCAL explores indoors learning applications through WiFi technology,
+and with ISAM, we intend to explore both indoors and outdoors applications.
+
+A ubiquitous computing scenario needs to support general purpose educational
+processes, where mobility, context and learner information will be considered.
+None of the current projects \citep{rogers05,ogata03} addressing this
+particular problem use location data to both: (a)~accurately track users'
+movements; (b)~present contextual information to the learner. As such,
+GlobalEdu (alongside LOCAL) presents an innovation in this aspect, since
+location data can be used in many new pedagogical opportunities.
 
 
 \section{Conclusion} \label{sec:conclusion}
 
+GlobalEdu is an innovative proposal that allows the exploration of the benefits
+of ubiquitous learning environments. Different from other approaches, GlobalEdu
+does not depend on a specific ubiquitous environment. Also, it can be coupled
+with mostly any learner model or learning objects model. 
+
+The results of the experiments show that GlobalEdu can be used in a specific
+classroom learning situation and in generic learning situations. Currently, we
+are improving the GlobalEdu prototype and its integration with LOCAL. After
+that, another round of tests shall be conducted.
+
 %
 % Bibliografia
 %
-\bibliographystyle{plainnat} \bibliography{globaledu_local}
+\bibliographystyle{plainnat} 
+\bibliography{globaledu_local}
 
 
 \end{document}
