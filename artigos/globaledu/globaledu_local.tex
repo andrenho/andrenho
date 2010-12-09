@@ -1,5 +1,6 @@
 \documentclass[5p,authoryear]{elsarticle}
 \usepackage{booktabs}
+%\usepackage{enumerate}
 %\documentclass{article}
 
 \begin{document}
@@ -274,7 +275,217 @@ can be executed in mobile devices.
 
 Each ISAM cell has one instance of GlobalEdu. Users can change their context
 (cell), carrying their PA. ISAM supports the basic ubiquitous computing-related
-aspects and GlobalEdu supports the specific learning aspects.   
+aspects and GlobalEdu supports the specific learning aspects.
+
+% TODO
+% 
+% LOCAL
+%
+\section{LOCAL}
+
+% TODO... completar...
+
+LOCAL is composed by seven subsystems (see Figure~\ref{fig:local-arch}):
+
+\begin{enumerate}
+
+  \item \emph{User profiles}, which store information related to the learning
+        process.
+
+  \item \emph{Personal assistant}, which resides in the user's mobile device. 
+
+  \item \emph{Location system}, used to determine the physical position of the
+        mobile equipments.
+
+  \item \emph{Learning objects repository}, which stores and indexes content
+        related to the teaching process.
+
+  \item \emph{Tutor}, an analysis engine capable of making inferences by using
+        the data supplied by the profiles and the location system. 
+
+  \item \emph{Communication system}, used to establish communication between
+        the different parts of LOCAL, and between the system and its users.
+
+  \item \emph{Event system}, used to schedule tasks. The following subsections
+        describe these components in detail.
+
+\end{enumerate}
+
+\begin{figure}[h!] 
+  \includegraphics[width=0.5\textwidth]{media/local-arch}
+  \caption{The LOCAL architecture}
+  \label{fig:local-arch} 
+\end{figure}
+
+\subsection{Learner Profiles}
+
+In the last few years, the search for standardization of user profiles has led
+to several research efforts like PAPI \citep{papi08} and LIP \citep{lip09}. In
+the scope of ubiquitous learning, profiles allow the exploration of resources
+based on characteristics of both the learner and the contexts in which he/she
+interacts.  This is underlined in \citet{barbosa06}, \citet{ogata03},
+\citet{nivo07} and \citet{selene}.
+
+The \emph{user profiles} in LOCAL are based on the PAPI standard. Reasons
+behind this decision include: 1)~flexibility -- PAPI can be freely extended,
+and all of its components are optional; 2)~modularity -- profile fields and/or
+sections can be handled separately, allowing part of the profile to reside in
+the \emph{personal assistant}, while another part is tied to the visited
+contexts. User profile data can be either persistent or contextual (see
+Figure~\ref{fig:profiles}). 
+
+\begin{figure}[h!] 
+  \includegraphics[width=0.5\textwidth]{media/profiles}
+  \caption{Organization of learner profiles in LOCAL}
+  \label{fig:profiles} 
+\end{figure}
+
+The persistent data (\emph{Contact}, \emph{Preferences}, \emph{Interests}) is
+stored in the \emph{personal assistant}, and it always accompanies the learner,
+no matter which context he/she is in. The contextual data (\emph{Relations},
+\emph{Performance}, \emph{Security}) is associated with the many contexts in
+which the learner interacts. LOCAL manages both kinds of data, seeking for
+pedagogical opportunities. 
+
+\emph{Contact} stores basic user data, such as name, address, e-mail and phone
+number.  The \emph{Preferences} section helps the system customize the user
+experience, storing configuration data related to the preferred media type
+(audio, video and/or text), and others not directly related to pedagogical
+activities. Also, the learner might suffer from some kind of physical
+disability. In this case, according to specific disability scenarios, the
+system can provide the same content in different formats. For example, if the
+learners of a particular group are following a video tutorial, a transcript
+would be of particular use to people who are hard of hearing. 
+
+The \emph{Interests} section follows the knowledge areas defined in the ACM
+Computing Classification System \citep{acm98}, having a general knowledge area
+(for example, ``Math'') and a specific interest topic, in the scope of said
+knowledge area (for example, ``Group Theory''). The specific areas are then
+classified according to the apprentice's own goals (for example, ``to learn''
+or ``to teach''). \emph{Relations} stores data which specifies relations
+between other users in the same context (for example, ``student'', ``teacher''
+or ``researcher''). \emph{Performance} refers to proposed goals and evaluations
+conducted in a context. \emph{Security} stores credentials (names and
+passwords) to allow for different access levels in specific contexts. 
+
+
+\subsection{Personal Assistant and Location System}
+
+The \emph{personal assistant} (PA) is the module which accompanies the learner
+in its mobile device. It allows users to stay connected to the system, while
+providing a certain degree of independence. The PA presents the following
+functionalities: 
+
+\begin{enumerate}
+  
+  \item Authentication, keeping track of the learner's connection status.
+  
+  \item Access to the location system, allowing for turning it off at will.
+
+  \item Receiving and storing notifications proceeding from the communication
+        system.
+
+\end{enumerate}  
+
+The \emph{location} system used by the LOCAL is based on a generic
+architecture, supporting different methods of determining user's physical
+locations. The system ties physical location data to symbolic names (contexts).
+This allows real time mapping of mobile device positions. As the learner
+authorizes the location system in its PA, it begins to determine the device's
+position and physical context changes, along with the time and date of such
+changes. With this data, it is possible to completely track the learner's
+movements. User profile data, alongside context information, is used in the
+learning process. 
+
+
+
+\subsection{Learning Objects}
+
+Learning objects in LOCAL are made available to learners in accordance with
+whatever pedagogical opportunities may appear during their interaction with the
+different contexts (see Figure~\ref{fig:objects}). The location system keeps
+the tutor aware of which context the learner is in (step 1). The tutor uses
+this information, as well as the learner's profile data, to select the objects
+meeting the learner's goals and the context (steps 2 and 3). The objects
+meeting these criteria are then forwarded to the learner (step 4). This
+adaptive process can be started by two events: 1)~when the learner enters a new
+context or 2)~insertion of new material at the object repository. The metadata
+specification for Learning Objects in LOCAL was made in accordance with the
+IEEE LTSC \citep{ltsc08}. The ample acceptance of this standard is underlined 
+in \citet{rigaux09}.
+
+\begin{figure}[h!]
+  \includegraphics[width=0.5\textwidth]{media/objects}
+  \caption{Learning objects management}
+  \label{fig:objects} 
+\end{figure}
+
+
+
+\subsection{Tutor}
+
+The tutor uses profile and location data to find learning opportunities. It can
+act in two ways: 1)~sending learning objects (described in the last section)
+and 2)~stimulating interaction between learners. It uses learner profile data
+to create bonds between learners (see Figure\ref{fig:interaction}). There are two interaction
+forms: 1)~\emph{Similar interests}: the tutor finds learners with similar
+interests in the same context, and stimulates interaction. This approach can be
+used in the creation of workgroups in a classroom, for example;
+2)~\emph{Complementary interests}: the tutor finds learners with complementary
+interests. For example, a learner who wishes to learn more about a particular
+subject is paired along a user who wishes to teach or knows more about it. This
+way, the tutor can be used, for example, to create pairs of students who
+complement each other.
+
+\begin{figure}[h!]
+  \includegraphics[width=0.5\textwidth]{media/interaction}
+  \caption{Organization of learner profiles in LOCAL}
+  \label{fig:interaction} 
+\end{figure}
+
+
+\subsection{Communication System \& Events}
+
+The \emph{communication} system present in LOCAL is used to establish contact
+with learners, notifying them of new pedagogical opportunities. This system can
+be controlled automatically, or by an operator using the administrative
+interface.  Users are contacted by textual notifications. The notifications are
+sent according to profiles, objects, location and event data. The following
+services are supported: 
+
+\begin{enumerate}
+
+  \item Sending messages to a specific user in the system, wherever it is. 
+
+  \item Sending messages to a specific context (everyone in the context
+        receives the notification).
+
+  \item Sending messages to a user, but only if he/she is inside a particular
+        context.
+
+  \item Sending messages to all users, regardless of context. 
+
+\end{enumerate}
+
+The messages also have an associated date of expiration, delimiting a time
+interval after which the message loses its validity.
+Figure~\ref{fig:communication} shows an example of use for the communication
+system where, based on the location data (1) and user profiles (2A), the tutor
+contacts the learner (3). This can be used to presenting new pedagogical
+opportunities, for instance. The communication system also supports the
+creation of events. An event is characterized by a series of properties,
+including keywords, starting date and location. Events can be defined to a
+future date, in usual date format (\emph{yyyy-mm-dd hh:mm:ss}) and have an
+arbitrary duration. When a message is associated to an event, it is up to the
+tutor to find correspondences, and forward the messages at the appropriate
+time. 
+
+\begin{figure}[h!]
+  \includegraphics[width=0.5\textwidth]{media/communication}
+  \caption{Communication System}
+  \label{fig:communication} 
+\end{figure}
+
 
 %
 % Small-scale: GlobalEdu and LOCAL
@@ -285,7 +496,7 @@ The LOCAL project \citep{barbosa07,barbosa08} aims to provide a
 location-and-context-aware ubiquitous architecture geared to create small-scale
 learning environments.  LOCAL is composed by seven subsystems (see
 Figure~\ref{fig:local-arch}): (1)~\emph{User Profiles}, which store information
-related to the users using the PAPI standard \citep{ieee08a};
+related to the users using the PAPI standard \citep{papi08};
 (2)~\emph{Personal Assistant}, which acts as the system's interface, residing
 in the user's mobile device; (3)~\emph{Location System}, used to determine the
 physical position of the mobile devices; (4)~\emph{Learning Objects
@@ -319,7 +530,7 @@ context the learner is in. The tutor uses this information, as well as the
 learner's profile data, to select the objects meeting the learner's goals and
 the context. The objects meeting these criteria are then forwarded to the
 learner.  The metadata specification for Learning Objects in LOCAL was made in
-accordance with the IEEE LTSC \citep{ieee08b}. The \emph{tutor} uses profile
+accordance with the IEEE LTSC \citep{ltsc08}. The \emph{tutor} uses profile
 and location data to find learning opportunities. It can act in two ways:
 (1)~providing relevant, contextualized learning objects and (2)~stimulating
 interaction between learners, by using learner profile data to create bonds
