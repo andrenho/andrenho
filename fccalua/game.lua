@@ -30,6 +30,7 @@ function Game.new(w, h, player)
    self.map_h = h
    self._map = {}
    self.nations = {}
+   self.selected = nil
 
 
    --

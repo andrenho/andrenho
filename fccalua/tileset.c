@@ -102,9 +102,23 @@ event:	SDL_WaitEvent(&e);
 
 
 // Tileset.update()
+static int Tileset_h(lua_State* L)
+{
+	Tileset* ts = get_ts(L);
+
+	int h = ts->scr->h / ts->tile_h;
+	lua_pushinteger(L, h);
+
+	return 1;
+}
+
+
+// Tileset.update()
 static int Tileset_update(lua_State* L)
 {
 	Tileset* ts = get_ts(L);
+
+	SDL_FillRect(ts->scr, NULL, SDL_MapRGB(ts->scr->format, 0, 0, 0));
 
 	int i, x, y;
 	for(i=0; i<3; i++)
@@ -231,6 +245,7 @@ static int Tileset_new(lua_State* L)
 	SET_FUNCTION("self", "load_image", Tileset_load_image);
 	SET_FUNCTION("self", "update", Tileset_update);
 	SET_FUNCTION("self", "get_event", Tileset_get_event);
+	SET_FUNCTION("self", "h", Tileset_h);
 
 	// initialize scr
 	SDL_Init(SDL_INIT_VIDEO);
