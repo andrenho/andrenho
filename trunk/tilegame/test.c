@@ -1,8 +1,16 @@
 #include "tilegame.h"
 
+#include <stdlib.h>
+
 int main(int argc, char* argv[])
 {
-	TileGame* tg = TG_Init("./terminal.tg");
+	char* err;
+	TileGame* tg = TG_Init("./terminal.tg", &err);
+	if(!tg)
+	{
+		fprintf(stderr, "%s\n", err);
+		return EXIT_FAILURE;
+	}
 
-	return 0;
+	return EXIT_SUCCESS;
 }
