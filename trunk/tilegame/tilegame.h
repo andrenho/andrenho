@@ -2,14 +2,18 @@
 #define TILEGAME_H
 
 #include "SDL.h"
+#include "uthash.h"
+
+typedef struct {
+	int id;
+	char* image_file;
+	int tile_w, tile_h;
+	UT_hash_handle hh;
+} Layer;
 
 typedef struct {
 	char* error;
-	int layers;
-
-	// private info
-	const char* _filename;
-	struct archive* _a;
+	Layer* layers;
 } TileGame;
 
 TileGame* TG_Init(const char* filename, char** error);
