@@ -1,166 +1,0 @@
-Learning in Small and Large Ubiquitous Computing Environments
-
-Jorge Barbosa, Rodrigo Hahn
-PIPCA/Unisinos
-São Leopoldo – RS – Brazil
-jbarbosa@unisinos.br
-rodrigo.rmh@gmail.comDébora N. F. Barbosa
-UniLasalle
-Canoas – RS – Brazil
-nice@unilasalle.edu.brCláudio F. R. Geyer
-UFRGS
-Porto Alegre – RS – Brazil
-geyer@inf.ufrgs.br
-
-Abstract
-  GlobalEdu is a generic model created to support learning in ubiquitous computing environments. This model has the necessary support to implement learning-related functionalities in ubiquitous environments. The basic ubiquitous computing support must be supplied by a middleware where GlobalEdu lays atop. This paper1 proposes the integration of GlobalEdu with two middlewares: ISAM and LOCAL. ISAM supports the creation of large-scale ubiquitous systems. As such, its integration with GlobalEdu results in large-scale ubiquitous learning environments. On the other hand, LOCAL is dedicated to create small-scale, location and context-aware ubiquitous learning environments. The integration between GlobalEdu and LOCAL results in a local ubiquitous learning system. We created a practical scenario, where our proposal was evaluated.
-  
-1. Introduction
-  
-  Mobile computing is a computational paradigm emerging from wireless networks and distributed systems technologies. Mobility allows the existence of various scenarios, from nomadic computing to ubiquitous computing [1, 2]. In the last scenario, the users, carrying portable devices (such as handhelds and notebooks) have access to a shared infrastructure, independently from their physical location or displacement form. In the viewpoint of ubiquitous computing, the computational power will be available anytime and everywhere. 
-  In this scenario, new learning perspectives are essential, due to the relationship between teaching and learning changes [3]. In our point of view, a great amount of educational resources will soon be distributed in a global network, and learning processes will need to explore this diversity everywhere, anytime and in any device the learners may be employing in their activities. Educational applications will explore all the learning opportunities, joining contextual information (for example, a work of art in a museum that is being visited) with educational objectives (the learner can be studying history of art). 
-  GlobalEdu is a model oriented to ubiquitous learning. It supplies the necessary support to explore the new learning opportunities available in ubiquitous environments. GlobalEdu is structured into layers (detailed in section 3) and can also be coupled with an ubiquitous computing middleware (considered the third layer). This paper proposes the integration of GlobalEdu with two middleware projects: ISAM [4, 5] and LOCAL [6, 7]. The ISAM project focuses on the building and management of large-scale ubiquitous computing environments [8], and is being developed at UFRGS (Federal University of Rio Grande do Sul, Brazil). On the other hand, LOCAL aims to support small-scale, location-and-context-aware computing environments. It is being developed at UNISINOS (University of Vale do Rio dos Sinos, Brazil).
-  This paper is organized as follows. Section 2 presents the definitions and standards associated with ubiquitous learning. Section 3 details GlobalEdu. Section 4 proposes the integration between GlobalEdu and the middleware projects ISAM and LOCAL. The fifth section describes a practical approach where a small-scale scenario is being evaluated. Section 6 compares our proposal with others in the same area. Finally, section 7 presents some conclusions and plans for future work.
-  
-2. Towards ubiquitous learning support
-  
-  Mobile learning (m-learning) [9] is fundamentally about increasing learners’ capability to carry their own learning environment along with them. M-learning is the natural evolution of e-learning, and has the potential to make learning even more widely accessible. However, considering the ubiquitous view, mobile computers are still not embedded in the learners’ surrounding environment, and as such they cannot seamlessly obtain contextual information. 
-  An ubiquitous learning system [10] can use embedded devices that communicate mutually to explore the context, and dynamically build models of their environments. It is considered that while the learner is moving with his/her mobile device, the system dynamically supports his/her learning by communicating with embedded computers in the environment. The opportunities made available by the context can be used to improve the learning experience. 
-  This learning scenario is attractive, but is not easily implemented. We are investigating how to better match people’s expectations for such a system. In our point of view, ubiquitous learning environments should support the execution of context-aware, distributed, mobile, pervasive and adaptative learning applications. Differently from other research projects [10, 11, 12], the GlobalEdu proposal readily supports these characteristics. 
-  
-3. GlobalEdu
-  
-  GlobalEdu [13] aims to support ubiquitous educational applications. Its architecture is based on a layered organization, as shown in Figure 1. The Application Layer is represented by a Pedagogic Agent (PA), which follows the learner throughout the environment and helps in her/his interactions with the system.
-  
-
-  Figure 1. GlobalEdu architecture
-  
-  The System Layer is a set of Educational Modules (EM) and Support Modules (SM). The Educational Modules are responsible for performing content management tasks as well as manipulation of the learner model. The system has three Educational Modules: Profile, Content and Context Management. The first module is responsible for managing learner profiles. The second one deals with the learning objects which are manipulated by the learner. The third one controls information in the context of interest of the learner and is in charge of adapting the resources that he/she is manipulating. The Support Modules are intended to help in the execution of the Educational Modules and the Pedagogical Agent, by managing the aspects of communication, adaptation of interfaces to devices, user’s access and persistence.
-  The Runtime Layer is a middleware which supports the execution of educational applications, providing the system with necessary features, such as perception of contextual elements, code migration and communication mechanisms.
-  For us, one of the characteristics of ubiquitous learning is that the user’s context can be connected with the learner’s local context, joining this information with educational objectives. The Context Management module manages learner context in each location the learner interacts. This module detects changes of contextual elements in the different locations where the learner is. The Social Context and Physical Context compose the learner context. 
-  The Social Context has contextualized information about Location Context and the presence of other PAs in the current context. Location Context contains information about People (name, e-mail, commitments and roles), Events (type, description and location) and Resources (name, type, description and commitments) related to a specific location. The presence of other PAs presupposes the existence of other learners with the same goals, competencies and preferences, whose information the learner may access for contact or not. This information can also be used for the creation of learner groups within the same context.
-  The Physical Context represents the resources accessed by the learner, such as network, locations and devices. We consider that the ubiquitous computing environment monitors Physical Context elements. Besides, any element state changes are informed to the Context Management. 
-  The Context Management module has the capability to know how to locate the learner in his/her current environment, to identify a learner in the corresponding context and to provide information adapted to the device the learner is using. In the same way, each location is modeled as a Geographic Region and has information about Location Context. So, for GlobalEdu, the ubiquitous environment is composed by cells and these have different contexts (Figure 2). For example, a University can be considered a cell and its buildings, different contexts. 
-
-
-Figure 2. The GlobalEdu environment
-  
-  Learners need to authenticate themselves in order to interact with the environment. This event is handled by the Context Management module. When a new learner enters into the environment, the Social Context changes. In this case, the service takes two actions: (1) notifies other learners in the corresponding context (Location Context), and (2) sends to the new learner adapted information about the current context he/she is in. User profiles are compared in order to define learners with the same goals, competencies and preferences, whose information the learner may access for contact or not. 
-  For the adaptation process, there is a relationship between the Context Management module and the other elements of the architecture (see Figure 3). 
-  
-     
-Figure 3. Context management
-  
-  With this, learners can ask explicit information about the Social Context they are part of. He can also extend the search for information to other contexts. This can be useful in the case of finding learning objects related to the learner’s goals, for instance. 
-  
-  
-4. GlobalEdu, ISAM and LOCAL
-  
-  GlobalEdu is a generic model created in order to support ubiquitous learning. This model supports the basic features needed to implement learning-related functionalities in ubiquitous environments. The basic ubiquitous computing support must be supplied by a middleware (see Figure 1). GlobalEdu has been integrated with two ubiquitous environments: ISAM [4, 5] and LOCAL [6, 7]. ISAM supports the creation of large-scale ubiquitous systems. As such, its integration with GlobalEdu results in a large-scale ubiquitous learning system. On other hand, LOCAL is dedicated to create small-scale location and context-aware ubiquitous systems. GlobalEdu integrated with LOCAL results in a local ubiquitous learning system. 
-  
-4.1. Large-scale: GlobalEdu and ISAM
-  
-  The ISAM Project [4, 5] provides a common system platform, allowing the execution of applications across a wide range of equipment as well as automatic distribution and installation. ISAM is based on the vision that ubiquitous applications are distributed, mobile and context-aware by nature, and assumes that “the computer” is the whole network (large-scale pervasiveness). The ISAM Pervasive Environment (ISAMpe) is composed of elements that correspond to the physical infrastructure of the mobile network. The physical organization adopted in ISAM is the cellular hierarchy (see Figure 4). Each cell has a base and the cells are connected to support the ubiquitous environment. A cell manages nodes such as desktops and mobile devices which can be connected either by wired or wireless networks.
-  As can be seen in the Figure 2, GlobalEdu also uses a cellular hierarchy. It is possible to map the GlobalEdu architecture to ISAM (as shown in Figure 4). The Pedagogical Agent (PA) is mapped to mobile nodes and the Educational and Support Modules are mapped to the bases (servers in a cell). The Modules are heavyweight execution units, and are executed in network servers. On the other hand, PA is a lightweight execution unit, so it can be executed in mobile devices.
-  Each ISAM cell has one instance of GlobalEdu. Users can change their context (cell), carrying their PA. ISAM supports the basic ubiquitous computingrelated aspects and GlobalEdu supports the specific learning aspects.   
-  
-
-Figure 4. GlobalEdu and ISAM
-
-4.2. Small-scale: GlobalEdu and LOCAL
-  
-  The LOCAL project [6, 7] aims to provide a location-and-context-aware ubiquitous architecture geared to create small-scale learning environments. LOCAL is composed by seven subsystems (see Figure 5): (1) User Profiles, which store information related to the users using the PAPI standard [14]; (2) Personal Assistant, which acts as the system’s interface, residing in the user’s mobile device; (3) Location System, used to determine the physical position of the mobile devices; (4) Learning Objects Repository, which stores and indexes content related to the teaching process; (5) Tutor, an analysis engine capable of making inferences by using the data supplied by the profiles and the location system; (6) Communication System, used to establish communication between the different parts of LOCAL, and between the system and its users; (7) Event System, used to schedule tasks. 
-
-Figure 5. The LOCAL architecture
-  The personal assistant (PA) is the module which accompanies the learner in its mobile device. It allows users to stay connected to the system, while providing a certain degree of independence. The location system ties users’ physical location data to symbolic names (contexts). This allows real time mapping of mobile device positions.  As the learner authorizes the location system in its PA, it begins to determine the device’s position and physical context changes, along with the time and date of such changes. With this data, it is possible to completely track the learner’s movements. User profile data, alongside context information, is used in the learning process.
-  Learning objects in LOCAL are made available to learners in accordance with whatever pedagogical opportunities may appear during their interaction with the different contexts. The location system keeps the tutor aware of which context the learner is in. The tutor uses this information, as well as the learner’s profile data, to select the objects meeting the learner’s goals and the context. The objects meeting these criteria are then forwarded to the learner. The metadata specification for Learning Objects in LOCAL was made in accordance with the IEEE LTSC [15]. The tutor uses profile and location data to find learning opportunities. It can act in two ways: (1) providing relevant, contextualized learning objects and (2) stimulating interaction between learners, by using learner profile data to create bonds between learners.
-  GlobalEdu uses the services offered by LOCAL to monitor and control the environment (see Figure 6). GlobalEdu´s PAs are executed in the learner’s devices, mapped to the LOCAL Personal Assistant. The Location System and the Event System are used to support the Context Management Module. Context Management Module is supported by the Learning Object Repository and the Profile Management by the User Profiles System. Communication Support Module is mapped to the LOCAL Communication System. Other Support Modules are not used. 
-  LOCAL is oriented to small-scale ubiquitous environments and its architecture was projected to a centralized execution (only one server). As such, there is only one GlobalEdu instance (see Figure 1). Modules are executed in the network server and the PA executes in the users’ mobile devices.
-5. Practical scenario: GlobalEdu and LOCAL
-  
-  Our first choice in order to evaluate our proposal was the creation of a small-scale ubiquitous learning scenario. We used the integration GlobalEdu/LOCAL described in the section 4.2. The prototype scenario encloses nine rooms, covered by four wireless access points (see Figure 7). The location system has two parts: (1) a webservice created in C# and (2) a database which stores context information. The Personal Assistant was developed in C#, using the .NET Compact Framework. The assistant runs in iPAQs hx4700 and tablet PCs tc1100. It reads potency information from the four wireless access points and forwards it to the location system. The system uses this information to determine the position of users’ mobile devices. The profile system was implemented using MySQL. The tutor and message system were also implemented as web services in C#.
-
-Figure 6. LOCAL adapted for GlobalEdu
-  
-  Our first experiment was a simulated lesson, involving ten learners carrying mobile devices. The lesson spanned two and a half hours (between 7:30 and 10:00) and involved a debate around the subject “Programming Language Paradigms”. Learner profiles were previously registered. Test results are organized into five moments, and documented in Table 1.
-
-Figure 7. Prototype scenario
-Table 1. Simulated test
-Initial
-TimeFinal
-TimeActorAction1-07:00ProfessorInserts an appointment, to be sent between 7:30 and 10:00, to all users in room 216.207:3008:00Learners7 users enter the room (authentication).07:3008:00SystemBegins tracking the 7 users location.07:3008:00SystemMessage system sends the previously appointed message to all users in room 216.308:0008:10ProfessorSolicits the creation groups for the debate.08:1008:10SystemSends messages, creates groups: A (4 users, Java), B (2 users, C#) and C (1 user, C++).08:1008:30LearnersThe debate starts.08:3008:30Learners2 users enter the room (authentication).08:3008:30SystemBegins tracking position of the last 2 users. Sends appointed message to these 2 users. Informs where they should participate.08:3009:00LearnersThe debate comes to a conclusion.409:0009:10LearnerThe last user arrives (authentication).09:1009:10SystemBegins tracking the last user position.
-Message system sends previously appointed message to this user.09:1010:00Professor & LearnersThe participants keep exchanging ideas about the debate that was just held.510:00-SystemPosition information of each participant is evaluated, attendances are registered.  
-  The first moment occurs before the lesson. The professor sets an appointment consisting of a message with the subject of the upcoming debate, as well as a list of online resources. This appointment spans the whole duration of the lesson. This message is tied to room 216, where the debate will occur. The second moment corresponds to the start of the lesson. Seven students enter the classroom, and are promptly detected by the location system. They receive the appointed message. In the third moment, the professor requests the formation of groups for debating. The groups are formed according with similarity between user interests for “Programming Languages”. In this particular case, three groups were formed: one (A) with four students interested in Java; the second (B) with two students interested in C# and another one (C) with just one student, interested in C++. The debate starts, where each group presents the pros and cons of each language. At this time, two students come late. Both receive the appointed message, and are also informed about what group they should participate in. One enters group A, and the other one enters group C. In the fourth moment, another late student arrives, and receives the appointed messages. However, the debate had already ended, and he is not directed to any group. The fifth moment occurs after the ending of the lesson. The system registers student attendance via sampled location data. A student is considered present if he was in the classroom for at least 60% of the meeting’s duration. The last student was considered absent.
-  The initial technological results proved that it was possible to: (1) create groups of students via profile and physical location data; (2) distribute material based on their profiles and in the debate theme; (3) automatically handle student attendances in the classroom, based on location data.
-  The previous simulated test couldn’t present evidence of usability in a real environment. In order to validate ubiquitous learning using GlobalEdu/LOCAL, another experiment was conducted. This new experiment involved a sample consisting of 20 individuals, between learners and professors of a Computer Engineering undergraduate course at University of Vale do Rio dos Sinos (Unisinos, Brazil).
-  This test was realized into five moments: each moment, a set of four individuals interacted with the system. The following steps were considered: 1) each participant was given an HP iPAQ hx4700 mobile device, which they used to authenticate into the system; 2) the participants then received suggestions to participate in one of two workshops (based into user profile data); 3) the participants were notified whenever a professor they wanted to chat with was available; 4) in the fourth step, the system searched for matches between participants’ profiles, suggesting learning resources related to their interests; 5) the users were instructed to go to the workshop rooms. The ubiquitous system then made available on the iPAQs the program of the chosen event (per user). 
-  After following these steps, the users were asked to answer a survey, with questions relating to their experience. The questions had answers in a scale going from 1 (very weak) to 5 (excellent). An answer with the value 0 (zero) meant the user had no particular opinion about that feature. The relation of questions in the survey presented to participants is seen in Table 2. Several considerations can be made from the analysis of each question. In order to demonstrate this, we have chosen charts representative of the most important questions. 
-Table 2. Relation of questions
-N.Q: “What was your evaluation of…”1…notifications about the availability of professors?2…notifications about events, based on location and your profile data?3…notification about the availability of physical resources?4…information about users related to your interests, at your location?5…the presentation of content related to events at your location?6…the usefulness of this system for teaching?7…the use of this system to determine your physical location?8…the stimulus to interaction between users in the same location?9…the possibility of using this system in daily activities?10…the possibility of using this system in the classroom?     
-  The aspects of context-awareness were analyzed through questions 1 to 7. There was special interest into the adequate presentation of content related to pedagogical events, and the use of the system to track user location. Figure 8 presents the results of these questions, as answered by 20 test subjects. As can be seen, results indicate good acceptance in relation to contextual information. 
-
-
-
-Figure 8. Context data (questions 1 to 7)
-  The proposed daily use of the system as learning tool in the classroom, as well as interaction between users and contextual elements were analyzed through questions 8 to 10. These relate mostly to the usability of the system. The results in Figure 9 indicate a good acceptance by the test subjects. Over 60% of those subjects considered the system good or excellent. If we take into consideration the test was performed in a limited and controlled scenario, the 32% of people that considered the system satisfactory are also a good indication that this system is well fit for daily usage. 
-  It should be noted that, in this survey, adaptability aspects were not given a proper analysis. These aspects could be better analyzed if the test involved an heterogeneous sample of mobile devices (desktop PCs, tablet PCs and iPAQs).
-
-
-Figure 9. Daily usage (questions 8 to 10)
-
-6. Related work
-  
-  Some projects are investigating the use of ubiquitous computing to provide new learning perspectives. Ogata [10] presents JAPELAS, a contextaware system to support learning of Japanese language expressions. Learners carrying PDAs are assisted by the system to help identify the adequate polite expressions, considering the context where they are. JAPELAS is directed for a specific content. With GlobalEdu’s Content Management it’s possible to learn about any kind of content. 
-  The Ambient Wood Project [3] is dedicated to the design and building of pervasive environments. WiFi and sensor-based technologies are connected with a variety of mobile and standalone computational devices. The proposal is that digital augmentation offers a promising way for enhancing both indoors and outdoors learning processes. The GlobalEdu Context Managment module uses the Social and Physical information to improve the learning process. LOCAL explores indoors learning applications through WiFi technology, and with ISAM, we intend to explore both indoors and outdoors applications.
-  A ubiquitous computing scenario needs to support general purpose educational processes, where mobility, context and learner information will be considered. None of the current projects [3, 10] addressing this particular problem use location data to both: (a) accurately track users’ movements; (b) present contextual information to the learner. As such, GlobalEdu (alongside LOCAL) presents an innovation in this aspect, since location data can be used in many new pedagogical opportunities.
-  
-7. Conclusion
-  
-  GlobalEdu is an innovative proposal that allows the exploration of the benefits of ubiquitous learning environments. Different from other approaches, GlobalEdu does not depend on a specific ubiquitous environment. Also, it can be coupled with mostly any learner model or learning objects model. 
-  The results of the experiments show that GlobalEdu can be used in a specific classroom learning situation and in generic learning situations. Currently, we are improving the GlobalEdu prototype and its integration with LOCAL. After that, another round of tests shall be conducted.
-  
-8. References
-
-[1] M. Weiser. “The computer for the 21st century”. Scientific America¸ 1991, pp. 94-104. 
-
-[2] M. Satyanarayanan. “Pervasive Computing: Vision and Challenges”. IEEE Personal Communications, 2001, pp. 1017.
-
-[3] Y. Rogers et al. “Ubi-learning Integrates Indoor and Outdoor Experiences”. Communications of the ACM, 48, 1, 2005, pp. 55-59.
-[4] A. C. Yamin et al. “ISAM: a Pervasive View in Distributed Mobile Computing”. IFIP/IEEE Network Control and Engineering (NET-CON), IEEE Press, New York, 2002, pp.431-436.
-
-[5] I. Augustin et al. “ISAM, Joing Context-awareness and Mobility to Building Pervasive Applications”, Mobile Computing Handbook, CRC Press, New York, 2004, pp. 7394.
-
-[6] J. Barbosa et al. “Mobile and Ubiquitous Computing in an Innovative Undergraduate Course”.  ACM Technical Symposium on Computer Science Education (SIGCSE), ACM Press, New York, 2007, pp. 379-383.
-
-[7] J. Barbosa et al. “LOCAL: a Model Geared Towards Ubiquitous Learning”. ACM Technical Symposium on Computer Science Education (SIGCSE), ACM Press, New York, 2008, pp. 432-436.
-
-[8] I. Augustin et al. “Managing the Follow-me Semantics to Build Large-Scale Pervasive Applications”. Workshop on Pervasive and Ad-Hoc Computing, ACM Press, New York, 2005.
-
-[9] D. Tatar el al. “Handhelds go to school: Lessons Learned”. SRI International Journal Computer, 36, 9, 2003, pp. 30-37.
-
-[10] H. Ogata, and Y. Yano. “How Ubiquitous Computing can support language learning”. Proc. of KEST, 2003, pp. 16.
-
-[11] B. Simon et al. “Elena: A Mediation Infrastructure for Educational Services”. WWW Conference, Budapest, Hungary, 2003.
-
-[12] SELENE. Self e-Learning Networks, Last Accessed May 2008. Available at http://www.dcs.bbk.ac.uk/selene.
-
-[13] D. Barbosa et al. “GlobalEdu: An Architecture to Support Learning in a Pervasive Computing Environment.” IFIP Workshop on Educational Technology (EduTech), Springer-Verlag, New York , 2005, pp. 110.
-
-[14] PAPI. IEEE P1484.2/d7. “Draft standard for learning technology - Public and Private information to learners”, Last Accessed May 2008. Available at http://jtc1sc36.org/doc/36N0179.pdf.
-
-[15] IEEE/LTSC/LOM Learning Technology Standards Committee. “Draft Standard for Learning Object Metadata”.  Last Accessed May 2008. Available at http://ltsc.ieee.org/wg12/files/LOM_1484_12_1_v1_Final_Draft.pdf.
-
-
-
-
-
-
-1 The authors wish to thank CNPq (the Brazilian National Counsel of Technological and Scientific Development) for funding the research project “UbiCampus: um Modelo para Suporte à Educação Ubíqua” (UbiCampus: an Ubiquitous Learning Support Model), of which this study is a part.
----------------
-
-------------------------------------------------------------
-
----------------
-
-------------------------------------------------------------
-
