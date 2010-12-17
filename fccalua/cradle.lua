@@ -69,18 +69,18 @@ end
 function move_unit(e)
    local u = G.selected
    local keys = {
-      { 'kp_1', nil,    -1, 1 },
-      { 'kp_2', 'down',  0, 1 },
-      { 'kp_3', nil,     1, 1 },
-      { 'kp_4', 'left', -1, 0 },
-      { 'kp_6', 'right', 1, 0 },
-      { 'kp_7', nil,    -1,-1 },
-      { 'kp_8', 'up',    0,-1 },
-      { 'kp_9', nil,     1,-1 },
+      { 'kp_1', 'j', nil,    -1, 1 },
+      { 'kp_2', 'k', 'down',  0, 1 },
+      { 'kp_3', 'l', nil,     1, 1 },
+      { 'kp_4', 'u', 'left', -1, 0 },
+      { 'kp_6', 'o', 'right', 1, 0 },
+      { 'kp_7', '7', nil,    -1,-1 },
+      { 'kp_8', '8', 'up',    0,-1 },
+      { 'kp_9', '9', nil,     1,-1 },
    }
    for _,a in ipairs(keys) do
-      if e.key == a[1] or e.key == a[2] then
-         u.move(a[3], a[4])
+      if e.key == a[1] or e.key == a[2] or e.key == a[3] then
+         u.move(a[4], a[5])
          return true
       end
    end
