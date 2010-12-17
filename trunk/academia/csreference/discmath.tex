@@ -1,0 +1,310 @@
+\documentclass[a4paper, twocolumn]{article}
+
+\usepackage[portuguese]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[pdftex]{graphicx}
+%\usepackage[top=1cm,bottom=1cm,left=1cm,right=1cm]{geometry}
+%\usepackage{multicol}
+
+\usepackage{amssymb,amsmath}
+\usepackage{extraipa}
+%\usepackage{euler}
+%\everymath{\displaystyle}
+
+\DeclareMathOperator{\N}{\mathbb{N}}
+\DeclareMathOperator{\Z}{\mathbb{Z}}
+\DeclareMathOperator{\R}{\mathbb{R}}
+\DeclareMathOperator{\negate}{\negthickspace\negthickspace\negthickspace\diagup\negthickspace}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\im}{im}
+\providecommand{\abs}[1]{\lvert#1\rvert}
+
+\author{André Wagner}
+\title{Fórmulas - Matemática Discreta}
+%\date{}
+
+\begin{document}
+\maketitle
+
+\section{Álgebra Booleana}
+
+\subsection{Fórmulas}
+
+\begin{equation} \neg(A \land B) = (\neg A) \lor (\neg B) \end{equation}
+\begin{subequations}\begin{align} A \land B = B \land A \\ 
+A \lor B = B \lor A \end{align}\end{subequations}
+\begin{subequations}\begin{align} (A \land B) \land C = A \land (B \land C) \\
+(A \lor B) \lor C = A \lor (B \lor C) \end{align}\end{subequations}
+\begin{subequations}\begin{align} A \lor A = A \\
+A \land A = A\end{align}\end{subequations}
+\begin{subequations}\begin{align} A \land (B \lor C) = (A \land B) \lor (A \land C) \\
+A \lor (B \land C) = (A \lor B) \lor (A \lor C)\end{align}\end{subequations}
+\begin{subequations}\begin{align} A \land (\neg A) &= \text{Falso} \\
+A \lor (\neg A) &= \text{Verdadeiro}\end{align}\end{subequations}
+\begin{subequations}\begin{align} \neg(A \land B) = (\neg A) \lor (\neg B) \\
+\neg(A \lor B) = (\neg A) \land (\neg B) \end{align}\end{subequations}
+\begin{equation} A \to B = (\neg A) \lor B \end{equation}
+
+\section{Coleções}
+
+\subsection{Contagem}
+O \textbf{número de listas} de comprimento $k$, cujos elementos são escolhidos a 
+partir de uma lista de $n$ elementos, é:
+\begin{equation}
+\left\{\begin{array}{l l}
+n^k & \text{caso se permitam repetições} \\
+(n)_k & \text{caso não se permitam repetições}
+\end{array} \right.
+\end{equation}
+onde $(n)_k = n(n-1)(n-2)\dotsm(n-k+1)$.
+
+\subsection{Fatorial}
+\begin{equation} n! = n \cdot (n-1)! \end{equation}
+\begin{equation} n! = n\cdot(n-1)\cdot(n-2)\dotsm3\cdot2\cdot1\end{equation}
+\begin{equation} n! = \prod^{n}_{k=1}k \end{equation}
+
+\subsection{Conjuntos}
+
+\begin{equation} x \in A \iff \{x\} \subseteq A \end{equation}
+\begin{subequations}\begin{align} A \cup B = B \cup A \\
+A \cap B = B \cap A \end{align}\end{subequations}
+\begin{subequations}\begin{align} A \cup (B \cup C) = (A \cup B) \cup C \\
+A \cap (B \cap C) = (A \cap B) \cap C \end{align}\end{subequations}
+\begin{subequations}\begin{align} A \cup \emptyset &= A \\
+A \cap \emptyset &= \emptyset \end{align}\end{subequations}
+\begin{subequations}\begin{align} A \cup (B \cap C) &= (A \cup B) \cap (A \cup C) \\
+A \cap (B \cup C) &= (A \cap B) \cup (A \cap C) \end{align}\end{subequations}
+
+\begin{equation} |A| + |B| = |A \cup B| + |A \cap B| \end{equation}
+
+Dois conjuntos $A$ e $B$ são \textbf{disjuntos} se $A \cap B = \emptyset$, e
+são \textbf{disjuntos dois a dois} se $A_i \cap A_j = \emptyset$ para todo $i\neq j$
+(i.e., não há dois deles que tenham um elemento em comum.)
+
+Se $A$ e $B$ são disjuntos, então
+\begin{equation} |A \cup B| = |A| + |B| \end{equation}
+
+Se $A$ e $B$ são disjuntos dois a dois, então
+\begin{subequations}\begin{align} |A_1 \cup A_2 \cup \dotsm \cup A_n| &= |A_1| + |A_2| + \dotsm + |A_n| \\
+\Biggl\lvert\bigcup^{n}_{k=1}A_k\Biggr\rvert &= \sum^{n}_{k=1}|A_k| \end{align}\end{subequations}
+
+\begin{equation} A - B = \{x: x \in A \land x \notin B\} \end{equation}
+
+\begin{subequations}\begin{align} A \;\Delta\; B &= (A-B) \cup (B-A) \\
+A \;\Delta\; B &= (A \cup B) - (A \cap B)\end{align}\end{subequations}
+
+\begin{equation} A \times B = \{(a,b): a \in A, b \in B\} \end{equation}
+\begin{equation} |A \times B| = |A| \cdot |B| \end{equation}
+
+\section{Relações}
+
+Seja $R$ uma relação e sejam os conjuntos $A$ e $B$. $R$ é uma \textbf{relação 
+sobre $A$} desde que $R \subseteq A \times A$, e $R$ é uma \textbf{relação de $A$
+para $B$} se $R \subseteq A \times B$.
+
+\begin{equation} R^{-1} = \{(x,y): (y,x) \in R\} \end{equation}
+
+\subsection{Propriedades}
+\begin{description}
+\item[Reflexiva] $\forall x \in A, x \;R\; x$
+\item[Anti-reflexiva] $\forall x \in A, x \;R\negate\; x$
+\item[Simétrica] $\forall x,y \in A, x \;R\; y \implies y \;R\; x$
+\item[Anti-simétrica] $\forall x,y \in A, (x \;R\; y \land y \;R\; x) \implies x=y$
+\item[Transitiva] $\forall x,y,z \in A, (x \;R\; y \land y \;R\; z) \implies x \;R\; z$
+\end{description}
+
+% TODO: ilustração das propriedades das relações
+
+\subsection{Relações de Equivalência}
+
+$R$ é uma \textbf{relação de equivalência} se $R$ é reflexiva, simétrica e transitiva.
+% TODO: uma fórmula
+
+\begin{equation} x \equiv y \pmod n = n|(x-y) \end{equation}
+
+A \textbf{classe de equivalência de $a$} é o conjunto de todos elementos de $A$
+relacionado com $a$ através da relação $R$:
+\begin{equation} [a] = \{x \in A: x \;R\; a\} \end{equation}
+\begin{equation} a \in [a] \end{equation}
+\begin{equation} a \;R\; b \iff [a] = [b] \end{equation}
+\begin{equation} x,y \in [a] \implies x \;R\; y \end{equation}
+\begin{equation} [a] \cap [b] \neq \emptyset \implies [a] = [b] \end{equation}
+
+\subsection{Partições}
+
+Uma \textbf{partição} sobre $A$ é um conjunto de conjuntos não vazios, disjuntos dois
+a dois, cuja união é $A$ (ou seja, uma partição é um conjunto dividido em partes).
+
+\subsection{Coeficientes Binomiais}
+
+Seja $n,k \in \N$. O símbolo $\binom{n}{k}$ denota o número de subconjuntos de $k$
+elementos em um conjunto de $n$ elementos.
+
+\begin{equation} \binom{n}{0} = 1 \end{equation}
+\begin{equation} \binom{n}{1} = n \end{equation}
+\begin{equation} \binom{n}{2} = 1+2+3+\cdots+(n-1) = \sum^{n-1}_{k=1}k \end{equation}
+\begin{equation} \binom{n}{2} = \frac{n(n-1)}{2} \end{equation}
+\begin{equation} \binom{n}{k} = \binom{n}{n-k} \end{equation}
+\begin{equation} \binom{n}{k} = \binom{n-1}{k-1} + \binom{n-1}{k} \end{equation}
+\begin{equation} \binom{n}{k} = \frac{n!}{k!(n-k)!} \end{equation}
+
+\subsubsection{Pirâmide de Pascal}
+
+\begin{equation} (x+y)^n = \sum^{n}_{k=0}\binom{n}{k}x^{n-k}y^k \end{equation}
+% TODO - fazer o trinângulo
+
+\section{Indução}
+
+Seja $A \in \N$. Se
+\begin{itemize}
+\item $0 \in A$ e
+\item $\forall k \in \N, k \in A \implies (k+1) \in A$
+\end{itemize}
+então $A=N$  (\textbf{Indução Fraca}).
+
+\mbox{}
+
+Seja $A \in \N$. Se
+\begin{itemize}
+\item $0 \in A$ e
+\item $\forall k \in \N, \{0, 1, 2, \dotsc, k\} \subseteq A \implies (k+1) \in A$
+\end{itemize}
+então $A=N$ (\textbf{Indução Forte}).
+
+\section{Funções}
+
+Uma relação $f$ é chamada \textbf{função} desde que 
+$(a,b) \in f \land (a,c) \in f \implies b=c$.
+
+\begin{subequations}\begin{align} \dom f &= \{a: \exists b, (a,b) \in f\} \\
+\dom f &= \{a: f(a)\text{ está definido}\} \end{align}\end{subequations}
+
+\begin{subequations}\begin{align} \im f &= \{b: \exists b, (a,b) \in f\} \\
+\im f &= \{b: b = f(a)\text{ para algum $b$}\} \end{align}\end{subequations}
+
+\begin{equation} f = A \to B \implies \dom f = A, f \subseteq B \end{equation}
+
+$f$ é \textbf{um-a-um} se e somente se $(x,b), (y,b) \in f \implies x=y$. Ou seja,
+se $x \neq y$, então $f(x) \neq f(y)$.
+
+$f^{-1}$ é uma função se e somente se $f$ é um-a-um.
+
+\begin{subequations}\begin{align} \dom f &= \im f^{-1} \\
+\im f &= \dom f^{-1} \end{align}\end{subequations}
+
+Se $f: A \to B$, $f$ é \textbf{sobre $B$} se, para todo $b \in B$, existe um $a \in A$
+tal que $f(a) = b$. Ou seja, $\im f = B$.
+
+Se $f: A \to B$ é um-a-um e sobre, então $f$ é uma \textbf{bijeção}.
+
+Sejam $A$ e $B$ conjuntos, e $f: A \to B$. Se $|A| > |B|$, então $f$ não é um-a-um.
+Se $|A| < |B|$, então $f$ não é sobre. Se $|A|=|B|$, então $f$ é uma bijeção.
+
+\subsection{Composição}
+
+\begin{equation} (g \circ f)(x) = g(f(x)) \end{equation}
+\begin{equation} f: A\to B, g: B\to C, h: C\to D \implies h \circ (g \circ f) = (h \circ g) \circ f \end{equation}
+\begin{equation} f^{(n)} = f \circ f \circ \dotsc \circ f \text{ } (n \text{ vezes}) \end{equation}
+
+\subsection{Assintóticos}
+
+Todas as proposições consideram $f: \N\to\R$ e $g: \N\to\R$.
+
+\begin{equation} f(n) \in O(g(n)) \implies |f(n)| \leqslant C|g(n)| \end{equation}
+\begin{equation} f(n) \in \Omega(g(n)) \implies |f(n)| \geqslant C|g(n)| \end{equation}
+\begin{equation} f(n) \in \Theta(g(n)) \implies A|g(n)| \leqslant |f(n)| \leqslant B|g(n)| \end{equation}
+\begin{equation} f(n) \in o(g(n)) \iff \displaystyle\lim_{n\to\infty}\frac{f(n)}{g(n)} = 0\end{equation}
+
+\begin{equation} f(n) \in O(g(n)) \iff g(n) \in \Omega(f(n)) \end{equation}
+\begin{equation} f(n) \in \Theta(g(n)) \iff f(n) \in \Omega(g(n)) \end{equation}
+
+\begin{tabular}{ |c|p{2.95cm}|l|c| }
+\hline
+Notação & Significado & $\displaystyle\lim_{x\to\infty}\frac{f}{g}$ & Exemplo \\
+\hline
+$f=O(g)$ & $f$ não cresce mais rápido que $g$ & $\neq\infty$ & $4x+7=O(x^2)$ \\
+$f=\Omega(g)$ & $f$ cresce pelo menos tão rápido quanto $g$ & $\neq 0$ & $9x^2=\Omega(x)$ \\
+$f=\Theta(g)$ & $f$ e $g$ crescem com a mesma velocidade aproximadamente & $\neq 0,\infty$ & $8x^2+x=\Theta(x)$ \\
+$f \sim g$ & $f$ e $g$ crescem com a mesma velocidade & $=1$ & $x^2+\sqrt{x} \sim x^2$ \\
+$f=o(g)$ & $f$ cresce mais devagar que $g$ & $=0$ & $\frac{1}{n} = o(1)$ \\
+$f=\omega(g)$ & $f$ cresce mais rápido que $g$ & $=\infty$ & $n^2=\omega(n)$ \\
+\hline
+\end{tabular}
+
+\subsection{Arredondamento}
+
+\begin{equation} \lfloor x \rfloor = \{n: n\in\Z, x-1 \leqslant n \leqslant x \} \end{equation}
+\begin{equation} \lceil x \rceil = \{n: n\in\Z, x \geqslant n \geqslant x+1 \} \end{equation}
+
+\section{Grafos}
+
+\subsection{Definições}
+
+Um \textbf{grafo} é um par $G=(V,E)$, onde $V$ é um conjunto finito (\textbf{vértices})
+e $E$ é um conjunto de pares de elementos de $V$ (\textbf{arestas}). Por exemplo:
+\[ G = (\{1, 2, 3\}, \{\{1, 2\}, \{2, 3\}, \{3, 1\}\}) \]
+
+Os vértices que são ligados por arestas são chamados de \textbf{adjacentes} ou
+\textbf{vizinhos}. Em um grafo $G=(V,E)$ em que $u, v \in V$,
+\begin{equation} u \sim v = \{u, v\} \in E \end{equation}
+
+O conjunto de todos os vértices adjacentes a um vértice $v$ é chamado de 
+\textbf{vizinhança}:
+\begin{equation} N(v) = \{u \in V : u \sim v\} \end{equation}
+
+O número de vértices adjacentes a um vértice $v$ é chamado de \textbf{grau}:
+\begin{equation} d_G(v) = |N(v)| \end{equation}
+
+A soma dos graus dos vértices de um grafo é o dobro do número de arestas:
+\begin{equation} \sum_{v\in V} d(v) = 2|E| \end{equation}
+
+O \textbf{grau máximo} e o \textbf{grau mínimo} de um grafo $G$ são denotados por $\Delta(G)$ e $\delta(G)$ respectivamente.
+
+Se todos os vértices de $G$ tem o mesmo grau, $G$ é \textbf{regular}. Se todos os
+vértices de $G$ tem grau $n$, $G$ é \textbf{$n$-regular}.
+
+A \textbf{ordem} de um grafo é o número de vértices, e o \textbf{tamanho} é o número
+de arestas.
+
+Se todas as arestas se ligam a todas as arestas se chama \textbf{completo} e é
+denotado por $K_n$, onde $n$ é o número de arestas. Um grafo sem arestas se chama
+\textbf{vazio}.
+
+Um grafo $G$ é \textbf{isomorfo} a $H$ se os dois grafos tem vértices e arestas
+iguais, mesmo que com nomes diferentes. Formalmente: um grafo é isomorfo se 
+$f: V(G) \to V(H)$ é uma bijeção, tal que para $a,b\in V(G)$ tenhamos $a\sim b$ se
+e somente se $f(a) \sim f(b)$.
+
+\subsection{Subgrafos}
+
+$G$ é um \textbf{subgrafo} de $H$ se $V(G) \subseteq H(G)$ e $E(G) \subseteq E(H)$.
+
+$G$ é um \textbf{subgrafo gerador} de $H$ se $G$ é o grafo $H$ do qual foram removidos algumas arestas. Formalmente: se e somente se $G$ é um subgrafo de $H$ e
+$V(G) = V(H)$.
+
+Um \textbf{subgrafo de $H$ induzido em $A$} é o grafo $H$ do qual foram removidos
+alguns vértices (e com eles, suas arestas), e é definido por $H[A]$. Formalmente:
+\begin{equation}
+\left\{\begin{array}{l l}
+V(H[A]) \\
+E(H[A]) = \{xy \in E(H): x \in A \land y \in B\}
+\end{array} \right.
+\end{equation}
+
+Um \textbf{clique} (ou panela) é um subgrafo em que cada vértice está conectado 
+a cada outro vértice do grafo, formando um grafo completo. O tamanho do maior clique
+(número de clique) é designado por $\omega(G)$.
+
+Um \textbf{conjunto independente} é um subcojunto de vértices que não são adjacentes.
+O maior conjunto independente de um grafo é designado por $\alpha(G)$.
+
+O \textbf{complemento} de um grafo é a substituição de todas as arestas de um grafo
+por todas as arestas possíveis que não estavam presentes anteriormente, e é denotado por $\bar{G}$.
+
+\begin{subequations}\begin{align} \omega(G) = \alpha(\bar{G}) \\
+\alpha(G) = \omega(\bar{G})\end{align}\end{subequations}
+
+
+%\begin{equation}  \end{equation}
+\end{document}
