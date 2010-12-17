@@ -163,6 +163,15 @@ static int Tileset_set_char(lua_State* L)
 	// do
 	ts->layer[layer][x + (y * ts->w)] = ch;
 
+	// change cursor position
+	char buf[150];
+	sprintf(buf, "self.cursor.x = %d", x);
+	if(luaL_dostring(L, buf) != 0)
+		abort();
+	sprintf(buf, "self.cursor.y = %d", y);
+	if(luaL_dostring(L, buf) != 0)
+		abort();
+
 	return 0;
 }
 
