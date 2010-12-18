@@ -1,10 +1,6 @@
 LAYERS
 
 +------------------+
-|   Game Engine    |
-+------------------+
-|    Glue (Lua)    |
-+------------------+
 |   File Parser    | TG_Load(scr, rc)
 +------------------+
 |                  | TG_WaitEvent(tg)
