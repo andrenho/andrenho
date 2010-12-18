@@ -1,0 +1,24 @@
+LAYERS
+
++------------------+
+|   Game Engine    |
++------------------+
+|    Glue (Lua)    |
++------------------+
+|   File Parser    | TG_Load(scr, rc)
++------------------+
+|      Loop        | move? blink?
++------------------+
+|                  | TG_InitLayers(scr, tile_w, tile_h)
+|                  | TG_NewLayer(type?)
+|      Layers      | TG_AssocImage(tg, layer, n, img)
+|                  | TG_Begin(tg)
+|                  | TG_BlitLayer(tg, layer, x, y, fine_x, fine_y)
+|                  | events?
++------------------+
+|                  | TG_Init(scr, tile_w, tile_h)
+|      Images      | TG_LoadImage(tg, filename, x, y)
+|                  | TG_BlitImage(tg, img, x, y, fine_x, fine_y)
+|                  | TG_End(tg)
++------------------+
+
