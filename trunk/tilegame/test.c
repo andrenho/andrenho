@@ -2,6 +2,6 @@
 
 int main()
 {
-	TG_Init();
+	TG_Init(NULL, 8, 8);
 	return 0;
 }
