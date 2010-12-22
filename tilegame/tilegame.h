@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#define SDL_Surface void
+#include "SDL.h"
 
 #include "uthash.h"
 
@@ -18,7 +18,7 @@ typedef struct {
 typedef struct {
 	SDL_Surface* screen;
 	uint8_t tile_w, tile_h;
-
+	TG_Image* images;
 } TG;
 
 TG* TG_Init(SDL_Surface* screen, uint8_t tile_w, uint8_t tile_h);

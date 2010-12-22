@@ -9,6 +9,7 @@ TG_Init(SDL_Surface* screen, uint8_t tile_w, uint8_t tile_h)
 	tg->screen = screen;
 	tg->tile_w = tile_w;
 	tg->tile_h = tile_h;
+	tg->images = NULL;
 
 	return tg;
 }
@@ -32,5 +33,7 @@ TG_BlitImage(TG* tg, uint32_t img, int32_t x, int32_t y,
 bool 
 TG_End(TG* tg)
 {
+	if(tg)
+		free(tg);
 	return false;
 }
