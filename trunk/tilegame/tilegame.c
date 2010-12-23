@@ -1,10 +1,32 @@
 #include "tilegame.h"
 
 #include <stdlib.h>
+#include <stdio.h>
+
+#include "SDL_image.h"
+#include "debug.h"
 
 TG* 
 TG_Init(SDL_Surface* screen, uint8_t tile_w, uint8_t tile_h)
 {
+	// check SDL initialized
+	debug("Checking SDL...");
+	if(!SDL_WasInit(SDL_INIT_VIDEO))
+	{
+		fprintf(stderr, "warning: SDL was not initialized.\n");
+		return NULL;
+	}
+
+	// init SDL_image
+	debug("Checking SDL_image...");
+	if(!IMG_Init(IMG_INIT_PNG))
+	{
+		fprintf(stderr, "warning: Could not initialize SDL_image.\n");
+		return NULL;
+	}
+
+	// create structure
+	debug("Initializing TileGame structure.");
 	TG* tg = malloc(sizeof(TG));
 	tg->screen = screen;
 	tg->tile_w = tile_w;
@@ -33,7 +55,11 @@ TG_BlitImage(TG* tg, uint32_t img, int32_t x, int32_t y,
 bool 
 TG_End(TG* tg)
 {
+	// free strcuture
 	if(tg)
 		free(tg);
-	return false;
+
+	// close SDL_image
+
+	return true;
 }
