@@ -16,9 +16,16 @@ typedef struct {
 } TG_Image;
 
 typedef struct {
+	char* filename;
+	SDL_Surface* sf;
+	UT_hash_handle hh;
+} TG_SDL_Image;
+
+typedef struct {
 	SDL_Surface* screen;
 	uint8_t tile_w, tile_h;
-	TG_Image* images;
+	TG_SDL_Image* sdl_images;
+//	TG_Image* images;
 } TG;
 
 TG* TG_Init(SDL_Surface* screen, uint8_t tile_w, uint8_t tile_h);

@@ -32,6 +32,7 @@ TG_Init(SDL_Surface* screen, uint8_t tile_w, uint8_t tile_h)
 	tg->tile_w = tile_w;
 	tg->tile_h = tile_h;
 	tg->images = NULL;
+	tg->sdl_images = NULL;
 
 	return tg;
 }
