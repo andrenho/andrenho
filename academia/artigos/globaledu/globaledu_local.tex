@@ -3,6 +3,10 @@
 %\usepackage{enumerate}
 %\documentclass{article}
 
+%\usepackage[brazilian]{babel}
+\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontenc}
+
 \begin{document}
 
 %
@@ -106,14 +110,14 @@ presents some conclusions and plans for future work.
 %
 \section{Towards ubiquitous learning support} \label{sec:ubisupport}
 
-Mobile learning (m-learning) \citep{tatar03} is fundamentally about increasing
+Mobile learning (m-learning) \citep{tatar03} is fundamentally about increasing
 learners' capability to carry their own learning environment along with them.
 M-learning is the natural evolution of e-learning, and has the potential to
 make learning even more widely accessible. However, considering the ubiquitous
 view, mobile computers are still not embedded in the learners' surrounding
 environment, and as such they cannot seamlessly obtain contextual information. 
 
-An ubiquitous learning system \citep{ogata03} can use embedded devices that
+An ubiquitous learning system \citep{ogata03} can use embedded devices that
 communicate mutually to explore the context, and dynamically build models of
 their environments. It is considered that while the learner is moving with
 his/her mobile device, the system dynamically supports his/her learning by
@@ -125,7 +129,7 @@ investigating how to better match people's expectations for such a system. In
 our point of view, ubiquitous learning environments should support the
 execution of context-aware, distributed, mobile, pervasive and adaptative
 learning applications. Differently from other research
-projects \citep{ogata03,simon03,selene}, the GlobalEdu proposal readily
+projects \citep{ogata03,simon03,selene}, the GlobalEdu proposal readily
 supports these characteristics. 
 
 
@@ -247,7 +251,7 @@ system.
 %
 \subsection{Large-scale: GlobalEdu and ISAM} \label{sec:ge-isam}
 
-The ISAM Project \citep{yamin02,augustin04} provides a common system platform,
+The ISAM Project \citep{yamin02,augustin04} provides a common system platform,
 allowing the execution of applications across a wide range of equipment as well
 as automatic distribution and installation. ISAM is based on the vision that
 ubiquitous applications are distributed, mobile and context-aware by nature,
@@ -492,7 +496,7 @@ time.
 %
 \subsection{Small-scale: GlobalEdu and LOCAL} \label{sec:ge-local}
 
-The LOCAL project \citep{barbosa07,barbosa08} aims to provide a
+The LOCAL project \citep{barbosa07,barbosa08} aims to provide a
 location-and-context-aware ubiquitous architecture geared to create small-scale
 learning environments.  LOCAL is composed by seven subsystems (see
 Figure~\ref{fig:local-arch}): (1)~\emph{User Profiles}, which store information
@@ -530,14 +534,14 @@ context the learner is in. The tutor uses this information, as well as the
 learner's profile data, to select the objects meeting the learner's goals and
 the context. The objects meeting these criteria are then forwarded to the
 learner.  The metadata specification for Learning Objects in LOCAL was made in
-accordance with the IEEE LTSC \citep{ltsc08}. The \emph{tutor} uses profile
+accordance with the IEEE LTSC \citep{ltsc08}. The \emph{tutor} uses profile
 and location data to find learning opportunities. It can act in two ways:
-(1)~providing relevant, contextualized learning objects and (2)~stimulating
+(1)~providing relevant, contextualized learning objects and (2)~stimulating
 interaction between learners, by using learner profile data to create bonds
 between learners.
   
 GlobalEdu uses the services offered by LOCAL to monitor and control the
-environment (see Figure~\ref{fig:local-ge}). GlobalEdu´s PAs are executed in
+environment (see Figure~\ref{fig:local-ge}). GlobalEdu's PAs are executed in
 the learner's devices, mapped to the LOCAL Personal Assistant. The Location
 System and the Event System are used to support the Context Management Module.
 Context Management Module is supported by the Learning Object Repository and
@@ -557,7 +561,9 @@ only one GlobalEdu instance (see Figure~\ref{fig:ge-arch}). Modules are
 executed in the network server and the PA executes in the users' mobile
 devices.
 
-
+%
+% Practical scenario: GlobalEdu and LOCAL
+%
 \section{Practical scenario: GlobalEdu and LOCAL} \label{sec:scenario}
 
 Our first choice in order to evaluate our proposal was the creation of a
@@ -565,7 +571,7 @@ small-scale ubiquitous learning scenario. We used the integration
 GlobalEdu/LOCAL described in the section~\ref{sec:ge-local}. The prototype
 scenario encloses nine rooms, covered by four wireless access points (see
 Figure\ref{fig:scenario}). The location system has two parts: (1)~a webservice
-created in C\# and (2)~a database which stores context information. The
+created in C\# and~(2)~a database which stores context information. The
 Personal Assistant was developed in C\#, using the .NET Compact Framework. The
 assistant runs in iPAQs hx4700 and tablet PCs tc1100. It reads potency
 information from the four wireless access points and forwards it to the
@@ -579,6 +585,29 @@ tutor and message system were also implemented as web services in C\#.
   \label{fig:scenario} 
 \end{figure}
 
+\subsection{Functionality Test 1: Following a Lession} \label{sec:test1}
+
+The first moment occurs before the lesson. The professor sets an appointment
+consisting of a message with the subject of the upcoming debate, as well as a
+list of online resources. This appointment spans the whole duration of the
+lesson. This message is tied to room 216, where the debate will occur. The
+second moment corresponds to the start of the lesson. Seven students enter the
+classroom, and are promptly detected by the location system. They receive the
+appointed message. In the third moment, the professor requests the formation of
+groups for debating. The groups are formed according with similarity between
+user interests for ``Programming Languages''. In this particular case, three
+groups were formed: one (A)~with four students interested in Java; the second
+(B)~with two students interested in C\# and another one (C)~with just one
+student, interested in C++. The debate starts, where each group presents the
+pros and cons of each language. At this time, two students come late. Both
+receive the appointed message, and are also informed about what group they
+should participate in. One enters group A, and the other one enters group C. In
+the fourth moment, another late student arrives, and receives the appointed
+messages. However, the debate had already ended, and he is not directed to any
+group. The fifth moment occurs after the ending of the lesson. The system
+registers student attendance via sampled location data. A student is considered
+present if he was in the classroom for at least 60\% of the meeting's duration.
+The last student was considered absent.
 
 \begin{table}
   \footnotesize
@@ -615,28 +644,6 @@ tutor and message system were also implemented as web services in C\#.
   \label{tab:simulated}
 \end{table}
 
-The first moment occurs before the lesson. The professor sets an appointment
-consisting of a message with the subject of the upcoming debate, as well as a
-list of online resources. This appointment spans the whole duration of the
-lesson. This message is tied to room 216, where the debate will occur. The
-second moment corresponds to the start of the lesson. Seven students enter the
-classroom, and are promptly detected by the location system. They receive the
-appointed message. In the third moment, the professor requests the formation of
-groups for debating. The groups are formed according with similarity between
-user interests for ``Programming Languages''. In this particular case, three
-groups were formed: one (A)~with four students interested in Java; the second
-(B)~with two students interested in C\# and another one (C)~with just one
-student, interested in C++. The debate starts, where each group presents the
-pros and cons of each language. At this time, two students come late. Both
-receive the appointed message, and are also informed about what group they
-should participate in. One enters group A, and the other one enters group C. In
-the fourth moment, another late student arrives, and receives the appointed
-messages. However, the debate had already ended, and he is not directed to any
-group. The fifth moment occurs after the ending of the lesson. The system
-registers student attendance via sampled location data. A student is considered
-present if he was in the classroom for at least 60\% of the meeting's duration.
-The last student was considered absent.
-
 The initial technological results proved that it was possible to: (1)~create
 groups of students via profile and physical location data; (2)~distribute
 material based on their profiles and in the debate theme; (3)~automatically
@@ -661,6 +668,8 @@ interests; 5)~the users were instructed to go to the workshop rooms. The
 ubiquitous system then made available on the iPAQs the program of the chosen
 event (per user). 
 
+\subsubsection{Survey}
+
 After following these steps, the users were asked to answer a survey, with
 questions relating to their experience. The questions had answers in a scale
 going from 1 (very weak) to 5 (excellent). An answer with the value 0 (zero)
@@ -670,7 +679,6 @@ Table~\ref{tab:questions}. Several considerations can be made from the analysis
 of each question. In order to demonstrate this, we have chosen charts
 representative of the most important questions. 
 
-% TODO - table 2
 \begin{table}
   \footnotesize
   \begin{tabular}{cp{7.5cm}}
@@ -694,7 +702,7 @@ representative of the most important questions.
 \end{table}
 
 
-The aspects of context-awareness were analyzed through questions 1 to 7. There
+The aspects of context-awareness were analyzed through questions 1~to~7. There
 was special interest into the adequate presentation of content related to
 pedagogical events, and the use of the system to track user location.
 Figure~\ref{fig:context} presents the results of these questions, as answered
@@ -709,7 +717,7 @@ relation to contextual information.
 
 The proposed daily use of the system as learning tool in the classroom, as well
 as interaction between users and contextual elements were analyzed through
-questions 8 to 10. These relate mostly to the usability of the system. The
+questions 8 to 10. These relate mostly to the usability of the system. The
 results in Figure~\ref{fig:daily} indicate a good acceptance by the test
 subjects. Over 60\% of those subjects considered the system \emph{good} or
 \emph{excellent}. If we take into consideration the test was performed in a
@@ -727,6 +735,122 @@ heterogeneous sample of mobile devices (desktop PCs, tablet PCs and iPAQs).
   \label{fig:daily} 
 \end{figure}
 
+
+\subsection{Functionality Test 2: Distributing Learning Objects}
+
+The scientific community has been using scenarios to validate context-aware
+environments (according to \citet{dey2001}'s approach) and ubiquitous
+environments (according to \citet{satyanarayanan01}). Following this strategy,
+our second experiment was a scenario involving the content distribution in a
+daily routine of a Computer Engineering student.
+
+This scenario focuses on the distribution of Learning Objects (LOs) in
+different contexts based on the learner’s profile, according to the described
+below:
+
+\begin{quotation}
+``Jorge is professor of the Programming Techniques discipline of the Computer
+Engineering course at Unisinos. At the beginning of the week scheduled to the
+basic teaching of programming using the Java language, he registered in the
+LOCAL repository a group of learning objects (LOs) that support different
+preferences of media (for example, text, video, and audio). The register
+involved the indication of the contexts in which the objects would be
+available.
+
+In the classroom, Jorge registered some curricular objects concerning the basic
+concepts. In the laboratory, he registered optional objects that will be
+available for improvement, involving different themes (such as ``Interfaces''
+and ``Parallel Programming''). 
+
+João is a Computer Engineering student. At the day of the Programming
+Techniques class, João entered the classroom and logged in the LOCAL using the
+\emph{Personal Assistant} (see Figure 7(a)), subsequently he received a
+notification of the availability of a curricular LO. João accessed the object
+and received a PDF file (preference text). LOCAL used the \emph{Learner
+Profiles} subsystem to determine this preference. 
+
+After the class, João entered the laboratory and received a notification
+regarding the availability of a LO related to the subject of his interest in
+Java (in this case, ``Interfaces''). 
+
+In the laboratory, João preferred audio objects, because he could listen to
+them while he was using the computer (determined using the \emph{Learner
+Profiles}).  João accessed the object and, after its use, received another
+notification of available object (see Figure 7(b)) concerning the subject of
+his interest (this time, the object was about ``Parallel Programming'').
+
+Always that the students receive a notification of LOs, they can delay the
+access. This action indicates that the students are interested in the object,
+but they do not want to access it at the moment, i.e., they want to access the
+object at the first opportunity of available time. João postponed the access to
+the optional object (see Figure 7(c)).
+
+At the end of the day, João moved to the train station. When he entered the
+train, LOCAL notified him that a postponed LO was identified (Figure 7(d)).
+Getting home, João still received another notification saying that the
+professor had provided an additional object to a subject of his interest
+(``Polymorphism'' in Java). In the register, the professor informed that the
+interested students should be notified independently of their locations.''
+\end{quotation}
+
+The scenario was tested in the validation environment described in
+Section~\ref{sec:test1}. The João student carrying an iPAQ 4700 simulated
+the scenario, moving around the environment rooms. The train and the learner’s
+house were simulated through the rooms 206 and 215.
+Table~\ref{tab:distributing} summaries the actions, emphasizing the character
+involved in each one. 
+
+The results of this test proved that it was possible: 
+
+\begin{enumerate}
+  \item To distribute the learning objects using the contexts visited by the
+        learners; 
+  \item To use the learner’s profiles to choose the learning objects to
+        be distributed; 
+  \item To manage the access to the learning objects using the
+        concept of postponed objects.  
+\end{enumerate}
+
+\begin{table}[h!]
+  \footnotesize
+  \begin{tabular}{p{0.12cm}p{1cm}p{5.9cm}}
+    \toprule
+    \# & Actor & Action \\
+    \midrule
+    \textbf{1} & Professor & Registers the learning objects in LOCAL, relating them to contexts.\\
+    \midrule
+    \textbf{2} & Learner & Enters the classroom and logs in LOCAL using an iPAQ 4700; see Figure 7(a) \\
+    \midrule
+    \textbf{3} & LOCAL & LOCAL detects the entry of the learner into the classroom. Tutor uses the \emph{Learner Profiles} to determine the learner’s preference of media in the context. Subsequently, it requests the sending of a message about the LO available in the preferred media. \\
+    \midrule
+    \textbf{4} & Learner & Accesses the curricular object. \\
+    \midrule
+    \textbf{5} & Learner & Moves to the laboratory. \\
+    \midrule
+    \textbf{6} & LOCAL & \emph{Tutor} detects the entry of the learner into the laboratory (\emph{Location System}) and uses the \emph{Learning Objects Repository} to verify the available LOs, related to the student’s interest. \emph{Tutor} still uses the \emph{Learner Profiles} subsystem to define the learner’s preferred media in the context. Finally, \emph{Tutor} requests to the \emph{Communication} subsystem the sending of messages about the available LOs; see Figure 7(b). \\
+    \midrule
+    \textbf{7} & Learner & Uses the \emph{Personal Assistant} to access one of the two identified objects and postpones the access to the other to the first moment of available time (see Figure 7(c)). \\
+    \midrule
+    \textbf{8} & Learner & Moves to the train. \\
+    \midrule
+    \textbf{9} & LOCAL & LOCAL detects the entry of the student into the train and calls the \emph{Learning Objects Repository} subsystem to verify the LOs that can be accessed during the trip. LOCAL identifies the postponed object and notifies the learner, see Figure 7(d). \\
+    \midrule
+    \textbf{10} & Learner & Accesses the object that has been postponed. \\
+    \midrule
+    \textbf{11} & Professor & Registers a new optional LO concerning ``Polymorphism'' in Java that can be accessed in any context. \\
+    \midrule
+    \textbf{12} & Learner & Enters his home. \\
+    \midrule
+    \textbf{13} & LOCAL & Tutor informs the learner (Communication subsystem) of the new optional LO available that corresponds to his areas of interest. \\
+    \midrule
+    \textbf{14} & LOCAL & Accesses the new object. \\
+    \bottomrule
+  \end{tabular}
+  \caption{Distributing Learning Objects}
+  \label{tab:distributing}
+\end{table}
+
+
 \section{Related work} \label{sec:related}
 
 Some projects are investigating the use of ubiquitous computing to provide new
@@ -737,7 +861,7 @@ considering the context where they are. JAPELAS is directed for a specific
 content. With GlobalEdu's \emph{Content} Management it's possible to learn
 about any kind of content. 
 
-The Ambient Wood Project \citep{rogers05} is dedicated to the design and
+The Ambient Wood Project \citep{rogers05} is dedicated to the design and
 building of pervasive environments. WiFi and sensor-based technologies are
 connected with a variety of mobile and standalone computational devices. The
 proposal is that digital augmentation offers a promising way for enhancing both
@@ -748,7 +872,7 @@ and with ISAM, we intend to explore both indoors and outdoors applications.
 
 A ubiquitous computing scenario needs to support general purpose educational
 processes, where mobility, context and learner information will be considered.
-None of the current projects \citep{rogers05,ogata03} addressing this
+None of the current projects \citep{rogers05,ogata03} addressing this
 particular problem use location data to both: (a)~accurately track users'
 movements; (b)~present contextual information to the learner. As such,
 GlobalEdu (alongside LOCAL) presents an innovation in this aspect, since
