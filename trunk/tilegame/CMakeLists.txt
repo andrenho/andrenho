@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 2.6)
 project (tilegame C)
 
-add_definitions(`sdl-config --cflags`)
+add_definitions(`sdl-config --cflags` -g -Wall)
 link_libraries(`sdl-config --libs` -lSDL_image)
 
 add_library(tilegame tilegame.c debug.c)
