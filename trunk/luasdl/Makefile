@@ -1,0 +1,9 @@
+LUA_CFLAGS=-I/c/andre/desenv/lua/include
+LUA_LIBS=-L/c/andre/desenv/lua/lib -llua5.1
+EXTENSION=dll
+
+libluasdl.$(EXTENSION):
+	gcc -Wall -shared libluasdl.c -o luasdl.$(EXTENSION) $(LUA_CFLAGS) $(LUA_LIBS) `sdl-config --cflags --libs`
+
+test: libluasdl.$(EXTENSION)
+	lua.exe test.lua
