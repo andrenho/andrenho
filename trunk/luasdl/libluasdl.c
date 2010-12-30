@@ -34,6 +34,8 @@ static struct {
 	{ "SRCALPHA", SDL_SRCALPHA },
 	{ "SRCCOLORKEY", SDL_SRCCOLORKEY },
 	{ "PREALLOC", SDL_PREALLOC },
+	{ "LOGPAL", SDL_LOGPAL },
+	{ "PHYSPAL", SDL_PHYSPAL },
 	{ NULL, 0 },
 };
 
@@ -78,12 +80,69 @@ static void rect(lua_State *L, SDL_Rect r)
 }
 
 
-SDL_Surface* get_surface(lua_State *L)
+SDL_Surface* convert_surface(lua_State *L, int idx)
 {
-	lua_getfield (L, 1, "c_data");
+	lua_getfield (L, idx, "c_data");
 	SDL_Surface* sf = lua_touserdata(L, -1);
 	lua_pop(L, 1);
 	return sf;
+}
+
+
+SDL_PixelFormat* convert_format(lua_State *L, int idx)
+{
+	lua_getfield(L, idx, "c_data");
+	SDL_PixelFormat* fmt = lua_touserdata(L, -1);
+	lua_pop(L, 1);
+	return fmt;
+}
+
+
+SDL_Rect convert_rect(lua_State *L, int idx)
+{
+	int x, y, w, h;
+
+	lua_getfield(L, idx, "x");
+	if(lua_isnil(L, -1))
+	{
+		lua_pop(L, 1);
+		lua_rawgeti(L, -1, 1); x = lua_tointeger(L, -1); lua_pop(L, 1);
+		lua_rawgeti(L, -1, 2); y = lua_tointeger(L, -1); lua_pop(L, 1);
+		lua_rawgeti(L, -1, 3); w = lua_tointeger(L, -1); lua_pop(L, 1);
+		lua_rawgeti(L, -1, 4); h = lua_tointeger(L, -1); lua_pop(L, 1);
+	}
+	else
+	{
+		x = lua_tointeger(L, -1); lua_pop(L, 1);
+		lua_getfield(L, idx, "y"); y = lua_tointeger(L, -1); lua_pop(L, 1);
+		lua_getfield(L, idx, "w"); w = lua_tointeger(L, -1); lua_pop(L, 1);
+		lua_getfield(L, idx, "h"); h = lua_tointeger(L, -1); lua_pop(L, 1);
+	}
+
+	return (SDL_Rect) { x, y, w, h };
+}
+
+
+SDL_Color convert_color(lua_State *L, int idx)
+{
+	int r, g, b;
+
+	lua_getfield(L, idx, "r");
+	if(lua_isnil(L, -1))
+	{
+		lua_pop(L, 1);
+		lua_rawgeti(L, -1, 1); r = lua_tointeger(L, -1); lua_pop(L, 1);
+		lua_rawgeti(L, -1, 2); g = lua_tointeger(L, -1); lua_pop(L, 1);
+		lua_rawgeti(L, -1, 3); b = lua_tointeger(L, -1); lua_pop(L, 1);
+	}
+	else
+	{
+		r = lua_tointeger(L, -1); lua_pop(L, 1);
+		lua_getfield(L, idx, "g"); g = lua_tointeger(L, -1); lua_pop(L, 1);
+		lua_getfield(L, idx, "b"); b = lua_tointeger(L, -1); lua_pop(L, 1);
+	}
+
+	return (SDL_Color) { r, g, b };
 }
 
 
@@ -92,6 +151,9 @@ static void get_format(lua_State *L, SDL_PixelFormat* fmt)
 	lua_newtable(L);
 
 	// TODO - palette
+
+	lua_pushlightuserdata(L, fmt);
+	lua_setfield(L, -2, "c_data");
 
 	lua_pushinteger(L, fmt->BitsPerPixel);
 	lua_setfield(L, -2, "BitsPerPixel");
@@ -344,6 +406,63 @@ static int VideoDriverName(lua_State *L)
 }
 
 
+static int ListModes(lua_State *L)
+{
+	check_args(L, 2, 2);
+
+	SDL_PixelFormat* fmt = convert_format(L, 1);
+	Uint32 flags = luaL_checklong(L, 2);
+
+	SDL_Rect** n = SDL_ListModes(fmt, flags);
+	if(n == (SDL_Rect**)0)
+		lua_newtable(L);
+	else if(n == (SDL_Rect**)-1)
+		lua_pushnil(L);
+	else
+	{
+		lua_newtable(L);
+
+		int i;
+		for (i=0; n[i]; ++i)
+		{
+			rect(L, *n[i]);
+			lua_rawseti(L, -2, i+1);
+		}
+	}
+	return 1;
+}
+
+
+static int VideoModeOK(lua_State *L)
+{
+	int nargs = check_args(L, 2, 4);
+
+	int w = luaL_checkint(L, 1),
+	    h = luaL_checkint(L, 2),
+	    bpp = 0;
+	Uint32 flags = SDL_SWSURFACE;
+
+	if(nargs > 2)
+		bpp = luaL_checkint(L, 3);
+	if(nargs > 3)
+		flags = luaL_checklong(L, 4);
+
+	lua_pushinteger(L, SDL_VideoModeOK(w, h, bpp, flags));
+	return 1;
+}
+
+
+static int SetGamma(lua_State *L)
+{
+	check_args(L, 3, 3);
+	float r = luaL_checknumber(L, 1),
+	      g = luaL_checknumber(L, 2),
+	      b = luaL_checknumber(L, 3);
+	lua_pushboolean(L, !SDL_SetGamma(r, g, b));
+	return 1;
+}
+
+
 static int CreateRGBSurface(lua_State *L)
 {
 	int nargs = check_args(L, 4, 8);
@@ -367,9 +486,95 @@ static int CreateRGBSurface(lua_State *L)
 
 static int UpdateRect(lua_State *L)
 {
-	SDL_Surface* sf = get_surface(L);
-	printf("%x\n", sf);
+	int nargs = check_args(L, 1, 2);
+	SDL_Surface* sf = convert_surface(L, 1);
+	SDL_Rect r = { 0, 0, 0, 0 };
+	if(nargs == 2)
+		r = convert_rect(L, 2);
+
+	SDL_UpdateRect(sf, r.x, r.y, r.h, r.w);
 	return 0;
+}
+
+
+static int UpdateRects(lua_State *L)
+{
+	check_args(L, 2, 2);
+	SDL_Surface* sf = convert_surface(L, 1);
+
+	int len = lua_objlen(L, 2);
+	SDL_Rect* rects = malloc(sizeof(SDL_Rect) * len);
+
+	int i;
+	for(i=0; i<len; i++)
+	{
+		lua_rawgeti(L, 2, i+1);
+		SDL_Rect r = convert_rect(L, -1);
+		memcpy(&rects[i], &r, sizeof(SDL_Rect));
+		lua_pop(L, 1);
+	}
+	SDL_UpdateRects(sf, len, rects);
+	free(rects);
+
+	return 0;
+}
+
+
+static int Flip(lua_State *L)
+{
+	check_args(L, 1, 1);
+	SDL_Surface* sf = convert_surface(L, 1);
+	lua_pushboolean(L, !SDL_Flip(sf));
+	return 1;
+}
+
+
+static int SetColors(lua_State *L)
+{
+	check_args(L, 3, 3);
+	SDL_Surface* sf = convert_surface(L, 1);
+	int n_colors = lua_objlen(L, 2);
+	int initial = luaL_checkinteger(L, 3);
+
+	SDL_Color* colors = malloc(sizeof(SDL_Rect) * n_colors);
+
+	int i;
+	for(i=0; i<n_colors; i++)
+	{
+		lua_rawgeti(L, 2, i+1);
+		SDL_Color c = convert_color(L, -1);
+		memcpy(&colors[i], &c, sizeof(SDL_Color));
+		lua_pop(L, 1);
+	}
+	lua_pushboolean(L, SDL_SetColors(sf, colors, initial, n_colors));
+	free(colors);
+
+	return 1;
+}
+
+
+static int SetPalette(lua_State *L)
+{
+	check_args(L, 4, 4);
+	SDL_Surface* sf = convert_surface(L, 1);
+	int flags = luaL_checkinteger(L, 2);
+	int n_colors = lua_objlen(L, 3);
+	int initial = luaL_checkinteger(L, 4);
+
+	SDL_Color* colors = malloc(sizeof(SDL_Rect) * n_colors);
+
+	int i;
+	for(i=0; i<n_colors; i++)
+	{
+		lua_rawgeti(L, 3, i+1);
+		SDL_Color c = convert_color(L, -1);
+		memcpy(&colors[i], &c, sizeof(SDL_Color));
+		lua_pop(L, 1);
+	}
+	lua_pushboolean(L, SDL_SetPalette(sf, flags, colors, initial, n_colors));
+	free(colors);
+
+	return 1;
 }
 
 
@@ -386,6 +591,9 @@ static const struct luaL_reg SDL[] = {
 	{ "GetVideoInfo", GetVideoInfo },
 	{ "SetVideoMode", SetVideoMode },
 	{ "VideoDriverName", VideoDriverName },
+	{ "ListModes", ListModes },
+	{ "VideoModeOK", VideoModeOK },
+	{ "SetGamma", SetGamma },
 	{ "CreateRGBSurface", CreateRGBSurface },
 
 	{NULL, NULL}
@@ -394,6 +602,10 @@ static const struct luaL_reg SDL[] = {
 
 static const struct luaL_reg SDL_Sf[] = {
 	{ "UpdateRect", UpdateRect },
+	{ "UpdateRects", UpdateRects },
+	{ "Flip", Flip },
+	{ "SetColors", SetColors },
+	{ "SetPalette", SetPalette },
 	{ NULL, NULL },
 };
 
