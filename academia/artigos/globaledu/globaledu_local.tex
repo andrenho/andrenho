@@ -17,21 +17,17 @@
 \author[unisinos]{J.~Barbosa} 
 \ead{jbarbosa@unisinos.br}
 
+\author[unilasalle]{D.N.F.~Barbosa} 
+\ead{nice@unilasalle.edu.br}
+
 \author[unisinos]{R.~Hahn} 
 \ead{rodrigo.rmh@gmail.com}
 
 \author[unisinos]{A.~Wagner} 
 \ead{andre.nho@gmail.com}
 
-\author[unilasalle]{D.N.F.~Barbosa} 
-\ead{nice@unilasalle.edu.br}
-
-\author[ufrgs]{C.F.R.~Geyer} 
-\ead{geyer@inf.ufrgs.br}
-
 \address[unisinos]{PIPCA/Unisinos, S\~{a}o Leopoldo, RS, Brazil}
 \address[unilasalle]{UniLasalle, Canoas, RS, Brazil} 
-\address[ufrgs]{UFRGS, Porto Alegre, RS, Brazil}
 
 %
 % Abstract
@@ -281,216 +277,6 @@ Each ISAM cell has one instance of GlobalEdu. Users can change their context
 (cell), carrying their PA. ISAM supports the basic ubiquitous computing-related
 aspects and GlobalEdu supports the specific learning aspects.
 
-% TODO
-% 
-% LOCAL
-%
-\section{LOCAL}
-
-% TODO... completar...
-
-LOCAL is composed by seven subsystems (see Figure~\ref{fig:local-arch}):
-
-\begin{enumerate}
-
-  \item \emph{User profiles}, which store information related to the learning
-        process.
-
-  \item \emph{Personal assistant}, which resides in the user's mobile device. 
-
-  \item \emph{Location system}, used to determine the physical position of the
-        mobile equipments.
-
-  \item \emph{Learning objects repository}, which stores and indexes content
-        related to the teaching process.
-
-  \item \emph{Tutor}, an analysis engine capable of making inferences by using
-        the data supplied by the profiles and the location system. 
-
-  \item \emph{Communication system}, used to establish communication between
-        the different parts of LOCAL, and between the system and its users.
-
-  \item \emph{Event system}, used to schedule tasks. The following subsections
-        describe these components in detail.
-
-\end{enumerate}
-
-\begin{figure}[h!] 
-  \includegraphics[width=0.5\textwidth]{media/local-arch}
-  \caption{The LOCAL architecture}
-  \label{fig:local-arch} 
-\end{figure}
-
-\subsection{Learner Profiles}
-
-In the last few years, the search for standardization of user profiles has led
-to several research efforts like PAPI \citep{papi08} and LIP \citep{lip09}. In
-the scope of ubiquitous learning, profiles allow the exploration of resources
-based on characteristics of both the learner and the contexts in which he/she
-interacts.  This is underlined in \citet{barbosa06}, \citet{ogata03},
-\citet{nivo07} and \citet{selene}.
-
-The \emph{user profiles} in LOCAL are based on the PAPI standard. Reasons
-behind this decision include: 1)~flexibility -- PAPI can be freely extended,
-and all of its components are optional; 2)~modularity -- profile fields and/or
-sections can be handled separately, allowing part of the profile to reside in
-the \emph{personal assistant}, while another part is tied to the visited
-contexts. User profile data can be either persistent or contextual (see
-Figure~\ref{fig:profiles}). 
-
-\begin{figure}[h!] 
-  \includegraphics[width=0.5\textwidth]{media/profiles}
-  \caption{Organization of learner profiles in LOCAL}
-  \label{fig:profiles} 
-\end{figure}
-
-The persistent data (\emph{Contact}, \emph{Preferences}, \emph{Interests}) is
-stored in the \emph{personal assistant}, and it always accompanies the learner,
-no matter which context he/she is in. The contextual data (\emph{Relations},
-\emph{Performance}, \emph{Security}) is associated with the many contexts in
-which the learner interacts. LOCAL manages both kinds of data, seeking for
-pedagogical opportunities. 
-
-\emph{Contact} stores basic user data, such as name, address, e-mail and phone
-number.  The \emph{Preferences} section helps the system customize the user
-experience, storing configuration data related to the preferred media type
-(audio, video and/or text), and others not directly related to pedagogical
-activities. Also, the learner might suffer from some kind of physical
-disability. In this case, according to specific disability scenarios, the
-system can provide the same content in different formats. For example, if the
-learners of a particular group are following a video tutorial, a transcript
-would be of particular use to people who are hard of hearing. 
-
-The \emph{Interests} section follows the knowledge areas defined in the ACM
-Computing Classification System \citep{acm98}, having a general knowledge area
-(for example, ``Math'') and a specific interest topic, in the scope of said
-knowledge area (for example, ``Group Theory''). The specific areas are then
-classified according to the apprentice's own goals (for example, ``to learn''
-or ``to teach''). \emph{Relations} stores data which specifies relations
-between other users in the same context (for example, ``student'', ``teacher''
-or ``researcher''). \emph{Performance} refers to proposed goals and evaluations
-conducted in a context. \emph{Security} stores credentials (names and
-passwords) to allow for different access levels in specific contexts. 
-
-
-\subsection{Personal Assistant and Location System}
-
-The \emph{personal assistant} (PA) is the module which accompanies the learner
-in its mobile device. It allows users to stay connected to the system, while
-providing a certain degree of independence. The PA presents the following
-functionalities: 
-
-\begin{enumerate}
-  
-  \item Authentication, keeping track of the learner's connection status.
-  
-  \item Access to the location system, allowing for turning it off at will.
-
-  \item Receiving and storing notifications proceeding from the communication
-        system.
-
-\end{enumerate}  
-
-The \emph{location} system used by the LOCAL is based on a generic
-architecture, supporting different methods of determining user's physical
-locations. The system ties physical location data to symbolic names (contexts).
-This allows real time mapping of mobile device positions. As the learner
-authorizes the location system in its PA, it begins to determine the device's
-position and physical context changes, along with the time and date of such
-changes. With this data, it is possible to completely track the learner's
-movements. User profile data, alongside context information, is used in the
-learning process. 
-
-
-
-\subsection{Learning Objects}
-
-Learning objects in LOCAL are made available to learners in accordance with
-whatever pedagogical opportunities may appear during their interaction with the
-different contexts (see Figure~\ref{fig:objects}). The location system keeps
-the tutor aware of which context the learner is in (step 1). The tutor uses
-this information, as well as the learner's profile data, to select the objects
-meeting the learner's goals and the context (steps 2 and 3). The objects
-meeting these criteria are then forwarded to the learner (step 4). This
-adaptive process can be started by two events: 1)~when the learner enters a new
-context or 2)~insertion of new material at the object repository. The metadata
-specification for Learning Objects in LOCAL was made in accordance with the
-IEEE LTSC \citep{ltsc08}. The ample acceptance of this standard is underlined 
-in \citet{rigaux09}.
-
-\begin{figure}[h!]
-  \includegraphics[width=0.5\textwidth]{media/objects}
-  \caption{Learning objects management}
-  \label{fig:objects} 
-\end{figure}
-
-
-
-\subsection{Tutor}
-
-The tutor uses profile and location data to find learning opportunities. It can
-act in two ways: 1)~sending learning objects (described in the last section)
-and 2)~stimulating interaction between learners. It uses learner profile data
-to create bonds between learners (see Figure\ref{fig:interaction}). There are two interaction
-forms: 1)~\emph{Similar interests}: the tutor finds learners with similar
-interests in the same context, and stimulates interaction. This approach can be
-used in the creation of workgroups in a classroom, for example;
-2)~\emph{Complementary interests}: the tutor finds learners with complementary
-interests. For example, a learner who wishes to learn more about a particular
-subject is paired along a user who wishes to teach or knows more about it. This
-way, the tutor can be used, for example, to create pairs of students who
-complement each other.
-
-\begin{figure}[h!]
-  \includegraphics[width=0.5\textwidth]{media/interaction}
-  \caption{Organization of learner profiles in LOCAL}
-  \label{fig:interaction} 
-\end{figure}
-
-
-\subsection{Communication System \& Events}
-
-The \emph{communication} system present in LOCAL is used to establish contact
-with learners, notifying them of new pedagogical opportunities. This system can
-be controlled automatically, or by an operator using the administrative
-interface.  Users are contacted by textual notifications. The notifications are
-sent according to profiles, objects, location and event data. The following
-services are supported: 
-
-\begin{enumerate}
-
-  \item Sending messages to a specific user in the system, wherever it is. 
-
-  \item Sending messages to a specific context (everyone in the context
-        receives the notification).
-
-  \item Sending messages to a user, but only if he/she is inside a particular
-        context.
-
-  \item Sending messages to all users, regardless of context. 
-
-\end{enumerate}
-
-The messages also have an associated date of expiration, delimiting a time
-interval after which the message loses its validity.
-Figure~\ref{fig:communication} shows an example of use for the communication
-system where, based on the location data (1) and user profiles (2A), the tutor
-contacts the learner (3). This can be used to presenting new pedagogical
-opportunities, for instance. The communication system also supports the
-creation of events. An event is characterized by a series of properties,
-including keywords, starting date and location. Events can be defined to a
-future date, in usual date format (\emph{yyyy-mm-dd hh:mm:ss}) and have an
-arbitrary duration. When a message is associated to an event, it is up to the
-tutor to find correspondences, and forward the messages at the appropriate
-time. 
-
-\begin{figure}[h!]
-  \includegraphics[width=0.5\textwidth]{media/communication}
-  \caption{Communication System}
-  \label{fig:communication} 
-\end{figure}
-
-
 %
 % Small-scale: GlobalEdu and LOCAL
 %
@@ -562,6 +348,191 @@ executed in the network server and the PA executes in the users' mobile
 devices.
 
 %
+% Learner Profiles
+%
+\subsubsection{Learner Profiles}
+
+In the last few years, the search for standardization of user profiles has led
+to several research efforts like PAPI \citep{papi08} and LIP \citep{lip09}. In
+the scope of ubiquitous learning, profiles allow the exploration of resources
+based on characteristics of both the learner and the contexts in which he/she
+interacts.  This is underlined in \citet{barbosa06}, \citet{ogata03},
+\citet{nivo07} and \citet{selene}.
+
+The \emph{user profiles} in LOCAL are based on the PAPI standard. Reasons
+behind this decision include: 1)~flexibility -- PAPI can be freely extended,
+and all of its components are optional; 2)~modularity -- profile fields and/or
+sections can be handled separately, allowing part of the profile to reside in
+the \emph{personal assistant}, while another part is tied to the visited
+contexts. User profile data can be either persistent or contextual (see
+Figure~\ref{fig:profiles}). 
+
+\begin{figure}[h!] 
+  \includegraphics[width=0.5\textwidth]{media/profiles}
+  \caption{Organization of learner profiles in LOCAL}
+  \label{fig:profiles} 
+\end{figure}
+
+The persistent data (\emph{Contact}, \emph{Preferences}, \emph{Interests}) is
+stored in the \emph{personal assistant}, and it always accompanies the learner,
+no matter which context he/she is in. The contextual data (\emph{Relations},
+\emph{Performance}, \emph{Security}) is associated with the many contexts in
+which the learner interacts. LOCAL manages both kinds of data, seeking for
+pedagogical opportunities. 
+
+\emph{Contact} stores basic user data, such as name, address, e-mail and phone
+number.  The \emph{Preferences} section helps the system customize the user
+experience, storing configuration data related to the preferred media type
+(audio, video and/or text), and others not directly related to pedagogical
+activities. Also, the learner might suffer from some kind of physical
+disability. In this case, according to specific disability scenarios, the
+system can provide the same content in different formats. For example, if the
+learners of a particular group are following a video tutorial, a transcript
+would be of particular use to people who are hard of hearing. 
+
+The \emph{Interests} section follows the knowledge areas defined in the ACM
+Computing Classification System \citep{acm98}, having a general knowledge area
+(for example, ``Math'') and a specific interest topic, in the scope of said
+knowledge area (for example, ``Group Theory''). The specific areas are then
+classified according to the apprentice's own goals (for example, ``to learn''
+or ``to teach''). \emph{Relations} stores data which specifies relations
+between other users in the same context (for example, ``student'', ``teacher''
+or ``researcher''). \emph{Performance} refers to proposed goals and evaluations
+conducted in a context. \emph{Security} stores credentials (names and
+passwords) to allow for different access levels in specific contexts. 
+
+
+%
+% Personal Assistant and Location System
+%
+\subsubsection{Personal Assistant and Location System}
+
+The \emph{personal assistant} (PA) is the module which accompanies the learner
+in its mobile device. It allows users to stay connected to the system, while
+providing a certain degree of independence. The PA presents the following
+functionalities: 
+
+\begin{enumerate}
+  
+  \item Authentication, keeping track of the learner's connection status.
+  
+  \item Access to the location system, allowing for turning it off at will.
+
+  \item Receiving and storing notifications proceeding from the communication
+        system.
+
+\end{enumerate}  
+
+The \emph{location} system used by the LOCAL is based on a generic
+architecture, supporting different methods of determining user's physical
+locations. The system ties physical location data to symbolic names (contexts).
+This allows real time mapping of mobile device positions. As the learner
+authorizes the location system in its PA, it begins to determine the device's
+position and physical context changes, along with the time and date of such
+changes. With this data, it is possible to completely track the learner's
+movements. User profile data, alongside context information, is used in the
+learning process. 
+
+
+%
+% Learning Objects
+%
+\subsubsection{Learning Objects}
+
+Learning objects in LOCAL are made available to learners in accordance with
+whatever pedagogical opportunities may appear during their interaction with the
+different contexts (see Figure~\ref{fig:objects}). The location system keeps
+the tutor aware of which context the learner is in (step 1). The tutor uses
+this information, as well as the learner's profile data, to select the objects
+meeting the learner's goals and the context (steps 2 and 3). The objects
+meeting these criteria are then forwarded to the learner (step 4). This
+adaptive process can be started by two events: 1)~when the learner enters a new
+context or 2)~insertion of new material at the object repository. The metadata
+specification for Learning Objects in LOCAL was made in accordance with the
+IEEE LTSC \citep{ltsc08}. The ample acceptance of this standard is underlined 
+in \citet{rigaux09}.
+
+\begin{figure}[h!]
+  \includegraphics[width=0.5\textwidth]{media/objects}
+  \caption{Learning objects management}
+  \label{fig:objects} 
+\end{figure}
+
+
+% 
+% Tutor
+%
+\subsubsection{Tutor}
+
+The tutor uses profile and location data to find learning opportunities. It can
+act in two ways: 1)~sending learning objects (described in the last section)
+and 2)~stimulating interaction between learners. It uses learner profile data
+to create bonds between learners (see Figure\ref{fig:interaction}). There are two interaction
+forms: 1)~\emph{Similar interests}: the tutor finds learners with similar
+interests in the same context, and stimulates interaction. This approach can be
+used in the creation of workgroups in a classroom, for example;
+2)~\emph{Complementary interests}: the tutor finds learners with complementary
+interests. For example, a learner who wishes to learn more about a particular
+subject is paired along a user who wishes to teach or knows more about it. This
+way, the tutor can be used, for example, to create pairs of students who
+complement each other.
+
+\begin{figure}[h!]
+  \includegraphics[width=0.5\textwidth]{media/interaction}
+  \caption{Organization of learner profiles in LOCAL}
+  \label{fig:interaction} 
+\end{figure}
+
+
+%
+% Communication System and Events
+% 
+\subsubsection{Communication System \& Events}
+
+The \emph{communication} system present in LOCAL is used to establish contact
+with learners, notifying them of new pedagogical opportunities. This system can
+be controlled automatically, or by an operator using the administrative
+interface.  Users are contacted by textual notifications. The notifications are
+sent according to profiles, objects, location and event data. The following
+services are supported: 
+
+\begin{enumerate}
+
+  \item Sending messages to a specific user in the system, wherever it is. 
+
+  \item Sending messages to a specific context (everyone in the context
+        receives the notification).
+
+  \item Sending messages to a user, but only if he/she is inside a particular
+        context.
+
+  \item Sending messages to all users, regardless of context. 
+
+\end{enumerate}
+
+The messages also have an associated date of expiration, delimiting a time
+interval after which the message loses its validity.
+Figure~\ref{fig:communication} shows an example of use for the communication
+system where, based on the location data (1) and user profiles (2A), the tutor
+contacts the learner (3). This can be used to presenting new pedagogical
+opportunities, for instance. The communication system also supports the
+creation of events. An event is characterized by a series of properties,
+including keywords, starting date and location. Events can be defined to a
+future date, in usual date format (\emph{yyyy-mm-dd hh:mm:ss}) and have an
+arbitrary duration. When a message is associated to an event, it is up to the
+tutor to find correspondences, and forward the messages at the appropriate
+time. 
+
+\begin{figure}[h!]
+  \includegraphics[width=0.5\textwidth]{media/communication}
+  \caption{Communication System}
+  \label{fig:communication} 
+\end{figure}
+
+
+
+
+%
 % Practical scenario: GlobalEdu and LOCAL
 %
 \section{Practical scenario: GlobalEdu and LOCAL} \label{sec:scenario}
@@ -585,6 +556,10 @@ tutor and message system were also implemented as web services in C\#.
   \label{fig:scenario} 
 \end{figure}
 
+
+%
+% Functionality Test 1: Following a Lession
+%
 \subsection{Functionality Test 1: Following a Lession} \label{sec:test1}
 
 The first moment occurs before the lesson. The professor sets an appointment
@@ -668,7 +643,135 @@ interests; 5)~the users were instructed to go to the workshop rooms. The
 ubiquitous system then made available on the iPAQs the program of the chosen
 event (per user). 
 
-\subsubsection{Survey}
+%
+% Functionality Test 2: Distributing Learning Objects
+%
+\subsection{Functionality Test 2: Distributing Learning Objects}
+
+The scientific community has been using scenarios to validate context-aware
+environments (according to \citet{dey2001}'s approach) and ubiquitous
+environments (according to \citet{satyanarayanan01}). Following this strategy,
+our second experiment was a scenario involving the content distribution in a
+daily routine of a Computer Engineering student.
+
+This scenario focuses on the distribution of Learning Objects (LOs) in
+different contexts based on the learner’s profile, according to the described
+below:
+
+\begin{quotation}
+``Jorge is professor of the Programming Techniques discipline of the Computer
+Engineering course at Unisinos. At the beginning of the week scheduled to the
+basic teaching of programming using the Java language, he registered in the
+LOCAL repository a group of learning objects (LOs) that support different
+preferences of media (for example, text, video, and audio). The register
+involved the indication of the contexts in which the objects would be
+available.
+
+In the classroom, Jorge registered some curricular objects concerning the basic
+concepts. In the laboratory, he registered optional objects that will be
+available for improvement, involving different themes (such as ``Interfaces''
+and ``Parallel Programming''). 
+
+João is a Computer Engineering student. At the day of the Programming
+Techniques class, João entered the classroom and logged in the LOCAL using the
+\emph{Personal Assistant} (see Figure~\ref{fig:screenshots}(a)), subsequently
+he received a notification of the availability of a curricular LO. João
+accessed the object and received a PDF file (preference text). LOCAL used the
+\emph{Learner Profiles} subsystem to determine this preference. 
+
+After the class, João entered the laboratory and received a notification
+regarding the availability of a LO related to the subject of his interest in
+Java (in this case, ``Interfaces''). 
+
+In the laboratory, João preferred audio objects, because he could listen to
+them while he was using the computer (determined using the \emph{Learner
+Profiles}).  João accessed the object and, after its use, received another
+notification of available object (see Figure~\ref{fig:screenshots}(b))
+concerning the subject of his interest (this time, the object was about
+``Parallel Programming'').
+
+Always that the students receive a notification of LOs, they can delay the
+access. This action indicates that the students are interested in the object,
+but they do not want to access it at the moment, i.e., they want to access the
+object at the first opportunity of available time. João postponed the access to
+the optional object (see Figure~\ref{fig:screenshots}(c)).
+
+At the end of the day, João moved to the train station. When he entered the
+train, LOCAL notified him that a postponed LO was identified
+(Figure~\ref{fig:screenshots}(d)).  Getting home, João still received another
+notification saying that the professor had provided an additional object to a
+subject of his interest (``Polymorphism'' in Java). In the register, the
+professor informed that the interested students should be notified
+independently of their locations.'' \end{quotation}
+
+\begin{figure}[h!] 
+  \includegraphics[width=0.5\textwidth]{media/telas}
+  \caption{LOCAL screenshots} 
+  \label{fig:screenshots} 
+\end{figure}
+
+The scenario was tested in the validation environment described in
+Section~\ref{sec:test1}. The João student carrying an iPAQ 4700 simulated
+the scenario, moving around the environment rooms. The train and the learner’s
+house were simulated through the rooms 206 and 215.
+Table~\ref{tab:distributing} summaries the actions, emphasizing the character
+involved in each one. 
+
+The results of this test proved that it was possible: 
+
+\begin{enumerate}
+  \item To distribute the learning objects using the contexts visited by the
+        learners; 
+  \item To use the learner’s profiles to choose the learning objects to
+        be distributed; 
+  \item To manage the access to the learning objects using the
+        concept of postponed objects.  
+\end{enumerate}
+
+\begin{table}[h!]
+  \footnotesize
+  \begin{tabular}{p{0.12cm}p{1cm}p{5.9cm}}
+    \toprule
+    \# & Actor & Action \\
+    \midrule
+    \textbf{1} & Professor & Registers the learning objects in LOCAL, relating them to contexts.\\
+    \midrule
+    \textbf{2} & Learner & Enters the classroom and logs in LOCAL using an iPAQ 4700; see Figure~\ref{fig:screenshots}(a) \\
+    \midrule
+    \textbf{3} & LOCAL & LOCAL detects the entry of the learner into the classroom. Tutor uses the \emph{Learner Profiles} to determine the learner’s preference of media in the context. Subsequently, it requests the sending of a message about the LO available in the preferred media. \\
+    \midrule
+    \textbf{4} & Learner & Accesses the curricular object. \\
+    \midrule
+    \textbf{5} & Learner & Moves to the laboratory. \\
+    \midrule
+    \textbf{6} & LOCAL & \emph{Tutor} detects the entry of the learner into the laboratory (\emph{Location System}) and uses the \emph{Learning Objects Repository} to verify the available LOs, related to the student’s interest. \emph{Tutor} still uses the \emph{Learner Profiles} subsystem to define the learner’s preferred media in the context. Finally, \emph{Tutor} requests to the \emph{Communication} subsystem the sending of messages about the available LOs; see Figure~\ref{fig:screenshots}(b). \\
+    \midrule
+    \textbf{7} & Learner & Uses the \emph{Personal Assistant} to access one of the two identified objects and postpones the access to the other to the first moment of available time (see Figure~\ref{fig:screenshots}(c)). \\
+    \midrule
+    \textbf{8} & Learner & Moves to the train. \\
+    \midrule
+    \textbf{9} & LOCAL & LOCAL detects the entry of the student into the train and calls the \emph{Learning Objects Repository} subsystem to verify the LOs that can be accessed during the trip. LOCAL identifies the postponed object and notifies the learner, see Figure~\ref{fig:screenshots}(d). \\
+    \midrule
+    \textbf{10} & Learner & Accesses the object that has been postponed. \\
+    \midrule
+    \textbf{11} & Professor & Registers a new optional LO concerning ``Polymorphism'' in Java that can be accessed in any context. \\
+    \midrule
+    \textbf{12} & Learner & Enters his home. \\
+    \midrule
+    \textbf{13} & LOCAL & Tutor informs the learner (Communication subsystem) of the new optional LO available that corresponds to his areas of interest. \\
+    \midrule
+    \textbf{14} & LOCAL & Accesses the new object. \\
+    \bottomrule
+  \end{tabular}
+  \caption{Distributing Learning Objects}
+  \label{tab:distributing}
+\end{table}
+
+
+%
+% Survey
+%
+\subsection{Survey}
 
 After following these steps, the users were asked to answer a survey, with
 questions relating to their experience. The questions had answers in a scale
@@ -736,121 +839,9 @@ heterogeneous sample of mobile devices (desktop PCs, tablet PCs and iPAQs).
 \end{figure}
 
 
-\subsection{Functionality Test 2: Distributing Learning Objects}
-
-The scientific community has been using scenarios to validate context-aware
-environments (according to \citet{dey2001}'s approach) and ubiquitous
-environments (according to \citet{satyanarayanan01}). Following this strategy,
-our second experiment was a scenario involving the content distribution in a
-daily routine of a Computer Engineering student.
-
-This scenario focuses on the distribution of Learning Objects (LOs) in
-different contexts based on the learner’s profile, according to the described
-below:
-
-\begin{quotation}
-``Jorge is professor of the Programming Techniques discipline of the Computer
-Engineering course at Unisinos. At the beginning of the week scheduled to the
-basic teaching of programming using the Java language, he registered in the
-LOCAL repository a group of learning objects (LOs) that support different
-preferences of media (for example, text, video, and audio). The register
-involved the indication of the contexts in which the objects would be
-available.
-
-In the classroom, Jorge registered some curricular objects concerning the basic
-concepts. In the laboratory, he registered optional objects that will be
-available for improvement, involving different themes (such as ``Interfaces''
-and ``Parallel Programming''). 
-
-João is a Computer Engineering student. At the day of the Programming
-Techniques class, João entered the classroom and logged in the LOCAL using the
-\emph{Personal Assistant} (see Figure 7(a)), subsequently he received a
-notification of the availability of a curricular LO. João accessed the object
-and received a PDF file (preference text). LOCAL used the \emph{Learner
-Profiles} subsystem to determine this preference. 
-
-After the class, João entered the laboratory and received a notification
-regarding the availability of a LO related to the subject of his interest in
-Java (in this case, ``Interfaces''). 
-
-In the laboratory, João preferred audio objects, because he could listen to
-them while he was using the computer (determined using the \emph{Learner
-Profiles}).  João accessed the object and, after its use, received another
-notification of available object (see Figure 7(b)) concerning the subject of
-his interest (this time, the object was about ``Parallel Programming'').
-
-Always that the students receive a notification of LOs, they can delay the
-access. This action indicates that the students are interested in the object,
-but they do not want to access it at the moment, i.e., they want to access the
-object at the first opportunity of available time. João postponed the access to
-the optional object (see Figure 7(c)).
-
-At the end of the day, João moved to the train station. When he entered the
-train, LOCAL notified him that a postponed LO was identified (Figure 7(d)).
-Getting home, João still received another notification saying that the
-professor had provided an additional object to a subject of his interest
-(``Polymorphism'' in Java). In the register, the professor informed that the
-interested students should be notified independently of their locations.''
-\end{quotation}
-
-The scenario was tested in the validation environment described in
-Section~\ref{sec:test1}. The João student carrying an iPAQ 4700 simulated
-the scenario, moving around the environment rooms. The train and the learner’s
-house were simulated through the rooms 206 and 215.
-Table~\ref{tab:distributing} summaries the actions, emphasizing the character
-involved in each one. 
-
-The results of this test proved that it was possible: 
-
-\begin{enumerate}
-  \item To distribute the learning objects using the contexts visited by the
-        learners; 
-  \item To use the learner’s profiles to choose the learning objects to
-        be distributed; 
-  \item To manage the access to the learning objects using the
-        concept of postponed objects.  
-\end{enumerate}
-
-\begin{table}[h!]
-  \footnotesize
-  \begin{tabular}{p{0.12cm}p{1cm}p{5.9cm}}
-    \toprule
-    \# & Actor & Action \\
-    \midrule
-    \textbf{1} & Professor & Registers the learning objects in LOCAL, relating them to contexts.\\
-    \midrule
-    \textbf{2} & Learner & Enters the classroom and logs in LOCAL using an iPAQ 4700; see Figure 7(a) \\
-    \midrule
-    \textbf{3} & LOCAL & LOCAL detects the entry of the learner into the classroom. Tutor uses the \emph{Learner Profiles} to determine the learner’s preference of media in the context. Subsequently, it requests the sending of a message about the LO available in the preferred media. \\
-    \midrule
-    \textbf{4} & Learner & Accesses the curricular object. \\
-    \midrule
-    \textbf{5} & Learner & Moves to the laboratory. \\
-    \midrule
-    \textbf{6} & LOCAL & \emph{Tutor} detects the entry of the learner into the laboratory (\emph{Location System}) and uses the \emph{Learning Objects Repository} to verify the available LOs, related to the student’s interest. \emph{Tutor} still uses the \emph{Learner Profiles} subsystem to define the learner’s preferred media in the context. Finally, \emph{Tutor} requests to the \emph{Communication} subsystem the sending of messages about the available LOs; see Figure 7(b). \\
-    \midrule
-    \textbf{7} & Learner & Uses the \emph{Personal Assistant} to access one of the two identified objects and postpones the access to the other to the first moment of available time (see Figure 7(c)). \\
-    \midrule
-    \textbf{8} & Learner & Moves to the train. \\
-    \midrule
-    \textbf{9} & LOCAL & LOCAL detects the entry of the student into the train and calls the \emph{Learning Objects Repository} subsystem to verify the LOs that can be accessed during the trip. LOCAL identifies the postponed object and notifies the learner, see Figure 7(d). \\
-    \midrule
-    \textbf{10} & Learner & Accesses the object that has been postponed. \\
-    \midrule
-    \textbf{11} & Professor & Registers a new optional LO concerning ``Polymorphism'' in Java that can be accessed in any context. \\
-    \midrule
-    \textbf{12} & Learner & Enters his home. \\
-    \midrule
-    \textbf{13} & LOCAL & Tutor informs the learner (Communication subsystem) of the new optional LO available that corresponds to his areas of interest. \\
-    \midrule
-    \textbf{14} & LOCAL & Accesses the new object. \\
-    \bottomrule
-  \end{tabular}
-  \caption{Distributing Learning Objects}
-  \label{tab:distributing}
-\end{table}
-
-
+% 
+% Related work
+%
 \section{Related work} \label{sec:related}
 
 Some projects are investigating the use of ubiquitous computing to provide new
@@ -879,6 +870,9 @@ GlobalEdu (alongside LOCAL) presents an innovation in this aspect, since
 location data can be used in many new pedagogical opportunities.
 
 
+%
+% Conclusion
+%
 \section{Conclusion} \label{sec:conclusion}
 
 GlobalEdu is an innovative proposal that allows the exploration of the benefits
