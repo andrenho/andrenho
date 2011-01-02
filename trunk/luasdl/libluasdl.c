@@ -5,6 +5,7 @@
 #include <lualib.h>
 
 #include "SDL.h"
+#include "SDL_image.h"
 
 /* list of SDL constants */
 static struct {
@@ -321,6 +322,10 @@ static struct {
 	{ "BUTTON_WHEELUP", SDL_BUTTON_WHEELUP },
 	{ "BUTTON_WHEELDOWN", SDL_BUTTON_WHEELDOWN },
 
+	{ "IGNORE", SDL_IGNORE },
+	{ "ENABLE", SDL_ENABLE },
+	{ "QUERY", SDL_QUERY },
+
 	{ NULL, 0 },
 };
 
@@ -574,7 +579,11 @@ static int Init(lua_State *L)
 	else
 		flags = luaL_checklong(L, 1);
 
-	lua_pushboolean(L, (SDL_Init(flags) != -1));
+	int ok = (SDL_Init(flags) != -1);
+	if(IMG_Init(IMG_INIT_JPG|IMG_INIT_PNG|IMG_INIT_TIF) == 0)
+		ok = 0;
+
+	lua_pushboolean(L, ok);
 	return 1;
 }
 
@@ -618,6 +627,7 @@ static int WasInit(lua_State *L)
 
 static int GetError(lua_State *L)
 {
+	// TODO - IMG_GetError
 	check_args(L, 0, 0);
 	lua_pushstring(L, SDL_GetError());
 	return 1;
@@ -816,7 +826,7 @@ static int Blit(lua_State *L)
 	check_args(L, 4, 4);
 	SDL_Surface *src = convert_surface(L, 1),
 		    *dst = convert_surface(L, 3);
-	SDL_Rect *sr, *dr;
+	SDL_Rect *sr = NULL, *dr = NULL;
 	if(lua_isnil(L, 2))
 		sr = NULL;
 	else
@@ -1310,6 +1320,56 @@ static int PollEvent(lua_State *L)
 }
 
 
+static int EventState(lua_State *L)
+{
+	check_args(L, 2, 2);
+	Uint8 type = luaL_checkinteger(L, 1);
+	int state = luaL_checkinteger(L, 2);
+	lua_pushinteger(L, SDL_EventState(type, state));
+	return 1;
+}
+
+
+/*
+ *
+ * SDL TIME
+ *
+ */
+static int GetTicks(lua_State *L)
+{
+	check_args(L, 0, 0);
+	lua_pushinteger(L, SDL_GetTicks());
+	return 1;
+}
+
+
+static int Delay(lua_State *L)
+{
+	check_args(L, 1, 1);
+	Uint32 ms = luaL_checkinteger(L, 1);
+	SDL_Delay(ms);
+	return 0;
+}
+
+
+/*
+ *
+ * SDL_IMAGE
+ *
+ */
+static int _IMG_Load(lua_State *L)
+{
+	check_args(L, 1, 1);
+	const char *file = luaL_checkstring(L, 1);
+	SDL_Surface *sf = IMG_Load(file);
+	if(!sf)
+		lua_pushnil(L);
+	else
+		create_sf(L, sf);
+	return 1;
+}
+
+
 /*
  *
  * LUA INITIALIZATION
@@ -1344,6 +1404,12 @@ static const struct luaL_reg SDL[] = {
 	{ "PumpEvents", PumpEvents },
 	{ "PollEvent", PollEvent },
 	{ "WaitEvent", WaitEvent },
+	{ "EventState", EventState },
+
+	{ "GetTicks", GetTicks },
+	{ "Delay", Delay },
+
+	{ "IMG_Load", _IMG_Load },
 
 	{NULL, NULL}
 };

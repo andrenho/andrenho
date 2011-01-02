@@ -12,7 +12,7 @@ video = SDL.SetVideoMode(400, 300)
 SDL.WM_SetCaption("teste")
 
 while true do
-	e = SDL.WaitEvent()
+	local e = SDL.WaitEvent()
 	if e.type == SDL.QUIT then
 		break
 	elseif e.type == SDL.ACTIVEEVENT then
