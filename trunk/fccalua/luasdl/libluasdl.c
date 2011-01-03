@@ -662,7 +662,10 @@ static int GetVideoSurface(lua_State *L)
 {
 	check_args(L, 0, 0);
 	SDL_Surface* sf = SDL_GetVideoSurface();
-	create_sf(L, sf);
+	if(!sf)
+		lua_pushnil(L);
+	else
+		create_sf(L, sf);
 	return 1;
 }
 
@@ -826,15 +829,21 @@ static int Blit(lua_State *L)
 	check_args(L, 4, 4);
 	SDL_Surface *src = convert_surface(L, 1),
 		    *dst = convert_surface(L, 3);
-	SDL_Rect *sr = NULL, *dr = NULL;
+	SDL_Rect *sr = &(SDL_Rect){0,0,0,0}, *dr = &(SDL_Rect){0,0,0,0};
 	if(lua_isnil(L, 2))
 		sr = NULL;
 	else
-		*sr = convert_rect(L, 2);
+	{
+		SDL_Rect r = convert_rect(L, 2);
+		memcpy(sr, &r, sizeof(SDL_Rect));
+	}
 	if(lua_isnil(L, 4))
 		dr = NULL;
 	else
-		*dr = convert_rect(L, 4);
+	{
+		SDL_Rect r = convert_rect(L, 4);
+		memcpy(dr, &r, sizeof(SDL_Rect));
+	}
 
 	lua_pushboolean(L, !SDL_BlitSurface(src, sr, dst, dr));
 	return 1;
