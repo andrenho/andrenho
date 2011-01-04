@@ -2,10 +2,10 @@ require 'map'
 require 'utils'
 require 'luasdl'
 
-TileGameEvent = TileGameMap:new()
+TileGame = TileGameMap:new()
 
 
-function TileGameEvent:wait_event()
+function TileGame:wait_event()
    e = SDL.WaitEvent()
    if e.type == SDL.MOUSEBUTTONDOWN or e.type == SDL.MOUSEBUTTONUP then
       e.tile_x = math.floor(e.x / self.tile_w + self.rx)
@@ -15,7 +15,7 @@ function TileGameEvent:wait_event()
 end
 
 
-function TileGameEvent:move(tiles, x, y, mx, my)
+function TileGame:move(tiles, x, y, mx, my)
    assert(math.abs(mx) <= 1 and math.abs(my) <= 1, 'mx/my must be between -1 and 1')
 
    -- redraw screen without the tiles
