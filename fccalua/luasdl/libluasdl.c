@@ -1135,7 +1135,7 @@ static int setpixel(lua_State *L)
 	luaL_argcheck(L, idx >= 0, 2, "index out of range");
 	
 	int v = luaL_checkint(L, 3);
-	luaL_argcheck(L, idx >= 0 && idx <= 255, 3, "byte must be between 0 and 255");
+	luaL_argcheck(L, v >= 0 && v <= 255, 3, "byte must be between 0 and 255");
 
 	((Uint8*)pixels)[idx] = v;
 	return 0;
