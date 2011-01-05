@@ -63,7 +63,9 @@ local function prepare()
    if options.color then
       tiles_imgs = {
          black_white = img,
+         yellow_green = convert(img, {255,255,128}, {0,192,0}),
          yellow_blue = convert(img, {255,255,128}, {0,64,128}),
+         white_red = convert(img, {255,255,255}, {192,0,0}),
       }
    else
       tiles_imgs = {
@@ -91,10 +93,13 @@ local function prepare()
    -- map tileset
    tileset = {
       [true] = {
-         ocean = tile['~']['yellow_blue'],
+         grassland = tile[' ']['yellow_green'],
+         ocean = tile[' ']['yellow_blue'],
+         [SOLDIER] = tile['S']['white_red'],
       },
       [false] = {
          ocean = tile['~']['black_white'],
+         [SOLDIER] = tile['S']['black_white'],
       }
    }
 end
@@ -110,6 +115,10 @@ local function draw()
          tg.map[x][y] = { tileset[options.color][game.map[x][y].terrain] }
          
          -- units
+         local units = game:units(x,y)
+         if #units > 0 then
+            table.insert(tg.map[x][y], assert(tileset[options.color][units[1].military]))
+         end
       end
    end
    tg:blit_map()
@@ -128,11 +137,12 @@ local function gameloop()
       if e.type == SDL.QUIT then
          running = false
       elseif e.type == SDL.KEYDOWN then
-         if e.key == SDL.Q then
+         if e.sym == SDL.q then
             running = false
          end
       end
    until not running
+   SDL.Quit()
 end
 
 prepare()
