@@ -8,5 +8,8 @@ end
 
 
 function Nation:initialize()
-
+   self.units = {}
+   for i=1,2 do
+      -- TODO
+   end
 end
