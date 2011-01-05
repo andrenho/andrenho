@@ -2,9 +2,9 @@
 
 options = {
    theme = 'curses',
-	color = false,
-   map_w = 10,
-   map_h = 10,
+   color = true,
+   map_w = 20,
+   map_h = 20,
 }
 
 require('theme/' .. options.theme)
