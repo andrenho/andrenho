@@ -8,7 +8,7 @@ end
 
 function table.remove_values(T, V)
    for k,v in pairs(T) do
-      for _,v2 in pairs(T) do
+      for _,v2 in pairs(V) do
          if v == v2 then T[k] = nil end
       end
    end

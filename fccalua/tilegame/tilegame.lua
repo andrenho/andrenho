@@ -22,8 +22,7 @@ function TileGame:move(tiles, x, y, mx, my)
    table.sort(tiles, function(x,y) 
                         return x.level < y.level 
                      end)
-   -- table.remove_values(self.map[x][y], tiles)
-   self.map[5][5] = {}
+   table.remove_values(self.map[x][y], tiles)
    self:blit_map()
    self.scr:Flip()
    
@@ -38,17 +37,14 @@ function TileGame:move(tiles, x, y, mx, my)
    local sf = SDL.CreateRGBSurface(SDL.SWSURFACE, r.w, r.h, self.scr.format.BitsPerPixel)
    self.scr:Blit(r, sf, nil)
 
-   --print(r.x, r.y, r.w, r.h)
-   --self.scr:FillRect(r, 0)
-
    -- make the move
    local max = math.max(self.tile_w, self.tile_h)
    for i=1,max do
       sf:Blit(nil, self.scr, r)
       for _,tile in ipairs(tiles) do
-         self:blit(tile, x, y, self.rx, self.ry, i, i) -- TBD
+         self:blit(tile, x, y, self.rx, self.ry, (i*mx), (i*my)) -- TODO
          self.scr:UpdateRect(r)
-         SDL.Delay(10)
+         SDL.Delay(5)
       end
    end
 

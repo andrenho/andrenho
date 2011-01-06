@@ -9,6 +9,10 @@ require 'tilegame'
 --
 local function convert(sf, fg, bg)
    local nsf = SDL.CreateRGBSurface(SDL.SWSURFACE, 128, 128, 8)
+   if bg == 'transparent' then
+      bg = { 255, 0, 255 }
+      nsf:SetColorKey(SDL.SRCCOLORKEY+SDL.RLEACCEL, 0)
+   end
    nsf:SetPalette(SDL.LOGPAL+SDL.PHYSPAL, {bg, fg}, 0)
    for x=0,127 do
       for y=0,127 do
@@ -26,7 +30,7 @@ local function prepare()
    assert(options)
    game = Game:new { map_w = options.map_w, map_h = options.map_h }
    game:initialize()
-   game:add_nation('Assyria')
+   player = game:add_nation('Assyria')
 
    -- initialize SDL
    SDL.Init()
@@ -53,8 +57,8 @@ local function prepare()
       tile_h = 8,
       map_w = game.map_w,
       map_h = game.map_h,
-      rx = 0,
-      ry = 0,
+      rx = 1,
+      ry = 1,
       scr = scr
    }
    tg:initialize()
@@ -70,6 +74,8 @@ local function prepare()
    else
       tiles_imgs = {
          black_white = img,
+         black_tp = convert(img, {0,0,0}, 'transparent'),
+         green_tp = convert(img, {0,255,0}, 'transparent')
       }
    end
    
@@ -98,8 +104,9 @@ local function prepare()
          [SOLDIER] = tile['S']['white_red'],
       },
       [false] = {
-         ocean = tile['~']['black_white'],
-         [SOLDIER] = tile['S']['black_white'],
+         ocean = tile[176]['black_white'],
+         [SOLDIER] = tile['S']['black_tp'],
+         focus = tile[224]['green_tp'],
       }
    }
 end
@@ -109,15 +116,21 @@ end
 -- Draw map
 --
 local function draw()
+   scr:FillRect(nil, white)
    for x = 1,game.map_w do
       for y = 1,game.map_h do
          -- terrain
          tg.map[x][y] = { tileset[options.color][game.map[x][y].terrain] }
          
          -- units
-         local units = game:units(x,y)
-         if #units > 0 then
-            table.insert(tg.map[x][y], assert(tileset[options.color][units[1].military]))
+         if player.focused and player.focused.x == x and player.focused.y == y then
+            table.insert(tg.map[x][y], assert(tileset[options.color][player.focused.military]))
+            table.insert(tg.map[x][y], tileset[options.color]['focus'])
+         else
+            local units = game:units(x,y)
+            if #units > 0 then
+               table.insert(tg.map[x][y], assert(tileset[options.color][units[1].military]))
+            end
          end
       end
    end
@@ -133,12 +146,34 @@ local function gameloop()
    local running = true
    repeat
       draw()
-      e = tg:wait_event()
+      local e = tg:wait_event()
       if e.type == SDL.QUIT then
          running = false
       elseif e.type == SDL.KEYDOWN then
-         if e.sym == SDL.q then
+         if e.sym == SDL.q then -- quit
             running = false
+         elseif e.sym == SDL.w then -- wait
+            player:next_unit()
+         elseif player.focused then
+            fx,fy = nil,nil
+            if     e.sym == SDL.KP1 then fx,fy = -1, 1 -- move
+            elseif e.sym == SDL.KP2 then fx,fy =  0, 1
+            elseif e.sym == SDL.KP3 then fx,fy =  1, 1
+            elseif e.sym == SDL.KP4 then fx,fy = -1, 0
+            elseif e.sym == SDL.KP6 then fx,fy =  1, 0
+            elseif e.sym == SDL.KP7 then fx,fy = -1,-1
+            elseif e.sym == SDL.KP8 then fx,fy =  0,-1
+            elseif e.sym == SDL.KP9 then fx,fy =  1,-1
+            end
+            -- move unit
+            if fx then 
+               local x = player.focused.x
+               local y = player.focused.y
+               if player.focused:move(fx,fy) then
+                  local tiles = { tileset[options.color][player.focused.military], tileset[options.color]['focus'] }
+                  tg:move(tiles, x, y, fx, fy)
+               end
+            end
          end
       end
    until not running
