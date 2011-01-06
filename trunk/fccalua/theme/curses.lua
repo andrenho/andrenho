@@ -28,7 +28,11 @@ end
 local function prepare()
    -- initialize game
    assert(options)
-   game = Game:new { map_w = options.map_w, map_h = options.map_h }
+   game = Game:new { 
+      map_w = options.map_w, 
+      map_h = options.map_h,
+      year = -1000,
+   }
    game:initialize()
    player = game:add_nation('Assyria')
 
@@ -154,23 +158,25 @@ local function gameloop()
             running = false
          elseif e.sym == SDL.w then -- wait
             player:next_unit()
+         elseif e.sym == SDL.SPACE then -- end turn
+            player:end_turn()
          elseif player.focused then
             fx,fy = nil,nil
-            if     e.sym == SDL.KP1 then fx,fy = -1, 1 -- move
-            elseif e.sym == SDL.KP2 then fx,fy =  0, 1
-            elseif e.sym == SDL.KP3 then fx,fy =  1, 1
-            elseif e.sym == SDL.KP4 then fx,fy = -1, 0
-            elseif e.sym == SDL.KP6 then fx,fy =  1, 0
-            elseif e.sym == SDL.KP7 then fx,fy = -1,-1
-            elseif e.sym == SDL.KP8 then fx,fy =  0,-1
-            elseif e.sym == SDL.KP9 then fx,fy =  1,-1
+            if     e.sym == SDL.KP1 or e.sym == SDL.j  then fx,fy = -1, 1 -- move
+            elseif e.sym == SDL.KP2 or e.sym == SDL.k  then fx,fy =  0, 1
+            elseif e.sym == SDL.KP3 or e.sym == SDL.l  then fx,fy =  1, 1
+            elseif e.sym == SDL.KP4 or e.sym == SDL.u  then fx,fy = -1, 0
+            elseif e.sym == SDL.KP6 or e.sym == SDL.o  then fx,fy =  1, 0
+            elseif e.sym == SDL.KP7 or e.sym == SDL.N7 then fx,fy = -1,-1
+            elseif e.sym == SDL.KP8 or e.sym == SDL.N8 then fx,fy =  0,-1
+            elseif e.sym == SDL.KP9 or e.sym == SDL.N9 then fx,fy =  1,-1
             end
             -- move unit
             if fx then 
-               local x = player.focused.x
-               local y = player.focused.y
-               if player.focused:move(fx,fy) then
-                  local tiles = { tileset[options.color][player.focused.military], tileset[options.color]['focus'] }
+               local f = player.focused
+               local x, y = f.x, f.y
+               if f:move(fx,fy) then
+                  local tiles = { tileset[options.color][f.military], tileset[options.color]['focus'] }
                   tg:move(tiles, x, y, fx, fy)
                end
             end

@@ -21,6 +21,8 @@ function Nation:initialize()
          y = initial_pos.y,
          nation = self,
          military = SOLDIER,
+         nation = self,
+         game = self.game,
       }
       table.insert(self.units, u)
    end
@@ -29,12 +31,18 @@ end
 
 
 function Nation:init_turn()
-   table.sort(self.units, function(i,j) return i:focus_order() < j:focus_order() end)
+   for _,u in ipairs(self.units) do 
+      u:init_turn() 
+   end
+   table.sort(self.units, function(i,j) 
+                             return i:focus_order() < j:focus_order() 
+                          end)
    self.focused = self.units[1]
 end
 
 
 function Nation:end_turn()
+   self.game:next_player()
 end
 
 
