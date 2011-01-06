@@ -1,5 +1,6 @@
 require 'military'
 require 'unit'
+require 'util'
 
 Nation = {}
 
@@ -22,5 +23,31 @@ function Nation:initialize()
          military = SOLDIER,
       }
       table.insert(self.units, u)
+   end
+   self:init_turn()
+end
+
+
+function Nation:init_turn()
+   table.sort(self.units, function(i,j) return i:focus_order() < j:focus_order() end)
+   self.focused = self.units[1]
+end
+
+
+function Nation:end_turn()
+end
+
+
+function Nation:next_unit()
+   local us = table.select(self.units, function(u) return u:selectable() end)
+   if #us == 0 then
+      self.focused = nil
+   else
+      k = table.find_key(us, self.focused)
+      if not k or not next(us, k) then
+         self.focused = us[1]
+      else
+         self.focused = us[next(us, k)]
+      end
    end
 end

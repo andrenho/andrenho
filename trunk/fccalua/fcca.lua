@@ -2,7 +2,7 @@
 
 options = {
    theme = 'curses',
-   color = true,
+   color = false,
    map_w = 20,
    map_h = 20,
 }

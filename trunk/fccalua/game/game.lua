@@ -56,4 +56,5 @@ function Game:add_nation(name)
    local n = Nation:new { name=name }
    n:initialize()
    table.insert(self.nations, n)
+   return n
 end
