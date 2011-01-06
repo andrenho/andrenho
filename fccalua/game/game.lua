@@ -1,5 +1,3 @@
---package.path = package.path .. ';./game/?.lua'
-
 require 'nation'
 
 Game = {}
@@ -11,9 +9,11 @@ end
 
 
 function Game:initialize()
-   assert(self.map_w and self.map_h, "Initialization parameters missing.")
+   assert(self.map_w and self.map_h and self.year, 
+         "Initialization parameters missing.")
    self.map = {}
    self.nations = {}
+   self.current = nil
    for x=1,self.map_w do
       self.map[x] = {}
       for y=1,self.map_h do
@@ -52,9 +52,29 @@ function Game:units(x,y)
 end
 
 
+function Game:cost_to_enter(x,y)
+   return 1
+end
+
+
 function Game:add_nation(name)
-   local n = Nation:new { name=name }
+   local n = Nation:new { name=name, game=self }
    n:initialize()
+   self.current = self.current or n
    table.insert(self.nations, n)
    return n
+end
+
+
+function Game:next_player()
+   local k = table.find_key(self.nations, self.current)
+   local nk = next(self.nations, k)
+   if nk then
+      self.current = self.nations[nk]
+   else
+      self.year = self.year + 1
+      self.current = self.nations[1]
+   end
+   assert(self.current)
+   self.current:init_turn()
 end
