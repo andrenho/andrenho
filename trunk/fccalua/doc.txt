@@ -38,7 +38,7 @@ Olive oil   Oilves         Oil Extracter  Small oil press       Big oil press   
 Furniture   Wood           Carpenter      Carpenter's shop      Lumber Mill
 Utensils    Copper         Coppersmith    Coppersmith's house   Coppersmith's shop   Copper Factory
 Bricks      Mud            Brickmaker     Small Kiln            Big Kiln             Brick Factory
-Mounting                                  Stable
+Riding Animals                            Stable
 Bronze      Copper,Tin     Metallurgic    Metallurgic's shop    Metalworks           Machine Shop
 Weapons     Wood,Bronze    Weaponsmith    Weaponsmith's house   Weapons Shop         Weapons Factory
 (Scrolls)                  Scribe         Tablet house          Gymnasium            Academy
@@ -91,12 +91,15 @@ Catapult
 
 SHIPS:
 
-Catamaran
-Galley  Penteconter
-        Trireme
-        Quinquereme
-Nemi?
-Pirate ship
+Name         Attack Speed Cargo
+
+Penteconter     0     4     2
+Monoreme        1     4     0
+Bireme          3     5     1
+Trireme         5     6     2
+Galley          8     5     4
+Merchantman     0     5     6
+Pirate ship     6     8     0
 
 
 
