@@ -1,4 +1,5 @@
 require 'nation'
+require 'static'
 
 Game = {}
 
