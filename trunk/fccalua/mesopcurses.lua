@@ -4,6 +4,12 @@ require 'game'
 require 'luasdl'
 require 'tilegame'
 
+options = {
+   map_w = 20,
+   map_h = 20,
+   color = false,
+}
+
 -- 
 -- Convert default surface to another color
 --
