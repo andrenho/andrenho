@@ -1,0 +1,134 @@
+GOODS:
+
+- Wheat/fish
+- Cotton -> Clothes
+- Barely -> Beer
+- Olives -> Olive oil
+- Wood -> Furniture
+- Copper -> Utensils
+- Mud -> Bricks
+- Horses 
+- Tin
+- (Copper + Tin) -> Bronze
+- (Wood + Bronze) -> Weapons
+
+
+RAW GOODS:
+
+Name     Job              Best Terrain  
+
+Food     Farmer           Plains
+Cotton   Cotton Planter   Prairie
+Barley   Barely Planter   Steppe
+Olives   Olive Planter    Scrubland
+Wood     Lumberjack       Forest
+Copper   Copper Miner     Hills
+Mud      Mudder           Marsh, Desert+River
+Tin      Tin Miner        Mountains
+Gold     Prospector       Mountains
+
+
+MANUFACTURED GOODS:
+
+Name        Raw material   Job            Building (1)          Buildings (2)        Buildings (3)
+
+Clothes     Cotton         Weaver         Weaver's house        Weaver's shop        Cloth Factory
+Beer        Barely         Brewer         Brewer's house        Brewer's shop        Beer Factory
+Olive oil   Oilves         Oil Extracter  Small oil press       Big oil press        Olive Oil Factory
+Furniture   Wood           Carpenter      Carpenter's shop      Lumber Mill
+Utensils    Copper         Coppersmith    Coppersmith's house   Coppersmith's shop   Copper Factory
+Bricks      Mud            Brickmaker     Small Kiln            Big Kiln             Brick Factory
+Mounting                                  Stable
+Bronze      Copper,Tin     Metallurgic    Metallurgic's shop    Metalworks           Machine Shop
+Weapons     Wood,Bronze    Weaponsmith    Weaponsmith's house   Weapons Shop         Weapons Factory
+(Scrolls)                  Scribe         Tablet house          Gymnasium            Academy
+(???)                      Priest         Worship Yard          Shrine               Temple
+
+
+NON-PRODUCTION BUILDINGS:
+
+Level 1            Level 2        Level 3
+
+Egyptian Embassy
+Docks              Drydock        Shipyard
+Wooden wall        Masonry wall   Stone wall
+Library
+Oracle
+Small Warehouse    Big warehouse
+Palace (no city corruption)
+Great Monument
+
+
+TERRAINS:
+
+Unforested   Forested
+
+Tundra       Boreal forest
+Desert       Scrubland
+Plains       Mixed Forest
+Praire       Savanna
+Grassland    Woodland
+Marsh        Swamp
+Arctic
+Sea
+Ocean
+Hills
+Mountain
+
+
+MILITARY UNITS:
+
+Regular     w/Weapon         w/Horse            w/Weapon+Horse
+
+Peasant     Warrior          Nomad              Chariot
+            Pikeman                             Mounted pikeman
+            Armored Warrior                     Cataphract
+Barbarian   Armed Barbarian  Mounted barbarian  
+Catapult
+            Soldier                             Chariot (Egyptian)
+            Elite Soldier                       Elite Chariot (Egyptian)
+
+
+SHIPS:
+
+Catamaran
+Galley  Penteconter
+        Trireme
+        Quinquereme
+Nemi?
+Pirate ship
+
+
+
+CONCEPTS:
+
+- Canals
+- Roads
+- City corruption: ($3 ^ n, where n = number of cities)
+- Boycotts (?)
+
+
+
+TECHNOLOGY:
+
+Technology    Requirement    Benefit
+
+                             Factories
+Irrigation                   Canal building
+Metalurgy                    Copper production
+Ship building                Allow building of ships
+                             Egyptian Embassy
+Philosophy                   Higher scroll production
+Mathematics
+Mounting                     Mounted units
+Law
+Currency                     Trade with other nations
+                             Greater naval speed
+                             Greater caravan speed
+                             Automatic veteran soldier
+                             Higher worship
+                             No more criminal
+Catapults                    Catapults
+Armor                        Armor
+                             Great Monument
+                             Pikeman

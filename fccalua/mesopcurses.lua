@@ -54,7 +54,7 @@ local function prepare()
    scr:Flip()
 
    -- load images
-   img = SDL.IMG_Load('theme/curses/terminal.png')
+   img = SDL.IMG_Load('images/terminal.png')
    if not img then
       print('Could not open terminal.png.')
       os.exit(1)
