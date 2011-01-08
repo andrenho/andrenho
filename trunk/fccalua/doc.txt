@@ -67,7 +67,7 @@ Tundra       Boreal forest
 Desert       Scrubland
 Plains       Mixed Forest
 Praire       Savanna
-Grassland    Woodland
+Steppe       Woodland
 Marsh        Swamp
 Arctic
 Sea
