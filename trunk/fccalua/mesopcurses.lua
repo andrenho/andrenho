@@ -129,11 +129,13 @@ local function prepare()
          [plains] = tile[' ']['yellow_green'],
          [sea] = tile[' ']['yellow_blue'],
          [warrior] = tile['w']['white_red'],
+         city = tile['C']['black_tp'],
       },
       [false] = {
          [sea] = tile[176]['black_white'],
          [warrior] = tile['w']['black_tp'],
          focus = tile[224]['green_tp'],
+         city = tile['C']['black_tp'],
       }
    }
 end
@@ -151,6 +153,12 @@ local function draw(all)
          if game.map[x][y].dirty or all == true then
             -- terrain
             tg.map[x][y] = { tileset[options.color][game.map[x][y].terrain] }
+
+            -- city
+            local city = game:city(x,y)
+            if city then
+               table.insert(tg.map[x][y], tileset[options.color]['city'])
+            end
       
             -- units
             if player.focused and player.focused.x == x and player.focused.y == y then
@@ -200,7 +208,7 @@ local function gameloop()
          elseif e.sym == SDL.SPACE then -- end turn
             player:end_turn()
          elseif e.sym == SDL.t then -- test
-            ui:message('After a discussion on this topic in the mailing list, I made my own function... I took, unknowingly, a way similar to the function above, except I use gfind to iterate, and I see the single matches at beginning and end of string as empty fields.')
+            ui:question('After a discussion on this topic in the mailing list, I made my own function... I took, unknowingly, a way similar to the function above, except I use gfind to iterate, and I see the single matches at beginning and end of string as empty fields.', { 'abc', 'def' })
          elseif player.focused then
             fx,fy = nil,nil
             if     e.sym == SDL.KP1 or e.sym == SDL.j  then fx,fy = -1, 1 -- move
@@ -211,6 +219,11 @@ local function gameloop()
             elseif e.sym == SDL.KP7 or e.sym == SDL.N7 then fx,fy = -1,-1
             elseif e.sym == SDL.KP8 or e.sym == SDL.N8 then fx,fy =  0,-1
             elseif e.sym == SDL.KP9 or e.sym == SDL.N9 then fx,fy =  1,-1
+            elseif e.sym == SDL.b then -- build city
+               local city_name = ui:input('What is the name of the city?')
+               if city_name then
+                  player.focused:build_city(city_name)
+               end
             end
             -- move unit
             if fx then 
@@ -253,17 +266,51 @@ end
 function ui:question(text, options, default)
    local default = default or 1
    local ss
+   local keys = {}
    if options then
-      ss = string.wrap(text, math.floor(scr.w/8) - 3)
+      ss = string.wrap(text, math.floor(scr.w/8) - 3):split("\n")
+      table.insert(ss, '')
       for i,option in ipairs(options) do
-         table.insert(' [' .. i .. '] ' .. option)
+         keys[SDL.KP0+i], keys[SDL.N0+i] = i, i
+         if i == default then 
+            keys[SDL.KP_ENTER], keys[SDL.RETURN] = i, i 
+            option = option .. ' (*)'
+         end
+         table.insert(ss, ' [' .. i .. '] ' .. option)
       end
    else
       local opt
-      if 
+      if default == 1 then
+         opt = ' [Y/n]'
+         keys[SDL.KP_ENTER], keys[SDL.RETURN] = true, true
+      elseif default == 2 then
+         opt = ' [y/N]'
+         keys[SDL.KP_ENTER], keys[SDL.RETURN] = false, false
+      else
+         assert(false)
+      end
+      keys[SDL.y] = true
+      keys[SDL.n] = false
+      ss = string.wrap(text .. opt, math.floor(scr.w/8) - 3):split("\n")
    end
+   for i,s in ipairs(ss) do
+      write(s, 1, i)
+   end
+   tg:blit_map()
+   scr:Flip()
+
+   local e
+   repeat
+      e = tg:wait_event()
+   until e.type == SDL.KEYDOWN and keys[e.sym] ~= nil
+
+   draw(true)
+   return keys[e.sym]
 end
 
+function ui:input(text, default)
+   return default or 'Test'
+end
 
 
 prepare()

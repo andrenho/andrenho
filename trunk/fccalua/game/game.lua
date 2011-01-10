@@ -1,5 +1,6 @@
 require 'nation'
 require 'static'
+require 'city'
 
 Game = {}
 
@@ -47,6 +48,18 @@ function Game:units(x,y)
       end
    end
    return t
+end
+
+
+function Game:city(x,y)
+   for _,n in ipairs(self.nations) do
+      for _,c in ipairs(n.cities) do
+         if c.x == x and c.y == y then
+            return c
+         end
+      end
+   end
+   return nil
 end
 
 

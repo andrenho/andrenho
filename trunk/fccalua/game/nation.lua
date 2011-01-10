@@ -15,6 +15,7 @@ end
 
 function Nation:initialize()
    self.units = {}
+   self.cities = {}
    for i=1,1 do
       local u = Unit:new {
          x = initial_pos.x,
