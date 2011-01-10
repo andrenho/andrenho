@@ -251,9 +251,16 @@ function ui:message(text)
 end
 
 function ui:question(text, options, default)
+   local default = default or 1
    local ss
    if options then
+      ss = string.wrap(text, math.floor(scr.w/8) - 3)
+      for i,option in ipairs(options) do
+         table.insert(' [' .. i .. '] ' .. option)
+      end
    else
+      local opt
+      if 
    end
 end
 
