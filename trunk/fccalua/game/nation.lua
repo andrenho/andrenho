@@ -15,12 +15,12 @@ end
 
 function Nation:initialize()
    self.units = {}
-   for i=1,2 do
+   for i=1,1 do
       local u = Unit:new {
          x = initial_pos.x,
          y = initial_pos.y,
          nation = self,
-         military = SOLDIER,
+         military = warrior,
          nation = self,
          game = self.game,
       }

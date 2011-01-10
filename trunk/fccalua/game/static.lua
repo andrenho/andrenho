@@ -1,19 +1,19 @@
-require 'i18n'
+   require 'i18n'
 
---
--- Goods
--- 
-goods = {}
-local function good(name, can_buy, initial_prices, raw_material)
-   local g = {
-      name = name,
-      can_buy = can_buy,
-      initial_prices = initial_prices,
-      raw_material = raw_material,
-   }
-   table.insert(goods, g)
-   return g
-end
+   --
+   -- Goods
+   -- 
+   goods = {}
+   local function good(name, can_buy, initial_prices, raw_material)
+      local g = {
+         name = name,
+         can_buy = can_buy,
+         initial_prices = initial_prices,
+         raw_material = raw_material,
+      }
+      table.insert(goods, g)
+      return g
+   end
 
 food =      good(_'Food', true, { 1,8 })
 cotton =    good(_'Cotton', true, { 4,6 })

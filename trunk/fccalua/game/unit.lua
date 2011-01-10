@@ -22,12 +22,27 @@ function Unit:move(fx, fy)
    local ok = true
    local cost = self.game:cost_to_enter(self.x+fx, self.y+fy)
 
+   -- check for ship on land or unit on water
+   local nx, ny = self.x+fx, self.y+fy
+   if self.military.ship and self.game.map[nx][ny].terrain ~= sea then 
+      ok = false 
+   elseif not self.military.ship and self.game.map[nx][ny].terrain == sea then 
+      ok = false
+   end
+
+   -- move unit
    if ok then
+      self.game.map[self.x][self.y].dirty = true
       self.x = self.x + fx
       self.y = self.y + fy
+      self.game.map[self.x][self.y].dirty = true
       self.moves = self.moves - cost
-      if not (self.moves > 0) then
+      if not (self.moves > 0) then -- select next unit
          self.nation:next_unit()
+         -- auto end turn
+         if not self.nation.focused and self.game.options.auto_end_turn then
+            self.nation:end_turn()
+         end
       end
    end
    return ok
