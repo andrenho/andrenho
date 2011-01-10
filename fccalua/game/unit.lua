@@ -52,3 +52,17 @@ end
 function Unit:selectable()
    return self.moves > 0
 end
+
+
+function Unit:build_city(name)
+   c = City:new {
+      name = name,
+      x = self.x,
+      y = self.y,
+      nation = self.nation,
+      game = self.game,
+   }
+   c:initialize()
+   table.insert(self.nation.cities, c)
+   c:auto_join_unit(self)
+end
