@@ -5,10 +5,23 @@ require 'luasdl'
 require 'tilegame'
 
 options = {
-   map_w = 20,
-   map_h = 20,
+   map_w = 80,
+   map_h = 50,
    color = false,
 }
+
+--
+-- Write text on the screen
+--
+local function write(text, x, y, color)
+   assert(x >= 1 and y >= 1)
+   color = color or 'black_white'
+   local k = 0
+   for v in text:gmatch('.') do
+      tg.map[x+k][y] = { tile[v][color] }
+      k = k + 1
+   end
+end
 
 -- 
 -- Convert default surface to another color
@@ -37,7 +50,11 @@ local function prepare()
    game = Game:new { 
       map_w = options.map_w, 
       map_h = options.map_h,
-      year = -1000,
+      year = -2000,
+      ui = ui,
+      options = {
+         auto_end_turn = true,
+      }
    }
    game:initialize()
    player = game:add_nation('Assyria')
@@ -91,7 +108,7 @@ local function prepare()
    
    -- create tiles
    tile = {}
-   x, y = 0, 0
+   local x, y = 0, 0
    for c=0,255 do
       tile[c] = {}
       tile[string.format('%c', c)] = tile[c]
@@ -109,13 +126,13 @@ local function prepare()
    -- map tileset
    tileset = {
       [true] = {
-         grassland = tile[' ']['yellow_green'],
-         ocean = tile[' ']['yellow_blue'],
-         [SOLDIER] = tile['S']['white_red'],
+         [plains] = tile[' ']['yellow_green'],
+         [sea] = tile[' ']['yellow_blue'],
+         [warrior] = tile['w']['white_red'],
       },
       [false] = {
-         ocean = tile[176]['black_white'],
-         [SOLDIER] = tile['S']['black_tp'],
+         [sea] = tile[176]['black_white'],
+         [warrior] = tile['w']['black_tp'],
          focus = tile[224]['green_tp'],
       }
    }
@@ -125,25 +142,41 @@ end
 --
 -- Draw map
 --
-local function draw()
-   scr:FillRect(nil, white)
+local function draw(all)
+   local all = all or false
+
+   -- draw map
    for x = 1,game.map_w do
       for y = 1,game.map_h do
-         -- terrain
-         tg.map[x][y] = { tileset[options.color][game.map[x][y].terrain] }
-         
-         -- units
-         if player.focused and player.focused.x == x and player.focused.y == y then
-            table.insert(tg.map[x][y], assert(tileset[options.color][player.focused.military]))
-            table.insert(tg.map[x][y], tileset[options.color]['focus'])
-         else
-            local units = game:units(x,y)
-            if #units > 0 then
-               table.insert(tg.map[x][y], assert(tileset[options.color][units[1].military]))
+         if game.map[x][y].dirty or all == true then
+            -- terrain
+            tg.map[x][y] = { tileset[options.color][game.map[x][y].terrain] }
+      
+            -- units
+            if player.focused and player.focused.x == x and player.focused.y == y then
+               table.insert(tg.map[x][y], assert(tileset[options.color][player.focused.military]))
+               table.insert(tg.map[x][y], tileset[options.color]['focus'])
+            else
+               local units = game:units(x,y)
+               if #units > 0 then
+                  table.insert(tg.map[x][y], assert(tileset[options.color][units[1].military]))
+               end
             end
+            game.map[x][y].dirty = false
          end
       end
    end
+
+   --[[ write messages
+   local ly = math.floor(scr.h / 8)
+   write(string.format('%d', game.year), 1, ly-1)
+   if player.focused then
+      local f = player.focused
+      write(string.format('%s   M:%d', f.military.name, f.moves), 1, ly)
+   end
+   ]]
+   
+   -- update screen
    tg:blit_map()
    scr:Flip()
 end
@@ -166,6 +199,8 @@ local function gameloop()
             player:next_unit()
          elseif e.sym == SDL.SPACE then -- end turn
             player:end_turn()
+         elseif e.sym == SDL.t then -- test
+            ui:message('After a discussion on this topic in the mailing list, I made my own function... I took, unknowingly, a way similar to the function above, except I use gfind to iterate, and I see the single matches at beginning and end of string as empty fields.')
          elseif player.focused then
             fx,fy = nil,nil
             if     e.sym == SDL.KP1 or e.sym == SDL.j  then fx,fy = -1, 1 -- move
@@ -191,6 +226,31 @@ local function gameloop()
    until not running
    SDL.Quit()
 end
+
+
+--
+-- GUI
+--
+ui = {}
+function ui:message(text)
+   t = '--- Press SPACE ---'
+   local last = 0
+   for i,s in ipairs(string.wrap(text, math.floor(scr.w / 8) - 3):split("\n")) do
+      write(s, 1, i)
+      last = i
+   end
+   write(t, math.floor(scr.w / 8) - #t - 1, last + 1)
+   tg:blit_map()
+   scr:Flip()
+
+   repeat
+      local e = tg:wait_event()
+   until e.type == SDL.KEYDOWN and e.sym == SDL.SPACE
+
+   draw(true)
+end
+
+
 
 prepare()
 gameloop()

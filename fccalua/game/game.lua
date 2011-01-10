@@ -10,7 +10,7 @@ end
 
 
 function Game:initialize()
-   assert(self.map_w and self.map_h and self.year, 
+   assert(self.map_w and self.map_h and self.year and self.options, 
          "Initialization parameters missing.")
    self.map = {}
    self.nations = {}
@@ -19,11 +19,12 @@ function Game:initialize()
       self.map[x] = {}
       for y=1,self.map_h do
          self.map[x][y] = {
-            terrain = 'grassland',
+            terrain = plains,
             special = false,
             forest = false,
             road = false,
-            plow = false
+            plow = false,
+            dirty = true,
          }
       end
    end
@@ -32,11 +33,7 @@ end
 
 
 function Game:draw_map()
-   for x=4,5 do
-      for y=3,5 do
-         self.map[x][y].terrain = 'ocean'
-      end
-   end
+   -- TODO
 end
 
 
