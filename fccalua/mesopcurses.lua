@@ -250,6 +250,13 @@ function ui:message(text)
    draw(true)
 end
 
+function ui:question(text, options, default)
+   local ss
+   if options then
+   else
+   end
+end
+
 
 
 prepare()
