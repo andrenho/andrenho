@@ -1,9 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg"
 	xmlns:xlink="http://www.w3.org/1999/xlink"
-	width="32" height="32">
-  <title>Units</title>
-  <desc>Stick Figure of a Cat</desc>
+	width="200" height="200">
 
-  <circle cx="70" cy="95" r="50" style="stroke: black; fill: none"/>
-
+    <g id="square">
+        <rect x="10" y="10" width="20" height="20"
+            style="fill: none; stroke: black;"/>
+    </g>
+    <use xlink:href="#square" transform="scale(2)"/>
 </svg>
