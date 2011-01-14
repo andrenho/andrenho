@@ -1,9 +1,0 @@
-#!/usr/bin/perl
-
-use strict;
-use warnings;
-
-# read arguments
-if($#ARGV == -1) {
-    print_usage()
-}
