@@ -41,20 +41,20 @@ prayers =   good(_'Prayers', false)
 --
 terrains = {}
 local function terrain(name, cost_to_enter, defensive_bonus, production, switch_status)
-local function good_production(p)
-   if not p then return {} end
-   local pp = {}
-   for i,v in ipairs(p) do pp[goods[i]] = v end
-   return pp
-end
-local t = {
-   name = name,
-   production = good_production(production),
-   switch_status = switch_status,
-}
-if switch_status then switch_status.switch_status = t end -- swap
-table.insert(terrains, t)
-return t
+	local function good_production(p)
+		if not p then return {} end
+		local pp = {}
+		for i,v in ipairs(p) do pp[goods[i]] = v end
+		return pp
+	end
+	local t = {
+		name = name,
+		production = good_production(production),
+		switch_status = switch_status,
+	}
+	if switch_status then switch_status.switch_status = t end -- swap
+	table.insert(terrains, t)
+	return t
 end
 
 --                 Name              MoveCost      Barley      Mud
@@ -138,6 +138,7 @@ local function job(name)
 end
 
 farmer       = job(_'Farmer')
+fisherman    = job(_'Fisherman')
 cotton_pl    = job(_'Cotton Planter')
 barley_pl    = job(_'Barley Planter')
 olive_pl     = job(_'Olives Planter')
@@ -151,7 +152,7 @@ brewer       = job(_'Brewer')
 oil_presser  = job(_'Oil Presser')
 carpenter    = job(_'Carpenter')
 coppersmith  = job(_'Coppersmith')
-brickmaker   = job(_'Brickmaker')
+potter       = job(_'Potter')
 metallurgic  = job(_'Metallurgic')
 weaponsmith  = job(_'Weaponsmith')
 scribe       = job(_'Scribe')
@@ -181,42 +182,43 @@ local function building(name, job, raw_good, good, multiplier, cost,
 end
 
 weaver_1    = building(_"Weaver's House", weaver, cotton, clothes)
-weaver_2    = building(_"Weaver's Shop", weaver, cotton, clothes, 2, 64)a
-weaver_3    = building(_"Weaver's Factory", weaver, 
-brewer_1    = building(_"
-brewer_2    = building(_"
-brewer_3    = building(_"
-oil_1       = building(_"
-oil_2       = building(_"
-oil_3       = building(_"
-carpenter_1 = building(_"
-carpenter_2 = building(_"
-copper_1    = building(_"
-copper_2    = building(_"
-copper_3    = building(_"
-brick_1     = building(_"
-brick_2     = building(_"
-brick_3     = building(_"
-stable      = building(_"
-bronze_1    = building(_"
-bronze_2    = building(_"
-bronze_3    = building(_"
-scribe_1    = building(_"
-scribe_2    = building(_"
-scribe_3    = building(_"
-temple_1    = building(_"
-temple_2    = building(_"
-temple_3    = building(_"
-embassy     = building(_"
-docks_1     = building(_"
-docks_2     = building(_"
-docks_3     = building(_"
-wall_1      = building(_"
-wall_2      = building(_"
-wall_3      = building(_"
-library     = building(_"
-oracle      = building(_"
-warehouse_1 = building(_"
-warehouse_2 = building(_"
-palace      = building(_"
-monument    = building(_"
+weaver_2    = building(_"Weaver's Shop", weaver, cotton, clothes, 2, 64, 20)
+weaver_3    = building(_"Cloth Mill", weaver, cotton, clothes, 3, 160, 100, 8)
+brewer_1    = building(_"Brewer's House", brewer, barley, beer)
+brewer_2    = building(_"Brewer's Shop", brewer, barley, beer, 2, 64, 20)
+brewer_3    = building(_"Beer Mill", brewer, barley, beer, 3, 160, 100, 8)
+oil_1       = building(_"Small Oil Press", oil_presser, olives, olive_oil)
+oil_2       = building(_"Big Oil Press", oil_presser, olives, olive_oil, 2, 64, 20)
+oil_3       = building(_"Olive Oil Mill", oil_presser, olives, olive_oil, 3, 160, 100, 8)
+carpenter_1 = building(_"Carpenter's House", carpenter, wood, furniture)
+carpenter_2 = building(_"Carpenter's Shop", carpenter, wood, furniture, 2, 64, 20)
+carpenter_3 = building(_"Lumber Mill", carpenter, wood, furniture, 3, 160, 100, 8)
+copper_1    = building(_"Coppersmith's House", coppersmith, copper, utensils)
+copper_2    = building(_"Coppersmith's Shop", coppersmith, copper, utensils, 2, 64, 20)
+copper_3    = building(_"Utensils Factory", coppersmith, copper, utensils, 3, 160, 100, 8)
+brick_1     = building(_"Small Klin", potter, mud, bricks)
+brick_2     = building(_"Big Klin", potter, mud, bricks, 2, 64, 20)
+brick_3     = building(_"Brick Factory", potter, mud, bricks, 3, 160, 100, 8)
+stable      = building(_"Stable", nil, food, horses, 2, 64, 20)
+bronze_1    = building(_"Metallurgic's Shop", metallurgic, { copper, tin }, bronze)
+bronze_2    = building(_"Metalworks", metallurgic, { copper, tin }, bronze, 2, 64, 20)
+bronze_3    = building(_"Machine Shop", metallurgic, { copper, tin }, bronze, 3, 160, 100, 8)
+scribe_1    = building(_"Tablet House", scribe, nil, scrolls)
+scribe_2    = building(_"Gymnasium", scribe, nil, scrolls, 2, 64, 20)
+scribe_3    = building(_"Academy", scribe, nil, scrolls, 3, 160, 100, 8)
+temple_1    = building(_"Worship Yard", priest, nil, prayers)
+temple_2    = building(_"Shrine", priest, nil, prayers, 2, 64, 20)
+temple_3    = building(_"Temple", priest, nil, prayers, 3, 160, 100, 8)
+embassy     = building(_"Embassy", nil, nil, nil, 3, 160, 100, 8)
+docks_1     = building(_"Docks", nil, nil, nil, 1, 52)
+docks_2     = building(_"Drydock", nil, nil, nil, 1, 80, 50, 4)
+docks_3     = building(_"Shipyard", nil, nil, nil, 1, 240, 100, 8)
+wall_1      = building(_"Wooden Wall", nil, nil, nil, 1, 64)
+wall_2      = building(_"Stone Wall", nil, nil, nil, 2, 120, 100)
+wall_3      = building(_"Masonry Wall", nil, nil, nil, 3, 240, 200)
+library     = building(_"Library", nil, nil, nil, 0, 120, 20)
+oracle      = building(_"Oracle", nil, nil, nil, 0, 120, 20)
+warehouse_1 = building(_"Warehouse", nil, nil, nil, 1, 80)
+warehouse_2 = building(_"Big Warehouse", nil, nil, nil, 2, 120, 20)
+palace      = building(_"Palace", nil, nil, nil, 0, 240, 200)
+monument    = building(_"Monument", nil, nil, nil, 0, 320, 300)
