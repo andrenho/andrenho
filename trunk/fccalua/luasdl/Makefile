@@ -1,5 +1,5 @@
 LUA_CFLAGS=-I/c/andre/desenv/lua/include
-LUA_LIBS=-L/c/andre/desenv/lua/lib -llua5.1
+LUA_LIBS=-L/c/andre/desenv/lua/lib -llua
 EXTENSION=so
 
 libluasdl.$(EXTENSION):
