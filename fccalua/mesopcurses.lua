@@ -7,7 +7,7 @@ require 'tilegame'
 options = {
    map_w = 80,
    map_h = 50,
-   color = false,
+   color = true,
 }
 
 --
@@ -96,6 +96,7 @@ local function prepare()
          black_white = img,
          yellow_green = convert(img, {255,255,128}, {0,192,0}),
          yellow_blue = convert(img, {255,255,128}, {0,64,128}),
+         yellow_red = convert(img, {196,196,128}, {192,0,0}),
          white_red = convert(img, {255,255,255}, {192,0,0}),
       }
    else
@@ -129,7 +130,7 @@ local function prepare()
          [plains] = tile[' ']['yellow_green'],
          [sea] = tile[' ']['yellow_blue'],
          [warrior] = tile['w']['white_red'],
-         city = tile['C']['black_tp'],
+         city = tile['C']['yellow_red'],
       },
       [false] = {
          [sea] = tile[176]['black_white'],
