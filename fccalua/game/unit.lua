@@ -65,4 +65,5 @@ function Unit:build_city(name)
    c:initialize()
    table.insert(self.nation.cities, c)
    c:auto_join_unit(self)
+	return c
 end

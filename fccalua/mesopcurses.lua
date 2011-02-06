@@ -7,7 +7,7 @@ require 'tilegame'
 options = {
    map_w = 80,
    map_h = 50,
-   color = true,
+   color = true,--false,
 }
 
 --
@@ -176,18 +176,46 @@ local function draw(all)
       end
    end
 
-   --[[ write messages
    local ly = math.floor(scr.h / 8)
    write(string.format('%d', game.year), 1, ly-1)
    if player.focused then
       local f = player.focused
       write(string.format('%s   M:%d', f.military.name, f.moves), 1, ly)
    end
-   ]]
    
    -- update screen
    tg:blit_map()
    scr:Flip()
+end
+
+
+-- 
+-- Runs cityloop
+--
+local function cityloop(city)
+	-- draw city
+	tg:clear_map()
+	write(string.format('%s', city.name), 1, 1)
+
+	-- draw buildings
+	local y = 3
+	for _,b in ipairs(city.buildings) do
+		write(b.name, 3, y)
+		y = y + 3
+	end
+
+	tg:blit_map()
+   scr:Flip()
+
+	-- events
+	local e = tg:wait_event()
+	if e.type == SDL.KEYDOWN then
+		if e.sym == SDL.ESCAPE then
+			tg:clear_map()
+			return
+		end
+	end
+	cityloop(city)
 end
 
 
@@ -223,7 +251,8 @@ local function gameloop()
             elseif e.sym == SDL.b then -- build city
                local city_name = ui:input('What is the name of the city?')
                if city_name then
-                  player.focused:build_city(city_name)
+                  c = player.focused:build_city(city_name)
+						cityloop(c)
                end
             end
             -- move unit
