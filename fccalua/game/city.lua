@@ -13,7 +13,8 @@ function City:initialize()
    self.buildings = { weaver_1, brewer_1, oil_1, carpenter_1, copper_1,
                       brick_1, bronze_1, scribe_1 }
    self.storage = {}
-	self.workers = {}
+   self.workers = {}
+   self.building_now = { building = docks_1, hammers = 0 }
    for _,g in ipairs(goods) do
       if g.can_buy then
          self.storage[g] = 0

@@ -7,7 +7,7 @@ require 'tilegame'
 options = {
    map_w = 80,
    map_h = 50,
-   color = true,--false,
+   color = false,
 }
 
 --
@@ -193,29 +193,45 @@ end
 -- Runs cityloop
 --
 local function cityloop(city)
-	-- draw city
-	tg:clear_map()
-	write(string.format('%s', city.name), 1, 1)
+   -- draw city
+   tg:clear_map()
+   write(string.format('%s', city.name), 1, 1)
 
-	-- draw buildings
-	local y = 3
-	for _,b in ipairs(city.buildings) do
-		write(b.name, 3, y)
-		y = y + 3
-	end
+   -- draw buildings
+   local y = 3
+   for _,b in ipairs(city.buildings) do
+      write(b.name, 3, y)
+      y = y + 3
+   end
 
-	tg:blit_map()
+   -- other info
+   write('Building:', 30, 8)
+   if not city.building_now.building then
+      write('Nothing', 31, 9)
+   else
+      write(string.format('%s (%d)', city.building_now.building.name, city.building_now.hammers), 31, 9)
+   end
+
+   -- goods
+   write('Goods:', 30, 11)
+   for k,g in ipairs(goods) do
+      if g.can_buy then
+         write(string.format('%-10s  %d  %d/%d', g.name, city.storage[g], city.nation.prices[g].buy, city.nation.prices[g].sell), 31, 11+k)
+      end
+   end
+
+   tg:blit_map()
    scr:Flip()
 
-	-- events
-	local e = tg:wait_event()
-	if e.type == SDL.KEYDOWN then
-		if e.sym == SDL.ESCAPE then
-			tg:clear_map()
-			return
-		end
-	end
-	cityloop(city)
+   -- events
+   local e = tg:wait_event()
+   if e.type == SDL.KEYDOWN then
+      if e.sym == SDL.ESCAPE or e.sym == SDL.q then
+         tg:clear_map()
+         return
+      end
+   end
+   cityloop(city)
 end
 
 
@@ -252,7 +268,7 @@ local function gameloop()
                local city_name = ui:input('What is the name of the city?')
                if city_name then
                   c = player.focused:build_city(city_name)
-						cityloop(c)
+                  cityloop(c)
                end
             end
             -- move unit
