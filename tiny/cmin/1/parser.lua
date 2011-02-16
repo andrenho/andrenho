@@ -1,5 +1,7 @@
+-- TODO: global variables
+
 token = {}
-reserved_words = { 'def' }
+reserved_words = { 'func' }
 basic_types = { 'byte', 'int', 'real' }
 line = 1
 c = ''
@@ -82,6 +84,17 @@ function is_type()
 end
 
 
+function type_size(tp)
+	if tp == 'byte' then
+		return 8
+	elseif tp == 'int' or tp == 'real' then
+		return 32
+	else
+		error('unknown size for type %s', tp)
+	end
+end
+
+
 -----------------------------------------------------
 
 
@@ -95,10 +108,19 @@ function primary_exp()
          exp_type = 'int'
       end
       code('mov $a, %d  ; type: %s', token.text, exp_type)
+	elseif token.type == 'id' then
+	   var = fct.vars[token.text]
+		if not var then error('Variable %s not found', token.text) end
+		code('mov $a, $fp-%d', var.addr)
+		if c ~= '(' then -- not a function
+			code('mov $a, [$a]')
+		end
    elseif token.text == '(' then
       get_token()
       exp_type = primary_exp()
       if token.text ~= ')' then expected(')') end
+	else
+		expected("'(', number or id")
    end
    get_token()
    return exp_type
@@ -109,19 +131,29 @@ function prefix_exp()
    if token.text == '-' then
       get_token()
       exp_type = primary_exp()
-      code("neg $a")
+      code('neg $a')
       return exp_type
    elseif token.text == '!' then
       get_token()
       primary_exp()
       i = fct_label()
-      code("bzr $a, %s_%d", fct.name, i)
-      code("mov $a, 1")
-      label("%s_%d:", fct.name, i)
+      code('bzr $a, %s_%d', fct.name, i)
+      code('mov $a, 1')
+      label('%s_%d:', fct.name, i)
       return 'byte'
    else
       return primary_exp()
    end
+end
+
+
+function postfix_exp()
+	exp_type = prefix_exp()
+	if token.text == '(' then
+		-- TODO parameters
+		get_token('symbol', ')')
+		code('jsr $a')
+	end
 end
 
 
@@ -135,7 +167,7 @@ end
 
 
 function expression()
-   prefix_exp()
+   postfix_exp()
 end
 
 
@@ -149,6 +181,7 @@ function return_stmt()
    if token.text ~= ';' then
       expected("';'")
    end
+	get_token()
 end
 
 
@@ -166,7 +199,6 @@ function statement()
    else
       expected('statement or variable declaration')
    end
-   get_token()
 end
 
 
@@ -185,12 +217,25 @@ end
 
 function variable_decl()
    tp = token.text
+	sz = type_size(tp)
    get_token('id')
    name = token.text
    get_token('symbol', '=')
+	get_token()
    expression()
    if token.text ~= ';' then expected("';'") end
-   get_token()
+	get_token()
+	
+	if sz == 8 then
+		code('push8 $a')
+	elseif sz == 32 then
+		code('push $a')
+	else
+		assert(false)
+	end
+
+	fct.var_addr = fct.var_addr + sz
+	fct.vars[name] = { type = tp, addr = fct.var_addr }
 end
 
 
@@ -203,7 +248,11 @@ function function_decl()
    get_token('symbol', ':')
    get_token('type')
    fct_type = token.text
-   fct = { name = fct_name, type = fct_type, counter = 1 }
+   fct = { name = fct_name, 
+	        type = fct_type, 
+			  counter = 1, 
+			  var_addr = 0, 
+			  vars = {} }
    fct_open(fct)
    get_token()
    block()
@@ -216,12 +265,12 @@ function source()
    while token do
       if is_type() then
          variable_decl()
-      elseif token.text == 'def' then
+      elseif token.text == 'func' then
          function_decl()
       elseif token.text == 'enum' then
          enum_decl()
       else
-         expected("type, 'def' or 'enum'")
+         expected("type, 'func' or 'enum'")
       end
       get_token()
    end

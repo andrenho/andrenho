@@ -1,4 +1,4 @@
-def main() : int
+func main() : int
 {
 	int x = 42;
 	return x;
