@@ -59,6 +59,8 @@ local function prepare()
    game:initialize()
    player = game:add_nation('Assyria')
 
+   dump(game)
+
    -- initialize SDL
    SDL.Init()
    scr = SDL.SetVideoMode(400, 300)
@@ -215,7 +217,7 @@ local function cityloop(city)
    -- goods
    write('Goods:', 30, 11)
    for k,g in ipairs(goods) do
-      if g.can_buy then
+      if g.can_buy and city.nation.prices[g].buy then
          write(string.format('%-10s  %d  %d/%d', g.name, city.storage[g], city.nation.prices[g].buy, city.nation.prices[g].sell), 31, 11+k)
       end
    end
@@ -357,7 +359,6 @@ end
 function ui:input(text, default)
    return default or 'Test'
 end
-
 
 prepare()
 gameloop()

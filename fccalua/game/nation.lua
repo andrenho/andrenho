@@ -29,7 +29,7 @@ function Nation:initialize()
    end
    self.prices = {}
    for _,g in ipairs(goods) do
-      if self.initial_prices then
+      if g.initial_prices then
          self.prices[g] = { buy = g.initial_prices[0], sell = g.initial_prices[1] }
       end
    end
