@@ -55,3 +55,39 @@ function table.shallow_compare(t1, t2)
    end
    return true
 end
+
+function dump(value, indent)
+   local idt = indent or 0
+   for i=1,idt do io.write('\t') end
+   if value == nil then
+      io.write('nil')
+   elseif value == true then
+      io.write('true')
+   elseif value == false then
+      io.write('false')
+   elseif type(value) == 'table' then
+      print('{')
+      for k,v in pairs(value) do
+         io.write('\t')
+         if type(k) == 'string' then
+            io.write(k)
+         else
+            io.write('[')
+            dump(k, 0)
+            io.write(']')
+         end
+         io.write(' = ')
+         dump(v, 0)
+         print(',')
+      end
+      for i=1,idt do io.write('\t') end
+      io.write('}')
+   elseif type(value) == 'string' then
+      io.write("'" .. value .. "'")
+   elseif type(value) == 'function' then
+      io.write('function()')
+   else
+      io.write(value)
+   end
+   if not indent then print() end
+end
