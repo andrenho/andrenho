@@ -1,11 +1,15 @@
--- TODO: global variables
-
 token = {}
 reserved_words = { 'func' }
-basic_types = { 'byte', 'int', 'real' }
+basic_types = { 'byte', 'int' }
+double_symbols = { '<<', '>>', '<=', '>=' }
 line = 1
 c = ''
-fct = nil
+global = { name = '__global', 
+        type = 'global', 
+        counter = 1, 
+        var_addr = 0, 
+        vars = {} }
+
 
 function init()
    c = io.read(1)
@@ -21,8 +25,8 @@ function get_token(tp, text)
       token = nil
 
    -- text
-   elseif c:match('%a') or c == '_' then 
-      while c:match('%a') or c:match('%d') do
+   elseif c:match('%a') or c == '_' or c == '$' then 
+      while c:match('%a') or c:match('%d') or c == '_' or c == '$' do
          token.text = token.text .. c
          c = io.read(1)
       end
@@ -57,6 +61,14 @@ function get_token(tp, text)
       token.type = 'symbol'
       token.text = c
       c = io.read(1)
+
+      dbl = token.text .. c
+      for _,symbol in ipairs(double_symbols) do
+         if dbl == symbol then
+            token.text = token.text .. c
+            c = io.read(1)
+         end
+      end
    end
 
    if tp and tp ~= token.type then expected(text or tp) end
@@ -85,13 +97,13 @@ end
 
 
 function type_size(tp)
-	if tp == 'byte' then
-		return 8
-	elseif tp == 'int' or tp == 'real' then
-		return 32
-	else
-		error('unknown size for type %s', tp)
-	end
+   if tp == 'byte' then
+      return 8
+   elseif tp == 'int' then
+      return 32
+   else
+      _error('unknown size for type %s', tp)
+   end
 end
 
 
@@ -99,28 +111,35 @@ end
 
 
 function primary_exp()
+   local exp_type
    if token.type == 'number' then
-      if math.floor(token.text) ~= token.text then
-         exp_type = 'real'
-      elseif token.text <= 255 then
+      if token.text >= 0 and token.text <= 255 then
          exp_type = 'byte'
       else
          exp_type = 'int'
       end
-      code('mov $a, %d  ; type: %s', token.text, exp_type)
-	elseif token.type == 'id' then
-	   var = fct.vars[token.text]
-		if not var then error('Variable %s not found', token.text) end
-		code('mov $a, $fp-%d', var.addr)
-		if c ~= '(' then -- not a function
-			code('mov $a, [$a]')
-		end
+      code('mov #a, %d  ; type: %s', token.text, exp_type)
+   elseif token.type == 'id' then
+      local var
+      if token.text:sub(1,1) == '$' then
+         var = global.vars[token.text]
+         code('mov #a, %s', token.text)
+         exp_type = var.type
+      else
+         var = fct.vars[token.text]
+         code('mov #a, $fp-%d', var.addr)
+         exp_type = var.type
+      end
+      if not var then _error('Variable %s not found', token.text) end
+      if c ~= '(' then -- not a function
+         code('mov #a, [#a]')
+      end
    elseif token.text == '(' then
       get_token()
-      exp_type = primary_exp()
+      exp_type = expression()
       if token.text ~= ')' then expected(')') end
-	else
-		expected("'(', number or id")
+   else
+      expected("'(', number or id")
    end
    get_token()
    return exp_type
@@ -130,15 +149,15 @@ end
 function prefix_exp()
    if token.text == '-' then
       get_token()
-      exp_type = primary_exp()
-      code('neg $a')
+      local exp_type = primary_exp()
+      code('neg #a')
       return exp_type
    elseif token.text == '!' then
       get_token()
       primary_exp()
-      i = fct_label()
-      code('bzr $a, %s_%d', fct.name, i)
-      code('mov $a, 1')
+      local i = fct_label()
+      code('bzr %s_%d', fct.name, i)
+      code('mov #a, 1')
       label('%s_%d:', fct.name, i)
       return 'byte'
    else
@@ -148,26 +167,112 @@ end
 
 
 function postfix_exp()
-	exp_type = prefix_exp()
-	if token.text == '(' then
-		-- TODO parameters
-		get_token('symbol', ')')
-		code('jsr $a')
-	end
-end
-
-
---[[
-function cast_exp()
-   if token.text == '<' then
+   local exp_type = prefix_exp()
+   if token.text == '(' then
+      -- TODO parameters
+      get_token('symbol', ')')
+      code('jsr #a')
       get_token()
-      exp_type = prefix_
+   end
+   return exp_type
 end
-]]
+
+
+function cast_exp()
+   -- TODO convert to type
+   if token.text == '<' then
+      get_token('type')
+      get_token('symbol', '>')
+      get_token()
+   end
+   return postfix_exp()
+end
+
+
+function mul_exp()
+   local exp_type1 = cast_exp()
+   while token.text == '*' or token.text == '/' or token.text == '%' do
+      local op = token.text
+      code('push #a')
+      get_token()
+      local exp_type2 = cast_exp()
+      code('pop #b')
+      if op == '*' then
+         code('mul')
+      elseif op == '/' then
+         code('swap')
+         code('div')
+      elseif op == '%' then
+         code('mod')
+      end
+   end
+   return exp_type1
+end
+
+
+function add_exp()
+   local exp_type1 = mul_exp()
+   while token.text == '+' or token.text == '-' do
+      local op = token.text
+      code('push #a')
+      get_token()
+      local exp_type2 = mul_exp()
+      code('pop #b')
+      if op == '+' then
+         code('add')
+      elseif op == '-' then
+         code('sub')
+      end
+   end
+   return exp_type1
+end
+
+
+function shift_exp()
+   local exp_type1 = add_exp()
+   while token.text == '<<' or token.text == '>>' do
+      local op = token.text
+      code('push #a')
+      get_token()
+      local exp_type2 = add_exp()
+      code('pop #b')
+      if op == '<<' then
+         code('shl')
+      elseif op == '>>' then
+         code('shr')
+      end
+   end
+   return exp_type1
+end
+
+
+function relational_exp()
+   local exp_type1 = shift_exp()
+   while token.text == '<' or token.text == '>' or token.text == '<=' or token.text == '>=' do
+      local op = token.text
+      code('push #a')
+      get_token()
+      local exp_type2 = shift_exp()
+      code('pop #b')
+      local i = fct_label()
+      if op == '<' then
+         code('bl %s_%d', fct.name, i)
+      elseif op == '>' then
+         code('bg %s_%d', fct.name, i)
+      elseif op == '<=' then
+         code('ble %s_%d', fct.name, i)
+      elseif op == '>=' then
+         code('bge %s_%d', fct.name, i)
+      end
+      code('mov #a, 0')
+      label('%s_%d:', fct.name, i)
+   end
+   return exp_type1
+end
 
 
 function expression()
-   postfix_exp()
+   relational_exp()
 end
 
 
@@ -181,7 +286,7 @@ function return_stmt()
    if token.text ~= ';' then
       expected("';'")
    end
-	get_token()
+   get_token()
 end
 
 
@@ -217,25 +322,30 @@ end
 
 function variable_decl()
    tp = token.text
-	sz = type_size(tp)
+   sz = type_size(tp)
+   
    get_token('id')
    name = token.text
+   if fct.name ~= '__global' and name:sub(1,1) == '$' then
+      _error('Global ' .. name .. ' can\'t be declared inside a function.')
+   end
+
    get_token('symbol', '=')
-	get_token()
+   get_token()
    expression()
    if token.text ~= ';' then expected("';'") end
-	get_token()
-	
-	if sz == 8 then
-		code('push8 $a')
-	elseif sz == 32 then
-		code('push $a')
-	else
-		assert(false)
-	end
+   get_token()
+   
+   if sz == 8 then
+      code('push8 #a')
+   elseif sz == 32 then
+      code('push #a')
+   else
+      assert(false)
+   end
 
-	fct.var_addr = fct.var_addr + sz
-	fct.vars[name] = { type = tp, addr = fct.var_addr }
+   fct.var_addr = fct.var_addr + sz
+   fct.vars[name] = { type = tp, addr = fct.var_addr }
 end
 
 
@@ -248,15 +358,20 @@ function function_decl()
    get_token('symbol', ':')
    get_token('type')
    fct_type = token.text
+
+   -- register global
+   global.vars[fct_name] = { type = fct_type }
+   
    fct = { name = fct_name, 
-	        type = fct_type, 
-			  counter = 1, 
-			  var_addr = 0, 
-			  vars = {} }
+           type = fct_type, 
+           counter = 1, 
+           var_addr = 0, 
+           vars = {} }
    fct_open(fct)
    get_token()
    block()
    fct_close(fct)
+   fct = nil
 end
 
 
