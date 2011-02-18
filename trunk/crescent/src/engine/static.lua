@@ -40,7 +40,7 @@ prayers =   good(_'Prayers',   false)
 -- Terrains
 --
 terrains = {}
-local function terrain(name, cost_to_enter, defensive_bonus, production, switch_status)
+local function terrain(name, code, cost_to_enter, defensive_bonus, production, switch_status)
    local function good_production(p)
       if not p then return {} end
       local pp = {}
@@ -49,6 +49,7 @@ local function terrain(name, cost_to_enter, defensive_bonus, production, switch_
    end
    local t = {
       name = name,
+      code = code,
       production = good_production(production),
       switch_status = switch_status,
    }
@@ -57,29 +58,29 @@ local function terrain(name, cost_to_enter, defensive_bonus, production, switch_
    return t
 end
 
---                 Name              MoveCost      Barley      Mud
---                                      Defence       Olives      Tin
---                                           Food        Wood        Gold
---                                              Cotton      Copper
-tundra   = terrain(_'Tundra',        1, 0, { 2, 0, 0, 0, 0, 2, 2, 1, 0 })
-desert   = terrain(_'Desert',        1, 0, { 1, 0, 0, 2, 0, 1, 3, 2, 0 })
-plains   = terrain(_'Planis',        1, 0, { 4, 2, 1, 0, 0, 1, 1, 0, 0 })
-prairie  = terrain(_'Prairie',       1, 0, { 3, 3, 0, 0, 0, 0, 0, 0, 0 })
-steppe   = terrain(_'Steppe',        1, 0, { 2, 2, 3, 0, 0, 0, 0, 0, 0 })
-marsh    = terrain(_'Marsh',         2, 1, { 3, 1, 2, 0, 0, 2, 4, 2, 0 })
+--                 Name         Code  MoveCost      Barley      Mud
+--                                       Defence       Olives      Tin
+--                                            Food        Wood        Gold
+--                                               Cotton      Copper
+tundra   = terrain(_'Tundra',         1, 1, 0, { 2, 0, 0, 0, 0, 2, 2, 1, 0 })
+desert   = terrain(_'Desert',         2, 1, 0, { 1, 0, 0, 2, 0, 1, 3, 2, 0 })
+plains   = terrain(_'Planis',         3, 1, 0, { 4, 2, 1, 0, 0, 1, 1, 0, 0 })
+prairie  = terrain(_'Prairie',        4, 1, 0, { 3, 3, 0, 0, 0, 0, 0, 0, 0 })
+steppe   = terrain(_'Steppe',         5, 1, 0, { 2, 2, 3, 0, 0, 0, 0, 0, 0 })
+marsh    = terrain(_'Marsh',          6, 2, 1, { 3, 1, 2, 0, 0, 2, 4, 2, 0 })
 
-boreal_f = terrain(_'Boreal forest', 2, 2, { 1, 0, 0, 0, 2, 1, 1, 1, 0 }, tundra)
-scrub    = terrain(_'Scrubland',     1, 2, { 1, 0, 0, 4, 1, 1, 2, 1, 0 }, desert)
-mixed_f  = terrain(_'Mixed forest',  2, 2, { 2, 1, 0, 0, 3, 0, 1, 0, 0 }, plains)
-savannah = terrain(_'Savannah',      1, 1, { 1, 1, 0, 0, 2, 0, 1, 0, 0 }, prairie)
-woodland = terrain(_'Woodland',      2, 2, { 1, 0, 1, 0, 2, 0, 1, 0, 0 }, steppe)
-swamp    = terrain(_'Swamp',         3, 3, { 2, 0, 0, 0, 1, 1, 3, 2, 0 }, marsh)
+boreal_f = terrain(_'Boreal forest',  7, 2, 2, { 1, 0, 0, 0, 2, 1, 1, 1, 0 }, tundra)
+scrub    = terrain(_'Scrubland',      8, 1, 2, { 1, 0, 0, 4, 1, 1, 2, 1, 0 }, desert)
+mixed_f  = terrain(_'Mixed forest',   9, 2, 2, { 2, 1, 0, 0, 3, 0, 1, 0, 0 }, plains)
+savannah = terrain(_'Savannah',      10, 1, 1, { 1, 1, 0, 0, 2, 0, 1, 0, 0 }, prairie)
+woodland = terrain(_'Woodland',      11, 2, 2, { 1, 0, 1, 0, 2, 0, 1, 0, 0 }, steppe)
+swamp    = terrain(_'Swamp',         12, 3, 3, { 2, 0, 0, 0, 1, 1, 3, 2, 0 }, marsh)
 
-arctic   = terrain(_'Arctic',        2, 0, { 0, 0, 0, 0, 0, 1, 0, 1, 1 })
-sea      = terrain(_'Sea',           1, 0, { 3, 0, 0, 0, 0, 0, 0, 0, 0 })
-ocean    = terrain(_'Ocean',         1, 0, { 3, 0, 0, 0, 0, 0, 0, 0, 0 })
-hills    = terrain(_'Hills',         2, 4, { 1, 0, 0, 0, 0, 3, 0, 3, 0 })
-mountain = terrain(_'Mountains',     3, 6, { 0, 0, 0, 0, 0, 3, 0, 3, 1 })
+arctic   = terrain(_'Arctic',        13, 2, 0, { 0, 0, 0, 0, 0, 1, 0, 1, 1 })
+sea      = terrain(_'Sea',           14, 1, 0, { 3, 0, 0, 0, 0, 0, 0, 0, 0 })
+ocean    = terrain(_'Ocean',         15, 1, 0, { 3, 0, 0, 0, 0, 0, 0, 0, 0 })
+hills    = terrain(_'Hills',         16, 2, 4, { 1, 0, 0, 0, 0, 3, 0, 3, 0 })
+mountain = terrain(_'Mountains',     17, 3, 6, { 0, 0, 0, 0, 0, 3, 0, 3, 1 })
 
 --
 -- Military classes

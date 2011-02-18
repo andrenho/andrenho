@@ -1,4 +1,8 @@
+#include "gui.h"
+
 #include <libtcod.h>
+
+GUI_STATE gui_state;
 
 int gui_init()
 {
