@@ -11,6 +11,8 @@
 lua_State *L;
 Game game;
 
+
+// Load one tile from Lua
 static void read_tile(int x, int y)
 {
 	int i = x + (y * game.w);
@@ -22,6 +24,7 @@ static void read_tile(int x, int y)
 }
 
 
+// Initialize connection with Lua library and run scripts
 int glue_init()
 {
 	L = lua_open();
@@ -37,9 +40,10 @@ int glue_init()
 }
 
 
+// Initialize a new game and load data do C
 void glue_new_game(int w, int h)
 {
-	lua("g = Game:new(%d, %d)", w, h);
+	lua("game = Game:new(%d, %d)", w, h);
 	game.w = w;
 	game.h = h;
 	game.map = malloc(sizeof(Tile) * w * h);
