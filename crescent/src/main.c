@@ -14,6 +14,7 @@ int main(int argc, char* argv[])
 
 	// initialize game
 	glue_new_game(50, 50);
+	gui_map_init();
 
 	// main loop
 	while(gui_state != QUIT)

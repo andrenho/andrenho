@@ -28,7 +28,7 @@ long lua_int(char* fmt, ...)
 	vsnprintf(&buf[7], 512, fmt, args);
 	va_end(args);
 	luaL_dostring(L, buf);
-	return lua_tointeger(L, 1);
+	return lua_tointeger(L, -1);
 }
 
 
@@ -40,5 +40,5 @@ bool lua_bool(char* fmt, ...)
 	vsnprintf(&buf[7], 512, fmt, args);
 	va_end(args);
 	luaL_dostring(L, buf);
-	return lua_toboolean(L, 1);
+	return lua_toboolean(L, -1);
 }

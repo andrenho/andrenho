@@ -3,14 +3,18 @@ require 'static'
 
 Game = {}
 
+
+-- New game
 function Game:new(w, h)
    self.__index = self
    o = setmetatable({}, self)
    o:create_map(w, h)
+	o.year = -2000
    return o
 end
 
 
+-- Initialize map
 function Game:create_map(w, h)
    self.map = {}
    for x=1,w do
@@ -23,4 +27,15 @@ function Game:create_map(w, h)
                             plow = false }
       end
    end
+
+	for x=3,9 do
+		for y=3,9 do
+			self.map[x][y].terrain = sea
+		end
+	end
+	for x=4,8 do
+		for y=4,8 do
+			self.map[x][y].terrain = plains
+		end
+	end
 end
