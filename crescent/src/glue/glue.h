@@ -9,6 +9,7 @@ typedef struct {
 	       SCRUB, MIXED_F, SAVANNAH, WOODLAND, SWAMP, ARCTIC, SEA, OCEAN, 
 	       HILLS, MOUNTAIN } terrain;
 	bool special, river, road, plow;
+	unsigned int rnd;
 } Tile;
 
 typedef struct {

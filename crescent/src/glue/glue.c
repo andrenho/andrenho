@@ -4,6 +4,7 @@
 
 #include <stdarg.h>
 #include <stdlib.h>
+#include <math.h>
 
 #include "glue.h"
 #include "luaconv.h"
@@ -21,6 +22,7 @@ static void read_tile(int x, int y)
 	game.map[i].special = lua_bool("game.map[%d][%d].special", x, y);
 	game.map[i].road = lua_bool("game.map[%d][%d].road", x, y);
 	game.map[i].plow = lua_bool("game.map[%d][%d].plow", x, y);
+	game.map[i].rnd = rand() % 512;
 }
 
 
