@@ -1,0 +1,86 @@
+%\documentclass[a4paper, twocolumn]{article}
+\documentclass[11pt]{article}
+\pagestyle{empty}
+
+\usepackage[a6paper]{geometry}
+\usepackage[portuguese]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{pstricks}
+\usepackage{pst-plot}
+\usepackage[pdftex]{graphicx}
+%\usepackage[top=1cm,bottom=1cm,left=1cm,right=1cm]{geometry}
+%\usepackage{multicol}
+
+\usepackage{amssymb,amsmath}
+%\usepackage{extraipa}
+\usepackage{euler}
+\everymath{\displaystyle}
+
+\DeclareMathOperator{\N}{\mathbb{N}}
+\DeclareMathOperator{\Z}{\mathbb{Z}}
+\DeclareMathOperator{\R}{\mathbb{R}}
+\DeclareMathOperator{\negate}
+    {\negthickspace\negthickspace\negthickspace\diagup\negthickspace}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\proj}{proj}
+\providecommand{\abs}[1]{\lvert#1\rvert}
+\providecommand{\vt}[1]{\overrightarrow{#1}}
+
+\author{André Wagner}
+\title{Cálculo}
+\date{}
+
+\begin{document}
+
+\section{Vetores}
+
+Se $\vec{v} = \vt{AB}$, então $\vec{-v} = \vt{BA}$.
+\[ \vec{u} + \vec{v} = (u_1+v_1, u_2+v_2) \]
+\[ \vec{u} - \vec{v} = (u_1-v_1, u_2-v_2) \]
+\[ a\vec{v} = (av_1, av_2) \]
+
+Se $\theta$ é o ângulo entre dois vetores $\vec{u}$ e $\vec{v}$ então:
+\begin{itemize}
+  \item Se $\theta = 0$, então $\vec{u} = \vec{-v}$;
+  \item Se $\theta = \pi$, então $\vec{u} = \vec{v}$;
+  \item Se $\theta = \frac{\pi}{2}$, então $\vec{u} \perp \vec{v}$;
+  \item O ângulo entre $\vec{u}$ e $-\vec{v}$ é $\pi-\theta$.
+\end{itemize}
+
+\[ \vt{AB} = B-A \]
+\[ \vt{AB} = (x_2-x_1, y_2-y_1, \ldots) \]
+
+Se $\vec{u} \parallel \vec{v}$, então $\frac{x_1}{x_2} = \frac{y_1}{y_2} = \ldots$
+
+
+\section{Produto de Vetores}
+
+\[ \vec{u}\cdot\vec{v} = x_1 x_2 + y_1 y_2 + z_1 z_2 \]
+\[ \vec{u}\cdot\vec{v} = \abs{\vec{u}}\abs{\vec{v}}\cos\theta \]
+\[ \cos\theta = \frac{\vec{u}\cdot\vec{v}}{\abs{\vec{u}}\abs{\vec{v}}} \]
+
+\[ \abs{\vec{v}} = \sqrt{x^2+y^2+z^2} \]
+\[ d = \sqrt{(x_2-x_1)^2 + (y_2-y_1)^2 + (z_2-z_1)^2} \]
+\[ \proj_{\vec{v}} \vec{u} = \left( \vec{u} \cdot \frac{\vec{v}}{\abs{\vec{v}}} \right) \frac{\vec{v}}{\abs{\vec{v}}} \]
+\[ \proj_{\vec{v}} \vec{u} = \left( x \frac{\vec{u}\cdot\vec{v}}{\vec{v}\cdot\vec{v}} \right) \vec{v} \]
+
+Se $ \vec{u}\cdot\vec{v} = 0 $, então $ \vec{u}\perp\vec{v} $.
+
+\section{Produto Vetorial}
+
+\[ \vec{u}\times\vec{v} = \begin{vmatrix}
+                            \vec{i} & \vec{j} & \vec{k} \\
+                            x_1 & x_2 & x_3 \\
+                            y_1 & y_2 & y_3
+                          \end{vmatrix} \]
+Se $ \vec{u}\times\vec{v} = \vec{0} $, então $ \vec{u}\parallel\vec{v} $.
+
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.35]{Unit_circle_angles_color.pdf}
+\end{figure}
+
+\end{document}
