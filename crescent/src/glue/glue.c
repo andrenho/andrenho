@@ -18,6 +18,7 @@ static void read_tile(int x, int y)
 {
 	int i = x + (y * game.w);
 	game.map[i].terrain = lua_int("game.map[%d][%d].terrain.code", x, y);
+	game.map[i].ovl = lua_int("game.map[%d][%d].terrain.ovl", x, y);
 	game.map[i].river = lua_bool("game.map[%d][%d].river", x, y);
 	game.map[i].special = lua_bool("game.map[%d][%d].special", x, y);
 	game.map[i].road = lua_bool("game.map[%d][%d].road", x, y);

@@ -8,6 +8,7 @@ typedef struct {
 	enum { TUNDRA=1, DESERT, PLAINS, PRAIRIE, STEPPE, MARSH, BOREAL_F, 
 	       SCRUB, MIXED_F, SAVANNAH, WOODLAND, SWAMP, ARCTIC, SEA, OCEAN, 
 	       HILLS, MOUNTAIN } terrain;
+	int ovl;
 	bool special, river, road, plow;
 	unsigned int rnd;
 } Tile;
