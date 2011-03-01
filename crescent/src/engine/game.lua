@@ -1,15 +1,18 @@
 package.path = package.path .. ';./src/engine/?.lua'
 require 'static'
+require 'nation'
 
 Game = {}
 
 
 -- New game
-function Game:new(w, h)
+function Game:new(w, h, player_nation)
    self.__index = self
    o = setmetatable({}, self)
    o:create_map(w, h)
 	o.year = -2000
+	o.player = Nation:new(player_nation)
+	o.nations = { o.player }
    return o
 end
 
@@ -41,4 +44,10 @@ function Game:create_map(w, h)
 	self.map[5][5].terrain = mixed_f
 	self.map[5][6].terrain = mixed_f
 	self.map[6][6].terrain = desert
+end
+
+
+-- Return a string to be printed in the bottom of the screen
+function Game:info_string()
+	return (_'Year %d %s':format(math.abs(self.year)) -- TODO
 end

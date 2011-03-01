@@ -46,7 +46,7 @@ int glue_init()
 // Initialize a new game and load data do C
 void glue_new_game(int w, int h)
 {
-	lua("game = Game:new(%d, %d)", w, h);
+	lua("game = Game:new(%d, %d, 'Phoenicia')", w, h);
 	game.w = w;
 	game.h = h;
 	game.map = malloc(sizeof(Tile) * w * h);

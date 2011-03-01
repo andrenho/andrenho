@@ -187,12 +187,29 @@ static void draw_tile(int x, int y)
 // Draw the user interface
 void draw_interface()
 {
-	TCOD_color_t fg = color ? TCOD_white : TCOD_lightest_grey;
-	int x, y;
+	const int PANEL_H = 18,
+	          MINIMAP_W = 18;
 
+	TCOD_color_t fg = color ? TCOD_white : TCOD_lightest_grey;
+
+	// borders
 	TCOD_console_set_default_foreground(NULL, fg);
+	TCOD_console_print_frame(NULL, 0, SCREEN_H-PANEL_H, SCREEN_W, PANEL_H, 
+			PANEL_H, true, 0, NULL);
 	TCOD_console_print_frame(NULL, 0, 0, SCREEN_W, SCREEN_H, false, 
 			0, NULL);
+	TCOD_console_set_char(NULL, 0, SCREEN_H-PANEL_H, TCOD_CHAR_TEEE);
+	TCOD_console_set_char(NULL, SCREEN_W-1, SCREEN_H-PANEL_H, 
+			TCOD_CHAR_TEEW);
+	TCOD_console_set_char(NULL, SCREEN_W-MINIMAP_W, SCREEN_H-PANEL_H,
+			TCOD_CHAR_TEES);
+	TCOD_console_set_char(NULL, SCREEN_W-MINIMAP_W, SCREEN_H-1,
+			TCOD_CHAR_TEEN);
+	TCOD_console_vline(NULL, SCREEN_W-MINIMAP_W, SCREEN_H-PANEL_H+1, 
+			PANEL_H-2, 0);
+
+	// basic info
+	//TCOD_console_print(NULL, 2, SCREEN_H-3, "Year: %d %s", 2000, "B.C.");
 }
 
 
