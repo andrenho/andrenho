@@ -1,0 +1,6 @@
+#!/usr/bin/env lua
+
+package.path = package.path .. ';./libchar/?.lua;./libchar/?.dll'
+require 'libchar/libchar'
+
+ch.init(80, 50)
