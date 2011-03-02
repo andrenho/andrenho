@@ -24,4 +24,7 @@ extern Game game;
 int glue_init();
 void glue_new_game(int w, int h);
 
+typedef enum { YEAR } STRING;
+char* glue_get_string(STRING string, int n);
+
 #endif
