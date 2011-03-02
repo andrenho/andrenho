@@ -11,6 +11,7 @@
 
 lua_State *L;
 Game game;
+char buf[2048];
 
 
 // Load one tile from Lua
@@ -55,4 +56,16 @@ void glue_new_game(int w, int h)
 	for(x=1; x<w; x++)
 		for(y=1; y<h; y++)
 			read_tile(x, y);
+}
+
+
+// Return a specific string from the engine
+char* glue_get_string(STRING string, int n)
+{
+	switch(string)
+	{
+	case YEAR:
+		lua_string(buf, "game:x()");
+		break;
+	}
 }

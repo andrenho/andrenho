@@ -209,7 +209,7 @@ void draw_interface()
 			PANEL_H-2, 0);
 
 	// basic info
-	//TCOD_console_print(NULL, 2, SCREEN_H-3, "Year: %d %s", 2000, "B.C.");
+	TCOD_console_print(NULL, 2, SCREEN_H-3, glue_get_string(YEAR, 0));
 }
 
 

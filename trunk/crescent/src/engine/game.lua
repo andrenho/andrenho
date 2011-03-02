@@ -4,17 +4,22 @@ require 'nation'
 
 Game = {}
 
-
 -- New game
-function Game:new(w, h, player_nation)
+function Game:new(w, h, player_nation, o)
    self.__index = self
-   o = setmetatable({}, self)
+   o = setmetatable(o or {}, self)
    o:create_map(w, h)
 	o.year = -2000
 	o.player = Nation:new(player_nation)
 	o.nations = { o.player }
    return o
 end
+
+
+function Game:x()
+	return 'teste'
+end
+
 
 
 -- Initialize map
@@ -48,6 +53,10 @@ end
 
 
 -- Return a string to be printed in the bottom of the screen
-function Game:info_string()
-	return (_'Year %d %s':format(math.abs(self.year)) -- TODO
+function Game:year_str()
+	return (_'Year %d %s'):format(math.abs(self.year), 'B.C.')
 end
+
+
+g = Game:new(10, 10, 'a')
+print(g:x())

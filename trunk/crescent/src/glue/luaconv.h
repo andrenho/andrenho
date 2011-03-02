@@ -6,5 +6,6 @@
 void lua(char* fmt, ...);
 long lua_int(char* fmt, ...);
 bool lua_bool(char* fmt, ...);
+void lua_string(char* str, char* fmt, ...);
 
 #endif
