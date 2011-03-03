@@ -80,21 +80,25 @@ static int flush(lua_State *L)
 }
 
 
-static int event(lua_State *L)
+static int wait_event(lua_State *L)
 {
+	TCOD_key_t key;
 	no_args();
-	TCOD_key_t key = TCOD_console_check_for_keypress(TCOD_KEY_PRESSED);
+again:
+	key = TCOD_console_check_for_keypress(TCOD_KEY_PRESSED);
 
 	if(key.vk == TCODK_NONE)
 	{
-		lua_pushnil(L);
+		TCOD_sys_sleep_milli(1000/30);
+		goto again;
 	}
 	else
 	{
-
+		lua_newtable(L);
+		lua_pushstring(L, "key"); lua_setfield(L, -2, "type");
+		lua_pushfstring(L, "%c", key.c); lua_setfield(L, -2, "char");
+		return 1;
 	}
-
-	return 1;
 }
 
 
@@ -103,7 +107,7 @@ static const struct luaL_reg ch [] = {
 	{ "clear", clear },
 	{ "flush", flush },
 	{ "bg", bg },
-	{ "event", event },
+	{ "wait_event", wait_event },
 	{ NULL, NULL }  /* sentinel */
 };
 
