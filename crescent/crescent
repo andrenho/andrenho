@@ -1,6 +1,28 @@
 #!/usr/bin/env lua
 
-package.path = package.path .. ';./libchar/?.lua;./libchar/?.dll'
+package.path = package.path .. ';./libchar/?.lua;./libchar/?.dll;./game/?.lua;./ui/?.lua'
 require 'libchar/libchar'
+require 'game'
+require 'ui/map'
 
-ch.init(80, 50)
+state = 'map'
+
+-- initialize screen
+ch.init(80, 50, 'Fertile Crescent 0.1')
+ch.bg('white')
+ch.clear()
+ch.flush()
+
+-- initialize game
+game = Game:new(100, 100, 'Assyria')
+
+-- main loop
+local running = true
+while running do
+   if state == 'map' then
+      map.draw()
+      print(map.events())
+   else
+      error(_'Invalid state ' .. state)
+   end
+end
