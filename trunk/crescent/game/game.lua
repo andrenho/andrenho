@@ -1,4 +1,4 @@
-package.path = package.path .. ';./src/engine/?.lua'
+package.path = package.path .. ';./game/?.lua'
 require 'static'
 require 'nation'
 
@@ -14,12 +14,6 @@ function Game:new(w, h, player_nation, o)
 	o.nations = { o.player }
    return o
 end
-
-
-function Game:x()
-	return 'teste'
-end
-
 
 
 -- Initialize map
@@ -56,7 +50,3 @@ end
 function Game:year_str()
 	return (_'Year %d %s'):format(math.abs(self.year), 'B.C.')
 end
-
-
-g = Game:new(10, 10, 'a')
-print(g:x())
