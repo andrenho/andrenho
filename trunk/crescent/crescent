@@ -5,8 +5,10 @@ require 'libchar/libchar'
 require 'game'
 require 'ui/map'
 
-state = 'map'
-colors = true
+-- parameters
+colors = false
+screen_w = 80
+screen_h = 50
 
 -- initialize screen
 ch.init(80, 50, 'Fertile Crescent 0.1')
@@ -22,7 +24,11 @@ ch.flush()
 -- initialize game
 game = Game:new(100, 100, 'Assyria')
 
+-- initialize gui
+map.init()
+
 -- main loop
+state = 'map'
 running = true
 while running do
    if state == 'map' then

@@ -9,6 +9,7 @@ function Game:new(w, h, player_nation, o)
    self.__index = self
    o = setmetatable(o or {}, self)
    o:create_map(w, h)
+   o.w, o.h = w, h
    o.year = -2000
    o.player = Nation:new(player_nation)
    o.nations = { o.player }

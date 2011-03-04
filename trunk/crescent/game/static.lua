@@ -40,7 +40,7 @@ prayers =   good(_'Prayers',   false)
 -- Terrains
 --
 terrains = {}
-local function terrain(name, code, ovl, cost_to_enter, defensive_bonus, production, switch_status)
+local function terrain(name, ovl, cost_to_enter, defensive_bonus, production, switch_status)
    local function good_production(p)
       if not p then return {} end
       local pp = {}
@@ -50,7 +50,6 @@ local function terrain(name, code, ovl, cost_to_enter, defensive_bonus, producti
    local t = {
       name = name,
 		ovl = ovl,
-      code = code,
       production = good_production(production),
       switch_status = switch_status,
    }
@@ -59,29 +58,29 @@ local function terrain(name, code, ovl, cost_to_enter, defensive_bonus, producti
    return t
 end
 
---                 Name               Code  MoveCost      Barley      Mud
---                                        Ovl*  Defence       Olives      Tin
---                                                  Food        Wood        Gold
---                                                     Cotton      Copper
-tundra   = terrain(_'Tundra',         1, 12, 1, 0, { 2, 0, 0, 0, 0, 2, 2, 1, 0 })
-desert   = terrain(_'Desert',         2, 13, 1, 0, { 1, 0, 0, 2, 0, 1, 3, 2, 0 })
-plains   = terrain(_'Planis',         3, 14, 1, 0, { 4, 2, 1, 0, 0, 1, 1, 0, 0 })
-prairie  = terrain(_'Prairie',        4, 15, 1, 0, { 3, 3, 0, 0, 0, 0, 0, 0, 0 })
-steppe   = terrain(_'Steppe',         5, 16, 1, 0, { 2, 2, 3, 0, 0, 0, 0, 0, 0 })
-marsh    = terrain(_'Marsh',          6, 17, 2, 1, { 3, 1, 2, 0, 0, 2, 4, 2, 0 })
+--                 Name                  MoveCost       Barley      Mud
+--                                    Ovl*   Defence       Olives      Tin
+--                                                Food        Wood        Gold
+--                                                   Cotton      Copper
+tundra   = terrain(_'Tundra',          1, 0, 0, { 2, 0, 0, 0, 0, 2, 2, 1, 0 })
+desert   = terrain(_'Desert',         13, 1, 0, { 1, 0, 0, 2, 0, 1, 3, 2, 0 })
+plains   = terrain(_'Planis',         14, 1, 0, { 4, 2, 1, 0, 0, 1, 1, 0, 0 })
+prairie  = terrain(_'Prairie',        15, 1, 0, { 3, 3, 0, 0, 0, 0, 0, 0, 0 })
+steppe   = terrain(_'Steppe',         16, 1, 0, { 2, 2, 3, 0, 0, 0, 0, 0, 0 })
+marsh    = terrain(_'Marsh',          17, 2, 1, { 3, 1, 2, 0, 0, 2, 4, 2, 0 })
 
-boreal_f = terrain(_'Boreal forest',  7,  6, 2, 2, { 1, 0, 0, 0, 2, 1, 1, 1, 0 }, tundra)
-scrub    = terrain(_'Scrubland',      8,  7, 1, 2, { 1, 0, 0, 4, 1, 1, 2, 1, 0 }, desert)
-mixed_f  = terrain(_'Mixed forest',   9,  8, 2, 2, { 2, 1, 0, 0, 3, 0, 1, 0, 0 }, plains)
-savannah = terrain(_'Savannah',      10,  9, 1, 1, { 1, 1, 0, 0, 2, 0, 1, 0, 0 }, prairie)
-woodland = terrain(_'Woodland',      11, 10, 2, 2, { 1, 0, 1, 0, 2, 0, 1, 0, 0 }, steppe)
-swamp    = terrain(_'Swamp',         12, 11, 3, 3, { 2, 0, 0, 0, 1, 1, 3, 2, 0 }, marsh)
+boreal_f = terrain(_'Boreal forest',   6, 2, 2, { 1, 0, 0, 0, 2, 1, 1, 1, 0 }, tundra)
+scrub    = terrain(_'Scrubland',       7, 1, 2, { 1, 0, 0, 4, 1, 1, 2, 1, 0 }, desert)
+mixed_f  = terrain(_'Mixed forest',    8, 2, 2, { 2, 1, 0, 0, 3, 0, 1, 0, 0 }, plains)
+savannah = terrain(_'Savannah',        9, 1, 1, { 1, 1, 0, 0, 2, 0, 1, 0, 0 }, prairie)
+woodland = terrain(_'Woodland',       10, 2, 2, { 1, 0, 1, 0, 2, 0, 1, 0, 0 }, steppe)
+swamp    = terrain(_'Swamp',          11, 3, 3, { 2, 0, 0, 0, 1, 1, 3, 2, 0 }, marsh)
 
-arctic   = terrain(_'Arctic',        13,  5, 2, 0, { 0, 0, 0, 0, 0, 1, 0, 1, 1 })
-sea      = terrain(_'Sea',           14,  2, 1, 0, { 3, 0, 0, 0, 0, 0, 0, 0, 0 })
-ocean    = terrain(_'Ocean',         15,  1, 1, 0, { 3, 0, 0, 0, 0, 0, 0, 0, 0 })
-hills    = terrain(_'Hills',         16,  4, 2, 4, { 1, 0, 0, 0, 0, 3, 0, 3, 0 })
-mountain = terrain(_'Mountains',     17,  3, 3, 6, { 0, 0, 0, 0, 0, 3, 0, 3, 1 })
+arctic   = terrain(_'Arctic',          5, 2, 0, { 0, 0, 0, 0, 0, 1, 0, 1, 1 })
+sea      = terrain(_'Sea',             2, 1, 0, { 3, 0, 0, 0, 0, 0, 0, 0, 0 })
+ocean    = terrain(_'Ocean',           1, 1, 0, { 3, 0, 0, 0, 0, 0, 0, 0, 0 })
+hills    = terrain(_'Hills',           4, 2, 4, { 1, 0, 0, 0, 0, 3, 0, 3, 0 })
+mountain = terrain(_'Mountains',       3, 3, 6, { 0, 0, 0, 0, 0, 3, 0, 3, 1 })
 -- *Ovl: Overlap for terrains.
 
 
