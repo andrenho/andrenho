@@ -10,4 +10,5 @@ function map.events()
          running = false
       end
    end
+   return running
 end

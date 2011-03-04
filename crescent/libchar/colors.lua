@@ -45,3 +45,26 @@ end
 
 print('}')
 
+
+-- create char list
+chars = { 'HLINE', 'VLINE', 'NE', 'NW', 'SE', 'SW', 'DHLINE', 'DVLINE', 'DNE', 'DNW', 'DSE', 'DSW', 'TEEW', 'TEEE', 'TEEN', 'TEES', 'DTEEW', 'DTEEE', 'DTEEN', 'DTEES', 'BLOCK1', 'BLOCK2', 'BLOCK3', 'CROSS', 'ARROW_N', 'ARROW_S', 'ARROW_E', 'ARROW_W', 'ARROW2_N', 'ARROW2_S', 'ARROW2_E', 'ARROW2_W', 'DARROW_H', 'ARROW_V', 'CHECKBOX_UNSET', 'CHECKBOX_SET', 'RADIO_UNSET', 'RADIO_SET', 'SUBP_NW', 'SUBP_NE', 'SUBP_N', 'SUBP_SE', 'SUBP_DIAG', 'SUBP_E', 'SUBP_SW', 'SMILY', 'SMILY_INV', 'HEART', 'DIAMOND', 'CLUB', 'SPADE', 'BULLET', 'BULLET_INV', 'MALE', 'FEMALE', 'NOTE', 'NOTE_DOUBLE', 'LIGHT', 'EXCLAM_DOUBLE', 'PILCROW', 'SECTION', 'POUND', 'MULTIPLICATION', 'FUNCTION', 'RESERVED', 'HALF', 'ONE_QUARTER', 'COPYRIGHT', 'CENT', 'YEN', 'CURRENCY', 'THREE_QUARTERS', 'DIVISION', 'GRADE', 'UMLAUT', 'POW1', 'POW3', 'POW2', 'BULLET_SQUARE' }
+print('typedef struct { char name[30]; char c; UT_hash_handle hh; } CHAR;')
+print('')
+print('CHAR *chars = NULL;')
+print('')
+print('void init_chars()')
+print('{')
+print('\tCHAR *c;')
+
+function add_char(s)
+   print('\t')
+   print('\t// ' .. s)
+   print('\tc = malloc(sizeof(CHAR));')
+   print('\tstrcpy(c->name, "' .. s:lower() .. '");')
+   print('\tc->c = TCOD_CHAR_' .. s .. ';')
+   print('\tHASH_ADD_STR(chars, name, c);')
+end
+
+for _,c in ipairs(chars) do add_char(c) end
+print('}')
+

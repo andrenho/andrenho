@@ -43,6 +43,7 @@ inline static TCOD_color_t checkcolor(lua_State *L, int stack)
 }
 
 
+// ch.init()
 static int init(lua_State *L)
 {
 	check_args(L, 3, 3);
@@ -50,11 +51,12 @@ static int init(lua_State *L)
 			luaL_checkint(L, 1), // w
 			luaL_checkint(L, 2), // h
 			luaL_checkstring(L, 3), // window name
-			false, TCOD_RENDERER_GLSL);
+			false, TCOD_RENDERER_SDL);
 	return 0;
 }
 
 
+// ch.clear()
 static int clear(lua_State *L)
 {
 	no_args();
@@ -63,6 +65,7 @@ static int clear(lua_State *L)
 }
 
 
+// ch.bg(color)
 static int bg(lua_State *L)
 {
 	check_args(L, 1, 1);
@@ -72,6 +75,7 @@ static int bg(lua_State *L)
 }
 
 
+// ch.flush()
 static int flush(lua_State *L)
 {
 	no_args();
@@ -80,10 +84,12 @@ static int flush(lua_State *L)
 }
 
 
+// ch.wait_event()
 static int wait_event(lua_State *L)
 {
 	TCOD_key_t key;
 	no_args();
+	
 again:
 	key = TCOD_console_check_for_keypress(TCOD_KEY_PRESSED);
 
@@ -102,18 +108,29 @@ again:
 }
 
 
+// ch.set(x, y, char, [fg_color])
+static int set(lua_State *L)
+{
+	int n = check_args(L, 3, 4);
+	int x = luaL_checkint(L, -1);
+	int y = luaL_checkint(L, -2);
+}
+
+
 static const struct luaL_reg ch [] = {
 	{ "init", init },
 	{ "clear", clear },
 	{ "flush", flush },
 	{ "bg", bg },
 	{ "wait_event", wait_event },
+	{ "set", set },
 	{ NULL, NULL }  /* sentinel */
 };
 
 int luaopen_ch (lua_State *L) 
 {
 	init_colors();
+	init_chars();
 	luaL_openlib(L, "ch", ch, 0);
 	return 1;
 }
