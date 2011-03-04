@@ -6,13 +6,18 @@ require 'game'
 require 'ui/map'
 
 state = 'map'
-colors = false
+colors = true
 
 -- initialize screen
 ch.init(80, 50, 'Fertile Crescent 0.1')
-ch.bg('white')
+if colors then
+   ch.bg('black')
+else
+   ch.bg('white')
+end
 ch.clear()
 ch.flush()
+
 
 -- initialize game
 game = Game:new(100, 100, 'Assyria')
@@ -22,8 +27,10 @@ running = true
 while running do
    if state == 'map' then
       map.draw()
-      map.events()
+      running = map.events()
    else
       error(_'Invalid state ' .. state)
    end
 end
+
+os.exit()
