@@ -1149,3 +1149,536 @@ void init_colors()
 	c->color = TCOD_darkest_sepia;
 	HASH_ADD_STR(colors, name, c);
 }
+typedef struct { char name[30]; char c; UT_hash_handle hh; } CHAR;
+
+CHAR *chars = NULL;
+
+void init_chars()
+{
+	CHAR *c;
+	
+	// HLINE
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "hline");
+	c->c = TCOD_CHAR_HLINE;
+	HASH_ADD_STR(chars, name, c);
+	
+	// VLINE
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "vline");
+	c->c = TCOD_CHAR_VLINE;
+	HASH_ADD_STR(chars, name, c);
+	
+	// NE
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "ne");
+	c->c = TCOD_CHAR_NE;
+	HASH_ADD_STR(chars, name, c);
+	
+	// NW
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "nw");
+	c->c = TCOD_CHAR_NW;
+	HASH_ADD_STR(chars, name, c);
+	
+	// SE
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "se");
+	c->c = TCOD_CHAR_SE;
+	HASH_ADD_STR(chars, name, c);
+	
+	// SW
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "sw");
+	c->c = TCOD_CHAR_SW;
+	HASH_ADD_STR(chars, name, c);
+	
+	// DHLINE
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "dhline");
+	c->c = TCOD_CHAR_DHLINE;
+	HASH_ADD_STR(chars, name, c);
+	
+	// DVLINE
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "dvline");
+	c->c = TCOD_CHAR_DVLINE;
+	HASH_ADD_STR(chars, name, c);
+	
+	// DNE
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "dne");
+	c->c = TCOD_CHAR_DNE;
+	HASH_ADD_STR(chars, name, c);
+	
+	// DNW
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "dnw");
+	c->c = TCOD_CHAR_DNW;
+	HASH_ADD_STR(chars, name, c);
+	
+	// DSE
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "dse");
+	c->c = TCOD_CHAR_DSE;
+	HASH_ADD_STR(chars, name, c);
+	
+	// DSW
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "dsw");
+	c->c = TCOD_CHAR_DSW;
+	HASH_ADD_STR(chars, name, c);
+	
+	// TEEW
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "teew");
+	c->c = TCOD_CHAR_TEEW;
+	HASH_ADD_STR(chars, name, c);
+	
+	// TEEE
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "teee");
+	c->c = TCOD_CHAR_TEEE;
+	HASH_ADD_STR(chars, name, c);
+	
+	// TEEN
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "teen");
+	c->c = TCOD_CHAR_TEEN;
+	HASH_ADD_STR(chars, name, c);
+	
+	// TEES
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "tees");
+	c->c = TCOD_CHAR_TEES;
+	HASH_ADD_STR(chars, name, c);
+	
+	// DTEEW
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "dteew");
+	c->c = TCOD_CHAR_DTEEW;
+	HASH_ADD_STR(chars, name, c);
+	
+	// DTEEE
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "dteee");
+	c->c = TCOD_CHAR_DTEEE;
+	HASH_ADD_STR(chars, name, c);
+	
+	// DTEEN
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "dteen");
+	c->c = TCOD_CHAR_DTEEN;
+	HASH_ADD_STR(chars, name, c);
+	
+	// DTEES
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "dtees");
+	c->c = TCOD_CHAR_DTEES;
+	HASH_ADD_STR(chars, name, c);
+	
+	// BLOCK1
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "block1");
+	c->c = TCOD_CHAR_BLOCK1;
+	HASH_ADD_STR(chars, name, c);
+	
+	// BLOCK2
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "block2");
+	c->c = TCOD_CHAR_BLOCK2;
+	HASH_ADD_STR(chars, name, c);
+	
+	// BLOCK3
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "block3");
+	c->c = TCOD_CHAR_BLOCK3;
+	HASH_ADD_STR(chars, name, c);
+	
+	// CROSS
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "cross");
+	c->c = TCOD_CHAR_CROSS;
+	HASH_ADD_STR(chars, name, c);
+	
+	// ARROW_N
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "arrow_n");
+	c->c = TCOD_CHAR_ARROW_N;
+	HASH_ADD_STR(chars, name, c);
+	
+	// ARROW_S
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "arrow_s");
+	c->c = TCOD_CHAR_ARROW_S;
+	HASH_ADD_STR(chars, name, c);
+	
+	// ARROW_E
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "arrow_e");
+	c->c = TCOD_CHAR_ARROW_E;
+	HASH_ADD_STR(chars, name, c);
+	
+	// ARROW_W
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "arrow_w");
+	c->c = TCOD_CHAR_ARROW_W;
+	HASH_ADD_STR(chars, name, c);
+	
+	// ARROW2_N
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "arrow2_n");
+	c->c = TCOD_CHAR_ARROW2_N;
+	HASH_ADD_STR(chars, name, c);
+	
+	// ARROW2_S
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "arrow2_s");
+	c->c = TCOD_CHAR_ARROW2_S;
+	HASH_ADD_STR(chars, name, c);
+	
+	// ARROW2_E
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "arrow2_e");
+	c->c = TCOD_CHAR_ARROW2_E;
+	HASH_ADD_STR(chars, name, c);
+	
+	// ARROW2_W
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "arrow2_w");
+	c->c = TCOD_CHAR_ARROW2_W;
+	HASH_ADD_STR(chars, name, c);
+	
+	// DARROW_H
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "darrow_h");
+	c->c = TCOD_CHAR_DARROW_H;
+	HASH_ADD_STR(chars, name, c);
+	
+	// CHECKBOX_UNSET
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "checkbox_unset");
+	c->c = TCOD_CHAR_CHECKBOX_UNSET;
+	HASH_ADD_STR(chars, name, c);
+	
+	// CHECKBOX_SET
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "checkbox_set");
+	c->c = TCOD_CHAR_CHECKBOX_SET;
+	HASH_ADD_STR(chars, name, c);
+	
+	// RADIO_UNSET
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "radio_unset");
+	c->c = TCOD_CHAR_RADIO_UNSET;
+	HASH_ADD_STR(chars, name, c);
+	
+	// RADIO_SET
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "radio_set");
+	c->c = TCOD_CHAR_RADIO_SET;
+	HASH_ADD_STR(chars, name, c);
+	
+	// SUBP_NW
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "subp_nw");
+	c->c = TCOD_CHAR_SUBP_NW;
+	HASH_ADD_STR(chars, name, c);
+	
+	// SUBP_NE
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "subp_ne");
+	c->c = TCOD_CHAR_SUBP_NE;
+	HASH_ADD_STR(chars, name, c);
+	
+	// SUBP_N
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "subp_n");
+	c->c = TCOD_CHAR_SUBP_N;
+	HASH_ADD_STR(chars, name, c);
+	
+	// SUBP_SE
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "subp_se");
+	c->c = TCOD_CHAR_SUBP_SE;
+	HASH_ADD_STR(chars, name, c);
+	
+	// SUBP_DIAG
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "subp_diag");
+	c->c = TCOD_CHAR_SUBP_DIAG;
+	HASH_ADD_STR(chars, name, c);
+	
+	// SUBP_E
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "subp_e");
+	c->c = TCOD_CHAR_SUBP_E;
+	HASH_ADD_STR(chars, name, c);
+	
+	// SUBP_SW
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "subp_sw");
+	c->c = TCOD_CHAR_SUBP_SW;
+	HASH_ADD_STR(chars, name, c);
+	
+	// HEART
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "heart");
+	c->c = TCOD_CHAR_HEART;
+	HASH_ADD_STR(chars, name, c);
+	
+	// DIAMOND
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "diamond");
+	c->c = TCOD_CHAR_DIAMOND;
+	HASH_ADD_STR(chars, name, c);
+	
+	// CLUB
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "club");
+	c->c = TCOD_CHAR_CLUB;
+	HASH_ADD_STR(chars, name, c);
+	
+	// SPADE
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "spade");
+	c->c = TCOD_CHAR_SPADE;
+	HASH_ADD_STR(chars, name, c);
+	
+	// BULLET
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "bullet");
+	c->c = TCOD_CHAR_BULLET;
+	HASH_ADD_STR(chars, name, c);
+	
+	// BULLET_INV
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "bullet_inv");
+	c->c = TCOD_CHAR_BULLET_INV;
+	HASH_ADD_STR(chars, name, c);
+	
+	// MALE
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "male");
+	c->c = TCOD_CHAR_MALE;
+	HASH_ADD_STR(chars, name, c);
+	
+	// FEMALE
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "female");
+	c->c = TCOD_CHAR_FEMALE;
+	HASH_ADD_STR(chars, name, c);
+	
+	// NOTE
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "note");
+	c->c = TCOD_CHAR_NOTE;
+	HASH_ADD_STR(chars, name, c);
+	
+	// NOTE_DOUBLE
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "note_double");
+	c->c = TCOD_CHAR_NOTE_DOUBLE;
+	HASH_ADD_STR(chars, name, c);
+	
+	// LIGHT
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "light");
+	c->c = TCOD_CHAR_LIGHT;
+	HASH_ADD_STR(chars, name, c);
+	
+	// EXCLAM_DOUBLE
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "exclam_double");
+	c->c = TCOD_CHAR_EXCLAM_DOUBLE;
+	HASH_ADD_STR(chars, name, c);
+	
+	// PILCROW
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "pilcrow");
+	c->c = TCOD_CHAR_PILCROW;
+	HASH_ADD_STR(chars, name, c);
+	
+	// SECTION
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "section");
+	c->c = TCOD_CHAR_SECTION;
+	HASH_ADD_STR(chars, name, c);
+	
+	// POUND
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "pound");
+	c->c = TCOD_CHAR_POUND;
+	HASH_ADD_STR(chars, name, c);
+	
+	// MULTIPLICATION
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "multiplication");
+	c->c = TCOD_CHAR_MULTIPLICATION;
+	HASH_ADD_STR(chars, name, c);
+	
+	// FUNCTION
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "function");
+	c->c = TCOD_CHAR_FUNCTION;
+	HASH_ADD_STR(chars, name, c);
+	
+	// RESERVED
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "reserved");
+	c->c = TCOD_CHAR_RESERVED;
+	HASH_ADD_STR(chars, name, c);
+	
+	// HALF
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "half");
+	c->c = TCOD_CHAR_HALF;
+	HASH_ADD_STR(chars, name, c);
+	
+	// ONE_QUARTER
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "one_quarter");
+	c->c = TCOD_CHAR_ONE_QUARTER;
+	HASH_ADD_STR(chars, name, c);
+	
+	// COPYRIGHT
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "copyright");
+	c->c = TCOD_CHAR_COPYRIGHT;
+	HASH_ADD_STR(chars, name, c);
+	
+	// CENT
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "cent");
+	c->c = TCOD_CHAR_CENT;
+	HASH_ADD_STR(chars, name, c);
+	
+	// YEN
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "yen");
+	c->c = TCOD_CHAR_YEN;
+	HASH_ADD_STR(chars, name, c);
+	
+	// CURRENCY
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "currency");
+	c->c = TCOD_CHAR_CURRENCY;
+	HASH_ADD_STR(chars, name, c);
+	
+	// THREE_QUARTERS
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "three_quarters");
+	c->c = TCOD_CHAR_THREE_QUARTERS;
+	HASH_ADD_STR(chars, name, c);
+	
+	// DIVISION
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "division");
+	c->c = TCOD_CHAR_DIVISION;
+	HASH_ADD_STR(chars, name, c);
+	
+	// GRADE
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "grade");
+	c->c = TCOD_CHAR_GRADE;
+	HASH_ADD_STR(chars, name, c);
+	
+	// UMLAUT
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "umlaut");
+	c->c = TCOD_CHAR_UMLAUT;
+	HASH_ADD_STR(chars, name, c);
+	
+	// POW1
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "pow1");
+	c->c = TCOD_CHAR_POW1;
+	HASH_ADD_STR(chars, name, c);
+	
+	// POW3
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "pow3");
+	c->c = TCOD_CHAR_POW3;
+	HASH_ADD_STR(chars, name, c);
+	
+	// POW2
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "pow2");
+	c->c = TCOD_CHAR_POW2;
+	HASH_ADD_STR(chars, name, c);
+	
+	// BULLET_SQUARE
+	c = malloc(sizeof(CHAR));
+	strcpy(c->name, "bullet_square");
+	c->c = TCOD_CHAR_BULLET_SQUARE;
+	HASH_ADD_STR(chars, name, c);
+}
+char* key(TCOD_keycode_t vk)
+{
+		if(vk == TCODK_ESCAPE) return "escape";
+		else if(vk == TCODK_BACKSPACE) return "backspace";
+		else if(vk == TCODK_TAB) return "tab";
+		else if(vk == TCODK_ENTER) return "enter";
+		else if(vk == TCODK_SHIFT) return "shift";
+		else if(vk == TCODK_CONTROL) return "control";
+		else if(vk == TCODK_ALT) return "alt";
+		else if(vk == TCODK_PAUSE) return "pause";
+		else if(vk == TCODK_CAPSLOCK) return "capslock";
+		else if(vk == TCODK_PAGEUP) return "pageup";
+		else if(vk == TCODK_PAGEDOWN) return "pagedown";
+		else if(vk == TCODK_END) return "end";
+		else if(vk == TCODK_HOME) return "home";
+		else if(vk == TCODK_UP) return "up";
+		else if(vk == TCODK_LEFT) return "left";
+		else if(vk == TCODK_RIGHT) return "right";
+		else if(vk == TCODK_DOWN) return "down";
+		else if(vk == TCODK_PRINTSCREEN) return "printscreen";
+		else if(vk == TCODK_INSERT) return "insert";
+		else if(vk == TCODK_DELETE) return "delete";
+		else if(vk == TCODK_LWIN) return "lwin";
+		else if(vk == TCODK_RWIN) return "rwin";
+		else if(vk == TCODK_APPS) return "apps";
+		else if(vk == TCODK_KPADD) return "kpadd";
+		else if(vk == TCODK_KPSUB) return "kpsub";
+		else if(vk == TCODK_KPDIV) return "kpdiv";
+		else if(vk == TCODK_KPMUL) return "kpmul";
+		else if(vk == TCODK_KPDEC) return "kpdec";
+		else if(vk == TCODK_KPENTER) return "kpenter";
+		else if(vk == TCODK_F1) return "f1";
+		else if(vk == TCODK_F2) return "f2";
+		else if(vk == TCODK_F3) return "f3";
+		else if(vk == TCODK_F4) return "f4";
+		else if(vk == TCODK_F5) return "f5";
+		else if(vk == TCODK_F6) return "f6";
+		else if(vk == TCODK_F7) return "f7";
+		else if(vk == TCODK_F8) return "f8";
+		else if(vk == TCODK_F9) return "f9";
+		else if(vk == TCODK_F10) return "f10";
+		else if(vk == TCODK_F11) return "f11";
+		else if(vk == TCODK_F12) return "f12";
+		else if(vk == TCODK_NUMLOCK) return "numlock";
+		else if(vk == TCODK_SCROLLLOCK) return "scrolllock";
+		else if(vk == TCODK_SPACE) return "space";
+		else if(vk == TCODK_0) return "0";
+		else if(vk == TCODK_1) return "1";
+		else if(vk == TCODK_2) return "2";
+		else if(vk == TCODK_3) return "3";
+		else if(vk == TCODK_4) return "4";
+		else if(vk == TCODK_5) return "5";
+		else if(vk == TCODK_6) return "6";
+		else if(vk == TCODK_7) return "7";
+		else if(vk == TCODK_8) return "8";
+		else if(vk == TCODK_9) return "9";
+		else if(vk == TCODK_KP0) return "kp0";
+		else if(vk == TCODK_KP1) return "kp1";
+		else if(vk == TCODK_KP2) return "kp2";
+		else if(vk == TCODK_KP3) return "kp3";
+		else if(vk == TCODK_KP4) return "kp4";
+		else if(vk == TCODK_KP5) return "kp5";
+		else if(vk == TCODK_KP6) return "kp6";
+		else if(vk == TCODK_KP7) return "kp7";
+		else if(vk == TCODK_KP8) return "kp8";
+		else if(vk == TCODK_KP9) return "kp9";
+		else if(vk == TCODK_CHAR) return "char";
+		else return "";
+}

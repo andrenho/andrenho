@@ -47,7 +47,7 @@ print('}')
 
 
 -- create char list
-chars = { 'HLINE', 'VLINE', 'NE', 'NW', 'SE', 'SW', 'DHLINE', 'DVLINE', 'DNE', 'DNW', 'DSE', 'DSW', 'TEEW', 'TEEE', 'TEEN', 'TEES', 'DTEEW', 'DTEEE', 'DTEEN', 'DTEES', 'BLOCK1', 'BLOCK2', 'BLOCK3', 'CROSS', 'ARROW_N', 'ARROW_S', 'ARROW_E', 'ARROW_W', 'ARROW2_N', 'ARROW2_S', 'ARROW2_E', 'ARROW2_W', 'DARROW_H', 'ARROW_V', 'CHECKBOX_UNSET', 'CHECKBOX_SET', 'RADIO_UNSET', 'RADIO_SET', 'SUBP_NW', 'SUBP_NE', 'SUBP_N', 'SUBP_SE', 'SUBP_DIAG', 'SUBP_E', 'SUBP_SW', 'SMILY', 'SMILY_INV', 'HEART', 'DIAMOND', 'CLUB', 'SPADE', 'BULLET', 'BULLET_INV', 'MALE', 'FEMALE', 'NOTE', 'NOTE_DOUBLE', 'LIGHT', 'EXCLAM_DOUBLE', 'PILCROW', 'SECTION', 'POUND', 'MULTIPLICATION', 'FUNCTION', 'RESERVED', 'HALF', 'ONE_QUARTER', 'COPYRIGHT', 'CENT', 'YEN', 'CURRENCY', 'THREE_QUARTERS', 'DIVISION', 'GRADE', 'UMLAUT', 'POW1', 'POW3', 'POW2', 'BULLET_SQUARE' }
+chars = { 'HLINE', 'VLINE', 'NE', 'NW', 'SE', 'SW', 'DHLINE', 'DVLINE', 'DNE', 'DNW', 'DSE', 'DSW', 'TEEW', 'TEEE', 'TEEN', 'TEES', 'DTEEW', 'DTEEE', 'DTEEN', 'DTEES', 'BLOCK1', 'BLOCK2', 'BLOCK3', 'CROSS', 'ARROW_N', 'ARROW_S', 'ARROW_E', 'ARROW_W', 'ARROW2_N', 'ARROW2_S', 'ARROW2_E', 'ARROW2_W', 'DARROW_H', 'CHECKBOX_UNSET', 'CHECKBOX_SET', 'RADIO_UNSET', 'RADIO_SET', 'SUBP_NW', 'SUBP_NE', 'SUBP_N', 'SUBP_SE', 'SUBP_DIAG', 'SUBP_E', 'SUBP_SW', 'HEART', 'DIAMOND', 'CLUB', 'SPADE', 'BULLET', 'BULLET_INV', 'MALE', 'FEMALE', 'NOTE', 'NOTE_DOUBLE', 'LIGHT', 'EXCLAM_DOUBLE', 'PILCROW', 'SECTION', 'POUND', 'MULTIPLICATION', 'FUNCTION', 'RESERVED', 'HALF', 'ONE_QUARTER', 'COPYRIGHT', 'CENT', 'YEN', 'CURRENCY', 'THREE_QUARTERS', 'DIVISION', 'GRADE', 'UMLAUT', 'POW1', 'POW3', 'POW2', 'BULLET_SQUARE' }
 print('typedef struct { char name[30]; char c; UT_hash_handle hh; } CHAR;')
 print('')
 print('CHAR *chars = NULL;')
@@ -68,3 +68,15 @@ end
 for _,c in ipairs(chars) do add_char(c) end
 print('}')
 
+
+-- create key list
+keys = { 'ESCAPE','BACKSPACE','TAB','ENTER','SHIFT','CONTROL','ALT','PAUSE','CAPSLOCK','PAGEUP','PAGEDOWN','END','HOME','UP','LEFT','RIGHT','DOWN','PRINTSCREEN','INSERT','DELETE','LWIN','RWIN','APPS','KPADD','KPSUB','KPDIV','KPMUL','KPDEC','KPENTER','F1','F2','F3','F4','F5','F6','F7','F8','F9','F10','F11','F12','NUMLOCK','SCROLLLOCK','SPACE','0','1','2','3','4','5','6','7','8','9','KP0','KP1','KP2','KP3','KP4','KP5','KP6','KP7','KP8','KP9','CHAR' }
+print('char* key(TCOD_keycode_t vk)')
+print('{')
+for i,k in ipairs(keys) do
+   io.write('\t\t');
+   if i ~= 1 then io.write('else ') end
+   print('if(vk == TCODK_'.. k ..') return "'.. k:lower() .. '";')
+end
+print('\t\telse return "";')
+print('}')
