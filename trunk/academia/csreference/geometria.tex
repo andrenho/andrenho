@@ -65,7 +65,7 @@ Se $\vec{u} \parallel \vec{v}$, então $\frac{x_1}{x_2} = \frac{y_1}{y_2} = \ldot
 \[ \abs{\vec{v}} = \sqrt{x^2+y^2+z^2} \]
 \[ d = \sqrt{(x_2-x_1)^2 + (y_2-y_1)^2 + (z_2-z_1)^2} \]
 \[ \proj_{\vec{v}} \vec{u} = \left( \vec{u} \cdot \frac{\vec{v}}{\abs{\vec{v}}} \right) \frac{\vec{v}}{\abs{\vec{v}}} \]
-\[ \proj_{\vec{v}} \vec{u} = \left( x \frac{\vec{u}\cdot\vec{v}}{\vec{v}\cdot\vec{v}} \right) \vec{v} \]
+\[ \proj_{\vec{v}} \vec{u} = \left( \frac{\vec{u}\cdot\vec{v}}{\vec{v}\cdot\vec{v}} \right) \vec{v} \]
 
 Se $ \vec{u}\cdot\vec{v} = 0 $, então $ \vec{u}\perp\vec{v} $.
 
@@ -83,5 +83,42 @@ Se $ \vec{u}\times\vec{v} = \vec{0} $, então $ \vec{u}\parallel\vec{v} $.
 \centering
 \includegraphics[scale=0.35]{Unit_circle_angles_color.pdf}
 \end{figure}
+
+\section{A Reta}
+
+\[ \vec{x} = P + \lambda\vec{v} \]
+
+onde $\vec{x}$ é a reta, $P$ é o ponto básico, $\lambda$ é o número de passos
+e $\vec{v}$ é o vetor diretor (que dá a direção da reta).
+
+Reta que passa pelos pontos $A$ e $B$:
+
+\[ \vec{x} = A + \lambda(B-A) \]
+
+\[ PM = \frac{(u_1, u_2, u_3) + (v_1, v_2, v_3)}{2} \]
+
+\section{Planos}
+
+\[ \vec{x} = P + \lambda\vec{v} + \mu\vec{w} \]
+
+\section{Circunferência}
+
+\[ \sqrt{(x-c_1)^2 + (y-c_2)^2} = r \]
+
+Onde $C(c_1,c_2)$ é o centro da circunferência, $P(x,y)$ os pontos por onde
+passa a linha, e $r$ o raio.
+
+\section{Parábola}
+
+\[ y = \frac{1}{4F_2}x^2 \]
+
+Onde $F(F_1,F_2)$ é o foco e $P(x,y)$ os pontos por onde passa a parábola.
+
+\section{Elipse}
+
+\[ \frac{(x-c_1)^2}{a^2} + \frac{(y-c_2)^2}{b^2} = 1 \]
+
+Onde $a$ é a distância entre a lateral e o centro da elipse, e $b$ é a distância
+entre o topo e o centro.
 
 \end{document}

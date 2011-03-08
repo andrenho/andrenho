@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdbool.h>
 
 #include <libtcod.h>
 #include <lua.h>
@@ -146,6 +147,29 @@ static int set(lua_State *L)
 }
 
 
+// ch.frame(x, y, w, h, [fg_color, overlap=true, double=false])
+static int frame(lua_State *L)
+{
+	int n = check_args(L, 4, 7);
+	int x = luaL_checkint(L, 1),
+	    y = luaL_checkint(L, 2),
+	    w = luaL_checkint(L, 3),
+	    h = luaL_checkint(L, 4);
+	bool overlap = true, dbl = false;
+	if(n > 4)
+	{
+		TCOD_color_t fg = checkcolor(L, 5);
+		TCOD_console_set_default_foreground(NULL, fg);
+	}
+	if(n > 5)
+		overlap = luaL_checkboolean(L, 6);
+	if(n > 6)
+		dbl = luaL_checkboolean(L, 7);
+
+	return 1;
+}
+
+
 static const struct luaL_reg ch [] = {
 	{ "init", init },
 	{ "clear", clear },
@@ -153,6 +177,7 @@ static const struct luaL_reg ch [] = {
 	{ "bg", bg },
 	{ "wait_event", wait_event },
 	{ "set", set },
+	{ "frame", frame },
 	{ NULL, NULL }  /* sentinel */
 };
 

@@ -41,9 +41,9 @@ function Game:create_map(w, h)
          self.map[x][y].terrain = plains
       end
    end
-   self.map[5][5].terrain = mixed_f
-   self.map[5][6].terrain = mixed_f
-   self.map[6][6].terrain = desert
+   self.map[5][5].terrain = hills
+   self.map[5][6].terrain = mountain
+   self.map[6][6].terrain = scrub
 end
 
 
