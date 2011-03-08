@@ -1,8 +1,8 @@
 require 'ui/colors'
 
 map = {
-   rx = -1,
-   ry = -1,
+   rx = 1,
+   ry = 1,
    redraw = true
 }
 
@@ -30,19 +30,18 @@ function map.draw()
    local cx, cy = 0, 0
    local ix = math.max(map.rx, 1)
    local iy = math.max(map.ry, 1)
-   for x=ix, ix+screen_w/3 do
+   for x=ix, math.min(game.w, ix+screen_w/3) do
       cx = cx + 1
       cy = 0
-      for y=iy, iy+screen_h/3 do
+      for y=iy, math.min(game.h, iy+screen_h/3) do
          map.draw_tile(x, y)
          cy = cy + 1
          --map.draw_units(x, y)
          --map.draw_town(x, y)
       end
    end
-   --print(map.rx, map.ry)
 
-   --map.draw_interface()
+   map.draw_interface()
 
    ch.flush()
    map.redraw = false
@@ -105,12 +104,17 @@ function map.draw_tile(x, y)
          end
          
          local n = game.map[x][y].rnd[xx+(yy*3)+1]
-         ch.set(char[c][n], (x+map.rx)*3+xx+1, (y+map.ry)*3+yy+1, color[c][n])
+         ch.set(char[c][n], (x-map.rx)*3+xx+1, (y-map.ry)*3+yy+1, color[c][n])
       end
    end
 
    -- TODO - beaches
 
+end
+
+
+function draw_interface()
+   ch.frame(5, 5, 10, 10, 'white')
 end
 
 
@@ -121,16 +125,16 @@ function map.events()
    local e = ch.wait_event()
    if e.type == 'key' then
       if e.ctrl then
-         if e.key == 'up' then
+         if e.key == 'up' and map.ry > 1 then
             map.ry = map.ry - 1
             map.redraw = true
-         elseif e.key == 'down' and map.ry < -1 then
+         elseif e.key == 'down' and map.ry+(screen_h/3) < game.h+1 then
             map.ry = map.ry + 1
             map.redraw = true
-         elseif e.key == 'left' then
+         elseif e.key == 'left' and map.rx > 1 then
             map.rx = map.rx - 1
             map.redraw = true
-         elseif e.key == 'right' and map.rx < -1 then
+         elseif e.key == 'right' and map.rx+(screen_w/3) < game.w+1 then
             map.rx = map.rx + 1
             map.redraw = true
          end

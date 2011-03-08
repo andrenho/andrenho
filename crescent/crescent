@@ -6,7 +6,7 @@ require 'game'
 require 'ui/map'
 
 -- parameters
-colors = false
+colors = true
 screen_w = 80
 screen_h = 50
 
@@ -22,7 +22,7 @@ ch.flush()
 
 
 -- initialize game
-game = Game:new(100, 100, 'Assyria')
+game = Game:new(30, 30, 'Assyria')
 
 -- initialize gui
 map.init()

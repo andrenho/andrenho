@@ -1149,7 +1149,7 @@ void init_colors()
 	c->color = TCOD_darkest_sepia;
 	HASH_ADD_STR(colors, name, c);
 }
-typedef struct { char name[30]; char c; UT_hash_handle hh; } CHAR;
+typedef struct { char name[30]; int c; UT_hash_handle hh; } CHAR;
 
 CHAR *chars = NULL;
 
@@ -1680,5 +1680,5 @@ char* key(TCOD_keycode_t vk)
 		else if(vk == TCODK_KP8) return "kp8";
 		else if(vk == TCODK_KP9) return "kp9";
 		else if(vk == TCODK_CHAR) return "char";
-		else return "";
+		else return "x";
 }
