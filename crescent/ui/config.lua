@@ -1,3 +1,6 @@
+--
+-- Terrain colors
+--
 local function set_colors(t, char1, char2, color1, color2)
    t.char = { char1, char2 }
    if color2 then
@@ -26,3 +29,11 @@ set_colors(sea,      '~', '~', 'blue', 'dark_blue')
 set_colors(ocean,    '~', '~', 'dark_blue', 'darker_blue')
 set_colors(hills,    '.', 'arrow2_n', 'darkest_green', 'dark_orange')
 set_colors(mountain, '.', 'arrow2_n', 'dark_gray', 'white')
+
+
+--
+-- Unit chars
+--
+unit_chars = {
+   [colonist] = 'C',
+}

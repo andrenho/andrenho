@@ -1,9 +1,10 @@
-require 'ui/colors'
+require 'ui/config'
 
 map = {
    rx = 1,
    ry = 1,
-   redraw = true
+   redraw = true,
+   gold_tax_str = (_'Gold: $%d   Tax: %d%%%%')
 }
 
 
@@ -27,16 +28,12 @@ function map.draw()
 
    ch.clear()
 
-   local cx, cy = 0, 0
    local ix = math.max(map.rx, 1)
    local iy = math.max(map.ry, 1)
    for x=ix, math.min(game.w, ix+screen_w/3) do
-      cx = cx + 1
-      cy = 0
       for y=iy, math.min(game.h, iy+screen_h/3) do
          map.draw_tile(x, y)
-         cy = cy + 1
-         --map.draw_units(x, y)
+         map.draw_units(x, y)
          --map.draw_town(x, y)
       end
    end
@@ -113,8 +110,46 @@ function map.draw_tile(x, y)
 end
 
 
-function draw_interface()
-   ch.frame(5, 5, 10, 10, 'white')
+function map.draw_interface()
+   local cl = {
+      frame = 'white',
+      year = 'lighter_purple',
+      nation = 'gold',
+   }
+   if not colors then
+      for k,v in pairs(cl) do cl[k] = 'lightest_gray' end
+   end
+
+   -- full frame
+   ch.frame(0, 0, screen_w-1, screen_h-1, cl.frame)
+
+   -- game/nation info
+   ch.frame(0, 0, (#map.gold_tax_str)+2, 3, cl.frame, true)
+   ch.print((_'Year: %d B.C.'):format(math.abs(game.year)), 1, 1, cl.year)
+   ch.print(map.gold_tax_str:format(game.player.gold, game.player.tax), 1, 2, cl.nation)
+
+   -- selected unit data
+   -- TODO
+end
+
+
+function map.draw_units(x, y)
+   local units = game:units_in_tile(x,y)
+   if #units > 0 then
+      local u = units[1]
+      assert(unit_chars[u.military])
+      ch.double_frame((x-map.rx)*3+1, (y-map.ry)*3+1, 2, 2, u.nation.color, true)
+      ch.set(unit_chars[u.military], (x-map.rx)*3+2, (y-map.ry)*3+2, u.nation.color)
+
+      local state_char
+      if u.state == 'normal' then
+         -- state_char = 'bullet_square'
+         state_char = 127
+      else
+         assert(false, 'Invalid unit state ' .. u.state .. '.')
+      end
+      ch.set(state_char, (x-map.rx)*3+1, (y-map.ry)*3+1, u.nation.color)
+   end
 end
 
 

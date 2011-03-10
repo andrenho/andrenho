@@ -47,21 +47,29 @@ inline static TCOD_color_t checkcolor(lua_State *L, int stack)
 inline static int checkchar(lua_State *L, int stack)
 {
 	CHAR* c;
-	const char* char_str = luaL_checkstring(L, stack);
 
-	if(strlen(char_str) == 1)
-		return char_str[0];
+	if(lua_isnumber(L, stack))
+	{
+		return lua_tointeger(L, stack);
+	}
 	else
 	{
-		HASH_FIND_STR(chars, char_str, c);
-		if(c)
-			return c->c;
+		const char* char_str = luaL_checkstring(L, stack);
+
+		if(strlen(char_str) == 1)
+			return char_str[0];
 		else
 		{
-			char buf[1024];
-			sprintf(buf, "invalid char %s", char_str);
-			luaL_argerror(L, stack, buf);
-			return 0;
+			HASH_FIND_STR(chars, char_str, c);
+			if(c)
+				return c->c;
+			else
+			{
+				char buf[1024];
+				sprintf(buf, "invalid char %s", char_str);
+				luaL_argerror(L, stack, buf);
+				return 0;
+			}
 		}
 	}
 }
@@ -147,26 +155,165 @@ static int set(lua_State *L)
 }
 
 
-// ch.frame(x, y, w, h, [fg_color, overlap=true, double=false])
+// ch.print(text, x, y, [fg_color])
+static int print(lua_State *L)
+{
+	int n = check_args(L, 3, 4);
+	const char* c = luaL_checkstring(L, 1);
+	int x = luaL_checkint(L, 2);
+	int y = luaL_checkint(L, 3);
+	if(n == 4)
+	{
+		TCOD_color_t fg = checkcolor(L, 4);
+		TCOD_console_set_default_foreground(NULL, fg);
+	}
+	TCOD_console_print(NULL, x, y, c);
+
+	lua_pushinteger(L, strlen(c));
+	return 1;
+}
+
+
+// ch.frame(x, y, w, h, [fg_color, clear=false, overlap=true, double=false])
 static int frame(lua_State *L)
 {
-	int n = check_args(L, 4, 7);
+	int n = check_args(L, 4, 8);
 	int x = luaL_checkint(L, 1),
 	    y = luaL_checkint(L, 2),
 	    w = luaL_checkint(L, 3),
 	    h = luaL_checkint(L, 4);
-	bool overlap = true, dbl = false;
+	bool overlap = true, clear=false, dbl = false;
 	if(n > 4)
 	{
 		TCOD_color_t fg = checkcolor(L, 5);
 		TCOD_console_set_default_foreground(NULL, fg);
 	}
 	if(n > 5)
-		overlap = luaL_checkboolean(L, 6);
+		clear = lua_toboolean(L, 5);
 	if(n > 6)
-		dbl = luaL_checkboolean(L, 7);
+		overlap = lua_toboolean(L, 6);
+	if(n > 7)
+		dbl = lua_toboolean(L, 7);
+
+	int xx, yy;
+
+	// horizontal bars
+	for(xx=(x+1); xx<=(x+w-1); xx++)
+		for(yy=y; yy<=(y+h); yy+=h)
+		{
+			int ch = TCOD_console_get_char(NULL, xx, yy),
+			    nch = TCOD_CHAR_HLINE;
+			if(overlap)
+			{
+				if(ch == TCOD_CHAR_VLINE || ch == TCOD_CHAR_TEES || ch == TCOD_CHAR_TEEW)
+					nch = TCOD_CHAR_CROSS;
+				else if(ch == TCOD_CHAR_NW || ch == TCOD_CHAR_NE || ch == TCOD_CHAR_TEEN)
+					nch = TCOD_CHAR_TEES;
+				else if(ch == TCOD_CHAR_SE || ch == TCOD_CHAR_SW || ch == TCOD_CHAR_TEES)
+					nch = TCOD_CHAR_TEEN;
+			}
+			TCOD_console_put_char(NULL, xx, yy, nch, 0);
+		}
+
+	// vertical bars
+	for(yy=(y+1); yy<=(y+h-1); yy++)
+		for(xx=x; xx<=(x+w); xx+=w)
+		{
+			int ch = TCOD_console_get_char(NULL, xx, yy),
+			    nch = TCOD_CHAR_VLINE;
+			if(overlap)
+			{
+				if(ch == TCOD_CHAR_HLINE || ch == TCOD_CHAR_TEEN || ch == TCOD_CHAR_TEES)
+					nch = TCOD_CHAR_CROSS;
+				else if(ch == TCOD_CHAR_NW || ch == TCOD_CHAR_SW || ch == TCOD_CHAR_TEEW)
+					nch = TCOD_CHAR_TEEE;
+				else if(ch == TCOD_CHAR_NE || ch == TCOD_CHAR_SE || ch == TCOD_CHAR_TEEE)
+					nch = TCOD_CHAR_TEEW;
+			}
+			TCOD_console_put_char(NULL, xx, yy, nch, 0);
+		}
+	
+	// corners
+	int ch = TCOD_console_get_char(NULL, x, y);
+	if(overlap && (ch == TCOD_CHAR_HLINE))
+		TCOD_console_put_char(NULL, x, y, TCOD_CHAR_TEES, 0);
+	else if(overlap && (ch == TCOD_CHAR_VLINE || ch == TCOD_CHAR_SW))
+		TCOD_console_put_char(NULL, x, y, TCOD_CHAR_TEEE, 0);
+	else if(overlap && (ch == TCOD_CHAR_SE))
+		TCOD_console_put_char(NULL, x, y, TCOD_CHAR_CROSS, 0);
+	else
+		TCOD_console_put_char(NULL, x, y, TCOD_CHAR_NW, 0);
+
+	ch = TCOD_console_get_char(NULL, (x+w), y);
+	if(overlap && (ch == TCOD_CHAR_HLINE))
+		TCOD_console_put_char(NULL, (x+w), y, TCOD_CHAR_TEES, 0);
+	else if(overlap && (ch == TCOD_CHAR_VLINE || ch == TCOD_CHAR_SE))
+		TCOD_console_put_char(NULL, (x+w), y, TCOD_CHAR_TEEW, 0);
+	else if(overlap && (ch == TCOD_CHAR_SW))
+		TCOD_console_put_char(NULL, (x+w), y, TCOD_CHAR_CROSS, 0);
+	else
+		TCOD_console_put_char(NULL, (x+w), y, TCOD_CHAR_NE, 0);
+
+	ch = TCOD_console_get_char(NULL, x, (y+h));
+	if(overlap && (ch == TCOD_CHAR_VLINE))
+		TCOD_console_put_char(NULL, x, (y+h), TCOD_CHAR_TEEE, 0);
+	else if(overlap && (ch == TCOD_CHAR_HLINE || ch == TCOD_CHAR_SE))
+		TCOD_console_put_char(NULL, x, (y+h), TCOD_CHAR_TEEN, 0);
+	else if(overlap && (ch == TCOD_CHAR_NE))
+		TCOD_console_put_char(NULL, x, (y+h), TCOD_CHAR_CROSS, 0);
+	else 
+		TCOD_console_put_char(NULL, x, (y+h), TCOD_CHAR_SW, 0);
+	
+	ch = TCOD_console_get_char(NULL, (x+w), (y+h));
+	if(overlap && (ch == TCOD_CHAR_VLINE))
+		TCOD_console_put_char(NULL, (x+w), (y+h), TCOD_CHAR_TEEW, 0);
+	else if(overlap && (ch == TCOD_CHAR_HLINE || ch == TCOD_CHAR_NE))
+		TCOD_console_put_char(NULL, (x+w), (y+h), TCOD_CHAR_TEEN, 0);
+	else if(overlap && (ch == TCOD_CHAR_NW))
+		TCOD_console_put_char(NULL, (x+w), (y+h), TCOD_CHAR_CROSS, 0);
+	else 
+		TCOD_console_put_char(NULL, (x+w), (y+h), TCOD_CHAR_SE, 0);
+
+	// clear
+	if(clear)
+		TCOD_console_rect(NULL, (x+1), (y+1), (w-1), (h-1), true, 0);
 
 	return 1;
+}
+
+
+// ch.double_frame(x, y, w, h, [fg_color, clear=false])
+static int double_frame(lua_State *L)
+{
+	int n = check_args(L, 4, 6);
+	int x = luaL_checkint(L, 1),
+	    y = luaL_checkint(L, 2),
+	    w = luaL_checkint(L, 3),
+	    h = luaL_checkint(L, 4);
+	bool clear=false;
+	if(n > 4)
+	{
+		TCOD_color_t fg = checkcolor(L, 5);
+		TCOD_console_set_default_foreground(NULL, fg);
+	}
+	if(n > 5)
+		clear = lua_toboolean(L, 5);
+
+	int xx, yy;
+	for(xx=(x+1); xx<(x+w); xx++)
+	{
+		TCOD_console_put_char(NULL, xx, y, TCOD_CHAR_DHLINE, 0);
+		TCOD_console_put_char(NULL, xx, y+h, TCOD_CHAR_DHLINE, 0);
+	}
+	for(yy=(y+1); yy<(y+h); yy++)
+	{
+		TCOD_console_put_char(NULL, x, yy, TCOD_CHAR_DVLINE, 0);
+		TCOD_console_put_char(NULL, x+w, yy, TCOD_CHAR_DVLINE, 0);
+	}
+	TCOD_console_put_char(NULL, x, y, TCOD_CHAR_DNW, 0);
+	TCOD_console_put_char(NULL, x, (y+h), TCOD_CHAR_DSW, 0);
+	TCOD_console_put_char(NULL, (x+w), y, TCOD_CHAR_DNE, 0);
+	TCOD_console_put_char(NULL, (x+w), (y+h), TCOD_CHAR_DSE, 0);
 }
 
 
@@ -177,7 +324,9 @@ static const struct luaL_reg ch [] = {
 	{ "bg", bg },
 	{ "wait_event", wait_event },
 	{ "set", set },
+	{ "print", print },
 	{ "frame", frame },
+	{ "double_frame", double_frame },
 	{ NULL, NULL }  /* sentinel */
 };
 
