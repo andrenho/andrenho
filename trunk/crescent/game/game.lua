@@ -1,5 +1,6 @@
 package.path = package.path .. ';./game/?.lua'
 require 'static'
+require 'unit'
 require 'nation'
 
 Game = {}
@@ -12,6 +13,7 @@ function Game:new(w, h, player_nation, o)
    o.w, o.h = w, h
    o.year = -2000
    o.player = Nation:new(player_nation)
+   o.player:create_unit(10, 10, colonist)
    o.nations = { o.player }
    return o
 end
@@ -47,7 +49,15 @@ function Game:create_map(w, h)
 end
 
 
--- Return a string to be printed in the bottom of the screen
-function Game:year_str()
-   return (_'Year %d %s'):format(math.abs(self.year), 'B.C.')
+-- Return the units in the tile x,y
+function Game:units_in_tile(x,y)
+   local units = {}
+   for _,n in ipairs(self.nations) do
+      for _,u in ipairs(n.units) do
+         if u.x == x and u.y == y then
+            table.insert(units, u)
+         end
+      end
+   end
+   return units
 end

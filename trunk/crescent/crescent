@@ -17,12 +17,13 @@ if colors then
 else
    ch.bg('white')
 end
+
 ch.clear()
 ch.flush()
 
-
 -- initialize game
 game = Game:new(30, 30, 'Assyria')
+game.player.color = 'red'
 
 -- initialize gui
 map.init()
