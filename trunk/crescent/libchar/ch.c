@@ -180,6 +180,8 @@ static int set(lua_State *L)
 }
 
 
+
+
 // ch.print(text, x, y, [fg_color])
 static int print(lua_State *L)
 {
@@ -362,6 +364,44 @@ static int sleep(lua_State *L)
 }
 
 
+// ch.save(x,y)
+static int save(lua_State *L)
+{
+	static struct {
+		int c;
+		TCOD_color_t fg;
+		TCOD_color_t bg;
+	} cache[81];
+
+	check_args(L, 2, 2);
+	int x = luaL_checkint(L, 1),
+	    y = luaL_checkint(L, 2);
+
+	int xx,yy,i=0;
+	for(xx=x; xx<(x+9); xx++)
+		for(yy=y; yy<(y+9); yy++)
+		{
+			// todo - bounds
+			cache[i].c = TCOD_console_get_char(NULL, xx, yy);
+			cache[i].fg = TCOD_console_get_char_foreground(NULL, xx, yy);
+			cache[i].bg = TCOD_console_get_char_background(NULL, xx, yy);
+		}
+
+	return 0;
+}
+
+
+// ch.restore(x,y)
+static int restore(lua_State *L)
+{
+	check_args(L, 2, 2);
+	int x = luaL_checkint(L, 1),
+	    y = luaL_checkint(L, 2);
+
+	return 0;
+}
+
+
 static const struct luaL_reg ch [] = {
 	{ "init", init },
 	{ "clear", clear },
@@ -375,6 +415,8 @@ static const struct luaL_reg ch [] = {
 	{ "double_frame", double_frame },
 	{ "elapsed_ms", elapsed_ms },
 	{ "sleep", sleep },
+	{ "save", save },
+	{ "restore", restore },
 	{ NULL, NULL }  /* sentinel */
 };
 

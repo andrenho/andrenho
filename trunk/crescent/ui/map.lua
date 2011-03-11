@@ -147,13 +147,14 @@ local function select_unit(units)
 end
 
 
-function map.draw_units(x, y, blink)
+function map.draw_units(x, y, blink, px, py)
+   local px, py = px or 0, py or 0
    local units = game:units_in_tile(x,y)
    local u = select_unit(units)
    if u and not (u == game.player.focused and not blink) then
       assert(unit_chars[u.military])
-      ch.double_frame((x-map.rx)*3+1, (y-map.ry)*3+1, 2, 2, u.nation.color, true)
-      ch.set(unit_chars[u.military], (x-map.rx)*3+2, (y-map.ry)*3+2, u.nation.color)
+      ch.double_frame((x-map.rx)*3+1+px, (y-map.ry)*3+1+py, 2, 2, u.nation.color, true)
+      ch.set(unit_chars[u.military], (x-map.rx)*3+2+px, (y-map.ry)*3+2+py, u.nation.color)
 
       local state_char
       if u.state == 'normal' then
@@ -161,12 +162,25 @@ function map.draw_units(x, y, blink)
       else
          assert(false, 'Invalid unit state ' .. u.state .. '.')
       end
-      ch.set(state_char, (x-map.rx)*3+1, (y-map.ry)*3+1, u.nation.color)
+      ch.set(state_char, (x-map.rx)*3+1+px, (y-map.ry)*3+1+py, u.nation.color)
    end
 end
 
 
 -----------------------------------------------------------------------
+
+
+function map.move_unit(u, rx, ry)
+   assert(math.abs(rx) <= 1, math.abs(ry) <= 1)
+   map.draw_units(u.x, u.y, false)
+
+   for i=2,0,-1 do
+      local nx, ny = (i * -rx), (i * -ry)
+      map.draw_units(u.x, u.y, true, nx, ny)
+      ch.flush()
+      ch.sleep(30)
+   end
+end
 
 
 function map.events()
@@ -180,6 +194,16 @@ function map.events()
    if not e then return running end
 
    if e.type == 'key' then
+      -- movement
+      local focused = game.player.focused
+      if focused then
+         if e.key == 'up' then
+            if focused:move(0, -1) then map.move_unit(focused, 0, -1) end
+            reset()
+         end
+      end
+
+      -- move map
       if e.ctrl then
          if e.key == 'up' and map.ry > 1 then
             map.ry = map.ry - 1
