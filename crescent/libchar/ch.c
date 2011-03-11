@@ -122,7 +122,6 @@ static int wait_event(lua_State *L)
 	TCOD_key_t k;
 	no_args();
 	
-again:
 	k = TCOD_console_wait_for_keypress(true);
 
 	if(k.pressed)
@@ -132,8 +131,34 @@ again:
 		lua_pushfstring(L, "%c", k.c); lua_setfield(L, -2, "char");
 		lua_pushfstring(L, "%s", key(k.vk)); lua_setfield(L, -2, "key");
 		lua_pushboolean(L, k.lctrl | k.rctrl); lua_setfield(L, -2, "ctrl");
-		return 1;
 	}
+	else
+		lua_pushnil(L);
+
+	return 1;
+}
+
+
+// ch.check_event()
+static int check_event(lua_State *L)
+{
+	TCOD_key_t k;
+	no_args();
+	
+	k = TCOD_console_check_for_keypress(true);
+
+	if(k.vk != TCODK_NONE && k.pressed)
+	{
+		lua_newtable(L);
+		lua_pushstring(L, "key"); lua_setfield(L, -2, "type");
+		lua_pushfstring(L, "%c", k.c); lua_setfield(L, -2, "char");
+		lua_pushfstring(L, "%s", key(k.vk)); lua_setfield(L, -2, "key");
+		lua_pushboolean(L, k.lctrl | k.rctrl); lua_setfield(L, -2, "ctrl");
+	}
+	else
+		lua_pushnil(L);
+
+	return 1;
 }
 
 
@@ -314,6 +339,26 @@ static int double_frame(lua_State *L)
 	TCOD_console_put_char(NULL, x, (y+h), TCOD_CHAR_DSW, 0);
 	TCOD_console_put_char(NULL, (x+w), y, TCOD_CHAR_DNE, 0);
 	TCOD_console_put_char(NULL, (x+w), (y+h), TCOD_CHAR_DSE, 0);
+
+	return 0;
+}
+
+
+// ch.elapsed_ms()
+static int elapsed_ms(lua_State *L)
+{
+	no_args();
+	lua_pushinteger(L, TCOD_sys_elapsed_milli());
+	return 1;
+}
+
+
+// ch.sleep()
+static int sleep(lua_State *L)
+{
+	check_args(L, 1, 1);
+	TCOD_sys_sleep_milli(luaL_checklong(L, 1));
+	return 0;
 }
 
 
@@ -323,10 +368,13 @@ static const struct luaL_reg ch [] = {
 	{ "flush", flush },
 	{ "bg", bg },
 	{ "wait_event", wait_event },
+	{ "check_event", check_event },
 	{ "set", set },
 	{ "print", print },
 	{ "frame", frame },
 	{ "double_frame", double_frame },
+	{ "elapsed_ms", elapsed_ms },
+	{ "sleep", sleep },
 	{ NULL, NULL }  /* sentinel */
 };
 
