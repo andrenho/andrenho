@@ -4,7 +4,9 @@ map = {
    rx = 1,
    ry = 1,
    redraw = true,
-   gold_tax_str = (_'Gold: $%d   Tax: %d%%%%')
+   gold_tax_str = (_'Gold: $%d   Tax: %d%%%%'),
+   blink_frames = 30,
+   blink = 0,
 }
 
 
@@ -24,6 +26,10 @@ end
 
 function map.draw()
 
+   local blink = (((map.blink / map.blink_frames) % 2) < 1)
+   if map.blink % map.blink_frames == 0 then map.redraw = true end
+   map.blink = map.blink + 1
+
    if not map.redraw then return end
 
    ch.clear()
@@ -33,7 +39,7 @@ function map.draw()
    for x=ix, math.min(game.w, ix+screen_w/3) do
       for y=iy, math.min(game.h, iy+screen_h/3) do
          map.draw_tile(x, y)
-         map.draw_units(x, y)
+         map.draw_units(x, y, blink)
          --map.draw_town(x, y)
       end
    end
@@ -133,18 +139,25 @@ function map.draw_interface()
 end
 
 
-function map.draw_units(x, y)
+local function select_unit(units)
+   for _,u in ipairs(units) do
+      if u == game.player.focused then return u end
+   end
+   return units[1]
+end
+
+
+function map.draw_units(x, y, blink)
    local units = game:units_in_tile(x,y)
-   if #units > 0 then
-      local u = units[1]
+   local u = select_unit(units)
+   if u and not (u == game.player.focused and not blink) then
       assert(unit_chars[u.military])
       ch.double_frame((x-map.rx)*3+1, (y-map.ry)*3+1, 2, 2, u.nation.color, true)
       ch.set(unit_chars[u.military], (x-map.rx)*3+2, (y-map.ry)*3+2, u.nation.color)
 
       local state_char
       if u.state == 'normal' then
-         -- state_char = 'bullet_square'
-         state_char = 127
+         state_char = 'bullet_square'
       else
          assert(false, 'Invalid unit state ' .. u.state .. '.')
       end
@@ -157,21 +170,29 @@ end
 
 
 function map.events()
-   local e = ch.wait_event()
+
+   local function reset()
+      map.redraw = true
+      map.blink = 0
+   end
+
+   local e = ch.check_event()
+   if not e then return running end
+
    if e.type == 'key' then
       if e.ctrl then
          if e.key == 'up' and map.ry > 1 then
             map.ry = map.ry - 1
-            map.redraw = true
+            reset()
          elseif e.key == 'down' and map.ry+(screen_h/3) < game.h+1 then
             map.ry = map.ry + 1
-            map.redraw = true
+            reset()
          elseif e.key == 'left' and map.rx > 1 then
             map.rx = map.rx - 1
-            map.redraw = true
+            reset()
          elseif e.key == 'right' and map.rx+(screen_w/3) < game.w+1 then
             map.rx = map.rx + 1
-            map.redraw = true
+            reset()
          end
       else
          if e.char == 'q' then

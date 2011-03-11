@@ -33,11 +33,12 @@ state = 'map'
 running = true
 while running do
    if state == 'map' then
+      local ms = ch.elapsed_ms() + 10
       map.draw()
       running = map.events()
+      while ch.elapsed_ms() < ms do ch.sleep(5) end
    else
       error(_'Invalid state ' .. state)
    end
 end
-
 os.exit()

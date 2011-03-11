@@ -16,5 +16,8 @@ end
 function Nation:create_unit(x, y, military)
    local u = Unit:new(x, y, military, self)
    table.insert(self.units, u)
+   if #self.units == 1 then
+      self.focused = u
+   end
    return u
 end

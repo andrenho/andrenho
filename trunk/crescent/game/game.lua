@@ -13,7 +13,7 @@ function Game:new(w, h, player_nation, o)
    o.w, o.h = w, h
    o.year = -2000
    o.player = Nation:new(player_nation)
-   o.player:create_unit(10, 10, colonist)
+   o.player:create_unit(4, 4, colonist)
    o.nations = { o.player }
    return o
 end
