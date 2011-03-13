@@ -9,6 +9,7 @@
 \usepackage{pstricks}
 \usepackage{pst-plot}
 \usepackage[pdftex]{graphicx}
+\usepackage{booktabs}
 %\usepackage[top=1cm,bottom=1cm,left=1cm,right=1cm]{geometry}
 %\usepackage{multicol}
 
@@ -25,8 +26,11 @@
 \DeclareMathOperator{\dom}{dom}
 \DeclareMathOperator{\im}{im}
 \DeclareMathOperator{\proj}{proj}
+\DeclareMathOperator{\sen}{sen}
+\DeclareMathOperator{\tg}{tg}
 \providecommand{\abs}[1]{\lvert#1\rvert}
 \providecommand{\vt}[1]{\overrightarrow{#1}}
+\newcommand{\xa}[1]{\renewcommand{\arraystretch}{#1}}
 
 \author{André Wagner}
 \title{Cálculo}
@@ -114,5 +118,51 @@ passa a linha, e $r$ o raio.
 
 Onde $a$ é a distância entre a lateral e o centro da elipse, e $b$ é a distância
 entre o topo e o centro.
+
+\section{Parábola}
+
+\[ y^2 = 4px: \subset \]
+\[ y^2 = -4px: \supset \]
+\[ x^2 = 4py: \cup \]
+\[ x^2 = -4py: \cap \]
+
+\section{Derivadas}
+
+\[ f'(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h} \]
+
+\[ (f \pm g)'(x) = f'(x) \pm g'(x) \]
+
+\[ (\alpha f)'(x) = \alpha f'(x) \]
+
+\[ (f \cdot g)'(x) = f'(x)g(x) + f(x)g'(x) \]
+
+\[ \left(\frac{f}{g}\right)'(x) = \frac{f'(x)g(x)-f(x)g'(x)}{\left[g(x)\right]^2} \]
+
+\[ \left[g(f(x))\right]' = g'\left(f(x)\right)f'(x) \]
+
+\section{Reta tangente}
+
+$\alpha$ é o ponto que se quer encontrar.
+
+\[ y = f'(\alpha) \cdot (x - \alpha) + f(\alpha) \]
+
+\section{Tabela de integrais e derivadas}
+
+\begin{table*}\centering
+\xa{1.3}
+\begin{tabular}{@{}lll@{}}
+\toprule
+f'(x) & f(x) & $\int x$ \\ 
+\midrule
+$nx$ & $x^n$ & \\
+$e^x$ & $e^x$ & \\
+$\cos x$ & $\sen x$ & \\
+$-\sen x$ & $\cos x$ & \\
+$\sec^2 x$ & $\tg x$ & \\
+$\sec x \tg x$ & $\sec x$ & \\
+$n^x\log_e n$ & $n^x$ & \\
+\bottomrule
+\end{tabular}
+\end{table*}
 
 \end{document}
