@@ -38,9 +38,7 @@ function map.draw()
    local iy = math.max(map.ry, 1)
    for x=ix, math.min(game.w, ix+screen_w/3) do
       for y=iy, math.min(game.h, iy+screen_h/3) do
-         map.draw_tile(x, y)
-         map.draw_units(x, y, blink)
-         --map.draw_town(x, y)
+         map.draw_tile(x, y, blink)
       end
    end
 
@@ -52,7 +50,14 @@ function map.draw()
 end
 
 
-function map.draw_tile(x, y)
+function map.draw_tile(x, y, blink)
+   map.draw_terrain(x, y)
+   map.draw_units(x, y, blink)
+   --map.draw_town(x, y)
+end
+
+
+function map.draw_terrain(x, y)
    assert(x >= 1 and y >= 1 and x <= game.w and y <= game.h)
 
 	-- The edges of the terrain can be overlapped by other types of
@@ -171,11 +176,18 @@ end
 
 
 function map.move_unit(u, rx, ry)
-   assert(math.abs(rx) <= 1, math.abs(ry) <= 1)
-   map.draw_units(u.x, u.y, false)
+   assert(math.abs(rx) <= 1 and math.abs(ry) <= 1)
+   assert(u)
+   for xx=-1,1 do
+      for yy=-1,1 do
+         map.draw_tile(u.x+xx, u.y+yy, false)
+      end
+   end
+   ch.save((u.x-map.rx-1)*3+1, (u.y-map.ry-1)*3+1)
 
    for i=2,0,-1 do
       local nx, ny = (i * -rx), (i * -ry)
+      ch.restore((u.x-map.rx-1)*3+1, (u.y-map.ry-1)*3+1)
       map.draw_units(u.x, u.y, true, nx, ny)
       ch.flush()
       ch.sleep(30)
@@ -193,11 +205,14 @@ function map.events()
    local e = ch.check_event()
    if not e then return running end
 
+
    if e.type == 'key' then
+      --print(e.key)
+
       -- movement
       local focused = game.player.focused
       if focused then
-         if e.key == 'up' then
+         if e.key == 'up' or key == 'kp8' then
             if focused:move(0, -1) then map.move_unit(focused, 0, -1) end
             reset()
          end
@@ -218,6 +233,8 @@ function map.events()
             map.rx = map.rx + 1
             reset()
          end
+
+      -- other keys
       else
          if e.char == 'q' then
             running = false

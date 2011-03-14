@@ -364,14 +364,15 @@ static int sleep(lua_State *L)
 }
 
 
+static struct {
+	int c;
+	TCOD_color_t fg;
+	TCOD_color_t bg;
+} cache[81];
+
 // ch.save(x,y)
 static int save(lua_State *L)
 {
-	static struct {
-		int c;
-		TCOD_color_t fg;
-		TCOD_color_t bg;
-	} cache[81];
 
 	check_args(L, 2, 2);
 	int x = luaL_checkint(L, 1),
@@ -385,6 +386,7 @@ static int save(lua_State *L)
 			cache[i].c = TCOD_console_get_char(NULL, xx, yy);
 			cache[i].fg = TCOD_console_get_char_foreground(NULL, xx, yy);
 			cache[i].bg = TCOD_console_get_char_background(NULL, xx, yy);
+			i++;
 		}
 
 	return 0;
@@ -397,6 +399,15 @@ static int restore(lua_State *L)
 	check_args(L, 2, 2);
 	int x = luaL_checkint(L, 1),
 	    y = luaL_checkint(L, 2);
+
+	int xx,yy,i=0;
+	for(xx=x; xx<(x+9); xx++)
+		for(yy=y; yy<(y+9); yy++)
+		{
+			TCOD_console_put_char_ex(NULL, xx, yy, cache[i].c, cache[i].fg, 
+					cache[i].bg);
+			i++;
+		}
 
 	return 0;
 }
