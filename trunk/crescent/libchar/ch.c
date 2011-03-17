@@ -128,8 +128,11 @@ static int wait_event(lua_State *L)
 	{
 		lua_newtable(L);
 		lua_pushstring(L, "key"); lua_setfield(L, -2, "type");
-		lua_pushfstring(L, "%c", k.c); lua_setfield(L, -2, "char");
-		lua_pushfstring(L, "%s", key(k.vk)); lua_setfield(L, -2, "key");
+		if(k.vk == TCODK_CHAR)
+			lua_pushfstring(L, "%c", k.c);
+		else
+			lua_pushfstring(L, "%s", key(k.vk)); lua_setfield(L, -2, "key");
+		lua_setfield(L, -2, "key");
 		lua_pushboolean(L, k.lctrl | k.rctrl); lua_setfield(L, -2, "ctrl");
 	}
 	else
@@ -151,8 +154,10 @@ static int check_event(lua_State *L)
 	{
 		lua_newtable(L);
 		lua_pushstring(L, "key"); lua_setfield(L, -2, "type");
-		lua_pushfstring(L, "%c", k.c); lua_setfield(L, -2, "char");
-		lua_pushfstring(L, "%s", key(k.vk)); lua_setfield(L, -2, "key");
+		if(k.vk == TCODK_CHAR)
+			lua_pushfstring(L, "%c", k.c);
+		else
+			lua_pushfstring(L, "%s", key(k.vk)); lua_setfield(L, -2, "key");
 		lua_pushboolean(L, k.lctrl | k.rctrl); lua_setfield(L, -2, "ctrl");
 	}
 	else
@@ -370,6 +375,7 @@ static struct {
 	TCOD_color_t bg;
 } cache[81];
 
+
 // ch.save(x,y)
 static int save(lua_State *L)
 {
@@ -382,10 +388,17 @@ static int save(lua_State *L)
 	for(xx=x; xx<(x+9); xx++)
 		for(yy=y; yy<(y+9); yy++)
 		{
-			// todo - bounds
-			cache[i].c = TCOD_console_get_char(NULL, xx, yy);
-			cache[i].fg = TCOD_console_get_char_foreground(NULL, xx, yy);
-			cache[i].bg = TCOD_console_get_char_background(NULL, xx, yy);
+			if(!(xx >= 0 && xx < TCOD_console_get_width(NULL)
+			&& yy >= 0 && yy < TCOD_console_get_height(NULL)))
+			{
+				cache[i].c = 0;
+			}
+			else
+			{
+				cache[i].c = TCOD_console_get_char(NULL, xx, yy);
+				cache[i].fg = TCOD_console_get_char_foreground(NULL, xx, yy);
+				cache[i].bg = TCOD_console_get_char_background(NULL, xx, yy);
+			}
 			i++;
 		}
 
@@ -404,8 +417,10 @@ static int restore(lua_State *L)
 	for(xx=x; xx<(x+9); xx++)
 		for(yy=y; yy<(y+9); yy++)
 		{
-			TCOD_console_put_char_ex(NULL, xx, yy, cache[i].c, cache[i].fg, 
-					cache[i].bg);
+			if(cache[i].c != 0 && xx >= 0 && xx < TCOD_console_get_width(NULL)
+			&& yy >= 0 && yy < TCOD_console_get_height(NULL))
+				TCOD_console_put_char_ex(NULL, xx, yy, cache[i].c, cache[i].fg, 
+						cache[i].bg);
 			i++;
 		}
 

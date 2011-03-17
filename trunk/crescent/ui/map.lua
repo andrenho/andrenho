@@ -58,7 +58,7 @@ end
 
 
 function map.draw_terrain(x, y)
-   assert(x >= 1 and y >= 1 and x <= game.w and y <= game.h)
+   if not (x >= 1 and y >= 1 and x <= game.w and y <= game.h) then return end
 
 	-- The edges of the terrain can be overlapped by other types of
 	-- terrain. As such, the image of the terrain is:
@@ -183,6 +183,7 @@ function map.move_unit(u, rx, ry)
          map.draw_tile(u.x+xx, u.y+yy, false)
       end
    end
+   map.draw_interface()
    ch.save((u.x-map.rx-1)*3+1, (u.y-map.ry-1)*3+1)
 
    for i=2,0,-1 do
@@ -212,9 +213,22 @@ function map.events()
       -- movement
       local focused = game.player.focused
       if focused then
-         if e.key == 'up' or key == 'kp8' then
+         if e.key == 'kp7' or e.key == '7' then
+            if focused:move(-1, -1) then map.move_unit(focused, -1, -1) end
+         elseif e.key == 'up' or e.key == 'kp8' or e.key == '8' then
             if focused:move(0, -1) then map.move_unit(focused, 0, -1) end
-            reset()
+         elseif e.key == 'kp9' or e.key == '9' then
+            if focused:move(1, -1) then map.move_unit(focused, 1, -1) end
+         elseif e.key == 'left' or e.key == 'kp4' or e.key == 'u' then
+            if focused:move(-1, 0) then map.move_unit(focused, -1, 0) end
+         elseif e.key == 'right' or e.key == 'kp6' or e.key == 'o' then
+            if focused:move(1, 0) then map.move_unit(focused, 1, 0) end
+         elseif e.key == 'kp1' or e.key == 'j' then
+            if focused:move(-1, 1) then map.move_unit(focused, -1, 1) end
+         elseif e.key == 'down' or e.key == 'kp2' or e.key == 'k' then
+            if focused:move(0, 1) then map.move_unit(focused, 0, 1) end
+         elseif e.key == 'kp3' or e.key == 'l' then
+            if focused:move(1, 1) then map.move_unit(focused, 1, 1) end
          end
       end
 
@@ -222,24 +236,22 @@ function map.events()
       if e.ctrl then
          if e.key == 'up' and map.ry > 1 then
             map.ry = map.ry - 1
-            reset()
          elseif e.key == 'down' and map.ry+(screen_h/3) < game.h+1 then
             map.ry = map.ry + 1
-            reset()
          elseif e.key == 'left' and map.rx > 1 then
             map.rx = map.rx - 1
-            reset()
          elseif e.key == 'right' and map.rx+(screen_w/3) < game.w+1 then
             map.rx = map.rx + 1
-            reset()
          end
 
       -- other keys
       else
-         if e.char == 'q' then
+         if e.key == 'q' then
             running = false
          end
       end
+
+      reset()
    end
    return running
 end
