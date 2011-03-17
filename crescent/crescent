@@ -6,7 +6,7 @@ require 'game'
 require 'ui/map'
 
 -- parameters
-colors = true
+colors = false
 screen_w = 80
 screen_h = 50
 
@@ -23,7 +23,11 @@ ch.flush()
 
 -- initialize game
 game = Game:new(30, 30, 'Assyria')
-game.player.color = 'red'
+if color then
+   game.player.color = 'red'
+else
+   game.player.color = 'lighter_gray'
+end
 
 -- initialize gui
 map.init()
