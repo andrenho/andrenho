@@ -1,0 +1,28 @@
+digraph Perfil {
+
+    perfil [style=bold];
+    educacao [style=bold];
+    profissional [style=bold];
+    GlobalEdu [style=bold];
+
+    perfil -> educacao [style=bold];
+    perfil -> profissional [style=bold];
+
+    educacao -> GlobalEdu [style=bold];
+    educacao -> LOCAL;
+    profissional -> MUCS;
+
+    educacao -> P1 [style=bold];
+    profissional -> P2 [style=bold];
+
+    GlobalEdu -> NP1 [style=bold];
+    LOCAL -> NP2;
+    MUCS -> NP3;
+    
+    P1 [label="P", shape=box, style=bold, style=filled];
+    NP1 [label="NP", shape=box, style=bold, style=filled];
+    P2 [label="P", shape=box, style=bold, peripheries=2];
+    NP2 [label="NP", shape=box];
+    NP3 [label="NP", shape=box];
+
+}
