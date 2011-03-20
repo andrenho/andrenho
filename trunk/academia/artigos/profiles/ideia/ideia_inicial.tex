@@ -58,11 +58,23 @@ O modelo aqui proposto é baseado na idéia de Computação Ubíqua apresentada 
 % TODO - verificar número de celulares
 Acreditamos que a melhor forma de permitir que o perfil esteja sempre disponível é que o usuário carregue o perfil fisicamente com ele. Atualmente, a proliferação de dispotivos móveis faz com que exista pelo menos um dispositivo para cada pessoa no mundo \cite{??}. Assim, o dispositivo pode carregar o perfil do usuário, permitindo o acesso pelos serviços remotos através de comunicação \emph{wireless} utilizando uma API.
 
-Avanços em pesquisas permitirão em breve que este perfil possa ser carregado até mesmo nas roupas dos usuários \cite{??}.
+Avanços em pesquisas permitirão em breve que este perfil possa ser carregado até mesmo nas roupas dos usuários \cite{??}. Além disso, os perfis não ficarão presentes apenas nos dispositivos móveis, mas também nos computadores ao qual o usuário tem acesso (por exemplo, em casa, no trabalho, etc\ldots)
 
-Um dos principais aspectos da computação ubíqua é o acesso 
+Devido à volatilidade dos dispositivos móveis, e ao fato de muitos usuários possuirem diversos dispositivos móveis, é necessário que estes dispositivos mantenham o perfil atualizado. Assim, será necessário o desenvolvimento de um módulo que controle estas atualizações e faça o \emph{merge} das informações.
 
-% ...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Formato dos perfis}
+
+A maioria dos trabalhos na área de perfis considera os dados inseridos pelo usuário como parte central do perfil do usuário \cite{??}, embora alguns incluam informações históricas do usuário como parte do perfil \cite{??}. Este modelo aqui apresentado compreende que \textbf{o histórico do usuário (sua trilha) é o seu perfil}, sendo que não é necessário que usuário insira qualquer informação a respeito de si mesmo -- todas suas informações podem ser inferidas a partir do seu histórico de ações, devidamente armazenadas em seu perfil.
+
+No entanto, o simples registro das ações do usuário torna imprática a inferência de suas preferências. Por exemplo, um módulo ubíquo educacional não teria dificuldade em interpretar as preferências baseado nas ações registradas por ele mesmo -- no entanto, este mesmo módulo provavelmente não saberia como interpretar as informações geradas por outros módulos.
+
+Assim, torna-se necessária a separação entre informações \textbf{processadas} e \textbf{não processadas}. As informações não processadas registram os meros eventos realizados pelo usuário, enquanto as informações processadas são compostas da inferência das informações a partir das informações não processadas.
+
+Desta forma, os módulos não seriam capazes de compreender as informações \emph{não processadas} de outro módulo, somente as suas próprias, mas todos os módulos seriam capazes de compreender as informações \emph{processadas} uns dos outros.
+
+Estes fatos fazem com que a estrutura mais adequada para o registro das informações do perfil do usuário seja a estrutura de árvore. Um exemplo desta estrutura é dada na figura 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
