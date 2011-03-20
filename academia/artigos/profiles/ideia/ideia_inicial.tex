@@ -1,3 +1,10 @@
+%
+% TODO - importante! Verificar se GlobalEdu e LOCAL podem ser tratados da
+% mesma forma!!!
+%
+% - alterar a terminologia para "agente" e "dispositivo" (??)
+%
+
 \documentclass[a4paper, twocolumn]{article}
 \pagestyle{empty}
 
@@ -41,13 +48,15 @@ Mais recentemente, têm sido realizadas pesquisas na busca da utilização não 
 
 % Modelo
 
-Este artigo apresenta uma idéia para a criação de um modelo genérico de perfis baseados em trilhas para ambientes ubíquos, no qual qualquer serviço pode ter acesso a informações geradas por outro serviço, de modo a personalizar automaticamente a experiência dos usuários através da análise de suas ações passadas. Este modelo é apenas uma idéia inicial, e possui várias questões ainda em aberto.
+Este artigo apresenta uma idéia para a criação de um modelo genérico de perfis baseados em trilhas para ambientes ubíquos, no qual qualquer agente pode ter acesso a informações geradas por outro agente, de modo a personalizar automaticamente a experiência dos usuários através da análise de suas ações passadas. Este modelo é apenas uma idéia inicial, e possui várias questões ainda em aberto.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Modelo}
 
 % TODO
+%
+% adicionar uma figura mostrando o funcionamento básico
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -89,7 +98,7 @@ Como pode se verificar neste exemplo, o perfil do usuário é dividido em catego
 Estas categorias, por sua vez, são subdividias em:
 
 \begin{enumerate}
-  \item Agentes de software -- se refere a agentes de software que se encaixam nesta categoria, e que se comunicam com o perfil. Estão exemplificados os agentes GlobalEdu\cite{??} e LOCAL\cite{??} como agentes educacionais, e o MUCS\cite{??} como um agente profissional.
+  \item Agentes de software -- se refere a agentes de software que se encaixam nesta categoria, e que se comunicam com o perfil. Estão exemplificados os agentes GlobalEdu\cite{??} e LOCAL\cite{??} como agentes educacionais, e o MUCS\cite{??} como um agente profissional, embora qualquer agente possa criar um item para si mesmo. As informações de cada agente são de formato livre.
   \item Informações processadas -- são as informações processadas pelos agentes.
 \end{enumerate}
 
@@ -109,7 +118,7 @@ Cada agente terá acesso à sua própria trilha (para processamento de suas pró
   \item \textbf{Informações processadas em outras categorias:} o agente tem acesso somente leitura. Ele pode fazer uso das informações, mas não tem competência para atualizar informações de outras categorias.
 \end{enumerate}
 
-A Figura~\ref{fig:acesso} mostra um exemplo do perfil de um usuário, mostrando a quais informações o módulo GlobalEdu terá acesso. Na figura, os nós cinzas representam as informações às quais o módulo tem acesso para leitura/escrita, e os nós de borda dupla representam somente leitura.
+A Figura~\ref{fig:acesso} mostra um exemplo do perfil de um usuário, mostrando a quais informações o módulo GlobalEdu terá acesso. Na figura, os nós cinzas representam as informações às quais o módulo tem acesso para leitura/escrita, e os nós de borda dupla representam acesso somente leitura.
 
 \begin{figure}
   \includegraphics[width=0.5\textwidth]{acesso.pdf}
@@ -117,19 +126,36 @@ A Figura~\ref{fig:acesso} mostra um exemplo do perfil de um usuário, mostrando 
   \label{fig:acesso}
 \end{figure}
 
+O processamento ocorre de forma \emph{incremental}. Desta forma, o agente pode ler apenas os eventos que ocorreram a partir do último processamento, comparando com as informações já processadas, de forma a não onerar muito a conexão disponível nem o tempo de processamento do agente. 
 
+Além disso, o processamento incremental permitirá que o agente possa ser capaz de alterar informações que foram processadas por outro agente. Utilizando o exemplo acima, o GlobalEdu é capaz de atualizar informações processadas pelo LOCAL, mesmo sem ser capaz de compreender (nem ter acesso) às informações não processadas pelo LOCAL.
+
+O agente é o responsável pelo processamento. A forma como este processamento irá ocorrer ainda é uma questão em aberto. Uma possibilidade é que o agente solicite as informações ao dispositivo, as processe, e devolva ao dispositivo. Outra possibilidade é que o agente entregue ao dispositivo um módulo (em Java, por exemplo), o dispositivo faça o próprio processamento e atualize suas próprias informações. Uma terceira possibilidade é que as duas formas sejam possíveis, e a decisão de quem irá realizar o processamento seja baseado no ambiente (capacidade de rede disponível, tempo de processamento disponível, etc\ldots)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Gerenciador de perfis}
+\subsection{Comunicação entre agentes e dispositivos}
+
+A comunicação entre os agentes e disposivos ocorrerá através da rede que estiver disponível (WiFi, Bluetooth, etc\ldots). Acreditamos que a forma mais adequada para a comunicação seja através de Web Services \cite{??}, embora este ainda seja um ponto em aberto.
+
+A API de comunicação será definida no decorrer do trabalho, mas o exemplo de alguns comandos que devem existir são os seguintes:
+
+\begin{enumerate}
+  \item Troca de informações entre agentes e dispositivo sobre capacidade de processamento, qualidade da rede, etc\dots;
+  \item Primeiro acesso de um agente;
+  \item Criação de novo evento pelo agente;
+  \item Leitura de informações não processadas pelo agente;
+  \item Leiutra de informações processadas pelo agente;
+  \item Processamento de informações pelo agente e gravação das mesmas no perfil do usuário.
+\end{enumerate}
+
+Deste modo, um módulo que resida no dispositivo e gerencie o perfil deve ser desenvolvido. Alguns agentes que residirão do dispositivo também podem ser desenvolvidos, como um agente cadastral, que gerencie as informações cadastrais do usuário (nome, telefone, e-mail, etc\ldots)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Ontologia}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{API de comunicação}
+Como os agentes poderão acessar as informações processadas uns pelos outros, estas informações devem estar armazenadas no perfil do usuário de forma padronizada. Assim, uma ontologia deve ser criada de modo a permitir o fácil acesso a estas informações.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -146,6 +172,9 @@ A Figura~\ref{fig:acesso} mostra um exemplo do perfil de um usuário, mostrando 
 % Conclusão...
 
 % Questões a ponderar
+% - localização?
+% - privacidade?
+% - segurança?
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
