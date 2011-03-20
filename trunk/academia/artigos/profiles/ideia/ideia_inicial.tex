@@ -1,5 +1,5 @@
 %
-% TODO - importante! Verificar se GlobalEdu e LOCAL podem ser tratados da
+% TODO - importante! Verificar se ISAM e LOCAL podem ser tratados da
 % mesma forma!!!
 %
 % - alterar a terminologia para "agente" e "dispositivo" (??)
@@ -98,11 +98,11 @@ Como pode se verificar neste exemplo, o perfil do usuário é dividido em catego
 Estas categorias, por sua vez, são subdividias em:
 
 \begin{enumerate}
-  \item Agentes de software -- se refere a agentes de software que se encaixam nesta categoria, e que se comunicam com o perfil. Estão exemplificados os agentes GlobalEdu\cite{??} e LOCAL\cite{??} como agentes educacionais, e o MUCS\cite{??} como um agente profissional, embora qualquer agente possa criar um item para si mesmo. As informações de cada agente são de formato livre.
+  \item Agentes de software -- se refere a agentes de software que se encaixam nesta categoria, e que se comunicam com o perfil. Estão exemplificados os agentes ISAM\cite{??} e LOCAL\cite{??} como agentes educacionais, e o MUCS\cite{??} como um agente profissional, embora qualquer agente possa criar um item para si mesmo. As informações de cada agente são de formato livre.
   \item Informações processadas -- são as informações processadas pelos agentes.
 \end{enumerate}
 
-As informações processadas contém informações úteis que são extraídas a partir da trilha do usuário. Por exemplo, ao usar o agente educacional GlobalEdu, o usuário pode ter escolhido várias vezes estudar ou fazer trabalhos a respeito de uma determinada linguagem de programação (Java, por exemplo). Na trilha estarão contidas as ações dele (as opções por esta linguage), mas na listagem de informações processadas estará uma preferência pela linguagem Java.
+As informações processadas contém informações úteis que são extraídas a partir da trilha do usuário. Por exemplo, ao usar o agente educacional ISAM, o usuário pode ter escolhido várias vezes estudar ou fazer trabalhos a respeito de uma determinada linguagem de programação (Java, por exemplo). Na trilha estarão contidas as ações dele (as opções por esta linguage), mas na listagem de informações processadas estará uma preferência pela linguagem Java.
 
 Se, mais adiante, o usuário decidir comprar um livro, um módulo literário poderá ler a preferência dele por Java e sugerir a compra de um livro a respeito do assunto. Note que o módulo literário irá buscar a informação processada, e não os eventos educacionais do usuário.
 
@@ -118,17 +118,17 @@ Cada agente terá acesso à sua própria trilha (para processamento de suas pró
   \item \textbf{Informações processadas em outras categorias:} o agente tem acesso somente leitura. Ele pode fazer uso das informações, mas não tem competência para atualizar informações de outras categorias.
 \end{enumerate}
 
-A Figura~\ref{fig:acesso} mostra um exemplo do perfil de um usuário, mostrando a quais informações o módulo GlobalEdu terá acesso. Na figura, os nós cinzas representam as informações às quais o módulo tem acesso para leitura/escrita, e os nós de borda dupla representam acesso somente leitura.
+A Figura~\ref{fig:acesso} mostra um exemplo do perfil de um usuário, mostrando a quais informações o módulo ISAM terá acesso. Na figura, os nós cinzas representam as informações às quais o módulo tem acesso para leitura/escrita, e os nós de borda dupla representam acesso somente leitura.
 
 \begin{figure}
   \includegraphics[width=0.5\textwidth]{acesso.pdf}
-  \caption{Informações às quais o módulo GlobalEdu tem acesso (exemplo)}
+  \caption{Informações às quais o módulo ISAM tem acesso (exemplo)}
   \label{fig:acesso}
 \end{figure}
 
 O processamento ocorre de forma \emph{incremental}. Desta forma, o agente pode ler apenas os eventos que ocorreram a partir do último processamento, comparando com as informações já processadas, de forma a não onerar muito a conexão disponível nem o tempo de processamento do agente. 
 
-Além disso, o processamento incremental permitirá que o agente possa ser capaz de alterar informações que foram processadas por outro agente. Utilizando o exemplo acima, o GlobalEdu é capaz de atualizar informações processadas pelo LOCAL, mesmo sem ser capaz de compreender (nem ter acesso) às informações não processadas pelo LOCAL.
+Além disso, o processamento incremental permitirá que o agente possa ser capaz de alterar informações que foram processadas por outro agente. Utilizando o exemplo acima, o ISAM é capaz de atualizar informações processadas pelo LOCAL, mesmo sem ser capaz de compreender (nem ter acesso) às informações não processadas pelo LOCAL.
 
 O agente é o responsável pelo processamento. A forma como este processamento irá ocorrer ainda é uma questão em aberto. Uma possibilidade é que o agente solicite as informações ao dispositivo, as processe, e devolva ao dispositivo. Outra possibilidade é que o agente entregue ao dispositivo um módulo (em Java, por exemplo), o dispositivo faça o próprio processamento e atualize suas próprias informações. Uma terceira possibilidade é que as duas formas sejam possíveis, e a decisão de quem irá realizar o processamento seja baseado no ambiente (capacidade de rede disponível, tempo de processamento disponível, etc\ldots)
 
