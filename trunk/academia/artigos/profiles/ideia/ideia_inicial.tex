@@ -7,7 +7,7 @@
 %\usepackage{natbib}
 %\usepackage{pstricks}
 %\usepackage{pst-plot}
-%\usepackage[pdftex]{graphicx}
+\usepackage[pdftex]{graphicx}
 %\usepackage[top=1cm,bottom=1cm,left=1cm,right=1cm]{geometry}
 %\usepackage{multicol}
 
@@ -74,7 +74,30 @@ Assim, torna-se necessária a separação entre informações \textbf{processada
 
 Desta forma, os módulos não seriam capazes de compreender as informações \emph{não processadas} de outro módulo, somente as suas próprias, mas todos os módulos seriam capazes de compreender as informações \emph{processadas} uns dos outros.
 
-Estes fatos fazem com que a estrutura mais adequada para o registro das informações do perfil do usuário seja a estrutura de árvore. Um exemplo desta estrutura é dada na figura 
+Obviamente, torna-se necessária a criação de uma ontologia para que um módulo tenha condições de acessar as informações processadas de outro.
+
+Estes fatos fazem com que a estrutura mais adequada para o registro das informações do perfil do usuário seja a estrutura de árvore. Um exemplo desta estrutura é dada na Figura~\ref{fig:perfil}, onde ``NP'' representa a lista de eventos não processados (a trilha), e ``P'' representa a listagem de eventos processados (as preferências).
+
+\begin{figure}
+  \includegraphics[width=0.5\textwidth]{perfil.pdf}
+  \caption{Exemplo do perfil de um usuário}
+  \label{fig:perfil}
+\end{figure}
+
+Como pode se verificar neste exemplo, o perfil do usuário é dividido em categorias. Aqui estão presentes ``educação'' e ``trabalho'', porém inúmeras outras podem existir.
+
+Estas categorias, por sua vez, são subdividias em:
+
+\begin{enumerate}
+  \item Agentes de software -- se refere a agentes de software que se encaixam nesta categoria, e que se comunicam com o perfil. Estão exemplificados os agentes GlobalEdu\cite{??} e LOCAL\cite{??} como agentes educacionais, e o MUCS\cite{??} como um agente profissional.
+  \item Informações processadas -- são as informações processadas pelos agentes.
+\end{enumerate}
+
+As informações processadas contém informações úteis que são extraídas a partir da trilha do usuário. Por exemplo, ao usar o agente educacional GlobalEdu, o usuário pode ter escolhido várias vezes estudar ou fazer trabalhos a respeito de uma determinada linguagem de programação (Java, por exemplo). Na trilha estarão contidas as ações dele (as opções por esta linguage), mas na listagem de informações processadas estará uma preferência pela linguagem Java.
+
+Se, mais adiante, o usuário decidir comprar um livro, um módulo literário poderá ler a preferência dele por Java e sugerir a compra de um livro a respeito do assunto. Note que o módulo literário irá buscar a informação processada, e não os eventos educacionais do usuário.
+
+% TODO - figura explicando a que informações o agente tem acesso
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

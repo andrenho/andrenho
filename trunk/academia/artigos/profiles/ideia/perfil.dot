@@ -1,0 +1,23 @@
+digraph Perfil {
+
+    perfil -> educacao
+    perfil -> trabalho
+
+    educacao -> GlobalEdu
+    educacao -> LOCAL
+    trabalho -> MUCS
+
+    educacao -> P1
+    trabalho -> P2
+
+    GlobalEdu -> NP1
+    LOCAL -> NP2
+    MUCS -> NP3
+    
+    P1 [label="P", shape=box]
+    NP1 [label="NP", shape=box]
+    P2 [label="P", shape=box]
+    NP2 [label="NP", shape=box]
+    NP3 [label="NP", shape=box]
+
+}
