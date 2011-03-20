@@ -3,19 +3,19 @@ digraph Perfil {
     perfil [style=bold];
     educacao [style=bold];
     profissional [style=bold];
-    GlobalEdu [style=bold];
+    ISAM [style=bold];
 
     perfil -> educacao [style=bold];
     perfil -> profissional [style=bold];
 
-    educacao -> GlobalEdu [style=bold];
+    educacao -> ISAM [style=bold];
     educacao -> LOCAL;
     profissional -> MUCS;
 
     educacao -> P1 [style=bold];
     profissional -> P2 [style=bold];
 
-    GlobalEdu -> NP1 [style=bold];
+    ISAM -> NP1 [style=bold];
     LOCAL -> NP2;
     MUCS -> NP3;
     

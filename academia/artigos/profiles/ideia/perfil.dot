@@ -3,14 +3,14 @@ digraph Perfil {
     perfil -> educacao
     perfil -> profissional
 
-    educacao -> GlobalEdu
+    educacao -> ISAM
     educacao -> LOCAL
     profissional -> MUCS
 
     educacao -> P1
     profissional -> P2
 
-    GlobalEdu -> NP1
+    ISAM -> NP1
     LOCAL -> NP2
     MUCS -> NP3
     
