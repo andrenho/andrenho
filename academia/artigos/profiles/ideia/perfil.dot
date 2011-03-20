@@ -1,14 +1,14 @@
 digraph Perfil {
 
     perfil -> educacao
-    perfil -> trabalho
+    perfil -> profissional
 
     educacao -> GlobalEdu
     educacao -> LOCAL
-    trabalho -> MUCS
+    profissional -> MUCS
 
     educacao -> P1
-    trabalho -> P2
+    profissional -> P2
 
     GlobalEdu -> NP1
     LOCAL -> NP2

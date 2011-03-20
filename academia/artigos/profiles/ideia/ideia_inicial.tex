@@ -97,15 +97,31 @@ As informações processadas contém informações úteis que são extraídas a 
 
 Se, mais adiante, o usuário decidir comprar um livro, um módulo literário poderá ler a preferência dele por Java e sugerir a compra de um livro a respeito do assunto. Note que o módulo literário irá buscar a informação processada, e não os eventos educacionais do usuário.
 
-% TODO - figura explicando a que informações o agente tem acesso
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Processamento de trilhas}
+
+Cada agente terá acesso à sua própria trilha (para processamento de suas próprias informações), e às informações processadas pelas outras trilhas. As regras de acesso são as seguintes:
+
+\begin{enumerate}
+  \item \textbf{Informações não processadas do próprio agente:} o agente tem acesso escrita/leitura a estas informações, de modo que ele possa registrar os eventos, e lê-los posteriormente para processamento;
+  \item \textbf{Informações processadas na categoria do agente:} o agente tem acesso escrita/leitura, de modo que possa tanto gravar as informações processadas quanto fazer uso das mesmas;
+  \item \textbf{Informações processadas em outras categorias:} o agente tem acesso somente leitura. Ele pode fazer uso das informações, mas não tem competência para atualizar informações de outras categorias.
+\end{enumerate}
+
+A Figura~\ref{fig:acesso} mostra um exemplo do perfil de um usuário, mostrando a quais informações o módulo GlobalEdu terá acesso. Na figura, os nós cinzas representam as informações às quais o módulo tem acesso para leitura/escrita, e os nós de borda dupla representam somente leitura.
+
+\begin{figure}
+  \includegraphics[width=0.5\textwidth]{acesso.pdf}
+  \caption{Informações às quais o módulo GlobalEdu tem acesso (exemplo)}
+  \label{fig:acesso}
+\end{figure}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Gerenciador de perfis}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{Processamento de trilhas}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
