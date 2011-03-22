@@ -3,20 +3,20 @@ digraph Perfil {
     perfil [style=bold];
     educacao [style=bold];
     profissional [style=bold];
-    ISAM [style=bold];
+    LOCAL [style=bold];
 
     perfil -> educacao [style=bold];
     perfil -> profissional [style=bold];
 
-    educacao -> ISAM [style=bold];
-    educacao -> LOCAL;
+    educacao -> LOCAL [style=bold];
+    educacao -> ISAM;
     profissional -> MUCS;
 
     educacao -> P1 [style=bold];
     profissional -> P2 [style=bold];
 
-    ISAM -> NP1 [style=bold];
-    LOCAL -> NP2;
+    LOCAL -> NP1 [style=bold];
+    ISAM -> NP2;
     MUCS -> NP3;
     
     P1 [label="P", shape=box, style=bold, style=filled];

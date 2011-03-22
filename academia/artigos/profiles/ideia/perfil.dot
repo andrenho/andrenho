@@ -3,15 +3,15 @@ digraph Perfil {
     perfil -> educacao
     perfil -> profissional
 
-    educacao -> ISAM
     educacao -> LOCAL
+    educacao -> ISAM
     profissional -> MUCS
 
     educacao -> P1
     profissional -> P2
 
-    ISAM -> NP1
-    LOCAL -> NP2
+    LOCAL -> NP1
+    ISAM -> NP2
     MUCS -> NP3
     
     P1 [label="P", shape=box]
