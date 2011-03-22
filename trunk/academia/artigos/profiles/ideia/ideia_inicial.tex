@@ -1,9 +1,9 @@
 %
-% TODO - importante! Verificar se ISAM e LOCAL podem ser tratados da
-% mesma forma!!!
-%
-% - alterar a terminologia para "agente" e "dispositivo" (??)
-%
+% TODO 
+%  - colocar legendas nas figuras, melhorar as figuras
+%  - verificar a palavra "agente"
+% 
+
 
 \documentclass[a4paper, twocolumn]{article}
 \pagestyle{empty}
@@ -23,7 +23,7 @@
 %\usepackage{euler}
 %\everymath{\displaystyle}
 
-\author{André Wagner \and Débora N. F. Barbosa \and Jorge L. V. Barbosa}
+\author{André Wagner \and Jorge L. V. Barbosa \and Débora N. F. Barbosa}
 \title{Um Modelo para Gerenciamento de Perfis com Suporte a Trilhas para Ambientes Ubíquos}
 
 \begin{document}
@@ -50,17 +50,25 @@ Mais recentemente, têm sido realizadas pesquisas na busca da utilização não 
 
 Este artigo apresenta uma idéia para a criação de um modelo genérico de perfis baseados em trilhas para ambientes ubíquos, no qual qualquer agente pode ter acesso a informações geradas por outro agente, de modo a personalizar automaticamente a experiência dos usuários através da análise de suas ações passadas. Este modelo é apenas uma idéia inicial, e possui várias questões ainda em aberto.
 
+% Seções
+
+A Seção~\ref{sec:modelo} deste artigo apresenta a proposta para a criação do modelo de gerenciamento de perfis. A Seção~\ref{sec:relacionados} apresenta uma breve avaliação de outros estudos na mesma área. A seguir é apresentada a Conclusão, onde é feita uma comparação com os trabalhos existentes e os pontos em aberto são listados.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Modelo}
+\section{Modelo} \label{sec:modelo}
+
+Esta seção apresenta a proposta para criação de um modelo de gerenciamento de perfis. Os dados do perfil ficarão armazenados em um dispositivo pessoal do usuário, que estará em constante comunicação com outros agentes ubíquos. Os agentes registrarão eventos no perfil, processando estas informações e fazendo uso de informações processadas por outros perfis.
 
 % TODO
 %
 % adicionar uma figura mostrando o funcionamento básico
 
+Esta seção está organizada em seis subseções. A Seção~\ref{sec:perfil} apresenta uma idéia geral do gerenciamento do perfil. A Seção~\ref{sec:formato} discute qual o formato ideal para o armazenamento das informações. A Seção~\ref{sec:processamento} delineia a forma com que ocorrerá o processamento das trilhas. A Seção~\ref{sec:comunicacao} reflete sobre a forma como se dará a comunicação entre o gerenciador de perfis e os agentes. Finalmente, a Seção~\ref{sec:ontologia} discorre sobre uma ontologia para o perfil.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Perfis de usuário}
+\subsection{Perfis de usuário} \label{sec:perfil}
 
 O modelo aqui proposto é baseado na idéia de Computação Ubíqua apresentada por Weiser \cite{weiser91}, na qual os softwares que fornecem os serviços se adaptem às necessidades do usuário. Assim sendo, o perfil do usuário, que contém todas as informações relacionadas a ele e às suas preferencias, deve estar sempre acessível a qualquer serviço do qual o usuário faça uso.
 
@@ -73,9 +81,9 @@ Devido à volatilidade dos dispositivos móveis, e ao fato de muitos usuários p
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Formato dos perfis}
+\subsection{Formato dos perfis} \label{sec:formato}
 
-A maioria dos trabalhos na área de perfis considera os dados inseridos pelo usuário como parte central do perfil do usuário \cite{??}, embora alguns incluam informações históricas do usuário como parte do perfil \cite{??}. Este modelo aqui apresentado compreende que \textbf{o histórico do usuário (sua trilha) é o seu perfil}, sendo que não é necessário que usuário insira qualquer informação a respeito de si mesmo -- todas suas informações podem ser inferidas a partir do seu histórico de ações, devidamente armazenadas em seu perfil.
+A maioria dos trabalhos na área de perfis considera os dados inseridos pelo usuário como parte central do perfil do usuário \cite{??}, embora alguns incluam informações históricas do usuário como parte do perfil \cite{??}. Este modelo aqui apresentado compreende que \emph{o histórico do usuário (sua trilha) é o seu perfil} \cite{??}, sendo que não é necessário que usuário insira qualquer informação a respeito de si mesmo -- todas suas informações podem ser inferidas a partir do seu histórico de ações, devidamente armazenadas em seu perfil.
 
 No entanto, o simples registro das ações do usuário torna imprática a inferência de suas preferências. Por exemplo, um módulo ubíquo educacional não teria dificuldade em interpretar as preferências baseado nas ações registradas por ele mesmo -- no entanto, este mesmo módulo provavelmente não saberia como interpretar as informações geradas por outros módulos.
 
@@ -98,17 +106,17 @@ Como pode se verificar neste exemplo, o perfil do usuário é dividido em catego
 Estas categorias, por sua vez, são subdividias em:
 
 \begin{enumerate}
-  \item Agentes de software -- se refere a agentes de software que se encaixam nesta categoria, e que se comunicam com o perfil. Estão exemplificados os agentes ISAM\cite{??} e LOCAL\cite{??} como agentes educacionais, e o MUCS\cite{??} como um agente profissional, embora qualquer agente possa criar um item para si mesmo. As informações de cada agente são de formato livre.
+  \item Agentes de software -- se refere a agentes de software que se encaixam nesta categoria, e que se comunicam com o perfil. Estão exemplificados os agentes LOCAL\cite{??} e ISAM\cite{??} como agentes educacionais, e o MUCS\cite{??} como um agente profissional, embora qualquer agente possa criar um item para si mesmo. As informações de cada agente são de formato livre.
   \item Informações processadas -- são as informações processadas pelos agentes.
 \end{enumerate}
 
-As informações processadas contém informações úteis que são extraídas a partir da trilha do usuário. Por exemplo, ao usar o agente educacional ISAM, o usuário pode ter escolhido várias vezes estudar ou fazer trabalhos a respeito de uma determinada linguagem de programação (Java, por exemplo). Na trilha estarão contidas as ações dele (as opções por esta linguage), mas na listagem de informações processadas estará uma preferência pela linguagem Java.
+As informações processadas contém informações úteis que são extraídas a partir da trilha do usuário. Por exemplo, ao usar o agente educacional LOCAL, o usuário pode ter escolhido várias vezes estudar ou fazer trabalhos a respeito de uma determinada linguagem de programação (Java, por exemplo). Na trilha estarão contidas as ações dele (as opções por esta linguage), mas na listagem de informações processadas estará uma preferência pela linguagem Java.
 
 Se, mais adiante, o usuário decidir comprar um livro, um módulo literário poderá ler a preferência dele por Java e sugerir a compra de um livro a respeito do assunto. Note que o módulo literário irá buscar a informação processada, e não os eventos educacionais do usuário.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Processamento de trilhas}
+\subsection{Processamento de trilhas} \label{sec:processamento}
 
 Cada agente terá acesso à sua própria trilha (para processamento de suas próprias informações), e às informações processadas pelas outras trilhas. As regras de acesso são as seguintes:
 
@@ -118,23 +126,23 @@ Cada agente terá acesso à sua própria trilha (para processamento de suas pró
   \item \textbf{Informações processadas em outras categorias:} o agente tem acesso somente leitura. Ele pode fazer uso das informações, mas não tem competência para atualizar informações de outras categorias.
 \end{enumerate}
 
-A Figura~\ref{fig:acesso} mostra um exemplo do perfil de um usuário, mostrando a quais informações o módulo ISAM terá acesso. Na figura, os nós cinzas representam as informações às quais o módulo tem acesso para leitura/escrita, e os nós de borda dupla representam acesso somente leitura.
+A Figura~\ref{fig:acesso} mostra um exemplo do perfil de um usuário, mostrando a quais informações o módulo LOCAL terá acesso. Na figura, os nós cinzas representam as informações às quais o módulo tem acesso para leitura/escrita, e os nós de borda dupla representam acesso somente leitura.
 
 \begin{figure}
   \includegraphics[width=0.5\textwidth]{acesso.pdf}
-  \caption{Informações às quais o módulo ISAM tem acesso (exemplo)}
+  \caption{Informações às quais o módulo LOCAL tem acesso (exemplo)}
   \label{fig:acesso}
 \end{figure}
 
 O processamento ocorre de forma \emph{incremental}. Desta forma, o agente pode ler apenas os eventos que ocorreram a partir do último processamento, comparando com as informações já processadas, de forma a não onerar muito a conexão disponível nem o tempo de processamento do agente. 
 
-Além disso, o processamento incremental permitirá que o agente possa ser capaz de alterar informações que foram processadas por outro agente. Utilizando o exemplo acima, o ISAM é capaz de atualizar informações processadas pelo LOCAL, mesmo sem ser capaz de compreender (nem ter acesso) às informações não processadas pelo LOCAL.
+Além disso, o processamento incremental permitirá que o agente possa ser capaz de alterar informações que foram processadas por outro agente. Utilizando o exemplo acima, o LOCAL é capaz de atualizar informações processadas pelo ISAM, mesmo sem ser capaz de compreender (nem ter acesso) às informações não processadas pelo ISAM.
 
 O agente é o responsável pelo processamento. A forma como este processamento irá ocorrer ainda é uma questão em aberto. Uma possibilidade é que o agente solicite as informações ao dispositivo, as processe, e devolva ao dispositivo. Outra possibilidade é que o agente entregue ao dispositivo um módulo (em Java, por exemplo), o dispositivo faça o próprio processamento e atualize suas próprias informações. Uma terceira possibilidade é que as duas formas sejam possíveis, e a decisão de quem irá realizar o processamento seja baseado no ambiente (capacidade de rede disponível, tempo de processamento disponível, etc\ldots)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Comunicação entre agentes e dispositivos}
+\subsection{Comunicação entre agentes e dispositivos} \label{sec:comunicacao}
 
 A comunicação entre os agentes e disposivos ocorrerá através da rede que estiver disponível (WiFi, Bluetooth, etc\ldots). Acreditamos que a forma mais adequada para a comunicação seja através de Web Services \cite{??}, embora este ainda seja um ponto em aberto.
 
@@ -145,36 +153,75 @@ A API de comunicação será definida no decorrer do trabalho, mas o exemplo de 
   \item Primeiro acesso de um agente;
   \item Criação de novo evento pelo agente;
   \item Leitura de informações não processadas pelo agente;
-  \item Leiutra de informações processadas pelo agente;
+  \item Leitura de informações processadas pelo agente;
   \item Processamento de informações pelo agente e gravação das mesmas no perfil do usuário.
 \end{enumerate}
 
-Deste modo, um módulo que resida no dispositivo e gerencie o perfil deve ser desenvolvido. Alguns agentes que residirão do dispositivo também podem ser desenvolvidos, como um agente cadastral, que gerencie as informações cadastrais do usuário (nome, telefone, e-mail, etc\ldots)
+Deste modo, um módulo que resida no dispositivo e gerencie o perfil deve ser desenvolvido. Alguns agentes que residirão do dispositivo também podem ser desenvolvidos, como um agente cadastral, que gerencie as informações cadastrais do usuário (nome, telefone, e-mail, etc\ldots).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Ontologia}
+\subsection{Ontologia} \label{sec:ontologia}
 
 Como os agentes poderão acessar as informações processadas uns pelos outros, estas informações devem estar armazenadas no perfil do usuário de forma padronizada. Assim, uma ontologia deve ser criada de modo a permitir o fácil acesso a estas informações.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Trabalhos Relacionados}
+\section{Trabalhos Relacionados} \label{sec:relacionados}
 
-% Trabalhos
+% Sutterer, Coutand
+
+O projeto MobiLife \cite{??} disponibiliza um perfil de usuário adaptativo sensível a contexto, que permite que as aplicações se comportem de forma diferente, dependendo do contexto do usuário. Não há, no entanto, provisão para que um agente faça uso das informações geradas por outro agente.
+
+% Korth, Plumbaum
+
+O UMP (User Modeling and Personalization Framework) \cite{??} é um modelo de perfis de usuário que busca organizar os dados de usuários de diferentes aplicações em um servidor central. Este modelo permite que o histórico das ações do usuário sejam armazenadas, mas cada agente deve ser capaz de interpretar as ações geradas pelos outros agentes.
+
+% Chellouche, Arnaud, Négru
+
+O estudo \cite{??} apresenta um modelo onde o perfil de usuário se adapta às condições de ambiente (como qualidade da rede e dispositivo em uso) além de dados estáticos e de contexto. O trabalho foca especialmente em melhor a qualidade da experiência de aplicações multimídia.
+
+% Silva, Barbosa, Vieira (octopus)
+
+O modelo OCtoPUS \cite{??} é o que mais se aproxima do trabalho aqui apresentado, no que também consiste de uma arquitetura que também possibilita que vários agentes interajam com o conjunto de trilhas de um usuário, e que informações úteis possam ser inferidas através das trilhas. No entanto, ao contrário do projeto apresentado neste artigo, o OCtoPUS busca encaixar o usuário em um conjunto de perfis pré-definidos, ao invés de inferir as preferências de um usuário. Alem disso, o processamento é realizado pelo agente gerenciador do perfil, ao invés de encaminhar esta responsabilidade para os outros agentes.
 
 % Comparação
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Conclusão}
+\section{Conclusão} \label{sec:conclusao}
 
-% Conclusão...
+% Conclusão... TODO
+
+% Comparação com os trabalhos
 
 % Questões a ponderar
-% - localização?
+
+Algumas questões ficaram em aberto, e deverão ser respondidas durante o desenvolvimento do trabalho. Foram citados no texto:
+
+\begin{itemize}
+  \item É necessário estudar qual a melhor forma de realizar o \textbf{processamento}, e se o processamento ocorrerá no agente, no dispositivo ou em ambos.
+  \item A forma de \textbf{comunicação} entre o agente e o dispositivo, bem como a API de comunicação, precisam ser definidos.
+  \item Uma \textbf{ontologia} deve ser criada para padronização das informações do perfil.
+\end{itemize}
+
+Além dos aspectos mencionados, outros estudos na área abrem novas possibilidades, que poderiam ou não fazer parte do escopo de estudo do trabalho:
+
+\begin{itemize}
+
+% - localização
+  \item De que forma a \textbf{localização} do usuário pode fornecer informações úteis para o gerenciamento dos perfis?
+
 % - privacidade?
+  \item Haverá gerenciamento da \textbf{privacidade} do usuário? De que forma ocorrerá este gerenciamento?
+
 % - segurança?
+  \item Como será o controle da \textbf{segurança} das informações? O que impedirá um cliente não autorizado de ter acesso a informações restritas do perfil? Se for definido que o agente entregará código para ser executado no dispositivo, o que impedirá que este código seja malicioso?
+
+\end{itemize}
+
+% escopo mais definido / avaliação
+A resposta a estas questões é necessária para que seja definido o escopo do trabalho, levando em consideração o que deve ser estudado e implementado. Uma vez definido o escopo, será possível escolher como será realizada a avaliação do modelo.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
