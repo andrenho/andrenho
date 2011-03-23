@@ -11,10 +11,14 @@
 \usepackage[portuguese]{babel}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
+
+\usepackage{booktabs}
+
 %\usepackage{natbib}
 %\usepackage{pstricks}
 %\usepackage{pst-plot}
 \usepackage[pdftex]{graphicx}
+%\usepackage{url}
 %\usepackage[top=1cm,bottom=1cm,left=1cm,right=1cm]{geometry}
 %\usepackage{multicol}
 
@@ -40,7 +44,7 @@ Computação Ubíqua \cite{weiser91} é um modelo de interação humano-computad
 
 % Perfis. Perfis em computação ubíqua.
 
-Desde o advento da computação, os programas têm buscado a adaptabilidade ao usuário através do uso de \emph{preferências} \cite{??}. Sistemas multiusuário trouxeram a noção de \emph{perfil}, onde múltiplas preferências são agrupadas ao redor de um usuário específico \cite{??}. O paradigma da Computação Ubíqua permitiu o desenvolvimento de sistemas capazes de se adaptarem a seus usuários tendo por base o seu contexto, dados e localização \cite{shilit94, dey2001}, e de adaptarem os perfis dos usuários através da análise das ações realizadas por eles \cite{pelep}.
+Desde o advento da computação, os programas têm buscado a adaptabilidade ao usuário através do uso de \emph{preferências} \cite{??}. Sistemas multiusuário trouxeram a noção de \emph{perfil}, onde múltiplas preferências são agrupadas ao redor de um usuário específico \cite{??}. O paradigma da Computação Ubíqua permitiu o desenvolvimento de sistemas capazes de se adaptarem a seus usuários tendo por base o seu contexto, dados e localização \cite{schilit94, dey2001}, e de adaptarem os perfis dos usuários através da análise das ações realizadas por eles \cite{pelep}.
 
 % Trilhas
 
@@ -73,9 +77,9 @@ Esta seção está organizada em seis subseções. A Seção~\ref{sec:perfil} ap
 O modelo aqui proposto é baseado na idéia de Computação Ubíqua apresentada por Weiser \cite{weiser91}, na qual os softwares que fornecem os serviços se adaptem às necessidades do usuário. Assim sendo, o perfil do usuário, que contém todas as informações relacionadas a ele e às suas preferencias, deve estar sempre acessível a qualquer serviço do qual o usuário faça uso.
 
 % TODO - verificar número de celulares
-Acreditamos que a melhor forma de permitir que o perfil esteja sempre disponível é que o usuário carregue o perfil fisicamente com ele. Atualmente, a proliferação de dispotivos móveis faz com que exista pelo menos um dispositivo para cada pessoa no mundo \cite{??}. Assim, o dispositivo pode carregar o perfil do usuário, permitindo o acesso pelos serviços remotos através de comunicação \emph{wireless} utilizando uma API.
+Acreditamos que a melhor forma de permitir que o perfil esteja sempre disponível é que o usuário carregue o perfil fisicamente com ele. Atualmente, a proliferação de dispotivos móveis faz com que exista pelo menos um dispositivo para cada pessoa no mundo \cite{bbc10}. Assim, o dispositivo pode carregar o perfil do usuário, permitindo o acesso pelos serviços remotos através de comunicação \emph{wireless} utilizando uma API.
 
-Avanços em pesquisas permitirão em breve que este perfil possa ser carregado até mesmo nas roupas dos usuários \cite{??}. Além disso, os perfis não ficarão presentes apenas nos dispositivos móveis, mas também nos computadores ao qual o usuário tem acesso (por exemplo, em casa, no trabalho, etc\ldots)
+Avanços em pesquisas permitirão em breve que este perfil possa ser carregado até mesmo nas roupas dos usuários \cite{starner96}. Além disso, os perfis não ficarão presentes apenas nos dispositivos móveis, mas também nos computadores ao qual o usuário tem acesso (por exemplo, em casa, no trabalho, etc\ldots)
 
 Devido à volatilidade dos dispositivos móveis, e ao fato de muitos usuários possuirem diversos dispositivos móveis, é necessário que estes dispositivos mantenham o perfil atualizado. Assim, será necessário o desenvolvimento de um módulo que controle estas atualizações e faça o \emph{merge} das informações.
 
@@ -106,7 +110,7 @@ Como pode se verificar neste exemplo, o perfil do usuário é dividido em catego
 Estas categorias, por sua vez, são subdividias em:
 
 \begin{enumerate}
-  \item Agentes de software -- se refere a agentes de software que se encaixam nesta categoria, e que se comunicam com o perfil. Estão exemplificados os agentes LOCAL\cite{??} e ISAM\cite{??} como agentes educacionais, e o MUCS\cite{??} como um agente profissional, embora qualquer agente possa criar um item para si mesmo. As informações de cada agente são de formato livre.
+  \item Agentes de software -- se refere a agentes de software que se encaixam nesta categoria, e que se comunicam com o perfil. Estão exemplificados os agentes LOCAL\cite{barbosa08} e ISAM\cite{yamim02} como agentes educacionais, e o MUCS\cite{??} como um agente profissional, embora qualquer agente possa criar um item para si mesmo. As informações de cada agente são de formato livre.
   \item Informações processadas -- são as informações processadas pelos agentes.
 \end{enumerate}
 
@@ -169,29 +173,46 @@ Como os agentes poderão acessar as informações processadas uns pelos outros, 
 
 \section{Trabalhos Relacionados} \label{sec:relacionados}
 
+% Chellouche, Arnaud, Négru
+
+O estudo \cite{chellouche10} apresenta um modelo onde o perfil de usuário se adapta às condições de ambiente (como qualidade da rede e dispositivo em uso) além de dados estáticos e de contexto. O trabalho foca especialmente em melhor a qualidade da experiência de aplicações multimídia.
+
 % Sutterer, Coutand
 
-O projeto MobiLife \cite{??} disponibiliza um perfil de usuário adaptativo sensível a contexto, que permite que as aplicações se comportem de forma diferente, dependendo do contexto do usuário. Não há, no entanto, provisão para que um agente faça uso das informações geradas por outro agente.
+O projeto MobiLife \cite{sutterer07} disponibiliza um perfil de usuário adaptativo sensível a contexto, que permite que as aplicações se comportem de forma diferente, dependendo do contexto do usuário. Não há, no entanto, provisão para que um agente faça uso das informações geradas por outro agente.
 
 % Korth, Plumbaum
 
-O UMP (User Modeling and Personalization Framework) \cite{??} é um modelo de perfis de usuário que busca organizar os dados de usuários de diferentes aplicações em um servidor central. Este modelo permite que o histórico das ações do usuário sejam armazenadas, mas cada agente deve ser capaz de interpretar as ações geradas pelos outros agentes.
-
-% Chellouche, Arnaud, Négru
-
-O estudo \cite{??} apresenta um modelo onde o perfil de usuário se adapta às condições de ambiente (como qualidade da rede e dispositivo em uso) além de dados estáticos e de contexto. O trabalho foca especialmente em melhor a qualidade da experiência de aplicações multimídia.
+O UMP (User Modeling and Personalization Framework) \cite{korth07} é um modelo de perfis de usuário que busca organizar os dados de usuários de diferentes aplicações em um servidor central. Este modelo permite que o histórico das ações do usuário sejam armazenadas, mas cada agente deve ser capaz de interpretar as ações geradas pelos outros agentes.
 
 % Silva, Barbosa, Vieira (octopus)
 
-O modelo OCtoPUS \cite{??} é o que mais se aproxima do trabalho aqui apresentado, no que também consiste de uma arquitetura que também possibilita que vários agentes interajam com o conjunto de trilhas de um usuário, e que informações úteis possam ser inferidas através das trilhas. No entanto, ao contrário do projeto apresentado neste artigo, o OCtoPUS busca encaixar o usuário em um conjunto de perfis pré-definidos, ao invés de inferir as preferências de um usuário. Alem disso, o processamento é realizado pelo agente gerenciador do perfil, ao invés de encaminhar esta responsabilidade para os outros agentes.
+O modelo OCtoPUS \cite{silva09} consiste de uma arquitetura que, assim como este projeto, possibilita que vários agentes interajam com o conjunto de trilhas de um usuário, e que informações úteis possam ser inferidas através das trilhas. No entanto, ao contrário do projeto apresentado neste artigo, o OCtoPUS busca encaixar o usuário em um conjunto de perfis pré-definidos, ao invés de inferir as preferências de um usuário. Alem disso, o processamento é realizado pelo agente gerenciador do perfil, ao invés de encaminhar esta responsabilidade para os outros agentes.
 
 % Comparação
+
+De todos os trabalhos relacionados discutidos, o OCtoPUS é o que mais se aproxima do trabalho apresentado. O modelo descrito por este artigo se diferencia de todos os outros no fato do perfil do usuário não estar armazenado em um servidor central, mas num dispositivo que é levado junto com o usuário, permitindo a completa descentralização do modelo. 
+%A Tabela~\ref{tab:comparacao} faz o comparativo entre os trabalhos.
+
+% tabela
+%\begin{table}
+%  \renewcommand{\arraystretch}{1.3}
+%  \begin{tabular}{@{}lp{1.6cm}p{1.6cm}p{1.6cm}p{1.6cm}@{}}
+%  \toprule
+%    Modelo & Sensível a contexto & Diferentes aplicações & Processamento & Armazenamento do perfil \\
+%  \midrule
+%    1 & 2 & 3 \\
+%  \bottomrule
+%  \end{tabular}
+%  \label{tab:comparacao}
+%  \caption{Comparativo entre trabalhos relacionados.}
+%\end{table}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Conclusão} \label{sec:conclusao}
 
-% Conclusão... TODO
+O artigo propôs a criação de um modelo de gerenciamento de perfis. O modelo tem como ponto central a capacidade de ser prontamente utilizado por qualquer agente externo. Para tal, o perfil fica disponível em um dispositivo móvel que é carregado fisicamente com o usuário, estando assim disponível a qualquer momento. Qualquer agente pode salvar e ler suas informações no perfil, e uma ontologia padronizada é utilizada de modo a permitir que os agentes possam utilizar e atualizar informações processadas por outros agentes.
 
 % Comparação com os trabalhos
 
@@ -226,6 +247,6 @@ A resposta a estas questões é necessária para que seja definido o escopo do t
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \bibliographystyle{ieeetr}
-\bibliography{../../ubicomp}
+\bibliography{ubicomp}
 
 \end{document}
