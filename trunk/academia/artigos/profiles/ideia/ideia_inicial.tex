@@ -40,11 +40,11 @@
 
 % Computação Ubíqua
 
-Computação Ubíqua \cite{weiser91} é um modelo de interação humano-computador onde os recursos computacionais que fornecem informações e serviços estão disponíveis a qualquer momento e em qualquer lugar. De modo a evitar a sobrecarga de informações sobre o usuário, esta tecnologia busca manter-se na periferia da atenção de seus utilizadores, trazendo a atenção para si apenas nos momentos em que é necessária. Este paradigma recebe o nome de ``tecnologia calma'' \cite{weiser96}.
+Computação Ubíqua \cite{weiser91} é um modelo de interação humano-computador (IHC) onde os recursos computacionais que fornecem informações e serviços estão disponíveis a qualquer momento e em qualquer lugar. De modo a evitar a sobrecarga de informações sobre o usuário, esta tecnologia busca manter-se na periferia da atenção de seus utilizadores, trazendo a atenção para si apenas nos momentos em que é necessária. Este paradigma recebe o nome de ``tecnologia calma'' \cite{weiser96}.
 
 % Perfis. Perfis em computação ubíqua.
 
-Desde o advento da computação, os programas têm buscado a adaptabilidade ao usuário através do uso de \emph{preferências} \cite{??}. Sistemas multiusuário trouxeram a noção de \emph{perfil}, onde múltiplas preferências são agrupadas ao redor de um usuário específico \cite{??}. O paradigma da Computação Ubíqua permitiu o desenvolvimento de sistemas capazes de se adaptarem a seus usuários tendo por base o seu contexto, dados e localização \cite{schilit94, dey2001}, e de adaptarem os perfis dos usuários através da análise das ações realizadas por eles \cite{pelep}.
+Desde o advento da computação, os programas têm buscado a adaptabilidade ao usuário através do uso de \emph{preferências} \cite{??}. Sistemas multiusuário trouxeram a noção de \emph{perfil}, onde múltiplas preferências são agrupadas em um usuário específico \cite{??}. O paradigma da Computação Ubíqua permitiu o desenvolvimento de sistemas capazes de se adaptarem a seus usuários tendo por base o seu contexto, dados e localização \cite{schilit94, dey2001}, e de adaptarem os perfis dos usuários através da análise das ações realizadas por eles \cite{pelep}.
 
 % Trilhas
 
@@ -52,21 +52,23 @@ Mais recentemente, têm sido realizadas pesquisas na busca da utilização não 
 
 % Modelo
 
-Este artigo apresenta uma idéia para a criação de um modelo genérico de perfis baseados em trilhas para ambientes ubíquos, no qual qualquer agente pode ter acesso a informações geradas por outro agente, de modo a personalizar automaticamente a experiência dos usuários através da análise de suas ações passadas. Este modelo é apenas uma idéia inicial, e possui várias questões ainda em aberto.
+Este artigo apresenta uma proposta inicial para a criação de um modelo genérico de perfis baseados em trilhas para ambientes ubíquos, no qual qualquer agente pode ter acesso a informações geradas por outro agente, de modo a personalizar automaticamente a experiência dos usuários através da análise de suas ações passadas. Este modelo é apenas uma idéia inicial, e possui várias questões ainda em aberto.
 
 % Seções
 
-A Seção~\ref{sec:modelo} deste artigo apresenta a proposta para a criação do modelo de gerenciamento de perfis. A Seção~\ref{sec:relacionados} apresenta uma breve avaliação de outros estudos na mesma área. A seguir é apresentada a Conclusão, onde é feita uma comparação com os trabalhos existentes e os pontos em aberto são listados.
+A Seção~\ref{sec:modelo} deste artigo apresenta a proposta para a criação do modelo de gerenciamento de perfis. A Seção~\ref{sec:relacionados} apresenta uma breve avaliação de outros estudos na mesma área. A seguir é apresentada a Conclusão, onde os pontos em aberto são discutidos.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Modelo} \label{sec:modelo}
 
-Esta seção apresenta a proposta para criação de um modelo de gerenciamento de perfis. Os dados do perfil ficarão armazenados em um dispositivo pessoal do usuário, que estará em constante comunicação com outros agentes ubíquos. Os agentes registrarão eventos no perfil, processando estas informações e fazendo uso de informações processadas por outros perfis.
+Esta seção apresenta a proposta para criação de um modelo de gerenciamento de perfis. Os dados do perfil ficarão armazenados em um dispositivo pessoal do usuário, que estará em constante comunicação com outros agentes ubíquos, segundo exemplificado na Figura~\ref{fig:geral}. Os agentes registrarão seus eventos no perfil, processando estas informações e fazendo uso de informações processadas por outros perfis.
 
-% TODO
-%
-% adicionar uma figura mostrando o funcionamento básico
+\begin{figure}
+  \includegraphics[width=0.5\textwidth]{geral.png}
+  \caption{Comunicação entre dispositivo pessoal e agentes}
+  \label{fig:geral}
+\end{figure}
 
 Esta seção está organizada em seis subseções. A Seção~\ref{sec:perfil} apresenta uma idéia geral do gerenciamento do perfil. A Seção~\ref{sec:formato} discute qual o formato ideal para o armazenamento das informações. A Seção~\ref{sec:processamento} delineia a forma com que ocorrerá o processamento das trilhas. A Seção~\ref{sec:comunicacao} reflete sobre a forma como se dará a comunicação entre o gerenciador de perfis e os agentes. Finalmente, a Seção~\ref{sec:ontologia} discorre sobre uma ontologia para o perfil.
 
@@ -74,28 +76,27 @@ Esta seção está organizada em seis subseções. A Seção~\ref{sec:perfil} ap
 
 \subsection{Perfis de usuário} \label{sec:perfil}
 
-O modelo aqui proposto é baseado na idéia de Computação Ubíqua apresentada por Weiser \cite{weiser91}, na qual os softwares que fornecem os serviços se adaptem às necessidades do usuário. Assim sendo, o perfil do usuário, que contém todas as informações relacionadas a ele e às suas preferencias, deve estar sempre acessível a qualquer serviço do qual o usuário faça uso.
+O modelo aqui proposto é baseado na proposta apresentada em \cite{weiser91}, na qual os softwares que fornecem os serviços se adaptam às necessidades do usuário. Assim sendo, o perfil do usuário, que contém todas as informações relacionadas a ele e às suas preferencias, deve estar sempre acessível a qualquer serviço do qual o usuário faça uso.
 
-% TODO - verificar número de celulares
-Acreditamos que a melhor forma de permitir que o perfil esteja sempre disponível é que o usuário carregue o perfil fisicamente com ele. Atualmente, a proliferação de dispotivos móveis faz com que exista pelo menos um dispositivo para cada pessoa no mundo \cite{bbc10}. Assim, o dispositivo pode carregar o perfil do usuário, permitindo o acesso pelos serviços remotos através de comunicação \emph{wireless} utilizando uma API.
+Acreditamos que a melhor forma de permitir que o perfil esteja sempre disponível é que o usuário carregue o perfil fisicamente com ele. Atualmente, a proliferação de dispotivos móveis faz com que exista praticamento um dispositivo para cada pessoa no mundo \cite{bbc10}. Assim, o dispositivo pode carregar o perfil do usuário, permitindo o acesso pelos serviços remotos através de comunicação \emph{wireless} utilizando uma API.
 
-Avanços em pesquisas permitirão em breve que este perfil possa ser carregado até mesmo nas roupas dos usuários \cite{starner96}. Além disso, os perfis não ficarão presentes apenas nos dispositivos móveis, mas também nos computadores ao qual o usuário tem acesso (por exemplo, em casa, no trabalho, etc\ldots)
+Avanços em pesquisas demonstram que este perfil possa ser carregado até mesmo nas roupas dos usuários \cite{starner96}. Além disso, os perfis não ficarão presentes apenas nos dispositivos móveis, mas também nos computadores ao qual o usuário tem acesso (por exemplo, em casa, no trabalho, etc\ldots)
 
-Devido à volatilidade dos dispositivos móveis, e ao fato de muitos usuários possuirem diversos dispositivos móveis, é necessário que estes dispositivos mantenham o perfil atualizado. Assim, será necessário o desenvolvimento de um módulo que controle estas atualizações e faça o \emph{merge} das informações.
+Devido à volatilidade dos dispositivos móveis, e ao fato de muitos usuários possuirem diversos dispositivos móveis, é necessário que estes dispositivos mantenham o perfil atualizado. Assim, será necessário o desenvolvimento de um módulo que controle estas atualizações e faça a junção das informações.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Formato dos perfis} \label{sec:formato}
 
-A maioria dos trabalhos na área de perfis considera os dados inseridos pelo usuário como parte central do perfil do usuário \cite{??}, embora alguns incluam informações históricas do usuário como parte do perfil \cite{??}. Este modelo aqui apresentado compreende que \emph{o histórico do usuário (sua trilha) é o seu perfil} \cite{??}, sendo que não é necessário que usuário insira qualquer informação a respeito de si mesmo -- todas suas informações podem ser inferidas a partir do seu histórico de ações, devidamente armazenadas em seu perfil.
+A maioria dos trabalhos na área de perfis considera os dados inseridos pelo usuário como parte central do perfil do usuário \cite{??}, embora alguns incluam informações históricas do usuário como parte do perfil \cite{??}. O modelo aqui apresentado compreende que \emph{o histórico do usuário (sua trilha) é o seu perfil} \cite{??}, sendo que não é necessário que usuário insira qualquer informação a respeito de si mesmo -- todas suas informações podem ser inferidas a partir do histórico de ações armazenado em seu perfil.
 
-No entanto, o simples registro das ações do usuário torna imprática a inferência de suas preferências. Por exemplo, um módulo ubíquo educacional não teria dificuldade em interpretar as preferências baseado nas ações registradas por ele mesmo -- no entanto, este mesmo módulo provavelmente não saberia como interpretar as informações geradas por outros módulos.
+No entanto, o simples registro das ações do usuário torna imprática a inferência de suas preferências. Por exemplo, um módulo ubíquo educacional não teria dificuldade em interpretar as preferências baseado nas ações registradas por ele mesmo -- no entanto, este mesmo módulo provavelmente não teria condições de interpretar as informações geradas por outros módulos.
 
-Assim, torna-se necessária a separação entre informações \textbf{processadas} e \textbf{não processadas}. As informações não processadas registram os meros eventos realizados pelo usuário, enquanto as informações processadas são compostas da inferência das informações a partir das informações não processadas.
+Assim, torna-se necessária a separação entre informações \textbf{processadas} e \textbf{não processadas}. As informações não processadas registram os eventos realizados pelo usuário, enquanto as informações processadas são compostas da inferência das informações a partir dos dados não processados do usuário.
 
-Desta forma, os módulos não seriam capazes de compreender as informações \emph{não processadas} de outro módulo, somente as suas próprias, mas todos os módulos seriam capazes de compreender as informações \emph{processadas} uns dos outros.
+Desta forma, os módulos não seriam teriam acesso às informações \emph{não processadas} de outro módulo, somente as suas próprias, mas todos os módulos seriam capazes de compreender as informações \emph{processadas} uns dos outros.
 
-Obviamente, torna-se necessária a criação de uma ontologia para que um módulo tenha condições de acessar as informações processadas de outro.
+Assim, torna-se necessária a criação de uma ontologia para que um módulo tenha condições de acessar as informações processadas de outro.
 
 Estes fatos fazem com que a estrutura mais adequada para o registro das informações do perfil do usuário seja a estrutura de árvore. Um exemplo desta estrutura é dada na Figura~\ref{fig:perfil}, onde ``NP'' representa a lista de eventos não processados (a trilha), e ``P'' representa a listagem de eventos processados (as preferências).
 
@@ -110,13 +111,13 @@ Como pode se verificar neste exemplo, o perfil do usuário é dividido em catego
 Estas categorias, por sua vez, são subdividias em:
 
 \begin{enumerate}
-  \item Agentes de software -- se refere a agentes de software que se encaixam nesta categoria, e que se comunicam com o perfil. Estão exemplificados os agentes LOCAL\cite{barbosa08} e ISAM\cite{yamim02} como agentes educacionais, e o MUCS\cite{??} como um agente profissional, embora qualquer agente possa criar um item para si mesmo. As informações de cada agente são de formato livre.
+  \item Agentes de software -- se refere a agentes de software que se encaixam nesta categoria, e que se comunicam com o perfil. Estão exemplificados os agentes LOCAL\cite{barbosa08} e ISAM\cite{yamim02} como agentes educacionais, e o MUCS\cite{??} como um agente profissional, embora qualquer agente possa criar uma categoria para si mesmo. As informações de cada agente são de formato livre.
   \item Informações processadas -- são as informações processadas pelos agentes.
 \end{enumerate}
 
-As informações processadas contém informações úteis que são extraídas a partir da trilha do usuário. Por exemplo, ao usar o agente educacional LOCAL, o usuário pode ter escolhido várias vezes estudar ou fazer trabalhos a respeito de uma determinada linguagem de programação (Java, por exemplo). Na trilha estarão contidas as ações dele (as opções por esta linguage), mas na listagem de informações processadas estará uma preferência pela linguagem Java.
+As informações processadas contém informações úteis que são extraídas a partir da trilha do usuário. Por exemplo, ao usar o agente educacional LOCAL, o usuário pode ter escolhido várias vezes estudar ou fazer trabalhos a respeito de uma determinada linguagem de programação (Java, por exemplo). Na trilha estarão contidas as ações dele (as opções por esta linguagem), mas na listagem de informações processadas estará uma preferência pela linguagem Java.
 
-Se, mais adiante, o usuário decidir comprar um livro, um módulo literário poderá ler a preferência dele por Java e sugerir a compra de um livro a respeito do assunto. Note que o módulo literário irá buscar a informação processada, e não os eventos educacionais do usuário.
+Se, mais adiante, o usuário decidir comprar um livro, um módulo literário lerá a preferência dele por Java e sugerir a compra de um livro a respeito do assunto. Note que o módulo literário irá buscar a informação processada, e não os eventos educacionais do usuário.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -140,9 +141,9 @@ A Figura~\ref{fig:acesso} mostra um exemplo do perfil de um usuário, mostrando 
 
 O processamento ocorre de forma \emph{incremental}. Desta forma, o agente pode ler apenas os eventos que ocorreram a partir do último processamento, comparando com as informações já processadas, de forma a não onerar muito a conexão disponível nem o tempo de processamento do agente. 
 
-Além disso, o processamento incremental permitirá que o agente possa ser capaz de alterar informações que foram processadas por outro agente. Utilizando o exemplo acima, o LOCAL é capaz de atualizar informações processadas pelo ISAM, mesmo sem ser capaz de compreender (nem ter acesso) às informações não processadas pelo ISAM.
+Além disso, o processamento incremental permitirá que o agente possa ser capaz de alterar informações que foram processadas por outro agente. Utilizando o exemplo acima, o LOCAL é capaz de atualizar informações processadas pelo ISAM, mesmo que usem formatos diferentes para os eventos não processadas.
 
-O agente é o responsável pelo processamento. A forma como este processamento irá ocorrer ainda é uma questão em aberto. Uma possibilidade é que o agente solicite as informações ao dispositivo, as processe, e devolva ao dispositivo. Outra possibilidade é que o agente entregue ao dispositivo um módulo (em Java, por exemplo), o dispositivo faça o próprio processamento e atualize suas próprias informações. Uma terceira possibilidade é que as duas formas sejam possíveis, e a decisão de quem irá realizar o processamento seja baseado no ambiente (capacidade de rede disponível, tempo de processamento disponível, etc\ldots)
+O agente externo é o responsável pelo processamento. A forma como este processamento irá ocorrer ainda é uma questão em aberto. Uma possibilidade é que o agente solicite as informações ao dispositivo, as processe, e devolva ao dispositivo. Outra possibilidade é que o agente entregue ao dispositivo um módulo (em Java, por exemplo), o dispositivo faça o próprio processamento e atualize suas próprias informações. Uma terceira possibilidade é que as duas formas sejam possíveis, e a decisão de quem irá realizar o processamento seja baseado no ambiente (capacidade de rede disponível, tempo de processamento disponível, etc\ldots)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -175,7 +176,7 @@ Como os agentes poderão acessar as informações processadas uns pelos outros, 
 
 % Chellouche, Arnaud, Négru
 
-O estudo \cite{chellouche10} apresenta um modelo onde o perfil de usuário se adapta às condições de ambiente (como qualidade da rede e dispositivo em uso) além de dados estáticos e de contexto. O trabalho foca especialmente em melhor a qualidade da experiência de aplicações multimídia.
+O estudo \cite{chellouche10} apresenta um modelo onde o perfil de usuário se adapta às condições de ambiente (como qualidade da rede e dispositivo em uso) além de dados estáticos e de contexto. O trabalho foca especialmente em melhorar a qualidade da experiência de aplicações multimídia.
 
 % Sutterer, Coutand
 
@@ -187,7 +188,7 @@ O UMP (User Modeling and Personalization Framework) \cite{korth07} é um modelo 
 
 % Silva, Barbosa, Vieira (octopus)
 
-O modelo OCtoPUS \cite{silva09} consiste de uma arquitetura que, assim como este projeto, possibilita que vários agentes interajam com o conjunto de trilhas de um usuário, e que informações úteis possam ser inferidas através das trilhas. No entanto, ao contrário do projeto apresentado neste artigo, o OCtoPUS busca encaixar o usuário em um conjunto de perfis pré-definidos, ao invés de inferir as preferências de um usuário. Alem disso, o processamento é realizado pelo agente gerenciador do perfil, ao invés de encaminhar esta responsabilidade para os outros agentes.
+O modelo OCtoPUS \cite{silva09} consiste de uma arquitetura que, assim como esta proposta, possibilita que vários agentes interajam com o conjunto de trilhas de um usuário, e que informações úteis possam ser inferidas através das trilhas. No entanto, ao contrário da proposta apresentado neste artigo, o OCtoPUS busca encaixar o usuário em um conjunto de perfis pré-definidos, ao invés de inferir as preferências de um usuário. Alem disso, o processamento é realizado pelo agente gerenciador do perfil, ao invés de encaminhar esta responsabilidade para os outros agentes.
 
 % Comparação
 
@@ -242,11 +243,14 @@ Além dos aspectos mencionados, outros estudos na área abrem novas possibilidad
 \end{itemize}
 
 % escopo mais definido / avaliação
-A resposta a estas questões é necessária para que seja definido o escopo do trabalho, levando em consideração o que deve ser estudado e implementado. Uma vez definido o escopo, será possível escolher como será realizada a avaliação do modelo.
+A resposta a estas questões é necessária para que seja definido o escopo do trabalho, levando em consideração o que deve ser estudado e implementado. Uma vez levantado o escopo, será possível definir como será realizada a avaliação do modelo.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \bibliographystyle{ieeetr}
-\bibliography{ubicomp}
+
+\begin{small}
+  \bibliography{ubicomp}
+\end{small}
 
 \end{document}
