@@ -1,0 +1,15 @@
+MODELAGEM E SIMULAÇÃO
+
+ - Chamados
+
+SISTEMAS DISTRIBUÍDOS
+
+ - Transferência e execução remota de código
+
+TÉCNICAS DE PROGRAMAÇÃO
+
+ - ??
+
+INTELIGÊNCIA ARTIFICIAL
+
+ - Processamento de preferências (?)
