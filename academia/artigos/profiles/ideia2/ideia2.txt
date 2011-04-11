@@ -1,0 +1,74 @@
+Uma Arquitetura para Gerenciamento de Perfis Baseado em Trilhas com Aprfeiçoamento Automático
+
+André Wagner
+Jorge Barbosa
+Débora Barbosa
+
+# Introdução
+Atualmente, a proliferação de dispositivos eletrônicos portáteis capazes de comuncação sem fio (tais como celulares, tablets e computadores portáteis) têm impulsionado estudos na área de computação móvel [ref 21 PeLeP]. A difusão do uso de redes sem fio (wireless) possibilita que os agentes computacionais tornem-se capazes de compreender seu contexto local [?]. Além disso, pesquisas relacionadas a Adaptação [ref 1 PeleP] trouxeram um novo modelo de interação humano-computador chamado Computação Ubíqua [weiser, satyanaran]. Neste modelo, os recursos computacionais que fornecem informações e serviços estão disponíveis a qualquer momento e em qualquer lugar. 
+
+Assim, torna-se desejável o desenvolvimento de aplicações capazes de se relacionar e extrair informações do contexto em que estão localizadas. Schilit et al. [schilit] definem contexto como "quem você é, com quem você está, e que recusos estão próximos". Já Dey e Abowd [dey] definem contexto como "qualquer informação que possa ser usada para caracterizar a situação de uma entidade (pessoa, local ou objeto considerados relevantes à interação entre um usuário e uma aplicação, incluindo o próprio usuário ou aplicação)". Aplicações capazes de utilizar o contexto para fornecer informações e/ou servições relevantes ao usuário são classificadas como sensíveis a contexto [dey]. Pesquisas recentes indicam que, além do contexto atual, o histórico de contextos visitados e ações realizadas nestes contextos pode ser uma fonte valiosa de informações para a tomada de decisões [silva - TA]. A este histórico é dado o nome de trilha [TA ref 16,28], enquanto aplicações capazes de utilizar estas informação são chamadas de "sensíveis a trilha".
+
+Muitos agentes computacionais ubíquos são projetados de modo a se relacionar com diferentes usuários. Assim, é importante que estes aplicativos sejam capazes de armazenar as informações de cada usuário em um perfil específico, de modo a utilizar estas informações posteriormente, provendo assim informações ou serviços personalizados ao usuário. Exemplos de aplicativos que utilizam perfis são o LOCAL, o GlobalEdu e o MUCS [referencias]. Alguns projetos utilizam informações a respeito do contexto do usuário [PeLeP, sutterer, park] e de sua trilha [ubtrail,octopus] para aperfeiçoar informações do perfil do usuário, de modo a oferecer uma experiência mais pessoal e disponibilizar informações personalizadas.
+
+Embora os aplicativos possam fazer inferências úteis a respeito da trilha dos eventos de um usuário em um determinado agente, o aperfeiçoamento automático do perfil do usuário fica restrito àquele contexto. Assim, torna-se interessante a criação de um modelo que permita que os agentes tenham acesso às trilhas uns dos outros, de forma a poder inferir informações do usuário de forma mais precisa. Para que isto seja possível, é necessário que o gerenciamento dos perfis ocorra fora dos aplicativos, de forma centralizada. Além disso, uma ontologia deve ser definida para que as trilhas sejam geradas de forma padronizada.
+
+Este trabalho apresenta o UbiLife, uma arquitetura para gerenciamento de perfis baseados em trilhas. O UbiLife se comunica com os agentes utilizando uma arquitetura cliente-servidor, onde são oferecidos serviços de armazenamento e consulta de trilhas. O UbiLife também é capaz de, a partir das trilhas dos usuários, inferir informações a respeito dos usuários, que podem ser usadas pelos clientes para implementar sensibilidade a trilhas.
+
+Este artigo está organizado da seguinte forma: a seção 2 apresenta os trabalhos relacionados, a Seção 3 discute o modelo e a arquitetura e a Seção 4 conclui discutindo os pontos em aberto.
+
+
+# Trabalhos Relacionados
+
+Existem vários trabalhos que discutem modelos e implementações de aspectos específicos apresentados no UbiLife.
+
+O trabalho proposto por Kim e Lee [kim] apresenta uma arquitetura para troca de perfis através de Web Services. Esta troca de perfis acontece entre os dispositivos dos clientes, servidores de serviços e gerenciador de perfis. Nesta arquitetura, o sistema age apenas como um repositório de perfis, oferecendo serivços de envio e busca de perfis, e suporte básico a classificação de perfis.
+
+No estudo desenvolvido por Park et al [park], é apresentado um sistema capaz de detectar a idade de um usuário a partir das idades de outras pessoas em sua rede social. O sistema obteve 97% de êxito nos testes realizados, o que demonstra que dados a respeito de um usuário podem não ser apenas inferidos a partir de seu perfil, mas também de perfis de outras pessoas que tenham conexão com o usuário.
+
+O estudo desenvolvido por Chellouche et al [chellouche] explora a experiência do usuário em atividades multimídia. Neste trabalho, o perfil de usuário se adapta às condições de ambiente (tipo de dispostivo, qualidade da rede, etc) além de dados pré-configurados e de contexto.
+
+O modelo apresentado por Teixeira et al [teixeira] apresenta a idéia de "perfil básico". Neste modelo, o usuário é composto por um conjunto de perfis. Quando o perfil do usuário é criado, um conjunto de perfis básicos é associado a ele. Embora no modelo proposto o gerenciamento de perfis básicos seja manual, uma abordagem semelhante poderia ser idealizada onde o gerenciamento ficaria a cargo de um agente inteligente.
+
+Um conceito chamado Information Atmosphere é apresentado por Yutaka et al [yutaka]. Neste modelo, quando um usuário entra em um ambiente (neste caso, um ambiente é considerado um conjunto de dispositivos de diferentes usuários), o dispositivo do usuário coloca seu conteúdo público à disposição dos outros usuários, e busca conteúdos públicos dos usuários baseado nas preferências armazenadas em seu perfil.
+
+O projeto MobiLife [sutterer] disponibiliza um perfil de usuário adaptativo sensível a contexto, que permite que as aplicações se comportem de forma diferente de acordo com o contexto do usuário. O projeto não utiliza nenhum tipo de ontologia estruturada, se baseando em comparação de strings para realizar a inferência.
+
+O projeto PeLeP, desenvolvido por Levis et al [PeLeP], apresenta um modelo que suporta o aperfeiçoamento automático dos perfis de usuários. O aperfeiçoamento é realizado através da análise do histórico do usuário dentro de determinados contextos, e de inferências realizadas sobre este histórico. O PeLeP é voltado para ambientes de educação ubíqua.
+
+O projeto OCtoPUS [octopus] consiste em uma arquitetura que permite que vários aplicativos interajam com o conjunto de trilhas de um usuário, e que informações úteis possam ser inferidas através destas trilhas. O projeto utiliza a web semântica como forma de armazenamento, e através de inferências busca encaixar o perfil do usuário em um conjunto de perfis pré-definidos.
+
+A maioria dos estudos apresentados [kim,teixeira,chellouche,pelep,octopus...] coloca o perfil a cargo de um servidor centralizado, na internet.  Uma arquitetura, inclusive, executa todas as operações no sevidor, fazendo do dispositivo móvel apenas um thin client [huang]. No entanto, há algumas arquiteturas que mantém o perfil no lado do cliente [paireekreng,chen,kidawara], por motivos de privacidade e disponibilidade.
+
+A tabela XXX mostra um breve comparativo entre os projetos apresentados.
+
+                   Interope-    Perfis                    Sensib. a    Utiliza
+                   rável        Dinâmicos   Distribuído   Contexto     Trilhas   Domínio
+Kim e Lee          Sim          Não         Sim           Não          Não       Genérico
+Park et al         Não          Não         Sim           Sim          Não       Específico
+Chellouche et al   Sim          Sim         Sim           Sim          Não       Específico
+Teixeira et al     Não          Não         Não           Não          Não       Genérico
+Inf. Atmosphere    Sim          Sim         Sim           Sim          Não       Específico
+Mobilife           Sim          Sim         Sim           Sim          Não       Genérico
+PeLeP              Sim          Sim         Sim           Sim          Sim       Específico
+Octopus            Sim          Sim         Sim           Sim          Sim       Genérico
+
+# Modelo e Arquitetura
+
+## Arquitetura de comunicação
+
+## Serviços oferecidos
+
+## Inferência
+
+### Ontologia
+
+### Estratégias de Inferência
+
+* Possibilidade: relacionamento entre diferentes perfis.
+
+# Conclusão
+
+## Comparação com os trabalhos relacionados
+
+## Questões em aberto
