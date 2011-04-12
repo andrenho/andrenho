@@ -1,0 +1,6 @@
+digraph Modelo {
+
+	UbiqLife -> Agente 1
+	UbiqLife -> Agente 2
+	UbiqLife -> Agente 3
+
