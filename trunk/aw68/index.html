@@ -44,6 +44,15 @@
             width: 6px;
             height: 11px;
          }
+         .devices {
+            position: absolute;
+            top: 330px;
+            left: 20px;
+            width: 480px;
+            height: 200px;
+            padding: 10px;
+            border: 1pt solid black;
+         }
       </style>
    </head>
    <body>
@@ -52,6 +61,9 @@
       <script src="debugger.js"></script>
       <script>
          $(document).ready(function(){
+            $('a.device_option').click(function(){
+            })
+
             var machine = new Machine();
             var debug = new Debug(machine);
             debug.init();
@@ -74,7 +86,16 @@
                </table>
             </div>
          </div>
-         <div name="devices"></div>
+         <div name="devices" class="devices">
+            <div name="device_options">
+               <a class="device_option" name="rom_loader_opt">BIOS</a>
+            </div>
+            <div name="rom_loader">
+               <input type="file" name="rom_name">
+               <input type="button" value="Load ROM">
+               <p class="message"></p>
+            </div>
+         </div>
       </div>
    </body>
 </html>
