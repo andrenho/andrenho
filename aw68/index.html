@@ -11,10 +11,15 @@
          table,tr,td {
             font-family: 'video';
             border-collapse: collapse;
-            border: 1pt solid black;
+            /* border: 1pt solid black; */
             padding: 2pt;
          }
          .registers {
+            display: inline;
+            font-family: 'video';
+         }
+         .flags {
+            display: inline;
             font-family: 'video';
          }
          .register {
@@ -51,7 +56,7 @@
             width: 480px;
             height: 200px;
             padding: 10px;
-            border: 1pt solid black;
+            /* border: 1pt solid black; */
          }
       </style>
    </head>
@@ -60,27 +65,23 @@
       <script src="aw68k.js"></script>
       <script src="debugger.js"></script>
       <script>
-         $(document).ready(function(){
-            $('a.device_option').click(function(){
-            })
-
-            var machine = new Machine();
-            var debug = new Debug(machine);
-            debug.init();
-         })
+         var machine = new Machine();
+         var debug = new Debug(machine);
+         debug.init();
       </script>
 
       <div name="machine">
-         <div name="video" class="video"></div>
+         <div id="video" class="video"></div>
          <div name="cpu" class="cpu">
+            <input type="button" value="Step" name="step">
             <div name="debugger"></div>
             <div name="register_table">
-               <table name="registers">
+               <table name="registers" class="registers">
                   <tr class="register_names"></tr>
                   <tr class="register_hex"></tr>
                   <tr class="register_dec"></tr>
                </table>
-               <table name="flags">
+               <table name="flags" class="flags">
                   <tr class="flag_names"></tr>
                   <tr class="flag_value"></tr>
                </table>
@@ -91,9 +92,9 @@
                <a class="device_option" name="rom_loader_opt">BIOS</a>
             </div>
             <div name="rom_loader">
-               <input type="file" name="rom_name">
-               <input type="button" value="Load ROM">
-               <p class="message"></p>
+               <input type="input" id="rom_name" value="bios/bios.rom">
+               <input type="button" value="Load ROM" onclick='load_rom();'>
+               <p name="message" class="message"></p>
             </div>
          </div>
       </div>
