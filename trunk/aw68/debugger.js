@@ -23,7 +23,17 @@ function Debug(machine)
         for(n=0; n<flags.length; n++)
         {
             $('tr.flag_names').append('<td class="flag">' + flags[n] + '</td>');
-            $('tr.flag_value').append('<td class="flag">&nbsp;</td>');
+            $('tr.flag_value').append('<td class="flag">0</td>');
         }
     }
+}
+
+
+// screen events
+function load_rom()
+{
+   if(machine.load_rom(document.getElementById('rom_name').value))
+      document.getElementsByName('message')[0].innerHTML = 'ROM loaded successfully.';
+   else
+      document.getElementsByName('message')[0].innerHTML = 'Error loading ROM.';
 }
