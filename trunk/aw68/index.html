@@ -14,22 +14,6 @@
             /* border: 1pt solid black; */
             padding: 2pt;
          }
-         .registers {
-            display: inline;
-            font-family: 'video';
-         }
-         .flags {
-            display: inline;
-            font-family: 'video';
-         }
-         .register {
-            width: 20px;
-            text-align: center;
-         }
-         .flag {
-            width: 12px;
-            text-align: center;
-         }
          .video { 
             position: absolute;
             top: 20px;
@@ -58,46 +42,56 @@
             padding: 10px;
             /* border: 1pt solid black; */
          }
+         .cpu {
+            width: 320px;
+         }
+         .debugger { 
+            position: absolute;
+            width: 250px;
+            left: 0; 
+            height: 500px;
+            overflow: auto;
+         }
+         .registers { 
+            position: absolute; 
+            width: 50px;
+            right: 0;
+         }
+         .pc {
+            background-color: #f0f080;
+         }
       </style>
    </head>
    <body>
-      <script src="jquery.js"></script>
-      <script src="aw68k.js"></script>
-      <script src="debugger.js"></script>
-      <script>
-         var machine = new Machine();
-         var debug = new Debug(machine);
-         debug.init();
-      </script>
 
-      <div name="machine">
+      <div id="machine">
          <div id="video" class="video"></div>
-         <div name="cpu" class="cpu">
-            <input type="button" value="Step" name="step">
-            <div name="debugger"></div>
-            <div name="register_table">
-               <table name="registers" class="registers">
-                  <tr class="register_names"></tr>
-                  <tr class="register_hex"></tr>
-                  <tr class="register_dec"></tr>
-               </table>
-               <table name="flags" class="flags">
-                  <tr class="flag_names"></tr>
-                  <tr class="flag_value"></tr>
-               </table>
+         <div id="cpu" class="cpu">
+            <input type="button" value="Step" id="step">
+            <div id="debugger" class="debugger">
+               <table id="instruction_table"></table>
+            </div>
+               <div id="registers" class="registers">
+               <table id="register_table"></table>
+               <table id="flag_table"></table>
             </div>
          </div>
-         <div name="devices" class="devices">
-            <div name="device_options">
-               <a class="device_option" name="rom_loader_opt">BIOS</a>
+         <div id="devices" class="devices">
+            <div id="device_options">
+               <a class="device_option" id="bios_loader_opt">BIOS</a>
             </div>
-            <div name="rom_loader">
-               <input type="input" id="rom_name" value="bios/bios.rom">
-               <input type="button" value="Load ROM" onclick='load_rom();'>
-               <p name="message" class="message"></p>
+            <div id="bios_loader">
+               <input type="input" id="bios_name" value="bios.js">
+               <input type="button" value="Load ROM" onclick="load_bios();">
+               <p id="message" class="message"></p>
             </div>
          </div>
       </div>
+
+      <script src="aw68k.js"></script>
+      <script src="debugger.js"></script>
+      <script src="interface.js"></script>
+
    </body>
 </html>
 
