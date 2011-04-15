@@ -1,24 +1,58 @@
 // video: 480x275
 
-
 function CPU68k()
 {
     this.D = [ 0, 0, 0, 0, 0, 0, 0 ];
     this.A = [ 0, 0, 0, 0, 0, 0, 0 ];
+    this.pc = 0x40000;
+
+    this.instruction_description = function(pos)
+    {
+        return { desc:'Not identified!', size:2 };
+    }
 }
 
 
-function Memory(size)
+function MemoryMap()
+{
+    this.init_mem = 0x40000;
+
+    this.set = function(pos, data)
+    {
+    }
+}
+
+
+function Memory(mmap, size)
 {
     this.data = [];
+    this.size = size;
+    this.mmap = mmap;
     for(i=0; i<size; i++)
         this.data[i] = 0;
+
+    this.get = function(pos)
+    {
+        if(pos < 0 || pos > this.size)
+            alert('Invalid memory position ' + pos + '.');
+        return this.data[pos];
+    }
+
+    this.set = function(pos, data)
+    {
+        if(pos < 0 || pos > this.size)
+            alert('Invalid memory position ' + pos + '.');
+        if(data > 0xff || data < 0)
+            alert('Invalid memory data ' + data + '.');
+        this.mmap.set(pos, data);
+        this.data[pos] = data;
+    }
 }
 
 
 function Machine()
 {
-    this.load_rom = function(url)
+    this.load_bios = function(url)
     {
         var req = new XMLHttpRequest();        
         req.open('GET', url, false);
@@ -26,31 +60,17 @@ function Machine()
         req.send(null);
         if (req.status == 200)
         {
- //           for(i=0; i<req.responseText.length; i++)
-   //             this.memory.data[i] = req.responseText.charAt(i);
+            if(req.responseText.length + this.mmap.init_mem > this.memory.size)
+                return false;
+            for(i=0; i<req.responseText.length; i++)
+                this.memory.data[i+this.mmap.init_mem] = req.responseText.charCodeAt(i);
             return true;
         }
         else
             return false;
     }
 
-    // initialize video (character)
-    function init_video()
-    {
-        s = '';
-        for(y=0; y<25; y++)
-            for(x=0; x<80; x++)
-                s += '<span name="c_'+x+'_'+y+'" ' +
-                        'class="character" ' + 
-                        'style="' + //position:absolute;' +
-                            'left:' + (x*6) + 'px;' +
-                            'top:' + (y*11) + 'px;' +
-                            '">.</span>';
-        alert(document.getElementById('machine').getElementById('video'));
-        document.getElementById('video').innerHTML = s;
-    }
-
-    init_video();
-    this.cpu = CPU68k();
-    this.memory = Memory(64*1024);
+    this.cpu = new CPU68k();
+    this.mmap = new MemoryMap();
+    this.memory = new Memory(this.mmap, 1024*1024); // 1 Mb
 }
