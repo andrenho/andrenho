@@ -1,13 +1,16 @@
 package cliente;
 
 import java.io.Serializable;
-import interfaces.*;
+import java.math.BigDecimal;
+import interfaces.Tarefa;
 
-public class Processamento implements Tarefa<String>, Serializable {
+public class Processamento implements Tarefa<BigDecimal>, Serializable {
 
-	public String executa()
+	private static final long serialVersionUID = 227L;
+
+	public BigDecimal executa()
 	{
-		return "42";
+		return BigDecimal.valueOf(42);
 	}
 
 }
