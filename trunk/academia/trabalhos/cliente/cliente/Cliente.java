@@ -2,7 +2,8 @@ package cliente;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import interfaces.*;
+import java.math.BigDecimal;
+import interfaces.Servidor;
 
 public class Cliente {
 
@@ -15,7 +16,7 @@ public class Cliente {
 			Registry registry = LocateRegistry.getRegistry(args[0]);
 			Servidor servidor = (Servidor)registry.lookup("ExemploRMI");
 			Processamento tarefa = new Processamento();
-			String r = servidor.executaTarefa(tarefa);
+			BigDecimal r = servidor.executaTarefa(tarefa);
 			System.out.println(r);
 		} catch (Exception e) {
 			System.err.println("Exceção:");
