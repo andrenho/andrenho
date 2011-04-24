@@ -26,14 +26,14 @@ class Relacoes {
             try {
                 for(Pessoa p: pessoas)
                     if(!p.nome.equals(args[0]))
-                        montaArvore(args[0], p.nome, 10);
+                        montaArvore(args[0], p, 10);
             } catch (Exception e) {
                 e.printStackTrace();
             }
     }
 
 
-    private static void montaArvore(String nome) throws Exception
+    private static void montaArvore(String nome, Pessoa fim, int m) throws Exception
     {
         Pessoa inicio = null;
         for(Pessoa p: pessoas)
@@ -42,23 +42,63 @@ class Relacoes {
         if(inicio == null)
             throw new Exception("Pessoa não se encontra na lista.");
 
-        Pessoa fim = BP(inicio, 10);
-        System.out.println(fim.nome);
+        Nodo n = BP(inicio, fim, pessoas.size());
+        //Nodo n = buscaIterativaBP(inicio, fim);
+        if(n == null)
+            System.out.println("Solução não encontrada.");
+        else
+            System.out.println(n.rota() + " -- " + n.custo);
     }
 
-    private static Pessoa BP(Pessoa inicio, Pessoa fim, int m)
+
+    // Não será utilizada pois aparentemente não é eficiente quando faz
+    // o caminho inverso
+    private static Nodo buscaIterativaBP(Pessoa inicio, Pessoa fim)
     {
-        Stack<Nodo> fronteira = new Stack<Nodo>();
-        fronteira.add(new Nodo(inicio));
-        while(!fronteira.empty())
-        {
-            if(n.pessoa == pessoa)
+        int p = pessoas.size();
+        while(true) {
+            Nodo n = BP(inicio, fim, p);
+            if(n != null)
                 return n;
-            if(n.getProfundidade() < m)
-                fronteira.add(n.sucessores());
+            p--;
         }
-        
+    }
+
+
+    private static Nodo BP(Pessoa inicio, Pessoa fim, int m)
+    {        
+        Stack<Nodo> fronteira = new Stack<Nodo>();
+        Vector<Nodo> listaFechada = new Vector<Nodo>();
+        fronteira.add(new Nodo(inicio));
+        while(!fronteira.isEmpty()) {
+            Nodo n = fronteira.remove(0);
+            if(n.pessoa == fim)
+                return n;
+            if(!listaFechada.contains(n) && n.profundidade < m)
+            {
+                fronteira.addAll(0, encontraSucessores(n));
+                listaFechada.add(n);
+            }
+        }
         return null;
+    }
+
+
+    public static Vector<Nodo> encontraSucessores(Nodo n)
+    {
+        Vector<Nodo> q = new Vector<Nodo>();
+        for(Relacionamento r: n.pessoa.amigos)
+        {
+            if(n.pai != null && n.pai.pessoa == r.pessoa)
+                continue;
+            Nodo nodo = new Nodo(r.pessoa);
+            nodo.profundidade = n.profundidade + 1;
+            nodo.custo = n.custo + (r.grau / nodo.profundidade);
+            nodo.pai = n;
+            q.add(nodo);
+        }
+        Collections.reverse(q);
+        return q;
     }
 
 
