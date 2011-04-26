@@ -1,6 +1,13 @@
 digraph Modelo {
 
-	UbiqLife -> Agente 1
-	UbiqLife -> Agente 2
-	UbiqLife -> Agente 3
+	// graph [ rankdir = "LR" ]
 
+	LifeServer [ shape=box ]
+	A1 [ label = "{ liblife | Agente 1 }", shape=record ]
+	A2 [ label = "{ liblife | Agente 2 }", shape=record ]
+	A3 [ label = "{ liblife | Agente 3 }", shape=record ]
+
+	LifeServer -> A1 [ dir=both ]
+	LifeServer -> A2 [ dir=both ]
+	LifeServer -> A3 [ dir=both ]
+}
