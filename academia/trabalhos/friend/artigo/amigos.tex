@@ -18,7 +18,7 @@
 %\usepackage{pstricks}
 %\usepackage{pst-plot}
 \usepackage[pdftex]{graphicx}
-%\usepackage{url}
+\usepackage{url}
 %\usepackage[top=1cm,bottom=1cm,left=1cm,right=1cm]{geometry}
 %\usepackage{multicol}
 
@@ -38,11 +38,11 @@
 
 \section{Introdução}
 
-Alguns artigos \cite{?} mostram que informações a respeito de uma pessoa podem ser inferidas através de informações de seus amigos, uma vez que existe um tendência que uma pessoa tenha ao menos algumas preferências semelhantes a seus amigos.
+Alguns artigos \cite{park,lazarsfeld1954fsp} mostram que informações a respeito de uma pessoa podem ser inferidas através de informações de seus amigos, uma vez que existe um tendência que uma pessoa tenha ao menos algumas preferências semelhantes a seus amigos.
 
 No entanto, também é interessante que seja levado em conta a influência dos amigos dos amigos, uma vez que as preferências destes também terão alguma semelhança com as da pessoa original,  e podem ser fonte de informações valiosas para o cálculo de inferências.
 
-Este artigo busca calcular o grau de influência que há entre duas pessoas, mesmo que elas não conheçam uma à outra, mas tenham um terceiro em comum. O algoritmo utilizado para este fim é o algoritmo de busca cega. \cite{?}
+Este artigo busca calcular o grau de influência que há entre duas pessoas, mesmo que elas não conheçam uma à outra, mas tenham um terceiro em comum. O algoritmo utilizado para este fim é o algoritmo de busca cega.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -52,7 +52,7 @@ Foi desenvolvido um programa que realiza este cálculo através de uma base de d
 
 O programa soma os valores dos eventos que ocorreram entre cada par de pessoas (o \emph{grau de relacionamento} entre elas), e monta um grafo contendo a \emph{rede de relacionamentos}, onde os pesos dos vértices equivalem ao grau de relacionamento.
 
-Levando em consideração a base de dados abaixo, um exemplo de grafo seria o representado na Figura~\ref{fig:exemplo1}.
+Levando em consideração a base de dados de eventos abaixo, um exemplo de grafo seria o representado na Figura~\ref{fig:exemplo1}.
 
 \begin{verbatim}
 Andre Morgana 0.15
@@ -82,7 +82,7 @@ O grau dos relacionamentos é definido pela equação $ \frac{\sum^n_{i=1} e_i}{
 
 Assim, o algoritmo busca sempre encontrar o maior valor entre dois nós (ainda que isto signifique passar por mais de um nó), de modo a encontrar o grau de relacionamento mais próximo entre duas pessoas.
 
-O programa gera ainda os grafos no formato dot\cite{?}, que foi utilizados para gerar as imagens deste artigo.
+O programa gera ainda os grafos no formato dot\cite{graphviz}, que foi utilizados para gerar as imagens deste artigo.
 
 \section{Avaliação}
 
@@ -91,7 +91,7 @@ Para a avaliação deste programa, foi criado um gerador de eventos aleatórios.
 \begin{verbatim}
 Andre - Tiago - Morgana -- 1.74
 Andre - Tiago -- 1.45
-Andre - Tiago - Lucas -- 1.8199999999999998
+Andre - Tiago - Lucas -- 1.82
 \end{verbatim}
 
 É intessante notar que, apesar de André e Morgana possuirem um relacionamento direto, o grau de relacionamento passando por Tiago demonstrou-se maior e, por isso, foi escolhido.
@@ -107,7 +107,7 @@ A partir das análises realizadas, conclui-se que o programa está realizando a 
 \bibliographystyle{ieeetr}
 
 \begin{small}
-  \bibliography{ubicomp}
+  \bibliography{friend}
 \end{small}
 
 \end{document}
