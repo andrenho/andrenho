@@ -32,7 +32,7 @@ class Gerador {
             while(p1 == p2);
             System.out.print(nomes[p1] + " ");
             System.out.print(nomes[p2] + " ");
-            System.out.println(Math.random());
+            System.out.println(Math.random()) ;
         }
     }
 

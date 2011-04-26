@@ -55,7 +55,9 @@ Octopus            Sim          Sim         Sim           Sim          Sim      
 
 # Modelo e Arquitetura
 
-A Figura XXX apresenta uma visão geral do modelo.
+A figura XXX apresenta uma visão geral do modelo, que é composto de um servidor (o LifeServer) e de clientes externos, que se comunicam com o servidor através de uma biblioteca chamada liblife. O LifeServer faz o armazenamento dos perfis e das trilhas dos usuários, e é o responsável pelas inferências das trilhas. Os agentes podem enviar e solicitar informações través da biblioteca.
+
+O UbiqLife está estruturado 
 
 ## Arquitetura de comunicação
 
