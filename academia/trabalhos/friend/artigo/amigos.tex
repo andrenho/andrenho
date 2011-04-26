@@ -78,7 +78,7 @@ Outros exemplos mais complexos podem ser criados, uma vez que o número de usuá
 
 O conjunto de todas as pessoas avaliadas fazem parte do espaço de estados. O estado inicial pode ser qualquer um definido no momento da chamada do programa, que fará o cálculo do maior grau de relacionamento entre a pessoa inicial e cada uma das outras pessoas (estados finais).
 
-O grau dos relacionamentos é definido pela equação $ \frac{\sum e}{n(p+1)} $, onde $e$ representa o peso de cada um dos eventos e $n$ representa o número dos eventos entre duas pessoas. A variável $p$ representa a distância entre as duas pessoas, isto é, o número de pessoas que há entre as duas que estão sendo avaliadas. Esta variável é adicionada para levar em consideração o fato que quanto maior a distância entre o relacionamento de duas pessoas, menor as semelhanças entre elas.
+O grau dos relacionamentos é definido pela equação $ \frac{\sum^n_{i=1} e_i}{n(p+1)} $, onde $e_i$ representa o peso de cada um dos eventos e $n$ representa o número dos eventos entre duas pessoas. A variável $p$ representa a distância entre as duas pessoas, isto é, o número de pessoas que há entre as duas que estão sendo avaliadas. Esta variável é adicionada para levar em consideração o fato que quanto maior a distância entre o relacionamento de duas pessoas, menor as semelhanças entre elas.
 
 Assim, o algoritmo busca sempre encontrar o maior valor entre dois nós (ainda que isto signifique passar por mais de um nó), de modo a encontrar o grau de relacionamento mais próximo entre duas pessoas.
 
