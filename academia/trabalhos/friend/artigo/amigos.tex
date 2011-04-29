@@ -38,17 +38,17 @@
 
 \section{Introdução}
 
-Alguns artigos \cite{park,lazarsfeld1954fsp} mostram que informações a respeito de uma pessoa podem ser inferidas através de informações de seus amigos, uma vez que existe um tendência que uma pessoa tenha ao menos algumas preferências semelhantes a seus amigos.
+Alguns artigos \cite{park,lazarsfeld1954fsp} mostram que informações a respeito de uma pessoa podem ser inferidas através de informações de seus pessoas com quem eles tem relações sociais (amigos), uma vez que existe um tendência que uma pessoa tenha ao menos algumas preferências semelhantes a seus amigos.
 
 No entanto, também é interessante que seja levado em conta a influência dos amigos dos amigos, uma vez que as preferências destes também terão alguma semelhança com as da pessoa original,  e podem ser fonte de informações valiosas para o cálculo de inferências.
 
-Este artigo busca calcular o grau de influência que há entre duas pessoas, mesmo que elas não conheçam uma à outra, mas tenham um terceiro em comum. O algoritmo utilizado para este fim é o algoritmo de busca cega.
+Este artigo busca calcular o grau de influência que há entre duas pessoas, mesmo que elas não conheçam uma à outra, mas tenham um ou mais terceiros em comum. O algoritmo utilizado para este fim é o algoritmo de busca cega.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Desenvolvimento}
 
-Foi desenvolvido um programa que realiza este cálculo através de uma base de dados de \emph{eventos de relacionamento}, onde cada evento é composto dos nomes das duas pessoa e de um valor para este evento, que deve estar entre 0 e 1. O valor define a importância do evento. Por exemplo, uma simples troca de e-mails entre duas pessoas define um evento de pouca importância (ou seja, não significa muito para definir que estas pessoas tenham um relacionamento forte), mas o fato de duas pessoas realizarem um trabalho em conjunto tem um valor maior.
+Foi desenvolvido um programa que realiza este cálculo através de uma base de dados de \emph{eventos de relacionamento}, onde cada evento é composto dos nomes das duas pessoa e de um valor para este evento, que deve estar entre 0 e 1. O valor define a importância do evento. Por exemplo, uma simples troca de e-mails entre duas pessoas define um evento de pouca importância (ou seja, não significa muito para definir que estas pessoas tenham um relacionamento forte), mas o fato de duas pessoas realizarem um trabalho em conjunto pode ter um valor maior.
 
 O programa soma os valores dos eventos que ocorreram entre cada par de pessoas (o \emph{grau de relacionamento} entre elas), e monta um grafo contendo a \emph{rede de relacionamentos}, onde os pesos dos vértices equivalem ao grau de relacionamento.
 
