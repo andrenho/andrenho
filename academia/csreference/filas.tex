@@ -1,0 +1,303 @@
+\documentclass[a4paper, twocolumn]{article}
+%\documentclass[11pt]{article}
+\pagestyle{empty}
+
+%\usepackage[a6paper]{geometry}
+\usepackage[portuguese]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{pstricks}
+\usepackage{pst-plot}
+\usepackage[pdftex]{graphicx}
+\usepackage{booktabs}
+%\usepackage[top=1cm,bottom=1cm,left=1cm,right=1cm]{geometry}
+%\usepackage{multicol}
+
+\usepackage{amssymb,amsmath}
+%\usepackage{extraipa}
+\usepackage{euler}
+\everymath{\displaystyle}
+
+\DeclareMathOperator{\N}{\mathbb{N}}
+\DeclareMathOperator{\Z}{\mathbb{Z}}
+\DeclareMathOperator{\R}{\mathbb{R}}
+\DeclareMathOperator{\negate}
+    {\negthickspace\negthickspace\negthickspace\diagup\negthickspace}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\proj}{proj}
+\DeclareMathOperator{\sen}{sen}
+\DeclareMathOperator{\tg}{tg}
+\DeclareMathOperator{\Var}{Var}
+\providecommand{\abs}[1]{\lvert#1\rvert}
+\providecommand{\vt}[1]{\overrightarrow{#1}}
+\newcommand{\xa}[1]{\renewcommand{\arraystretch}{#1}}
+
+\author{André Wagner}
+\title{Modelagem e Simulação}
+\date{}
+
+\begin{document}
+
+\section{Notação de Kendall}
+
+\[ (a/b/c) : (d/e/f) \]
+
+\begin{description}
+  \item [$a$]: distribuição de chegada dos clientes
+  \begin{description}
+    \item [$M$]: Poisson
+    \item [$D$]: Determinístico
+    \item [$E_k$]: Erlangiano
+    \item [$GI$]: Distribuição Geral, chegadas independentes
+    \item [$G$]: Distribuição Geral
+  \end{description}
+  \item [$b$]: distribuição de tempos de serviço (ou partidas)
+  \item [$c$]: número de servidores em paralelo
+  \item [$d$]: máximo de clientes no sistema (fila + serviço)
+  \item [$e$]: máximo de clientes que podem usar o sistema (tamanho da 
+               população)
+  \item [$f$]: disciplina de serviço (FIFO, LIFO, etc\ldots)
+\end{description}
+
+\subsection{Exemplos}
+
+\begin{itemize}
+  \item Um servidor: $M/M/1 : \infty/\infty/GD$
+  \item $k$ servidores: $M/M/k : \infty/\infty/GD$
+  \item Espaço limitado: $M/M/1 : k/\infty/GD$
+\end{itemize}
+
+\section{Terminologia}
+
+\begin{description}
+  \item [Estado do sistema]: nº de clientes no sistema
+  \item [Tamanho da fila]: clientes esperando pelo serviço
+  \item [$N(t)$]: nº de clientes no sistema no tempo $t$
+  \item [$P_n(t)$]: probabilidade de $n$ clientes estarem no sistema no tempo $t$
+  \item [$s$]: número de servidores
+  \item [$\lambda_n$]: taxa média de chegada (número esperado de chegadas por 
+        unid. de tempo) de novos clientes quando há $n$ clientes no sistema
+  \item [$\mu_n$]: taxa média de serviço (número esperado de clientes atendidos
+        por unid. de tempo) quando há $n$ clientes no sistema
+  \item Se as taxas são constantes para $n\geq 1$, então se usa $\lambda$ ou $\mu$
+  \item [$\rho = \frac{\lambda}{s\mu}$]: taxa de utilização do sistema (fração
+        de tempo esperada em que os servidores estão ocupados)
+\end{description}
+
+\section{Distribuições}
+
+\subsection{Exponencial}
+
+Onde $T$ é uma variável aleatória que representa os
+intervales entre chegadas.
+
+\[ f_T(t) = \left\{\begin{array}{l l} 
+            \lambda e^{-\lambda t} & \text{para } t \geq 0 \\
+            0 & \text{para } t < 0
+            \end{array} \right. \]
+
+Assim:
+
+\[ P \{T \leq t\} = 1 - e^{-\lambda t} \]
+\[ P \{T > t\} = e^{-\lambda t} \]
+
+\subsection{Poisson}
+
+Onde $X(t)$ é o número de ocorrências em relação ao tempo $t$.
+
+\[ P \{X(t) = n\} = \frac{(\lambda t)^n e^{-\lambda t}}{n!} \text{, para } n=0,1,2,\ldots \]
+
+A média da distribuição é
+
+\[ E\{X(t)\} = \lambda t \]
+
+\section{$M/M/1$}
+
+Probablidade de haver $n$ clientes no sistema.
+
+\[ P(n) = \left(\frac{\lambda}{\mu}\right)^n \cdot \frac{\mu-\lambda}{\mu} \]
+
+Probabilidade que o número de clientes no sistema seja superior a $r$.
+
+\[ P(n > r) = \left(\frac{\lambda}{\mu}\right)^{r+1} \]
+
+Probablidade que o sistema esteja ocioso.
+
+\[ P(n=0) = \frac{\mu-\lambda}{\mu} \]
+
+Probabilidade que o sistema esteja ocupado.
+
+\[ P(n>0) = \frac{\lambda}{\mu} \]
+
+Número médio de clientes no sistema (NS).
+
+\[ NS = \frac{\lambda}{\mu-\lambda} \]
+
+Número médio de clientes na fila (NF).
+
+\[ NF = \frac{\lambda^2}{\mu(\mu-\lambda)} \]
+\[ NF(\text{fila}>0) = \frac{\mu}{\mu-\lambda} \]
+
+Tempo médio de espera na fila por cliente (TF)
+
+\[ TF = \frac{\lambda}{\mu(\mu-\lambda)} \]
+
+Tempo médio gasto no sistema por cliente (TS).
+
+\[ TS = \frac{1}{\mu-\lambda} \]
+
+Relações.
+
+\[ NF = \lambda \cdot TF \]
+\[ NS = \lambda \cdot TS \]
+\[ TF = TS - \frac{1}{\mu} \]
+\[ NF = NS - \frac{\lambda}{\mu} \]
+
+\subsection{Custos}
+
+\begin{description}
+  \item [$CT$]: custo total do sistema
+  \item [$CE$]: custo de permanência do cliente no sistema médio por período
+  \item [$CA$]: custo de atendimento médio por período
+  \item [$CE_{\text{unit}}$]: custo de permanência unitário, por cliente, por período
+  \item [$CA_{\text{unit}}$]: custo de permanência unitário, por cliente
+\end{description}
+
+Relações.
+
+\[ CT = CA + CE \]
+\[ CE = CE_{\text{unit}} \cdot NS = CE_{\text{unit}}\left(\frac{\lambda}{\mu-\lambda}\right) \]
+\[ CT = CA_{\text{unit}} \cdot \mu \]
+\[ CT = CE_{\text{unit}}\left(\frac{\lambda}{\mu-\lambda}\right) + CA_{\text{unit}} \cdot \mu \]
+
+\section{$M/M/1:k/k/F$}
+
+Exemplos: almoxarifado, oficina de manutenção, sistema caminhão-escavadeira
+com número finito de caminhões\ldots
+
+Probabilidade de haver $n$ clientes no sistema.
+
+\[ P(n) = \frac{\rho^{k-n}}{(k-n)!\displaystyle\sum^k_{j=0}\frac{\rho^j}{j!}} \]
+
+Número médio de clientes na fila.
+
+\[ NF = K - \frac{\lambda-\mu}{\lambda}(1-P_0) \]
+
+Número médio de clientes no sistema.
+
+\[ NS = K - \frac{\lambda-\mu}{\lambda}(1-P_0) + \frac{\lambda}{\mu} \]
+
+Tempo médio gasto no sistema.
+
+\[ TS = \frac{K}{\lambda} - \frac{(\lambda-\mu)(1-P_0)}{2} + \frac{1}{\mu} \]
+
+Tempo médio gasto na fila.
+
+\[ TF = \frac{K}{\lambda} - \frac{(\lambda-\mu)(1-P_0)}{\lambda^2} \]
+
+
+\section{Sistemas de Fila com um Servidor}
+
+\textbf{$d(n)$} é a estimativa do \textbf{atraso médio na fila} de $n$ clientes. Após
+a execução de uma simulação, resultando em atrasos de clientes $D_1, D_2,
+\ldots, D_n$, a estimativa de $d(n)$ pode ser definida por:
+
+\[ \hat{d}(n) = \frac{\displaystyle\sum^n_{i=1} D_i}{n} \]
+
+$Q(t)$ é o número de clientes na fila no tempo $t$, e $T(n)$ o tempo
+necessário para observar $n$ atrasos na fila.
+
+\textbf{$q(n)$} é o \textbf{número médio de clientes na fila}, aguardando
+atendimento. $q(n)$ pode ser estimado assim:
+
+\[ \hat{q}(n) = \sum^\infty_{i=0}i\hat{p}_i \]
+
+onde $\hat{p}_i$ é a proporção de tempo durante o tempo de simulação em que
+havia $i$ clientes na fila.
+
+Se $T_i$ é o tempo total no qual a fila tem tamanho $i$, então
+
+\[ T(n) = T_0 + T_1 + T_2 + \ldots \]
+\[ \hat{p} = \frac{T_i}{T(n)} \]
+\[ \hat{q}(n) = \frac{\displaystyle\sum^\infty_{i=0}iT_i}{T(n)} \]
+
+\textbf{$u(n)$} é a \textbf{proporção de tempo em que o servidor está
+ocupado}. $\hat{u}(n)$ é a proporção de tempo em que
+$B(t) = 1$, onde:
+
+\[ B(t) = \left\{\begin{array}{l l} 
+          1 & \text{se o servidor está ocupado no tempo } t \\
+          0 & \text{se o servidor está livre no tempo } t
+          \end{array} \right. \]
+
+\section{Variáveis Aleatórias}
+
+As variáveis aleatórias geralmente são representadas por letras maiúsculas
+$(X,Y,Z)$ e os valores assumidos por elas por letras minúsculas $(x,y,z)$.
+
+\subsection{Variáveis Aleatórias Discretas}
+
+A \textbf{Função Distribuição} $F(x)$ da variável aleatória $X$ é definida
+como
+
+\[ F(x) = P(X\leq x) \]
+
+A probabilidade que uma variável discreta $X$ assuma o valor $x_i$ é dada
+por $p(x_i) = P(X = x_i)$ para $i=1,2,\ldots$ e deve-se ter
+
+\[ \sum^\infty_{i=i} p(x_i) = 1 \]
+
+Se $I = [a,b]$ e $a \leq b$, então
+
+\[ P(X \in I) = \sum_{a \leq x_i \leq b}p(x_i) \]
+
+Assim,
+
+\[ F(x) = \sum_{x_i\leq x}p(x_i) \]
+
+\subsection{Variáveis Aleatórias Contínuas}
+
+\[ P(X \in [x, x+\Delta x]) = \int^{x+\Delta x}_x f(y)dy \]
+
+\[ P(X=x) = P(X \in [x,x] = \int^x_x f(y)dy = 0 \]
+
+\[ F(x) = P(X \in (-\infty,x]) = \int^x_\infty f(y)dy \]
+
+\[ P(X \in I) = \int^b_a f(y)dy = F(b) - F(a) \]
+
+\subsection{Variáveis independentes}
+
+Sendo 
+
+\[ p_X(x) = \sum_{\text{todo } y} p(x,y) \]
+\[ p_Y(y) = \sum_{\text{todo } x} p(x,y) \] 
+
+então $X$ e $Y$ são independentes se
+
+\[ p(x,y) = p_X(x) p_Y(y) \]
+
+\subsection{Outras funções}
+
+A média é denotada por $\mu_i$ e definida por
+
+\[ \mu_i = \left\{\begin{array}{l l} 
+           \sum^\infty_{j=1}x_j p_{x_i}(x_j) & \text{se } X_i \text{ é discreta} \\
+           \int^\infty_{-\infty}x f_{x_i}(x)dx & \text{se } X_i \text{ é contínua}
+           \end{array} \right. \]
+
+A variância é denotada por $\sigma^2$ ou $\Var(X_i)$ e definida por
+
+\[ \sigma^2 = E[(X_i-\mu_i)^2] = E(X_i^2) - \mu_i^2 \]
+
+O desvio padrão é definido por
+
+\[ \sigma_i = \sqrt{\sigma_i^2} \]
+
+A covariância é definida por
+
+\[ C_{ij} = E[(X_i-\mu_i)(X_j-\mu_j)] = E(X_iX_j) - \mu_i \mu_j \]
+
+\[ C_{ij} = C_{ji} \]
+
+\end{document}
