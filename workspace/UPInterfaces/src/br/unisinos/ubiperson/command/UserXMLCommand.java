@@ -23,13 +23,16 @@ public class UserXMLCommand extends DefaultHandler
 		return user;
 	}
 	
-	public void startElement (String uri, String name,
-		      String qName, Attributes atts)
+	public void startElement (String uri, String name, String qName, Attributes atts)
+		throws SAXException
 	{
-		if ("".equals (uri))
-			System.out.println("Start element: " + qName);
+		if(qName == "user")
+		{
+			this.name = atts.getValue("name");
+			this.password = atts.getValue("password");
+		}
 		else
-			System.out.println("Start element: {" + uri + "}" + name);
+			throw new SAXException();
 	}
 }
 
