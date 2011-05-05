@@ -9,6 +9,7 @@ import java.awt.Graphics;
 public class UI extends Applet {
 
 	private Game game;
+	int rx, ry = 0;
 
 	@Override
 	public void init() {
@@ -21,7 +22,11 @@ public class UI extends Applet {
 
 	@Override
 	public void paint(Graphics g) {
-		
+		for(int x=0; x<getWidth() / 8; x++)
+			for(int y=0; y<getHeight() / 8; y++)
+			{
+				drawTile(x+rx, y+ry, 
+			}
 	}
 	
 	
