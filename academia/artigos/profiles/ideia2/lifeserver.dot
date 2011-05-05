@@ -1,0 +1,22 @@
+digraph G {
+
+	subgraph cluster_1 {
+		LifeComm;
+		LifeServices;
+		LifeInferenceEngine;
+		DB [label = " { Trail Repository }", shape=record];
+		inferred [label = " { Inferred Data }", shape=record];
+		label = "LifeServer";
+		color=black;
+
+		LifeComm -> LifeServices [ dir=both ];
+		LifeServices -> LifeInferenceEngine;
+		LifeServices -> DB [ dir=both ];
+		DB -> LifeInferenceEngine;
+		LifeInferenceEngine -> inferred;
+	}
+
+	World [ label = "Outside World" ];
+	LifeComm -> World [dir=both];
+
+}
