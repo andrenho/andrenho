@@ -9,18 +9,28 @@ import java.net.*;
 
 public class UPConnection {
 	
-	public UPConnection(URL url, String name, String password)
+	private static class ServerResponse {
+		int code;
+		String message;
+		public String toString() {
+			return code + " - " + message;
+		}
+	}
+	
+	public UPConnection(URL url, String name, String password) throws IOException
 	{
-		
+		String xml = "<?xml version=\"1.0\"?><user name=\"" + name + "\" password=\"" + password + "\" />";
+		System.out.println(request(url, "GET", xml));
 	}
 	
 	
 	public static void createUser(URL url, String name, String password) throws IOException
 	{
-		System.out.println(request(url, "POST", "<?xml version=\"1.0\"><user name=\"" + name + "\" password=\"" + password + "\" />"));
+		String xml = "<?xml version=\"1.0\"?><user name=\"" + name + "\" password=\"" + password + "\" />";
+		System.out.println(request(url, "POST", xml));
 	}
 
-	private static String request(URL url, String method, String data) throws IOException
+	private static ServerResponse request(URL url, String method, String data) throws IOException
 	{
 		HttpURLConnection c = (HttpURLConnection)url.openConnection();
 		c.setRequestMethod(method);
@@ -45,7 +55,11 @@ public class UPConnection {
 	        response.append('\r');
 	    }
 	    rd.close();
-	    return response.toString();
+	    
+	    ServerResponse sr = new ServerResponse();
+	    sr.code = c.getResponseCode();
+	    sr.message = response.toString(); 
+	    return sr;
 	}
 	
 	public static void main(String[] args) throws MalformedURLException, IOException
