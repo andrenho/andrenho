@@ -1,14 +1,23 @@
 package upserver.resources;
 
+import upserver.UPServices;
+
 public class Resource {
 
 	public String path;
-	public Class resouce;
+	public Class resource;
 		
 	public Resource(String path, Class resource)
 	{
 		this.path = path;
-		this.resouce = resource;
+		this.resource = resource;
+	}
+	
+	public UPResource newInstance(UPServices services) throws InstantiationException, IllegalAccessException
+	{
+		UPResource r = (UPResource)resource.newInstance();
+		r.services = services;
+		return r;
 	}
 	
 	public static Resource[] resources = {
