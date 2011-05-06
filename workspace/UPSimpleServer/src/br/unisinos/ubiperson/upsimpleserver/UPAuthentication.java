@@ -29,12 +29,14 @@ public class UPAuthentication {
 	
 	public UPAuthentication() throws ClassNotFoundException, SQLException
 	{
+		/*
 		Class.forName("org.sqlite.JDBC");
 		conn = DriverManager.getConnection("jdbc:sqlite:ubiperson.db");
 		Statement st = conn.createStatement();
 		st.execute("create table if not exists users ( " + 
 				   "    user string primary key, " +
 				   "    password string )");
+		*/
 	}
 	
 	public void registerUser(String user, String password) throws Exception
