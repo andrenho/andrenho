@@ -7,8 +7,11 @@ import java.io.OutputStream;
 
 import com.sun.net.httpserver.HttpExchange;
 import upinterfaces.*;
+import upserver.UPServices;
 
-public abstract class UPResource implements HttpHandler {
+abstract class UPResource implements HttpHandler {
+	
+	public UPServices services;
 	
 	protected UPResponse get(String[] parameters)
 	{

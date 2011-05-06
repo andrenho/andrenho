@@ -1,5 +1,5 @@
 package upserver.resources;
 
-public class Event extends UPResource {
+class Event extends UPResource {
 	
 }

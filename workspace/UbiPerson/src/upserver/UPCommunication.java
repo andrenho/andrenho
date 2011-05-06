@@ -23,7 +23,7 @@ public class UPCommunication {
 	{
 		server = HttpServer.create(new InetSocketAddress(this.port), 0); // TODO - https
 		for(Resource r: Resource.resources)
-			server.createContext(r.path, (UPResource)r.resouce.newInstance());
+			server.createContext(r.path, r.newInstance(services));
 		server.setExecutor(null);
 		server.start();
 		System.out.println("Servidor iniciado.");
