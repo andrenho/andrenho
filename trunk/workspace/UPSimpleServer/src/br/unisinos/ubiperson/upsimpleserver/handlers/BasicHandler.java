@@ -8,9 +8,10 @@ import com.sun.net.httpserver.HttpHandler;
 
 public abstract class BasicHandler implements HttpHandler {
 	
-	protected void sendReply(HttpExchange t, int number, String response) throws IOException
+	protected void sendReply(HttpExchange t, int code, String response) throws IOException
 	{
-		t.sendResponseHeaders(number, response.length());
+		System.out.println("Resposta: " + code);
+		t.sendResponseHeaders(code, response.length());
 		OutputStream os = t.getResponseBody();
 		os.write(response.getBytes());
 		os.close();

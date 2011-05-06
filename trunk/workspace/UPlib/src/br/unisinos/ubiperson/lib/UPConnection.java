@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.*;
 
+import br.unisinos.ubiperson.command.UserXMLCommand;
+
 public class UPConnection {
 	
 	private static class ServerResponse {
@@ -17,22 +19,22 @@ public class UPConnection {
 		}
 	}
 	
-	public UPConnection(URL url, String name, String password) throws IOException
+	public UPConnection(String url, String name, String password) throws IOException
 	{
-		String xml = "<?xml version=\"1.0\"?><user name=\"" + name + "\" password=\"" + password + "\" />";
-		System.out.println(request(url, "GET", xml));
+		System.out.println(request(url + "/login", "POST", 
+				(new UserXMLCommand(name, password)).getXML()));
 	}
 	
 	
-	public static void createUser(URL url, String name, String password) throws IOException
+	public static void createUser(String url, String name, String password) throws IOException
 	{
-		String xml = "<?xml version=\"1.0\"?><user name=\"" + name + "\" password=\"" + password + "\" />";
-		System.out.println(request(url, "POST", xml));
+		System.out.println(request(url + "/user", "POST", 
+				(new UserXMLCommand(name, password)).getXML()));
 	}
 
-	private static ServerResponse request(URL url, String method, String data) throws IOException
+	private static ServerResponse request(String url, String method, String data) throws IOException
 	{
-		HttpURLConnection c = (HttpURLConnection)url.openConnection();
+		HttpURLConnection c = (HttpURLConnection)(new URL(url)).openConnection();
 		c.setRequestMethod(method);
 		c.setRequestProperty("Content-Type", "text/xml");
 		c.setRequestProperty("Content-Length", "" +
@@ -64,6 +66,7 @@ public class UPConnection {
 	
 	public static void main(String[] args) throws MalformedURLException, IOException
 	{
-		UPConnection.createUser(new URL("http://localhost:8080/user"), "name", "1234");
+		UPConnection.createUser("http://localhost:8080", "name", "1234");
+		//new UPConnection("http://localhost:8080", "name", "1234");
 	}
 }

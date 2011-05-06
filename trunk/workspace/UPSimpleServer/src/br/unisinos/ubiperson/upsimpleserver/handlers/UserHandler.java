@@ -23,9 +23,10 @@ public class UserHandler extends BasicHandler {
 
 		if(method.equals("POST"))
 		{
+			System.out.println("Solicitado cadastramento de usuário.");
 			InputStream is = t.getRequestBody();
 			try {
-				UserXMLCommand user = UserXMLCommand.parse(is);
+				UserXMLCommand user = new UserXMLCommand(is);
 				auth.registerUser(user.name, user.password);
 				sendReply(t, 200, "Success");
 			} catch (Exception e) {
