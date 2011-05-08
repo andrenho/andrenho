@@ -1,0 +1,4 @@
+digraph g {
+
+    Animal -> Comer [ label = "faz"; ]
+}
