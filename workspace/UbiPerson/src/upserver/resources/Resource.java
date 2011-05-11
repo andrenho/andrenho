@@ -13,7 +13,8 @@ public class Resource {
 		this.resource = resource;
 	}
 	
-	public UPResource newInstance(UPServices services) throws InstantiationException, IllegalAccessException
+	public UPResource newInstance(UPServices services) 
+		throws InstantiationException, IllegalAccessException
 	{
 		UPResource r = (UPResource)resource.newInstance();
 		r.services = services;

@@ -3,6 +3,8 @@ package upserver;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import com.sun.net.httpserver.HttpServer;
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import upserver.resources.*;
 
@@ -22,8 +24,13 @@ public class UPCommunication {
 	public void run() throws IOException, InstantiationException, IllegalAccessException
 	{
 		server = HttpServer.create(new InetSocketAddress(this.port), 0); // TODO - https
+		XStream xstream = new XStream(new DomDriver());
 		for(Resource r: Resource.resources)
-			server.createContext(r.path, r.newInstance(services));
+		{
+			UPResource resource = r.newInstance(services);
+			resource.xstream = xstream;
+			server.createContext(r.path, resource);
+		}
 		server.setExecutor(null);
 		server.start();
 		System.out.println("Servidor iniciado.");
