@@ -4,6 +4,7 @@ import com.sun.net.httpserver.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Arrays;
 
 import com.sun.net.httpserver.HttpExchange;
 import upinterfaces.*;
@@ -42,6 +43,7 @@ abstract class UPResource implements HttpHandler {
 		String method = t.getRequestMethod();
 		
 		String[] parameters = t.getRequestURI().toString().split("/");
+		parameters = Arrays.copyOfRange(parameters, 1, parameters.length);
 		
 		UPResponse response = null;
 		if(method.equals("GET"))
