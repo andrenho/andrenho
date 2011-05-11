@@ -1,4 +1,49 @@
 digraph g {
 
-    Animal -> Comer [ label = "faz"; ]
+    Animal [
+        label = "{ Animal | faz: comer } | { Atributo | tamanho_cm } | { Default | } | { Tipo | número }"
+        shape = "record"
+    ];
+    Vermes [
+        label = "{ Vermes | é-um: Animal } | { Atributo | tamanho_cm } | { Default | 0.5 } | { Tipo | número }"
+        shape = "record"
+    ];
+    Mamífero [
+        label = "{ Mamífero | é-um: Animal, tem: Pelos } | { Atributo | tamanho_cm | patas } | { Default | | } | { Tipo | número | número }"
+        shape = "record"
+    ];
+    Pássaro [
+        label = "{ Pássaro | é-um: Animal, come: Vermes, tem: Asas } | { Atributo | tamanho_cm | cor } | { Default | 15 | } | { Tipo | número | string }"
+        shape = "record"
+    ];
+    Peixe [
+        label = "{ Peixe | é-um: Animal, come: Vermes } | { Atributo | tamanho_cm | marinho } | { Default | 30 | } | { Tipo | número | booleano }"
+        shape = "record"
+    ];
+    Gato [
+        label = "{ Gato | come: Peixe, tem: Pelos } | { Atributo | tamanho_cm | patas | doméstico } | { Default | 40 | 4 | verdadeiro } | { Tipo | número | número | booleano }"
+        shape = "record"
+    ];
+    Cão [
+        label = "{ Cão | é-um: Mamífero, tem: Pelos, caça: Gato  } | { Atributo | tamanho_cm | patas | melhor-amigo-do-homem } | { Default | 50 | 4 | verdadeiro } | { Tipo | número | número | booleano }"
+        shape = "record"
+    ];
+    Morcego [
+        label = "{ Morcego | é-um: Animal, tem: Asas  } | { Atributo | tamanho_cm | patas } | { Default | 15 | 2 } | { Tipo | número | número }"
+        shape = "record"
+    ];
+
+    Pássaro -> Animal
+    Peixe -> Animal
+    Vermes -> Animal
+    Mamífero -> Animal
+    
+    Cão -> Mamífero
+    Morcego -> Mamífero
+    Gato -> Mamífero
+
+    Cão -> Gato [ style="dotted" ];
+    Gato -> Peixe [ style="dotted" ];
+    Pássaro -> Vermes [ style="dotted" ];
+    Peixe -> Vermes [ style="dotted" ];
 }

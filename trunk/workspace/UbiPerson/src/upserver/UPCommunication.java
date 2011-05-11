@@ -6,6 +6,7 @@ import com.sun.net.httpserver.HttpServer;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
+import upinterfaces.UPXMLEvent;
 import upserver.resources.*;
 
 
@@ -24,7 +25,11 @@ public class UPCommunication {
 	public void run() throws IOException, InstantiationException, IllegalAccessException
 	{
 		server = HttpServer.create(new InetSocketAddress(this.port), 0); // TODO - https
+		
+		// inicialize XStream
 		XStream xstream = new XStream(new DomDriver());
+		xstream.alias("event", UPXMLEvent.class); // TODO - isto deve ir em outro lugar!
+		
 		for(Resource r: Resource.resources)
 		{
 			UPResource resource = r.newInstance(services);
