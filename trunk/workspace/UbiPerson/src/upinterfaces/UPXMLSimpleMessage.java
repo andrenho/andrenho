@@ -1,17 +1,13 @@
 package upinterfaces;
 
-public class UPXMLSimpleMessage extends UPXML {
+public class UPXMLSimpleMessage implements UPXML {
 
+	@SuppressWarnings("unused")
 	private String message;
 
 	public UPXMLSimpleMessage(String message)
 	{
 		this.message = message;
-	}
-	
-	@Override
-	public String XMLtoString() {
-		return "<h1>" + message + "</h1>";
 	}
 
 }

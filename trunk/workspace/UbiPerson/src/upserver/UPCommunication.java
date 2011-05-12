@@ -4,9 +4,8 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import com.sun.net.httpserver.HttpServer;
 import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
 
-import upinterfaces.UPXMLEvent;
+import upinterfaces.UPXMLManager;
 import upserver.resources.*;
 
 
@@ -27,8 +26,7 @@ public class UPCommunication {
 		server = HttpServer.create(new InetSocketAddress(this.port), 0); // TODO - https
 		
 		// inicialize XStream
-		XStream xstream = new XStream(new DomDriver());
-		xstream.alias("event", UPXMLEvent.class); // TODO - isto deve ir em outro lugar!
+		XStream xstream = UPXMLManager.initializeXMLAlias();
 		
 		for(Resource r: Resource.resources)
 		{
