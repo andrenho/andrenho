@@ -25,12 +25,12 @@ public abstract class UPResource implements HttpHandler {
 		return invalidMethod("GET");
 	}
 
-	protected UPResponse post(String[] parameters, String message)
+	protected UPResponse post(String[] parameters, String message) throws InvalidXMLException
 	{
 		return invalidMethod("POST");
 	}
 
-	protected UPResponse put(String[] parameters, String message)
+	protected UPResponse put(String[] parameters, String message) throws InvalidXMLException
 	{
 		return invalidMethod("PUT");
 	}
@@ -49,7 +49,7 @@ public abstract class UPResource implements HttpHandler {
 		String method = t.getRequestMethod();
 		
 		String[] parameters = t.getRequestURI().toString().split("/");
-		parameters = Arrays.copyOfRange(parameters, 1, parameters.length);
+		parameters = Arrays.copyOfRange(parameters, 2, parameters.length);
 		
 		String request = "";
 		if(method.equals("POST") || method.equals("PUT"))
@@ -70,14 +70,34 @@ public abstract class UPResource implements HttpHandler {
 		else if(method.equals("DELETE"))
 			response = delete(parameters);
 		else if(method.equals("POST"))
-			response = post(parameters, request);
+			try {
+				response = post(parameters, request);
+			} catch (InvalidXMLException e) {
+				e.printStackTrace();
+				returnInvalidXML(t);
+				return;
+			}
 		else if(method.equals("PUT"))
-			response = put(parameters, request);
+			try {
+				response = put(parameters, request);
+			} catch (InvalidXMLException e) {
+				e.printStackTrace();
+				returnInvalidXML(t);
+				return;
+			}
 		else
 			response = invalidMethod(method);
 		
-		String message = response.message.XMLtoString();
+		String message = xstream.toXML(response.message);
 		t.sendResponseHeaders(response.code, message.length());
+		OutputStream os = t.getResponseBody();
+		os.write(message.getBytes());
+		os.close();
+	}
+
+	private void returnInvalidXML(HttpExchange t) throws IOException {
+		String message = "Invalid XML.";
+		t.sendResponseHeaders(405, message.length());
 		OutputStream os = t.getResponseBody();
 		os.write(message.getBytes());
 		os.close();

@@ -1,13 +1,8 @@
 package upinterfaces;
 
-public class UPXMLEvent extends UPXML {
+public class UPXMLEvent implements UPXML {
 	
+	public String user;
 	public double value;
-
-	@Override
-	public String XMLtoString() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

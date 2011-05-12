@@ -5,9 +5,9 @@ import upserver.UPServices;
 public class Resource {
 
 	public String path;
-	public Class resource;
+	public Class<?> resource;
 		
-	public Resource(String path, Class resource)
+	public Resource(String path, Class<?> resource)
 	{
 		this.path = path;
 		this.resource = resource;
@@ -22,6 +22,7 @@ public class Resource {
 	}
 	
 	public static Resource[] resources = {
-		new Resource("/event", Event.class)
+		new Resource("/event", Event.class),
+		new Resource("/inference", Inference.class),
 	};
 }
