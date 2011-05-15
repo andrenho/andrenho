@@ -10,14 +10,17 @@ import javax.swing.*;
 class ClientManager extends JLayeredPane implements MouseMotionListener {
 	
 	private Vector<ClientRepresentation> clients = new Vector<ClientRepresentation>();
+	private Vector<Context> contexts;
 
 	public ClientManager(UbiClientTest frame)
 	{
 		setPreferredSize(new Dimension(600, 400));
 		
 		// create contexts
-		Vector<Context> contexts = new Vector<Context>();
+		contexts = new Vector<Context>();
 		contexts.add(new Context("Contexto 1", new Rectangle(50, 50, 150, 150)));
+		contexts.add(new Context("Contexto 2", new Rectangle(300, 100, 200, 200)));
+		contexts.add(new Context("Contexto 3", new Rectangle(200, 230, 200, 100)));
 		
 		// create contexts onscreen
 		for(Context context: contexts)
@@ -36,7 +39,11 @@ class ClientManager extends JLayeredPane implements MouseMotionListener {
 		for(ClientRepresentation c: clients) 
 		{
 			if(c.getBounds().contains(e.getX(), e.getY()))
-				c.setLocation(e.getX(), e.getY());
+			{
+				c.setLocation(e.getX() - (c.getBounds().width / 2), 
+						e.getY() - (c.getBounds().height / 2));
+				c.checkContext(contexts);
+			}
 		}
 	}
 
