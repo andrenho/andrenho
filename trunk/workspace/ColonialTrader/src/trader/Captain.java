@@ -19,5 +19,4 @@ public class Captain {
 		
 		assert (pilot + fighter + trader + shipwright) == 20;
 	}
-	
 }
