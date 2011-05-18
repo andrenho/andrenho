@@ -13,5 +13,6 @@ public class Good {
 	
 	public final static Good[] list = {
 		new Good("Food", true),
+		new Good("Wood", true),
 	};
 }
