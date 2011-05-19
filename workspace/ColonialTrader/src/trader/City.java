@@ -46,7 +46,6 @@ public class City {
 		this(nameAutoGen(), coordinates,
 				Collections.unmodifiableList(Arrays.asList(PoliticalSystem.values())).get((new Random()).nextInt(PoliticalSystem.values().length)),
 				Collections.unmodifiableList(Arrays.asList(Type.values())).get((new Random()).nextInt(Type.values().length)));
-		System.out.println(this.name);
 	}
 
 	private static String nameAutoGen() {
@@ -146,12 +145,6 @@ public class City {
 	public void updatePrices() {
 		// TODO Auto-generated method stub
 		
-	}
-	
-	public int distanceFrom(City city)
-	{
-		return (int) Math.sqrt(Math.pow(Math.abs(this.coordinates.x - city.coordinates.x), 2) + 
-				Math.pow(Math.abs(this.coordinates.y - city.coordinates.y), 2)); 
 	}
 	
 }

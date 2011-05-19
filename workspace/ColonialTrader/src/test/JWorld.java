@@ -36,24 +36,24 @@ public class JWorld extends JPanel implements MouseListener {
 				if(world.land[x][y])
 					g2d.fill(new Rectangle(x * 4, y * 4, 4, 4));
 		
-		g2d.setPaint(Color.black);
 		for(City city: world.cities)
+		{
+			if(city == Captain.getCaptain().getDocked())
+				g2d.setPaint(Color.blue);
+			else if(Captain.getCaptain().availableCities.containsKey(city))
+				g2d.setPaint(Color.red);
+			else
+				g2d.setPaint(Color.black);
 			g2d.drawRect((int)city.coordinates.x * 4, (int)city.coordinates.y * 4, 4, 4);
-		
-		Ellipse2D.Double range = new Ellipse2D.Double(
-				captain.docked.coordinates.x * 4 - (captain.ship.getRange() / 2),
-				captain.docked.coordinates.y * 4 - (captain.ship.getRange() / 2),
-				captain.ship.getRange(), captain.ship.getRange());
-		g2d.setPaint(Color.lightGray);
-		g2d.draw(range);
+		}
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) 
 	{
 		for(City city: world.cities)
-			if(e.getX() >= (int)city.coordinates.x - 8 && e.getX() < (int)city.coordinates.x + 8
-			&& e.getY() >= (int)city.coordinates.y - 8 && e.getY() < (int)city.coordinates.y + 8)
+			if(e.getX() >= (int)city.coordinates.x * 4 - 8 && e.getX() < (int)city.coordinates.x * 4 + 8
+			&& e.getY() >= (int)city.coordinates.y * 4 - 8 && e.getY() < (int)city.coordinates.y * 4 + 8)
 			{
 				jcity.showCity(city);
 				repaint();
