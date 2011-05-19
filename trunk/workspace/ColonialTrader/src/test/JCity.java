@@ -105,15 +105,15 @@ public class JCity extends JDialog implements ActionListener {
 		ipanel.add(new JLabel("City: " + city.name));
 		ipanel.add(new JLabel("System: " + city.politicalSystem.toString()));
 		ipanel.add(new JLabel("Type: " + city.type.toString()));
-		ipanel.add(new JLabel("Distance: " + city.distanceFrom(Captain.getCaptain().docked)));
+		//ipanel.add(new JLabel("Distance: " + city.distanceFrom(Captain.getCaptain().getDocked())));
 		ipanel.add(travel);
 		
-		if(Captain.getCaptain().docked == city)
+		if(Captain.getCaptain().getDocked() == city)
 		{
 			travel.setEnabled(false);
 			setAwayCity(false);
 		}
-		else if(Captain.getCaptain().docked.distanceFrom(city) > Captain.getCaptain().ship.getRange())
+		else if(!Captain.getCaptain().availableCities.containsKey(city))
 		{
 			travel.setEnabled(false);
 			setAwayCity(true);

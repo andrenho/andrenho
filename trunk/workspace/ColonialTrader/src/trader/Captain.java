@@ -1,5 +1,8 @@
 package trader;
 
+import java.util.HashMap;
+import java.util.Vector;
+
 public class Captain {
 	
 	@SuppressWarnings("serial")
@@ -15,11 +18,14 @@ public class Captain {
 	public final int pilot, fighter, trader, shipwright;
 	public Ship ship;
 	public World world;
-	public City docked = null;
+	private City docked = null;
+
 	public int doubloons = 2000;
 	protected static Captain captain = null;
 	
-	protected Captain(String name, int pilot, int fighter, int trader, int shipwright)
+	public HashMap<City, Integer> availableCities = new HashMap<City, Integer>();
+	
+	protected Captain(String name, int pilot, int fighter, int trader, int shipwright, World w)
 	{
 		this.name = name;
 		this.pilot = pilot;
@@ -27,15 +33,18 @@ public class Captain {
 		this.trader = trader;
 		this.shipwright = shipwright;
 		this.ship = new Ship(ShipClass.CARAVEL);
+		this.world = w;
+		
+		travel(world.cities.get((int) (Math.random() * world.n_cities)));
 		
 		assert (pilot + fighter + trader + shipwright) == 20;
 	}
 	
-	public static Captain create(String name, int pilot, int fighter, int trader, int shipwright) throws Exception
+	public static Captain create(String name, int pilot, int fighter, int trader, int shipwright, World w) throws Exception
 	{
 		if(captain != null)
 			throw new Exception("Captiain already created.");
-		captain = new Captain(name, pilot, fighter, trader, shipwright);
+		captain = new Captain(name, pilot, fighter, trader, shipwright, w);
 		return captain;
 	}
 
@@ -115,5 +124,24 @@ public class Captain {
 	public void travel(City city) {
 		// TODO - a lot!
 		this.docked = city;
+		updateAvailableCities();
+	}
+
+	private void updateAvailableCities() {
+		availableCities.clear();
+		for(City city2: world.cities)
+			if(this.docked != city2)
+			{
+				if(world.estimateCost(this.docked.coordinates, city2.coordinates) < ShipClass.maxRange)
+				{
+					Vector<Coordinate> c = world.pathBetweenCoordinates(this.docked.coordinates, city2.coordinates);
+					if(c != null)
+						availableCities.put(city2, c.size());
+				}
+			}
+	}
+
+	public City getDocked() {
+		return docked;
 	}
 }

@@ -5,6 +5,7 @@ public class ShipClass {
 	public String name;
 	public final double range;
 	public final int capacity;
+	public final static int maxRange = 25;
 
 	protected ShipClass(String name, double range, int capacity)
 	{
@@ -13,5 +14,5 @@ public class ShipClass {
 		this.capacity = capacity;
 	}
 	
-	public static ShipClass CARAVEL = new ShipClass("Caravel", 100.0, 20); 
+	public static ShipClass CARAVEL = new ShipClass("Caravel", 100.0, 10); 
 }

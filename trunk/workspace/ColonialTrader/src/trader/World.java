@@ -1,11 +1,14 @@
 package trader;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Vector;
 
 public class World {
 
 	public final Vector<City> cities = new Vector<City>();;
-	public final int w = 100, h = 80; 
+	public final int w = 100, h = 80;
+	public final int n_cities = 50;
 	public boolean[][] land = new boolean[w][h];
 	
 	public World()
@@ -23,7 +26,6 @@ public class World {
 	{
 		while(amountWater() > 0.65)
 		{
-			System.out.println(amountWater());
 			int x = (int) (Math.random() * w);
 			int y = (int) (Math.random() * h);
 			int size = (int) (Math.random() * 10 + 1);
@@ -60,19 +62,28 @@ public class World {
 	}
 
 	private void createCities() {
-		for(int i=0; i<30; i++)
-		{
-			int x, y;
-			do
+		for(int x=0; x<w; x += w / Math.sqrt(n_cities))
+			for(int y=0; y<h; y += h / Math.sqrt(n_cities))
 			{
-				x = (int) (Math.random() * w);
-				y = (int) (Math.random() * h);
-			} while(!hasBeach(x, y));
-			cities.add(new City(new Coordinate(x, y)));
-		}
+				int xx, yy, tries = 100;
+				do
+				{
+					xx = (int) (Math.random() * w / Math.sqrt(n_cities)) + x;
+					if(xx >= w)
+						xx = w-1;
+					yy = (int) (Math.random() * h / Math.sqrt(n_cities)) + y;
+					if(yy >= h)
+						yy = h-1;
+					if(tries-- < 0)
+						break;
+				} while(!hasBeach(xx, yy));
+				if(hasBeach(xx, yy))
+					cities.add(new City(new Coordinate(xx, yy)));
+			}
 	}
 
-	private boolean hasBeach(int x, int y) {
+	private boolean hasBeach(int x, int y) 
+	{
 		if(!land[x][y])
 			return false;
 		for(int xx=x-1; xx<=x+1; xx++)
@@ -86,6 +97,99 @@ public class World {
 	private void adjustDistances() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	
+	public Vector<Coordinate> pathBetweenCoordinates(Coordinate start, Coordinate goal) 
+	{
+		Vector<Coordinate> closedset = new Vector<Coordinate>();
+		Vector<Coordinate> openset = new Vector<Coordinate>();
+		HashMap<Coordinate, Coordinate> camefrom = new HashMap<Coordinate, Coordinate>();
+		
+		HashMap<Coordinate, Integer> g_score = new HashMap<Coordinate, Integer>(),
+		                             h_score = new HashMap<Coordinate, Integer>(),
+		                             f_score = new HashMap<Coordinate, Integer>();
+		
+		openset.add(start);
+		g_score.put(start, 0);
+		h_score.put(start, estimateCost(start, goal));
+		f_score.put(start, h_score.get(start));
+		
+		while(!openset.isEmpty())
+		{
+			Coordinate x = null;
+			int sc = Integer.MAX_VALUE;
+			for(Coordinate c: openset)
+				if(f_score.get(c) < sc)
+				{
+					sc = f_score.get(c);
+					x = c;
+				}
+			
+			if(x.equals(goal))
+				return reconstructPath(camefrom, camefrom.get(goal));
+			
+			openset.remove(x);
+			closedset.add(x);
+			for(Coordinate y: neighborNodes(x, start, goal))
+			{
+				if(closedset.contains(y))
+					continue;
+				int tentative_g_score = g_score.get(x) + estimateCost(x,y);
+				
+				boolean tentative_is_better;
+				if(!openset.contains(y))
+				{
+					openset.add(y);
+					tentative_is_better = true;
+				}
+				else if(tentative_g_score < g_score.get(y))
+					tentative_is_better = true;
+				else
+					tentative_is_better = false;
+				
+				if(tentative_is_better)
+				{
+					camefrom.put(y, x);
+					g_score.put(y, tentative_g_score);
+					h_score.put(y, estimateCost(y, goal));
+					f_score.put(y, g_score.get(y) + h_score.get(y));
+				}
+			}
+		}
+		
+		return null;
+	}
+
+	private Vector<Coordinate> neighborNodes(Coordinate c, Coordinate start, Coordinate goal) {
+		Vector<Coordinate> v = new Vector<Coordinate>();
+		int t = 0;
+		for(int x=-1; x<=1; x++)
+			for(int y=-1; y<=1; y++)
+				if(c.x+x >= 0 && c.y+y >=0 && c.x+x < w && c.y+y < h && !(x==0 && y==0))
+					if(!land[c.x+x][c.y+y] || c.near(goal) || c.near(start))
+					{
+						t++;
+						v.add(new Coordinate(c.x+x, c.y+y));
+					}
+		return v;
+	}
+
+	private Vector<Coordinate> reconstructPath(
+			HashMap<Coordinate, Coordinate> camefrom, Coordinate goal) {
+		Vector<Coordinate> coordinates = new Vector<Coordinate>();
+		Coordinate c = goal;
+		while(camefrom.containsKey(c))
+		{
+			coordinates.add(c);
+			c = camefrom.get(c);
+		}
+		return coordinates;
+	}
+
+	Integer estimateCost(Coordinate c1, Coordinate c2) {
+		return (int) Math.sqrt(Math.pow(Math.abs(c2.x - c1.x), 2) +
+				Math.pow(Math.abs(c2.y - c1.y), 2));
 	}
 
 }
