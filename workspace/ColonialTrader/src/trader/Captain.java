@@ -60,15 +60,14 @@ public class Captain {
 		
 		if(i > (ship.getCapacity() - ship.getSpacesUsed()))
 			throw new NoSpaceLeftException();
-		if(i * docked.priceBuy(good) > doubloons)
+		if(i * docked.getPriceBuy(good) > doubloons)
 			throw new NoMoneyLeftException();
 		if(i > docked.amount.get(good))
 			throw new NoGoodsInTownException();
 		
 		ship.amount.put(good, ship.amount.get(good) + i);
 		docked.amount.put(good, docked.amount.get(good) - i);
-		doubloons -= i * docked.priceBuy(good);
-		docked.updatePrices();
+		doubloons -= i * docked.getPriceBuy(good);
 		
 		assert doubloons >= 0;
 	}
@@ -84,9 +83,7 @@ public class Captain {
 		
 		ship.amount.put(good, ship.amount.get(good) - i);
 		docked.amount.put(good, docked.amount.get(good) + i);
-		doubloons += i * docked.priceSell(good);
-
-		docked.updatePrices();
+		doubloons += i * docked.getPriceSell(good);
 	}
 
 	public void buyAll(Good good) 
@@ -94,7 +91,7 @@ public class Captain {
 		assert docked != null;
 		assert ship != null;
 		
-		int i = doubloons / docked.priceBuy(good);
+		int i = doubloons / docked.getPriceBuy(good);
 		if(i > ship.getCapacity() - ship.getSpacesUsed())
 			i = ship.getCapacity() - ship.getSpacesUsed();
 		if(i > docked.amount.get(good))

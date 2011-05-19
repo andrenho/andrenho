@@ -103,7 +103,7 @@ public class JCity extends JDialog implements ActionListener {
 		// city info
 		ipanel.removeAll();
 		ipanel.add(new JLabel("City: " + city.name));
-		ipanel.add(new JLabel("System: " + city.politicalSystem.toString()));
+		ipanel.add(new JLabel("System: " + city.terrain.toString()));
 		ipanel.add(new JLabel("Type: " + city.type.toString()));
 		//ipanel.add(new JLabel("Distance: " + city.distanceFrom(Captain.getCaptain().getDocked())));
 		ipanel.add(travel);
@@ -147,10 +147,10 @@ public class JCity extends JDialog implements ActionListener {
 	private void updateInfo() {
 		for(Good good: Good.list)
 		{
-			buyButton.get(good).setText(Captain.getCaptain().ship.amount.get(good).toString());
-			sellButton.get(good).setText(city.amount.get(good).toString());
-			priceBuy.get(good).setText("$ " + city.priceBuy(good).toString());
-			priceSell.get(good).setText("$ " + city.priceSell(good).toString());
+			sellButton.get(good).setText(Captain.getCaptain().ship.amount.get(good).toString());
+			buyButton.get(good).setText(city.amount.get(good).toString());
+			priceBuy.get(good).setText("$ " + city.getPriceBuy(good).toString());
+			priceSell.get(good).setText("$ " + city.getPriceSell(good).toString());
 		}
 		Ship ship = Captain.getCaptain().ship;
 		selfInfo.setText(ship.getSpacesUsed() + "/" + ship.getCapacity() + "    $ " + Captain.getCaptain().doubloons);
