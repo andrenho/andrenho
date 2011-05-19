@@ -9,8 +9,8 @@ import java.util.Set;
 
 public class City {
 
-	public enum PoliticalSystem { ANARCHY, REBEL, COLONY, DICTATORSHIP, INDEPENDENT };
 	public enum Type { AGRICULTURAL, PROSPECTING, INDUSTRIAL, URBAN, ARISTOCRATIC };
+	public enum Terrain { PLAINS, DESERT, ARCTIC, MOUNTAINS, FOREST };
 
 	protected HashMap<Good, Integer> price;
 	private static Set<String> namesUsed = new HashSet<String>();
@@ -20,16 +20,15 @@ public class City {
 	public final Bar bar;
 	public ShipMerchant shipMerchant = null;
 	public Drydock drydock = null;
-	public PoliticalSystem politicalSystem;
+	public final Terrain terrain;
 	public Type type;
 	public HashMap<Good, Integer> amount;
 	
-	public City(String name, Coordinate coordinates, PoliticalSystem politicalSystem,
-			Type type)
+	protected City(String name, Coordinate coordinates, Terrain terrain, Type type)
 	{
 		this.name = name;
 		this.coordinates = coordinates;
-		this.politicalSystem = politicalSystem;
+		this.terrain = terrain;
 		this.type = type;
 		
 		this.bar = new Bar();
@@ -40,11 +39,27 @@ public class City {
 		}
 		
 		createWarehouse();
+		for(int i=0; i<20; i++)
+			produceAndUpdatePrices();
+	}
+	
+	protected static Terrain chooseTerrain(Coordinate coordinates)
+	{
+		double height = coordinates.y / (double)World.h;
+		System.out.println(height);
+		Terrain terrain;
+		if(height < 0.2 || height > 0.8)
+			terrain = (Math.random() < 0.5 ? Terrain.ARCTIC : Terrain.MOUNTAINS);
+		else if(height < 0.4 || height > 0.6)
+			terrain = (Math.random() < 0.5 ? Terrain.PLAINS : Terrain.FOREST);
+		else
+			terrain = (Math.random() < 0.5 ? Terrain.PLAINS : Terrain.DESERT);
+		return terrain;
 	}
 
 	public City(Coordinate coordinates) {
 		this(nameAutoGen(), coordinates,
-				Collections.unmodifiableList(Arrays.asList(PoliticalSystem.values())).get((new Random()).nextInt(PoliticalSystem.values().length)),
+				chooseTerrain(coordinates),
 				Collections.unmodifiableList(Arrays.asList(Type.values())).get((new Random()).nextInt(Type.values().length)));
 	}
 
@@ -53,7 +68,7 @@ public class City {
 		         spanishPrefixM = { "Nuevo", "San", "El", "Del", "Boca", "Bueno", "Monte" },
 		         spanishF = { "Alameda", "Angelina", "Atascosa", "Bandera", "Calavera", "Fe",
 							  "Esmeralda", "Paz", "Plata", "Madera", "Barbara", "Clara",
-							  "Cruz", "Bonita", "Española", "Vista", "Mesa", "Quinta", 
+							  "Cruz", "Bonita", "Espaï¿½ola", "Vista", "Mesa", "Quinta", 
 							  "Muerte" },
 				 spanishM = { "Amador", "Conejo", "Soto", "Norte", "Dorado", "Hernando",
 		        		      "Monterey", "Sacramento", "Benito", "Diego", "Franscisco",
@@ -129,7 +144,7 @@ public class City {
 			price.put(good, 5);
 	}
 	
-	public Integer priceBuy(Good good)
+	public Integer getPriceBuy(Good good)
 	{
 		int pr = (int)(price.get(good) * 1.1);
 		if(pr == price.get(good))
@@ -138,13 +153,10 @@ public class City {
 			return pr;
 	}
 
-	public Integer priceSell(Good good) {
+	public Integer getPriceSell(Good good) {
 		return price.get(good);
 	}
 
-	public void updatePrices() {
-		// TODO Auto-generated method stub
-		
+	private void produceAndUpdatePrices() {
 	}
-	
 }

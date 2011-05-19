@@ -1,13 +1,13 @@
 package trader;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Vector;
 
 public class World {
 
 	public final Vector<City> cities = new Vector<City>();;
-	public final int w = 100, h = 80;
+	public static final int w = 100;
+	public static final int h = 80;
 	public final int n_cities = 50;
 	public boolean[][] land = new boolean[w][h];
 	
