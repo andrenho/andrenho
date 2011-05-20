@@ -30,9 +30,9 @@ public class JWorld extends JPanel implements MouseListener {
 		
 		Graphics2D g2d = (Graphics2D)g;
 
-		g2d.setPaint(Color.lightGray);
-		for(int x=0; x<world.w; x++)
-			for(int y=0; y<world.h; y++)
+		g2d.setPaint(Color.white);
+		for(int x=0; x<World.w; x++)
+			for(int y=0; y<World.h; y++)
 				if(world.land[x][y])
 					g2d.fill(new Rectangle(x * 4, y * 4, 4, 4));
 		
