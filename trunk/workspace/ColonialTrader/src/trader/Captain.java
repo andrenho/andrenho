@@ -35,7 +35,9 @@ public class Captain {
 		this.ship = new Ship(ShipClass.CARAVEL);
 		this.world = w;
 		
-		travel(world.cities.get((int) (Math.random() * world.n_cities)));
+		City initialCity = (world.cities.get((int) (Math.random() * world.n_cities)));
+		this.docked = initialCity;
+		updateAvailableCities();
 		
 		assert (pilot + fighter + trader + shipwright) == 20;
 	}
@@ -118,10 +120,17 @@ public class Captain {
 		}
 	}
 
-	public void travel(City city) {
-		// TODO - a lot!
+	public void travel(City city) 
+	{
+		Travel travel = new Travel(city);
+		while(!travel.areWeThereYet())
+			travel.encounter();
 		this.docked = city;
 		updateAvailableCities();
+		doubloons -= ship.getCost();
+		if(doubloons < 0)
+			// TODO - reduce morale
+			doubloons = 0;
 	}
 
 	private void updateAvailableCities() {

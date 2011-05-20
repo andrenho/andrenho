@@ -11,6 +11,7 @@ public class Test {
             public void run() {
         		Captain captain;
         		World world = new World();
+        		Travel.travelInterface = new JTravel();
 				try {
 					captain = Captain.create("John", 5, 5, 5, 5, world);
 				} catch (Exception e) {

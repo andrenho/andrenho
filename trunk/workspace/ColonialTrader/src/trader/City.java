@@ -9,44 +9,12 @@ import java.util.Set;
 
 public class City {
 
-	public enum Type { AGRICULTURAL, PROSPECTING, INDUSTRIAL, URBAN, ARISTOCRATIC };
 	public enum Terrain { PLAINS, DESERT, ARCTIC, MOUNTAINS, FOREST };
+	public enum Type { AGRICULTURAL, PROSPECTING, INDUSTRIAL, URBAN, ARISTOCRATIC, PIRATE };
 
-	protected HashMap<Good, Integer> price;
-	private static Set<String> namesUsed = new HashSet<String>();
-
-	public final String name;
-	public final Coordinate coordinates;
-	public final Bar bar;
-	public ShipMerchant shipMerchant = null;
-	public Drydock drydock = null;
-	public final Terrain terrain;
-	public Type type;
-	public HashMap<Good, Integer> amount;
-	
-	protected City(String name, Coordinate coordinates, Terrain terrain, Type type)
-	{
-		this.name = name;
-		this.coordinates = coordinates;
-		this.terrain = terrain;
-		this.type = type;
-		
-		this.bar = new Bar();
-		if(type == Type.INDUSTRIAL || type == Type.URBAN || type == Type.ARISTOCRATIC)
-		{
-			this.shipMerchant = new ShipMerchant();
-			this.drydock = new Drydock();
-		}
-		
-		createWarehouse();
-		for(int i=0; i<20; i++)
-			produceAndUpdatePrices();
-	}
-	
 	protected static Terrain chooseTerrain(Coordinate coordinates)
 	{
 		double height = coordinates.y / (double)World.h;
-		System.out.println(height);
 		Terrain terrain;
 		if(height < 0.2 || height > 0.8)
 			terrain = (Math.random() < 0.5 ? Terrain.ARCTIC : Terrain.MOUNTAINS);
@@ -56,19 +24,15 @@ public class City {
 			terrain = (Math.random() < 0.5 ? Terrain.PLAINS : Terrain.DESERT);
 		return terrain;
 	}
-
-	public City(Coordinate coordinates) {
-		this(nameAutoGen(), coordinates,
-				chooseTerrain(coordinates),
-				Collections.unmodifiableList(Arrays.asList(Type.values())).get((new Random()).nextInt(Type.values().length)));
-	}
-
-	private static String nameAutoGen() {
+	
+	
+	private static String nameAutoGen() 
+	{
 		String[] spanishPrefixF = { "Nueva", "Santa", "De la", "La", "Sierra", "Buena", "Monte" },
 		         spanishPrefixM = { "Nuevo", "San", "El", "Del", "Boca", "Bueno", "Monte" },
 		         spanishF = { "Alameda", "Angelina", "Atascosa", "Bandera", "Calavera", "Fe",
 							  "Esmeralda", "Paz", "Plata", "Madera", "Barbara", "Clara",
-							  "Cruz", "Bonita", "Espaï¿½ola", "Vista", "Mesa", "Quinta", 
+							  "Cruz", "Bonita", "Española", "Vista", "Mesa", "Quinta", 
 							  "Muerte" },
 				 spanishM = { "Amador", "Conejo", "Soto", "Norte", "Dorado", "Hernando",
 		        		      "Monterey", "Sacramento", "Benito", "Diego", "Franscisco",
@@ -133,6 +97,47 @@ public class City {
 		}
 	}
 
+	protected HashMap<Good, Integer> price;
+	private static Set<String> namesUsed = new HashSet<String>();
+	public final String name;
+	public final Coordinate coordinates;
+	public final Bar bar;
+	public ShipMerchant shipMerchant = null;
+	public Drydock drydock = null;
+	public final Terrain terrain;
+	public Type type;
+	
+	public HashMap<Good, Integer> amount;
+	
+	public HashMap<Good, Integer> want = new HashMap<Good, Integer>(),
+	                              production = new HashMap<Good, Integer>();
+
+	public City(Coordinate coordinates) {
+		this(nameAutoGen(), coordinates,
+				chooseTerrain(coordinates),
+				Collections.unmodifiableList(Arrays.asList(Type.values())).get((new Random()).nextInt(Type.values().length)));
+	}
+
+	protected City(String name, Coordinate coordinates, Terrain terrain, Type type)
+	{
+		this.name = name;
+		this.coordinates = coordinates;
+		this.terrain = terrain;
+		this.type = type;
+		
+		this.bar = new Bar();
+		if(type == Type.INDUSTRIAL || type == Type.URBAN || type == Type.ARISTOCRATIC || type == Type.PIRATE)
+		{
+			this.shipMerchant = new ShipMerchant();
+			this.drydock = new Drydock();
+		}
+
+		setupNeedandProduction();
+		createWarehouse();
+		for(int i=0; i<20; i++)
+			produceAndUpdatePrices();
+	}
+
 	private void createWarehouse() 
 	{
 		amount = new HashMap<Good, Integer>();
@@ -143,7 +148,7 @@ public class City {
 		for(Good good: Good.list)
 			price.put(good, 5);
 	}
-	
+
 	public Integer getPriceBuy(Good good)
 	{
 		int pr = (int)(price.get(good) * 1.1);
@@ -153,10 +158,83 @@ public class City {
 			return pr;
 	}
 
-	public Integer getPriceSell(Good good) {
+	public Integer getPriceSell(Good good) 
+	{
 		return price.get(good);
 	}
 
-	private void produceAndUpdatePrices() {
+	private void produceAndUpdatePrices() 
+	{
+		for(Good good: Good.list)
+		{
+			int q = amount.get(good);
+			q += production.get(good) + (int)(Math.random() * 11 - 3);
+			q -= want.get(good) + (int)(Math.random() * 11 - 5);
+			if(q >= 0)
+				amount.put(good, q);
+			else
+				amount.put(good, 0);
+			adjustPrice(good);
+		}
+	}
+	
+	private void adjustPrice(Good good) {
+		price.put(good, (int)(good.basicValue * ((want.get(good)+50) / (double)(amount.get(good)+50)))); 
+	}
+
+
+	private int random() {
+		return (int)(Math.random() * 3 - 1);
+	}
+
+	private void setGood(HashMap<Good, Integer> type, Good good, int plains, int desert,	
+			int arctic,	int mountains, int forest, int agricultural, int prospecting, 
+			int industrial, int urban, int aristocractic, int pirate) 
+	{
+		int t1=0, t2=0;
+		switch(this.type)
+		{
+			case AGRICULTURAL: t1 = agricultural + random(); break;
+			case PROSPECTING: t1 = prospecting + random(); break;
+			case INDUSTRIAL: t1 = industrial + random(); break;
+			case URBAN: t1 = urban + random(); break;
+			case ARISTOCRATIC: t1 = aristocractic + random(); break;
+			case PIRATE: t1 = pirate + random(); break;
+			default: assert false;
+		}
+		switch(this.terrain)
+		{
+			case PLAINS: t2 = plains + random(); break;
+			case DESERT: t2 = desert + random(); break;
+			case ARCTIC: t2 = arctic + random(); break;
+			case MOUNTAINS: t2 = mountains + random(); break;
+			case FOREST: t2 = forest + random(); break;
+			default: assert false;
+		}
+		type.put(good, t1+t2);
+	}
+
+	private void setupNeedandProduction() {
+		setGood(want, Good.FOOD,    -2,  4, 3,  3,  1, -2,  3, 2, 3, 4,  1);
+		setGood(want, Good.WOOD,    -1,  3, 0, -2, -2,  2,  2, 4, 3, 1,  1);
+		setGood(want, Good.FURS,     0, -2, 5,  3, -1,  0,  0, 1, 2, 3,  0);
+		setGood(want, Good.ORE,      2, -2, 1, -2,  2,  3,  2, 5, 3, 0, -1);
+		setGood(want, Good.GOLD,     1, -2, 1, -3,  2,  0, -2, 2, 4, 7,  3);
+		setGood(want, Good.MEDICINE, 2,  3, 4,  2,  1,  4,  3, 2, 3, 4,  2);
+		setGood(want, Good.BOOKS,    1,  2, 4,  3,  2,  0,  0, 1, 3, 5,  0);
+		setGood(want, Good.RUM,      0,  0, 2,  1,  0, -2,  3, 2, 1, 2,  7);
+		setGood(want, Good.OPIUM,    3,  4, 3,  3,  2,  2,  4, 3, 3, 5,  2);
+		setGood(want, Good.MUSKETS,  1,  3, 2,  3,  3,  0,  3, 4, 3, 2,  6);
+
+		setGood(production, Good.FOOD,     5, 0, 0, 1, 2, 5, 0, 0, 0, 0, 0);
+		setGood(production, Good.WOOD,     2, 0, 1, 3, 5, 2, 0, 1, 1, 1, 0);
+		setGood(production, Good.FURS,     1, 0, 1, 2, 4, 0, 0, 1, 0, 0, 0);
+		setGood(production, Good.ORE,      0, 3, 2, 5, 0, 0, 5, 1, 0, 0, 0);
+		setGood(production, Good.GOLD,     0, 2, 1, 3, 0, 0, 3, 2, 0, 0, 3);
+		setGood(production, Good.MEDICINE, 0, 0, 0, 0, 0, 0, 0, 1, 3, 5, 0);
+		setGood(production, Good.BOOKS,    2, 0, 0, 0, 1, 1, 0, 1, 2, 3, 0);
+		setGood(production, Good.RUM,      3, 0, 0, 0, 1, 2, 0, 3, 1, 1, 2);
+		setGood(production, Good.OPIUM,    3, 0, 0, 0, 1, 3, 0, 0, 0, 0, 4);
+		setGood(production, Good.MUSKETS,  0, 0, 0, 1, 0, 0, 1, 4, 3, 2, 4);
 	}
 }
