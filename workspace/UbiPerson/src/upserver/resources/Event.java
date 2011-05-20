@@ -31,6 +31,8 @@ class Event extends UPResource {
 		} catch(Exception e) {
 			throw new InvalidXMLException(e);
 		}
+		System.out.println("Evento recebido! Usuário " + event.user + " realizou o evento \"" + 
+				event.action + "\" no contexto " + event.context + " em " + event.date + "."); 
 		services.registerEvent(event);
 		return new UPResponse(200, new UPXMLSimpleMessage("Event registered."));
 	}
