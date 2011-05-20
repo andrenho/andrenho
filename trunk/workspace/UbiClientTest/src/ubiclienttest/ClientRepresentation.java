@@ -1,9 +1,13 @@
 package ubiclienttest;
 
 import java.awt.*;
+import java.util.Date;
 import java.util.Vector;
 
 import javax.swing.*;
+
+import upinterfaces.UPXMLEvent;
+import uplib.UPConnection;
 
 @SuppressWarnings("serial")
 public class ClientRepresentation extends JLabel {
@@ -15,6 +19,7 @@ public class ClientRepresentation extends JLabel {
 	private static int color = 0;
 	private Vector<Context> contexts = new Vector<Context>();
 	public String name;
+	private UPConnection connection;
 	
 	public ClientRepresentation()
 	{
@@ -30,6 +35,8 @@ public class ClientRepresentation extends JLabel {
 		color += 1;
 		if(color > layerColors.length)
 			color = 0;
+		
+		connection = new UPConnection("localhost", 8080);
 	}
 
 	public void checkContext(Vector<Context> contexts) {
@@ -46,11 +53,32 @@ public class ClientRepresentation extends JLabel {
 
 	private void leaveContext(Context c) {
 		contexts.remove(c);
-		System.out.println(name + " left context " + c.nome);
+		
+		UPXMLEvent event = new UPXMLEvent();
+		event.user = name;
+		event.action = "leave";
+		event.context = c.nome;
+		event.date = new Date();
+		try {
+			connection.sendEvent(event);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void enterContext(Context c) {
 		contexts.add(c);
-		System.out.println(name + " entered context " + c.nome);
+
+		UPXMLEvent event = new UPXMLEvent();
+		event.user = name;
+		event.action = "enter";
+		event.context = c.nome;
+		event.date = new Date();
+		try {
+			connection.sendEvent(event);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

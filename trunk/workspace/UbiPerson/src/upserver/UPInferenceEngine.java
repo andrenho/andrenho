@@ -1,6 +1,5 @@
 package upserver;
 
-import upinterfaces.UPXMLEvent;
 import upinterfaces.UPXMLEventList;
 import upinterfaces.UPXMLInferredData;
 
@@ -13,6 +12,7 @@ public class UPInferenceEngine extends UPInferenceCache {
 	}
 	
 	public UPXMLInferredData infer(String user) {
+		/*
 		assert(database != null);
 		double d = 0.0;
 		int c = 0;
@@ -24,7 +24,7 @@ public class UPInferenceEngine extends UPInferenceCache {
 			}
 		if(c > 0)
 			return new UPXMLInferredData(d / c);
-		else
+		else*/
 			return new UPXMLInferredData(0.0);
 	}
 
