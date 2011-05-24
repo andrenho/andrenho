@@ -11,6 +11,7 @@ public class World {
 	public final int n_cities = 50;
 	public boolean[][] land = new boolean[w][h];
 	
+	
 	public World()
 	{
 		for(int x=0; x<w; x++)
