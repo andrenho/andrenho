@@ -1,6 +1,7 @@
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -31,19 +32,17 @@ public class Interface extends JPanel
 
         c.gridx = 1;
         c.gridy = 0;
-        c.gridwidth = 2;
-        c.gridheight = 2;
         main.add(buildCargo(), c);
 
-        c.gridheight = c.gridwidth = 0;
-        c.gridx = 0;
-        c.gridy = 2;
-        main.add(buildShipyard(), c);
-        
+        c.gridy = 1;
         c.gridx = 1;
         //main.add(new JWorld(captain, world)
+        JPanel tmp = new JPanel();
+        tmp.setBorder(BorderFactory.createTitledBorder("World"));
+        main.add(tmp, c);
         
         c.gridx = 2;
+        c.gridy = 1;
         main.add(buildTarget());
         
         //add(main, BorderLayout.CENTER);
@@ -80,7 +79,8 @@ public class Interface extends JPanel
     
     public class Dock extends JPanel
     {
-        public JLabel repairsNeeded;
+        public final JLabel repairsNeeded;
+        public final JButton repairButton;
         
         Dock()
         {
@@ -88,6 +88,11 @@ public class Interface extends JPanel
             
             add(repairsNeeded = new JLabel());
             
+            repairButton = new JButton("Repair");
+            add(repairButton);
+            
+            JButton buySell = new JButton("Buy/Sell");
+            add(buySell);
         }        
     }
 
@@ -96,15 +101,6 @@ public class Interface extends JPanel
     {
         JPanel ci = new JPanel();
         ci.setBorder(BorderFactory.createTitledBorder("Cargo"));
-        
-        return ci;
-    }
-
-    
-    private JPanel buildShipyard()
-    {
-        JPanel ci = new JPanel();
-        ci.setBorder(BorderFactory.createTitledBorder("Shipyard"));
         
         return ci;
     }

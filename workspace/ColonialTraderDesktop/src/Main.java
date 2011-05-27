@@ -12,6 +12,7 @@ public class Main extends JFrame
     {
         super("Colonial Trader");
         add(ui = new Interface(), BorderLayout.CENTER);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         pack();
     }
 
