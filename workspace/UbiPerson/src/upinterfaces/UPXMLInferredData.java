@@ -3,9 +3,9 @@ package upinterfaces;
 public class UPXMLInferredData implements UPXML {
 	
 	public UPXMLInferredData(double d) {
-		average = d;
+		value = d;
 	}
 
-	public double average;
+	public double value;
 	
 }

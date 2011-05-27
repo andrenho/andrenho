@@ -10,6 +10,10 @@ import javax.swing.*;
 class ClientManager extends JLayeredPane implements MouseMotionListener {
 	
 	private Vector<ClientRepresentation> clients = new Vector<ClientRepresentation>();
+	public Vector<ClientRepresentation> getClients() {
+		return clients;
+	}
+
 	private Vector<Context> contexts;
 
 	public ClientManager(UbiClientTest frame)
@@ -50,10 +54,11 @@ class ClientManager extends JLayeredPane implements MouseMotionListener {
 	@Override
 	public void mouseMoved(MouseEvent e) { }
 
-	public void addClient() {
+	public ClientRepresentation addClient() {
 		ClientRepresentation cr = new ClientRepresentation();
 		clients.add(cr);
 		add(cr);
+		return cr;
 	}
 	
 }

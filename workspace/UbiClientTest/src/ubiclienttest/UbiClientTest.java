@@ -2,6 +2,8 @@ package ubiclienttest;
 
 import javax.swing.*;
 
+import uplib.UPConnection;
+
 import java.awt.event.*;
 
 @SuppressWarnings("serial")
@@ -17,6 +19,7 @@ public class UbiClientTest extends JFrame implements ActionListener {
 
 	private ClientManager manager;
 	private JMenuItem novoCliente;
+	private JMenu inferenceMenu;
 
 	public UbiClientTest()
 	{
@@ -32,6 +35,9 @@ public class UbiClientTest extends JFrame implements ActionListener {
 		menubar.add(menu);
 		setJMenuBar(menubar);
 		
+		inferenceMenu = new JMenu("Inferir");
+		menubar.add(inferenceMenu);
+		
 		// frame
 		manager = new ClientManager(this);
 		add(manager);
@@ -42,7 +48,27 @@ public class UbiClientTest extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(novoCliente))
-			manager.addClient();
+		{
+			ClientRepresentation cr = manager.addClient();
+			JMenuItem mi = new JMenuItem(cr.name.toString());
+			inferenceMenu.add(mi);
+			mi.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					for(ClientRepresentation cr: manager.getClients())
+						if(((JMenuItem)e.getSource()).getText().equals(cr.name.toString()))
+						{
+							try {
+								double v = (new UPConnection("localhost", 8080)).infer(cr.name.toString());
+								JOptionPane.showMessageDialog(UbiClientTest.this, "Trocas de contexto: " + v);
+							} catch (Exception e1) {
+								e1.printStackTrace();
+							}
+						}
+				}
+			});
+		}
 	}
 
 }
