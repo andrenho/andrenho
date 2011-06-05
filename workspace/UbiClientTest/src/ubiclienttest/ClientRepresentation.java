@@ -12,7 +12,7 @@ import uplib.UPConnection;
 @SuppressWarnings("serial")
 public class ClientRepresentation extends JLabel {
 	
-	private static char letter = 'A';
+	public static char letter = 'A';
 	private static Color[] layerColors = { Color.yellow, Color.magenta,
             Color.cyan,   Color.red,
             Color.green };
