@@ -55,7 +55,13 @@ class ClientManager extends JLayeredPane implements MouseMotionListener {
 	public void mouseMoved(MouseEvent e) { }
 
 	public ClientRepresentation addClient() {
-		ClientRepresentation cr = new ClientRepresentation();
+		ClientRepresentation cr;
+		switch(ClientRepresentation.letter)
+		{
+			case 'A': cr = new ClientA(); break;
+			case 'B': cr = new ClientB(); break;
+			default: cr = new ClientRepresentation(); break;
+		}
 		clients.add(cr);
 		add(cr);
 		return cr;
