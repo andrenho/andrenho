@@ -1,10 +1,17 @@
 package ubiclienttest;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.util.Vector;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 
 @SuppressWarnings("serial")
 class ClientManager extends JLayeredPane implements MouseMotionListener {
@@ -13,7 +20,7 @@ class ClientManager extends JLayeredPane implements MouseMotionListener {
 	public Vector<ClientRepresentation> getClients() {
 		return clients;
 	}
-
+	
 	private Vector<Context> contexts;
 
 	public ClientManager(UbiClientTest frame)
@@ -54,13 +61,19 @@ class ClientManager extends JLayeredPane implements MouseMotionListener {
 	@Override
 	public void mouseMoved(MouseEvent e) { }
 
-	public ClientRepresentation addClient() {
+	public ClientRepresentation addClient() throws RemoteException, NotBoundException {
 		ClientRepresentation cr;
 		switch(ClientRepresentation.letter)
 		{
-			case 'A': cr = new ClientA(); break;
-			case 'B': cr = new ClientB(); break;
-			default: cr = new ClientRepresentation(); break;
+			case 'A': 
+				cr = new ClientA(); 
+				break;
+			case 'B': 
+				cr = new ClientB(); 
+				break;
+			default: 
+				cr = new ClientRepresentation(); 
+				break;
 		}
 		clients.add(cr);
 		add(cr);
