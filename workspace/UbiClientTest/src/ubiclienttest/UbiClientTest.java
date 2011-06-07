@@ -5,6 +5,8 @@ import javax.swing.*;
 import uplib.UPConnection;
 
 import java.awt.event.*;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 
 @SuppressWarnings("serial")
 public class UbiClientTest extends JFrame implements ActionListener {
@@ -49,7 +51,13 @@ public class UbiClientTest extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(novoCliente))
 		{
-			ClientRepresentation cr = manager.addClient();
+			ClientRepresentation cr = null;
+			try {
+				cr = manager.addClient();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+				return;
+			}
 			JMenuItem mi = new JMenuItem(cr.name.toString());
 			inferenceMenu.add(mi);
 			mi.addActionListener(new ActionListener() {

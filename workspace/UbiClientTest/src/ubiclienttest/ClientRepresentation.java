@@ -1,10 +1,17 @@
 package ubiclienttest;
 
 import java.awt.*;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.Date;
 import java.util.Vector;
 
 import javax.swing.*;
+
+import compute.Algoritmo;
+import compute.Motor;
 
 import upinterfaces.UPXMLEvent;
 import uplib.UPConnection;
@@ -20,6 +27,7 @@ public class ClientRepresentation extends JLabel {
 	private Vector<Context> contexts = new Vector<Context>();
 	public String name;
 	private UPConnection connection;
+	protected Algoritmo<String> algoritmo = null;
 	
 	public ClientRepresentation()
 	{
@@ -80,5 +88,18 @@ public class ClientRepresentation extends JLabel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public String executarRemoto() throws RemoteException, NotBoundException
+	{
+        if (System.getSecurityManager() == null) {
+            System.setSecurityManager(new SecurityManager());
+        }
+        Registry registry = LocateRegistry.getRegistry("localhost");
+        Motor motor = (Motor)registry.lookup("Motor");
+        if(algoritmo == null)
+        	return "";
+        else
+        	return motor.executarTarefa(algoritmo);
 	}
 }

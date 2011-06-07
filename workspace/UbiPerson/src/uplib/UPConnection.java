@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -15,8 +16,9 @@ import upinterfaces.UPXMLInferredData;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
-public class UPConnection {
+public class UPConnection implements Serializable {
 
+	private static final long serialVersionUID = -5821965649959967233L;
 	private String host;
 	private int port;
 
