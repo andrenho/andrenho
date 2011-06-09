@@ -28,6 +28,7 @@ public class Sistema {
 		double relogio = 0.0;
 		
 		gerador.geraFila(dias);
+		System.out.println("Iniciando simulação.");
 		
 		while(relogio < dias)
 		{
@@ -54,6 +55,8 @@ public class Sistema {
 				return;
 			}
 		}
+		
+		System.out.println("Simulação concluída.");
 	}
 
 	public static void main(String[] args) {
