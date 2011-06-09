@@ -1,5 +1,4 @@
 import java.util.LinkedList;
-import java.util.Queue;
 
 
 public class Fila extends Elemento {
@@ -8,6 +7,7 @@ public class Fila extends Elemento {
 	protected int servidores;
 	protected double taxaAtendimento;
 	protected Servidor[] servidor;
+	protected LinkedList<Chamado> fila = new LinkedList<Chamado>();
 
 	public Fila(Fila proxima, int servidores, double taxaAtendimento)
 	{
@@ -32,17 +32,15 @@ public class Fila extends Elemento {
 	}
 
 	public void transfereChamado(Chamado chamado) {
-		int nTamanho = Integer.MAX_VALUE;
-		Servidor escolhido = null;
 		for(Servidor s: servidor)
-			if(s.size() < nTamanho)
+			if(!s.ocupado())
 			{
-				nTamanho = s.size();
-				escolhido = s;
+				s.atende(chamado, taxaAtendimento);
+				return;
 			}
-		assert escolhido != null;
-		escolhido.add(chamado);
-		// TODO - programa servidor para processar evento
+		
+		// nenhum servidor disponível
+		fila.add(chamado);
 	}
 
 }

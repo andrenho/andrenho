@@ -1,6 +1,19 @@
-import java.util.LinkedList;
 
 
-public class Servidor extends LinkedList<Chamado> {
+public class Servidor {
+	
+	public void processa(Chamado chamado, double taxaAtendimento) {
+		
+	}
+
+	public boolean ocupado() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public void atende(Chamado chamado, double taxaAtendimento) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
