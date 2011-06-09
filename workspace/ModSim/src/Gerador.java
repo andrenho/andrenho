@@ -1,4 +1,5 @@
 import java.util.LinkedList;
+import java.util.Vector;
 
 
 public class Gerador extends Elemento {
@@ -7,9 +8,11 @@ public class Gerador extends Elemento {
 	private Fila proximaManutencao;
 	private Fila proximaProjeto;
 	private LinkedList<ChamadoTempo> chamadosGerados = new LinkedList<ChamadoTempo>();
+	public Vector<Chamado> chamados = new Vector<Chamado>();
 
 	public Gerador(Fila proximaManutencao, Fila proximaProjeto, ParametrosSistema ps)
 	{
+	    this.nome = "Gerador";
 		this.proximaManutencao = proximaManutencao;
 		this.proximaProjeto = proximaProjeto;
 		this.ps = ps;
@@ -29,7 +32,10 @@ public class Gerador extends Elemento {
 		while(t < maxTempo)
 		{
 			t += taxaChegada * Math.random();
-			chamadosGerados.add(new ChamadoTempo(new Chamado(tipoChamado), t));
+			Chamado ch = new Chamado(tipoChamado);
+			chamadosGerados.add(new ChamadoTempo(ch, t));
+			ch.eventos.add(new Chamado.Evento(t, "Chamado (" + ch.numero + ") inicializado.")); 
+			chamados.add(ch);
 		}
 	}
 
@@ -44,11 +50,11 @@ public class Gerador extends Elemento {
 	}
 
 	@Override
-	public void executaProximoEvento() {
+	public void executaProximoEvento(double relogio) {
 		double minTempo = Double.MAX_VALUE;
 		Chamado proxChamado = null;
 		for(ChamadoTempo ct: chamadosGerados)
-			if(ct.tempo < minTempo)
+			if(ct.tempo >= relogio && ct.tempo < minTempo)
 			{
 				minTempo = ct.tempo;
 				proxChamado = ct.chamado;
@@ -58,9 +64,9 @@ public class Gerador extends Elemento {
 		if(proxChamado.tipo == Chamado.TipoChamado.ATUALIZACAO 
 		|| proxChamado.tipo == Chamado.TipoChamado.CORRECAO
 		|| proxChamado.tipo == Chamado.TipoChamado.SUPORTE)
-			proximaManutencao.transfereChamado(proxChamado);
+			proximaManutencao.transfereChamado(proxChamado, relogio);
 		else
-			proximaProjeto.transfereChamado(proxChamado);
+			proximaProjeto.transfereChamado(proxChamado, relogio);
 	}
 	
 }
