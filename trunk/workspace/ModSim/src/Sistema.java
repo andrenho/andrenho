@@ -11,10 +11,10 @@ public class Sistema {
 	public Sistema(ParametrosSistema ps)
 	{
 		filaUsuario = new FilaUsuario(null, ps.numeroUsuarios, ps.taxaAtendimentoUsuario);
-		filaProgramadorManutencao = new Fila(filaUsuario, ps.numeroProgramadoresManutencao, ps.taxaAtendimentoProgramadorManutencao);
-		filaProgramadorProjeto = new Fila(filaUsuario, ps.numeroProgramadoresProjeto, ps.taxaAtendimentoProgramadorProjeto);
-		filaAnalistaManutencao = new Fila(filaProgramadorManutencao, ps.numeroAnalistasMenutancao, ps.taxaAtendimentoAnalistaManutencao);
-		filaAnalistaProjeto = new Fila(filaProgramadorProjeto, ps.numeroAnalistasProjeto, ps.taxaAtendimentoAnalistaProjeto);
+		filaProgramadorManutencao = new Fila("Programador (Manutenção)", filaUsuario, ps.numeroProgramadoresManutencao, ps.taxaAtendimentoProgramadorManutencao);
+		filaProgramadorProjeto = new Fila("Programador (Projeto)", filaUsuario, ps.numeroProgramadoresProjeto, ps.taxaAtendimentoProgramadorProjeto);
+		filaAnalistaManutencao = new Fila("Analista (Manutenção)", filaProgramadorManutencao, ps.numeroAnalistasMenutancao, ps.taxaAtendimentoAnalistaManutencao);
+		filaAnalistaProjeto = new Fila("Analista (Projeto)", filaProgramadorProjeto, ps.numeroAnalistasProjeto, ps.taxaAtendimentoAnalistaProjeto);
 		
 		filaUsuario.erroManutencao = filaProgramadorManutencao;
 		filaUsuario.erroProjeto = filaProgramadorProjeto;
@@ -28,7 +28,7 @@ public class Sistema {
 		double relogio = 0.0;
 		
 		gerador.geraFila(dias);
-		System.out.println("Iniciando simulaÃ§Ã£o.");
+		System.out.println("Iniciando simulação.");
 		
 		while(relogio < dias)
 		{
@@ -46,22 +46,27 @@ public class Sistema {
 			}
 			if(proxFilaEvento != null)
 			{
-				proxFilaEvento.executaProximoEvento();
-				relogio = proxEvento;
+                relogio = proxEvento;
+				proxFilaEvento.executaProximoEvento(relogio);
 			}
 			else
-			{
-				System.out.println("SimulaÃ§Ã£o travada!");
-				return;
-			}
+			    break;
 		}
 		
-		System.out.println("SimulaÃ§Ã£o concluÃ­da.");
+		System.out.println("Simulação concluída.");
+		
+		for(Chamado chamado: gerador.chamados)
+		{
+		    System.out.println("------------------------------------");
+		    System.out.println("CHAMADO " + chamado.numero);
+    		for(Chamado.Evento evento: chamado.eventos)
+    		    System.out.println(evento.tempo + " - " + evento.descricao);
+		}
 	}
 
 	public static void main(String[] args) {
 		ParametrosSistema ps = new ParametrosSistema();
 		Sistema sistema = new Sistema(ps);
-		sistema.simula(180);
+		sistema.simula(10);
 	}
 }
