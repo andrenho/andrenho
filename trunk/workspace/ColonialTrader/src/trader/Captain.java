@@ -152,9 +152,11 @@ public class Captain {
 	/** Travel to a new city. */
 	public void travel(City city) 
 	{
+		/*
 		Travel travel = new Travel(city);
 		while(!travel.areWeThereYet())
 			travel.encounter();
+		*/
 		this.docked = city;
 		updateAvailableCities();
 		doubloons -= ship.getCost();
