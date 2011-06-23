@@ -1,40 +1,42 @@
 import java.util.LinkedList;
 import java.util.Vector;
 
+import jsc.distributions.AbstractDistribution;
+import jsc.distributions.Exponential;
+import jsc.distributions.Gamma;
+import jsc.distributions.Weibull;
+
 
 public class Gerador extends Elemento {
 
-	private ParametrosSistema ps;
 	private Fila proximaManutencao;
 	private Fila proximaProjeto;
 	private LinkedList<ChamadoTempo> chamadosGerados = new LinkedList<ChamadoTempo>();
 	public Vector<Chamado> chamados = new Vector<Chamado>();
 
-	public Gerador(Fila proximaManutencao, Fila proximaProjeto, ParametrosSistema ps)
+	public Gerador(Fila proximaManutencao, Fila proximaProjeto)
 	{
 	    this.nome = "Gerador";
 		this.proximaManutencao = proximaManutencao;
 		this.proximaProjeto = proximaProjeto;
-		this.ps = ps;
 	}
 
 	public void geraFila(double maxTempo) {
-		geraFila(maxTempo, Chamado.TipoChamado.CORRECAO, ps.taxaChegadaCorrecoes);
-		geraFila(maxTempo, Chamado.TipoChamado.ATUALIZACAO, ps.taxaChegadaAtualizacao);
-		geraFila(maxTempo, Chamado.TipoChamado.SUPORTE, ps.taxaChegadaSuporte);
-		geraFila(maxTempo, Chamado.TipoChamado.MELHORIA, ps.taxaChegadaMelhoria);
-		geraFila(maxTempo, Chamado.TipoChamado.PROJETO, ps.taxaChegadaProjeto);
+		geraFila(maxTempo, Chamado.TipoChamado.CORRECAO, new Weibull(64.125, 0.38301));
+		geraFila(maxTempo, Chamado.TipoChamado.ATUALIZACAO, new Weibull(213.23, 0.48126));
+		geraFila(maxTempo, Chamado.TipoChamado.SUPORTE, new Gamma(844.751, 0.3692));
+		geraFila(maxTempo, Chamado.TipoChamado.MELHORIA, new Weibull(219.76, 0.60717));
+		geraFila(maxTempo, Chamado.TipoChamado.PROJETO, new Weibull(684.125, 0.42));
 	}
 
-	private void geraFila(double maxTempo, Chamado.TipoChamado tipoChamado,
-			double taxaChegada) {
+	private void geraFila(double maxTempo, Chamado.TipoChamado tipoChamado, AbstractDistribution dist) {
 		double t = 0.0;
 		while(t < maxTempo)
 		{
-			t += taxaChegada * Math.random();
+			t += dist.inverseCdf(Sistema.rnd.random());
 			Chamado ch = new Chamado(tipoChamado);
 			chamadosGerados.add(new ChamadoTempo(ch, t));
-			ch.eventos.add(new Chamado.Evento(t, "Chamado (" + ch.numero + ") inicializado.")); 
+			ch.eventos.add(new Chamado.Evento(t, "Chamado (" + ch.numero + " - " + ch.tipo.toString() + ") inicializado.", Chamado.TipoEvento.CRIADO)); 
 			chamados.add(ch);
 		}
 	}
@@ -64,9 +66,9 @@ public class Gerador extends Elemento {
 		if(proxChamado.tipo == Chamado.TipoChamado.ATUALIZACAO 
 		|| proxChamado.tipo == Chamado.TipoChamado.CORRECAO
 		|| proxChamado.tipo == Chamado.TipoChamado.SUPORTE)
-			proximaManutencao.transfereChamado(proxChamado, relogio);
+			proximaManutencao.recebeChamado(proxChamado, relogio);
 		else
-			proximaProjeto.transfereChamado(proxChamado, relogio);
+			proximaProjeto.recebeChamado(proxChamado, relogio);
 	}
 	
 }

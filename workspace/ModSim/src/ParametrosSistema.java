@@ -5,15 +5,16 @@ public class ParametrosSistema {
 	           numeroProgramadoresProjeto = 1,
 	           numeroAnalistasMenutancao = 1,
 	           numeroAnalistasProjeto = 1,
-	           numeroUsuarios = 1;
-	public double taxaAtendimentoProgramadorManutencao = 1,
-			      taxaAtendimentoProgramadorProjeto = 1,
-				  taxaAtendimentoAnalistaManutencao = 1,
-				  taxaAtendimentoAnalistaProjeto = 1,
-				  taxaAtendimentoUsuario = 1;
-	public double taxaChegadaCorrecoes = 1,
-                  taxaChegadaSuporte = 1,
-	              taxaChegadaAtualizacao = 1,
-	              taxaChegadaMelhoria = 1,
-	              taxaChegadaProjeto = 1;
+	           numeroUsuarios = 3;
+	public double mediaAtendimentoProgramadorManutencao = 100,
+			      mediaAtendimentoProgramadorProjeto = 300,
+				  mediaAtendimentoAnalistaManutencao = 50,
+				  mediaAtendimentoAnalistaProjeto = 300,
+				  mediaAtendimentoUsuario = 200;
+	public double varianciaAtendimentoProgramadorManutencao = 1,
+				  varianciaAtendimentoProgramadorProjeto = 1,
+				  varianciaAtendimentoAnalistaManutencao = 1,
+				  varianciaAtendimentoAnalistaProjeto = 1,
+				  varianciaAtendimentoUsuario = 1;
+	public double chanceDeErroNaEntrega = 0.2;
 }

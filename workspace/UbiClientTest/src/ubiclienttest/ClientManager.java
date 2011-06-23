@@ -66,7 +66,7 @@ class ClientManager extends JLayeredPane implements MouseMotionListener {
 		switch(ClientRepresentation.letter)
 		{
 			case 'A': 
-				cr = new ClientA(); 
+				cr = new ClientA();
 				break;
 			case 'B': 
 				cr = new ClientB(); 

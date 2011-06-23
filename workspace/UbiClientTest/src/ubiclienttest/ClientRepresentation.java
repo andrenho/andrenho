@@ -27,7 +27,11 @@ public class ClientRepresentation extends JLabel {
 	private Vector<Context> contexts = new Vector<Context>();
 	public String name;
 	private UPConnection connection;
-	protected Algoritmo<String> algoritmo = null;
+	
+	public Algoritmo<String> getAlgoritmo()
+	{
+		return null;
+	}
 	
 	public ClientRepresentation()
 	{
@@ -97,9 +101,9 @@ public class ClientRepresentation extends JLabel {
         }
         Registry registry = LocateRegistry.getRegistry("localhost");
         Motor motor = (Motor)registry.lookup("Motor");
-        if(algoritmo == null)
+        if(getAlgoritmo() == null)
         	return "";
         else
-        	return motor.executarTarefa(algoritmo);
+        	return motor.executarTarefa(getAlgoritmo());
 	}
 }
