@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import uplib.UPConnection;
 
+import java.awt.HeadlessException;
 import java.awt.event.*;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -11,7 +12,10 @@ import java.rmi.RemoteException;
 @SuppressWarnings("serial")
 public class UbiClientTest extends JFrame implements ActionListener {
 	
+	public static String host = "";
+	
 	public static void main(String[] args) {
+		host = args[0];
 		SwingUtilities.invokeLater(new Runnable() { 
 			public void run() { 
 				(new UbiClientTest()).setVisible(true);
@@ -68,7 +72,7 @@ public class UbiClientTest extends JFrame implements ActionListener {
 						if(((JMenuItem)e.getSource()).getText().equals(cr.name.toString()))
 						{
 							try {
-								double v = (new UPConnection("localhost", 8080)).infer(cr.name.toString());
+								double v = (new UPConnection(host, 8080)).infer(cr.name.toString());
 								JOptionPane.showMessageDialog(UbiClientTest.this, "Trocas de contexto: " + v);
 							} catch (Exception e1) {
 								e1.printStackTrace();
@@ -76,6 +80,24 @@ public class UbiClientTest extends JFrame implements ActionListener {
 						}
 				}
 			});
+			
+			if(cr.getAlgoritmo() != null)
+			{
+				JMenuItem mi2 = new JMenuItem(cr.name.toString() + " (execução remota)");
+				inferenceMenu.add(mi2);
+				mi2.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						for(ClientRepresentation cr: manager.getClients())
+							if(((JMenuItem)e.getSource()).getText().charAt(0) == cr.name.charAt(0))
+								try {
+									JOptionPane.showMessageDialog(UbiClientTest.this, "Reposta da execução remota: " + cr.executarRemoto());
+								} catch (Exception e1) {
+									e1.printStackTrace();
+								}
+					}
+				});
+			}
 		}
 	}
 

@@ -15,7 +15,7 @@ public class UPServer {
                 UPServices services = new UPServices(inferenceCache);
                 inferenceEngine.database = services.events;
                 UPCommunication comm = new UPCommunication(services, 8080);
-                UPRemoteMethod remote = new UPRemoteMethod();
+                UPRemoteMethod remote = new UPRemoteMethod(services);
                 comm.run();
         }
 
