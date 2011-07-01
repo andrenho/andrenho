@@ -1,4 +1,4 @@
-package trader;
+package trader.goods;
  
 public class Good {
 

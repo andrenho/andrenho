@@ -96,7 +96,8 @@ public class ColonialTrader
             print(g.name);
             for(int j=0; j<(maxchars - g.name.length()); j++)
                 print(" ");
-            
+            println();
+            i++;
         }
     }
 

@@ -1,4 +1,5 @@
 import java.util.Vector;
+import jsc.distributions.Normal;
 
 
 public class Comite extends Fila {
@@ -50,7 +51,8 @@ public class Comite extends Fila {
 
 	@Override
 	public void recebeChamado(Chamado chamado, double relogio) {
-		double tempo = relogio + Math.random();
+		// double tempo = relogio + Math.random();
+	    double tempo = relogio + (new Normal(100, 1).inverseCdf(Sistema.rnd.random()));
 		chamado.eventos.add(new Chamado.Evento(relogio, "Chamado entrou no comitê. Previsão: " + tempo + " (" + chamado.numero + ") [" + this.nome + "]", Chamado.TipoEvento.ENTROU_NA_FILA));
 		fila.add(new FilaComite(chamado, tempo));
 	}
