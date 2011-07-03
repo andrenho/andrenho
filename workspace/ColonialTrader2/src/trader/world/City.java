@@ -2,10 +2,12 @@ package trader.world;
 
 import java.util.HashMap;
 import java.util.Vector;
+
 import trader.city.Bank;
 import trader.city.Bar;
 import trader.city.Shipyard;
 import trader.city.Warehouse;
+import trader.ship.EnemyShip.Type;
 
 public class City
 {
@@ -41,9 +43,16 @@ public class City
     }
     
     
-    /** Return the number of pirates, government and merchants to be found along the way. */
-    public int[] numberOfEnemies()
-    {
-        return new int[]{ 3, 2, 1 };
-    }
+    /** Return the density of pirates, government and merchants to be found along the way. */
+	public double[] enemyDensity() {
+		// TODO Auto-generated method stub
+		return new double[] { 0.2, 0.3, 0.1 };
+	}
+
+
+	/** Return the level of the enemy, depending on the type of the city. */
+	public double getLevel(Type type) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

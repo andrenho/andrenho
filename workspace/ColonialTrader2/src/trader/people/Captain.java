@@ -15,4 +15,9 @@ public class Captain
         this.skills = skills;
         assert skills.testForPlayer();
     }
+
+	public double getLevel() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
