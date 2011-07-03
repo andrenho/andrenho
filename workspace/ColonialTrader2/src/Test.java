@@ -5,9 +5,9 @@ import java.util.HashMap;
 import trader.Game;
 import trader.people.Captain;
 import trader.people.Skills;
+import trader.ship.EnemyShip;
 import trader.world.City;
 import trader.world.Travel;
-
 
 public class Test
 {
@@ -71,13 +71,14 @@ public class Test
             println(city.name);
             println("[T]ravel");
             println("[R]eturn");
+            print("? ");
             
             char c = inputc();
             if(c == 'r')
                 return;
             else if(c == 't')
             {
-                Travel travel = new Travel(city);
+                Travel travel = new Travel(city, game.captain);
                 travelMenu(game, travel);
             }
         }
@@ -85,7 +86,10 @@ public class Test
 
     private static void travelMenu(Game game, Travel travel)
     {
-        
+    	for(EnemyShip enemy: travel.events)
+    	{
+    		println(enemy.type.toString() + " - " + enemy.shipClass.name);
+    	}
     }
 
     private static void print(String s)
