@@ -1,0 +1,49 @@
+Bom dia Débora,
+
+estou mandando uma ideia do modelo do eProfile, baseado na nossa conversa. Estou enviando para vermos se estamos alinhados, antes de encaminhar ao Jorge.
+
+Na sexta-feira aproveitei prá trocar algumas ideias com o João, assim já tenho uma noção de como ele está organizando o trabalho dele.
+
+Bom, segue abaixo uma descrição bem sucinta do modelo.
+
+
+MODELO
+
+Em anexo vai uma figura que ilustra o modelo. O modelo é organizado em três partes:
+
+  * eTrail - o trabalho do João, que será um gerenciador de trilhas. Ele está tomando por base o UbiTrail e estendendo para especificar melhor os eventos de contexto (segundo a classificação do Dey) e de confiança (de acordo com o artigo que o Jorge mandou);
+  
+  * eProfile - o nosso modelo, que eu apresento aqui;
+
+  * os clientes - que irão se conectar tanto com o eTrail (para registrar os eventos) quanto com o eProfile (para solicitar informações de perfil). Uma parte do eProfile fica no cliente (como um agente ou uma biblioteca) de modo a facilitar esta comunicação.
+
+
+INFERÊNCIA
+
+O eProfile é um servidor que gerencia perfis. No entanto, ao invés de apenas armazenar os perfis, ele é capaz de inferir perfis a partir da trilha de uma determinada entidade.
+
+A inferência pode ser de dois tipos:
+
+ * interna: são algoritmos genéricos de inferência de perfis, que ficam armazenados dentro do eProfile. Exemplos poderiam ser algoritmos de cálculo de confiança, inferência de contexto utilizando os tipos de contexto especificados por Dey, etc...
+
+ * externa: neste caso, as regras de inferência são enviadas pelo próprio cliente. Para que o cliente seja capaz de enviar uma regra, ele deve conhecer a ontologia do eTrail. O modo como estas regras serão enviadas ao servidor está ainda em aberto, onde foram discutidas três possibilidades: upload de código para rodar no servidor, envio de um algoritmo através de uma linguagem a ser criada, e envio de regras de um sistema especialista (ou um conjunto destas possibilidades).
+
+
+COMUNICAÇÃO COM OS CLIENTES
+
+A inferência das informações de perfil ocorrerá à parte do cliente. O cliente fica responsável apenas por informar o quão frequente ele deseja que as informações sejam atualizadas, e o gerenciador irá realizar a inferência mesmo que o cliente esteja desconectado.
+
+O cliente pode solicitar as informações de perfil de duas formas:
+
+ 1. através de um comando, onde ele solicita as informações;
+
+ 2. através de uma inscrição, onde o cliente se inscreve no servidor e informa que deseja ser informado cada vez que um determinado campo mudar. Assim, quando o campo é alterado, o servidor contata o cliente e o informa da mudança.
+
+
+DADOS
+
+Dentro do eProfile, haverão duas bases de dados:
+
+ * Base de dados de regras: são as regras de inferência enviadas pelos clientes, bem como a frequência de execução. O cliente pode atualizar posteriormente as regras.
+
+ * Base de dados de perfis: contém todas as informações inferidas de acordo com as regras. Cada cliente pode utilizar o conjunto de campos que desejar (isto é, campos não-padrão), porém alguns campos ficarão disponíveis para todos os clientes, que são os campos inferidos através das regras padrão.
