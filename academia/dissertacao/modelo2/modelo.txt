@@ -1,0 +1,7 @@
+MODELO DO EPROFILE
+
+O eProfile é um gerenciador de perfis orientado a agentes para ambientes distribuídos. Ele é projetado para trabalhar em conjunto com um gerenciador de trilhas genérico, da qual busca dados que são utilizados para inferir informações relevantes para a formação de perfil. As regras utilizadas para inferência de perfil podem ser tanto pré-determinadas quanto especificadas pelos clientes.
+
+A Figura X apresenta o modelo, que é organizado em três partes:
+
+ - eProfile: é o gerenciador apresentado neste trabalho. Ele se conecta ao gerenciador de trilhas de modo a obter 
