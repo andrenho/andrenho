@@ -26,9 +26,11 @@ public class ShipClass {
 	}
 	
 	public static ShipClass CARAVEL     = new ShipClass("Caravel",     20.0,  20,  10000);
-	public static ShipClass MARCHANTMAN = new ShipClass("Merchantman", 18.0,  50,  30000);
+	public static ShipClass MERCHANTMAN = new ShipClass("Merchantman", 18.0,  50,  30000);
 	public static ShipClass GALEON      = new ShipClass("Galeon",      15.0, 130,  70000);
 	public static ShipClass PRIVATEER   = new ShipClass("Privateer",   25.0,  40,  70000);
 	public static ShipClass FRIGATE     = new ShipClass("Frigate",     19.0,  70, 180000);
 	public static ShipClass MAN_O_WAR   = new ShipClass("Man-O-War",   17.0,  90, 400000);
+	
+	public static ShipClass[] classes = { CARAVEL, MERCHANTMAN, GALEON, PRIVATEER, FRIGATE, MAN_O_WAR };
 }

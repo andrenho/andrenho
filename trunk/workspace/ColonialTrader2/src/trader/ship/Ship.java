@@ -7,4 +7,5 @@ public abstract class Ship
 {
     public ShipClass shipClass = null;
     protected HashMap<Good, Integer> storage = new HashMap<Good, Integer>();
+    double integrity = 1.0;
 }
