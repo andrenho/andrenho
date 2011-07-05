@@ -6,18 +6,39 @@ O eProfile é um gerenciador de perfis orientado a agentes para ambientes distri
 
 A Figura X apresenta o modelo, que é organizado em três partes.
 
-2.1.1 E-Profile
-2.1.2 Gerenciador de perfis
+2.1.1 eProfile
+
+O eProfile é o modelo apresentado neste artigo. Ele interage com o gerenciador de trilhas através de uma interface padronizada, de onde busca as informações necessárias para a inferência dos perfis.
+
+2.1.2 Gerenciador de trilhas
+
+Para que o eProfile possa operar, é necessário que o mesmo esteja conectado a um gerenciador de trilhas que implemente uma interface padrão. O gerenciador de trilhas é o módulo responsável por armazenar as trilhas, fornecendo uma interface que permita a consulta de um conjunto destas trilhas dentro de parâmetros específicos (por exemplo, entidade ou data). O gerenciador de trilhas pode usar qualquer ontologia para o armazenamento das trilhas, desde que forneça estas trilhas no formato especificado pelo eProfile.
+
 2.1.3 Clientes
 
-2.2 Inferência
+Os clientes referem-se a dispositivos que se comunicam com o gerenciador de trilhas e com o eProfile. Estes clientes fazem o registro de seus eventos dentro do gerenciador de trilhas. O eProfile e o gerenciador de trilhas trabalham em conjunto, independente dos clientes, de modo a manter as informações de perfil pré-processadas dentro do eProfile.
 
-2.2.1 Pré-definida
-2.2.2 Customizada
+2.2 Modelo de Dados
 
-2.3 Comunicação com os clientes
 
-2.4 Dados
 
-2.4.1 Base de dados de regras
-2.4.2 Base de dados de perfis
+# composta: dados padrão + dados não padrão
+#           informada + inferida
+
+2.2.1 Base de dados de perfis
+2.2.2 Base de dados de regras
+
+
+
+2.3 Inferência
+
+2.3.1 Pré-definida
+2.3.2 Customizada
+
+2.4 Comunicação com os clientes
+
+
+3. Estudo de caso
+
+3.1 eTrail
+3.2 Confiança
