@@ -12,6 +12,7 @@ Para que o eProfile possa operar, é necessário que o mesmo esteja conectado a 
 
 Os clientes referem-se a dispositivos que se comunicam com o gerenciador de trilhas e com o eProfile. Estes clientes fazem o registro de seus eventos dentro do gerenciador de trilhas. O eProfile e o gerenciador de trilhas trabalham em conjunto, independente dos clientes, de modo a manter as informações de perfil pré-processadas dentro do eProfile.
 
+
 2.1 Modelo de Dados
 
 O perfil de uma entidade diz respeito a um conjunto de dados que contém todas as informações de perfil daquela entidade. O perfil é composto de duas partes:
@@ -28,14 +29,22 @@ Os campos podem ser de dois tipos:
 
 [Figura]
 
+
 2.2 Inferência
 
+O eProfile é um gerenciador de perfis que oferece, além da opção do armazenamento de dados estáticos, a possibilidade de inferir dados de perfis a partir de informações registradas no gerenciador de trilhas. A inferência pode ser de dois tipos:
+
+ * pré-definida: refere-se a um conjunto de algoritmos pré-definidos que fazem parte do eProfile. A saída destes algoritmos será gravada apenas nos dados pré-definidos do perfil. O conjunto de algoritmos a serem disponibilizados ainda está em definição;
+
+ * customizada: refere-se a um conjunto de regras enviado pelos clientes, onde os próprios clientes definem as regras de inferência e a frequência de atualização. Os clientes podem utilizar o conjunto de dados livres, uma vez que utilizando o próprio algoritmo, são livres para criar novos campos. 
+
+A forma como as regras customizadas serão enviadas ao servidor está ainda em aberto, onde foram discutidas três possibilidades: upload de código para rodar no servidor, envio de um algoritmo através de uma linguagem a ser criada, e envio de regras de um sistema especialista (ou um conjunto destas possibilidades).
+
+A freqüência de execução dos algoritmos de inferência fazem parte da definição das próprias regras. Como o eProfile irá consultar os dados no gerenciador de trilhas, a inferência pode ser executada independente dos clientes estarem conectados ou não. Desta forma, quando houver a necessidade do cliente buscar o dado inferido, a inferência já terá sido executada previamente e o dado está prontamente disponível.
 
 
-2.3.1 Pré-definida
-2.3.2 Customizada
 
-2.4 Comunicação com os clientes
+2.3 Comunicação com os clientes
 
 
 3. Estudo de caso
