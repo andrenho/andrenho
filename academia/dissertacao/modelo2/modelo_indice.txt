@@ -52,15 +52,12 @@ O cliente pode solicitar as informações de perfil de duas formas:
 
  1. através de uma chamada, onde ele solicita as informações;
 
- 2. através de uma inscrição, onde o cliente se inscreve no servidor e
-informa que deseja ser informado cada vez que um determinado campo
-mudar. Assim, quando o campo é alterado, o servidor contata o cliente
-e o informa da mudança.
+ 2. através de uma inscrição, onde o cliente se inscreve no servidor e informa que deseja ser informado cada vez que um determinado campo mudar. Assim, quando o campo é alterado, o servidor contata o cliente e o informa da mudança.
 
 
 3. Estudo de caso
 
-O modelo apresentado 
+O modelo apresentado neste artigo será validado em sua interface com um gerenciador de perfis externo e 
 
 3.1 eTrail
 3.2 Confiança
