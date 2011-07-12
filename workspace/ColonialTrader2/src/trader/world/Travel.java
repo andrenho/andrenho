@@ -22,6 +22,7 @@ public class Travel
     	double[] r = city.enemyDensity();
     	double density = r[0] + r[1] + r[2];
     	
+    	// add enemies
     	int n_enemies = Formulas.numberEnemies(density);
     	for(int i=0; i < n_enemies; i++)
     	{

@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 type Tile struct {
 	terrain *Terrain
 	x, y int
@@ -15,12 +17,14 @@ func newTile(game *Game, x, y int) *Tile {
 	}
 }
 
-func (tile *Tile) units() []*UnitInterface {
-	units := make([]*UnitInterface, 0)
+func (tile *Tile) units() []UnitIF {
+	units := make([]UnitIF, 0)
+	return units
 	game := tile.game
 	for _, nation := range game.nations {
 		for _, unit := range nation.units {
-			if unit.x() == tile.x && unit.y() == tile.y {
+			x, y := unit.pos()
+			if x == tile.x && y == tile.y {
 				units = append(units, unit)
 			}
 		}

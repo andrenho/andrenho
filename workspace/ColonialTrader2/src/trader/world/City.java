@@ -33,7 +33,7 @@ public class City
     {
         HashMap<City, Integer> cities = new HashMap<City, Integer>();
         for(City city: world.cities)
-            if(world.estimateCost(this.coord, city.coord) < maxRange)
+            if(city != this && world.estimateCost(this.coord, city.coord) < maxRange)
             {
                 Vector<Coordinate> c = world.pathBetweenCoordinates(this.coord, city.coord);
                 if(c != null)
