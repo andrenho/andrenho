@@ -1,7 +1,7 @@
 package main
 
 type UnitIF interface {
-	Move()
+	pos() (int, int)
 }
 
 type Unit struct {
@@ -9,5 +9,6 @@ type Unit struct {
 	military *Military
 }
 
-func (unit *Unit) x() { return unit.x }
-func (unit *Unit) y() { return unit.y }
+func (unit *Unit) pos() (int, int) { 
+	return unit.x, unit.y 
+}

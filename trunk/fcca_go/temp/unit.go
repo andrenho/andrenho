@@ -1,21 +1,35 @@
 package main
 
-type A struct {
-	x int
+import "fmt"
+
+type Unit struct {
+	_x int
 }
 
-type B struct {
-	A
-	y int
+type LandUnit struct {
+	Unit
+}
+
+type SeaUnit struct {
+	Unit
+}
+
+type UnitIF interface {
+	x() int
+}
+
+func (u Unit) x() int {
+	return u._x
 }
 
 func main() {
-	var m [2]A
-	
-	m[0] = B { A { 1 }, 2 }
-	m[0].x = 0
-	m[0].y = 0
+	var m [2]UnitIF
+	a := LandUnit{ Unit{ 1 }}
+	b := SeaUnit{ Unit{ 1 }}
 
-	m[1] = A { 3 }
-	m[1].x = 0
+	m[0] = a
+	m[1] = b
+
+	fmt.Println(m[0])
+	fmt.Println(m[1])
 }
