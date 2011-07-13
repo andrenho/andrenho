@@ -9,6 +9,7 @@ public class EnemyShip extends Ship
 {
 	public enum Type { PIRATE, GOVERNMENT, MERCHANT };
 	public Type type;
+	public boolean wasAttacked = false;
 	
 	protected EnemyShip(Type type, ShipClass shipClass)
 	{

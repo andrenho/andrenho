@@ -6,6 +6,7 @@ import trader.Game;
 import trader.people.Captain;
 import trader.people.Skills;
 import trader.ship.EnemyShip;
+import trader.ship.PlayerShip;
 import trader.world.City;
 import trader.world.Travel;
 
@@ -86,10 +87,26 @@ public class Test
 
     private static void travelMenu(Game game, Travel travel)
     {
-    	for(EnemyShip enemy: travel.events)
-    	{
-    		println(enemy.type.toString() + " - " + enemy.shipClass.name);
-    	}
+        EnemyShip enemy;
+        PlayerShip self = game.captain.ship;
+        while((enemy = travel.popEvent()) != null)
+        {
+            while(enemy.getIntegrity() >= 0)
+            {
+                println("Enemy: " + enemy.type.toString() + " - " + enemy.shipClass.name);
+                println("Me: (" + self.attackStrength() + "/" + self.defensiveStrength() + "/" + self.getIntegrity() + ")");
+                println("He: (" + enemy.attackStrength() + "/" + enemy.defensiveStrength() + "/" + enemy.getIntegrity() + ")");
+                println("[A]ttack");
+                print("? ");
+                
+                switch(inputc())
+                {
+                    case 'a':
+                        self.attack(enemy);
+                        break;
+                }
+            }
+        }
     }
 
     private static void print(String s)
