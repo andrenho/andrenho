@@ -41,5 +41,23 @@ public class Formulas {
     	else
     		return 2;
     }
+
+	/** Calculate the chance of a sucessful attack against a enemy. */
+    public static double sucessfulAttackChance(double attack, double defense)
+    {
+        return (attack-defense) * 2 + 0.5;
+    }
+
+    // TODO
+    public static double randomizer()
+    {
+        return 1.0; // TODO
+    }
+
+    /** Calculate the amount of damage caused by a attack. */
+    public static double damage(double attackStrength, double defensiveStrength)
+    {
+        return sucessfulAttackChance(attackStrength, defensiveStrength);
+    }
 	
 }

@@ -1,7 +1,6 @@
 package trader.world;
 
-import java.util.Vector;
-
+import java.util.Stack;
 import trader.Formulas;
 import trader.people.Captain;
 import trader.ship.EnemyShip;
@@ -9,7 +8,7 @@ import trader.ship.EnemyShip.Type;
 
 public class Travel
 {
-    public Vector<EnemyShip> events = new Vector<EnemyShip>();
+    protected Stack<EnemyShip> events = new Stack<EnemyShip>();
     
     public Travel(City city, Captain captain)
     {
@@ -38,5 +37,18 @@ public class Travel
     			assert false;
     		events.add(EnemyShip.autoCreate(type, captain, city));
     	}
+    }
+    
+    /** Returns the next event. */
+    public EnemyShip popEvent()
+    {
+        try
+        {
+            return events.pop();
+        }
+        catch(java.util.EmptyStackException e)
+        {
+            return null;
+        }
     }
 }
