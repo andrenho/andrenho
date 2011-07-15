@@ -1,6 +1,7 @@
 class Tile
 
-  attr_reader :x, :y, :terrain
+  attr_reader :x, :y
+  attr_accessor :terrain
 
   def initialize(game, x, y)
     @game = game

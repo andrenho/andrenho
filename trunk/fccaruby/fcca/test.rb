@@ -5,6 +5,7 @@ game = Game.new(10, 10)
 
 class << game
   def print
+    `cls`
     @map.h.times do |y|
       @map.w.times do |x|
         @map[x,y].print
@@ -25,5 +26,9 @@ class Tile
   end
 end
 
-game.print
-
+c = ''
+while c != 'q'
+  game.print
+  print '? '
+  c = $stdin.getc
+end
