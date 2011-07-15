@@ -7,6 +7,7 @@ class Map
     @w, @h = w, h
     @tiles = []
     (w*h).times { |i| @tiles[i] = Tile.new(game, i % @w, i / @w) }
+    3.upto(4) { |x| 3.upto(4) { |y| self[x,y].terrain = Ocean } }
   end
 
   def [](x, y)
