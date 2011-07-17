@@ -19,8 +19,9 @@ class DriverCurses < Driver
   end
 
   def move(unit, key)
-    8.times do |i|
-      @tg.sprite[unit].move(@tg.sprite[unit].x+i, @tg.sprite[unit].y+i)
+    xy = Dirs[key]
+    8.times do
+      @tg.sprite[unit].move(@tg.sprite[unit].x+xy[0], @tg.sprite[unit].y+xy[1])
     end
   end
     

@@ -1,9 +1,20 @@
 class Driver
 
-  @@dirs = {
+  Dirs = {
     1 => [-1, 1], 2 => [ 0, 1], 3 => [ 1, 1],
     4 => [-1, 0],               6 => [ 1, 0],
     7 => [-1,-1], 8 => [ 0,-1], 3 => [ 1,-1]
+  }
+
+  DirKeys = { 
+    1 => [SDL::Key::KP1, 'j'],
+    2 => [SDL::Key::KP2, 'k', SDL::Key::DOWN],
+    3 => [SDL::Key::KP3, 'l'],
+    4 => [SDL::Key::KP4, 'u', SDL::Key::LEFT],
+    6 => [SDL::Key::KP6, 'o', SDL::Key::RIGHT],
+    7 => [SDL::Key::KP7, '7'],
+    8 => [SDL::Key::KP8, '8', SDL::Key::UP],
+    9 => [SDL::Key::KP9, '9']
   }
 
 
@@ -25,6 +36,7 @@ class Driver
       when 'q'.ord
         @tg.running = false
       when SDL::Key::KP2
+      when SDL::Key::DOWN
         if @game.focused
           if @game.focused.move(2)
             move(@game.focused, 2)
@@ -33,6 +45,15 @@ class Driver
       end
       check_units
       draw_map
+
+      # test for movement
+      if @game.focused
+        DirKeys.each do |dir,k|
+          if k.include? key.sym
+            move(@game.focused, dir) if @game.focused.move(dir)
+          end
+        end
+      end
     end
 
     @tg.run
