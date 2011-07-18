@@ -3,7 +3,7 @@ class Driver
   Dirs = {
     1 => [-1, 1], 2 => [ 0, 1], 3 => [ 1, 1],
     4 => [-1, 0],               6 => [ 1, 0],
-    7 => [-1,-1], 8 => [ 0,-1], 3 => [ 1,-1]
+    7 => [-1,-1], 8 => [ 0,-1], 9 => [ 1,-1]
   }
 
   DirKeys = { 
@@ -31,32 +31,53 @@ class Driver
     check_units
     draw_map
 
-    @tg.on_keypress = Proc.new do |key|
-      case key.sym
-      when 'q'.ord
-        @tg.running = false
-      when SDL::Key::KP2
-      when SDL::Key::DOWN
-        if @game.focused
-          if @game.focused.move(2)
-            move(@game.focused, 2)
-          end
-        end
-      end
-      check_units
-      draw_map
+    while true
+      @game.nations.each do |nation|
 
-      # test for movement
-      if @game.focused
-        DirKeys.each do |dir,k|
-          if k.include? key.sym
-            move(@game.focused, dir) if @game.focused.move(dir)
+        puts '----------------------------------------------------'
+        p @game
+        p nation.selected if nation.selected
+
+        if nation == @game.player # human player
+
+          while not nation.round_over?
+            e = @tg.next_event
+
+            # test quitting
+            exit if e.is_a? SDL::Event::Quit or (e.is_a? SDL::Event::KeyDown and e.sym == 'q'.ord)
+
+            case e
+            when SDL::Event::KeyDown
+              case e.sym
+              when 'w'.ord
+
+              else 
+                # test for movement
+                if nation.selected
+                  DirKeys.each do |dir,k|
+                    if k.include? e.sym
+                      move(nation.selected, dir) if nation.selected.move(dir)
+                    end
+                  end
+                end
+              end
+            end
+
+            # post-processing
+            check_units
+            draw_map
           end
+
+        else # computer player
+          nation.autoplay!
+
         end
+
       end
+      @game.advance_round!
+
     end
 
-    @tg.run
   end
 
 
