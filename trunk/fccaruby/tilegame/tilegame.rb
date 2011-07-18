@@ -5,7 +5,7 @@ require 'set'
 class TileGame
 
   attr_reader :screen, :sprite, :images
-  attr_accessor :running, :on_keypress
+  attr_accessor :on_keypress
   attr_writer :driver
 
   def initialize(tilesize, screensize, empty_tile)
@@ -21,7 +21,6 @@ class TileGame
     @image_cache = {}
     @tileset = {}
     @sprite = {}
-    @running = true
   end
 
 
@@ -82,16 +81,8 @@ class TileGame
   end
 
 
-  def run
-    while @running
-      e = SDL::Event.wait
-      case e
-      when SDL::Event::Quit
-        @running = false
-      when SDL::Event::KeyDown
-        @on_keypress.call(e) if @on_keypress
-      end
-    end
+  def next_event
+    SDL::Event.wait # TODO - blink
   end
 
   
@@ -100,13 +91,19 @@ class TileGame
   end
 
 
-  def redraw_sprite(sprite, old_x=nil, old_y=nil)
+  def redraw_sprite(sprite, old_x=nil, old_y=nil, update=false)
     if sprite.tile and @images[sprite.tile]
       if old_x
         SDL::Surface.blit(sprite.backimage, 0, 0, 0, 0, @screen, old_x, old_y)
         sprite.recreate_backimage
       end
       SDL::Surface.blit(@images[sprite.tile], 0, 0, 0, 0, @screen, sprite.x, sprite.y)
+    end
+    if update
+      rect_old = [old_x, old_y, @images[sprite.tile].w, @images[sprite.tile].h]
+      rect_new = [sprite.x, sprite.y, 
+                @images[sprite.tile].w, @images[sprite.tile].h]
+      @screen.update_rects(rect_old, rect_new)
     end
   end
 
@@ -134,12 +131,14 @@ private
       @backimage.destroy if @backimage and not @backimage.destroyed?
       @backimage = SDL::Surface.new(SDL::SWSURFACE, @tg.images[@tile].w,
                                     @tg.images[@tile].h, @tg.screen.format)
+      SDL::Surface.blit(@tg.screen, @x, @y, @backimage.w, @backimage.h,
+                        @backimage, 0, 0)
     end
 
     def move(x, y)
       old_x, old_y = @x, @y
       @x, @y = x, y
-      @tg.redraw_sprite(self, old_x, old_y)
+      @tg.redraw_sprite(self, old_x, old_y, true)
     end
 
   end

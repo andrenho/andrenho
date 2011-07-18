@@ -4,7 +4,8 @@ class DriverCurses < Driver
 
   @@chars = {
     Ocean => '~',
-    Grassland => ' ',
+    Prairie => ' ',
+    Peasant => 'p',
     Colonist => 'X',
   }
 
@@ -22,9 +23,10 @@ class DriverCurses < Driver
     xy = Dirs[key]
     8.times do
       @tg.sprite[unit].move(@tg.sprite[unit].x+xy[0], @tg.sprite[unit].y+xy[1])
+      sleep 0.01
     end
   end
-    
+  
 
 
 

@@ -6,7 +6,7 @@ class Tile
   def initialize(game, x, y)
     @game = game
     @x, @y = x, y
-    @terrain = Grassland
+    @terrain = Prairie
   end
 
   def units
@@ -18,6 +18,10 @@ class Tile
       return u if u.length > 0
     end
     return u
+  end
+
+  def cost_to_enter(unit)
+    @terrain.cost_to_enter # TODO - rivers, etc
   end
 
 end
