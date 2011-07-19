@@ -32,15 +32,18 @@ class Driver
     draw_map
 
     while true
-      @game.nations.each do |nation|
 
-        puts '----------------------------------------------------'
-        p @game
-        p nation.selected if nation.selected
+      # beginning of the round: select first unit
+      selected = @game.player.units.select { |u| u.has_moves_left? }[0]
+
+      @game.nations.each do |nation|
 
         if nation == @game.player # human player
 
           while not nation.round_over?
+
+            redraw = false
+
             e = @tg.next_event
 
             # test quitting
@@ -50,15 +53,25 @@ class Driver
             case e
             when SDL::Event::KeyDown
               case e.sym
+
+              # wait
               when 'w'.ord
-                nation.select_next!
+                selected = select_next(selected)
+                redraw = true
+
+              # tests
+              when 'b'.ord
+                selected.load Food, 10
+                redraw = true
+
               else 
                 # test for movement
-                if nation.selected
+                if selected
                   DirKeys.each do |dir,k|
-                    if k.include? e.sym and nation.selected.move(dir)
-                      move(nation.selected, dir)
-                      nation.select_next! if not nation.selected.has_moves_left?
+                    if k.include? e.sym and selected.move(dir)
+                      move(selected, dir)
+                      selected = select_next(selected) if not selected.has_moves_left?
+                      redraw = true
                     end
                   end
                 end
@@ -66,8 +79,14 @@ class Driver
             end
 
             # post-processing
-            check_units
-            draw_map
+            if redraw
+              check_units
+              draw_map
+
+              puts '----------------------------------------------------'
+              p @game
+              p selected if selected
+            end
           end
 
         else # computer player
@@ -85,6 +104,7 @@ class Driver
 
 protected
 
+  # See if a new unit was created and, thus, a new sprite must be added.
   def check_units
     @game.nations.each do |nation|
       nation.units.each do |unit|
@@ -98,18 +118,36 @@ protected
   end
 
   
+  # Draw all the tiles.
   def draw_map
-    @game.map.w.times do |x|
-      @game.map.h.times do |y|
-        if @game.map[x,y].city
+    @game.map_w.times do |x|
+      @game.map_h.times do |y|
+        if @game[x,y].city
           @tg[x,y,0] = :city
         else
-          @tg[x,y,0] = @game.map[x,y].terrain
+          @tg[x,y,0] = @game[x,y].terrain
         end
       end
     end
     @tg.draw
     @tg.update
+  end
+
+
+  # Select the next unit.
+  def select_next(selected)
+    avail_units = @game.player.units.select { |u| u.has_moves_left? or u == selected }
+    if avail_units.length == 0
+      return nil
+    end
+    started = false
+    avail_units.cycle 2 do |u|
+      if not started
+        started = true if u == selected
+      else
+        return u if u != selected
+      end
+    end
   end
 
 

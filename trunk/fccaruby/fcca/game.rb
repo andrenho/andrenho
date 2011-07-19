@@ -3,23 +3,27 @@ require 'cargo'
 require 'unit'
 require 'landunit'
 require 'seaunit'
+require 'warehouse'
 require 'city'
 require 'nation'
 require 'tile'
-require 'map'
 
 class Game
 
-  attr_reader :map, :nations, :player, :year
+  attr_reader :map_w, :map_h, :nations, :player, :year
   attr_accessor :focused
 
   def initialize(w, h)
-    @map = Map.new(self, w, h)
+    initialize_map(w, h)
     @nations = [Nation.new(self, 'Test')]
     @player = @nations[0]
     @year = -2000
 
     @nations.each { |n| n.init_round }
+  end
+
+  def [](x, y)
+    @tiles[x + (y * @map_w)]
   end
 
   def advance_round!
@@ -29,6 +33,15 @@ class Game
 
   def inspect
     return "G:#{@year}"
+  end
+
+protected
+
+  def initialize_map(w, h)
+    @map_w, @map_h = w, h
+    @tiles = []
+    (w*h).times { |i| @tiles[i] = Tile.new(self, i % w, i / w) }
+    3.upto(4) { |x| 3.upto(4) { |y| self[x,y].terrain = Ocean } }
   end
 
 end

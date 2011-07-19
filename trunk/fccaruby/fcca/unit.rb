@@ -14,7 +14,7 @@ class Unit
     if move_ok? fx, fy
       @old_x, @old_y = x, y
       @x, @y = fx, fy
-      @moves_left -= @game.map[@x,@y].cost_to_enter(self)
+      @moves_left -= @game[@x,@y].cost_to_enter(self)
       return true
     end
     return false
@@ -32,8 +32,8 @@ class Unit
     (-1..1).each do |x|
       (-1..1).each do |y|
         unless x == 0 and y == 0
-          if @x+x >= 0 and @y+y >= 0 and @x+x < @game.map.w and @y+y < @game.map.h
-            return true if @game.map[@x+x,@y+y].cost_to_enter(self) <= @moves_left
+          if @x+x >= 0 and @y+y >= 0 and @x+x < @game.map_w and @y+y < @game.map_h
+            return true if @game[@x+x,@y+y].cost_to_enter(self) <= @moves_left
           end
         end
       end
@@ -42,7 +42,8 @@ class Unit
   end
 
   def inspect
-    return "(#{@military.name})  M:#{@moves_left}"
+    s = "(#{@military.name})  M:#{@moves_left}"
+    return s
   end
 
 protected
@@ -52,11 +53,15 @@ protected
     @game = game
     @nation, @military, @x, @y = nation, military, x, y
     @old_x, @old_y = x, y
+    if @military.cargo > 0
+      extend Cargo
+      init_cargo(@military.cargo)
+    end
   end
 
   def generic_move_ok?(fx, fy)
-    tile = @game.map[fx,fy]
-    return false if fx < 0 or fy < 0 or fx >= @game.map.w or fy >= @game.map.h
+    tile = @game[fx,fy]
+    return false if fx < 0 or fy < 0 or fx >= @game.map_w or fy >= @game.map_h
     return false if tile.cost_to_enter(self) > @moves_left
     return true
   end

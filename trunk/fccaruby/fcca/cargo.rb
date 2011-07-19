@@ -1,3 +1,63 @@
 module Cargo
 
+  class Slot
+    attr_accessor :good
+    attr_reader :amount
+    def initialize; @amount=0; end
+    def amount=(n)
+      raise if n > 100
+      @amount = n
+    end
+  end
+
+  @slots = []
+
+  def init_cargo(n)
+    @max_cargo = n
+    @slots = []
+    n.times do |i|
+      @slots[i] = Slot.new
+    end
+  end
+
+  def load(good, amount=100)
+    city = @game[@x,@y].city
+    # check for errors
+    raise NoWarehouse if not city
+    raise NoSpace if not has_space? good, amount
+    if city.nation != @nation
+      raise NotEnoughFunds if (amount * city.price[good].buy) > @nation.gold
+      # pay up
+      @nation.gold -= (amount * city.price[good].buy)
+    end
+    # unload from warehouse
+    city.warehouse.load good, amount
+    # load to unit
+    @slots.each do |slot| 
+      if not slot.good or (slot.good == good and (100-slot.amount) >= amount)
+        slot.good = good
+        slot.amount += amount
+        return true
+      end
+    end
+    raise 'Assertion error: no free slots found.'
+  end
+
+  def unload(good, amount=100)
+  end
+
+protected
+
+  def has_space?(good, amount)
+    @slots.each do |slot|
+      return true if not slot.good
+      return true if slot.good == good and (100-slot.amount) >= amount
+    end
+    return false
+  end
+
 end
+
+class NoWarehouse < Exception; end
+class NotEnoughFunds < Exception; end
+class NoSpace < Exception; end
