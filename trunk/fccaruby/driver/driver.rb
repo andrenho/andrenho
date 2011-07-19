@@ -46,17 +46,19 @@ class Driver
             # test quitting
             exit if e.is_a? SDL::Event::Quit or (e.is_a? SDL::Event::KeyDown and e.sym == 'q'.ord)
 
+            # game events
             case e
             when SDL::Event::KeyDown
               case e.sym
               when 'w'.ord
-
+                nation.select_next!
               else 
                 # test for movement
                 if nation.selected
                   DirKeys.each do |dir,k|
-                    if k.include? e.sym
-                      move(nation.selected, dir) if nation.selected.move(dir)
+                    if k.include? e.sym and nation.selected.move(dir)
+                      move(nation.selected, dir)
+                      nation.select_next! if not nation.selected.has_moves_left?
                     end
                   end
                 end

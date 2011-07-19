@@ -15,8 +15,9 @@ class Unit
       @old_x, @old_y = x, y
       @x, @y = fx, fy
       @moves_left -= @game.map[@x,@y].cost_to_enter(self)
-      @nation.selector.select_next
+      return true
     end
+    return false
   end
 
   def init_round
