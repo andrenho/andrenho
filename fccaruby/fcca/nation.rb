@@ -6,8 +6,9 @@ class Nation
     @game = game
     @name = name
     @units = []
+    @cities = []
     create_unit!(Colonist, 2, 2)
-    create_unit!(Peasant, 2, 1)
+    @cities << City.new(@game, self, 'test', 2, 5)
     @selected = @units[0]
   end
 

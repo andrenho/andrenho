@@ -7,6 +7,7 @@ class DriverCurses < Driver
     Prairie => ' ',
     Peasant => 'p',
     Colonist => 'X',
+    :city => 'C',
   }
 
   def tile_size; [8,8]; end

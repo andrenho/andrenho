@@ -101,7 +101,11 @@ protected
   def draw_map
     @game.map.w.times do |x|
       @game.map.h.times do |y|
-        @tg[x,y,0] = @game.map[x,y].terrain
+        if @game.map[x,y].city
+          @tg[x,y,0] = :city
+        else
+          @tg[x,y,0] = @game.map[x,y].terrain
+        end
       end
     end
     @tg.draw
