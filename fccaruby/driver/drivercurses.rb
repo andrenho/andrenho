@@ -7,6 +7,7 @@ class DriverCurses < Driver
     Prairie => ' ',
     Peasant => 'p',
     Colonist => 'X',
+    Caravan => 'h',
     :city => 'C',
   }
 

@@ -1,9 +1,15 @@
 require 'i18n'
 
+class Static
+  def inspect
+    return "<##{self.class.name}:#{@name}>"
+  end
+end
+
 #
 # Goods
 # 
-class Good
+class Good < Static
 
   @@all = []
 
@@ -42,7 +48,7 @@ Prayers =   Good.new(_('Prayers'),   false)
 # 
 # Terrains
 #
-class Terrain
+class Terrain < Static
 
   @@all = []
 
@@ -94,7 +100,7 @@ Mountain = Terrain.new(_('Mountains'),       3, 3, 6, [ 0, 0, 0, 0, 0, 3, 0, 3, 
 #
 # Military classes
 #
-class Military
+class Military < Static
 
   @@all = []
 
@@ -109,6 +115,7 @@ end
 
 Peasant         = Military.new(_('Peasant'),                 false, 1, 0, 1, 0)
 Colonist        = Military.new(_('Colonist'),                false, 1, 0, 1, 0)
+Caravan         = Military.new(_('Caravan'),                 false, 2, 0, 1, 2)
 Warrior         = Military.new(_('Warrior'),                 false, 1, 2, 2, 0)
 Nomad           = Military.new(_('Nomad'),                   false, 4, 1, 1, 0)
 Chariot         = Military.new(_('Chariot'),                 false, 4, 3, 3, 0)
@@ -140,7 +147,7 @@ Pirate_ship     = Military.new(_('Pirate Ship'),             true,  8, 4, 8, 2)
 # 
 # Jobs
 #
-class Job
+class Job < Static
 
   attr_reader :name
   attr_accessor :building, :raw_good, :good
@@ -175,7 +182,7 @@ Priest       = Job.new(_('Priest'))
 #
 # Buildings
 #
-class Building
+class Building < Static
 
   attr_reader :name, :job, :raw_good, :good, :multiplier, :cost, :Copper, 
               :min_colony
