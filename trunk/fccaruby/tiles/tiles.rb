@@ -41,7 +41,8 @@ protected
   end
 
   def draw_prairie_unit(x,y)
-    @world[x,y] = 0xe0e0e0
+    @world[x,y] = 0x00550E
+    @world[x,y] = 0x00C20E if Random.rand > 0.5
   end
 
 end
