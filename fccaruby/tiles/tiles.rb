@@ -31,6 +31,13 @@ class Tiles
     draw_tile(2, 1)
     draw_tile(3, 1)
     draw_tile(4, 1)
+    draw_tile(5, 1)
+
+    (3..5).each do |x|
+      (3..5).each do |y|
+        draw_tile(x,y)
+      end
+    end
     #@game.map_h.times do |y|
     #  @game.map_w.times do |x|
     #    draw_tile x, y
@@ -44,41 +51,61 @@ protected
     @world.lock
     px = 30 + (tx * 48)
     py = 70 + (ty * 48)
+
+    
+
     (py-8).upto(py+47+8) do |y|
       (px-8).upto(px+47+8) do |x|
+
         r = out_of_tile(x-px, y-py)
         if rand < r
-          case tx
-          when 0
-            draw_sand_unit(x.to_i, y)
-          when 1
-            draw_marsh_unit(x.to_i ,y)
-          when 2
-            draw_tundra_unit(x.to_i, y)
-          when 3
+
+          if ty >= 3
             draw_plains_unit(x.to_i, y)
-          when 4
-            draw_steppe_unit(x.to_i ,y)
-          when 5
-            draw_prairie_unit(x.to_i, y)
-          when 7
-            draw_arctic_unit(x.to_i, y)
+
+          else
+
+            case tx
+            when 0
+              draw_sand_unit(x.to_i, y)
+            when 1
+              draw_marsh_unit(x.to_i ,y)
+            when 2
+              draw_tundra_unit(x.to_i, y)
+            when 3
+              draw_plains_unit(x.to_i, y)
+            when 4
+              draw_steppe_unit(x.to_i ,y)
+            when 5
+              draw_prairie_unit(x.to_i, y)
+            when 7
+              draw_arctic_unit(x.to_i, y)
+            end
           end
-        end
-        if ty == 1
-          case tx
-          when 0
-            draw_desert_tree(x.to_i, y)
-          when 2
-            draw_pines(x.to_i, y)
-          when 3
-            draw_mixed_trees(x.to_i, y)
-          when 4
-            draw_woodland_trees(x.to_i, y)
+          if ty == 1
+            case tx
+            when 0
+              draw_desert_tree(x.to_i, y)
+            when 1
+              draw_woodland_trees(x.to_i, y)
+            when 2
+              draw_pines(x.to_i, y)
+            when 3
+              draw_mixed_trees(x.to_i, y)
+            when 4
+              draw_woodland_trees(x.to_i, y)
+            when 5
+              draw_savannah_trees(x.to_i, y)
+            end
           end
+
         end
+
       end
     end
+    
+    draw_hill(tx, ty, px, py) if tx == 4 and ty == 4
+    
     @world.unlock
   end
 
@@ -158,7 +185,7 @@ protected
 
   def draw_arctic_unit(x,y)
     @world[x,y] = 0xc0c0c0
-    @world[x,y] = 0xa0a0d0 if rand < 0.2
+    @world[x,y] = 0xffffff if rand < 0.2
   end
 
   def draw_desert_tree(x,y)
@@ -228,6 +255,31 @@ protected
       (0..5).each { |i| @world[x-i,y-5] = t }
       (0..5).each { |i| @world[x-i,y-6] = t }
       (1..4).each { |i| @world[x-i,y-7] = t }
+    end
+  end
+
+  def draw_savannah_trees(x,y)
+    def t; rand > 0.5 ? 0x005000 : 0x206020; end
+    if rand < 0.01
+      (3..4).each { |i| @world[x-i,y] = 0x643030 }
+      (3..4).each { |i| @world[x-i,y-1] = 0x643030 }
+      (3..4).each { |i| @world[x-i,y-2] = 0x643030 }
+      (3..4).each { |i| @world[x-i,y-3] = 0x643030 }
+      (1..6).each { |i| @world[x-i,y-4] = t }
+      (0..7).each { |i| @world[x-i,y-5] = t }
+      (0..7).each { |i| @world[x-i,y-6] = t }
+      (1..6).each { |i| @world[x-i,y-7] = t }
+    end
+  end
+
+  def draw_hill(tx,ty,x,y)
+    def t; rand < 0.5 ? 0x441010 : 0x643030; end
+    (x..x+55).each do |xx|
+      c = t
+      i = (rand * 3).to_i
+      (i..10+i).each do |yy|
+        @world[xx, y+yy+32] = c
+      end
     end
   end
 
