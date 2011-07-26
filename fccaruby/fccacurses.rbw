@@ -2,7 +2,7 @@ $: << '.'
 $: << 'tilegame'
 $: << 'driver'
 $: << 'fcca'
-require 'tilegame/tilegame'
+require 'interface/interface'
 require 'fcca/game'
 require 'driver/drivercurses'
 

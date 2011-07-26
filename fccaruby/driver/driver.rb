@@ -19,15 +19,15 @@ class Driver
 
 
   def initialize
-    raise 'This class is abstract.' if self.class == Driver
-    @game = Game.new(10, 10)
-    @tg = TileGame.new(tile_size, [40,30], :none)
-    @tg.driver = self
-    initialize_tiles
+    @interface = Interface.new
+    @game = @interface.init_game
   end
 
 
   def run!
+
+    while true; return if SDL::Event.wait.is_a? SDL::Event::Quit; end
+
     check_units
     draw_map
 
@@ -149,11 +149,6 @@ protected
       end
     end
   end
-
-
-  def tile_size; abstract; end
-  def initialize_tiles; abstract; end
-  def move(a,b); abstract; end
 
 
 private
