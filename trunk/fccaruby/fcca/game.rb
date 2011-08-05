@@ -1,3 +1,4 @@
+$: << 'fcca'
 require 'static'
 require 'cargo'
 require 'unit'
@@ -11,11 +12,10 @@ require 'tile'
 class Game
 
   attr_reader :map_w, :map_h, :nations, :player, :year
-  attr_accessor :focused
 
   def initialize(w, h)
     initialize_map(w, h)
-    @nations = [Nation.new(self, 'Test')]
+    @nations = [ Nation.new(self, 'Israel', :light_blue) ]
     @player = @nations[0]
     @year = -2000
 

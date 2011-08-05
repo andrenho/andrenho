@@ -241,3 +241,6 @@ Warehouse_1 = Building.new(_("Warehouse"), nil, nil, nil, 2, 80)
 Warehouse_2 = Building.new(_("Big Warehouse"), nil, nil, nil, 3, 120, 20)
 Palace      = Building.new(_("Palace"), nil, nil, nil, 0, 240, 200)
 Monument    = Building.new(_("Monument"), nil, nil, nil, 0, 320, 300)
+
+# Nation
+Israel = nil
