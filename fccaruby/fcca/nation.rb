@@ -1,14 +1,16 @@
 class Nation
 
-  attr_reader :units
+  attr_reader :units, :gold, :color
 
-  def initialize(game, name)
+  def initialize(game, name, color=nil)
     @game = game
     @name = name
     @units = []
     @cities = []
     @gold = 0
+    @color = color
 
+    create_unit!(Caravan, 2, 2)
     create_unit!(Caravan, 2, 2)
     @cities << City.new(@game, self, 'test', 2, 5)
   end
