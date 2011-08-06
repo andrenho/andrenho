@@ -8,6 +8,7 @@ require 'driver'
 # Colors
 #
 $color = {
+  :info       => [ COLOR_CYAN,  COLOR_BLACK, A_BOLD|A_BLINK ],
   :status_txt => [ COLOR_WHITE, COLOR_BLACK, A_BOLD   ],
   :status_val => [ COLOR_GREEN, COLOR_BLACK, A_BOLD   ],
   :ocean      => [ COLOR_BLUE,  COLOR_BLACK, A_BOLD   ],
@@ -18,7 +19,8 @@ $color = {
 $chars = {
   # terrains
   Ocean   => [ ':', :ocean ],
-  Prairie => [ 250.chr, :prairie ],
+  #Prairie => [ 250.chr, :prairie ],
+  Prairie => [ '.', :prairie ],
 
   # militaries
   Caravan => [ 'c' ],
@@ -34,7 +36,7 @@ $nations = {
 def init_curses
   # initialize curses
   init_screen
-  curs_set 2
+  curs_set 1
   raw
   cbreak
   noecho
@@ -68,12 +70,23 @@ end
 #
 def map_update
   clear
-  setpos(4, 0)
-  attron color_pair(1)
-  s 'YEAR', 4, 0, :status_txt
-  s "#{$game.year.abs} BC", 4, 15, :status_val, :right
-  s 'GOLD', 5, 0, :status_txt
-  s "#{$game.player.gold}", 5, 15, :status_val, :right
+  y = 1
+  s $game.player.name, y, 0, :info
+  y += 1
+  s 'GOLD', y, 0, :status_txt
+  s "#{$game.player.gold}", y, 15, :status_val, :right
+  y += 1
+  s 'YEAR', y, 0, :status_txt
+  s "#{$game.year.abs} BC", y, 15, :status_val, :right
+  y += 2
+  if $driver.focused
+    u = $driver.focused
+    s u.military.name, y, 0, :info
+    y += 1
+    s 'MOVES', y, 0, :status_txt
+    s u.moves_left.to_s, y, 15, :status_val, :right
+  end
+  
   map_draw
 end
 
@@ -94,11 +107,12 @@ def map_draw
     end
   end
   if fx # focused unit appears on screen
-    curs_set 2
+    curs_set 1
     setpos fy, fx
   else
     curs_set 0
   end
+  refresh
 end
 
 def map_event
@@ -106,6 +120,14 @@ def map_event
   case ch
   when '1', '2', '3', '4', '6', '7', '8', '9'
     $driver.move_unit(ch.to_i)
+  when KEY_UP
+    $driver.move_unit(8)
+  when KEY_DOWN
+    $driver.move_unit(2)
+  when KEY_LEFT
+    $driver.move_unit(4)
+  when KEY_RIGHT
+    $driver.move_unit(6)
   when 'w'
     $driver.select_next!
   when ' '

@@ -1,6 +1,6 @@
 class Nation
 
-  attr_reader :units, :gold, :color
+  attr_reader :units, :gold, :color, :name
 
   def initialize(game, name, color=nil)
     @game = game
