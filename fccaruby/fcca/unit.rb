@@ -46,6 +46,10 @@ class Unit
     return s
   end
 
+  def tile
+    return @game[@x, @y]
+  end
+
 protected
 
   def initialize(game, nation, military, x, y)

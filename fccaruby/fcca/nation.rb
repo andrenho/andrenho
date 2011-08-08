@@ -10,8 +10,7 @@ class Nation
     @gold = 0
     @color = color
 
-    create_unit!(Caravan, 2, 2)
-    create_unit!(Caravan, 2, 2)
+    create_unit!(Peasant, 2, 2)
     @cities << City.new(@game, self, 'test', 2, 5)
   end
 

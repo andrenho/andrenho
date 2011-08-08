@@ -41,7 +41,7 @@ protected
     @map_w, @map_h = w, h
     @tiles = []
     (w*h).times { |i| @tiles[i] = Tile.new(self, i % w, i / w) }
-    3.upto(4) { |x| 3.upto(4) { |y| self[x,y].terrain = Ocean } }
+    #3.upto(4) { |x| 3.upto(4) { |y| self[x,y].terrain = Ocean } }
   end
 
 end
