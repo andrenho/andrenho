@@ -1,14 +1,11 @@
 require 'curses'
 include Curses
 
-$: << '.'
-require 'driver'
-
 #
 # Colors
 #
 $color = {
-  :info       => [ COLOR_CYAN,  COLOR_BLACK, A_BOLD|A_BLINK ],
+  :info       => [ COLOR_CYAN,  COLOR_BLACK, A_BOLD   ],
   :status_txt => [ COLOR_WHITE, COLOR_BLACK, A_BOLD   ],
   :status_val => [ COLOR_GREEN, COLOR_BLACK, A_BOLD   ],
   :ocean      => [ COLOR_BLUE,  COLOR_BLACK, A_BOLD   ],
@@ -166,30 +163,4 @@ def map_event
   else
     p keyname(ch)
   end
-end
-
-
-#
-# main
-#
-begin
-  $display = :map
-  $running = true
-  init_curses
-  init_colors if has_colors?
-  $driver = Driver.new
-  $game = $driver.game
-
-  while true
-    $driver.run_round do
-      case $display
-      when :map
-        map_update
-        map_event
-      end
-    end
-  end
-
-ensure
-  end_curses
 end
