@@ -1,5 +1,11 @@
 class LandUnit < Unit
 
+  def build_city(name)
+    city = City.new(@game, @nation, name, @x, @y)
+    nation.cities << city
+    city
+  end
+
 protected
 
   def move_ok?(fx, fy)

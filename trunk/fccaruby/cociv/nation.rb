@@ -1,6 +1,6 @@
 class Nation
 
-  attr_reader :units, :gold, :color, :name
+  attr_reader :units, :gold, :color, :name, :cities
 
   def initialize(game, name, color=nil)
     @game = game
@@ -11,7 +11,6 @@ class Nation
     @color = color
 
     create_unit!(Peasant, 2, 2)
-    @cities << City.new(@game, self, 'test', 2, 5)
   end
 
   def create_unit!(military, x, y)

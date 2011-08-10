@@ -20,8 +20,21 @@ class Tile
     return u
   end
 
+  def city
+    @game.nations.each do |nation|
+      nation.cities.each do |city|
+        return city if city.x == @x and city.y == @y
+      end
+    end
+    nil
+  end
+
   def cost_to_enter(unit)
     @terrain.cost_to_enter # TODO - rivers, etc
+  end
+
+  def can_build_city?
+    return true # TODO
   end
 
 end
