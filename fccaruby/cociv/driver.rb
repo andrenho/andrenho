@@ -1,3 +1,5 @@
+$: << '.'
+$: << 'cociv'
 require 'game'
 
 class Driver
