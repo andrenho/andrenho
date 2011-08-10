@@ -1,11 +1,15 @@
 class City
 
+  attr_reader :game, :nation, :name, :x, :y, :price, :warehouse
+
+  Messages = {
+    :new_city => _('What is the name of the new city?')
+  }
+
   class Price
     attr_accessor :buy, :sell
     def initialize; @buy, @sell = 0, 0; end
   end
-
-  attr_reader :game, :nation, :name, :x, :y, :price, :warehouse
 
   def initialize(game, nation, name, x, y)
     @game, @nation, @name, @x, @y = game, nation, name, x, y

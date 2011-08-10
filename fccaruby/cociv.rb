@@ -1,28 +1,14 @@
 $: << '.'
 require 'cociv/driver'
-require 'ui/main'
+require 'ui/ui'
 
 #
 # main
 #
 begin
-  $display = :map
-  $running = true
-  init_curses
-  init_colors if has_colors?
-  $driver = Driver.new
-  $game = $driver.game
-
-  while true
-    $driver.run_round do
-      case $display
-      when :map
-        map_update
-        map_event
-      end
-    end
-  end
-
+  ui = UI.new
+  ui.init
+  ui.run!
 ensure
-  end_curses
+  ui.close
 end
