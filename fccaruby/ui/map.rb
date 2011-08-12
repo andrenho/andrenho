@@ -30,6 +30,22 @@ protected
   end
 
 
+  def draw_unit(unit, sx, sy)
+    s $chars[unit.military][0], sy, sx, $nations[unit.nation.color]
+  end
+
+
+  def draw_terrain(x, y, sx, sy)
+    city_here = @game[x,y].city
+    if city_here
+      s $chars[:city][0], sy, sx, $nations[city_here.nation.color]
+    else
+      c = $chars[@game[x,y].terrain]
+      s c[0], sy, sx, c[1] if c
+    end
+  end
+
+
   # 
   # draw map on the screen (called by UI#map_update)
   #
@@ -39,16 +55,12 @@ protected
       (0..(@game.map_h-1)).each do |y|
         u = @game[x,y].units
         sx, sy = x+16, y+1
-        city_here = @game[x,y].city
         if not u.empty?
           unit = u[0]
-          s $chars[unit.military][0], sy, sx, $nations[unit.nation.color]
+          draw_unit(unit, sx, sy)
           fx, fy = sx, sy if u.include? @driver.focused
-        elsif city_here
-          s $chars[:city][0], sy, sx, $nations[city_here.nation.color]
         else
-          c = $chars[@game[x,y].terrain]
-          s c[0], sy, sx, c[1] if c
+          draw_terrain(x, y, sx, sy)
         end
       end
     end
@@ -86,7 +98,7 @@ protected
         name = ask(City::Messages[:new_city])
         if name
           city = @driver.focused.build_city(name)
-          #@display = city
+          @display = city
         end
       end
     when 'q'
