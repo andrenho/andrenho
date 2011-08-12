@@ -1,6 +1,6 @@
 class City
 
-  attr_reader :game, :nation, :name, :x, :y, :price, :warehouse
+  attr_reader :game, :nation, :name, :x, :y, :price, :warehouse, :buildings
 
   Messages = {
     :new_city => _('What is the name of the new city?')
@@ -17,6 +17,12 @@ class City
     @warehouse = Warehouse.new(100)
     @price = {}
     Good.all.each { |g| @price[g] = Price.new }
+
+    # create buildings
+    @buildings = []
+    InitialBuildings.each do |building_type|
+      @buildings << Building.new(building_type)
+    end
   end
 
 end

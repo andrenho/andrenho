@@ -3,11 +3,13 @@ include Curses
 
 require 'ui/ui_config'
 require 'ui/map'
+require 'ui/city'
 require 'ui/communication'
 
 class UI
 
   include Map
+  include CityUI
   include Communication
 
   #
@@ -47,10 +49,12 @@ class UI
   def run!
     while true
       @driver.run_round do
-        case @display
-        when :map
+        if @display == :map
           map_update
           map_event
+        elsif @display.is_a? City
+          city_update
+          city_event
         end
       end
     end
