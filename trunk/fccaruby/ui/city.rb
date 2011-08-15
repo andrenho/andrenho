@@ -39,16 +39,26 @@ module CityUI
 
     # terrain
     sy, sx = 3, max_bd_len + 35
-    (city.x-1).upto(city.x+1) do |x|
-      (city.y-1).upto(city.y+1) do |y|
-        draw_terrain(x, y, sx, sy)
-        sy += 1
-      end
-      sy = 3
+    s '+--+--+--+', sy, sx, :text
+    sy += 1
+    (city.y-1).upto(city.y+1) do |y|
+      s '|', sy, sx, :text
       sx += 1
+      (city.x-1).upto(city.x+1) do |x|
+        draw_terrain(x, y, sx, sy)
+        draw_terrain(x, y, sx+1, sy)
+        s '|', sy, sx+2, :text
+        sx += 3
+      end
+      sx = max_bd_len + 35
+      s '+--+--+--+', sy+1, sx, :text
+      sy += 2
     end
+    
 
     refresh
+    getch
+    exit
   end
 
   def city_event
