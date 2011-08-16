@@ -1,7 +1,7 @@
 class Unit
 
   attr_reader :x, :y, :old_x, :old_y, :nation, :military, :moves_left
-  attr_accessor :extra
+  attr_accessor :extra, :worker
 
   @@dirs = {
     1 => [-1, 1], 2 => [ 0, 1], 3 => [ 1, 1],
@@ -41,6 +41,10 @@ class Unit
     return false
   end
 
+  def description
+    return @military.name # TODO - skill/job
+  end
+
   def inspect
     s = "(#{@military.name})  M:#{@moves_left}"
     return s
@@ -57,6 +61,7 @@ protected
     @game = game
     @nation, @military, @x, @y = nation, military, x, y
     @old_x, @old_y = x, y
+    @worker = false
     if @military.cargo > 0
       extend Cargo
       init_cargo(@military.cargo)
