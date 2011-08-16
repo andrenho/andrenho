@@ -12,7 +12,7 @@ class Tile
   def units
     u = []
     @game.nations.each do |nation|
-      nation.units.each do |unit|
+      nation.units.select{ |_u| not _u.worker }.each do |unit|
         u << unit if unit.x == @x and unit.y == @y
       end
       return u if u.length > 0

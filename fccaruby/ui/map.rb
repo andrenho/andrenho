@@ -95,7 +95,7 @@ protected
       @game.advance_round!
     when 'b'
       if @driver.focused.is_a? LandUnit and @driver.focused.tile.can_build_city?
-        name = ask(City::Messages[:new_city])
+        name = ask_s(City::Messages[:new_city])
         if name
           city = @driver.focused.build_city(name)
           @display = city

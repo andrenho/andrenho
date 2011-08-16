@@ -3,7 +3,8 @@ class City
   attr_reader :game, :nation, :name, :x, :y, :price, :warehouse, :buildings
 
   Messages = {
-    :new_city => _('What is the name of the new city?')
+    :new_city => _('What is the name of the new city?'),
+    :move_to => _('Where do you want to move the %s to?'),
   }
 
   class Price
