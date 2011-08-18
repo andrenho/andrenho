@@ -32,8 +32,16 @@ protected
   # Display a message to the user
   #
   def message(msg)
-    s question, 0, 0, :comm
-    setpos 0, question.length + 1
+    s msg, 0, 0, :comm
     refresh
+    @last_message = msg
   end
+
+  def show_last_message
+    if @last_message
+      message @last_message
+      @last_message = nil
+    end
+  end
+
 end

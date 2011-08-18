@@ -1,4 +1,5 @@
 $: << 'cociv'
+require 'util'
 require 'static'
 require 'cargo'
 require 'unit'
