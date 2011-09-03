@@ -1,4 +1,4 @@
-\documentclass[a4paper,twocolumn]{article}
+\documentclass[a4paper]{article}
 \pagestyle{empty}
 
 \usepackage[portuguese]{babel}
@@ -30,9 +30,42 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\section{Introdução}
+
+% Conceitos a apresentar
+
+Atualmente, muitas aplicações têm se concentrado na coleta de informações a respeito dos usuários, com o objetivo de permitir que as aplicações possam conhecer os usuários, suas preferências e seus interesses, possibilitando a oferta de serviços personalizados. Assim, muitas aplicações organizam seu conhecimento a respeito do usário em \emph{perfis de usuário}, onde cada aplicação salva as informações em um formato baseado em um \emph{modelo de usuário} específico. \cite{viviani10}
+
+% Contexto, Trilhas
+
+A coleta de informações de um usuário pode ser \emph{explícita} ou \emph{implícita}. Na coleta \emph{explícita}, é requisitado ao usuário que preencha informações através de um formulário pré-definido, enquanto na coleta \emph{implícita}, a informação é inferida a partir do estudo do comportamento dos usuários. \cite{viviani10}
+
+Informações a respeito de um usuário colhidas por uma aplicação podem ser úteis para outras aplicações que tenham o mesmo usuário. No entanto, os diferentes \emph{modelos de usuário} utilizados pelas aplicações tornam difícil a utilização de informações de um \emph{perfil de usuário} de uma aplicação por outra. Além disso, algumas das informações do usuário podem ser válidas apenas dentro de um \emph{contexto} específico, o que dificulta ainda mais que diferentes aplicações compartilharem o mesmo perfil. \cite{viviani10}
+
+Como forma de ultrapassar estas barreiras, o coneceito de \emph{personalização intersistemas} foi introduzido \cite{niederee04} como forma de compartilhar informações de usuários entre diferentes aplicações. Como o maior problema deste tipo de modelo é o alinhamento entre as diferentes abordagens de personalização, o estudo de \emph{sistemas de modelos de usuário} é o principal desafio da pesquisa atual na área de personalização.
+
+O IEEE Standard Computer Dictionary \cite{ieeedict} define interoperablidade como ``a capacidade de dois ou mais sistemas ou componentes trocarem informações e utilizar a informação que foi trocada.'' No âmbito da personalização, interoperabilidade é a ``capacidade de acessar e interpretar informação derivada de múltiplas fontes hetereogênias e integrar esta informação em um modelo de usuário de granularidade própria'' \cite{carmagnola09}. Os dois principais modelos de interoperabilidade são: (i) \emph{interoperabilidade sintática}, onde as diferenças entre os modelos de usuário são resolvidos em nível de aplicação, e (ii) \emph{interoperabilidade semântica}, onde as diferenças entre os modelos são resolvidos em nivel de conhecimento.
+
+As duas principais abordagens utilizadas em sistemas de modelos de usuários interoperáveis são \cite{viviani10}:
+
+\begin{description}
+
+  \item[Baseados em padrões]: são baseados numa visão \emph{top-down}, definindo um padrão que todas as aplicações envolvidas devem observar;
+  \item[Baseados em mediação]: se baseam numa visão \emph{bottom-up}, onde ocorre algum tipo de \emph{reconciliação} entre os diferentes modelos de representação.
+
+\end{description}
+
+%
+% Perfis
+% Computação Ubíqua
+% Trilhas
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Trabalhos relacionados}
 
-Esta seção apresenta alguns projetos relacionados a este, bem como uma comparação entre os mesmos.
+Esta seção apresenta projetos relacionados a este, bem como uma comparação entre os mesmos.
 
 \subsection{Chellouche et al\cite{chellouche10}}
 
@@ -50,10 +83,10 @@ O perfil do usuário é constituído por seu contexto, onde a definição de con
   \item[Perfil de contexto]: contém informações a respeito do ambiente do usuário, como hora, data e localização, aplicações em execução, banda disponível, etc. É considerada a parte dinâmica do perfil, composta por dados voláteis.
 \end{description}
 
-O \emph{middleware} apresentado é definido segundo ilustrado na Figura~\ref{fig:chellouche1}. O \emph{middleware} é composto dos seguintes módulos:
+O \emph{middleware} é apresentado segundo ilustrado na Figura~\ref{fig:chellouche1}. O \emph{middleware} é composto dos seguintes módulos:
 
 \begin{figure}
-  \includegraphics[width=0.5\textwidth]{chellouche1.png}
+  \includegraphics[width=1\textwidth]{chellouche1.png}
   \caption{Arquitetura do \emph{middleware} de Chellouche et al\cite{chellouche10}}
   \label{fig:chellouche1}
 \end{figure}
@@ -66,10 +99,10 @@ O \emph{middleware} apresentado é definido segundo ilustrado na Figura~\ref{fig
   \item[API]: constitui o ponto de interface entre as aplicações e o middleware.
 \end{description}
 
-O perfil é construído de acordo com a Figura~\ref{fig:chellouche2}. A aplicação solicita ao gerenciador de perfis, através da API, que por sua vez repassa a solicitação ao gerenciados de consultas. Simultâneo a isto, o gerenciador de contextos é informado que a aplicação está em execução e passa a atualizar o gerenciador de perfis com as informações atualizadas. O perfil de usuário é criado e enviado ao gerenciador de transporte, que retorna o perfil solicitado à aplicação solicitante.
+O perfil é construído de acordo com a Figura~\ref{fig:chellouche2}. A aplicação solicita ao gerenciador de perfis, através da API, que por sua vez repassa a solicitação ao gerenciador de consultas. Simultâneo a isto, o gerenciador de contextos é informado que a aplicação está em execução e passa a atualizar o gerenciador de perfis com as informações atualizadas. O perfil de usuário é criado e enviado ao gerenciador de transporte, que retorna o perfil solicitado à aplicação solicitante.
 
 \begin{figure}
-  \includegraphics[width=0.5\textwidth]{chellouche2.png}
+  \includegraphics[width=1\textwidth]{chellouche2.png}
   \caption{Construção de perfil\cite{chellouche10}}
   \label{fig:chellouche2}
 \end{figure}
