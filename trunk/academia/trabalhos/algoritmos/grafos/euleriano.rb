@@ -18,16 +18,29 @@ def monta_grafo(g)
   return [vertices, arestas.to_a]
 end
 
+def no_com_mais_vertices(g)
+  v = g[0].clone
+  v.sort! do |a, b|
+    na = g[1].select{ |aresta| aresta.include? a }.length
+    nb = g[1].select{ |aresta| aresta.include? b }.length
+    nb <=> na
+  end
+  return v
+end
+
 def caminha(g)
   g_ = g.clone
-  c = [g_[0][0]]
+  c = [no_com_mais_vertices(g_)[0]]
   while not g_[1].empty?
     v = c.last
-    incidentes = g_[1].select{ |a| a.include? v }
-    if incidentes.length == 1
-      a = incidentes[0]
-    else
-      a = incidentes[0]
+    incidentes = []
+    no_com_mais_vertices(g_).each do |no|
+      incidentes += g_[1].select{ |a| a.include? v and a.include? no }
+    end
+    a = incidentes[0]
+    if a == nil
+      puts 'Nao foi possivel encontrar um caminho para este grafo.'
+      return nil
     end
     g_[1].delete a
     c << a
@@ -62,8 +75,10 @@ end
 
 possui = ([0,2].include? n_impares)
 puts "O grafo #{possui ? '' : 'nao '}possui um caminho eleuriano, pois contem #{n_impares} vertice(s) impar(es)."
+
 if possui
   grafo = monta_grafo(g)
-  puts 'O caminho percorrido e:'
-  p caminha(grafo)
+  puts ; puts 'O caminho percorrido e:'
+  c = caminha(grafo)
+  p c if c
 end
