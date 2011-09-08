@@ -1,0 +1,19 @@
+digraph g {
+  rankdir=LR;
+  size="8,5"
+  node [shape = doublecircle]; q13 q123;
+  node [shape = circle];
+  q -> q [ label = "a,b" ];
+  q2 -> q3 [ label = "b" ];
+  q2 -> q23 [ label = "a" ];
+  q3 -> q [ label = "b" ];
+  q3 -> q13 [ label = "a" ];
+  q13 -> q2 [ label = "b" ];
+  q13 -> q13 [ label = "a" ];
+  q23 -> q3 [ label = "b" ];
+  q23 -> q123 [ label = "a" ];
+  q123 -> q23 [ label = "b" ];
+  q123 -> q123 [ label = "a" ];
+  null [shape = plaintext label=""];
+  null -> q13;
+}
