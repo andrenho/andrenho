@@ -34,9 +34,9 @@
 
 % Conceitos a apresentar
 
-Atualmente, muitas aplicações têm se concentrado na coleta de informações a respeito dos usuários, com o objetivo de permitir que as aplicações possam conhecer os usuários, suas preferências e seus interesses, possibilitando a oferta de serviços personalizados. Assim, muitas aplicações organizam seu conhecimento a respeito do usário em \emph{perfis de usuário}\cite{viviani10}, onde cada aplicação salva as informações em um formato baseado em um \emph{modelo de usuário} específico.
+Atualmente, aplicações têm se concentrado na coleta de informações a respeito dos usuários, com o objetivo de permitir que as aplicações possam conhecer suas preferências, possibilitando a oferta de serviços personalizados. Assim, estas aplicações organizam seu conhecimento a respeito do usuário em \emph{perfis de usuário}, onde cada aplicação salva as informações em um formato baseado em um \emph{modelo de usuário} específico.\cite{viviani10}
 
-\emph{Aplicações sensíveis a contexto} são aplicações nas quais o contexto atual de um usuário é levado em consideração na disponibilização de serviços. Dey\cite{dey2001} define contexto como qualquer informação que pode ser utilizada para caracterizar a situação de uma entidade, onde uma entidade é uma pessoa, local ou objeto considerado relevante à interação entre o usuário e a aplicação. Desta forma, o \emph{perifl de usuário} torna-se parte essencial na descoberta de informações pertinentes aos usuários que possam ser utilizadas na construção de um contexto.
+\emph{Sistemas sensíveis a contexto} são aplicações nas quais o contexto atual de um usuário é levado em consideração na disponibilização de serviços. Dey\cite{dey2001} define contexto como qualquer informação que pode ser utilizada para caracterizar a situação de uma entidade, onde uma entidade é uma pessoa, local ou objeto considerado relevante à interação entre o usuário e a aplicação. Desta forma, o \emph{perfil} torna-se parte essencial na descoberta de informações pertinentes aos usuários que possam ser utilizadas na construção de um contexto.
 
 A capacidade de uma aplicação perceber o contexto de uma entidade 
 pode ser amplificada através do uso de \emph{trilhas}\cite{silva09}. Uma trilha é o histórico de contextos visitados por uma entidade, e das ações realizadas pela entidade dentro do contexto.
@@ -47,16 +47,16 @@ A coleta de informações de um usuário pode ser \emph{explícita} ou \emph{imp
 
 Informações a respeito de um usuário colhidas por uma aplicação podem ser úteis para outras aplicações que tenham o mesmo usuário \cite{viviani10}. No entanto, os diferentes \emph{modelos de usuário} utilizados pelas aplicações tornam difícil a utilização de informações de um \emph{perfil de usuário} de uma aplicação por outra. Além disso, algumas das informações do usuário podem ser válidas apenas dentro de um \emph{contexto} específico, o que dificulta ainda mais que diferentes aplicações compartilharem o mesmo perfil.
 
-Como forma de ultrapassar estas barreiras, o coneceito de \emph{personalização intersistemas} foi introduzido \cite{niederee04} como forma de compartilhar informações de usuários entre diferentes aplicações. Como o maior problema deste tipo de modelo é o alinhamento entre as diferentes abordagens de personalização, o estudo de \emph{sistemas de modelos de usuário} é o principal desafio da pesquisa atual na área de personalização.
+Como forma de ultrapassar estas barreiras, o conceito de \emph{personalização inter-sistemas} foi introduzido \cite{niederee04} como forma de compartilhar informações de usuários entre diferentes aplicações. Como o maior problema deste tipo de modelo é o alinhamento entre as diferentes abordagens de personalização, o estudo de \emph{sistemas de modelos de usuário} é o principal desafio da pesquisa atual na área de personalização.\cite{viviani10}
 
-O IEEE Standard Computer Dictionary \cite{ieeedict} define interoperablidade como ``a capacidade de dois ou mais sistemas ou componentes trocarem informações e utilizar a informação que foi trocada.'' No âmbito da personalização, interoperabilidade é a ``capacidade de acessar e interpretar informação derivada de múltiplas fontes hetereogênias e integrar esta informação em um modelo de usuário de granularidade própria'' \cite{carmagnola09}. Os dois principais modelos de interoperabilidade são: (i) \emph{interoperabilidade sintática}, onde as diferenças entre os modelos de usuário são resolvidos em nível de aplicação, e (ii) \emph{interoperabilidade semântica}, onde as diferenças entre os modelos são resolvidos em nivel de conhecimento.
+O IEEE Standard Computer Dictionary \cite{ieeedict} define interoperabilidade como ``a capacidade de dois ou mais sistemas ou componentes trocarem informações e utilizar a informação que foi trocada.'' No âmbito da personalização, interoperabilidade é a ``capacidade de acessar e interpretar informação derivada de múltiplas fontes heterogenias e integrar esta informação em um modelo de usuário de granularidade própria'' \cite{carmagnola09}. Os dois principais modelos de interoperabilidade são: (i) \emph{interoperabilidade sintática}, onde as diferenças entre os modelos de usuário são resolvidos em nível de aplicação, e (ii) \emph{interoperabilidade semântica}, onde as diferenças entre os modelos são resolvidos em nível de conhecimento.
 
 As duas principais abordagens utilizadas em sistemas de modelos de usuários interoperáveis são \cite{viviani10}:
 
 \begin{description}
 
   \item[Baseados em padrões]: são baseados numa visão \emph{top-down}, definindo um padrão que todas as aplicações envolvidas devem observar;
-  \item[Baseados em mediação]: se baseam numa visão \emph{bottom-up}, onde ocorre algum tipo de \emph{reconciliação} entre os diferentes modelos de representação.
+  \item[Baseados em mediação]: se baseiam numa visão \emph{bottom-up}, onde ocorre algum tipo de \emph{reconciliação} entre os diferentes modelos de representação.
 
 \end{description}
 
@@ -74,9 +74,9 @@ Esta seção apresenta projetos relacionados a este, bem como uma comparação e
 
 \subsection{Chellouche et al}
 
-O artigo de Chellouche et al\cite{chellouche10} discute as dificuldades atuais no desenvolvimento de aplicativos para dispositivos móveis, uma vez que os mesmos possuem uma grande variedade de reslução, memória, poder computacional, etc. Além disso, a qualidade da conexão de um usuário pode variar grandemente, e isto também deve ser levado em consideração no desenvolvimento.
+O artigo de Chellouche et al\cite{chellouche10} discute as dificuldades atuais no desenvolvimento de aplicativos para dispositivos móveis, uma vez que os mesmos possuem uma grande variedade de resolução, memória, poder computacional, etc. Além disso, a qualidade da conexão de um usuário pode variar grandemente, e isto também deve ser levado em consideração no desenvolvimento.
 
-O conjunto de informações que caracteriza um usuário e seu contexto é chamada de \emph{perfil de usuário}. Com a intenção de compartilhar o contexto do usuário entre seviços e minimizar as mudanças no desenvolvimento de aplicações sensíveis a contexto, os autores propõem como solução um \emph{middleware} que gerencia o perfil de um usuário dinamicamente e supre às aplicações todas as informações que elas podem precisar durante o período de adaptação.
+O conjunto de informações que caracteriza um usuário é chamada de \emph{perfil de usuário}. Com a intenção de compartilhar o contexto do usuário entre serviços e minimizar as mudanças no desenvolvimento de aplicações sensíveis a contexto, os autores propõem como solução um \emph{middleware} que gerencia o perfil de um usuário dinamicamente e supre às aplicações todas as informações que elas podem precisar durante o período de adaptação.
 
 O perfil do usuário é constituído por seu contexto, onde a definição de contexto utilizada é aquela dada por Dey\cite{dey2001}, na qual contexto refere-se a qualquer informação que pode ser utilizada para caracterizar a situação de uma entidade. Assim, o perfil de usuário é dividido em cinco componentes:
 
@@ -125,13 +125,12 @@ O perfil é construído de acordo com a Figura~\ref{fig:chellouche2}. A aplicaç
 A Tabela~\ref{tab:comparacao} exibe um comparativo dos trabalhos apresentados, onde os seguintes fatores são levados em consideração:
 
 \begin{description}
-  \item[Interoperável]: se a arquitetura apresentada oferece uma interface que permite operar com outros aplicativos externos, que não aqueles definidos pelo autor;
-  \item[Perfis dinâmicos]: se o modelo de perfil permite que os perfis sejam atualizados de acordo com eventos externos, sem a interferência do usuário;
-  \item[Campos do perfil]: se o modelo de perfil contém um conjunto pré-definido de campos, ou se as aplicações podem criar novos campos de perfil;
+  \item[Interoperabilidade]: o modelo apresenta interoperabilidade -- caso positivo, se a mesma é sintática ou semântica;
+  \item[Perfis dinâmicos]: o modelo de perfil permite que os perfis sejam atualizados de acordo com eventos externos, sem a interferência do usuário;
   \item[Armazenamento]: define onde ficam armazenados os perfis do usuário;
-  \item[Sensível a contexto]: se o contexto do usuário é levado em consideração na formação do perfil;
-  \item[Utiliza trilhas]: se as trilhas do usuário são levadas em consideração na construção do perfil;
-  \item[Domínio]: se o perfil é voltado para um domínio específico, ou se o mesmo permite que vários perfis possam ser utilizados.
+  \item[Sensível a contexto]: o contexto do usuário é levado em consideração na formação do perfil;
+  \item[Utiliza trilhas]: as trilhas do usuário são levadas em consideração na construção do perfil;
+  \item[Domínio]: o perfil é voltado para um domínio específico, ou se o mesmo permite que vários domínios possam ser utilizados.
 \end{description}
 
 \begin{table}\centering\footnotesize
