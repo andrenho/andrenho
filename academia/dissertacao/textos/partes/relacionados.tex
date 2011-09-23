@@ -2,6 +2,23 @@
 
 Esta seção apresenta projetos relacionados a este, bem como uma comparação entre os mesmos.
 
+\subsection{PeLeP}
+
+O projeto PeLeP, apresentado por Levis et al\cite{pelep}, busca integrar a utilização de perfis com aperfeiçoamento automático com ambientes de educação ubíqua.
+
+Os ambientes de \emph{computação ubíqua} são parte de um cenário na qual serviços e informações estão disponíveis a qualquer momento, em qualquer lugar\cite{weiser91}. Esta visão vem sendo potencializada pela diminuição do custo e aumento da capacidade de memória e processamento dos dispositivos computacionais, bem como pela cada vez maior disponibilidade de recursos de localização e conectividade. A computação ubíqua enfatiza também a ``tecnologia calma'', onde a sobrecarga de informação é substituída pela disponibilização de recursos de forma inteligente, tomando a atenção do usuário apenas nos momentos em que é mais relevante.\cite{weiser96}
+
+Levis et al compreendem \emph{educação ubíqua} como sendo processos educacionais que ocorrem em qualquer lugar, a qualquer tempo e com qualquer dispositivo, de forma contínua, contextualizada e integrada ao cotidiano do aprendiz. Desta forma, o conhecimento presente no dia-a-dia das mais diferentes formas e em diferentes locais podem ser relacionados com processos educacionais direcionados aos aprendizes.
+
+O PeLeP, cujo modelo é ilustrado na Figura~\ref{fig:pelep1}, é um modelo dedicado ao gerenciamento de perfis de aprendizes em um ambiente ubíquo de ensino e aprendizagem. O modelo administra os perfis automaticamente, inferindo informações através do histórico do aprendiz. As alterações realizadas no perfil refletem o comportamento do aprendiz no ambiente ubíquo, levando em consideração o seu modelo de mobilidade e de contexto.
+
+\begin{figure}
+  \includegraphics[width=0.5\textwidth]{imagens/pelep1.png}
+  \caption{Arquitetura do PeLeP\cite{pelep}}
+  \label{fig:pelep1}
+\end{figure}
+
+
 \subsection{Chellouche et al}
 
 O artigo de Chellouche et al\cite{chellouche10} discute as dificuldades atuais no desenvolvimento de aplicativos para dispositivos móveis, uma vez que os mesmos possuem uma grande variedade de resolução, memória, poder computacional, etc. Além disso, a qualidade da conexão de um usuário pode variar grandemente, e isto também deve ser levado em consideração no desenvolvimento.
@@ -21,7 +38,7 @@ O perfil do usuário é constituído por seu contexto, onde a definição de con
 O \emph{middleware} é apresentado segundo ilustrado na Figura~\ref{fig:chellouche1}. O \emph{middleware} é composto dos seguintes módulos:
 
 \begin{figure}
-  \includegraphics[width=1\textwidth]{imagens/chellouche1.png}
+  \includegraphics[width=0.5\textwidth]{imagens/chellouche1.png}
   \caption{Arquitetura do \emph{middleware} de Chellouche et al\cite{chellouche10}}
   \label{fig:chellouche1}
 \end{figure}
@@ -37,7 +54,7 @@ O \emph{middleware} é apresentado segundo ilustrado na Figura~\ref{fig:chellouc
 O perfil é construído de acordo com a Figura~\ref{fig:chellouche2}. A aplicação solicita ao gerenciador de perfis, através da API, que por sua vez repassa a solicitação ao gerenciador de consultas. Simultâneo a isto, o gerenciador de contextos é informado que a aplicação está em execução e passa a atualizar o gerenciador de perfis com as informações atualizadas. O perfil de usuário é criado e enviado ao gerenciador de transporte, que retorna o perfil solicitado à aplicação solicitante.
 
 \begin{figure}
-  \includegraphics[width=1\textwidth]{imagens/chellouche2.png}
+  \includegraphics[width=0.5\textwidth]{imagens/chellouche2.png}
   \caption{Construção de perfil\cite{chellouche10}}
   \label{fig:chellouche2}
 \end{figure}
@@ -63,8 +80,8 @@ A Tabela~\ref{tab:comparacao} exibe um comparativo dos trabalhos apresentados, o
   \item[Domínio]: o perfil é voltado para um domínio específico, ou se o mesmo permite que vários domínios possam ser utilizados.
 \end{description}
 
-\begin{table}\centering\footnotesize
-  \begin{tabular*}{1.15\textwidth}{@{}lcccccc@{}}
+\begin{table*}\centering\footnotesize
+  \begin{tabular*}{1\textwidth}{@{}lcccccc@{}}
     \toprule
                                          & Interope-  & Perfis    & Armaze- & Sensibilidade & Utiliza & \\
     Trabalho                             & rabilidade & dinâmicos & namento & a contexto    & trilhas & Domínio \\
@@ -74,6 +91,6 @@ A Tabela~\ref{tab:comparacao} exibe um comparativo dos trabalhos apresentados, o
   \end{tabular*}
   \caption{Comparação entre os trabalhos apresentados}
   \label{tab:comparacao}
-\end{table}
+\end{table*}
 
 O modelo apresentado por Chellouche et al\cite{chellouche10} apresenta um \emph{middleware} que pode ser usado por diferentes aplicativos como um servidor central de perfis. Ele é voltado para aplicações móveis e, embora atualize parte do perfil como forma de oferecer suporte a sensibilidade a contexto, não permite que os aplicativos criem novos campos nem definam as regras para atualização dos campos existentes.
