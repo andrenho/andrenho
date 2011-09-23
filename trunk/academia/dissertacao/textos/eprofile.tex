@@ -1,9 +1,10 @@
-\documentclass[a4paper]{article}
+\documentclass[a4paper,twocolumn]{article}
 \pagestyle{empty}
 
 \usepackage[portuguese]{babel}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
+\usepackage{concmath}
 
 \usepackage{booktabs}
 \renewcommand{\arraystretch}{1.2}
@@ -21,16 +22,17 @@
 %\usepackage{euler}
 \everymath{\displaystyle}
 
-\author{André Wagner}
-\title{}
+\author{André Wagner \\ Jorge Barbosa}
+\title{Gerenciamento de Perfis Distribuídos Através de Inferência de Trilhas}
 
 \begin{document}
 
-%\maketitle
+\maketitle
 
 \input{partes/introducao.tex}
-
 \input{partes/relacionados.tex}
+\input{partes/modelo.tex}
+\input{partes/modelagem.tex}
 
 \bibliographystyle{ieeetr}
 
