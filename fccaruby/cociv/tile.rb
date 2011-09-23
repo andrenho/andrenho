@@ -2,11 +2,13 @@ class Tile
 
   attr_reader :x, :y
   attr_accessor :terrain, :city
+  attr_accessor :worker
 
   def initialize(game, x, y)
     @game = game
     @x, @y = x, y
     @terrain = Prairie
+    @worker = nil
   end
 
   def units

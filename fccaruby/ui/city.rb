@@ -2,12 +2,15 @@ module CityUI
 
   ESC = 27
 
+  # 
+  # update city screen
+  #
   def city_update
 
     @buildings, @units_outside, @tiles = {}, {}, {}
 
     # top display
-    city = @display
+    city = @city = @display
     clear
     s city.name, 0, cols-city.name.length, :title
 
@@ -80,6 +83,9 @@ module CityUI
   end
 
 
+  #
+  # when the user presses a key
+  #
   def city_event
     ch = getch
     if ch == ESC
@@ -95,8 +101,12 @@ module CityUI
   end
 
 
+  # 
+  # change a unit from one place to the other
+  #
   def transfer_unit(unit, ch=nil)
     
+    # display message
     message City::Messages[:move_to] % unit.description
 
     # set cursor
@@ -110,20 +120,37 @@ module CityUI
     # get key
     to = getch
     if @buildings.include? to
-      if @buildings[to].workers.include? unit # select next unit
+
+      # unit in building, select next unit
+      if @buildings[to].workers.include? unit
         unit = @buildings[to].workers.next(unit)
         transfer_unit unit, ch
-      elsif not @buildings[to].add_worker(unit) # put unit on building
+
+      # put unit on building
+      elsif not @buildings[to].add_worker(unit)
         max = @buildings[to].type.max_units
         if max == 0
           message Building::Messages[:no_workers]
         else
           message Building::Messages[:too_many_workers] % max
         end
+  
       else
         @last_message = nil
       end
-    elsif to != ESC
+
+    # tile
+    elsif '12346789'.include? to
+      @city.add_land_worker(unit, to.to_i)
+
+    elsif to == '-'
+      unit.leave_city!
+      message ''
+
+    elsif to == ESC
+      message ''
+
+    else
       message _('Invalid key.')
     end
   end

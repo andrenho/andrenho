@@ -8,6 +8,7 @@ class Unit
     4 => [-1, 0],               6 => [ 1, 0],
     7 => [-1,-1], 8 => [ 0,-1], 9 => [ 1,-1]
   }
+  def Unit.dirs ; @@dirs ; end
 
   def move(dir)
     fx, fy = @x + @@dirs[dir][0], @y + @@dirs[dir][1]
@@ -52,6 +53,16 @@ class Unit
 
   def tile
     return @game[@x, @y]
+  end
+
+  def leave_city!
+    if @worker 
+      city = tile.city
+      if city
+        city.buildings.each { |b| b.workers.delete(self) if b.workers.include? self }
+      end
+      @worker = false
+    end
   end
 
 protected
