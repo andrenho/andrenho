@@ -1,5 +1,7 @@
 class LandUnit < Unit
 
+  attr_accessor :job
+
   def build_city(name)
     city = City.new(@game, @nation, name, @x, @y)
     nation.cities << city

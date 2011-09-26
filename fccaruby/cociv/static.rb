@@ -6,6 +6,14 @@ class Static
   end
 end
 
+# 
+# Directions
+DIRECTIONS = {
+  1 => [-1, 1], 2 => [ 0, 1], 3 => [ 1, 1],
+  4 => [-1, 0],               6 => [ 1, 0],
+  7 => [-1,-1], 8 => [ 0,-1], 9 => [ 1,-1]
+}
+
 #
 # Goods
 # 
@@ -15,7 +23,7 @@ class Good < Static
 
   attr_reader :name, :can_buy, :initial_prices, :raw_material, :all
 
-  def initialize(name, can_buy, initial_prices=nil, raw_material=nil)
+  def initialize(name, raw, can_buy, initial_prices=nil, raw_material=nil)
     @name, @can_buy, @initial_prices, @raw_material = name, can_buy, initial_prices, raw_material
     @@all << self
   end
@@ -24,77 +32,26 @@ class Good < Static
 
 end
 
-Food =      Good.new(_('Food'),      true, [  1, 8 ])
-Cotton =    Good.new(_('Cotton'),    true, [  4, 6 ])
-Barley =    Good.new(_('Barley'),    true, [  4, 6 ])
-Olives =    Good.new(_('Olives'),    true, [  6, 8 ])
-Wood =      Good.new(_('Wood'),      true, [  1, 6 ])
-Copper =    Good.new(_('Copper'),    true, [  5, 8 ])
-Mud =       Good.new(_('Mud'),       true, [  1, 5 ])
-Tin =       Good.new(_('Tin'),       true, [  7, 9 ])
-Gold =      Good.new(_('Gold'),      true, [ 15,16 ])
-Clothes =   Good.new(_('Clothes'),   true, [ 12,13 ], [ Cotton ])
-Beer =      Good.new(_('Beer'),      true, [ 10,11 ], [ Barley ])
-Olive_oil = Good.new(_('Olive Oil'), true, [ 12,13 ], [ Olives ])
-Furniture = Good.new(_('Furniture'), true, [ 10,11 ], [ Wood ])
-Utensils =  Good.new(_('Utensils'),  true, [ 12,13 ], [ Copper ])
-Bricks =    Good.new(_('Bricks'),    true, [  1, 8 ], [ Mud ])
-Riding =    Good.new(_('Animals'),   true, [  5, 8 ])
-Bronze =    Good.new(_('Bronze'),    true, [  9,10 ], [ Copper, Tin ])
-Weapons =   Good.new(_('Weapons'),   true, [  6, 7 ], [ Wood, Bronze ])
-Scrolls =   Good.new(_('Scrolls'),   false)
-Prayers =   Good.new(_('Prayers'),   false)
-
-# 
-# Terrains
-#
-class Terrain < Static
-
-  @@all = []
-
-  attr_reader :all, :name, :ovl, :cost_to_enter, :defensive_bonus, :production
-  attr_accessor :switch_status
-
-  def initialize(name, ovl, cost_to_enter, defensive_bonus, production, 
-                 switch_status=nil)
-    @name, @ovl, @cost_to_enter, @defensive_bonus, @switch_status =
-      name, ovl, cost_to_enter, defensive_bonus, switch_status
-    @production = {}
-    i = 0
-    Good.all.each do |good|
-      @production[good] = production[i]
-      i += 1
-    end
-    @switch_status.switch_status = self if @switch_status
-    @@all << self
-  end
-
-end
-
-#                      Name                    MoveCost       Barley      Mud
-#                                           Ovl*   Defence       Olives      Tin
-#                                                       Food        Wood        Gold
-#                                                          Cotton      Copper
-Tundra   = Terrain.new(_('Tundra'),          1, 0, 0, [ 2, 0, 0, 0, 0, 2, 2, 1, 0 ])
-Desert   = Terrain.new(_('Desert'),         13, 1, 0, [ 1, 0, 0, 2, 0, 1, 3, 2, 0 ])
-Plains   = Terrain.new(_('Planis'),         14, 1, 0, [ 4, 2, 1, 0, 0, 1, 1, 0, 0 ])
-Prairie  = Terrain.new(_('Prairie'),        15, 1, 0, [ 3, 3, 0, 0, 0, 0, 0, 0, 0 ])
-Steppe   = Terrain.new(_('Steppe'),         16, 1, 0, [ 2, 2, 3, 0, 0, 0, 0, 0, 0 ])
-Marsh    = Terrain.new(_('Marsh'),          17, 2, 1, [ 3, 1, 2, 0, 0, 2, 4, 2, 0 ])
-
-Boreal_f = Terrain.new(_('Boreal forest'),   6, 2, 2, [ 1, 0, 0, 0, 2, 1, 1, 1, 0 ], Tundra)
-Scrub    = Terrain.new(_('Scrubland'),       7, 1, 2, [ 1, 0, 0, 4, 1, 1, 2, 1, 0 ], Desert)
-Mixed_f  = Terrain.new(_('Mixed forest'),    8, 2, 2, [ 2, 1, 0, 0, 3, 0, 1, 0, 0 ], Plains)
-Savannah = Terrain.new(_('Savannah'),        9, 1, 1, [ 1, 1, 0, 0, 2, 0, 1, 0, 0 ], Prairie)
-Woodland = Terrain.new(_('Woodland'),       10, 2, 2, [ 1, 0, 1, 0, 2, 0, 1, 0, 0 ], Steppe)
-Swamp    = Terrain.new(_('Swamp'),          11, 3, 3, [ 2, 0, 0, 0, 1, 1, 3, 2, 0 ], Marsh)
-
-Arctic   = Terrain.new(_('Arctic'),          5, 2, 0, [ 0, 0, 0, 0, 0, 1, 0, 1, 1 ])
-Sea      = Terrain.new(_('Sea'),             2, 1, 0, [ 3, 0, 0, 0, 0, 0, 0, 0, 0 ])
-Ocean    = Terrain.new(_('Ocean'),           1, 1, 0, [ 3, 0, 0, 0, 0, 0, 0, 0, 0 ])
-Hills    = Terrain.new(_('Hills'),           4, 2, 4, [ 1, 0, 0, 0, 0, 3, 0, 3, 0 ])
-Mountain = Terrain.new(_('Mountains'),       3, 3, 6, [ 0, 0, 0, 0, 0, 3, 0, 3, 1 ])
-# *Ovl: Overlap for terrains.
+Food =      Good.new(_('Food'),      true,  true, [  1, 8 ])
+Cotton =    Good.new(_('Cotton'),    true,  true, [  4, 6 ])
+Barley =    Good.new(_('Barley'),    true,  true, [  4, 6 ])
+Olives =    Good.new(_('Olives'),    true,  true, [  6, 8 ])
+Wood =      Good.new(_('Wood'),      true,  true, [  1, 6 ])
+Copper =    Good.new(_('Copper'),    true,  true, [  5, 8 ])
+Mud =       Good.new(_('Mud'),       true,  true, [  1, 5 ])
+Tin =       Good.new(_('Tin'),       true,  true, [  7, 9 ])
+Gold =      Good.new(_('Gold'),      true,  true, [ 15,16 ])
+Clothes =   Good.new(_('Clothes'),   false, true, [ 12,13 ], [ Cotton ])
+Beer =      Good.new(_('Beer'),      false, true, [ 10,11 ], [ Barley ])
+Olive_oil = Good.new(_('Olive Oil'), false, true, [ 12,13 ], [ Olives ])
+Furniture = Good.new(_('Furniture'), false, true, [ 10,11 ], [ Wood ])
+Utensils =  Good.new(_('Utensils'),  false, true, [ 12,13 ], [ Copper ])
+Bricks =    Good.new(_('Bricks'),    false, true, [  1, 8 ], [ Mud ])
+Riding =    Good.new(_('Animals'),   false, true, [  5, 8 ])
+Bronze =    Good.new(_('Bronze'),    false, true, [  9,10 ], [ Copper, Tin ])
+Weapons =   Good.new(_('Weapons'),   false, true, [  6, 7 ], [ Wood, Bronze ])
+Scrolls =   Good.new(_('Scrolls'),   false, false)
+Prayers =   Good.new(_('Prayers'),   false, false)
 
 
 #
@@ -152,22 +109,23 @@ class Job < Static
   attr_reader :name
   attr_accessor :building, :raw_good, :good
 
-  def initialize(name)
+  def initialize(name, good=nil)
     @name = name
+    @good = good
   end
 
 end
 
-Farmer       = Job.new(_('Farmer'))
-Fisherman    = Job.new(_('Fisherman'))
-Cotton_pl    = Job.new(_('Cotton Planter'))
-Barley_pl    = Job.new(_('Barley Planter'))
-Olive_pl     = Job.new(_('Olives Planter'))
-Lumberjack   = Job.new(_('Lumberjack'))
-Copper_miner = Job.new(_('Copper Miner'))
-Mudder       = Job.new(_('Mudder'))
-Tin_miner    = Job.new(_('Tin Miner'))
-Prospector   = Job.new(_('Prospector'))
+Farmer       = Job.new(_('Farmer'), Food)
+Fisherman    = Job.new(_('Fisherman'), Food)
+Cotton_pl    = Job.new(_('Cotton Planter'), Cotton)
+Barley_pl    = Job.new(_('Barley Planter'), Barley)
+Olive_pl     = Job.new(_('Olives Planter'), Olives)
+Lumberjack   = Job.new(_('Lumberjack'), Wood)
+Copper_miner = Job.new(_('Copper Miner'), Copper)
+Mudder       = Job.new(_('Mudder'), Mud)
+Tin_miner    = Job.new(_('Tin Miner'), Tin)
+Prospector   = Job.new(_('Prospector'), Gold)
 Weaver       = Job.new(_('Weaver'))
 Brewer       = Job.new(_('Brewer'))
 Oil_presser  = Job.new(_('Oil Presser'))
@@ -178,6 +136,59 @@ Metallurgic  = Job.new(_('Metallurgic'))
 Weaponsmith  = Job.new(_('Weaponsmith'))
 Scribe       = Job.new(_('Scribe'))
 Priest       = Job.new(_('Priest'))
+
+
+# 
+# Terrains
+#
+class Terrain < Static
+
+  @@all = []
+
+  attr_reader :all, :name, :ovl, :cost_to_enter, :defensive_bonus, :production, :suggested_job
+  attr_accessor :switch_status
+
+  def initialize(name, ovl, cost_to_enter, defensive_bonus, production, 
+                 suggested_job, switch_status=nil)
+    @name, @ovl, @cost_to_enter, @defensive_bonus, @switch_status, @suggested_job =
+      name, ovl, cost_to_enter, defensive_bonus, switch_status, suggested_job
+    @production = {}
+    i = 0
+    Good.all.each do |good|
+      @production[good] = production[i]
+      i += 1
+    end
+    @switch_status.switch_status = self if @switch_status
+    @@all << self
+  end
+
+end
+
+#                      Name                    MoveCost       Barley      Mud
+#                                           Ovl*   Defence       Olives      Tin
+#                                                       Food        Wood        Gold
+#                                                          Cotton      Copper
+Tundra   = Terrain.new(_('Tundra'),          1, 0, 0, [ 2, 0, 0, 0, 0, 2, 2, 1, 0 ], Copper_miner)
+Desert   = Terrain.new(_('Desert'),         13, 1, 0, [ 1, 0, 0, 2, 0, 1, 3, 2, 0 ], Mudder)
+Plains   = Terrain.new(_('Planis'),         14, 1, 0, [ 4, 2, 1, 0, 0, 1, 1, 0, 0 ], Farmer)
+Prairie  = Terrain.new(_('Prairie'),        15, 1, 0, [ 3, 3, 0, 0, 0, 0, 0, 0, 0 ], Cotton_pl)
+Steppe   = Terrain.new(_('Steppe'),         16, 1, 0, [ 2, 2, 3, 0, 0, 0, 0, 0, 0 ], Barley_pl)
+Marsh    = Terrain.new(_('Marsh'),          17, 2, 1, [ 3, 1, 2, 0, 0, 2, 4, 2, 0 ], Mudder)
+
+Boreal_f = Terrain.new(_('Boreal forest'),   6, 2, 2, [ 1, 0, 0, 0, 2, 1, 1, 1, 0 ], Lumberjack, Tundra)
+Scrub    = Terrain.new(_('Scrubland'),       7, 1, 2, [ 1, 0, 0, 4, 1, 1, 2, 1, 0 ], Olive_pl, Desert)
+Mixed_f  = Terrain.new(_('Mixed forest'),    8, 2, 2, [ 2, 1, 0, 0, 3, 0, 1, 0, 0 ], Lumberjack, Plains)
+Savannah = Terrain.new(_('Savannah'),        9, 1, 1, [ 1, 1, 0, 0, 2, 0, 1, 0, 0 ], Lumberjack, Prairie)
+Woodland = Terrain.new(_('Woodland'),       10, 2, 2, [ 1, 0, 1, 0, 2, 0, 1, 0, 0 ], Lumberjack, Steppe)
+Swamp    = Terrain.new(_('Swamp'),          11, 3, 3, [ 2, 0, 0, 0, 1, 1, 3, 2, 0 ], Mudder, Marsh)
+
+Arctic   = Terrain.new(_('Arctic'),          5, 2, 0, [ 0, 0, 0, 0, 0, 1, 0, 1, 1 ], Prospector)
+Sea      = Terrain.new(_('Sea'),             2, 1, 0, [ 3, 0, 0, 0, 0, 0, 0, 0, 0 ], Fisherman)
+Ocean    = Terrain.new(_('Ocean'),           1, 1, 0, [ 3, 0, 0, 0, 0, 0, 0, 0, 0 ], Fisherman)
+Hills    = Terrain.new(_('Hills'),           4, 2, 4, [ 1, 0, 0, 0, 0, 3, 0, 3, 0 ], Tin_miner)
+Mountain = Terrain.new(_('Mountains'),       3, 3, 6, [ 0, 0, 0, 0, 0, 3, 0, 3, 1 ], Copper_miner)
+# *Ovl: Overlap for terrains.
+
 
 #
 # Buildings

@@ -1,17 +1,11 @@
 class Unit
 
   attr_reader :x, :y, :old_x, :old_y, :nation, :military, :moves_left
-  attr_accessor :extra, :worker
-
-  @@dirs = {
-    1 => [-1, 1], 2 => [ 0, 1], 3 => [ 1, 1],
-    4 => [-1, 0],               6 => [ 1, 0],
-    7 => [-1,-1], 8 => [ 0,-1], 9 => [ 1,-1]
-  }
-  def Unit.dirs ; @@dirs ; end
+  attr_accessor :extra
+  attr_accessor :working_on
 
   def move(dir)
-    fx, fy = @x + @@dirs[dir][0], @y + @@dirs[dir][1]
+    fx, fy = @x + DIRECTIONS[dir][0], @y + DIRECTIONS[dir][1]
     if move_ok? fx, fy
       @old_x, @old_y = x, y
       @x, @y = fx, fy
@@ -55,14 +49,13 @@ class Unit
     return @game[@x, @y]
   end
 
-  def leave_city!
-    if @worker 
-      city = tile.city
-      if city
-        city.buildings.each { |b| b.workers.delete(self) if b.workers.include? self }
-      end
-      @worker = false
+  def abandon_job!
+    if @working_on.is_a? Building
+      @working_on.workers.delete(self)
+    elsif @working_on.is_a? Tile
+      @working_on.worker = nil
     end
+    @working_on = nil
   end
 
 protected
@@ -72,7 +65,6 @@ protected
     @game = game
     @nation, @military, @x, @y = nation, military, x, y
     @old_x, @old_y = x, y
-    @worker = false
     if @military.cargo > 0
       extend Cargo
       init_cargo(@military.cargo)
