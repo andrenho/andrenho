@@ -11,9 +11,6 @@ class City
   # List of prices of goods in the city
   attr_reader :price, :warehouse, :buildings
 
-  # List of units working on the land
-  attr_reader :land_workers
-
   Messages = {
     :new_city => _('What is the name of the new city?'),
     :move_to => _('Where do you want to move the %s to? (\'-\' to leave city)'),
@@ -24,12 +21,18 @@ class City
     def initialize; @buy, @sell = 0, 0; end
   end
 
+  # create a new city
   def initialize(game, nation, name, x, y)
     @game, @nation, @name, @x, @y = game, nation, name, x, y
+    raise 'City outside bounds.' if x < 1 or y < 1 or x > @game.map_w-2 or y > @game.map_h-2
     @game[x,y].city = self
+    (x-1).upto(x+1) do |xx| 
+      (y-1).upto(y+1) do |yy| 
+        @game[xx,yy].belongs_to = self
+      end
+    end
     @warehouse = Warehouse.new(100)
     @price = {}
-    @land_workers = [nil] * 9
     Good.all.each { |g| @price[g] = Price.new }
 
     # create buildings
@@ -39,16 +42,15 @@ class City
     end
   end
 
-  def add_land_worker(unit, pos)
-    if not @land_workers[pos]
-      unit.worker = true
-      @land_workers[pos] = unit
+  # calculate production of the city
+  def production
+    prod = {}
+    (x-1).upto(x+1) do |xx|
+      (y-1).upto(y+1) do |yy| 
+        prod[@game[xx,yy]] = @game[xx,yy].production
+      end
     end
-  end
-
-  def remove_land_worker(pos)
-    @land_workers[pos].worker = false if @land_workers[pos]
-    @land_workers[pos] = nil
+    # TODO - add building production
   end
 
 end

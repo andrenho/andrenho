@@ -5,6 +5,7 @@ $color = {
   :info       => [ COLOR_CYAN,  COLOR_BLACK, A_BOLD   ],
   :title      => [ COLOR_WHITE, COLOR_BLACK, A_NORMAL | A_REVERSE ],
   :text       => [ COLOR_WHITE, COLOR_BLACK, A_NORMAL ],
+  :key        => [ COLOR_MAGENTA, COLOR_BLACK, A_BOLD ],
   :comm       => [ COLOR_WHITE, COLOR_BLACK, A_NORMAL ],
   :status_txt => [ COLOR_WHITE, COLOR_BLACK, A_BOLD   ],
   :status_val => [ COLOR_GREEN, COLOR_BLACK, A_BOLD   ],

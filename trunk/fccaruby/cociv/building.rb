@@ -24,11 +24,10 @@ class Building
   # Add a worker to the building
   def add_worker(unit)
     return false if @workers.length == @type.max_units
-    # remove worker from previous job
-    @city.buildings.each { |b| b.workers.delete(unit) if b.workers.include? unit }
-    # add to the building
+    unit.abandon_job!
+    unit.job = @type.job
     @workers << unit
-    unit.worker = true
+    unit.working_on = self
   end
 
   # Calculate the production of the building

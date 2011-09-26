@@ -35,13 +35,17 @@ protected
   end
 
 
-  def draw_terrain(x, y, sx, sy)
-    city_here = @game[x,y].city
-    if city_here
-      s $chars[:city][0], sy, sx, $nations[city_here.nation.color]
+  def draw_terrain(x, y, sx, sy, draw_worker=false, draw_city=true)
+    if draw_worker and @game[x,y].worker
+      draw_unit(@game[x,y].worker, sx, sy)
     else
-      c = $chars[@game[x,y].terrain]
-      s c[0], sy, sx, c[1] if c
+      city_here = @game[x,y].city
+      if city_here and draw_city
+        s $chars[:city][0], sy, sx, $nations[city_here.nation.color]
+      else
+        c = $chars[@game[x,y].terrain]
+        s c[0], sy, sx, c[1] if c
+      end
     end
   end
 

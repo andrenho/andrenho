@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 $: << '.'
 require 'cociv/driver'
 require 'ui/ui'
