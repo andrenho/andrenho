@@ -23,8 +23,8 @@ O \emph{perfil do aprendiz} consiste em um perfil contendo campos pré-definidos
 É realizado um acompanhamento (\emph{tracking}) do histórico do aprendiz, onde são armazenados os contextos visitados pelo usuário, bem como os conteúdos, dispositivos e aplicativos utilizados em cada contexto. Os valores relativos das variáveis numéricas recebidas no \emph{tracking} são regularizados através de um processo de normalização de amplitude. Como diferentes valores podem ter diferentes impactos para a determinação da preferência de um usuário, calcula-se o Fator de Certeza ($FC$), de acordo com a equação~\ref{eq:pelep-fc}, onde $f_i$ é o valor normalizado para o fator, $p_i$ o seu percentual, e $n$ o número de fatores considerados.
 
 \begin{equation}
-  \label{eq:pelep-fc}
   FC = \frac{\frac{\displaystyle\sum_{i=0}^n f_i p_i}{100}}{n}
+  \label{eq:pelep-fc}
 \end{equation}
 
 O fator tempo também é levado em consideração, onde Fatores de Certeza mais antigos tem um impacto menor. Assim, por exemplo, se o usuário trocar o seu aplicativo preferido, à medida que o tempo for passando o impacto do aplicativo anterior será cada vez menor.
@@ -75,9 +75,26 @@ O perfil é construído de acordo com a Figura~\ref{fig:chellouche2}. A aplicaç
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Outros}
+\subsection{UUCM}
 
-\textbf{[Avaliação de outros trabalhos relacionados]}
+O artigo apresentado por Niederée et al\cite{niederee04} busca responder três indagações, que são apresentadas como sendo os três desafios básicos da personalização:
+
+\begin{itemize}
+  \item Como modelar o usuário e sua situação de modo extensível e unificado, de forma que este modelo possa ser interpretado e usado para personalização por diferentes sistemas?
+  \item Como coletar dados para preencher e atualizar perfis de usuário a partir das interações do usuário com diferentes sitemas baseados em um modelo de contexto de usuário unificado?
+  \item Como habilitar conceitualmente e tecnicamente diferentes sistemas a fazer uso dos perfis de usuário coltados para aperfeiçoamento do suporte ao usuário?
+\end{itemize}
+
+Os autores apresentam como resposta a estas indagações um modelo denominado UUCM, que tem como objetivo modelar características do usuário e de seu contexto. O conceito de contexto utilizado é aquele apresentado por Berenetti et al\cite{benerecetti00}, na qual o contexto pode ser pensado como as informações ``extra'', geralmente implícitas (como associações, fatos, suposições), que podem ser ser utilizadas para compreender plenamente uma interação, comunicação ou representação de conhecimento.
+
+\begin{figure}
+  \includegraphics[width=0.5\textwidth]{imagens/niederee1.png}
+  \caption{Modelo do UUCM\cite{niederee04}}
+  \label{fig:niederee1}
+\end{figure}
+
+O modelo do UUCM é apresentado na Figura~\ref{fig:niederee1}. 
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
