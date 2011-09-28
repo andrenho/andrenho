@@ -11,7 +11,6 @@ class Building
   Messages = {
     :too_many_workers => _('This building doesn\'t hold more than %d units.'),
     :no_workers => _('This building doesn\'t require workers.'),
-    :production => _('(%d lds of %s)'),
   }
 
   # Create a new building
@@ -32,8 +31,11 @@ class Building
 
   # Calculate the production of the building
   def production
-    return [Beer, 3] if workers.length > 0 # TODO
-    return []
+    n = 0
+    @workers.each do |worker|
+      n += 3 # TODO - specialist
+    end
+    return [@type.good, n]
   end
 
 end

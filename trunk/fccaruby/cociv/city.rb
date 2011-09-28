@@ -1,5 +1,10 @@
 class City
 
+  Messages = {
+    :new_city => _('What is the name of the new city?'),
+    :move_to => _('Where do you want to move the %s to? (\'-\' to leave city)'),
+  }
+
   attr_reader :game, :nation
 
   # City name
@@ -10,11 +15,6 @@ class City
   
   # List of prices of goods in the city
   attr_reader :price, :warehouse, :buildings
-
-  Messages = {
-    :new_city => _('What is the name of the new city?'),
-    :move_to => _('Where do you want to move the %s to? (\'-\' to leave city)'),
-  }
 
   class Price
     attr_accessor :buy, :sell

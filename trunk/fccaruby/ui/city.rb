@@ -31,7 +31,7 @@ module CityUI
       end
       if building.production != []
         g, p = building.production
-        s Building::Messages[:production] % [p, g.name], y, @max_bd_len+11, :text
+        s "#{g.name} [#{p}]", y, @max_bd_len+11, :text if p > 0
       end
       @buildings[c] = building
       c = c.next
@@ -88,10 +88,15 @@ module CityUI
     sx += 13
     sy = 4
     s 'Production', sy, sx+3, :text
+    sy += 1
     (1..9).each do |n|
       next if n == 5
-      sy += 1
-      s n.to_s + '.', sy, sx, :text
+      fx, fy = DIRECTIONS[n]
+      production = @game[@city.x+fx,@city.y+fy].production
+      if production != []
+        sy += 1
+        s "#{n}. #{production[0].name} [#{production[1]}]", sy, sx, :text
+      end
     end
     
     show_last_message
@@ -106,15 +111,23 @@ module CityUI
   #
   def city_event
     ch = getch
-    if ch == ESC
+
+    # leave city view
+    if ch == ESC 
       @display = :map
-    elsif @units_outside.include? ch # unit outside the fence selected
+
+    # unit outside the fence selected
+    elsif @units_outside.include? ch
       unit = @units_outside[ch]
       transfer_unit unit, ch
-    elsif @buildings.include? ch # unit in a building
+
+    # unit in a building
+    elsif @buildings.include? ch
       if @buildings[ch].workers.length > 0
         transfer_unit @buildings[ch].workers[0], ch
       end
+
+    # tile selected
     elsif [1,2,3,4,6,7,8,9].include? ch.to_i
       fx, fy = DIRECTIONS[ch.to_i]
       tile = @game[@city.x+fx, @city.y+fy]
@@ -139,8 +152,8 @@ module CityUI
       setpos (lines-2), (ch.ord - 'A'.ord + 2) if ch
     elsif @buildings.include? ch
       setpos (ch.ord - 'a'.ord + 3), (@max_bd_len+6)
-    elsif '12346789'.include? ch
-      sy, sx = 6, @max_bd_len + 39
+    elsif [1,2,3,4,6,7,8,9].include? ch.to_i
+      sy, sx = 8, @max_bd_len + 34
       fx, fy = DIRECTIONS[ch.to_i]
       setpos sy + (fy*2), sx + (fx*3)
     end
@@ -168,7 +181,7 @@ module CityUI
       end
 
     # put unit on a tile
-    elsif '12346789'.include? to
+    elsif [1,2,3,4,6,7,8,9].include? to.to_i
       fx, fy = DIRECTIONS[to.to_i]
       @game[@city.x+fx,@city.y+fy].worker = unit
       message ''
@@ -178,9 +191,25 @@ module CityUI
       unit.abandon_job!
       message ''
 
+    # change unit job
+    elsif unit.working_on.is_a? Tile and to == 'p'
+      production = @game[@city.x+fx,@city.y+fy].productivity_jobs(unit)
+      options = []
+      Job.all.select{ |j| j.raw }.each do |job|
+        options << [job, "#{job.name} (#{production[job] or 0} lds)"]
+      end
+      job = menu(Tile::Messages[:produce] % unit.description, options)
+      if job
+        unit.job = job
+      else
+        message _('Invalid key.')
+      end
+
+    # nothing
     elsif to == ESC
       message ''
 
+    # any other key
     else
       message _('Invalid key.')
     end

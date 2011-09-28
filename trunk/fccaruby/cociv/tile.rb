@@ -1,5 +1,9 @@
 class Tile
 
+  Messages = {
+    :produce => _('What should the %s work on?'),
+  }
+
   attr_reader :x, :y
   
   # Terrain of this tile
@@ -48,7 +52,11 @@ class Tile
   
   # Assing a worker (for producing raw goods) to this tile.
   def worker=(unit)
-    @worker.abandon_job! if @worker # original worker leaves tile
+    if @worker
+      w = @worker
+      @worker = nil
+      w.abandon_job!  # original worker leaves tile
+    end
     if unit # new worker abandons old job
       unit.abandon_job!
       unit.working_on = self
@@ -57,13 +65,30 @@ class Tile
     @worker = unit # unit assigned to tile
   end
 
-  # Return the production of this tile.
-  def production(unit=nil)
-    prod = {}
-    Good.all.select{ |g| g.raw }.each do |good|
-      n = @terrain.production[good] # TODO - rivers, etc
-      n *= 2 if unit and unit.job and unit.job.good == good
+  # Return the current production of this tile in the format [Good, amount].
+  def production
+    if @worker
+      return [@worker.job.good, abs_productivity(@worker.job.good)]
+      # TODO - specialist
+    else
+      []
     end
+  end
+
+  # Return what would be the production of this tile, if the unit was working on it.
+  def productivity_jobs(unit)
+    prod = {}
+    Job.all.select{ |j| j.raw }.each do |job|
+      n = self.abs_productivity(job.good) # TODO - rivers, etc
+      # TODO - specialist
+      prod[job] = n
+    end
+    return prod
+  end
+
+  # Return the absolute production of this tile for a given good.
+  def abs_productivity(good)
+    return @terrain.production[good]
   end
 
 end
