@@ -49,15 +49,6 @@ class Unit
     return @game[@x, @y]
   end
 
-  def abandon_job!
-    if @working_on.is_a? Building
-      @working_on.workers.delete(self)
-    elsif @working_on.is_a? Tile
-      @working_on.worker = nil
-    end
-    @working_on = nil
-  end
-
 protected
 
   def initialize(game, nation, military, x, y)

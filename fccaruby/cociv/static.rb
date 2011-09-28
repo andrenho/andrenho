@@ -21,10 +21,10 @@ class Good < Static
 
   @@all = []
 
-  attr_reader :name, :can_buy, :initial_prices, :raw_material, :all
+  attr_reader :name, :raw, :can_buy, :initial_prices, :raw_material, :all
 
   def initialize(name, raw, can_buy, initial_prices=nil, raw_material=nil)
-    @name, @can_buy, @initial_prices, @raw_material = name, can_buy, initial_prices, raw_material
+    @name, @raw, @can_buy, @initial_prices, @raw_material = name, raw, can_buy, initial_prices, raw_material
     @@all << self
   end
 
@@ -106,26 +106,32 @@ Pirate_ship     = Military.new(_('Pirate Ship'),             true,  8, 4, 8, 2)
 #
 class Job < Static
 
-  attr_reader :name
+  @@all = []
+
+  attr_reader :name, :raw
   attr_accessor :building, :raw_good, :good
 
-  def initialize(name, good=nil)
+  def initialize(name, raw=false, good=nil)
     @name = name
+    @raw = raw
     @good = good
+    @@all << self
   end
+
+  def Job.all; @@all; end
 
 end
 
-Farmer       = Job.new(_('Farmer'), Food)
-Fisherman    = Job.new(_('Fisherman'), Food)
-Cotton_pl    = Job.new(_('Cotton Planter'), Cotton)
-Barley_pl    = Job.new(_('Barley Planter'), Barley)
-Olive_pl     = Job.new(_('Olives Planter'), Olives)
-Lumberjack   = Job.new(_('Lumberjack'), Wood)
-Copper_miner = Job.new(_('Copper Miner'), Copper)
-Mudder       = Job.new(_('Mudder'), Mud)
-Tin_miner    = Job.new(_('Tin Miner'), Tin)
-Prospector   = Job.new(_('Prospector'), Gold)
+Farmer       = Job.new(_('Farmer'), true, Food)
+Fisherman    = Job.new(_('Fisherman'), true, Food)
+Cotton_pl    = Job.new(_('Cotton Planter'), true, Cotton)
+Barley_pl    = Job.new(_('Barley Planter'), true, Barley)
+Olive_pl     = Job.new(_('Olives Planter'), true, Olives)
+Lumberjack   = Job.new(_('Lumberjack'), true, Wood)
+Copper_miner = Job.new(_('Copper Miner'), true, Copper)
+Mudder       = Job.new(_('Mudder'), true, Mud)
+Tin_miner    = Job.new(_('Tin Miner'), true, Tin)
+Prospector   = Job.new(_('Prospector'), true, Gold)
 Weaver       = Job.new(_('Weaver'))
 Brewer       = Job.new(_('Brewer'))
 Oil_presser  = Job.new(_('Oil Presser'))
