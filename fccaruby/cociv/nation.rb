@@ -15,6 +15,7 @@ class Nation
 
   def create_unit!(military, x, y)
     @units << LandUnit.new(@game, self, military, x, y) # TODO
+    @units << LandUnit.new(@game, self, military, x, y) # TODO
   end
 
   def autoplay!

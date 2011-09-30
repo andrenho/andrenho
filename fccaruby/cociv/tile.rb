@@ -68,19 +68,21 @@ class Tile
   # Return the current production of this tile in the format [Good, amount].
   def production
     if @worker
-      return [@worker.job.good, abs_productivity(@worker.job.good)]
-      # TODO - specialist
+      pr = abs_productivity(@worker.job.good)
+      pr *= 2 if @worker.skill and @worker.skill.good == job.good
+      return [@worker.job.good, pr]
     else
       []
     end
   end
 
-  # Return what would be the production of this tile, if the unit was working on it.
+  # Return what would be the production of this tile, 
+  # if the unit were working on it.
   def productivity_jobs(unit)
     prod = {}
     Job.all.select{ |j| j.raw }.each do |job|
       n = self.abs_productivity(job.good) # TODO - rivers, etc
-      # TODO - specialist
+      n *= 2 if unit.skill and unit.skill.good == job.good
       prod[job] = n
     end
     return prod

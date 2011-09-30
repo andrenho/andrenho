@@ -1,9 +1,39 @@
 require 'i18n'
 
 class Static
+
+  @@id = 0
+
+  attr_reader :id
+
+  def initialize
+    @id = @@id
+    @@id += 1
+  end
+
   def inspect
     return "<##{self.class.name}:#{@name}>"
   end
+
+  # The methods below allow that if the classes are loaded
+  # twice, they remaind the same when compared or used as
+  # keys in hashes. This is specially useful in marshalling
+  # (serialization).
+
+  def eql?(o)
+    return false if not o.is_a? Static
+    return @id == o.id
+  end
+
+  def ==(o)
+    return false if not o.is_a? Static
+    return @id == o.id
+  end
+
+  def hash
+    @id
+  end
+
 end
 
 # 
@@ -24,6 +54,7 @@ class Good < Static
   attr_reader :name, :raw, :can_buy, :initial_prices, :raw_material, :all
 
   def initialize(name, raw, can_buy, initial_prices=nil, raw_material=nil)
+    super()
     @name, @raw, @can_buy, @initial_prices, @raw_material = name, raw, can_buy, initial_prices, raw_material
     @@all << self
   end
@@ -64,6 +95,7 @@ class Military < Static
   attr_reader :name, :ship, :moves, :attack, :defense, :cargo
 
   def initialize(name, ship, moves, attack, defense, cargo)
+    super()
     @name, @ship, @moves, @attack, @defense, @cargo = name, ship, moves, attack, defense, cargo
     @@all << self
   end
@@ -112,6 +144,7 @@ class Job < Static
   attr_accessor :building, :raw_good, :good
 
   def initialize(name, raw=false, good=nil)
+    super()
     @name = name
     @raw = raw
     @good = good
@@ -156,6 +189,7 @@ class Terrain < Static
 
   def initialize(name, ovl, cost_to_enter, defensive_bonus, production, 
                  suggested_job, switch_status=nil)
+    super()
     @name, @ovl, @cost_to_enter, @defensive_bonus, @switch_status, @suggested_job =
       name, ovl, cost_to_enter, defensive_bonus, switch_status, suggested_job
     @production = {}
@@ -208,6 +242,7 @@ class BuildingType < Static
 
   def initialize(name, max_units, job, raw_good, good, multiplier=1, cost=0, copper=0, 
                  min_colony=0)
+    super()
     @name, @max_units, @job, @raw_good, @good, @multiplier, @cost, @copper, @min_colony = 
       name, max_units, job, raw_good, good, multiplier, cost, copper, min_colony
     if @job

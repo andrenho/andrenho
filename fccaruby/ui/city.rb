@@ -15,6 +15,7 @@ module CityUI
     s city.name, 0, cols-city.name.length, :title
 
     # buildings
+    prod = @city.production
     s 'Buildings', 2, 0, :title
     @max_bd_len = (BuildingType.all.collect { |b| b.name.length }).max
     y = 3
@@ -29,32 +30,59 @@ module CityUI
         draw_unit(worker, @max_bd_len+x, y)
         x += 1
       end
-      if building.production != []
-        g, p = building.production
-        s "#{g.name} [#{p}]", y, @max_bd_len+11, :text if p > 0
+      p = prod[building.type.good]
+      if not building.workers.empty?
+        ss = "#{building.type.good.name} [#{p.theorical}|"
+        x = @max_bd_len+11
+        s ss, y, x, :text
+        x += ss.length
+        s p.lacking.to_s, y, x, :lacking
+        x += p.lacking.to_s.length
+        s '|', y, x, :text
+        s p.surplus.to_s, y, x+1, :surplus
+        s ']', y, x+1+p.surplus.to_s.length, :text
       end
       @buildings[c] = building
       c = c.next
       y += 1
     end
+
+    s 'Raw material production', y+1, 1, :text
+
+    # Raw goods production
+    Good.all.select{ |g| g.raw }.each do |good|
+      p = prod[good]
+      if p.theorical > 0
+        ss = "#{good.name} [#{p.theorical}|"
+        x = @max_bd_len+11
+        s ss, y, x, :text
+        x += ss.length
+        s p.lacking.to_s, y, x, :lacking
+        x += p.lacking.to_s.length
+        s '|', y, x, :text
+        s p.surplus.to_s, y, x+1, :surplus
+        s ']', y, x+1+p.surplus.to_s.length, :text
+      end
+      y += 1
+    end
     
     # fence
-    s '#' * (cols - 30), (lines - 5), 1, :text
+    s '-' * (cols - 30), (lines - 3), 1, :text
 
     # units outside the city
     c = 'A'
     x = 2
     units = @game[city.x, city.y].units
     if not units.empty?
-      s '[', (lines-3), 1, :text
+      s '[', (lines-2), 1, :text
       units.each do |unit|
-        s c, (lines-3), x, :key
-        draw_unit(unit, x, (lines-2))
+        s c, (lines-2), x, :key
+        draw_unit(unit, x, (lines-1))
         @units_outside[c] = unit
         c = c.next
         x += 1
       end
-      s ']', (lines-3), x, :text
+      s ']', (lines-2), x, :text
     end
 
     # terrain

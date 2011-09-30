@@ -31,7 +31,8 @@ protected
   end
 
   #
-  # Ask a question with a menu
+  # Ask a question with a menu. Options is a list of arrays, each one
+  # containing [return_if_selected, option_text]
   #
   def menu(question, options)
     max = (options.collect { |o| o[1].length }).max
