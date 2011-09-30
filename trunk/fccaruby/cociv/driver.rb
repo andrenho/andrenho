@@ -7,7 +7,11 @@ class Driver
   attr_reader :game, :focused
 
   def initialize
-    @game = Game.new(20, 20)
+    begin
+      @game = Game.load
+    rescue
+      @game = Game.new(20, 20)
+    end
     @focused = @game.nations[0].units[0]
   end
 

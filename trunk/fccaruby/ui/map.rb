@@ -31,6 +31,12 @@ protected
 
 
   def draw_unit(unit, sx, sy)
+    #close_screen
+    #p unit.military
+    #p Peasant
+    #p $chars[Peasant]
+    #p $chars[unit.military]
+    #exit 1
     s $chars[unit.military][0], sy, sx, $nations[unit.nation.color]
   end
 
@@ -97,7 +103,16 @@ protected
       @driver.select_next!
     when ' '
       @game.advance_round!
-    when 'b'
+    when 'S' # save game
+      close_screen
+      @game.save!
+      exit
+    when 'C' # choose city
+      options = []
+      @game.player.cities.each { |city| options << [city, city.name] }
+      city = menu(_('Choose a city.'), options)
+      @display = city if city
+    when 'b' # build city
       if @driver.focused.is_a? LandUnit and @driver.focused.tile.can_build_city?
         name = ask_s(City::Messages[:new_city])
         if name
@@ -105,8 +120,6 @@ protected
           @display = city
         end
       end
-    when 'q'
-      exit
     else
       p keyname(ch)
     end

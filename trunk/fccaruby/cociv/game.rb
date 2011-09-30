@@ -1,6 +1,7 @@
 $: << 'cociv'
 require 'util'
 require 'static'
+require 'production'
 require 'cargo'
 require 'unit'
 require 'landunit'
@@ -11,9 +12,15 @@ require 'city'
 require 'nation'
 require 'tile'
 
+require 'pp'
+
 class Game
 
   attr_reader :map_w, :map_h, :nations, :player, :year
+
+  def Game.load
+    return Marshal::load(File.open("#{ENV['HOME']}/.cociv/savefile"))
+  end
 
   def initialize(w, h)
     initialize_map(w, h)
@@ -35,6 +42,15 @@ class Game
 
   def inspect
     return "G:#{@year}"
+  end
+
+  def save!
+    begin 
+      Dir.mkdir "#{ENV['HOME']}/.cociv"
+    rescue Errno::EEXIST; end
+    open("#{ENV['HOME']}/.cociv/savefile", 'w') do |f|
+      f.print Marshal::dump(self)
+    end
   end
 
 protected

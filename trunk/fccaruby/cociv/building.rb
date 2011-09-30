@@ -33,7 +33,9 @@ class Building
   def production
     n = 0
     @workers.each do |worker|
-      n += 3 # TODO - specialist
+      pr = 3
+      pr *= 2 if worker.skill and worker.skill.good == job.good
+      n += pr
     end
     return [@type.good, n]
   end
