@@ -1,5 +1,4 @@
 module Map
-
 protected
 
   # 

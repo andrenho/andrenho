@@ -11,10 +11,10 @@ class Nation
     @color = color
 
     create_unit!(Peasant, 2, 2)
+    create_unit!(Caravan, 2, 2)
   end
 
   def create_unit!(military, x, y)
-    @units << LandUnit.new(@game, self, military, x, y) # TODO
     @units << LandUnit.new(@game, self, military, x, y) # TODO
   end
 

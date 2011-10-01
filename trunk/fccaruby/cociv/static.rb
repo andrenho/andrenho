@@ -98,46 +98,45 @@ class Military < Static
 
   @@all = []
 
-  attr_reader :name, :ship, :moves, :attack, :defense, :cargo
+  attr_reader :name, :ship, :work_in_colony, :moves, :attack, :defense, :cargo
 
-  def initialize(name, ship, moves, attack, defense, cargo)
+  def initialize(name, ship, work_in_colony, moves, attack, defense, cargo)
     super()
-    @name, @ship, @moves, @attack, @defense, @cargo = name, ship, moves, attack, defense, cargo
+    @name, @ship, @work_in_colony, @moves, @attack, @defense, @cargo = name, ship, work_in_colony, moves, attack, defense, cargo
     @@all << self
   end
 
 end
 
-Peasant         = Military.new(_('Peasant'),                 false, 1, 0, 1, 0)
-Colonist        = Military.new(_('Colonist'),                false, 1, 0, 1, 0)
-Caravan         = Military.new(_('Caravan'),                 false, 2, 0, 1, 2)
-Warrior         = Military.new(_('Warrior'),                 false, 1, 2, 2, 0)
-Nomad           = Military.new(_('Nomad'),                   false, 4, 1, 1, 0)
-Chariot         = Military.new(_('Chariot'),                 false, 4, 3, 3, 0)
-Pikeman         = Military.new(_('Pikeman'),                 false, 1, 3, 3, 0)
-Mtd_pikeman     = Military.new(_('Mounted Pikeman'),         false, 4, 4, 4, 0)
-Armored_warrior = Military.new(_('Armed Warrior'),           false, 1, 4, 4, 0)
-Cataphract      = Military.new(_('Cataphract'),              false, 4, 5, 5, 0)
-Catapult        = Military.new(_('Catapult'),                false, 1, 7, 5, 0)
+Peasant         = Military.new(_('Peasant'),                 false, true,  1, 0, 1, 0)
+Colonist        = Military.new(_('Colonist'),                false, true,  1, 0, 1, 0)
+Caravan         = Military.new(_('Caravan'),                 false, false, 2, 0, 1, 2)
+Warrior         = Military.new(_('Warrior'),                 false, true,  1, 2, 2, 0)
+Nomad           = Military.new(_('Nomad'),                   false, true,  4, 1, 1, 0)
+Chariot         = Military.new(_('Chariot'),                 false, true,  4, 3, 3, 0)
+Pikeman         = Military.new(_('Pikeman'),                 false, true,  1, 3, 3, 0)
+Mtd_pikeman     = Military.new(_('Mounted Pikeman'),         false, true,  4, 4, 4, 0)
+Armored_warrior = Military.new(_('Armed Warrior'),           false, true,  1, 4, 4, 0)
+Cataphract      = Military.new(_('Cataphract'),              false, false, 4, 5, 5, 0)
+Catapult        = Military.new(_('Catapult'),                false, false, 1, 7, 5, 0)
 
-Clan_member     = Military.new(_('Clan Member'),             false, 1, 1, 1, 0)
-Clan_armed      = Military.new(_('Armed Clan Member'),       false, 1, 2, 2, 0)
-Clan_mounted    = Military.new(_('Clan Member Rider'),       false, 4, 2, 2, 0)
-Clan_mtd_armed  = Military.new(_('Armed Clan Member Armed'), false, 4, 3, 3, 0)
+Clan_member     = Military.new(_('Clan Member'),             false, true,  1, 1, 1, 0)
+Clan_armed      = Military.new(_('Armed Clan Member'),       false, true,  1, 2, 2, 0)
+Clan_mounted    = Military.new(_('Clan Member Rider'),       false, true,  4, 2, 2, 0)
+Clan_mtd_armed  = Military.new(_('Armed Clan Member Armed'), false, true,  4, 3, 3, 0)
 
-Elite_soldier   = Military.new(_('Elite Soldier'),           false, 1, 4, 4, 0)
-Elite_chariot   = Military.new(_('Elite Chariot'),           false, 4, 5, 5, 0)
-Faraoh_soldier  = Military.new(_("Faraoh's Guard"),          false, 1, 5, 5, 0)
-Faraoh_chariot  = Military.new(_("Faraoh's Chariot Guard"),  false, 4, 6, 6, 0)
+Elite_soldier   = Military.new(_('Elite Soldier'),           false, true,  1, 4, 4, 0)
+Elite_chariot   = Military.new(_('Elite Chariot'),           false, true,  4, 5, 5, 0)
+Faraoh_soldier  = Military.new(_("Faraoh's Guard"),          false, true,  1, 5, 5, 0)
+Faraoh_chariot  = Military.new(_("Faraoh's Chariot Guard"),  false, true,  4, 6, 6, 0)
 
-Penteconter     = Military.new(_('Penteconter'),             true,  4, 0, 2, 2)
-Merchantman     = Military.new(_('Merchantman'),             true,  6, 0, 6, 5)
-Monoreme        = Military.new(_('Monoreme'),                true,  4, 1, 3, 0)
-Bireme          = Military.new(_('Bireme'),                  true,  5, 3, 5, 0)
-Trireme         = Military.new(_('Trireme'),                 true,  6, 4, 6, 0)
-Galley          = Military.new(_('Galley'),                  true,  5, 7, 8, 6)
-Pirate_ship     = Military.new(_('Pirate Ship'),             true,  8, 4, 8, 2)
-
+Penteconter     = Military.new(_('Penteconter'),             true,  false, 4, 0, 2, 2)
+Merchantman     = Military.new(_('Merchantman'),             true,  false, 6, 0, 6, 5)
+Monoreme        = Military.new(_('Monoreme'),                true,  false, 4, 1, 3, 0)
+Bireme          = Military.new(_('Bireme'),                  true,  false, 5, 3, 5, 0)
+Trireme         = Military.new(_('Trireme'),                 true,  false, 6, 4, 6, 0)
+Galley          = Military.new(_('Galley'),                  true,  false, 5, 7, 8, 6)
+Pirate_ship     = Military.new(_('Pirate Ship'),             true,  false, 8, 4, 8, 2)
 
 # 
 # Jobs
