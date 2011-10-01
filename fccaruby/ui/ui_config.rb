@@ -2,18 +2,20 @@
 # Colors
 #
 $color = {
-  :info       => [ COLOR_CYAN,  COLOR_BLACK, A_BOLD   ],
-  :title      => [ COLOR_WHITE, COLOR_BLACK, A_NORMAL | A_REVERSE ],
-  :text       => [ COLOR_WHITE, COLOR_BLACK, A_NORMAL ],
-  :lacking    => [ COLOR_RED,   COLOR_BLACK, A_BOLD ],
-  :surplus    => [ COLOR_GREEN, COLOR_BLACK, A_BOLD ],
-  :key        => [ COLOR_MAGENTA, COLOR_BLACK, A_BOLD ],
-  :comm       => [ COLOR_WHITE, COLOR_BLACK, A_NORMAL ],
-  :status_txt => [ COLOR_WHITE, COLOR_BLACK, A_BOLD   ],
-  :status_val => [ COLOR_GREEN, COLOR_BLACK, A_BOLD   ],
-  :ocean      => [ COLOR_BLUE,  COLOR_BLACK, A_BOLD   ],
-  :prairie    => [ COLOR_GREEN, COLOR_BLACK, A_NORMAL ],
-  :israel     => [ COLOR_CYAN,  COLOR_BLACK, A_BOLD   ],
+  :info       => [ COLOR_CYAN,    COLOR_BLACK, A_BOLD   ],
+  :title      => [ COLOR_WHITE,   COLOR_BLACK, A_NORMAL | A_REVERSE ],
+  :text       => [ COLOR_WHITE,   COLOR_BLACK, A_NORMAL ],
+  :lacking    => [ COLOR_RED,     COLOR_BLACK, A_BOLD   ],
+  :surplus    => [ COLOR_GREEN,   COLOR_BLACK, A_BOLD   ],
+  :key        => [ COLOR_MAGENTA, COLOR_BLACK, A_BOLD   ],
+  :comm       => [ COLOR_WHITE,   COLOR_BLACK, A_NORMAL ],
+  :status_txt => [ COLOR_WHITE,   COLOR_BLACK, A_BOLD   ],
+  :status_val => [ COLOR_GREEN,   COLOR_BLACK, A_BOLD   ],
+  :discrete   => [ COLOR_BLACK,   COLOR_BLACK, A_BOLD   ],
+
+  :ocean      => [ COLOR_BLUE,    COLOR_BLACK, A_BOLD   ],
+  :prairie    => [ COLOR_GREEN,   COLOR_BLACK, A_NORMAL ],
+  :israel     => [ COLOR_CYAN,    COLOR_BLACK, A_BOLD   ],
 }
 
 $chars = {

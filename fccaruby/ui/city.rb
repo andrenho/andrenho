@@ -12,20 +12,24 @@ module CityUI
     # top display
     city = @city = @display
     clear
-    s city.name, 0, cols-city.name.length, :title
+    s city.name, lines-1, cols-city.name.length, :title
 
     # buildings
     prod = @city.production
-    s 'Buildings', 2, 0, :title
+    s 'Buildings', 1, 0, :title
     @max_bd_len = (BuildingType.all.collect { |b| b.name.length }).max
-    y = 3
+    y = 2
     s 'Wks  Production', y, @max_bd_len + 6, :text
     c = 'a'
     y += 1
     city.buildings.each do |building|
-      s c, y, 1, :key
-      s ') ' + building.type.name, y, 2, :text
+      if building.type.max_units > 0
+        s c, y, 1, :key 
+        s ')', y, 2, :text
+      end
+      s building.type.name, y, 4, :text
       x = 6
+      s ('.' * building.type.max_units), y, @max_bd_len+x, :discrete
       building.workers.each do |worker|
         draw_unit(worker, @max_bd_len+x, y)
         x += 1
@@ -47,14 +51,29 @@ module CityUI
       y += 1
     end
 
-    s 'Raw material production', y+1, 1, :text
+    # under construction
+    s City::Messages[:under_construction], y+1, 1, :text
+    uc = @city.under_construction
+    if 
+      t = uc.name
+    else
+      t = City::Messages[:nothing]
+    end
+    s t, y+2, 4, :status_txt
+    s '(', y+2, t.length+5, :text
+    s '%', y+2, t.length+6, :key
+    s ") [#{@city.hammers}/#{uc ? uc.cost : 0}]", y+2, t.length+7, :text
+
 
     # Raw goods production
+    y = 13
+    s 'Raw material production', y, 47, :title
+    y += 2
     Good.all.select{ |g| g.raw }.each do |good|
       p = prod[good]
       if p.theorical > 0
         ss = "#{good.name} [#{p.theorical}|"
-        x = @max_bd_len+11
+        x = @max_bd_len+35
         s ss, y, x, :text
         x += ss.length
         s p.lacking.to_s, y, x, :lacking
@@ -62,8 +81,8 @@ module CityUI
         s '|', y, x, :text
         s p.surplus.to_s, y, x+1, :surplus
         s ']', y, x+1+p.surplus.to_s.length, :text
+        y += 1
       end
-      y += 1
     end
     
     # fence
@@ -86,7 +105,7 @@ module CityUI
     end
 
     # terrain
-    sy, sx = 5, @max_bd_len + 30
+    sy, sx = 4, @max_bd_len + 30
     s 'Plantations', sy-3, sx-2, :title
     s ' 7  8  9', sy-1, sx, :key
     s '.--------.', sy, sx, :text
@@ -114,16 +133,21 @@ module CityUI
 
     # terrain production
     sx += 13
-    sy = 4
+    sy = 2
     s 'Production', sy, sx+3, :text
-    sy += 1
+    sy += 2
     (1..9).each do |n|
-      next if n == 5
-      fx, fy = DIRECTIONS[n]
-      production = @game[@city.x+fx,@city.y+fy].production
-      if production != []
-        sy += 1
-        s "#{n}. #{production[0].name} [#{production[1]}]", sy, sx, :text
+      fx, fy = DIRECTIONS_C[n]
+      d = false
+      @game[@city.x+fx,@city.y+fy].production.each do |production|
+        if not d
+          s "#{n}.", sy, sx, :text
+          d = true
+        end
+        if production != []
+          s "#{production[0].name} [#{production[1]}]", sy, sx+3, :text
+          sy += 1
+        end
       end
     end
     
@@ -162,6 +186,13 @@ module CityUI
       if tile.worker
         transfer_unit tile.worker, ch
       end
+
+    # change building under construction
+    elsif ch == '%'
+      o = []
+      @city.buildable.each { |bt| o << [bt, bt.name] }
+      build = menu(City::Messages[:to_build], o)
+      @city.under_construction = build if build
     end
   end
 
@@ -179,9 +210,9 @@ module CityUI
     if @units_outside.include? ch
       setpos (lines-2), (ch.ord - 'A'.ord + 2) if ch
     elsif @buildings.include? ch
-      setpos (ch.ord - 'a'.ord + 3), (@max_bd_len+6)
+      setpos (ch.ord - 'a'.ord + 3), (@max_bd_len+6+(@buildings[ch].workers.find_index(unit)))
     elsif [1,2,3,4,6,7,8,9].include? ch.to_i
-      sy, sx = 8, @max_bd_len + 34
+      sy, sx = 7, @max_bd_len + 34
       fx, fy = DIRECTIONS[ch.to_i]
       setpos sy + (fy*2), sx + (fx*3)
     end

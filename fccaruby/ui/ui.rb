@@ -20,6 +20,7 @@ class UI
     @running = true
 
     # init curses
+    ENV['ESCDELAY'] = '0'
     init_screen
     curs_set 1
     raw
@@ -52,9 +53,14 @@ class UI
         if @display == :map
           map_update
           map_event
-        elsif @display.is_a? City
-          city_update
-          city_event
+        elsif @display.is_a? City 
+          if @city_view == :units
+            city_update
+            city_event
+          elsif @city_view == :storage
+            city_storage_update
+            city_storage_event
+          end
         end
       end
     end
