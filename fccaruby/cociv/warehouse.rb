@@ -8,7 +8,7 @@ class Warehouse
     @max_size = max_size
     @goods = {}
     Good.all.each do |good|
-      @goods[good] = 200
+      @goods[good] = 0
     end
   end
 

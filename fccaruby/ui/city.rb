@@ -1,4 +1,5 @@
 module CityUI
+protected
 
   ESC = 27
 
@@ -91,7 +92,7 @@ module CityUI
     # units outside the city
     c = 'A'
     x = 2
-    units = @game[city.x, city.y].units
+    units = @game[city.x, city.y].units.delete_if { |u| not u.military.work_in_colony }
     if not units.empty?
       s '[', (lines-2), 1, :text
       units.each do |unit|
@@ -193,6 +194,11 @@ module CityUI
       @city.buildable.each { |bt| o << [bt, bt.name] }
       build = menu(City::Messages[:to_build], o)
       @city.under_construction = build if build
+
+    # go to storage
+    elsif ch == '>'
+      @city_view = :storage
+
     end
   end
 

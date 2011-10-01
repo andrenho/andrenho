@@ -4,12 +4,14 @@ include Curses
 require 'ui/ui_config'
 require 'ui/map'
 require 'ui/city'
+require 'ui/city_storage'
 require 'ui/communication'
 
 class UI
 
   include Map
   include CityUI
+  include CityStorage
   include Communication
 
   #
