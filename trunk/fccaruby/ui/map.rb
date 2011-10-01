@@ -111,13 +111,14 @@ protected
       options = []
       @game.player.cities.each { |city| options << [city, city.name] }
       city = menu(_('Choose a city.'), options)
-      @display = city if city
+      @display = city; @city_view = :units if city
     when 'b' # build city
       if @driver.focused.is_a? LandUnit and @driver.focused.tile.can_build_city?
         name = ask_s(City::Messages[:new_city])
         if name
           city = @driver.focused.build_city(name)
           @display = city
+          @city_view = :units
         end
       end
     else

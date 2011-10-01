@@ -3,6 +3,9 @@ class City
   Messages = {
     :new_city => _('What is the name of the new city?'),
     :move_to => _('Where do you want to move the %s to? (\'-\' to leave city)'),
+    :under_construction => _('Under construction'),
+    :nothing => _('Nothing'),
+    :to_build => _('What to you want to build?'),
   }
 
   attr_reader :game, :nation
@@ -15,6 +18,12 @@ class City
   
   # List of prices of goods in the city
   attr_reader :price
+
+  # BuildingType under construction.
+  attr_accessor :under_construction
+
+  # Hammers available for the construction of buildings.
+  attr_reader :hammers
   
   attr_reader :warehouse, :buildings
 
@@ -42,6 +51,10 @@ class City
     InitialBuildings.each do |building_type|
       @buildings << Building.new(self, building_type)
     end
+    
+    # in construction
+    @hammers = 0
+    @under_construction = Warehouse_1
   end
 
   # calculate production of the city
@@ -52,11 +65,12 @@ class City
     (x-1).upto(x+1) do |xx|
       (y-1).upto(y+1) do |yy|
         next if xx == 0 and yy == 0
-        p = @game[xx,yy].production
-        if p != []
-          prod[p[0]].theorical += p[1]
-          prod[p[0]].effective += p[1]
-          prod[p[0]].surplus += p[1]
+        @game[xx,yy].production.each do |p|
+          if p != []
+            prod[p[0]].theorical += p[1]
+            prod[p[0]].effective += p[1]
+            prod[p[0]].surplus += p[1]
+          end
         end
       end
     end
@@ -85,6 +99,33 @@ class City
     end
 
     return prod
+  end
+
+  # Returns a list of building types (BuildingType) that can be built on
+  # this city.
+  def buildable
+    b = []
+    bts_here = @buildings.map { |b| b.type }
+    BuildingType.all.each do |bt|
+      if not bts_here.include? bt and bts_here.include? bt.prerequisite \
+      and colonists.length >= bt.min_colony
+        b << bt
+      end
+    end
+    return b
+  end
+
+  # Returns a list of colonists on this city.
+  def colonists
+    u = []
+    @buildings.each { |building| u << building.workers }
+    (x-1).upto(x+1) do |xx|
+      (y-1).upto(y+1) do |yy|
+        next if xx == 0 and yy == 0
+        u << @game[@x+xx,@y+yy].worker
+      end
+    end
+    return u.flatten.compact
   end
 
 end

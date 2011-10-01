@@ -38,9 +38,15 @@ end
 
 # 
 # Directions
+#
 DIRECTIONS = {
   1 => [-1, 1], 2 => [ 0, 1], 3 => [ 1, 1],
   4 => [-1, 0],               6 => [ 1, 0],
+  7 => [-1,-1], 8 => [ 0,-1], 9 => [ 1,-1]
+}
+DIRECTIONS_C = {
+  1 => [-1, 1], 2 => [ 0, 1], 3 => [ 1, 1],
+  4 => [-1, 0], 5 => [ 0, 0], 6 => [ 1, 0],
   7 => [-1,-1], 8 => [ 0,-1], 9 => [ 1,-1]
 }
 
@@ -202,6 +208,16 @@ class Terrain < Static
     @@all << self
   end
 
+  def preferred_good
+    if @suggested_job == Lumberjack
+      @switch_status.suggested_job.good
+    elsif self == Plains
+      Cotton
+    else
+      @suggested_job.good
+    end
+  end
+
 end
 
 #                      Name                    MoveCost       Barley      Mud
@@ -237,14 +253,14 @@ class BuildingType < Static
 
   @@all = []
 
-  attr_reader :name, :max_units, :job, :raw_good, :good, :multiplier, :cost, :Copper, 
+  attr_reader :name, :prerequisite, :max_units, :job, :raw_good, :good, :multiplier, :cost, :copper, 
               :min_colony
 
-  def initialize(name, max_units, job, raw_good, good, multiplier=1, cost=0, copper=0, 
+  def initialize(name, prerequisite, max_units, job, raw_good, good, multiplier=1, cost=0, copper=0, 
                  min_colony=0)
     super()
-    @name, @max_units, @job, @raw_good, @good, @multiplier, @cost, @copper, @min_colony = 
-      name, max_units, job, raw_good, good, multiplier, cost, copper, min_colony
+    @name, @prerequisite, @max_units, @job, @raw_good, @good, @multiplier, @cost, @copper, @min_colony = 
+      name, prerequisite, max_units, job, raw_good, good, multiplier, cost, copper, min_colony
     if @job
       @job.building = self
       @job.raw_good = raw_good
@@ -257,49 +273,50 @@ class BuildingType < Static
 
 end
 
-Weaver_1    = BuildingType.new(_("Weaver's House"), 2, Weaver, Cotton, Clothes)
-Weaver_2    = BuildingType.new(_("Weaver's Shop"), 3, Weaver, Cotton, Clothes, 2, 64, 20)
-Weaver_3    = BuildingType.new(_("Cloth Mill"), 3, Weaver, Cotton, Clothes, 3, 160, 100, 8)
-Brewer_1    = BuildingType.new(_("Brewer's House"), 2, Brewer, Barley, Beer)
-Brewer_2    = BuildingType.new(_("Brewer's Shop"), 3, Brewer, Barley, Beer, 2, 64, 20)
-Brewer_3    = BuildingType.new(_("Beer Mill"), 3, Brewer, Barley, Beer, 3, 160, 100, 8)
-Oil_1       = BuildingType.new(_("Small Oil Press"), 2, Oil_presser, Olives, Olive_oil)
-Oil_2       = BuildingType.new(_("Big Oil Press"), 3, Oil_presser, Olives, Olive_oil, 2, 64, 20)
-Oil_3       = BuildingType.new(_("Olive Oil Mill"), 3, Oil_presser, Olives, Olive_oil, 3, 160, 100, 8)
-Carpenter_1 = BuildingType.new(_("Carpenter's House"), 2, Carpenter, Wood, Furniture)
-Carpenter_2 = BuildingType.new(_("Carpenter's Shop"), 3, Carpenter, Wood, Furniture, 2, 64, 20)
-Carpenter_3 = BuildingType.new(_("Lumber Mill"), 3, Carpenter, Wood, Furniture, 3, 160, 100, 8)
-Copper_1    = BuildingType.new(_("Coppersmith's House"), 2, Coppersmith, Copper, Utensils)
-Copper_2    = BuildingType.new(_("Coppersmith's Shop"), 3, Coppersmith, Copper, Utensils, 2, 64, 20)
-Copper_3    = BuildingType.new(_("Utensils Factory"), 3, Coppersmith, Copper, Utensils, 3, 160, 100, 8)
-Brick_1     = BuildingType.new(_("Small Klin"), 2, Potter, Mud, Bricks)
-Brick_2     = BuildingType.new(_("Big Klin"), 3, Potter, Mud, Bricks, 2, 64, 20)
-Brick_3     = BuildingType.new(_("Brick Factory"), 3, Potter, Mud, Bricks, 3, 160, 100, 8)
-Stable      = BuildingType.new(_("Stable"), 0, nil, Food, Riding, 2, 64, 20)
-Bronze_1    = BuildingType.new(_("Metallurgic's Shop"), 2, Metallurgic, [ Copper, Tin ], Bronze)
-Bronze_2    = BuildingType.new(_("Metalworks"), 3, Metallurgic, [ Copper, Tin ], Bronze, 2, 64, 20)
-Bronze_3    = BuildingType.new(_("Machine Shop"), 3, Metallurgic, [ Copper, Tin ], Bronze, 3, 160, 100, 8)
-Scribe_1    = BuildingType.new(_("Tablet House"), 2, Scribe, nil, Scrolls)
-Scribe_2    = BuildingType.new(_("Gymnasium"), 3, Scribe, nil, Scrolls, 2, 64, 20)
-Scribe_3    = BuildingType.new(_("Academy"), 3, Scribe, nil, Scrolls, 3, 160, 100, 8)
-Temple_1    = BuildingType.new(_("Worship Yard"), 1, Priest, nil, Prayers, 1, 80)
-Temple_2    = BuildingType.new(_("Shrine"), 3, Priest, nil, Prayers, 2, 64, 20)
-Temple_3    = BuildingType.new(_("Temple"), 3, Priest, nil, Prayers, 3, 160, 100, 8)
-Embassy     = BuildingType.new(_("Embassy"), 0, nil, nil, nil, 3, 160, 100, 8)
-Docks_1     = BuildingType.new(_("Docks"), 0, nil, nil, nil, 1, 52)
-Docks_2     = BuildingType.new(_("Drydock"), 0, nil, nil, nil, 1, 80, 50, 4)
-Docks_3     = BuildingType.new(_("Shipyard"), 0, nil, nil, nil, 1, 240, 100, 8)
-Wall_1      = BuildingType.new(_("Wooden Wall"), 0, nil, nil, nil, 1, 64)
-Wall_2      = BuildingType.new(_("Stone Wall"), 0, nil, nil, nil, 2, 120, 100)
-Wall_3      = BuildingType.new(_("Masonry Wall"), 0, nil, nil, nil, 3, 240, 200)
-Library     = BuildingType.new(_("Library"), 0, nil, nil, nil, 0, 120, 20)
-Oracle      = BuildingType.new(_("Oracle"), 0, nil, nil, nil, 0, 120, 20)
-Warehouse_1 = BuildingType.new(_("Warehouse"), 0, nil, nil, nil, 2, 80)
-Warehouse_2 = BuildingType.new(_("Big Warehouse"), 0, nil, nil, nil, 3, 120, 20)
-Palace      = BuildingType.new(_("Palace"), 0, nil, nil, nil, 0, 240, 200)
-Monument    = BuildingType.new(_("Monument"), 0, nil, nil, nil, 0, 320, 300)
+Weaver_1    = BuildingType.new(_("Weaver's House"), nil, 2, Weaver, Cotton, Clothes)
+Weaver_2    = BuildingType.new(_("Weaver's Shop"), Weaver_1, 3, Weaver, Cotton, Clothes, 2, 64, 20)
+Weaver_3    = BuildingType.new(_("Cloth Mill"), 3, Weaver_2, Weaver, Cotton, Clothes, 3, 160, 100, 8)
+Brewer_1    = BuildingType.new(_("Brewer's House"), nil, 2, Brewer, Barley, Beer)
+Brewer_2    = BuildingType.new(_("Brewer's Shop"), Brewer_1, 3, Brewer, Barley, Beer, 2, 64, 20)
+Brewer_3    = BuildingType.new(_("Beer Mill"), Brewer_2, 3, Brewer, Barley, Beer, 3, 160, 100, 8)
+Oil_1       = BuildingType.new(_("Small Oil Press"), nil, 2, Oil_presser, Olives, Olive_oil)
+Oil_2       = BuildingType.new(_("Big Oil Press"), Oil_1, 3, Oil_presser, Olives, Olive_oil, 2, 64, 20)
+Oil_3       = BuildingType.new(_("Olive Oil Mill"), Oil_2, 3, Oil_presser, Olives, Olive_oil, 3, 160, 100, 8)
+Carpenter_1 = BuildingType.new(_("Carpenter's House"), nil, 2, Carpenter, Wood, Furniture)
+Carpenter_2 = BuildingType.new(_("Carpenter's Shop"), Carpenter_1, 3, Carpenter, Wood, Furniture, 2, 64, 20)
+Carpenter_3 = BuildingType.new(_("Lumber Mill"), Carpenter_2, 3, Carpenter, Wood, Furniture, 3, 160, 100, 8)
+Copper_1    = BuildingType.new(_("Coppersmith's House"), nil, 2, Coppersmith, Copper, Utensils)
+Copper_2    = BuildingType.new(_("Coppersmith's Shop"), Copper_1, 3, Coppersmith, Copper, Utensils, 2, 64, 20)
+Copper_3    = BuildingType.new(_("Utensils Factory"), Copper_2, 3, Coppersmith, Copper, Utensils, 3, 160, 100, 8)
+Brick_1     = BuildingType.new(_("Small Klin"), nil, 2, Potter, Mud, Bricks)
+Brick_2     = BuildingType.new(_("Big Klin"), Brick_1, 3, Potter, Mud, Bricks, 2, 64, 20)
+Brick_3     = BuildingType.new(_("Brick Factory"), Brick_2, 3, Potter, Mud, Bricks, 3, 160, 100, 8)
+Stable      = BuildingType.new(_("Stable"), nil, 0, nil, Food, Riding, 2, 64, 20)
+Bronze_1    = BuildingType.new(_("Metallurgic's Shop"), nil, 2, Metallurgic, [ Copper, Tin ], Bronze)
+Bronze_2    = BuildingType.new(_("Metalworks"), Bronze_1, 3, Metallurgic, [ Copper, Tin ], Bronze, 2, 64, 20)
+Bronze_3    = BuildingType.new(_("Machine Shop"), Bronze_2, 3, Metallurgic, [ Copper, Tin ], Bronze, 3, 160, 100, 8)
+Scribe_1    = BuildingType.new(_("Tablet House"), nil, 2, Scribe, nil, Scrolls)
+Scribe_2    = BuildingType.new(_("Gymnasium"), Scribe_1, 3, Scribe, nil, Scrolls, 2, 64, 20)
+Scribe_3    = BuildingType.new(_("Academy"), Scribe_2, 3, Scribe, nil, Scrolls, 3, 160, 100, 8)
+Temple_1    = BuildingType.new(_("Worship Yard"), nil, 1, Priest, nil, Prayers, 1, 80)
+Temple_2    = BuildingType.new(_("Shrine"), Temple_1, 3, Priest, nil, Prayers, 2, 64, 20)
+Temple_3    = BuildingType.new(_("Temple"), Temple_2, 3, Priest, nil, Prayers, 3, 160, 100, 8)
+Embassy     = BuildingType.new(_("Embassy"), nil, 0, nil, nil, nil, 3, 160, 100, 8)
+Docks_1     = BuildingType.new(_("Docks"), nil, 0, nil, nil, nil, 1, 52)
+Docks_2     = BuildingType.new(_("Drydock"), Docks_1, 0, nil, nil, nil, 1, 80, 50, 4)
+Docks_3     = BuildingType.new(_("Shipyard"), Docks_2, 0, nil, nil, nil, 1, 240, 100, 8)
+Wall_1      = BuildingType.new(_("Wooden Wall"), nil, 0, nil, nil, nil, 1, 64)
+Wall_2      = BuildingType.new(_("Stone Wall"), Wall_1, 0, nil, nil, nil, 2, 120, 100)
+Wall_3      = BuildingType.new(_("Masonry Wall"), Wall_2, 0, nil, nil, nil, 3, 240, 200)
+Library     = BuildingType.new(_("Library"), nil, 0, nil, nil, nil, 0, 120, 20)
+Oracle      = BuildingType.new(_("Oracle"), Library, 0, nil, nil, nil, 0, 120, 20)
+Storage     = BuildingType.new(_("Storage"), nil, 0, nil, nil, nil)
+Warehouse_1 = BuildingType.new(_("Warehouse"), Storage, 0, nil, nil, nil, 2, 80)
+Warehouse_2 = BuildingType.new(_("Big Warehouse"), Warehouse_1, 0, nil, nil, nil, 3, 120, 20)
+Palace      = BuildingType.new(_("Palace"), nil, 0, nil, nil, nil, 0, 240, 200)
+Monument    = BuildingType.new(_("Monument"), nil, 0, nil, nil, nil, 0, 320, 300)
 
-InitialBuildings = [ Weaver_1, Brewer_1, Oil_1, Carpenter_1, Copper_1, Brick_1, Bronze_1 ]
+InitialBuildings = [ Weaver_1, Brewer_1, Oil_1, Carpenter_1, Copper_1, Brick_1, Bronze_1, Storage ]
 
 # Nation
 Israel = nil

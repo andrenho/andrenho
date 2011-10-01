@@ -18,7 +18,7 @@ class Tile
   # to what city this tile belongs to
   attr_accessor :belongs_to
 
-  # Create a new city
+  # Create a new tile
   def initialize(game, x, y)
     @game = game
     @x, @y = x, y
@@ -52,6 +52,7 @@ class Tile
   
   # Assing a worker (for producing raw goods) to this tile.
   def worker=(unit)
+    # TODO - assertions
     if @worker
       w = @worker
       @worker = nil
@@ -67,10 +68,14 @@ class Tile
 
   # Return the current production of this tile in the format [Good, amount].
   def production
-    if @worker
+    if @city
+      pr_food = abs_productivity(Food)
+      pr_other = abs_productivity(@terrain.preferred_good)
+      return [[Food, (pr_food*3/2).to_i], [@terrain.preferred_good, (pr_other*3/2).to_i]]
+    elsif @worker
       pr = abs_productivity(@worker.job.good)
       pr *= 2 if @worker.skill and @worker.skill.good == job.good
-      return [@worker.job.good, pr]
+      return [[@worker.job.good, pr]]
     else
       []
     end
