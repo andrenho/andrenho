@@ -17,6 +17,23 @@ protected
       c = c.next
     end
 
+    # draw units and their slots
+    x = 30
+    y = 3
+    c = ?A
+    s 'Units', 1, x, :title
+    max_unit_len = @game[@city.x, @city.y].units.select{ |u| u.military.cargo > 0 }.map{ |u| u.military.name.length }.max
+    @game[@city.x, @city.y].units.select{ |u| u.military.cargo > 0 }.each do |unit|
+      s unit.military.name, y, x+3, :text
+      (1..unit.military.cargo).each do |slot|
+        s c, y, x, :key 
+        s ')', y, x+1, :text
+        s "[ ]", y, x+5+max_unit_len, :text
+        y += 1
+        c = c.next
+      end
+    end
+
     refresh
   end
 
