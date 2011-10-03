@@ -253,13 +253,12 @@ class BuildingType < Static
   @@all = []
 
   attr_reader :name, :prerequisite, :max_units, :job, :raw_good, :good, :multiplier, :cost, :copper, 
-              :min_colony
+              :min_colony, :storage
 
   def initialize(name, prerequisite, max_units, job, raw_good, good, multiplier=1, cost=0, copper=0, 
-                 min_colony=0)
+                 min_colony=0, storage=0)
     super()
-    @name, @prerequisite, @max_units, @job, @raw_good, @good, @multiplier, @cost, @copper, @min_colony = 
-      name, prerequisite, max_units, job, raw_good, good, multiplier, cost, copper, min_colony
+    @name, @prerequisite, @max_units, @job, @raw_good, @good, @multiplier, @cost, @copper, @min_colony, @storage = name, prerequisite, max_units, job, raw_good, good, multiplier, cost, copper, min_colony, storage
     if @job
       @job.building = self
       @job.raw_good = raw_good
@@ -269,6 +268,14 @@ class BuildingType < Static
   end
 
   def BuildingType.all; @@all; end
+
+  def create_building(city)
+    if @storage > 0
+      return Warehouse.new(city, self)
+    else
+      return Building.new(city, self)
+    end
+  end
 
 end
 
@@ -309,9 +316,9 @@ Wall_2      = BuildingType.new(_("Stone Wall"), Wall_1, 0, nil, nil, nil, 2, 120
 Wall_3      = BuildingType.new(_("Masonry Wall"), Wall_2, 0, nil, nil, nil, 3, 240, 200)
 Library     = BuildingType.new(_("Library"), nil, 0, nil, nil, nil, 0, 120, 20)
 Oracle      = BuildingType.new(_("Oracle"), Library, 0, nil, nil, nil, 0, 120, 20)
-Storage     = BuildingType.new(_("Storage"), nil, 0, nil, nil, nil)
-Warehouse_1 = BuildingType.new(_("Warehouse"), Storage, 0, nil, nil, nil, 2, 80)
-Warehouse_2 = BuildingType.new(_("Big Warehouse"), Warehouse_1, 0, nil, nil, nil, 3, 120, 20)
+Storage     = BuildingType.new(_("Storage Area"), nil, 0, nil, nil, nil, nil, 1, 0, 0, 100)
+Warehouse_1 = BuildingType.new(_("Warehouse"), Storage, 0, nil, nil, nil, 2, 80, 0, 0, 200)
+Warehouse_2 = BuildingType.new(_("Big Warehouse"), Warehouse_1, 0, nil, nil, nil, 3, 120, 20, 0, 300)
 Palace      = BuildingType.new(_("Palace"), nil, 0, nil, nil, nil, 0, 240, 200)
 Monument    = BuildingType.new(_("Monument"), nil, 0, nil, nil, nil, 0, 320, 300)
 

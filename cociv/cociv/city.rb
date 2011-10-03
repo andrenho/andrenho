@@ -42,14 +42,15 @@ class City
         @game[xx,yy].belongs_to = self
       end
     end
-    @warehouse = Warehouse.new(100)
     @price = {}
     Good.all.each { |g| @price[g] = Price.new }
 
     # create buildings
     @buildings = []
     InitialBuildings.each do |building_type|
-      @buildings << Building.new(self, building_type)
+      b = building_type.create_building(self)
+      @buildings << b
+      @warehouse = b if building_type == Storage
     end
     
     # in construction
@@ -80,7 +81,7 @@ class City
         good, amount = building.production
         if amount
           prod[good].theorical += amount 
-          # calculate how much effectly possible
+          # calculate how much effectively possible
           effective = amount
           building.type.good.raw_material.each do |raw|
             effective = prod[raw].effective if prod[raw].effective < effective
