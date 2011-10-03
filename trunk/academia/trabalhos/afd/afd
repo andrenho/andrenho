@@ -10,8 +10,6 @@ class AFD
   # carrega a máquina, verifica erros e inicializa
   #
   def initialize(m)
-    @deterministico = false
-
     # estados
     raise if not m[:K].is_a? Array
     @estados = {}
