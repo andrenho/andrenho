@@ -1,14 +1,15 @@
 class NotEnoughGoods < Exception; end
 
-class Warehouse
+class Warehouse < Building
 
   attr_accessor :max_size
 
-  def initialize(max_size)
-    @max_size = max_size
+  def initialize(city, building_type)
+    super(city, building_type)
+    @max_size = building_type.storage
     @goods = {}
     Good.all.each do |good|
-      @goods[good] = 0
+      @goods[good] = 200
     end
   end
 
