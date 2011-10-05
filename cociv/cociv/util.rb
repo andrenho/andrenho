@@ -7,3 +7,13 @@ class Array
   end
 
 end
+
+class AssertException < Exception
+  def initialize(message)
+    super(message)
+  end
+end
+
+def assert(message='')
+  raise AssertException.new(message) unless yield
+end

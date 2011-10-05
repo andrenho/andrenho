@@ -31,6 +31,20 @@ protected
   end
 
   #
+  # Ask the user a question that must be responded with yes/no
+  #
+  def ask_yn(question, default=true)
+    ch = ask_c(question + ' [' + _('yn') + '] ')
+    if ch == 'y'
+      return true
+    elsif ch == 'n'
+      return false
+    else
+      return default
+    end
+  end
+
+  #
   # Ask a question with a menu. Options is a list of arrays, each one
   # containing [return_if_selected, option_text]
   #
