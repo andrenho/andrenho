@@ -1,5 +1,9 @@
 module Cargo
 
+  Messages = {
+    :loaded => _('%d t of %s loaded')
+  }
+
   class Slot
     attr_accessor :good
     attr_reader :amount
@@ -10,7 +14,7 @@ module Cargo
     end
   end
 
-  @slots = []
+  attr_reader :slots
 
   def init_cargo(n)
     @max_cargo = n
@@ -23,7 +27,7 @@ module Cargo
   def load(good, amount=100)
     city = @game[@x,@y].city
     # check for errors
-    raise NoWarehouse if not city
+    assert { city }
     raise NoSpace if not has_space? good, amount
     if city.nation != @nation
       raise NotEnoughFunds if (amount * city.price[good].buy) > @nation.gold
@@ -58,6 +62,5 @@ protected
 
 end
 
-class NoWarehouse < Exception; end
 class NotEnoughFunds < Exception; end
 class NoSpace < Exception; end
