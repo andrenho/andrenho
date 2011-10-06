@@ -2,17 +2,16 @@ require 'display'
 
 class MapDisplay < Display
 
-  def initialize(game)
-    super
-    @game = game
+  def initialize(driver, scr)
+    super(driver, scr)
   end
 
   def redraw
     super
   end
 
-  def input
-    super
+  def input_q
+    return :exit
   end
 
 end
