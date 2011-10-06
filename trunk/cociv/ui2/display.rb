@@ -14,12 +14,13 @@ class Display
   end
 
   def input
+    raise '@keys not set' if not @keys
     ch = getch
-    method = "input_#{ch}".to_sym
-    if self.respond_to? method
-      return self.method(method).call
+    if @keys.has_key? ch
+      method = "input_#{ch}".to_sym
+      return self.method(method).call if self.respond_to? method
+      return nil
     end
-    return nil
   end
 
   def redraw
