@@ -1,6 +1,7 @@
 $: << 'ui2'
 require 'curseslayer'
 require 'gamelayer'
+require 'mapdisplay'
 
 include Curses
 
@@ -14,9 +15,12 @@ class UI
   end
 
   def run!
-    @scr.puts 'Hello'
-    @scr.refresh
-    @scr.getch
+    display = MapDisplay.new(@driver, @scr)
+    while display != :exit
+      display.redraw
+      n = display.input
+      display = n if n
+    end
   end
 
   def close
