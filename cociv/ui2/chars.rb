@@ -35,3 +35,7 @@ $chars = {
   Galley         => '6',
   Pirate_ship    => '0',
 }
+
+def init_color(scr)
+  scr.init_color_curses('help', COLOR_WHITE, COLOR_BLUE, A_BOLD)
+end

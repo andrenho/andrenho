@@ -12,6 +12,7 @@ class UI
     @game = @driver.game
 
     @scr = GameLayer.new(@game, CursesLayer.new)
+    init_color(@scr)
   end
 
   def run!
