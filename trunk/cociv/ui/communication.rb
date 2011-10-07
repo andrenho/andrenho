@@ -34,13 +34,15 @@ protected
   # Ask the user a question that must be responded with yes/no
   #
   def ask_yn(question, default=true)
-    ch = ask_c(question + ' [' + _('yn') + '] ')
-    if ch == 'y'
-      return true
-    elsif ch == 'n'
-      return false
-    else
-      return default
+    while true
+      ch = ask_c(question + ' [' + _('yn') + ']')
+      if ch == 'y'
+        return true
+      elsif ch == 'n' or ch == 27
+        return false
+      elsif ch == 10 or ch == 13
+        return default
+      end
     end
   end
 

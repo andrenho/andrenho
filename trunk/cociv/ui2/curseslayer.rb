@@ -1,4 +1,5 @@
 require 'curses'
+require 'acs/curses_acs'
 require 'basiclayer'
 
 class CursesLayer < BasicLayer
@@ -7,11 +8,11 @@ class CursesLayer < BasicLayer
 
   def initialize
     super
-    ENV['ESCDELAY'] = '0'
+    Curses.ESCDELAY = 1
     init_screen
     curs_set 1
-    raw
-    cbreak
+    #raw
+    #cbreak
     noecho
     stdscr.keypad = 1
 
@@ -23,12 +24,13 @@ class CursesLayer < BasicLayer
       start_color
       use_default_colors
     end
+
+    Curses.define_acs
   end
 
   def w
     cols
   end
-
 
   def h
     lines
@@ -44,6 +46,36 @@ class CursesLayer < BasicLayer
 
   def printc(char)
     addch char
+  end
+
+  def box(x,y,w,h,filled=false,color='default')
+    self.color = color
+    setpos y, x
+    Curses.addch_gen Curses::ACS_ULCORNER
+    setpos y, x+w
+    Curses.addch_gen Curses::ACS_URCORNER
+    setpos y+h, x
+    Curses.addch_gen Curses::ACS_LLCORNER
+    setpos y+h, x+w
+    Curses.addch_gen Curses::ACS_LRCORNER
+    ((x+1)..(x+w-1)).each do |xx| 
+      setpos y, xx
+      Curses.addch_gen Curses::ACS_HLINE
+      setpos y+h, xx
+      Curses.addch_gen Curses::ACS_HLINE
+    end
+    ((y+1)..(y+h-1)).each do |yy| 
+      setpos yy, x
+      Curses.addch_gen Curses::ACS_VLINE
+      setpos yy, x+w
+      Curses.addch_gen Curses::ACS_VLINE
+    end
+    if filled
+      ((y+1)..(y+h-1)).each do |yy|
+        setpos yy, x+1
+        addstr ' ' * (w-1)
+      end
+    end
   end
 
   def refresh
@@ -80,7 +112,23 @@ class CursesLayer < BasicLayer
   end
 
   def gets
-    getstr
+    self.show_cursor = 1
+    echo
+    response = ''
+    while true
+      r = getch
+      if r == 27
+        response = nil
+        break
+      elsif r == 10 or r == 13
+        break
+      end
+      response += r
+    end
+      
+    noecho
+    self.show_cursor = 0
+    return response == '' ? nil : response
   end
 
   def exit

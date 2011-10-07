@@ -38,6 +38,8 @@ class BasicLayer
     end
     ini_x = self.x
     
+    w = message.gsub(/\<.+\>/,'').split("\n").map{ |s| s.length }.max
+
     parsing_command = false
     command = ''
     message.each_char do |c|
@@ -54,7 +56,11 @@ class BasicLayer
         end
       else
         if c == '>'
-          run_command command
+          status = run_command(command)
+          if status == :right
+            self.x -= w
+            x_ini = self.x
+          end
           parsing_command = false
         else
           command += c
@@ -67,6 +73,7 @@ class BasicLayer
   def h; raise AbstractMethod.new; end
   def clear; raise AbstractMethod.new; end
   def printc(data); raise AbstractMethod.new; end
+  def box(x,y,w,h,filled=false); raise AbstractMethod.new; end
   def refresh; raise AbstractMethod.new; end
   def init_color(name, color); raise AbstractMethod.new; end
   def color=(name); raise AbstractMethod.new; end
@@ -82,6 +89,9 @@ protected
   def run_command(cmd)
     if @color.has_key? cmd or cmd == 'default'
       self.color = cmd
+      return nil
+    elsif cmd == 'right'
+      return :right
     else
       raise "Invalid command #{cmd}!"
     end

@@ -6,6 +6,19 @@ class Array
     return self[self.find_index(item)+1]
   end
 
+  def sum
+    self.inject{|sum,x| sum + x }
+  end
+
+end
+
+# code by Allan Odgaard
+class String
+
+  def wrap(col=80)
+    self.to_s.gsub(/(.{1,#{col}})( +|$\n?)|(.{1,#{col}})/, "\\1\\3\n") 
+  end
+
 end
 
 class AssertException < Exception
