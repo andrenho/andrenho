@@ -78,6 +78,7 @@ class BasicLayer
   def init_color(name, color); raise AbstractMethod.new; end
   def color=(name); raise AbstractMethod.new; end
   def show_cursor=(t); raise AbstractMethod.new; end
+  def echo=(t); raise AbstractMethod.new; end
   def getch; raise AbstractMethod.new; end
   def gets; raise AbstractMethod.new; end
   def exit; raise AbstractMethod.new; end

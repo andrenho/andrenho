@@ -2,6 +2,10 @@ class LandUnit < Unit
 
   attr_accessor :job, :skill
 
+  def can_build_city?
+    true # TODO
+  end
+
   def build_city(name)
     city = City.new(@game, @nation, name, @x, @y)
     nation.cities << city

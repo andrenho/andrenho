@@ -8,7 +8,11 @@ class CursesLayer < BasicLayer
 
   def initialize
     super
-    Curses.ESCDELAY = 1
+    begin
+      Curses.ESCDELAY = 1
+    rescue NotImplementedError
+      ENV['ESCDELAY'] = '1'
+    end
     init_screen
     curs_set 1
     #raw
@@ -105,6 +109,14 @@ class CursesLayer < BasicLayer
 
   def show_cursor=(t)
     curs_set t ? 1 : 0
+  end
+
+  def echo=(t)
+    if t
+      echo
+    else
+      noecho
+    end
   end
 
   def getch

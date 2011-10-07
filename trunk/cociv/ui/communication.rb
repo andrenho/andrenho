@@ -7,7 +7,7 @@ protected
   # 
   def ask_s(question)
     s ' ' * cols, 0, 0, :comm
-    s question, 0, 0, :comm
+    s '<message>' + question, 0, 0, :comm
     setpos 0, question.length + 1
     refresh
     echo
@@ -21,7 +21,7 @@ protected
   # 
   def ask_c(question)
     s ' ' * cols, 0, 0, :comm
-    s question, 0, 0, :comm
+    s '<message>' + question, 0, 0, :comm
     setpos 0, question.length + 1
     refresh
     echo
@@ -73,7 +73,7 @@ protected
   # Display a message to the user
   #
   def message(msg)
-    s msg, 0, 0, :comm
+    @scr.print 0, 0, '<message>' + msg
     refresh
     @last_message = msg
   end

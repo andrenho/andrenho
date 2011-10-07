@@ -38,4 +38,7 @@ $chars = {
 
 def init_color(scr)
   scr.init_color_curses('help', COLOR_WHITE, COLOR_BLUE, A_BOLD)
+  scr.init_color_curses('message', COLOR_WHITE, -1, A_BOLD)
+  scr.init_color_curses('israel', COLOR_CYAN, -1)
+  scr.init_color_curses('prairie', COLOR_GREEN, -1, A_DIM)
 end

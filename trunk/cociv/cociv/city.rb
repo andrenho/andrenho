@@ -1,13 +1,5 @@
 class City
 
-  Messages = {
-    :new_city => _('What is the name of the new city?'),
-    :move_to => _('Where do you want to move the %s to? (\'-\' to leave city)'),
-    :under_construction => _('Under construction'),
-    :nothing => _('Nothing'),
-    :to_build => _('What to you want to build?'),
-  }
-
   attr_reader :game, :nation
 
   # City name

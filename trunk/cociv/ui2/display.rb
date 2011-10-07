@@ -2,10 +2,16 @@ require 'communication'
 require 'curseslayer'
 require 'gamelayer'
 
+# 
+# Basic class for screens. It should be inherited by each one of the screens.
+#
 class Display
 
   include Communication
 
+  # 
+  # Constructor
+  #
   def initialize(driver, scr)
     raise AbstractMethod.new if self.class == Display
     @driver = driver
@@ -13,18 +19,53 @@ class Display
     @scr = scr
   end
 
+  # 
+  # Deals with keyboard events from the user
+  #
   def input
     ch = getch
-    if key_list.has_key? ch
-      method = "input_#{ch}".to_sym
-      return self.method(method).call if self.respond_to? method
-      return nil
+    method = "input_#{ch}".to_sym
+    if self.respond_to? method
+      return self.method(method).call 
     elsif ch == '?'
       show_help
-      nil
+    elsif ch == 27 # ESC
+      message ''
+    end
+    return nil
+  end
+
+  # 
+  # Redraw the screen
+  #
+  def redraw
+    raise AbstractMethod.new if self.class == Display
+  end
+
+protected
+
+  # 
+  # List of keys that can be used on this screen
+  #
+  def key_list
+    raise AbstractMethod.new if self.class == Display
+  end
+
+  #
+  # Display the last message
+  #
+  def show_last_message
+    if @last_message
+      m = @last_message.wrap(@scr.w)
+      @scr.puts 0, 0, '<message>' + m
     end
   end
 
+private
+
+  #
+  # Display help
+  # 
   def show_help
     @scr.show_cursor = false
     w = 50
@@ -50,14 +91,6 @@ class Display
 
     @scr.refresh
     @scr.getch
-  end
-
-  def redraw
-    raise AbstractMethod.new if self.class == Display
-  end
-
-  def key_list
-    raise AbstractMethod.new if self.class == Display
   end
 
 end

@@ -32,7 +32,8 @@ class Game
   end
 
   def [](x, y)
-    @tiles[x + (y * @map_w)]
+    return nil if x < 0 or y < 0 or x > @map_w-1 or y > @map_h - 1
+    return @tiles[x + (y * @map_w)]
   end
 
   def advance_round!

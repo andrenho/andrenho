@@ -37,16 +37,19 @@ class Unit
   end
 
   def description
-    return @military.name # TODO - skill/job
+    @military.name # TODO - skill/job
   end
 
   def inspect
-    s = "(#{@military.name})  M:#{@moves_left}"
-    return s
+    "(#{@military.name})  M:#{@moves_left}"
   end
 
   def tile
-    return @game[@x, @y]
+    @game[@x, @y]
+  end
+
+  def can_build_city?
+    false
   end
 
 protected
