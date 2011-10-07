@@ -1,4 +1,5 @@
 require 'display'
+require 'cityworkersdisplay'
 
 class MapDisplay < Display
 
@@ -19,7 +20,7 @@ class MapDisplay < Display
   
   def redraw
     super
-    clear
+    @scr.clear
 
     # draw box
     @scr.box 0, 0, @scr.w-1, @scr.h-3
@@ -60,7 +61,10 @@ class MapDisplay < Display
   def input_b
     if @driver.focused and @driver.focused.can_build_city?
       name = ask_s(_('What is the name of the new city?'))
-      @driver.focused.build_city(name) if name
+      if name
+        city = @driver.focused.build_city(name)
+        return CityWorkersDisplay.new(@driver, city, @scr)
+      end
     end
     nil
   end
