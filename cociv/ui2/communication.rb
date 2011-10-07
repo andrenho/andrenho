@@ -7,9 +7,9 @@ module Communication
     txt = (question + ' ').wrap(@scr.w)
     @scr.x = @scr.y = 0
     txt.split("\n").each { @scr.puts ' ' * @scr.w }
-    @scr.print 0, 0, txt.chomp
+    @scr.print 0, 0, '<message>' + txt.chomp
     refresh
-    @last_message = ''
+    @last_message = nil
     return @scr.gets
   end
 
@@ -22,15 +22,15 @@ module Communication
     txt.split("\n").each { @scr.puts ' ' * @scr.w }
     @scr.x = (question.start_with? '<right>') ? @scr.w-1 : 0
     @scr.y = 0
-    @scr.print txt.chomp
-    refresh
-    echo
+    @scr.print '<message>' + txt.chomp
+    @scr.refresh
+    @scr.echo = true
     @scr.x = x; @scr.y = y if x != -1
     @scr.show_cursor = true
-    response = getch
+    response = @scr.getch
     @scr.show_cursor = false
-    noecho
-    @last_message = ''
+    @scr.echo = false
+    @last_message = nil
     return nil if response == 27
     return response
   end
@@ -65,17 +65,28 @@ module Communication
     c = ?a
     options.each do |option|
       @scr.print sx-1, sy, ' ' * (max+2)
-      @scr.print sx, sy, "#{c} - #{option[1]}"
+      @scr.print sx, sy, "<message>#{c} - #{option[1]}"
       c = c.next
       sy += 1
     end
     @scr.print sx-1, sy, ' ' * (max+2)
     ch = ask_c("<right>#{question}")
     n = ch.ord - ?a.ord
-    @last_message = ''
+    @last_message = nil
     return nil if n < 0 or n > options.length - 1
     return options[n][0]
   end
 
+  # 
+  # Display a message to the user
+  #
+  def message(msg)
+    m = msg.wrap(@scr.w)
+    @scr.x = @scr.y = 0
+    m.split("\n").each { @scr.puts ' ' * @scr.w }
+    @scr.puts 0, 0, '<message>' + m
+    refresh
+    @last_message = msg
+  end
 
 end
