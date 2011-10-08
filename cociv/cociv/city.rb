@@ -108,8 +108,8 @@ class City
     return b
   end
 
-  # Returns a list of colonists on this city.
-  def colonists
+  # Returns a list of residents on this city.
+  def residents
     u = []
     @buildings.each { |building| u << building.workers }
     (x-1).upto(x+1) do |xx|

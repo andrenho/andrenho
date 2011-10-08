@@ -30,3 +30,9 @@ end
 def assert(message='')
   raise AssertException.new(message) unless yield
 end
+
+class CocivMessage < Exception
+  def initialize(message)
+    super(message)
+  end
+end

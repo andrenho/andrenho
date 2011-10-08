@@ -52,7 +52,7 @@ class Unit
     false
   end
 
-  def is_worker?
+  def worker?
     false
   end
 

@@ -79,6 +79,7 @@ class BasicLayer
   def color=(name); raise AbstractMethod.new; end
   def show_cursor=(t); raise AbstractMethod.new; end
   def echo=(t); raise AbstractMethod.new; end
+  def reverse=(t); raise AbstractMethod.new; end
   def getch; raise AbstractMethod.new; end
   def gets; raise AbstractMethod.new; end
   def exit; raise AbstractMethod.new; end
@@ -93,6 +94,9 @@ protected
       return nil
     elsif cmd == 'right'
       return :right
+    elsif cmd == 'reverse'
+      self.reverse = true
+      return nil
     else
       raise "Invalid command #{cmd}!"
     end
