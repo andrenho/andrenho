@@ -21,6 +21,10 @@ class LandUnit < Unit
     @working_on = nil
   end
 
+  def is_worker?
+    @working_on != nil
+  end
+
 protected
 
   def move_ok?(fx, fy)

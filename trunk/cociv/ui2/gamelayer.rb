@@ -30,12 +30,12 @@ class GameLayer
     end
 
     # units
-    message.gsub! /\[unit\s+(\d+)\]/ do |m|
+    message.gsub! /\[unit\s+(\-?\d+)\]/ do |m|
       char_unit($1.to_i)
     end
 
     # cities
-    message.gsub! /\[city\s+(\d+)\]/ do |m|
+    message.gsub! /\[city\s+(\-?\d+)\]/ do |m|
       char_city($1.to_i)
     end
 

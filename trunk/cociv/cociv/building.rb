@@ -7,12 +7,6 @@ class Building
   # Array of people working on this building
   attr_reader :workers
 
-  # List of messages
-  Messages = {
-    :too_many_workers => _('This building doesn\'t hold more than %d units.'),
-    :no_workers => _('This building doesn\'t require workers.'),
-  }
-
   # Create a new building
   def initialize(city, type)
     @city = city

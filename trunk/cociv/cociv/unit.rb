@@ -52,6 +52,10 @@ class Unit
     false
   end
 
+  def is_worker?
+    false
+  end
+
 protected
 
   def initialize(game, nation, military, x, y)
