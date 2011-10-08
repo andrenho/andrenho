@@ -70,7 +70,19 @@ private
   end
 
   def char_city(n)
-    'O'
+    @game.nations.each do |nation|
+      nation.cities.each do |city|
+        if city.hash == n
+          if city.residents.length < 10
+            c = city.residents.length.to_s
+          else
+            c = '#'
+          end
+          return "<#{nation_color(nation)}><reverse>#{c}"
+        end
+      end
+    end
+    raise
   end
 
   def char_terrain(x,y)

@@ -15,8 +15,10 @@ class Building
   end
 
   # Add a worker to the building
-  def add_worker(unit)
-    return false if @workers.length == @type.max_units
+  def employ(unit)
+    if @workers.length == @type.max_units
+      return CocivMessage.new(_('Too many workers in this building.'))
+    end
     unit.abandon_job!
     unit.job = @type.job
     @workers << unit

@@ -31,6 +31,9 @@ class Display
       show_help
     elsif ch == 27 # ESC
       message ''
+      return self.input_esc if self.respond_to? :input_esc
+    elsif self.respond_to? :input_other
+      input_other ch
     end
     return nil
   end
@@ -42,7 +45,7 @@ class Display
     raise AbstractMethod.new if self.class == Display
   end
 
-protected
+protected ################################
 
   # 
   # List of keys that can be used on this screen
@@ -61,7 +64,7 @@ protected
     end
   end
 
-private
+private ###################################
 
   #
   # Display help

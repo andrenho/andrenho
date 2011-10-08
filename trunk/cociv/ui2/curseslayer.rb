@@ -111,6 +111,14 @@ class CursesLayer < BasicLayer
     curs_set t ? 1 : 0
   end
 
+  def reverse=(t)
+    if t
+      attron A_REVERSE
+    else
+      attroff A_REVERSE
+    end
+  end
+
   def echo=(t)
     if t
       echo
@@ -132,6 +140,7 @@ class CursesLayer < BasicLayer
       if r == 27
         response = nil
         break
+        # TODO - backspace
       elsif r == 10 or r == 13
         break
       end

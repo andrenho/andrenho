@@ -12,8 +12,10 @@ class MapDisplay < Display
 
   def key_list
     {
-      'b' => '(Unit) Build new city',
-      'Q' => 'Abandon game',
+      'C' => _('Manage a city'),
+      'b' => _('(Unit) Build new city'),
+      'S' => _('Save game and exit'),
+      'Q' => _('Abandon game'),
     }
   end
 
@@ -45,6 +47,24 @@ class MapDisplay < Display
       @scr.y = y - @rx + 1
       @scr.show_cursor = true
     end
+  end
+
+
+  # Choose a city to manage
+  def input_C
+    return nil if @game.player.cities.empty?
+    options = []
+    @game.player.cities.each { |city| options << [city, city.name] }
+    choice = menu(_('Choose a city no manage:'), options)
+    return CityWorkersDisplay.new(@driver, choice, @scr) if choice
+  end
+
+
+  # save and exit
+  def input_S
+    @game.save!
+    @scr.exit
+    exit 0
   end
 
   

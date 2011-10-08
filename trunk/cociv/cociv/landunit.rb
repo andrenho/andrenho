@@ -21,7 +21,7 @@ class LandUnit < Unit
     @working_on = nil
   end
 
-  def is_worker?
+  def worker?
     @working_on != nil
   end
 
