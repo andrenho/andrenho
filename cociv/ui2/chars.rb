@@ -43,4 +43,6 @@ def init_color(scr)
   scr.init_color_curses('israel', COLOR_CYAN, -1)
   scr.init_color_curses('prairie', COLOR_GREEN, -1, A_DIM)
   scr.init_color_curses('key', COLOR_MAGENTA, -1, A_BOLD)
+  scr.init_color_curses('surplus', COLOR_GREEN, -1)
+  scr.init_color_curses('lacking', COLOR_RED, -1)
 end
