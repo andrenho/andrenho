@@ -25,6 +25,7 @@ class CityWorkersDisplay < Display
     @scr.box 0, 0, @scr.w-1, @scr.h-2
     s = "<title> #{@city.name} - #{_('Worker Management')} "
     @scr.print (@scr.w/2 - s.length/2), 0, s
+    @scr.print @scr.w-1, @scr.h-3, "<right><gold>$#{@game.player.gold}"
 
     # buildings
     @scr.puts 1, 1, '<title>'+_('Buildings')

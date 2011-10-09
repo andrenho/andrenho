@@ -149,7 +149,7 @@ class CursesLayer < BasicLayer
       
     noecho
     self.show_cursor = 0
-    return response == '' ? nil : response
+    return response
   end
 
   def exit
