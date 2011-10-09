@@ -28,9 +28,13 @@ module Cargo
     city = @game[@x,@y].city
     # check for errors
     assert { city }
-    raise NoSpace if not has_space? good, amount
+    if not has_space? good, amount
+      raise CocivMessage.new('Not enough space on the #{self.military.name}.')
+    end
     if city.nation != @nation
-      raise NotEnoughFunds if (amount * city.price[good].buy) > @nation.gold
+      if (amount * city.price[good].buy) > @nation.gold
+        raise CocivMessage.new('Not enough money.')
+      end
       # pay up
       @nation.gold -= (amount * city.price[good].buy)
     end

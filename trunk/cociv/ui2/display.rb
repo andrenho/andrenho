@@ -66,6 +66,11 @@ protected ################################
     end
   end
 
+  def invalid_key
+    message _("Invalid key. Press '?' for help.")
+    nil
+  end
+
 private ###################################
 
   #

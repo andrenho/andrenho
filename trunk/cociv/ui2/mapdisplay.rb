@@ -9,16 +9,6 @@ class MapDisplay < Display
     @rx, @ry = 0, 0    # relative positions
   end
 
-
-  def key_list
-    {
-      'C' => _('Manage a city'),
-      'b' => _('(Unit) Build new city'),
-      'S' => _('Save game and exit'),
-      'Q' => _('Abandon game'),
-    }
-  end
-
   
   def redraw
     super
@@ -47,6 +37,18 @@ class MapDisplay < Display
       @scr.y = y - @rx + 1
       @scr.show_cursor = true
     end
+  end
+
+
+protected #################################
+
+  def key_list
+    {
+      'C' => _('Manage a city'),
+      'b' => _('(Unit) Build new city'),
+      'S' => _('Save game and exit'),
+      'Q' => _('Abandon game'),
+    }
   end
 
 
