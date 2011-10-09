@@ -55,7 +55,7 @@ class MapDisplay < Display
     return nil if @game.player.cities.empty?
     options = []
     @game.player.cities.each { |city| options << [city, city.name] }
-    choice = menu(_('Choose a city no manage:'), options)
+    choice = menu(_('Choose a city to manage:'), options)
     return CityWorkersDisplay.new(@driver, choice, @scr) if choice
   end
 

@@ -7,6 +7,7 @@ class Array
   end
 
   def sum
+    0 if self.empty?
     self.inject{|sum,x| sum + x }
   end
 

@@ -11,10 +11,8 @@ class Nation
     @color = color
 
     create_unit!(Peasant, 2, 2)
-    create_unit!(Peasant, 2, 2)
-    create_unit!(Peasant, 2, 2)
-    #create_unit!(Caravan, 2, 2)
-    #create_unit!(Caravan, 2, 2)
+    create_unit!(Caravan, 2, 2)
+    create_unit!(Caravan, 2, 2)
   end
 
   def create_unit!(military, x, y)

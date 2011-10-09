@@ -50,7 +50,8 @@ class City
     @under_construction = Warehouse_1
   end
 
-  # calculate production of the city
+  # Calculate production of the city. The value is returned as a hash, where
+  # the goods are the keys and the values are Production classes.
   def production
     prod = {}
     Good.all.each { |good| prod[good] = Production.new }
@@ -101,7 +102,7 @@ class City
     bts_here = @buildings.map { |b| b.type }
     BuildingType.all.each do |bt|
       if not bts_here.include? bt and bts_here.include? bt.prerequisite \
-      and colonists.length >= bt.min_colony
+      and residents.length >= bt.min_colony
         b << bt
       end
     end
