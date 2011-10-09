@@ -8,12 +8,6 @@ class CityWorkersDisplay < Display
     @city = city
   end
 
-  def key_list
-    {
-      '$' => _('Manage city goods'),
-    }
-  end
-
   def redraw
     super
     @scr.clear
@@ -61,7 +55,7 @@ class CityWorkersDisplay < Display
       end
 
       @scr.puts
-      c = c.next
+      c.next!
     end
 
     # under construction
@@ -133,7 +127,7 @@ class CityWorkersDisplay < Display
       @units_outside[c] = [unit, x, y]
       @scr.print x, y-1, "<key>#{c}"
       @scr.print x, y, "[unit #{unit.hash}]"
-      x += 1; c = c.next
+      x += 1; c.next!
     end
     @scr.print @scr.x, y-1, ']' if not units_outside.empty?
 
@@ -142,6 +136,12 @@ class CityWorkersDisplay < Display
   end
 
 protected ################################
+
+  def key_list
+    {
+      '$' => _('Manage city goods'),
+    }
+  end
 
   #
   # One of the buildings or units was chosen
@@ -182,12 +182,14 @@ protected ################################
             else
               move_unit(unit, nchoice[0]) if nchoice
             end
+          else
+            invalid_key
           end
         end
       end
 
     else
-      message _("Invalid key. Press '?' for help.")
+      invalid_key
 
     end
     nil
