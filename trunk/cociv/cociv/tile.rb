@@ -83,14 +83,10 @@ class Tile
 
   # Return what would be the production of this tile, 
   # if the unit were working on it.
-  def productivity_jobs(unit)
-    prod = {}
-    Job.all.select{ |j| j.raw }.each do |job|
-      n = self.abs_productivity(job.good) # TODO - rivers, etc
-      n *= 2 if unit.skill and unit.skill.good == job.good
-      prod[job] = n
-    end
-    return prod
+  def productivity_job(unit, job)
+    n = self.abs_productivity(job.good) # TODO - rivers, etc
+    n *= 2 if unit.skill and unit.skill.good == job.good
+    n
   end
 
   # Return the absolute production of this tile for a given good.

@@ -1,4 +1,5 @@
 require 'display'
+require 'citygoodsdisplay'
 
 class CityWorkersDisplay < Display
 
@@ -9,6 +10,7 @@ class CityWorkersDisplay < Display
 
   def key_list
     {
+      '$' => _('Manage city goods'),
     }
   end
 
@@ -27,22 +29,23 @@ class CityWorkersDisplay < Display
 
     # box
     @scr.box 0, 0, @scr.w-1, @scr.h-2
-    @scr.print (@scr.w/2 - @city.name.length/2), 0, '<title> '+@city.name+' '
+    s = "<title> #{@city.name} - #{_('Worker Management')} "
+    @scr.print (@scr.w/2 - s.length/2), 0, s
 
     # buildings
     @scr.puts 1, 1, '<title>'+_('Buildings')
     max_bd_len = (BuildingType.all.collect { |b| b.name.length }).max
-    @scr.puts max_bd_len+7, 2, "#{_('Wks')}  #{_('Production')}"
+    @scr.puts max_bd_len+6, 2, "#{_('Wks')}  #{_('Production')}"
     c = ?a
     @city.buildings.each do |building|
       # name
       @scr.x = 2
-      @buildings[c] = [building, max_bd_len+7, @scr.y]
-      @scr.print "<key>#{c}<default> - #{building.type.name}"
+      @buildings[c] = [building, max_bd_len+6, @scr.y]
+      @scr.print "<key>#{c}<default>) #{building.type.name}"
       
       # workers
       (0..(building.type.max_units-1)).each do |i|
-        @scr.x = max_bd_len + 7 + i
+        @scr.x = max_bd_len + 6 + i
         if building.workers[i]
           @scr.print "[unit #{building.workers[i].hash}]"
         else
@@ -51,23 +54,33 @@ class CityWorkersDisplay < Display
       end
       
       # production
-      @scr.x = max_bd_len + 12
+      @scr.x = max_bd_len + 11
       good = building.type.good
       if good and pr[good].theorical > 0
-        @scr.print "#{pr[good].theorical} #{good.name} [<surplus>#{pr[good].surplus}/<lacking>#{pr[good].lacking}<default>]"
+        @scr.print "#{pr[good].theorical} #{good.name.downcase} [<surplus>#{pr[good].surplus}<default>/<lacking>#{pr[good].lacking}<default>]"
       end
 
       @scr.puts
       c = c.next
     end
 
+    # under construction
+    @scr.x = 2
+    @scr.puts
+    @scr.print "<key>%<default>) #{_('Under construction')}: "
+    if @city.under_construction
+      @scr.print '<message>' + @city.under_construction.name
+    else
+      @scr.print '<message>' + _('Nothing')
+    end
+
     # outdoors
-    x = @scr.w-32
-    y = 4
-    @scr.puts x, 1, '<title>'+_('Farms')
-    @scr.puts x, 3, '<key> 7  8  9'
-    @scr.puts x-1, 7, '<key>4          6'
-    @scr.puts x, 11, '<key> 1  2  3'
+    x = @scr.w-30
+    y = 3
+    @scr.puts x-2, 1, '<title>'+_('Outdoors')
+    @scr.puts x, y-1, '<key> 7  8  9'
+    @scr.puts x-1, y+3, '<key>4          6'
+    @scr.puts x, y+7, '<key> 1  2  3'
     @scr.box x+3, y, 3, 6
     @scr.box x, y+2, 9, 2
     @scr.box x, y, 9, 6
@@ -85,6 +98,28 @@ class CityWorkersDisplay < Display
           @scr.print "[terrain #{tx} #{ty}]"
         end
         @scr.print "[terrain #{tx} #{ty}]"
+      end
+    end
+
+    # outdoors output
+    @scr.x = @scr.w - 16
+    @scr.y = 2
+    DIRECTIONS_C.reverse_each do |k,v|
+      nb = true
+      @game[@city.x+v[0], @city.y+v[1]].production.each do |pr|
+        @scr.puts "#{(nb ? "#{k})" : '  ')} #{pr[1]} #{pr[0].name.downcase}"
+        nb = false if nb
+      end
+    end
+
+    # raw goods production
+    @scr.x = @scr.w - 32
+    @scr.y = 12
+    @scr.puts '<title>' + _('Raw good production')
+    #@scr.puts
+    Good.all.select{ |g| g.raw }.each do |g|
+      if pr[g].theorical > 0
+        @scr.puts "  #{pr[g].theorical} #{g.name.downcase} (<surplus>#{pr[g].surplus}<default>/<lacking>#{pr[g].lacking}<default>)"
       end
     end
       
@@ -112,6 +147,9 @@ protected ################################
   # One of the buildings or units was chosen
   #
   def input_other(ch, n=0)
+    change_construction if ch == '%'
+    return CityGoodsDisplay.new(@driver, @city, @scr) if ch == '$'
+
     # discover what the user chose
     choice = (@buildings[ch] or @outdoor_workers[ch] or @units_outside[ch])
     if choice
@@ -134,7 +172,7 @@ protected ################################
         elsif nch == '-' and unit.worker?
           unit.abandon_job!
         elsif nch == '/' and unit.working_on.is_a? Tile
-          change_job
+          change_job(unit, choice[0])
         else
           nchoice = (@buildings[nch] or @outdoor_workers[nch])
           if nchoice
@@ -146,8 +184,11 @@ protected ################################
             end
           end
         end
-
       end
+
+    else
+      message _("Invalid key. Press '?' for help.")
+
     end
     nil
   end
@@ -173,9 +214,17 @@ private ##################################
     @scr.print 1, @scr.h-1, help
   end
 
+
+  def change_construction
+    b = menu _('What do you want to build?'), @city.buildable.map { |b| [b, b.name] }
+    @city.under_construction = b if b
+  end
+
   
-  def change_job
-    # TODO
+  def change_job(unit, tile)
+    jobs = Job.all.select{ |j| j.raw }.map{ |j| [j, "#{j.name} (#{tile.productivity_job(unit, j)} #{j.good.name})"] }
+    j = menu _('What should be the job of this worker?'), jobs
+    unit.job = j if j
   end
 
 

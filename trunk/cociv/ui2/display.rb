@@ -33,7 +33,9 @@ class Display
       message ''
       return self.input_esc if self.respond_to? :input_esc
     elsif self.respond_to? :input_other
-      input_other ch
+      return input_other ch
+    else
+      message _("Invalid key. Press '?' for help.")
     end
     return nil
   end
