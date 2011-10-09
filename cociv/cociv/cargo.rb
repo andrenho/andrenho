@@ -11,6 +11,7 @@ module Cargo
     def amount=(n)
       raise if n > 100
       @amount = n
+      @good = nil if n == 0
     end
   end
 
@@ -39,7 +40,7 @@ module Cargo
       @nation.gold -= (amount * city.price[good].buy)
     end
     # unload from warehouse
-    city.warehouse.load good, amount
+    city.warehouse.load(good, amount)
     # load to unit
     @slots.each do |slot| 
       if not slot.good or (slot.good == good and (100-slot.amount) >= amount)
@@ -51,7 +52,18 @@ module Cargo
     raise 'Assertion error: no free slots found.'
   end
 
-  def unload(good, amount=100)
+  def unload(slot_number, amount=100)
+    city = @game[@x,@y].city
+    # check for errors
+    assert { city }
+    assert { amount <= @slots[slot_number].amount and amount > 0 }
+    # load to warehouse
+    city.warehouse.store(@slots[slot_number].good, amount)
+    # pay up
+    @nation.gold += (amount * city.price[@slots[slot_number].good].sell)
+    # unload from unit
+    @slots[slot_number].amount -= amount
+    # TODO - reorganize slots
   end
 
 protected

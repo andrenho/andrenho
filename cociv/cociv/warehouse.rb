@@ -9,7 +9,7 @@ class Warehouse < Building
     @max_size = building_type.storage
     @goods = {}
     Good.all.each do |good|
-      @goods[good] = 200
+      @goods[good] = 0
     end
   end
 

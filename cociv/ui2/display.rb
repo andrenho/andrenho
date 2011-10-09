@@ -68,6 +68,7 @@ protected ################################
 
   def invalid_key
     message _("Invalid key. Press '?' for help.")
+    @scr.refresh
     nil
   end
 
