@@ -75,19 +75,26 @@ protected #################################
       @scr.x, @scr.y = choice[1], choice[2]
       @scr.show_cursor = true
 
+      # TODO - check if the amount is zero
+
       # get new char
       nch = @scr.getch
       amt = -1
       # TODO - check amount
       message '' ; @scr.show_cursor = false
-      nchoice = (choice[0].is_a? Good) ? @units_store[ch] : @goods[ch]
+      nchoice = ((choice[0].is_a? Good) ? @units_store[nch] : @goods[nch])
       if nchoice
-        if choice[0].is_a? Good # moving from city to unit
-          amt = [100, @city.warehouse[choice[0]].amount].max if amt == -1
-          nchoice[0].load(choice[0], amt)
-        else # moving from unit to city
-          amt = [100, choice[0].slots[choice[3]].amount].max if amt == -1
-          choice[0].unload(nchoice[0], amt)
+        begin
+          if choice[0].is_a? Good # moving from city to unit
+            amt = [100, @city.warehouse[choice[0]]].min if amt == -1
+            nchoice[0].load(choice[0], amt)
+          else # moving from unit to city
+            amt = [100, choice[0].slots[choice[3]].amount].min if amt == -1
+            choice[0].unload(nchoice[0], amt)
+          end
+        rescue CocivMessage => e
+          message e.message + ' [' + _('Press SPACE') + ']'
+          getch
         end
       else
         invalid_key
@@ -98,6 +105,7 @@ protected #################################
       invalid_key
       
     end
+    nil
   end
 
 private ###################################
