@@ -29,7 +29,7 @@ module Cargo
     # check for errors
     assert { city }
     if not has_space? good, amount
-      raise CocivMessage.new('Not enough space on the #{self.military.name}.')
+      raise CocivMessage.new(_("Not enough space on the #{self.military.name}."))
     end
     if city.nation != @nation
       if (amount * city.price[good].buy) > @nation.gold
@@ -65,6 +65,3 @@ protected
   end
 
 end
-
-class NotEnoughFunds < Exception; end
-class NoSpace < Exception; end
