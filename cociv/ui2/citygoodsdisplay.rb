@@ -25,7 +25,7 @@ class CityGoodsDisplay < Display
     @scr.print @scr.w-1, @scr.h-3, "<right><gold>$#{@game.player.gold}"
 
     # goods available
-    @scr.print 1, 1, '<title>' + _('Goods in the city')
+    @scr.print 1, 1, '<title>' + _('Warehouse')
     @scr.x = 2
     @scr.y = 3
     c = ?a
@@ -37,7 +37,7 @@ class CityGoodsDisplay < Display
 
     # units available
     x = 40
-    @scr.print x, 1, '<title>' + _('Units here')
+    @scr.print x, 1, '<title>' + _('Units stationed here')
     @scr.x = x
     @scr.y = 3
     c = ?A

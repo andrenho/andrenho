@@ -5,6 +5,7 @@ class Tile
   }
 
   attr_reader :x, :y
+  attr_reader :known
   
   # Terrain of this tile
   attr_accessor :terrain
@@ -26,6 +27,7 @@ class Tile
     @city = nil
     @worker = nil
     @belongs_to = nil
+    @known = {}
   end
 
   # Returns a Array containing the units in this tile
