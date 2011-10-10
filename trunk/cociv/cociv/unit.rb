@@ -56,6 +56,10 @@ class Unit
     false
   end
 
+  def sight
+    1 # TODO
+  end
+
 protected
 
   def initialize(game, nation, military, x, y)
@@ -67,6 +71,7 @@ protected
       extend Cargo
       init_cargo(@military.cargo)
     end
+    discover_tiles
   end
 
   def generic_move_ok?(fx, fy)
@@ -74,6 +79,14 @@ protected
     return false if fx < 0 or fy < 0 or fx >= @game.map_w or fy >= @game.map_h
     return false if tile.cost_to_enter(self) > @moves_left
     return true
+  end
+
+  def discover_tiles
+    (-sight..sight).each do |x|
+      (-sight..sight).each do |y|
+        @game[@x+x,@y+y].known[@nation] = true
+      end
+    end
   end
   
 end

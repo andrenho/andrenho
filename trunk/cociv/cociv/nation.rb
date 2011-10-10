@@ -11,6 +11,13 @@ class Nation
     @gold = 0
     @color = color
 
+    # doesn't know anything
+    (0..(@game.map_w-1)).each do |x|
+      (0..(@game.map_h-1)).each do |y|
+        @game[x,y].known[self] = false
+      end
+    end
+
     create_unit!(Peasant, 2, 2)
     create_unit!(Caravan, 2, 2)
     create_unit!(Caravan, 2, 2)

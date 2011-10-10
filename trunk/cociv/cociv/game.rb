@@ -19,7 +19,7 @@ class Game
   attr_reader :map_w, :map_h, :nations, :player, :year
 
   def Game.load
-    return Marshal::load(File.open("#{ENV['HOME']}/.cociv/savefile"))
+    return Marshal::load(File.open("#{ENV['HOME']}/.cociv/savefile", 'rb'))
   end
 
   def initialize(w, h)
@@ -49,7 +49,7 @@ class Game
     begin 
       Dir.mkdir "#{ENV['HOME']}/.cociv"
     rescue Errno::EEXIST; end
-    open("#{ENV['HOME']}/.cociv/savefile", 'w') do |f|
+    open("#{ENV['HOME']}/.cociv/savefile", 'wb') do |f|
       f.print Marshal::dump(self)
     end
   end

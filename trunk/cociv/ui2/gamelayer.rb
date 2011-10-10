@@ -92,7 +92,9 @@ private
   end
 
   def char_tile(x,y)
-    if @game[x,y].city
+    if not @game[x,y].known[@game.player]
+      return ' '
+    elsif @game[x,y].city
       char_city(@game[x,y].city.hash)
     elsif not @game[x,y].units.empty?
       char_unit(@game[x,y].units[0].hash) # TODO
