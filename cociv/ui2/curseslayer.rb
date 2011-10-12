@@ -15,8 +15,8 @@ class CursesLayer < BasicLayer
     end
     init_screen
     curs_set 1
-    #raw
-    #cbreak
+    raw
+    cbreak
     noecho
     stdscr.keypad = 1
 

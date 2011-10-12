@@ -113,8 +113,8 @@ class City
   def residents
     u = []
     @buildings.each { |building| u << building.workers }
-    (x-1).upto(x+1) do |xx|
-      (y-1).upto(y+1) do |yy|
+    (-1..1).each do |xx|
+      (-1..1).each do |yy|
         next if xx == 0 and yy == 0
         u << @game[@x+xx,@y+yy].worker
       end

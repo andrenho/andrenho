@@ -10,6 +10,7 @@ class Unit
       @old_x, @old_y = x, y
       @x, @y = fx, fy
       @moves_left -= @game[@x,@y].cost_to_enter(self)
+      discover_tiles
       return true
     end
     return false
@@ -84,7 +85,9 @@ protected
   def discover_tiles
     (-sight..sight).each do |x|
       (-sight..sight).each do |y|
-        @game[@x+x,@y+y].known[@nation] = true
+        if @x+x >= 0 and @y+y >= 0 and @x+x < @game.map_w and @y+y < @game.map_h
+          @game[@x+x,@y+y].known[@nation] = true
+        end
       end
     end
   end
