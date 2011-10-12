@@ -15,13 +15,14 @@ class MapDisplay < Display
     @scr.clear
 
     # draw things
+    draw_info
     x, y = draw_map
     show_last_message
 
     # set focused unit
     if x
-      @scr.x = x - @rx + 1
-      @scr.y = y - @rx + 1
+      @scr.x = x + @rx + 1
+      @scr.y = y + @ry + 1
       @scr.show_cursor = true
     else
       @scr.show_cursor = false
@@ -33,7 +34,8 @@ protected #################################
   def key_list
     {
       'C' => _('Manage a city'),
-      'b' => _('(Unit) Build new city'),
+      'w' => _('Select next unit'),
+      'B' => _('(Unit) Build new city'),
       'S' => _('Save game and exit'),
       'Q' => _('Abandon game'),
     }
@@ -68,7 +70,7 @@ protected #################################
 
 
   # build new city
-  def input_b
+  def input_B
     if @driver.focused and @driver.focused.can_build_city?
       name = ask_s(_('What is the name of the new city?'))
       if name
@@ -79,12 +81,56 @@ protected #################################
     nil
   end
 
+  # wait
+  def input_w
+    @driver.select_next!
+  end
+
+  # others keys (such as movement)
+  def input_other(ch)
+    if @driver.focused
+      # check for movement
+      ch = NETHACK_KEYS[ch] if NETHACK_KEYS.has_key? ch
+      if DIRECTIONS.has_key? ch.to_i
+        @driver.move_unit(ch) 
+      # rest
+      elsif ch == ' '
+        @driver.focused.end_round
+        @driver.select_next!
+      end
+    end
+
+    # move screen
+    if CONTROL_NETHACK_KEYS.has_key? ch
+      fx,fy = DIRECTIONS[CONTROL_NETHACK_KEYS[ch]]
+      @rx += fx
+      @ry += fy
+    end
+    nil
+  end
+
 
 private ##################################
 
+  def draw_info
+    def ppair(a,b)
+      @scr.puts '<message>' + a + (' ' * (18-a.length-b.to_s.length)) + '<value>' + b.to_s
+    end
+    # game info
+    @scr.x = @scr.y = 0
+    @scr.puts '<info>' + @game.player.name
+    ppair _('Year'), @game.year.abs.to_s + _(' B.C.')
+    @scr.puts
+    # selected unit
+    if (u = @driver.focused)
+      @scr.puts '<info>' + u.military.name
+      ppair _('Moves left'), u.moves_left
+      # TODO - skill
+    end
+  end
+
 
   def draw_map
-
     x = 18
 
     # draw box
@@ -93,13 +139,19 @@ private ##################################
     @scr.puts ((@scr.w-x-1)/2 - t.length/2) + x, 0, "<title>#{t}"
 
     # draw tiles
-    (1..(@scr.h-1)).each do |y|
+    (1..(@scr.h-4)).each do |y|
       @scr.x = x+1
       @scr.y = y
       (1..(@scr.w-x-2)).each do |x|
         tx = x - @rx - 1
         ty = y - @ry - 1
-        @scr.print "[tile #{tx} #{ty}]" if @game[tx,ty]
+        if tx >= 0 and ty >= 0 and tx < @game.map_w and ty < @game.map_h
+          @scr.print "[tile #{tx} #{ty}]" if @game[tx,ty]
+        #elsif tx == -1 or ty == -1 or tx == (@game.map_w) or ty == (@game.map_h)
+        #  @scr.print '#'
+        else
+          @scr.print ' '
+        end
       end
     end
 

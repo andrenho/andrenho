@@ -11,16 +11,18 @@ class UI
     @driver = Driver.new
     @game = @driver.game
 
-    @scr = GameLayer.new(@game, CursesLayer.new)
+    @scr = GameLayer.new(@driver, CursesLayer.new)
     init_color(@scr)
   end
 
   def run!
     display = MapDisplay.new(@driver, @scr)
     while display != :exit
-      display.redraw
-      n = display.input
-      display = n if n
+      @driver.run_round do
+        display.redraw
+        n = display.input
+        display = n if n
+      end
     end
   end
 

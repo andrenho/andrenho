@@ -2,8 +2,9 @@ require 'chars'
 
 class GameLayer
 
-  def initialize(game, basiclayer)
-    @game = game
+  def initialize(driver, basiclayer)
+    @driver = driver
+    @game = driver.game
     @basiclayer = basiclayer
   end
 
@@ -97,7 +98,11 @@ private
     elsif @game[x,y].city
       char_city(@game[x,y].city.hash)
     elsif not @game[x,y].units.empty?
-      char_unit(@game[x,y].units[0].hash) # TODO
+      if @game[x,y].units.include? @driver.focused
+        char_unit(@driver.focused.hash)
+      else
+        char_unit(@game[x,y].units[0].hash)
+      end
     else
       char_terrain(x,y)
     end
