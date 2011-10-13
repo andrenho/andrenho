@@ -112,6 +112,7 @@ protected #################################
 
 private ##################################
 
+  # draw status on the left of the screen
   def draw_info
     def ppair(a,b)
       @scr.puts '<message>' + a + (' ' * (18-a.length-b.to_s.length)) + '<value>' + b.to_s
@@ -130,6 +131,7 @@ private ##################################
   end
 
 
+  # draw the tiles of the world map
   def draw_map
     x = 18
 
