@@ -93,7 +93,7 @@ private
   end
 
   def char_tile(x,y)
-    if not @game[x,y].known[@game.player]
+    if not @game[x,y].known[@game.player] and not @driver.wizard
       return ' '
     elsif @game[x,y].city
       char_city(@game[x,y].city.hash)

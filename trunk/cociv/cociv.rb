@@ -9,7 +9,7 @@ require 'ui2/ui'
 #
 begin
   ui = UI.new
-  ui.init
+  ui.init (ARGV[0] == 'megahit')
   ui.run!
 ensure
   ui.close

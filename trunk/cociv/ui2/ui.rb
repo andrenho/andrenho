@@ -7,8 +7,8 @@ include Curses
 
 class UI
 
-  def init
-    @driver = Driver.new
+  def init(wizard)
+    @driver = Driver.new(wizard)
     @game = @driver.game
 
     @scr = GameLayer.new(@driver, CursesLayer.new)
@@ -17,11 +17,12 @@ class UI
 
   def run!
     display = MapDisplay.new(@driver, @scr)
-    while display != :exit
+    while true
       @driver.run_round do
         display.redraw
         n = display.input
         display = n if n
+        return if display == :exit
       end
     end
   end

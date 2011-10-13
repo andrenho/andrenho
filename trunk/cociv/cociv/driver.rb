@@ -4,14 +4,15 @@ require 'game'
 
 class Driver
 
-  attr_reader :game, :focused
+  attr_reader :game, :focused, :wizard
 
-  def initialize
+  def initialize(wizard=false)
     begin
       @game = Game.load
     rescue
       @game = Game.new(20, 20)
     end
+    @wizard = wizard
     @focused = @game.nations[0].units[0]
   end
 
