@@ -83,10 +83,13 @@ class PlasmaFractal
     end
   end
 
-  def normalize!
-    mean = @data.map{ |row| row.sum }.sum / @size / @size
-    (0..(@size-1)).each do |x|
-      (0..(@size-1)).each do |y|
+  def normalize!(w,h)
+    #mean = @data.map{ |row| row.sum }.sum / @size / @size
+    @data.slice! w, @size
+    (0..(w-1)).each { |x| @data[x].slice! h, @size }
+    mean = @data.flatten.sort[((1/4.0)*@data.flatten.length).to_i]
+    (0..(w-1)).each do |x|
+      (0..(h-1)).each do |y|
         @data[x][y] -= mean
       end
     end
