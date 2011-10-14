@@ -11,6 +11,7 @@ require 'warehouse'
 require 'city'
 require 'nation'
 require 'tile'
+require 'cociv/worldbuild'
 
 require 'pp'
 
@@ -23,7 +24,7 @@ class Game
   end
 
   def initialize(w, h)
-    initialize_map(w, h)
+    create_world(w, h) # this method is in cociv/worldbuild.rb
     @nations = [ Nation.new(self, 'Israel', :light_blue) ]
     @player = @nations[0]
     @year = -2000
@@ -52,15 +53,6 @@ class Game
     open("#{ENV['HOME']}/.cociv/savefile", 'wb') do |f|
       f.print Marshal::dump(self)
     end
-  end
-
-protected
-
-  def initialize_map(w, h)
-    @map_w, @map_h = w, h
-    @tiles = []
-    (w*h).times { |i| @tiles[i] = Tile.new(self, i % w, i / w) }
-    #3.upto(4) { |x| 3.upto(4) { |y| self[x,y].terrain = Ocean } }
   end
 
 end

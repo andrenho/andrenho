@@ -1,10 +1,10 @@
-# code stolen from https://github.com/tonyc/ruby-plasma-fractal
+# adapted from https://github.com/tonyc/ruby-plasma-fractal
 
 class PlasmaFractal
   DEFAULT_SIZE = 9
   DEFAULT_HEIGHT_SEED = 100
   
-  attr_reader :size, :height_seed
+  attr_reader :size, :height_seed, :data
   
   def initialize(options = {})
     @size = options.delete(:size) || DEFAULT_SIZE
@@ -82,9 +82,19 @@ class PlasmaFractal
       puts
     end
   end
+
+  def normalize!
+    mean = @data.map{ |row| row.sum }.sum / @size / @size
+    (0..(@size-1)).each do |x|
+      (0..(@size-1)).each do |y|
+        @data[x][y] -= mean
+      end
+    end
+  end
   
-  protected
+protected
   def valid_size?
+    #(Math.sqrt(@size - 1) - Math.sqrt(@size - 1).to_i) == 0
     # There has to be a better way to do this...
     log_2_size = Math.log(@size - 1) / Math.log(2) 
     log_2_size.to_i == log_2_size
