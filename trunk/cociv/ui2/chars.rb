@@ -49,6 +49,7 @@ NETHACK_KEYS = {
 
 CONTROL_NETHACK_KEYS = {
   Curses::KEY_BACKSPACE => 4,
+  Curses::KEY_CTRL_H => 4,
   Curses::KEY_CTRL_J => 2,
   Curses::KEY_CTRL_K => 8,
   Curses::KEY_CTRL_L => 6,
@@ -68,4 +69,5 @@ def init_color(scr)
   scr.init_color_curses('israel',  COLOR_CYAN, -1, A_BOLD)
 
   scr.init_color_curses('prairie', COLOR_GREEN, -1, A_DIM)
+  scr.init_color_curses('ocean',   COLOR_BLUE, -1, A_DIM)
 end

@@ -28,7 +28,7 @@ class UI
   end
 
   def close
-    @scr.exit
+    @scr.exit if @scr
   end
 
 end
