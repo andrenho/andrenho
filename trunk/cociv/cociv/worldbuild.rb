@@ -7,10 +7,9 @@ protected
   def create_world(w, h)
     # create fractal
     sz = (2 ** Math.sqrt([w, h].max).ceil) + 1
-    p sz
     fractal = PlasmaFractal.new(:size => sz, :height_seed => 100)
     fractal.generate!
-    fractal.normalize!
+    fractal.normalize! w,h
 
     # print fractal data
 =begin
@@ -30,7 +29,7 @@ protected
     # sea
     w.times do |x|
       h.times do |y|
-        self[x,y].terrain = Ocean if fractal.data[x][y] < -2
+        self[x,y].terrain = Ocean if fractal.data[x][y] < 0
       end
     end
   end
