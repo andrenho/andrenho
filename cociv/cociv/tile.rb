@@ -19,6 +19,8 @@ class Tile
   # to what city this tile belongs to
   attr_accessor :belongs_to
 
+  attr_accessor :river
+
   # Create a new tile
   def initialize(game, x, y)
     @game = game
@@ -27,6 +29,7 @@ class Tile
     @city = nil
     @worker = nil
     @belongs_to = nil
+    @river = false
     @known = {}
   end
 
