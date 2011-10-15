@@ -21,6 +21,7 @@ class Driver
 
     @game.nations.each do |nation|
       if nation == @game.player # human player
+        yield if nation.round_over?
         yield while not nation.round_over?
       else
         nation.autoplay!

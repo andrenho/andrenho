@@ -32,6 +32,49 @@ protected
         self[x,y].terrain = Ocean if fractal.data[x][y] < 0
       end
     end
+
+    # hills
+    mean = fractal.data.flatten.sort[(0.92*w*h).to_i]
+    w.times do |x|
+      h.times do |y|
+        self[x,y].terrain = Hills if fractal.data[x][y] > mean
+      end
+    end
+
+    # mountains
+    mean = fractal.data.flatten.sort[(0.98*w*h).to_i]
+    w.times do |x|
+      h.times do |y|
+        self[x,y].terrain = Mountain if fractal.data[x][y] > mean
+      end
+    end
+
+    # rivers
+    #(Math.sqrt(w*h)/8).to_i.times do
+      create_river(rand(w), rand(h), w, h, fractal.data)
+    #end
+
+  end
+
+
+  def create_river(x, y, w, h, data)
+    while x >= 0 and y >= 0 and x < w and y < h and self[x,y].terrain != Ocean
+      self[x,y].river = true
+      min = 999
+      done = false
+      (-1..1).each do |xx|
+        (-1..1).each do |yy|
+          if self[x+xx,y+yy] and [xx,yy] != [0,0] and not done
+            if data[x+xx][y+yy] < min and not self[x+xx,y+yy].river
+              min = data[x+xx][y+yy]
+              x += xx
+              y += yy
+              done = true
+            end
+          end
+        end
+      end
+    end
   end
 
 end

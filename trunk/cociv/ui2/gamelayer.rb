@@ -89,6 +89,9 @@ private
   def char_terrain(x,y)
     terrain = @game[x,y].terrain # TODO rivers, etc...
     ch = $chars[terrain]
+    if @game[x,y].river
+      ch = $chars[:river]
+    end
     return "<#{ch[1]}>#{ch[0]}"
   end
 
