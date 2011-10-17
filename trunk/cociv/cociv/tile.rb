@@ -149,7 +149,7 @@ class Tile
 
   def autoset_terrain!
     return if [Ocean, Mountain, Hills].include? @terrain
-    if @extra.temperature < 3.0 + rand(4)
+    if @extra.temperature < 3.0 + rand(2)
       @terrain = Arctic
     end
   end
