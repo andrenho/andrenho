@@ -238,7 +238,7 @@ Woodland = Terrain.new(_('Woodland'),       10, 2, 2, [ 1, 0, 1, 0, 2, 0, 1, 0, 
 Swamp    = Terrain.new(_('Swamp'),          11, 3, 3, [ 2, 0, 0, 0, 1, 1, 3, 2, 0 ], Mudder, Marsh)
 
 Arctic   = Terrain.new(_('Arctic'),          5, 2, 0, [ 0, 0, 0, 0, 0, 1, 0, 1, 1 ], Prospector)
-Sea      = Terrain.new(_('Sea'),             2, 1, 0, [ 3, 0, 0, 0, 0, 0, 0, 0, 0 ], Fisherman)
+#Sea      = Terrain.new(_('Sea'),             2, 1, 0, [ 3, 0, 0, 0, 0, 0, 0, 0, 0 ], Fisherman)
 Ocean    = Terrain.new(_('Ocean'),           1, 1, 0, [ 3, 0, 0, 0, 0, 0, 0, 0, 0 ], Fisherman)
 Hills    = Terrain.new(_('Hills'),           4, 2, 4, [ 1, 0, 0, 0, 0, 3, 0, 3, 0 ], Tin_miner)
 Mountain = Terrain.new(_('Mountains'),       3, 3, 6, [ 0, 0, 0, 0, 0, 3, 0, 3, 1 ], Copper_miner)
