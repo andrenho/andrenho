@@ -49,15 +49,16 @@ class CursesLayer < BasicLayer
   end
 
   def printc(char)
-    if char == '{'
-      Curses.addch_gen Curses::ACS_DEGREE
+    #if char == '*'
+      #Curses.addch_gen Curses::ACS_DEGREE
       #Curses.addch_gen Curses::ACS_BULLET
       #Curses.addch_gen Curses::ACS_UARROW
       #Curses.addch_gen Curses::ACS_LANTERN
       #Curses.addch_gen Curses::ACS_PI
-    else
+    #  addch '*'
+    #else
       addch char
-    end
+    #end
   end
 
   def box(x,y,w,h,filled=false,color='default')

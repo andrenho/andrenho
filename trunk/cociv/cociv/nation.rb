@@ -3,6 +3,7 @@ class Nation
   attr_reader :units, :color, :name, :cities
   attr_accessor :gold
 
+  # Create a new nation.
   def initialize(game, name, color=nil)
     @game = game
     @name = name
@@ -11,16 +12,20 @@ class Nation
     @gold = 0
     @color = color
 
-    # doesn't know anything
+    # doesn't know any tile
     (0..(@game.map_w-1)).each do |x|
       (0..(@game.map_h-1)).each do |y|
         @game[x,y].known[self] = false
       end
     end
 
-    create_unit!(Peasant, 2, 2)
-    create_unit!(Caravan, 2, 2)
-    create_unit!(Caravan, 2, 2)
+    # find a tile and create unit
+    begin
+      x, y = rand(@game.map_w-10) + 5, rand(@game.map_h-10) + 5
+    end while [Ocean, Mountain, Hills].include? @game[x,y].terrain
+
+    $log.debug "Nation #{nation.name} initialized."
+    create_unit!(Peasant, x, y)
   end
 
   def create_unit!(military, x, y)
@@ -32,11 +37,8 @@ class Nation
   end
 
   def init_round
+    @cities.each { |c| c.produce! }
     @units.each { |u| u.init_round }
-  end
-
-  def end_round
-    @units.each { |u| u.end_round }
   end
 
   def round_over?

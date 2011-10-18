@@ -24,6 +24,7 @@ class City
     def initialize; @buy, @sell = 0, 0; end
   end
 
+
   # create a new city
   def initialize(game, nation, name, x, y)
     @game, @nation, @name, @x, @y = game, nation, name, x, y
@@ -48,7 +49,10 @@ class City
     # in construction
     @hammers = 0
     @under_construction = Warehouse_1
+    
+    $log.debug "New city #{name} created."
   end
+
 
   # Calculate production of the city. The value is returned as a hash, where
   # the goods are the keys and the values are Production classes.
@@ -95,6 +99,7 @@ class City
     return prod
   end
 
+
   # Returns a list of building types (BuildingType) that can be built on
   # this city.
   def buildable
@@ -109,6 +114,7 @@ class City
     return b
   end
 
+
   # Returns a list of residents on this city.
   def residents
     u = []
@@ -120,6 +126,19 @@ class City
       end
     end
     return u.flatten.compact
+  end
+
+
+  # Produce all goods for one round.
+  def produce!
+    # TODO - spill overload of goods
+    $log.debug "Producing goods for the city #{@name}..."
+    self.production.each_pair do |good, pr|
+      if pr.surplus > 0
+        $log.debug "#{pr.surplus} of #{good.name} produced."
+        @warehouse.store(good, pr.surplus)
+      end
+    end
   end
 
 end

@@ -90,9 +90,9 @@ protected #################################
   def input_other(ch)
     if @driver.focused
       # check for movement
-      ch = NETHACK_KEYS[ch] if NETHACK_KEYS.has_key? ch
-      if DIRECTIONS.has_key? ch.to_i
-        @driver.move_unit(ch) 
+      d = NETHACK_KEYS[ch] if NETHACK_KEYS.has_key? ch
+      if DIRECTIONS.has_key? d
+        @driver.move_unit(d)
       # rest
       elsif ch == ' '
         @driver.focused.end_round

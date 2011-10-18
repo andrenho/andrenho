@@ -5,12 +5,15 @@ class Unit
   attr_accessor :working_on
 
   def move(dir)
+    $log.debug 'Moving unit...'
     fx, fy = @x + DIRECTIONS[dir][0], @y + DIRECTIONS[dir][1]
     if move_ok? fx, fy
       @old_x, @old_y = x, y
       @x, @y = fx, fy
       @moves_left -= @game[@x,@y].cost_to_enter(self)
+      @moves_left = 0 if @moves_left < 0
       discover_tiles
+      $log.debug 'Movement ok!'
       return true
     end
     return false
@@ -72,13 +75,20 @@ protected
       extend Cargo
       init_cargo(@military.cargo)
     end
+    $log.debug "Unit (#{@military.name}) initialized."
     discover_tiles
   end
 
   def generic_move_ok?(fx, fy)
     tile = @game[fx,fy]
-    return false if fx < 0 or fy < 0 or fx >= @game.map_w or fy >= @game.map_h
-    return false if tile.cost_to_enter(self) > @moves_left
+    if fx < 0 or fy < 0 or fx >= @game.map_w or fy >= @game.map_h
+      $log.debug 'Movement rejected because it would go out of the map.'
+      return false 
+    end
+    if tile.cost_to_enter(self) > @moves_left and not @moves_left == self.military.moves
+      $log.debug 'Movement rejected because there are not enough moves left.'
+      return false
+    end
     return true
   end
 

@@ -21,16 +21,19 @@ class Warehouse < Building
     if not amount
       n = @goods[good]
       @goods[good] = 0
+      $log.debug "#{n} of #{good.name} taken from the warehouse."
       return n
     else
       raise NotEnoughGoods.new if amount > @goods[good]
       @goods[good] -= amount
+      $log.debug "#{amount} of #{good.name} taken from the warehouse."
       return amount
     end
   end
 
   def store(good, amount)
     @goods[good] += amount
+    $log.debug "#{amount} of #{good.name} stored in the warehouse."
   end
 
   def overload

@@ -79,6 +79,7 @@ class Tile
       unit.job = @terrain.suggested_job
     end
     @worker = unit # unit assigned to tile
+    $log.debug "Worker #{unit.military.name} was put to work on tile #{@x},#{@y}." if unit
   end
 
   # Return the current production of this tile in the format [Good, amount].
@@ -144,7 +145,7 @@ class Tile
     # trees
     r = 2.0
     @extra.trees = (@extra.humidity / 100.0) * (1.4 + (rand*r - r/2.0)) > 1.2
-    @extra.trees = true if rand < 0.05
+    @extra.trees = true if rand < 0.15
   end
 
   def autoset_terrain!

@@ -26,14 +26,17 @@ module Cargo
   end
 
   def load(good, amount=100)
+    $log.debug "Trying to load #{@military.name} with #{amount} of #{good.name}."
     city = @game[@x,@y].city
     # check for errors
     assert { city }
     if not has_space? good, amount
+      $log.debug "Not enough space on the #{self.military.name}."
       raise CocivMessage.new(_("Not enough space on the #{self.military.name}."))
     end
     if city.nation != @nation
       if (amount * city.price[good].buy) > @nation.gold
+        $log.debug 'Not enough money.'
         raise CocivMessage.new('Not enough money.')
       end
       # pay up
@@ -46,6 +49,7 @@ module Cargo
       if not slot.good or (slot.good == good and (100-slot.amount) >= amount)
         slot.good = good
         slot.amount += amount
+        $log.debug "Loaded #{@military.name} with #{amount} of #{good.name}."
         return true
       end
     end
@@ -63,6 +67,7 @@ module Cargo
     @nation.gold += (amount * city.price[@slots[slot_number].good].sell)
     # unload from unit
     @slots[slot_number].amount -= amount
+    $log.debug "#{amount} of #{good.name} unloaded from #{@military.name}."
     # TODO - reorganize slots
   end
 

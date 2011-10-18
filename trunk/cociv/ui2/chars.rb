@@ -11,13 +11,13 @@ $chars = {
   Plains   => [ '.', 'plains' ],
   Steppe   => [ '.', 'steppe' ],
   Marsh    => [ '.', 'marsh' ],
-  Scrub    => [ '{', 'plains' ],
-  Boreal_f => [ '{', 'tundra' ],
-  Scrub    => [ '{', 'plains' ],
-  Mixed_f  => [ '{', 'hills' ],
-  Savannah => [ '{', 'steppe' ],
-  Woodland => [ '{', 'prairie' ],
-  Swamp    => [ '{', 'marsh' ],
+  Scrub    => [ '*', 'plains' ],
+  Boreal_f => [ '*', 'tundra' ],
+  Scrub    => [ '*', 'desert' ],
+  Mixed_f  => [ '*', 'plains' ],
+  Savannah => [ '*', 'steppe' ],
+  Woodland => [ '*', 'prairie' ],
+  Swamp    => [ '*', 'plains' ],
   :river   => [ '%', 'ocean' ],
 
   # militaries
@@ -92,5 +92,5 @@ def init_color(scr)
   scr.init_color_curses('arctic',   COLOR_WHITE, -1, A_BOLD)
   scr.init_color_curses('tundra',   COLOR_WHITE, -1, A_DIM)
   scr.init_color_curses('steppe',   COLOR_YELLOW, -1, A_DIM)
-  scr.init_color_curses('marsh',    COLOR_MAGENTA, -1, A_DIM)
+  scr.init_color_curses('marsh',    COLOR_RED, -1, A_DIM)
 end

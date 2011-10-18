@@ -31,7 +31,9 @@ class CityGoodsDisplay < Display
     c = ?a
     Good.all.select{ |g| g.can_buy }.each do |good|
       @goods[c] = [good, @scr.x, @scr.y]
-      @scr.puts "<key>#{c})<default> [#{'%3d' % @city.warehouse[good]}] #{good.name}"
+      color = ''
+      color = '<surplus>' if @city.warehouse[good] > 0
+      @scr.puts "<key>#{c})<default> [#{color}#{'%3d' % @city.warehouse[good]}<default>] #{good.name}"
       c.next!
     end
 
@@ -47,7 +49,7 @@ class CityGoodsDisplay < Display
         @units_store[c] = [unit, x, @scr.y, n]
         @scr.print x, @scr.y, "<key>#{c}) #{ub ? "[unit #{unit.hash}]" : ' '} "
         if unit.slots[n].amount > 0
-          @scr.puts "[#{'%3d' % unit.slots[n].amount}] #{unit.slots[n].good.name}"
+          @scr.puts "[<surplus>#{'%3d' % unit.slots[n].amount}<default>] #{unit.slots[n].good.name}"
         else
           @scr.puts "[   ]"
         end
