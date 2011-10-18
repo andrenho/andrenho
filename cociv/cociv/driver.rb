@@ -10,7 +10,7 @@ class Driver
     begin
       @game = Game.load
     rescue
-      @game = Game.new(60,21)
+      @game = Game.new(60,20)
     end
     @wizard = wizard
     @focused = @game.nations[0].units[0]

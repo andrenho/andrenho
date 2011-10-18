@@ -1,14 +1,24 @@
 $chars = {
 
   # terrains
-  Ocean    => [ ':', 'ocean' ],
+  Ocean    => [ '%', 'ocean' ],
   Desert   => [ '.', 'desert' ],
-  Scrub    => [ '*', 'prairie' ],
   Prairie  => [ '.', 'prairie' ],
   Hills    => [ '^', 'hills' ],
   Mountain => [ '^', 'arctic' ],
   Arctic   => [ '.', 'arctic' ],
-  :river   => [ '.', 'ocean' ],
+  Tundra   => [ '.', 'tundra' ],
+  Plains   => [ '.', 'plains' ],
+  Steppe   => [ '.', 'steppe' ],
+  Marsh    => [ '.', 'marsh' ],
+  Scrub    => [ '{', 'plains' ],
+  Boreal_f => [ '{', 'tundra' ],
+  Scrub    => [ '{', 'plains' ],
+  Mixed_f  => [ '{', 'hills' ],
+  Savannah => [ '{', 'steppe' ],
+  Woodland => [ '{', 'prairie' ],
+  Swamp    => [ '{', 'marsh' ],
+  :river   => [ '%', 'ocean' ],
 
   # militaries
   Peasant        => 'p',
@@ -74,9 +84,13 @@ def init_color(scr)
 
   scr.init_color_curses('israel',   COLOR_CYAN, -1, A_BOLD)
 
-  scr.init_color_curses('prairie',  COLOR_GREEN, -1, A_DIM)
-  scr.init_color_curses('desert',   COLOR_YELLOW, -1, A_DIM)
+  scr.init_color_curses('prairie',  COLOR_GREEN, -1, A_BOLD)
+  scr.init_color_curses('plains',   COLOR_GREEN, -1, A_DIM)
+  scr.init_color_curses('desert',   COLOR_YELLOW, -1, A_BOLD)
   scr.init_color_curses('ocean',    COLOR_BLUE, -1, A_DIM)
   scr.init_color_curses('hills',    COLOR_RED, -1, A_DIM)
-  scr.init_color_curses('arctic', COLOR_WHITE, -1, A_DIM)
+  scr.init_color_curses('arctic',   COLOR_WHITE, -1, A_BOLD)
+  scr.init_color_curses('tundra',   COLOR_WHITE, -1, A_DIM)
+  scr.init_color_curses('steppe',   COLOR_YELLOW, -1, A_DIM)
+  scr.init_color_curses('marsh',    COLOR_MAGENTA, -1, A_DIM)
 end

@@ -83,6 +83,8 @@ protected
     self[x,y].river = true
     return if x == 0 or y == 0 or x == (w-1) or y == (h-1)
     min, min_pos = 999, []
+#    [[-1,0],[1,0],[0,-1],[0,1]].each do |xy|
+#      xx, yy = xy[0]+x, xy[1]+y
     ((x-1)..(x+1)).each do |xx|
       ((y-1)..(y+1)).each do |yy|
         if min > data[xx][yy] and self[xx,yy].river_tiles.length < 2
