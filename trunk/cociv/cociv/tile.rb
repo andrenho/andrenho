@@ -151,7 +151,22 @@ class Tile
     return if [Ocean, Mountain, Hills].include? @terrain
     if @extra.temperature < 3.0 + rand(2)
       @terrain = Arctic
+    elsif @extra.temperature < 5.0 + rand(10)
+      @terrain = Tundra
+    elsif @extra.temperature < 15.0 + rand(20)
+      if rand > 0.5
+        @terrain = Prairie
+      else
+        @terrain = Plains
+      end
+    elsif @extra.temperature < 30.0 + rand(10)
+      if (@extra.humidity + rand(50) - 25) > 70
+        @terrain = Marsh
+      else
+        @terrain = Steppe
+      end
     end
+    @terrain = @terrain.switch_status if @extra.trees and @terrain.switch_status
   end
 
 end
