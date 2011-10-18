@@ -23,6 +23,7 @@ class Building
     unit.job = @type.job
     @workers << unit
     unit.working_on = self
+    $log.debug "Unit #{unit.military.name} was put to work on #{@type.name}."
   end
 
   # Calculate the production of the building

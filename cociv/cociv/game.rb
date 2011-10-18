@@ -20,10 +20,12 @@ class Game
   attr_reader :map_w, :map_h, :nations, :player, :year
 
   def Game.load
+    $log.info "Loading game from #{ENV['HOME']}/.cociv/savefile..."
     return Marshal::load(File.open("#{ENV['HOME']}/.cociv/savefile", 'rb'))
   end
 
   def initialize(w, h)
+    $log.debug 'Initializing a new game.'
     create_world(w, h) # this method is in cociv/worldbuild.rb
     @nations = [ Nation.new(self, 'Israel', :light_blue) ]
     @player = @nations[0]
@@ -38,8 +40,13 @@ class Game
   end
 
   def advance_round!
-    @nations.each { |n| n.init_round }
+    $log.debug "Year #{@year} closed."
+    $log.debug '-------------------------------------'
+    
     @year += 1
+    $log.debug "New year #{@year} started."
+    
+    @nations.each { |n| n.init_round }
   end
 
   def inspect
@@ -47,12 +54,15 @@ class Game
   end
 
   def save!
+    $log.info "Saving game to #{ENV['HOME']}/.cociv/savefile."
     begin 
+      $log.debug "Creating directory #{ENV['HOME']}/.cociv."
       Dir.mkdir "#{ENV['HOME']}/.cociv"
     rescue Errno::EEXIST; end
     open("#{ENV['HOME']}/.cociv/savefile", 'wb') do |f|
       f.print Marshal::dump(self)
     end
+    $log.info 'Game saved.'
   end
 
 end

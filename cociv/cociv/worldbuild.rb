@@ -6,6 +6,7 @@ protected
   
   def create_world(w, h)
     # create fractal
+    $log.debug 'Creating fractal for map altitudes.'
     sz = (2 ** Math.sqrt([w, h].max).ceil) + 1
     fractal = PlasmaFractal.new(:size => sz, :height_seed => 100)
     fractal.generate!
@@ -22,11 +23,13 @@ protected
 =end
 
     # create tiles
+    $log.debug 'Creating map tiles.'
     @map_w, @map_h = w, h
     @tiles = []
     (w*h).times { |i| @tiles[i] = Tile.new(self, i % w, i / w) }
 
     # sea
+    $log.debug 'Creating oceans and mountains.'
     w.times do |x|
       h.times do |y|
         self[x,y].terrain = Ocean if fractal.data[x][y] < 0
@@ -50,6 +53,7 @@ protected
     end
 
     # rivers
+    $log.debug 'Creating rivers.'
     river_pct = 0.0
     begin
       begin
@@ -62,6 +66,7 @@ protected
     end while rt < 0.05 # rivers occupy 5% of dry land
 
     # calculate extras
+    $log.debug 'Setting up terrains.'
     w.times do |x| 
       h.times do |y| 
         self[x,y].extra.altitude = fractal.data[x][y]
@@ -75,6 +80,8 @@ protected
         self[x,y].autoset_terrain!
       end
     end
+
+    $log.debug 'Map generation completed.'
   end
 
 
@@ -99,22 +106,3 @@ protected
   end
 
 end
-
-
-=begin
-fractal.generate!
-fractal.data.each do |row|
-  row.each do |v|
-    print v.to_i.to_s.rjust(4)
-  end
-  puts
-end
-
-  def initialize_map(w, h)
-    @map_w, @map_h = w, h
-    @tiles = []
-    (w*h).times { |i| @tiles[i] = Tile.new(self, i % w, i / w) }
-    #3.upto(4) { |x| 3.upto(4) { |y| self[x,y].terrain = Ocean } }
-  end
-
-=end
