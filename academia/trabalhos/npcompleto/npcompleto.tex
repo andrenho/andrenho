@@ -1,0 +1,78 @@
+\documentclass[a4paper,twocolumn]{article}
+\pagestyle{empty}
+
+\usepackage[portuguese]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{concmath}
+
+\usepackage{booktabs}
+\renewcommand{\arraystretch}{1.2}
+
+%\usepackage{natbib}
+%\usepackage{pstricks}
+%\usepackage{pst-plot}
+\usepackage[pdftex]{graphicx}
+\usepackage{url}
+%\usepackage[top=1cm,bottom=1cm,left=1cm,right=1cm]{geometry}
+%\usepackage{multicol}
+
+%\usepackage{amssymb,amsmath}
+%\usepackage{extraipa}
+%\usepackage{euler}
+\everymath{\displaystyle}
+
+\author{André Wagner}
+\title{Problemas NP-Completos}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Introdução}
+
+Teoria da complexidade computacional é um ramo da ciência da computação que se ocupa com o estudo e a classificação de algoritmos computacionais de acordo com a sua complexidade. Os problemas são separados em \emph{classes de complexidade}, que compõe conjuntos de algoritmos de complexidade relacionadas. 
+
+A análise de um algoritmo é realizada através da sua taxa de crescimento relacionada ao tamanho de sua entrada. O crescimento avaliado pode ser por processamento ou uso de memória, embora o processamento geralmente seja a medida utiliada. Uma algoritmo, por exemplo, que dobra o tempo de processamento a cada aumento simples de sua entrada é chamado quadrático, pois para uma entrada de tamanho $n$ o tempo de processamento leva $n^2$. Na avaliação, geralmente é utilizado o pior caso.
+
+A notação utilizada para a representação da complexidade de um algoritmo é a \emph{notação assintótica} (também conhecida como Grande-O). Esta notação caracteriza uma função de acordo com o seu crescimento. Numa descrição informal, pode-se afirmar que a notação leva sempre em consideração o maior termo de uma função. Por exemplo: se o crescimento do tempo de execução de um algoritmo em relação ao tempo for representado pela função $f(n) = \frac{1}{2}n^3 + 14n^2 - 150n$, diz-se que este algoritmo tem complexidade $O(n^3)$, uma vez que $n^3$ é o maior termo da função.
+
+Dentre as diversas classes de complexidade, algumas das mais importantes e mais utilizadas são as classes DTIME, P, EXPTIME, NP, PSPACE e L. Para o objeto de estudo deste trabalho, serão analisadas as classes P e NP.
+
+% TODO - descrever seções
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Classes P e NP}
+
+A classificação das classes computacionais é feita levando-se em consideração o recurso de tempo ou memória necessários para se resolver um problema de decisão em uma determinada máquina. Um problema de decisão é um problema que pode ser resolvido com uma resposta ``sim'' ou ``não''. Por exemplo: ``dado um número $x$, a raiz quadrada de $a$ resulta em um inteiro?''
+
+Para efeito desta discussão, uma máquina abstrata pode ser uma máquina de Turing determinístia ou não-determinística. Uma máquina de Turing determinística é aquela onde existe um conjunto de regras descreve uma única ação que pode ser tomada para uma determinada situação. Já uma máquina de Turing não-determinística possui mais de uma ação que pode ser tomada para cada situação, todas estas ações simultaneamente. Um exemplo de um algoritmo executado em uma máquina de Turing não-deterministica poderia ser um algoritmo de ordenação, onde cada ação seria ordenar a lista de uma forma diferente. Como uma das ordenações seria eventualmente a correta, e todas as ordenações são feitas ao mesmo tempo, este algoritmo executaria em tempo $O(1)$.
+
+Enquanto o máquina de Turing determinística possui sua contrapartida física (exceto pela fita infinita), a máquina de Turing não-determinística é uma máquina teórica utilizada para a classificação de algoritmos.
+
+O conjunto de problemas da \textbf{classe P} contém todos os problemas de decisão que podem ser resolvidos por uma máquina de Turing determinística utilizando tempo polinomial. Um algoritmo pode ser resolvido em tempo polinomial caso ele possa ser resolvido em $O(n^k)$, onde $k$ é uma constante. Problemas de tempo polinomial podem ser resolvidos de forma rápida ou eficiente.
+
+O conjunto de problemas da \textbf{classe NP} contém os todos os problemas de decisão que podem ser resolvidos por uma máquina de Turing não-determinística utilizando tempo polinomial. A solução dos problemas da classe NP podem ser \emph{verificados em tempo polinomial} por uma máquina de Turing deteminística. 
+
+A classe P está contida na classe NP, mas é desconhecido se todos os problemas da classe NP estão contidos em P (ou seja, se $P=NP$), que é a questão aberta mais importante na ciência da computação hoje. Os problemas para os quais não se achou uma solução polinomial determinística são chamados de problemas NP-completos. Isto é ilustrado na Figura~\ref{fig:complexity}.
+
+\begin{figure}
+  \includegraphics[width=0.5\textwidth]{complexity.png}
+  \caption{Diagrama das classes de complexidade se $P\neq NP$.}
+  \label{fig:complexity}
+\end{figure}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\bibliographystyle{ieeetr}
+
+\begin{small}
+  \bibliography{npcompleto}
+\end{small}
+
+\end{document}
