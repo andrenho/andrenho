@@ -93,7 +93,7 @@ private ###################################
   def load_unit(good, x=0, y=0, amt=-1)
     return if @city.warehouse[good] == 0
 
-    message _('Where do you want to move these goods to?')
+    top_message _('Where do you want to move these goods to?')
     @scr.print 1, @scr.h-1, '<key>#<default>: ' + _('Move a specific amount of goods')
     @scr.refresh
 
@@ -106,7 +106,7 @@ private ###################################
       amt = ask_s _('How much of this good do you want to move?')
       amt = amt.to_i
       if amt < 1 or amt > 100
-        message 'Invalid amount.'
+        $messages << 'Invalid amount.'
         @scr.show_cursor = false
         return
       else
@@ -115,7 +115,7 @@ private ###################################
     end
 
     # ask destination
-    message '' ; @scr.show_cursor = false
+    @scr.show_cursor = false
     nchoice = @units_store[nch]
     if nchoice
       # move goods
@@ -124,7 +124,7 @@ private ###################################
         amt = [100, @city.warehouse[good]].min if amt == -1
         unit.load(good, amt)
       rescue CocivMessage => e
-        message e.message + ' [' + _('Press SPACE') + ']'
+        $messages << e.message
         getch
       end
     else
@@ -146,7 +146,7 @@ private ###################################
     else
       amt = amt.to_i
       if amt < 1 or amt > amount
-        message 'Invalid amount.'
+        $messages << 'Invalid amount.'
         @scr.show_cursor = false
         return
       end
@@ -157,7 +157,7 @@ private ###################################
       amt = [100, unit.slots[slot].amount].min if amt == -1
       unit.unload(slot, amt)
     rescue CocivMessage => e
-      message e.message + ' [' + _('Press SPACE') + ']'
+      messages << e.message
       getch
     end
   end

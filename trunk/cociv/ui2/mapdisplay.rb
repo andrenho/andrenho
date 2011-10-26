@@ -2,7 +2,6 @@ require 'display'
 require 'cityworkersdisplay'
 
 class MapDisplay < Display
-
   
   def initialize(driver, scr)
     super(driver, scr)
@@ -17,7 +16,7 @@ class MapDisplay < Display
     # draw things
     draw_info
     x, y = draw_map
-    show_last_message
+    show_messages
 
     # set focused unit
     if x

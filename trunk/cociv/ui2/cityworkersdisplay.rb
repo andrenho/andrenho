@@ -134,6 +134,8 @@ class CityWorkersDisplay < Display
 
     @scr.show_cursor = false
     @scr.refresh
+
+    show_messages
   end
 
 protected ################################
@@ -167,7 +169,7 @@ protected ################################
 
         # get new char
         nch = @scr.getch
-        message '' ; @scr.show_cursor = false
+        @scr.show_cursor = false
         if nch == 27 # ESC
           return nil
         elsif nch == '-' and unit.worker?
@@ -206,7 +208,7 @@ protected ################################
 private ##################################
 
   def show_help_move_unit(unit)
-    message _('Where do you want to move the unit to?')
+    top_message _('Where do you want to move the unit to?')
     help = ''
     if unit.worker?
       help = '<key>-<default>: ' + _('Leave city')
