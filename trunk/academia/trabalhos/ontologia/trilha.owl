@@ -37,6 +37,15 @@
         <Class IRI="#Coffee"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#CoffeeCakeRecepies"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CoffeeFood"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CoffeeProduct"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#CoffeeProducts"/>
     </Declaration>
     <Declaration>
@@ -58,10 +67,19 @@
         <Class IRI="#HerbalTea"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#HistoryOfCheeses"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#Location"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Market"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Meat"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MeatRecepies"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Milk"/>
@@ -76,6 +94,15 @@
         <Class IRI="#Purchase1"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#Purchase2"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Purchase3"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Subject"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#Sugar"/>
     </Declaration>
     <Declaration>
@@ -86,6 +113,9 @@
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasIngredient"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasSubject"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#objectBought"/>
@@ -99,6 +129,41 @@
     <Declaration>
         <DataProperty IRI="#hasPrice"/>
     </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#cheese"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#coffee"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#meat"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#milk"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#sugar"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#tea"/>
+    </Declaration>
+    <EquivalentClasses>
+        <Class IRI="#CoffeeFood"/>
+        <ObjectUnionOf>
+            <Class IRI="#Coffee"/>
+            <Class IRI="#CoffeeProducts"/>
+        </ObjectUnionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#CoffeeProduct"/>
+        <ObjectUnionOf>
+            <Class IRI="#CoffeeFood"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#hasSubject"/>
+                <Class IRI="#Coffee"/>
+            </ObjectSomeValuesFrom>
+        </ObjectUnionOf>
+    </EquivalentClasses>
     <EquivalentClasses>
         <Class IRI="#CoffeeProducts"/>
         <ObjectIntersectionOf>
@@ -115,7 +180,7 @@
             <Class IRI="#Purchase"/>
             <ObjectSomeValuesFrom>
                 <ObjectProperty IRI="#objectBought"/>
-                <Class IRI="#CoffeeProducts"/>
+                <Class IRI="#CoffeeProduct"/>
             </ObjectSomeValuesFrom>
         </ObjectIntersectionOf>
     </EquivalentClasses>
@@ -130,6 +195,34 @@
             <ObjectSomeValuesFrom>
                 <ObjectProperty IRI="#objectBought"/>
                 <Class IRI="#BlackCoffee"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#Purchase2"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Purchase"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#happenedIn"/>
+                <Class IRI="#Bookstore"/>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#objectBought"/>
+                <Class IRI="#CoffeeCakeRecepies"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#Purchase3"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Purchase"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#happenedIn"/>
+                <Class IRI="#Market"/>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#objectBought"/>
+                <Class IRI="#HerbalTea"/>
             </ObjectSomeValuesFrom>
         </ObjectIntersectionOf>
     </EquivalentClasses>
@@ -156,6 +249,13 @@
         <Class IRI="#BuyableItem"/>
     </SubClassOf>
     <SubClassOf>
+        <Class IRI="#Book"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#hasSubject"/>
+            <Class IRI="#Subject"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
         <Class IRI="#Bookstore"/>
         <Class IRI="#Location"/>
     </SubClassOf>
@@ -169,6 +269,36 @@
     <SubClassOf>
         <Class IRI="#Coffee"/>
         <Class IRI="#Food"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Coffee"/>
+        <Class IRI="#Subject"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CoffeeCakeRecepies"/>
+        <Class IRI="#Book"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CoffeeCakeRecepies"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#hasSubject"/>
+            <Class IRI="#Coffee"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CoffeeCakeRecepies"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#hasSubject"/>
+            <Class IRI="#Sugar"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CoffeeFood"/>
+        <Class IRI="#Food"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CoffeeProduct"/>
+        <Class IRI="#BuyableItem"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Coffeeshop"/>
@@ -215,6 +345,17 @@
         </ObjectSomeValuesFrom>
     </SubClassOf>
     <SubClassOf>
+        <Class IRI="#HistoryOfCheeses"/>
+        <Class IRI="#Book"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HistoryOfCheeses"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#hasSubject"/>
+            <Class IRI="#Milk"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
         <Class IRI="#Market"/>
         <Class IRI="#Location"/>
     </SubClassOf>
@@ -233,8 +374,31 @@
         </ObjectSomeValuesFrom>
     </SubClassOf>
     <SubClassOf>
+        <Class IRI="#Meat"/>
+        <Class IRI="#Food"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Meat"/>
+        <Class IRI="#Subject"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#MeatRecepies"/>
+        <Class IRI="#Book"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#MeatRecepies"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#hasSubject"/>
+            <Class IRI="#Meat"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
         <Class IRI="#Milk"/>
         <Class IRI="#Food"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Milk"/>
+        <Class IRI="#Subject"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#MilkCoffee"/>
@@ -284,12 +448,32 @@
         <Class IRI="#Purchase"/>
     </SubClassOf>
     <SubClassOf>
+        <Class IRI="#Purchase2"/>
+        <Class IRI="#Purchase"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Purchase3"/>
+        <Class IRI="#Purchase"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Subject"/>
+        <Class IRI="#Subject"/>
+    </SubClassOf>
+    <SubClassOf>
         <Class IRI="#Sugar"/>
         <Class IRI="#Food"/>
     </SubClassOf>
     <SubClassOf>
+        <Class IRI="#Sugar"/>
+        <Class IRI="#Subject"/>
+    </SubClassOf>
+    <SubClassOf>
         <Class IRI="#Tea"/>
         <Class IRI="#Food"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Tea"/>
+        <Class IRI="#Subject"/>
     </SubClassOf>
     <DisjointClasses>
         <Class IRI="#BuyableItem"/>
@@ -317,6 +501,10 @@
         <ObjectProperty IRI="#objectBought"/>
         <Class IRI="#Purchase"/>
     </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasSubject"/>
+        <Class IRI="#Subject"/>
+    </ObjectPropertyRange>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#objectBought"/>
         <Class IRI="#BuyableItem"/>
