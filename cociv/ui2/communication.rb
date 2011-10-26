@@ -9,7 +9,6 @@ module Communication
     txt.split("\n").each { @scr.puts ' ' * @scr.w }
     @scr.print 0, 0, '<message>' + txt.chomp
     refresh
-    @last_message = nil
     return @scr.gets
   end
 
@@ -30,7 +29,6 @@ module Communication
     response = @scr.getch
     @scr.show_cursor = false
     @scr.echo = false
-    @last_message = nil
     return nil if response == 27
     return response
   end
@@ -42,13 +40,10 @@ module Communication
     while true
       ch = ask_c(question + ' [' + _('yn') + ']')
       if ch == 'y'
-        @last_message = ''
         return true
       elsif ch == 'n'
-        @last_message = ''
         return false
       elsif ch == 10 or ch == 13 or ch == nil # (ESC)
-        @last_message = ''
         return default
       end
     end
@@ -72,21 +67,27 @@ module Communication
     @scr.print sx-1, sy, ' ' * (max+2)
     ch = ask_c("<right>#{question}")
     n = ch.ord - ?a.ord
-    @last_message = nil
     return nil if n < 0 or n > options.length - 1
     return options[n][0]
+  end
+
+  def top_message(msg)
+    m = msg.wrap(@scr.w)
+    @scr.puts 0, 0, (' ' * @scr.w + "\n") * m.count("\n")
+    @scr.puts 0, 0, '<message>' + msg
   end
 
   # 
   # Display a message to the user
   #
+=begin
   def message(msg)
     m = msg.wrap(@scr.w)
     @scr.x = @scr.y = 0
     m.split("\n").each { @scr.puts ' ' * @scr.w }
     @scr.puts 0, 0, '<message>' + m
     refresh
-    @last_message = msg
   end
+=end
 
 end

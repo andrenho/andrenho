@@ -2,6 +2,8 @@ require 'communication'
 require 'curseslayer'
 require 'gamelayer'
 
+$messages = []
+
 # 
 # Basic class for screens. It should be inherited by each one of the screens.
 #
@@ -59,16 +61,20 @@ protected ################################
   #
   # Display the last message
   #
-  def show_last_message
-    if @last_message
-      m = @last_message.wrap(@scr.w)
+  def show_messages
+    if not $messages.empty?
+      m = ($messages.join("\n") + "\n<default><reverse>" + _(' --- Press ENTER --- ')).wrap(@scr.w)
+      @scr.puts 0, 0, (' ' * @scr.w + "\n") * m.count("\n")
       @scr.puts 0, 0, '<message>' + m
+      $messages = [] # TODO
+      until [27, 13, ' '].include? getch ; end
+      redraw
     end
   end
 
   def invalid_key
-    message _("Invalid key. Press '?' for help.")
-    @scr.refresh
+    $messages << _("Invalid key. Press '?' for help.")
+    redraw
     nil
   end
 
