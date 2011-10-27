@@ -57,6 +57,8 @@ class CityGoodsDisplay < Display
         c.next!
       end
     end
+
+    $ui.show_messages
   end
 
 protected #################################
@@ -93,7 +95,7 @@ private ###################################
   def load_unit(good, x=0, y=0, amt=-1)
     return if @city.warehouse[good] == 0
 
-    top_message _('Where do you want to move these goods to?')
+    $ui.top_message _('Where do you want to move these goods to?')
     @scr.print 1, @scr.h-1, '<key>#<default>: ' + _('Move a specific amount of goods')
     @scr.refresh
 
@@ -103,10 +105,10 @@ private ###################################
       
     # ask amount to the user
     if nch == '#'
-      amt = ask_s _('How much of this good do you want to move?')
+      amt = $ui.ask_s _('How much of this good do you want to move?')
       amt = amt.to_i
       if amt < 1 or amt > 100
-        $messages << 'Invalid amount.'
+        $ui.messages << 'Invalid amount.'
         @scr.show_cursor = false
         return
       else
@@ -124,7 +126,7 @@ private ###################################
         amt = [100, @city.warehouse[good]].min if amt == -1
         unit.load(good, amt)
       rescue CocivMessage => e
-        $messages << e.message
+        $ui.messages << e.message
         getch
       end
     else
@@ -140,13 +142,13 @@ private ###################################
     good = unit.slots[slot].good
     return if amount == 0
     # ask amount to the user
-    amt = ask_s _("How much of #{good.name.downcase} do you want to move? [#{amount}]")
+    amt = $ui.ask_s _("How much of #{good.name.downcase} do you want to move? [#{amount}]")
     if amt == ''
       amt = amount
     else
       amt = amt.to_i
       if amt < 1 or amt > amount
-        $messages << 'Invalid amount.'
+        $ui.messages << 'Invalid amount.'
         @scr.show_cursor = false
         return
       end
@@ -157,7 +159,7 @@ private ###################################
       amt = [100, unit.slots[slot].amount].min if amt == -1
       unit.unload(slot, amt)
     rescue CocivMessage => e
-      messages << e.message
+      $ui.messages << e.message
       getch
     end
   end

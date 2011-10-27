@@ -24,7 +24,7 @@ class Nation
       x, y = rand(@game.map_w-10) + 5, rand(@game.map_h-10) + 5
     end while [Ocean, Mountain, Hills].include? @game[x,y].terrain
 
-    $log.debug "Nation #{nation.name} initialized."
+    $log.debug "Nation #{@name} initialized."
     create_unit!(Peasant, x, y)
   end
 

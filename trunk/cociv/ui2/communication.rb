@@ -1,4 +1,11 @@
-module Communication
+class Communication
+
+  attr_reader :messages
+
+  def initialize(scr)
+    @scr = scr
+    @messages = []
+  end
 
   # 
   # Ask the user a question that must be responded with a string
@@ -76,6 +83,20 @@ module Communication
     @scr.puts 0, 0, (' ' * @scr.w + "\n") * m.count("\n")
     @scr.puts 0, 0, '<message>' + msg
   end
+
+  #
+  # Display the last message
+  #
+  def show_messages
+    if not @messages.empty?
+      m = (@messages.join("\n") + "\n<default><reverse>" + _(' --- Press ENTER --- ')).wrap(@scr.w)
+      @scr.puts 0, 0, (' ' * @scr.w + "\n") * m.count("\n")
+      @scr.puts 0, 0, '<message>' + m
+      @messages = [] # TODO
+      until [27, 13, ' '].include? getch ; end
+    end
+  end
+
 
   # 
   # Display a message to the user

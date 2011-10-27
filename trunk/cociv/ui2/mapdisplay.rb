@@ -16,7 +16,7 @@ class MapDisplay < Display
     # draw things
     draw_info
     x, y = draw_map
-    show_messages
+    $ui.show_messages
 
     # set focused unit
     if x
@@ -46,7 +46,7 @@ protected #################################
     return nil if @game.player.cities.empty?
     options = []
     @game.player.cities.each { |city| options << [city, city.name] }
-    choice = menu(_('Choose a city to manage:'), options)
+    choice = $ui.menu(_('Choose a city to manage:'), options)
     return CityWorkersDisplay.new(@driver, choice, @scr) if choice
   end
 
@@ -61,7 +61,7 @@ protected #################################
   
   # abandon game
   def input_Q
-    if ask_yn(_('Do you want to abandond the game?'))
+    if $ui.ask_yn(_('Do you want to abandond the game?'))
       return :exit
     end
     nil
@@ -71,7 +71,7 @@ protected #################################
   # build new city
   def input_B
     if @driver.focused and @driver.focused.can_build_city?
-      name = ask_s(_('What is the name of the new city?'))
+      name = $ui.ask_s(_('What is the name of the new city?'))
       if name
         city = @driver.focused.build_city(name)
         return CityWorkersDisplay.new(@driver, city, @scr)
