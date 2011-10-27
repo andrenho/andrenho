@@ -135,7 +135,7 @@ class CityWorkersDisplay < Display
     @scr.show_cursor = false
     @scr.refresh
 
-    show_messages
+    $ui.show_messages
   end
 
 protected ################################
@@ -208,7 +208,7 @@ protected ################################
 private ##################################
 
   def show_help_move_unit(unit)
-    top_message _('Where do you want to move the unit to?')
+    $ui.top_message _('Where do you want to move the unit to?')
     help = ''
     if unit.worker?
       help = '<key>-<default>: ' + _('Leave city')
@@ -221,14 +221,14 @@ private ##################################
 
 
   def change_construction
-    b = menu _('What do you want to build?'), @city.buildable.map { |b| [b, b.name] }
+    b = $ui.menu _('What do you want to build?'), @city.buildable.map { |b| [b, b.name] }
     @city.under_construction = b if b
   end
 
   
   def change_job(unit, tile)
     jobs = Job.all.select{ |j| j.raw }.map{ |j| [j, "#{j.name} (#{tile.productivity_job(unit, j)} #{j.good.name})"] }
-    j = menu _('What should be the job of this worker?'), jobs
+    j = $ui.menu _('What should be the job of this worker?'), jobs
     unit.job = j if j
   end
 

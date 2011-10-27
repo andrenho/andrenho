@@ -12,6 +12,7 @@ class UI
     @game = @driver.game
 
     @scr = GameLayer.new(@driver, CursesLayer.new)
+    $ui = Communication.new(@scr)
     init_color(@scr)
   end
 

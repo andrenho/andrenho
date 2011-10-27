@@ -2,14 +2,10 @@ require 'communication'
 require 'curseslayer'
 require 'gamelayer'
 
-$messages = []
-
 # 
 # Basic class for screens. It should be inherited by each one of the screens.
 #
 class Display
-
-  include Communication
 
   # 
   # Constructor
@@ -32,12 +28,11 @@ class Display
     elsif ch == '?'
       show_help
     elsif ch == 27 # ESC
-      message ''
       return self.input_esc if self.respond_to? :input_esc
     elsif self.respond_to? :input_other
       return input_other ch
     else
-      message _("Invalid key. Press '?' for help.")
+      $ui.messages << _("Invalid key. Press '?' for help.")
     end
     return nil
   end
@@ -58,22 +53,8 @@ protected ################################
     raise AbstractMethod.new if self.class == Display
   end
 
-  #
-  # Display the last message
-  #
-  def show_messages
-    if not $messages.empty?
-      m = ($messages.join("\n") + "\n<default><reverse>" + _(' --- Press ENTER --- ')).wrap(@scr.w)
-      @scr.puts 0, 0, (' ' * @scr.w + "\n") * m.count("\n")
-      @scr.puts 0, 0, '<message>' + m
-      $messages = [] # TODO
-      until [27, 13, ' '].include? getch ; end
-      redraw
-    end
-  end
-
   def invalid_key
-    $messages << _("Invalid key. Press '?' for help.")
+    $ui.messages << _("Invalid key. Press '?' for help.")
     redraw
     nil
   end
