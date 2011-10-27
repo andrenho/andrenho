@@ -29,10 +29,15 @@ class CityGoodsDisplay < Display
     @scr.x = 2
     @scr.y = 3
     c = ?a
+    ovld = @city.warehouse.overload
     Good.all.select{ |g| g.can_buy }.each do |good|
       @goods[c] = [good, @scr.x, @scr.y]
       color = ''
-      color = '<surplus>' if @city.warehouse[good] > 0
+      if ovld.has_key? good
+        color = '<lacking>'
+      elsif @city.warehouse[good] > 0
+        color = '<surplus>'
+      end
       @scr.puts "<key>#{c})<default> [#{color}#{'%3d' % @city.warehouse[good]}<default>] #{good.name}"
       c.next!
     end
@@ -67,6 +72,11 @@ protected #################################
     {
       '@' => _('Manage city workers'),
     }
+  end
+
+  # Return to map screen
+  def input_esc
+    return MapDisplay.new(@driver, @scr)
   end
 
   def input_other(ch)
