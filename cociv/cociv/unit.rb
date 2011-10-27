@@ -19,7 +19,7 @@ class Unit
     return false
   end
 
-  def init_round
+  def init_round!
     @moves_left = @military.moves
   end
 

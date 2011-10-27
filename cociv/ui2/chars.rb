@@ -64,11 +64,10 @@ NETHACK_KEYS = {
 }
 
 CONTROL_NETHACK_KEYS = {
-  Curses::KEY_BACKSPACE => 4,
-  Curses::KEY_CTRL_H => 4,
-  Curses::KEY_CTRL_J => 2,
-  Curses::KEY_CTRL_K => 8,
-  Curses::KEY_CTRL_L => 6,
+  'H' => 4,
+  'J' => 2,
+  'K' => 8,
+  'L' => 6,
 }
 
 def init_color(scr)

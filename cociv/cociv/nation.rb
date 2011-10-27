@@ -37,8 +37,8 @@ class Nation
   end
 
   def init_round
-    @cities.each { |c| c.produce! }
-    @units.each { |u| u.init_round }
+    @cities.each { |c| c.init_round! }
+    @units.each { |u| u.init_round! }
   end
 
   def round_over?

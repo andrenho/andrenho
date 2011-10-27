@@ -73,7 +73,11 @@ class Communication
     end
     @scr.print sx-1, sy, ' ' * (max+2)
     ch = ask_c("<right>#{question}")
-    n = ch.ord - ?a.ord
+    begin
+      n = ch.ord - ?a.ord
+    rescue
+      return nil
+    end
     return nil if n < 0 or n > options.length - 1
     return options[n][0]
   end
@@ -93,7 +97,7 @@ class Communication
       @scr.puts 0, 0, (' ' * @scr.w + "\n") * m.count("\n")
       @scr.puts 0, 0, '<message>' + m
       @messages = [] # TODO
-      until [27, 13, ' '].include? getch ; end
+      until [27, 10, 13, ' '].include? getch ; end
     end
   end
 

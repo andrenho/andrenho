@@ -128,6 +128,13 @@ class City
     return u.flatten.compact
   end
 
+  # Initialize a new round
+  def init_round!
+    @warehouse.throw_away_overload!
+    produce!
+  end
+
+protected
 
   # Produce all goods for one round.
   def produce!

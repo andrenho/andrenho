@@ -39,9 +39,17 @@ class Warehouse < Building
   def overload
     g = {}
     Good.all.each do |good|
-      g[good] = @goods[good] if @goods[good] > @max_size
+      g[good] = (@goods[good] - @max_size) if @goods[good] > @max_size
     end
     return g
+  end
+
+  # Throw away when it doesn't fit in the warehouse.
+  def throw_away_overload!
+    overload.each_pair do |good,amt|
+      @goods[good] = @max_size
+      $ui.messages << "The warehouse was full, and #{amt} t of #{good.name} had to be thrown away."
+    end
   end
 
 end
