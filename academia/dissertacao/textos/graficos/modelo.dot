@@ -1,5 +1,7 @@
 digraph modelo {
 
+  layout = fdp;
+  sep = 0.25;
   node [style=filled,fillcolor=white];
   node [shape=box]; "Gerenciador\nde trilhas"; "Cliente";
   node [shape=hexagon,fixedsize=true,width=1.1,height=0.8]; 
@@ -7,24 +9,25 @@ digraph modelo {
     "Base de\nRegras";
   node [shape=oval,fixedsize=true,width=1.3];
 
-  
   subgraph cluster_eProfile {
     label = "eProfile";
     style = filled;
     fillcolor = lightgrey;
-    Mediador -> "Ontologia\nde Trilha";
+    "Ontologia\nde Perfil" [style="bold,filled"];
+    Conversor -> "Ontologia\nde Trilha";
     "Administrador\nde regras" -> "Base de\nRegras";
     "Base de\nRegras" -> Raciocinador;
     "Ontologia\nde Trilha" -> Raciocinador;
     Raciocinador -> "Ontologia\nde Perfil";
+    rankdir = LR;
   }
 
-  "Cliente" -> "Gerenciador\nde trilhas" -> Mediador;
-  "Cliente" -> "Administrador\nde regras";
-  "Ontologia\nde Perfil" -> "Cliente" [style=dotted];
+//  subgraph cluster_external {
+    "Cliente" -> "Gerenciador\nde trilhas" -> Conversor;
+    "Cliente" -> "Administrador\nde regras";
+    "Ontologia\nde Perfil" -> "Cliente";
+  //  }  
 
-  overlap = false;
-  rankdir = LR;
   // label = "Modelo eProfile";
   fontsize = 12;
 }
