@@ -2,32 +2,40 @@ digraph modelo {
 
   layout = fdp;
   sep = 0.25;
+
   node [style=filled,fillcolor=white];
-  node [shape=box]; "Gerenciador\nde trilhas"; "Cliente";
+
+  // externos
+  node [shape=box]; 
+    GerenciadorDeTrilhas [label="Gerenciador\n de Trilhas"]; 
+    Cliente;
+
+  // ontologias
   node [shape=hexagon,fixedsize=true,width=1.1,height=0.8]; 
-    "Ontologia\nde Trilha"; "Ontologia\nde Perfil";
-    "Base de\nRegras";
+    OntologiaDeTrilha [label="Ontologia\nde Trilha"];
+    OntologiaDePerfil [label="Ontologia\nde Perfil",style="bold,filled"];
+    BaseDeRegras [label="Base de\nRegras"];
+
+  // agentes
   node [shape=oval,fixedsize=true,width=1.3];
+    Regulador;
+    Raciocinador;
+    Conversor;
 
   subgraph cluster_eProfile {
     label = "eProfile";
     style = filled;
     fillcolor = lightgrey;
-    "Ontologia\nde Perfil" [style="bold,filled"];
-    Conversor -> "Ontologia\nde Trilha";
-    "Administrador\nde regras" -> "Base de\nRegras";
-    "Base de\nRegras" -> Raciocinador;
-    "Ontologia\nde Trilha" -> Raciocinador;
-    Raciocinador -> "Ontologia\nde Perfil";
-    rankdir = LR;
+    Conversor -> OntologiaDeTrilha;
+    Regulador -> BaseDeRegras;
+    BaseDeRegras -> Raciocinador;
+    OntologiaDeTrilha -> Raciocinador;
+    Raciocinador -> OntologiaDePerfil;
   }
 
-//  subgraph cluster_external {
-    "Cliente" -> "Gerenciador\nde trilhas" -> Conversor;
-    "Cliente" -> "Administrador\nde regras";
-    "Ontologia\nde Perfil" -> "Cliente";
-  //  }  
+  Cliente -> GerenciadorDeTrilhas -> Conversor;
+  Cliente -> Regulador;
+  OntologiaDePerfil -> Cliente;
 
-  // label = "Modelo eProfile";
   fontsize = 12;
 }

@@ -1,0 +1,22 @@
+digraph perfil {
+
+  Information -> Thing [label="is-a",fontsize=10];
+  Entity -> Thing [label="is-a",fontsize=10];
+
+  PastInformation -> Information [label="is-a",fontsize=10];
+  PresentInformation -> Information [label="is-a",fontsize=10];
+  FutureInformation -> Information [label="is-a",fontsize=10];
+
+  Identity -> PresentInformation [label="is-a",fontsize=10];
+  Ability -> PresentInformation [label="is-a",fontsize=10];
+  Preference -> PresentInformation [label="is-a",fontsize=10];
+  Relation -> PresentInformation [label="is-a",fontsize=10];
+
+  Relation -> Entity [style=dotted, label="has-with", fontsize=10];
+  Relation -> NonEntity [style=dotted, label="has-with", fontsize=10];
+
+  Entity -> Information [style=dotted, label="has", fontsize=10];
+
+  rankdir=BT;
+  labelfontsize=10;
+}

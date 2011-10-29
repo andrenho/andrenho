@@ -1,0 +1,17 @@
+digraph OntologiaTrilhas {
+
+  Event -> Activity [label="has-some",fontsize=10];
+  Event -> Location [label="has-a",fontsize=10];
+  Event -> Identity [label="has-a",fontsize=10];
+  Event -> Time [label="has-a",fontsize=10];
+  Event -> Participants [label="has-some",fontsize=10];
+
+  Location -> Region [label="has-a",fontsize=10];
+  Location -> GPSLocation [label="has-a",fontsize=10];
+  Participants -> Identity [label="has-a",fontsize=10];
+  Identity -> Resource [label="has-a",fontsize=10];
+  Identity -> Profile [label="has-a",fontsize=10];
+  Region -> Region [label="has-some",fontsize=10];
+
+  rankdir=LR;
+}
