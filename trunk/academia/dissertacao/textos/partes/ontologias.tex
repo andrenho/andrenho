@@ -1,0 +1,94 @@
+O eProfile utiliza internamente duas ontologias: uma ontologia de trilhas e uma ontologia de perfis. Para o armazenamento e processamento das ontologias, foram estudadas algumas linguagens de representação de conhecimento.
+
+% CycL
+A linguagem \textbf{CycL} é a linguagem utilizada pelo o projeto de \emph{Cyc}\cite{lenat89}. O Cyc é um projeto de inteligência artificial que tem o objetivo de montar uma ontologia e base de conhecimento a partir do senso comum, com o propósito de permitir que aplicações de inteligência artificial realizem raciocínio semelhante ao humano. A linguagem CycL é uma linguagem declarativa baseada em lógica de primeira ordem clássica, com extensões para operadores modais e lógica de ordem superior. A base de conhecimento é dividida em micro-teorias (Mt), que são coleções de conceitos e fatos tipicamente pertencentes a um domínio particular de conhecimentos e, ao contrário da base de conhecimento como um todo, cada micro-teoria deve estar livre de contradições.
+
+% RDF/S
+\textbf{RDF} (\emph{Resource Description Framework}) é uma linguagem utilizada para representação de metadados a respeito de recursos na Web\cite{rdf}. No entanto, o conceito de ``recurso da Web'' pode ser generalizado, de forma que o RDF pode ser utilizado para representar informações a respeito de coisas que podem ser identificadas na Web, mesmo que elas não possam ser carregadas da Web. Recursos podem ser recursos eletrônicos, como arquivos, ou conceitos, como pessoas. O RDF é complementado pelo \textbf{RDF/S} (\emph{RDF/Schema}), uma extensão semântica do RDF. O RDF/S é uma linguagem de descrição de vocabulário que provê mecanismos para descrever grupos de recursos relacionados e os relacionamentos entre estes recursos\cite{rdfs}.
+
+% DAML+OIL
+O \textbf{DAML+OIL} é uma linguagem de representação de conhecimento baseada nas linguagens DAML e OIL. O DAML (\emph{DARPA Agent Markup Language}) foi desenvolvido pelo Centro de Pesquisas Avançadas da Defesa Americana e é uma linguagem de marcação de agentes baseada no RDF. Já o OIL (\emph{Ontology Inference Layer}) é uma linguagem com os mesmos objetivos, criada pelo por um grupo de universidades europeias. Ambos os esforços foram unidos na criação do DAML+OIL, que por sua vez deu origem ao OWL\cite{daconta03}.
+
+% OWL
+O \textbf{OWL} é a linguagem de ontologia mais expressiva definida ou em definição para a Web Semântica\cite{daconta03}. O OWL utiliza URI\footnote{\emph{Uniform Resource Identifier}} para os nomes, e a estrutura de descrição disponibilizada pelo RDF. O OWL está uma camada acima do RDF e do RDF/S, e adiciona mais vocabulário para descrever propriedades e classes: entre outros, relações entre classes, cardinalidade, igualdade, tipagem mais avançada de propriedades, características de propriedades e classes enumeradas\cite{owl-guide}. O OWL está disponível em três sublinguages: \emph{OWL Lite}, \emph{OWL DL} e \emph{OWL Full}, cada uma aumentando o nível de complexidade e expressividade. Um grande número de ferramentas com capacidade para edição e raciocínio semântico com suporte para OWL está disponível no mercado.
+
+% Escolhido - OWL
+Devido à expressividade e ao suporte de ferramentas externas, o OWL foi escolhido como linguagem de ontologias utilizado pelo eProfile para modelagem da ontologia do perfil.
+
+As ontologias utilizadas pelo eProfile -- tanto a ontologia de trilhas quanto a ontologia de perfil -- são ontologias básicas, extendidas através de subclasses de acordo com o formato da trilha enviada pelo gerenciador (no caso da ontologia de trilha) ou das necessidades do cliente (no caso da ontologia do perfil). Isto é representado na Figura~\ref{fig:heranca}, onde o eProfile oferece uma classe genérica ``Evento'', que é especializada pela classe ``EventoDeCompra'', utilizada por um dos gerenciadores de trilha.
+
+\begin{figure}
+  \centering\includegraphics[width=0.5\textwidth]{imagens/heranca.png}
+  \caption{Exemplo da extensão de uma classe do eProfile}
+  \label{fig:heranca}
+\end{figure}
+
+\subsubsection{Ontologia de Trilha}
+
+A ontologia de trilha está representada na Figura~\ref{fig:ont_trilha}, onde todos os relacionamentos, representados pelas setas, são do tipo ``has-some'' (tem-algum(s)).
+
+\begin{figure*}
+  \centering\includegraphics[width=1\textwidth]{imagens/ont_trilha.png}
+  \caption{Ontologia de Trilha do eProfile}
+  \label{fig:ont_trilha}
+\end{figure*}
+
+Abowd e Dey definem que aplicações sensíveis a contexto estão interessadas em saber {\em quem}, {\em onde}, {\em quando} e {\em o quê} (isto é, o que o usuário está fazendo), de forma a poderem descobrir por que a situação está ocorrendo\cite{abowd99}. Assim, uma trilha é representada por um conjunto de eventos caracterizados pelas seguintes classes:
+
+\begin{description}
+
+  \item[Indentity:] É a identidade da entidade que está realizando a ação. Esta entidade pode estar realizando a ação com um ou mais recursos ({\em Resource}) (como um aplicativo ou dispositivo) e pode estar vinculada a um perfil ({\em Profile}) dentro do eProfile. A classe \textbf{Participants} contém as identidades das entidades que estão participando deste evento;
+
+  \item[Location:] Onde está ocorrendo a ação. Uma localização pode ser uma localização física específica (como uma sala) ou não (uma estrada, por exemplo). A localização pode estar vinculada a uma região ({\em Region} (que, adicionalmente, pode estar vinculada a outras subregiões) e geralmente possui uma localização global (GPS) vinculada a ela;
+
+  \item[Time:] Reponde à questão de {\em quando} ocorreu o evento;
+
+  \item[Activity:] Refere-se à ação que o usuário está executou (ou tentou executar). É a classe mais abrangente da ontologia, e a que possivelmente será a mais especializada pelos gerenciadores de trilha.
+
+\end{description}
+
+É importante notar que a própria classe base {\em Thing}\footnote{Em OWL, a classe {\em Thing} é a classe base a partir da qual todas as outras classes são extendidas.} pode ser extendida, como forma de registrar outras informações necessárias. Por exemplo, a trilha registra o interesse de um usuário em um determinado produto, a classe {\em Thing} pode ser extendida à classe {\em Product} para o registro das informações deste produto.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Ontologia de Perfil}
+
+A ontologia de perfil é a ontologia utilizada para armazenar as informações de perfil inferidas a partir da trilha. Esta ontologia está representada na Figura~\ref{fig:ont_perfil}.
+
+A ontologia possui duas classes básicas: {\em Entity} (entidade) e {\em Information} (informação). Assim, os perfis de várias entidades podem ser armazenados nesta ontologia, onde cada perfil possui um conjunto de informações. Este conjunto de informações será extendido pelas aplicações através de herança (subclasses). 
+
+Cada entidade é identificada por um nome único, mesmo que o perfil seja alimentado por vários clientes. Desta forma, é possível que um cliente tenha acesso a informações de perfil gravadas por outro cliente, desde que ele tenha conhecimento das classes utilizadas pelo outro.
+
+\begin{figure*}
+  \centering\includegraphics[width=1\textwidth]{imagens/ont_perfil.png}
+  \caption{Ontologia de Perfil do eProfile}
+  \label{fig:ont_perfil}
+\end{figure*}
+
+As informações podem ser de três tipos:
+
+\begin{description}
+
+  \item[PastInformation:] refere-se a eventos que ocorreram no passado. As informações armazenadas nesta classe são, de um modo geral, cumulativas. Exemplos seriam as escolas onde uma pessoa estudou, ou os destinos onde um caminhão já entregou alguma carga;
+
+  \item[PresentInformation:] são informações atuais da entidade, subdivididas em subclasses descritas mais adiante;
+
+  \item[FutureInformation:] são informações previstas a respeito do futuro de uma entidade, como o conjunto de disciplinas que uma pessoa tem a cursar, ou quantos quilômetros um caminhão pode percorrer antes de reabastecer.
+
+\end{description}
+
+As informações atuais podem ser dos seguintes tipos:
+
+\begin{description}
+
+  \item[Identity:] informações que identificam a entidade, como dados cadastrais.
+
+  \item[Preference:] preferências da entidade. Podem ser informações a respeito de interesses de um usuário ou aspectos mais técnicos, como protocolo preferencial de comunicação, ou até mesmo informações compostas, como qual qualidade de vídeo utilizar para cada banda de comunicação;
+
+  \item[Ability:] conjunto de capacidades de uma entidade. Capacidades incluem tanto habilidades de um usuário (como jogar xadrez) quanto capacidades de um serviço (por exemplo, suporte a webservices SOAP);
+
+  \item[Relation:] conjunto de relações relevantes desta entidade. As relações podem dizer respeito a uma outra entidade (por exemplo, um usuário que tenha outros amigos ou um carro que tem um dono) ou uma não-entidade (como um usuário que tem um dispositivo). No caso de relações com outras entidades, se a entidade possuir um perfil cadastrado, é possível realizar uma vinculação.
+
+\end{description}
+
+Todos as extensões (subclasses) da ontologia são definidas pelos clientes, e todas as informações do perfil são inferidas. A forma como esta inferência ocorre é descrita na Seção~\ref{sec:inferencia}.
