@@ -2,6 +2,7 @@ digraph perfil {
 
   Information -> Thing [label="is-a",fontsize=10];
   Entity -> Thing [label="is-a",fontsize=10];
+  NonEntity -> Thing [label="is-a",fontsize=10];
 
   PastInformation -> Information [label="is-a",fontsize=10];
   PresentInformation -> Information [label="is-a",fontsize=10];
