@@ -1,14 +1,92 @@
-% Tipos
-  % SPARQL
-  % Ontologia
+\begin{figure*}
+\begin{lstlisting}
+<?xml version="1.0"?>
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY person "http://www.example.com/person#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY trail "http://code.google.com/p/eprofile/trail.owl#" >
+]>
+<rdf:RDF xmlns="http://www.example.com/person#"
+     xml:base="http://www.example.com/person"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:person="http://www.example.com/person#"
+     xmlns:trail="http://code.google.com/p/eprofile/trail.owl#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <owl:Ontology rdf:about="http://www.example.com/person">
+        <owl:imports rdf:resource="http://code.google.com/p/eprofile/trail.owl"/>
+    </owl:Ontology>
+    <owl:Class rdf:about="&person;PersonalInformation">
+        <rdfs:subClassOf rdf:resource="&trail;Identity"/>
+    </owl:Class>
+    <owl:DatatypeProperty rdf:about="&person;hasAge">
+        <rdfs:range rdf:resource="&xsd;positiveInteger"/>
+    </owl:DatatypeProperty>
+    <owl:DatatypeProperty rdf:about="&person;hasName">
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+</rdf:RDF>
 
-% Estrutura da regra
-  % Tipo
-    % Simples inferência
-    % Estatística
-    % Informação que "vence"
+\end{lstlisting}
+\caption{Extensão de uma classe no eProfile}
+\label{fig:extensao}
+\end{figure*}
+
+Para que um cliente possa utilizar os serviços oferecidos pelo eProfile, é necessário que o cliente envie ao eProfile a ontologia de perfil que ele irá utilizar, extendendo a ontologia do eProfile. A ontologia é enviada quando o cliente faz seu primeiro acesso ao eProfile, e pode ser atualizada posteriormente. Ela deve ser enviada em formato OWL utilizando a sintaxe RDF/XML\cite{rdf}.
+
+A Figura~\ref{fig:extensao} mostra um exemplo de uma ontologia de perfil. Neste caso, em um perfil pessoal a classe \texttt{Identity} está sendo extendida para a classe \texttt{PersonalInformation}, que tem as propriedades \texttt{hasName} e \texttt{hasAge}. Este exemplo mostra o OWL/XML gerado pelo editor de ontologias Protégé\cite{protege}. As linhas 19 e 14 importam a ontologia do eProfile e criam um {\em namespace} para ele; nas linhas 21 a 23 é criada a nova classe que extende da classe \texttt{Identity} do eProfile.
+
+\subsubsection{Regras de Inferência}
+
+O cliente pode, a qualquer momento, criar, editar ou excluir regras para a inferência das informações de sua trilha, de modo a gerar informações úteis dentro da ontologia de perfil.
+
+Existem dois tipos de regras que podem ser criadas:
+
+\begin{description}
+
+  \item[Regra em OWL:] uma regra é criada em OWL, extendendo a ontologia de trilha;
+
+  \item[SPARQL:] uma regra é criada em SPARQL (linguagem de consulta de ontologias\cite{sparql}), onde a consulta é executada contra a ontologia de trilha.
+
+\end{description}
+
+Quando uma nova regra é enviada ao eProfile, ela deve conter as seguintes informações:
+
+\begin{description}
+  \item[Nome:] o nome da regra, para que possa ser atualizada ou excluída posteriormente;
+  \item[Tipo de regra:] se é uma regra em OWL ou SPARQL;
+  \item[Regra:] a regra propriamente dita, na linguagem escolhida;
+  \item[Objeto:] classe, instância ou propriedade da ontologia de perfil que será atualizada;
+  \item[Instrução de atualização:] a atualização pode ocorrer de duas formas: (i) por {\em substituição}, onde o item anterior é substituído por um novo, ou (ii) por {\em expressão}, onde o item anterior é atualizado de acordo com uma expressão, que pode (ou não) levar em conta o valor atual do item;
+  \item[Freqüência de atualização:] a freqüência com que a regra deve ser atualizada;
+  \item[Validade:] a data limite até quando a regra será processada (pode ser ilimitada).
+\end{description}
+
+Uma vez que a regra tenha sido validada pelo agente regulador, ela entra em funcionamento e passa a ser elegível para execução. Seguem abaixo dois exemplos de regra.
+
+% Exemplos de regras
+%  1 - OWL, substituição
+%  2 - SPARQL, expressão
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{comment}
 
 % Raciocinadores
 Existem diversos raciocinadores que oferecem suporte a OWL, entre os quais estão:
@@ -22,3 +100,5 @@ Existem diversos raciocinadores que oferecem suporte a OWL, entre os quais estã
 \item[HermiT:] é o primeiro raciocinador OWL que se baseia em um cálculo \emph{hypertableaux}, que provê desempenho superior a qualquer algoritmo anterior\cite{motik09}. O HermiT é disponibilizado como um plugin do Protegé, como uma ferramenta de linha de comando ou como uma biblioteca Java.
 
 \end{description}
+
+\end{comment}
