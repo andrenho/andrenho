@@ -136,7 +136,7 @@ private ##################################
 
     # draw box
     @scr.box x, 0, @scr.w-x-1, @scr.h-3
-    t = _('World Map')
+    t = ' ' + _('World Map') + ' '
     @scr.puts ((@scr.w-x-1)/2 - t.length/2) + x, 0, "<title>#{t}"
 
     # draw tiles
