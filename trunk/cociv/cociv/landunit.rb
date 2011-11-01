@@ -8,7 +8,7 @@ class LandUnit < Unit
 
   def build_city(name)
     $log.debug "Building a new city called #{name}."
-    city = City.new(@game, @nation, name, @x, @y)
+    city = CityPlayer.new(@game, @nation, name, @x, @y)
     nation.cities << city
     city
   end
@@ -29,11 +29,11 @@ class LandUnit < Unit
 
 protected
 
-  def move_ok?(fx, fy)
+  def move_ok?(fx, fy, log=false)
     tile = @game[fx,fy]
-    return false if not generic_move_ok? fx, fy
+    return false if not generic_move_ok? fx, fy, log
     if [Ocean].include? tile.terrain
-      $log.debug 'Movement rejected because land units can\'t move over water.'
+      $log.debug 'Movement rejected because land units can\'t move over water.' if log
       return false 
     end
 

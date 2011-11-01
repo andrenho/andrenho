@@ -18,7 +18,7 @@ $chars = {
   Savannah => [ '*', 'steppe' ],
   Woodland => [ '*', 'prairie' ],
   Swamp    => [ '*', 'plains' ],
-  :river   => [ '%', 'ocean' ],
+  :river   => [ '=', 'ocean' ],
 
   # militaries
   Peasant        => 'p',

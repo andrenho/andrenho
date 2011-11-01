@@ -62,9 +62,10 @@ module Cargo
     assert { city }
     assert { amount <= @slots[slot_number].amount and amount > 0 }
     # load to warehouse
-    city.warehouse.store(@slots[slot_number].good, amount)
+    good = @slots[slot_number].good
+    city.warehouse.store(good, amount)
     # pay up
-    @nation.gold += (amount * city.price[@slots[slot_number].good].sell)
+    @nation.gold += (amount * city.price[good].sell)
     # unload from unit
     @slots[slot_number].amount -= amount
     $log.debug "#{amount} of #{good.name} unloaded from #{@military.name}."

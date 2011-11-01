@@ -21,6 +21,7 @@ class Driver
   def initialize(wizard=false)
     # initialize logger
     $log = Logger.new(STDERR)
+    #$log = Logger.new(File.open("/home/andre/.cociv/log", 'a'))
     $log.level = Logger::DEBUG
     $log.datetime_format = '%H:%M:%S'
     $log.debug 'Logger initialized.'
