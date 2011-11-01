@@ -152,6 +152,18 @@ class CursesLayer < BasicLayer
         # TODO - backspace
       elsif r == 10 or r == 13
         break
+      elsif r == 8 or r == 127
+        if response.length > 0
+          response.chop!
+          setpos stdscr.cury, stdscr.curx-3
+          addstr '   '
+          setpos stdscr.cury, stdscr.curx-3
+        else
+          setpos stdscr.cury, stdscr.curx-2
+          addstr '  '
+          setpos stdscr.cury, stdscr.curx-2
+        end
+        next
       end
       response += r
     end

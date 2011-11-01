@@ -26,6 +26,7 @@ class Nation
 
     $log.debug "Nation #{@name} initialized."
     create_unit!(Peasant, x, y)
+#    create_unit!(Caravan, x, y)
   end
 
   def create_unit!(military, x, y)

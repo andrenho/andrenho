@@ -1,13 +1,14 @@
 class Unit
 
   attr_reader :x, :y, :old_x, :old_y, :nation, :military, :moves_left
+  attr_reader :skills
   attr_accessor :extra
   attr_accessor :working_on
 
   def move(dir)
     $log.debug 'Moving unit...'
     fx, fy = @x + DIRECTIONS[dir][0], @y + DIRECTIONS[dir][1]
-    if move_ok? fx, fy
+    if move_ok? fx, fy, true # true is for logging
       @old_x, @old_y = x, y
       @x, @y = fx, fy
       @moves_left -= @game[@x,@y].cost_to_enter(self)
@@ -28,13 +29,10 @@ class Unit
   end
 
   def has_moves_left?
-    (-1..1).each do |x|
-      (-1..1).each do |y|
-        unless x == 0 and y == 0
-          if @x+x >= 0 and @y+y >= 0 and @x+x < @game.map_w and @y+y < @game.map_h
-            return true if @game[@x+x,@y+y].cost_to_enter(self) <= @moves_left
-          end
-        end
+    DIRECTIONS.each_value do |dir|
+      x,y = dir
+      if @x+x >= 0 and @y+y >= 0 and @x+x < @game.map_w and @y+y < @game.map_h
+        return true if move_ok? x,y
       end
     end
     return false
@@ -71,6 +69,7 @@ protected
     @game = game
     @nation, @military, @x, @y = nation, military, x, y
     @old_x, @old_y = x, y
+    @skills = []
     if @military.cargo > 0
       extend Cargo
       init_cargo(@military.cargo)
@@ -79,14 +78,14 @@ protected
     discover_tiles
   end
 
-  def generic_move_ok?(fx, fy)
+  def generic_move_ok?(fx, fy, log)
     tile = @game[fx,fy]
     if fx < 0 or fy < 0 or fx >= @game.map_w or fy >= @game.map_h
-      $log.debug 'Movement rejected because it would go out of the map.'
+      $log.debug 'Movement rejected because it would go out of the map.' if log
       return false 
     end
     if tile.cost_to_enter(self) > @moves_left and not @moves_left == self.military.moves
-      $log.debug 'Movement rejected because there are not enough moves left.'
+      $log.debug 'Movement rejected because there are not enough moves left.' if log
       return false
     end
     return true

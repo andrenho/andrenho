@@ -124,8 +124,12 @@ private ##################################
     # selected unit
     if (u = @driver.focused)
       @scr.puts '<info>' + u.military.name
+      if u.skills.empty?
+        @scr.puts _('No skills')
+      else
+        u.skills.each { |sk| @scr.puts sk.name }
+      end
       ppair _('Moves left'), u.moves_left
-      # TODO - skill
     end
   end
 
