@@ -11,8 +11,8 @@ class Unit
     if move_ok? fx, fy, true # true is for logging
       @old_x, @old_y = x, y
       @x, @y = fx, fy
-      @moves_left -= @game[@x,@y].cost_to_enter(self)
-      @moves_left = 0 if @moves_left < 0
+      self.moves_left -= @game[@x,@y].cost_to_enter(self)
+      self.moves_left = 0 if moves_left < 1/3.0
       discover_tiles
       $log.debug 'Movement ok!'
       return true
@@ -21,18 +21,18 @@ class Unit
   end
 
   def init_round!
-    @moves_left = @military.moves
+    self.moves_left = @military.moves
   end
 
   def end_round
-    @moves_left = 0
+    self.moves_left = 0
   end
 
   def has_moves_left?
     DIRECTIONS.each_value do |dir|
       x,y = dir
       if @x+x >= 0 and @y+y >= 0 and @x+x < @game.map_w and @y+y < @game.map_h
-        return true if move_ok? x,y
+        return true if move_ok? @x+x,@y+y
       end
     end
     return false
@@ -79,12 +79,13 @@ protected
   end
 
   def generic_move_ok?(fx, fy, log)
+    return false if @moves_left == 0
     tile = @game[fx,fy]
     if fx < 0 or fy < 0 or fx >= @game.map_w or fy >= @game.map_h
       $log.debug 'Movement rejected because it would go out of the map.' if log
       return false 
     end
-    if tile.cost_to_enter(self) > @moves_left and not @moves_left == self.military.moves
+    if tile.cost_to_enter(self) > @moves_left and @moves_left != self.military.moves
       $log.debug 'Movement rejected because there are not enough moves left.' if log
       return false
     end
@@ -99,6 +100,11 @@ protected
         end
       end
     end
+  end
+
+  def moves_left=(n)
+    @moves_left = n
+    $log.debug self.inspect
   end
   
 end

@@ -97,6 +97,10 @@ protected #################################
         @driver.focused.end_round
         @driver.select_next!
       end
+    else
+      if ch == ' '
+        @driver.game.player.end_round!
+      end
     end
 
     # move screen
