@@ -39,7 +39,11 @@ class Nation
 
   def init_round
     @cities.each { |c| c.init_round! }
-    @units.each { |u| u.init_round! }
+    @units.each  { |u| u.init_round! }
+  end
+
+  def end_round!
+    @units.each  { |u| u.end_round }
   end
 
   def round_over?

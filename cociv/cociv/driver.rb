@@ -35,13 +35,13 @@ class Driver
       $log.info 'Savefile not found.'
       @game = Game.new(60,21)
     end
-    @focused = @game.nations[0].units[0]
   end
 
   # Runs one round. This is usually called from the UI. It yields in each move,
   # so that the UI can redraw and input before a new round.
   def run_round
     @focused = @game.player.units.select { |u| u.has_moves_left? }[0]
+    $log.info "#{@game.player.units[0].has_moves_left?}"
 
     @game.nations.each do |nation|
       $log.debug "Nation #{nation.name} playing."
