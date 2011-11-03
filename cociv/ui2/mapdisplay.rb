@@ -16,7 +16,7 @@ class MapDisplay < Display
     # draw things
     draw_info
     x, y = draw_map
-    $ui.show_messages
+    redraw if $ui.show_messages
 
     # set focused unit
     if x
