@@ -98,7 +98,9 @@ class Communication
       @scr.puts 0, 0, '<message>' + m
       @messages = [] # TODO
       until [27, 10, 13, ' '].include? getch ; end
+      return true
     end
+    return false
   end
 
 
