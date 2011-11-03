@@ -104,7 +104,7 @@ protected
 
   def moves_left=(n)
     @moves_left = n
-    $log.debug self.inspect
+    #$log.debug self.inspect
   end
   
 end

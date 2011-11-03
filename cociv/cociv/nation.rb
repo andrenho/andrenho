@@ -25,12 +25,14 @@ class Nation
     end while [Ocean, Mountain, Hills].include? @game[x,y].terrain
 
     $log.debug "Nation #{@name} initialized."
-    create_unit!(Peasant, x, y)
+    create_unit!(Peasant, x, y).skills << Farmer
 #    create_unit!(Caravan, x, y)
   end
 
   def create_unit!(military, x, y)
-    @units << LandUnit.new(@game, self, military, x, y) # TODO
+    u = LandUnit.new(@game, self, military, x, y) # TODO
+    @units << u
+    u
   end
 
   def autoplay!

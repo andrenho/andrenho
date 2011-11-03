@@ -22,7 +22,11 @@ class Driver
     # initialize logger
     $log = Logger.new(STDERR)
     #$log = Logger.new(File.open("/home/andre/.cociv/log", 'a'))
-    $log.level = Logger::DEBUG
+    if wizard 
+      $log.level = Logger::DEBUG
+    else
+      $log.level = Logger::INFO
+    end
     $log.datetime_format = '%H:%M:%S'
     $log.debug 'Logger initialized.'
 
@@ -41,7 +45,6 @@ class Driver
   # so that the UI can redraw and input before a new round.
   def run_round
     @focused = @game.player.units.select { |u| u.has_moves_left? }[0]
-    $log.info "#{@game.player.units[0].has_moves_left?}"
 
     @game.nations.each do |nation|
       $log.debug "Nation #{nation.name} playing."

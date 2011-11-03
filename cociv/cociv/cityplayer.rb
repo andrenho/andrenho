@@ -112,7 +112,6 @@ protected
 
   # Produce all goods for one round.
   def produce!
-    # TODO - spill overload of goods
     $log.debug "Producing goods for the city #{@name}..."
     self.production.each_pair do |good, pr|
       if pr.surplus > 0
