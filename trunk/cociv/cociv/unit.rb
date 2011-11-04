@@ -70,6 +70,9 @@ protected
     @nation, @military, @x, @y = nation, military, x, y
     @old_x, @old_y = x, y
     @skills = []
+    @experience = {} # a hash containing the number of rounds that a unit 
+                     # worked in a job
+    Job.all.each { |j| @experience[j] = 0 }
     if @military.cargo > 0
       extend Cargo
       init_cargo(@military.cargo)
@@ -83,7 +86,7 @@ protected
     tile = @game[fx,fy]
     if fx < 0 or fy < 0 or fx >= @game.map_w or fy >= @game.map_h
       $log.debug 'Movement rejected because it would go out of the map.' if log
-      return false 
+      return false
     end
     if tile.cost_to_enter(self) > @moves_left and @moves_left != self.military.moves
       $log.debug 'Movement rejected because there are not enough moves left.' if log

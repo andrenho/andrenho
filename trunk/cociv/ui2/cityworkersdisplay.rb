@@ -22,10 +22,10 @@ class CityWorkersDisplay < Display
     pr = @city.production
 
     # box
-    @scr.box 0, 0, @scr.w-1, @scr.h-2
+    @scr.box 0, 0, @scr.w-1, @scr.h-3
     s = "<title> #{@city.name} - #{_('Worker Management')} "
     @scr.print (@scr.w/2 - s.length/2), 0, s
-    @scr.print @scr.w-1, @scr.h-3, "<right><gold>$#{@game.player.gold}"
+    @scr.print @scr.w-1, @scr.h-4, "<right><gold>$#{@game.player.gold}"
 
     # buildings
     @scr.puts 1, 1, '<title>'+_('Buildings')
@@ -119,7 +119,7 @@ class CityWorkersDisplay < Display
     end
       
     # outside the colony
-    @scr.print 1, @scr.h-3, _('Outside: ')
+    @scr.print 1, @scr.h-4, _('Outside: ')
     x = @scr.x; y = @scr.y
     c = ?A
     units_outside = @game[@city.x,@city.y].units.select{ |u| not u.worker? and u.military.work_in_colony }
@@ -150,7 +150,14 @@ protected ################################
   # One of the buildings or units was chosen
   #
   def input_other(ch, n=0)
-    change_construction if ch == '%'
+
+    # change construction
+    if ch == '%'
+      change_construction 
+      return nil
+    end
+
+    # goods screen
     return CityGoodsDisplay.new(@driver, @city, @scr) if ch == '$'
 
     # discover what the user chose
@@ -161,8 +168,18 @@ protected ################################
       unit = choice[0].workers[n] if choice[0].is_a? Building
       unit = choice[0].worker if choice[0].is_a? Tile
       if unit
+        
         # display help
         show_help_move_unit(unit)
+        
+        # display skills
+        @scr.print 0, @scr.y-1, ' ' + _('Skills') + ': '
+        if unit.skills.empty?
+          @scr.puts _('None')
+        else
+          @scr.puts '<surplus>' + unit.skills.map{ |sk| sk.name }.join(', ')
+        end
+
         # move focus
         @scr.x, @scr.y = choice[1]+n, choice[2]
         @scr.show_cursor = true
