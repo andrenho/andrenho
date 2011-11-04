@@ -90,7 +90,7 @@ class Tile
       return [[Food, (pr_food*3/2).to_i], [@terrain.preferred_good, (pr_other*3/2).to_i]]
     elsif @worker
       pr = abs_productivity(@worker.job.good)
-      pr *= 2 if @worker.skill and @worker.skill.good == job.good
+      pr *= 2 if @worker.skills.include? @worker.job
       return [[@worker.job.good, pr]]
     else
       []
@@ -101,7 +101,7 @@ class Tile
   # if the unit were working on it.
   def productivity_job(unit, job)
     n = self.abs_productivity(job.good) # TODO - rivers, etc
-    n *= 2 if unit.skill and unit.skill.good == job.good
+    n *= 2 if @worker.skills.include? job
     n
   end
 

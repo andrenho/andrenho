@@ -46,9 +46,14 @@ class Warehouse < Building
 
   # Throw away when it doesn't fit in the warehouse.
   def throw_away_overload!
+    away = []
     overload.each_pair do |good,amt|
       @goods[good] = @max_size
-      $ui.messages << "The warehouse was full, and #{amt} t of #{good.name} had to be thrown away."
+      away << [good.name, amt]
+    end
+    if not away.empty?
+      s = away.map{ |k| _('%d t of %s') % [k[1], k[0]] }.join(', ')
+      $ui.messages << _('Te warehouse in %s was full, and %s had to be thrown away.') % [city.name, s]
     end
   end
 
