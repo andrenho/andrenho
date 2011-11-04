@@ -33,7 +33,7 @@ class Building
     n = 0
     @workers.each do |worker|
       pr = 3
-      pr *= 2 if worker.skill and worker.skill.good == job.good
+      pr *= 2 if worker.skills.include? worker.job
       n += pr
     end
     return [@type.good, n]

@@ -1,9 +1,7 @@
 class Unit
 
   attr_reader :x, :y, :old_x, :old_y, :nation, :military, :moves_left
-  attr_reader :skills
   attr_accessor :extra
-  attr_accessor :working_on
 
   def move(dir)
     $log.debug 'Moving unit...'
@@ -69,10 +67,6 @@ protected
     @game = game
     @nation, @military, @x, @y = nation, military, x, y
     @old_x, @old_y = x, y
-    @skills = []
-    @experience = {} # a hash containing the number of rounds that a unit 
-                     # worked in a job
-    Job.all.each { |j| @experience[j] = 0 }
     if @military.cargo > 0
       extend Cargo
       init_cargo(@military.cargo)

@@ -30,7 +30,7 @@ class Nation
   end
 
   def create_unit!(military, x, y)
-    u = LandUnit.new(@game, self, military, x, y) # TODO
+    u = WorkerUnit.new(@game, self, military, x, y) # TODO
     @units << u
     u
   end

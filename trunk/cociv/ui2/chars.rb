@@ -22,6 +22,7 @@ $chars = {
 
   # militaries
   Peasant        => 'p',
+  :skilled       => 's',
   Colonist       => 'c',
   Caravan        => '@',
   Warrior        => 'R',
