@@ -27,6 +27,13 @@ class LandUnit < Unit
     @working_on != nil
   end
 
+  def end_round
+    super
+    if self.worker?
+      @experience[@job] += 1
+    end
+  end
+
 protected
 
   def move_ok?(fx, fy, log=false)

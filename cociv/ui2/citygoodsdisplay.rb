@@ -19,7 +19,7 @@ class CityGoodsDisplay < Display
     @units_store = {}
 
     # box
-    @scr.box 0, 0, @scr.w-1, @scr.h-2
+    @scr.box 0, 0, @scr.w-1, @scr.h-3
     s = "<title> #{@city.name} - #{_('Goods Management')} "
     @scr.print (@scr.w/2 - s.length/2), 0, s
     @scr.print @scr.w-1, @scr.h-3, "<right><gold>$#{@game.player.gold}"
