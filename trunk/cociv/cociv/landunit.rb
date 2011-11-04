@@ -31,6 +31,15 @@ class LandUnit < Unit
     super
     if self.worker?
       @experience[@job] += 1
+      if not @skills.include? @job and @experience[@job] > 100 and rand(50) == 0
+        @skills << @job
+        if @working_on.is_a? Building
+          city = @working_on.city
+        elsif @working_on.is_a? Tile
+          city = @working_on.belongs_to
+        end
+        $ui.messages << _('In %s, a peasant has become skilled as a %s.') % ['city', @job.name]
+      end
     end
   end
 

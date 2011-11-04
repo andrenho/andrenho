@@ -7,6 +7,8 @@ class Building
   # Array of people working on this building
   attr_reader :workers
 
+  attr_reader :city
+
   # Create a new building
   def initialize(city, type)
     @city = city
