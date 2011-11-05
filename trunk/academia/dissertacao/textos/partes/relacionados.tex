@@ -1,9 +1,11 @@
 
-Esta seção apresenta trabalhos relacionados a este, bem como uma comparação entre os mesmos.
+Esta seção apresenta trabalhos relacionados a com o modelo proposto, bem como uma comparação entre os mesmos.
 
 \subsection{PeLeP}
 
 O projeto PeLeP, apresentado por Levis et al\cite{pelep}, busca integrar a utilização de perfis com aperfeiçoamento automático com ambientes de educação ubíqua.
+
+Barbosa et al compreendem \emph{educação ubíqua} como sendo processos educacionais que ocorrem em qualquer lugar, a qualquer tempo e com qualquer dispositivo, de forma contínua, contextualizada e integrada ao cotidiano do aprendiz. Desta forma, o conhecimento presente no dia-a-dia das mais diferentes formas e em diferentes locais podem ser relacionados com processos educacionais direcionados aos aprendizes \cite{barbosa05}.
 
 O PeLeP, cujo modelo é ilustrado na Figura~\ref{fig:pelep1}, é um modelo dedicado ao gerenciamento de perfis de aprendizes em um ambiente ubíquo de ensino e aprendizagem. O modelo administra os perfis automaticamente, inferindo informações através do histórico do aprendiz. As alterações realizadas no perfil refletem o comportamento do aprendiz no ambiente ubíquo, levando em consideração o seu modelo de mobilidade e de contexto.
 
@@ -12,10 +14,6 @@ O PeLeP, cujo modelo é ilustrado na Figura~\ref{fig:pelep1}, é um modelo dedic
   \caption{Arquitetura do PeLeP\cite{pelep}}
   \label{fig:pelep1}
 \end{figure}
-
-Os ambientes de \emph{computação ubíqua} são parte de um cenário na qual serviços e informações estão disponíveis a qualquer momento, em qualquer lugar\cite{weiser91}. Esta visão vem sendo potencializada pela diminuição do custo e aumento da capacidade de memória e processamento dos dispositivos computacionais, bem como pela cada vez maior disponibilidade de recursos de localização e conectividade. A computação ubíqua enfatiza também a ``tecnologia calma'', onde a sobrecarga de informação é substituída pela disponibilização de recursos de forma inteligente, tomando a atenção do usuário apenas nos momentos em que é mais relevante.\cite{weiser96}
-
-Levis et al compreendem \emph{educação ubíqua} como sendo processos educacionais que ocorrem em qualquer lugar, a qualquer tempo e com qualquer dispositivo, de forma contínua, contextualizada e integrada ao cotidiano do aprendiz. Desta forma, o conhecimento presente no dia-a-dia das mais diferentes formas e em diferentes locais podem ser relacionados com processos educacionais direcionados aos aprendizes.
 
 No PeLeP, o \emph{perfil do aprendiz} consiste em um perfil contendo campos pré-definidos, voltados para o ambiente de educação ubíqua. Os campos são distribuídos nas seguintes categorias: identificação, objetivos, agenda, segurança, relacionamentos, competências e preferências. 
 
@@ -29,6 +27,8 @@ No PeLeP, o \emph{perfil do aprendiz} consiste em um perfil contendo campos pré
 O fator tempo também é levado em consideração, onde Fatores de Certeza mais antigos tem um impacto menor. Assim, por exemplo, se o usuário trocar o seu aplicativo preferido, à medida que o tempo for passando o impacto do aplicativo anterior será cada vez menor.
 
 O processo de atualização do modelo do aprendiz é então realizado através de regras pré-definidas, que levam em conta as ocorrências e o seu fator de certeza. As regras suportam conclusões a partir de evidências antecedentes, e cada categoria de informação possui regras diferentes.
+
+O PeLeP foi validado através da integração com o Local ({\em Location and Context-Aware Learning}), um sistema de educação ubíqua sensível a contexto \cite{barbosa08}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -123,11 +123,13 @@ O PeLeP\cite{pelep} é um modelo que suporta o aperfeiçoamento automático do p
 
 O modelo apresentado por Chellouche et al\cite{chellouche10} apresenta um \emph{middleware} voltado para aplicações móveis que pode ser usado por diferentes aplicativos como um servidor central de perfis. Neste modelo, é proposto como solução um \emph{middleware} que gerencia o perfil de um usuário dinamicamente e supre às aplicações todas as informações que elas podem precisar durante o período de adaptação.
 
-O UUCM\cite{niederee04} é um modelo que pode ser utilizado para modelar as características de um usuário e seu contexto em ambientes de personalização de múltiplos sistemas. A proposta diz respeito a uma ontologia básica, baseada em contexto, a qual os sistemas podem estender, desde que os sistemas que usem este modelo concordem em uma ontologia básica. Desta forma, o modelo busca ser uma resposta a um dos principais desafios da personalização: como modelar o perfil de usuário e seu contexto de forma extensível e unificada, de modo que possa ser interpretada e utilizada por diferentes sistemas.
+O UUCM\cite{niederee04} é um modelo que pode ser utilizado para modelar as características de um usuário e seu contexto em ambientes de personalização de múltiplos sistemas. A proposta diz respeito a uma ontologia básica, baseada em contexto, a qual os sistemas podem estender, desde que os sistemas que usem este modelo concordem em uma ontologia básica.
 
 Embora os modelos apresentados atualizem parte do perfil como forma de oferecer suporte a sensibilidade a contexto, nenhum deles permite que os aplicativos criem novos campos nem definam as regras para atualização dos campos existentes.
 
 A Tabela~\ref{tab:comparacao} exibe um comparativo dos trabalhos apresentados, onde os seguintes fatores são levados em consideração:
+
+\todo[inline]{Descrever porque estes aspectos estão sendo avaliados.} % TODO
 
 \begin{description}
   \item[Interoperabilidade:] o modelo apresenta interoperabilidade -- caso positivo, se a mesma é sintática ou semântica;

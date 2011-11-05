@@ -61,35 +61,30 @@ Quando uma nova regra é enviada ao eProfile, ela deve conter as seguintes infor
   \item[Tipo de regra:] se é uma regra em OWL ou SPARQL;
   \item[Regra:] a regra propriamente dita, na linguagem escolhida;
   \item[Objeto:] classe, instância ou propriedade da ontologia de perfil que será atualizada;
-  \item[Instrução de atualização:] a atualização pode ocorrer de duas formas: (i) por {\em substituição}, onde o item anterior é substituído por um novo, ou (ii) por {\em expressão}, onde o item anterior é atualizado de acordo com uma expressão, que pode (ou não) levar em conta o valor atual do item;
+  \item[Instrução de atualização:] a forma como a instrução será atualizada;
   \item[Freqüência de atualização:] a freqüência com que a regra deve ser atualizada;
   \item[Validade:] a data limite até quando a regra será processada (pode ser ilimitada).
 \end{description}
 
-Uma vez que a regra tenha sido validada pelo agente regulador, ela entra em funcionamento e passa a ser elegível para execução. Seguem abaixo dois exemplos de regra.
+A instrução de atualização pode ser de um dos seguintes tipos:
 
-% Exemplos de regras
-%  1 - OWL, substituição
-%  2 - SPARQL, expressão
+\begin{description}
 
+  \item[Substituição:] o item anterior é substituído por um novo item. Pode ser utilizado, por exemplo, em dados cadastrais como endereço e telefone, onde cada novo item substitui o anterior;
 
+  \item[Adição:] uma informação é adicionada, como a lista de endereços visitados por um carro;
 
+  \item[Expressão:] uma informação que precisa ser calculada. Neste caso, o próprio cliente passa a expressão do cálculo. Calcular o percentual de interesse de um usuário por um determinado assunto, por exemplo, seria uma informação deste tipo.
 
+\end{description}
 
+Uma vez que a regra tenha sido validada pelo agente regulador, ela entra em funcionamento e passa a ser elegível para execução.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\subsubsection{Motor de Inferência}
 
-
-
-
-
-
-
-
-\begin{comment}
-
-% Raciocinadores
-Existem diversos raciocinadores que oferecem suporte a OWL, entre os quais estão:
+Tanto as consultas via OWL quanto as consultas via SPARQL são executadas através de um motor de inferências externo. Foram estudados alguns raciocinadores que oferecem suporte a estas operações, entre os quais estão:
 
 \begin{description}
 
@@ -101,4 +96,4 @@ Existem diversos raciocinadores que oferecem suporte a OWL, entre os quais estã
 
 \end{description}
 
-\end{comment}
+Devido ao conjunto de funcionalidades e ao desempenho superior, o HermiT foi escolhido como o raciocinador utilizado pelo eProfile.
