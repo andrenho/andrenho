@@ -63,7 +63,11 @@ private
     @game.nations.each do |nation|
       nation.units.each do |unit|
         if unit.hash == n
-          return "<#{nation_color(nation)}>#{$chars[unit.military]}"
+          if unit.skills.empty?
+            return "<#{nation_color(nation)}>#{$chars[unit.military]}"
+          else
+            return "<#{nation_color(nation)}>#{$chars[:skilled]}"
+          end
         end
       end
     end
