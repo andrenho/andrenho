@@ -1,14 +1,15 @@
 digraph modelo {
 
-  layout = fdp;
-  sep = 0.25;
+  //layout = fdp;
+  //rankdir = LR;
+  sep = 0.3;
 
   node [style=filled,fillcolor=white];
 
   // externos
   node [shape=box]; 
     GerenciadorDeTrilhas [label="Gerenciador\n de Trilhas"]; 
-    Cliente;
+    Aplicação;
 
   // ontologias
   node [shape=hexagon,fixedsize=true,width=1.1,height=0.8]; 
@@ -22,6 +23,9 @@ digraph modelo {
     Raciocinador;
     Conversor;
 
+  node [shape=diamond];
+    Entidade;
+
   subgraph cluster_eProfile {
     label = "eProfile";
     style = filled;
@@ -33,9 +37,14 @@ digraph modelo {
     Raciocinador -> OntologiaDePerfil;
   }
 
-  Cliente -> GerenciadorDeTrilhas -> Conversor;
-  Cliente -> Regulador;
-  OntologiaDePerfil -> Cliente;
+  subgraph cluster_ext {
+    style = invisible;
+    Entidade -> Aplicação;
+    Aplicação -> Regulador;
+    OntologiaDePerfil -> Aplicação;
+  }
+  
+  Aplicação -> GerenciadorDeTrilhas -> Conversor;
 
   fontsize = 12;
 }
