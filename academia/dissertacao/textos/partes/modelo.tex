@@ -2,15 +2,13 @@ A Figura~\ref{fig:modelo} apresenta o modelo do eProfile.
 
 \begin{figure}
   \centering\includegraphics[width=0.5\textwidth]{imagens/modelo.png}
-  \caption{Modelo do eProfile}
+  \caption{Modelo do eProfile, com as setas representando o fluxo de dados}
   \label{fig:modelo}
 \end{figure}
 
-A figura tradicional do usuário na personalização é extendida aqui pelo conceito de \emph{entidade}. Uma entidade é semelhante a um usuário, porém em um conceito mais amplo, não representando apenas pessoas mas também objetos que possam criar uma trilha e ter um perfil, como um veículo ou um dispositivo móvel. Uma entidade pode também ser composta por um grupo de entidades como, por exemplo, uma frota de caminhões onde cada caminhão tem seu perfil único, e onde a frota tem um perfil também.
+As \emph{aplicações} são os aplicativos que são utilizados pelas entidades para se conectar aos gerencidadores de trilhas e perfil. Neste modelo, a aplicação se conecta a um gerenciador de trilhas genérico, que é responsável pelo armazenamento da trilha da entidade. O perfil da entidade será inferido a partir das trilhas registradas no gerenciador.
 
-Os \emph{clientes} são os aplicativos que são utilizados pelas entidades para se conectar aos gerencidadores de trilhas e perfil. Neste modelo, o cliente se conecta a um gerenciador de trilhas genérico, que é responsável pelo armazenamento da trilha da entidade. O perfil da entidade será inferido a partir das trilhas registradas no gerenciador.
-
-As trilhas das entidades são buscadas do gerenciador de trilhas pelo eProfile. Como o eProfile pode se conectar a diferentes gerenciadores de trilha, onde em cada um deles a trilha tem um formato específico (ver Figura~\ref{fig:modelo2}), é necessário que seja realizada uma conversão entre o formato original e o formato utilizado pelo eProfile, que será apresentado mais adiante. Este trabalho é realizado por um agente entitulado \emph{conversor}, que é capaz de realizar a conversão para os formados de trilha suportados pelo eProfile.
+As trilhas das entidades são buscadas do gerenciador de trilhas pelo eProfile. Como o eProfile pode se conectar a diferentes gerenciadores de trilha (Figura~\ref{fig:modelo2}), onde em cada um deles a trilha tem um formato específico, é necessário que seja realizada uma conversão entre o formato original e o formato utilizado pelo eProfile, que será apresentado mais adiante. Este trabalho é realizado por um agente entitulado \emph{conversor}, que é capaz de realizar a conversão para os formados de trilha suportados pelo eProfile.
 
 \begin{figure}
   \centering\includegraphics[width=0.5\textwidth]{imagens/modelo2.png}
@@ -18,12 +16,12 @@ As trilhas das entidades são buscadas do gerenciador de trilhas pelo eProfile. 
   \label{fig:modelo2}
 \end{figure}
 
-Desta forma, o eProfile não tem a necessidade de conhecer o cliente -- mas precisa conhecer o formato utilizado pelo gerenciador de trilhas.
+Desta forma, o eProfile não tem a necessidade de conhecer a aplicação -- mas precisa conhecer o formato utilizado pelo gerenciador de trilhas.
 
-A trilha do usuário é então armazenada dentro do eProfile em uma \emph{ontologia de trilha básica}. Esta ontologia possui as classes básicas para a construção de uma trilha, sendo que a mesma pode ser extendida de acordo com a especificação do gerenciador de trilhas que está sendo utilizado. A forma como ocorre esta extensão é detalhada na Seção~\ref{sec:ontologias}.
+A trilha do usuário é então armazenada dentro do eProfile em uma \emph{ontologia de trilha}. Esta ontologia possui as classes básicas para a construção de uma trilha, sendo que a mesma pode ser extendida de acordo com a especificação do gerenciador de trilhas que está sendo utilizado. A forma como ocorre esta extensão é detalhada na Seção~\ref{sec:ontologias}.
 
-Como cada cliente (aplicação) tem necessidades próprias de inferência -- isto é, cada cliente tem interesse em um conjunto de informações de perfil -- os clientes são os responsáveis pelo envio das regras de inferência ao eProfile. Assim, o cliente envia as regras ao gerenciador de trilhas, que por sua vez, as envia ao eProfile. Mas o cliente envia as regras diretamente ao eProfile.
+Cada aplicação tem a possibilidade de montar seu próprio perfil. Para que o eProfile processe este perfil, ele precisa de três informações: (i) a trilha da entidade, (ii) o modelo de perfil da aplicação e (iii) as regras de inferência para o perfil. A trilha da entidade é carregada pelo eProfile a partir do gerenciador de trilhas, enquanto as outras duas informações são enviadas diretamente da aplicação para o eProfile. Desta forma, as regras de inferência definidas pela aplicação serão utilizadas para inferir seu próprio perfil.
 
 O agente responsável pela recepção das regras é o \emph{regulador}. O regulador tem a função de receber as regras, validá-las e inserí-las na \emph{base de regras}. Juntamente com as regras, é especificado a criticidade da informação. O sistema utilizará esta informação para determinar com que freqüência a inferência desta informação será executada.
 
-Uma vez de posse das trilhas e das regras, o agente \emph{raciocinador} realiza a inferência da trilha, gerando assim a \emph{ontologia de perfil}. Esta ontologia, da mesma forma que a ontologia de trilha, contém classes básicas a partir das quais os aplicativos vão especializar, utilizando-as para armazenar informações que sejam úteis a eles. O cliente pode então conectar-se ao eProfile e buscar o perfil de sua entidade.
+Uma vez de posse das trilhas e das regras, o agente \emph{raciocinador} realiza a inferência da trilha, gerando assim a \emph{ontologia de perfil}. Esta ontologia, da mesma forma que a ontologia de trilha, contém classes básicas a partir das quais as aplicações vão especializar, utilizando-as para armazenar informações que sejam úteis a eles. A aplicação pode então conectar-se ao eProfile e buscar o perfil de sua entidade. A Figura~\ref{fig:modelo} exemplifica isso, onde a seta que conecta a Ontologia de Perfil (no eProfile) à aplicação mostra o sentido do fluxo de dados.

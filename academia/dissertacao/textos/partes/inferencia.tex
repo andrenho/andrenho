@@ -36,13 +36,13 @@
 \label{fig:extensao}
 \end{figure*}
 
-Para que um cliente possa utilizar os serviços oferecidos pelo eProfile, é necessário que o cliente envie ao eProfile a ontologia de perfil que ele irá utilizar, extendendo a ontologia do eProfile. A ontologia é enviada quando o cliente faz seu primeiro acesso ao eProfile, e pode ser atualizada posteriormente. Ela deve ser enviada em formato OWL utilizando a sintaxe RDF/XML\cite{rdf}.
+Para que uma aplicação possa utilizar os serviços oferecidos pelo eProfile, é necessário que a aplicação envie ao eProfile a ontologia de perfil que ele irá utilizar, extendendo a ontologia do eProfile. A ontologia é enviada quando a aplicação faz seu primeiro acesso ao eProfile, e pode ser atualizada posteriormente. Ela deve ser enviada em formato OWL utilizando a sintaxe RDF/XML\cite{rdf}.
 
 A Figura~\ref{fig:extensao} mostra um exemplo de uma ontologia de perfil. Neste caso, em um perfil pessoal a classe \texttt{Identity} está sendo extendida para a classe \texttt{PersonalInformation}, que tem as propriedades \texttt{hasName} e \texttt{hasAge}. Este exemplo mostra o OWL/XML gerado pelo editor de ontologias Protégé\cite{protege}. As linhas 19 e 14 importam a ontologia do eProfile e criam um {\em namespace} para ele; nas linhas 21 a 23 é criada a nova classe que extende da classe \texttt{Identity} do eProfile.
 
 \subsubsection{Regras de Inferência}
 
-O cliente pode, a qualquer momento, criar, editar ou excluir regras para a inferência das informações de sua trilha, de modo a gerar informações úteis dentro da ontologia de perfil.
+A aplicação pode, a qualquer momento, criar, editar ou excluir regras para a inferência das informações de sua trilha, de modo a gerar informações úteis dentro da ontologia de perfil.
 
 Existem dois tipos de regras que podem ser criadas:
 
@@ -50,15 +50,19 @@ Existem dois tipos de regras que podem ser criadas:
 
   \item[Regra em OWL:] uma regra é criada em OWL, extendendo a ontologia de trilha;
 
-  \item[SPARQL:] uma regra é criada em SPARQL (linguagem de consulta de ontologias\cite{sparql}), onde a consulta é executada contra a ontologia de trilha.
+  \item[SPARQL:] uma regra é criada em SPARQL (linguagem de consulta de ontologias\cite{sparql}), onde a consulta é executada contra a ontologia de trilha;
+
+  \item[SWRL:] uma regra é criada em SWRL (linguagem de regras\cite{swrl}), que será executada sobre a ontologia de trilha.
 
 \end{description}
+
+A nova regra é gravada em uma base de regras. Assim, regras podem ser compartilhadas entre diferentes aplicações, desde que ambas extendam da mesma forma a ontologia de trilha.
 
 Quando uma nova regra é enviada ao eProfile, ela deve conter as seguintes informações:
 
 \begin{description}
   \item[Nome:] o nome da regra, para que possa ser atualizada ou excluída posteriormente;
-  \item[Tipo de regra:] se é uma regra em OWL ou SPARQL;
+  \item[Tipo de regra:] se é uma regra em OWL, SPARQL ou SWRL;
   \item[Regra:] a regra propriamente dita, na linguagem escolhida;
   \item[Objeto:] classe, instância ou propriedade da ontologia de perfil que será atualizada;
   \item[Instrução de atualização:] a forma como a instrução será atualizada;
@@ -74,18 +78,15 @@ A instrução de atualização pode ser de um dos seguintes tipos:
 
   \item[Adição:] uma informação é adicionada, como a lista de endereços visitados por um carro;
 
-  \item[Expressão:] uma informação que precisa ser calculada. Neste caso, o próprio cliente passa a expressão do cálculo. Calcular o percentual de interesse de um usuário por um determinado assunto, por exemplo, seria uma informação deste tipo.
+  \item[Expressão:] uma informação que precisa ser calculada. Neste caso, a própria aplicação passa a expressão do cálculo. Calcular o percentual de interesse de um usuário por um determinado assunto, por exemplo, seria uma informação deste tipo.
 
 \end{description}
 
 Uma vez que a regra tenha sido validada pelo agente regulador, ela entra em funcionamento e passa a ser elegível para execução.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Tanto as consultas via OWL quanto as consultas via SPARQL são executadas através de um motor de inferências externo. Foram estudados os seguintes raciocinadores que oferecem suporte a estas operações: Pellet\cite{sirin05}, FaCT++\cite{tsarkov06} e HermiT\cite{motik09}.
 
-\subsubsection{Motor de Inferência}
-
-Tanto as consultas via OWL quanto as consultas via SPARQL são executadas através de um motor de inferências externo. Foram estudados alguns raciocinadores que oferecem suporte a estas operações, entre os quais estão:
-
+\begin{comment}
 \begin{description}
 
 \item[Pellet:] é um racionador com suporte a OWL DL, que oferece bom desempenho e um \emph{middleware} extensível. O Pellet é escrito em Java pode ser utilizado para raciocinar com tipos de dados definidos pelo usuário e provê suporte para depuração em ontologias\cite{sirin05}.
@@ -95,5 +96,6 @@ Tanto as consultas via OWL quanto as consultas via SPARQL são executadas atrav�
 \item[HermiT:] é o primeiro raciocinador OWL que se baseia em um cálculo \emph{hypertableaux}, que provê desempenho superior a qualquer algoritmo anterior\cite{motik09}. O HermiT é disponibilizado como um plugin do Protegé, como uma ferramenta de linha de comando ou como uma biblioteca Java.
 
 \end{description}
+\end{comment}
 
 Devido ao conjunto de funcionalidades e ao desempenho superior, o HermiT foi escolhido como o raciocinador utilizado pelo eProfile.
