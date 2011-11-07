@@ -49,13 +49,16 @@ class CityPlayer < City
     # building
     @buildings.each do |building|
       if not building.workers.empty?
+        # calculate how much this building can produce with the current workers, not
+        # considering the amount of raw goods available
         good, amount = building.production
         if amount
           prod[good].theorical += amount 
           # calculate how much effectively possible
           effective = amount
           building.type.good.raw_material.each do |raw|
-            effective = prod[raw].effective if prod[raw].effective < effective
+            total = [prod[raw].effective + @warehouse[raw], amount].min
+            effective = total if prod[raw].effective < total
           end
           building.type.good.raw_material.each do |raw|
             # use up raw good
@@ -117,6 +120,9 @@ protected
       if pr.surplus > 0
         $log.debug "#{pr.surplus} of #{good.name} produced."
         @warehouse.store(good, pr.surplus)
+      elsif pr.surplus < 0
+        $log.debug "#{pr.surplus.abs} of #{good.name} used."
+        @warehouse.load(good, pr.surplus.abs)
       end
     end
   end
