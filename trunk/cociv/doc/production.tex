@@ -1,0 +1,100 @@
+\documentclass[a4paper,twocolumn]{article}
+\pagestyle{empty}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+%\usepackage{euler}
+
+\everymath{\displaystyle}
+
+\author{Andr\'{e} Wagner}
+\title{\textbf{Cociv} production formulas}
+\date{}
+
+\begin{document}
+
+%\maketitle
+
+\section{Concepts}
+
+A city $C$ is formed by 8 tiles denoted by $T$, a set of buildings denoted by $B$, and a warehouse $W$ containing an amount of goods where $W_g > 0$. The goods can be raw ($R$) or fabricated ($F$). The raw goods ($R$) can be mined ($M$) or planted ($P$), so that $R = M \cup P$.
+
+A tile $t = T_i$ produces $t_\alpha^r$ units of good $r \in R$. A tile can have a special denoted by $t_*$, a plow denoted by $t_\pi$, a river denoted by $t_\rho$ or a road denoted by $t_\delta$, all in $\{1,2\}$ with 1 representing absent and 2 representing present. The productivity of worker $w$ working in a tile $t$ is denoted by $t_w$.
+
+A building $b = B_i$ can produce at most $b_\alpha^f$ units of good $f \in F$, if all raw goods are available. For that, it requires $b_\Phi^r$ units of raw good, where $r \in R$. $b_W$ is the set of workers working in this building.
+
+$P_{\{f\times r\}}$ is the amount of raw goods ($r \in R$) needed for producing the finished good $f \in F$.
+
+The skill of a worked producing some type of good is denoted by $w_g \in \{1,2\}$, where 1 is unskilled and 2 is skilled.
+
+\section{Raw goods}
+
+The production of a planted good $p\in P$ is represented by $t_\beta^p$, where $\{t = T_n, 0 \leq n \leq 7\}$, and is calculated by
+
+\begin{equation}
+t_\beta^p = t_\alpha^p (t_w)_s \max(t_\rho,t_\pi) t_*
+\end{equation}
+
+The production of a mined good $m\in M$ is represented by $t_\beta^m$, where $\{t = T_n, 0 \leq n \leq 7\}$, and is calculated by
+
+\begin{equation}
+t_\beta^m = t_\alpha^p (t_w)_s t_\delta t_*
+\end{equation}
+
+Thus, the possible production of a good $r \in R$, is defined by $p_r$ and calculated as
+
+\begin{equation}
+p_r = \sum^7_{n=0} (T_n)^r_\beta
+\end{equation}
+
+\section{Fabricated goods}
+
+The possible production of a finished good $f \in F$ in a building $b \in B_f$ is defined by $b_f$ and calculated as:
+
+\begin{equation}
+b_f = \sum_{w \in W} b_\alpha^f w_s
+\end{equation}
+
+Since each building produces one and only one type of good,
+
+\begin{equation}
+p_f = b_f
+\end{equation}
+
+\section{Effective production}
+
+The amount of finished goods $f \in F$ that can be produced within the city are defined by
+
+\begin{equation}
+z_f = \min\left(\bigcup_{r\in R} (P_{\{f,r\}} + W_r )\right)
+\end{equation}
+
+Therefore effective production of a finished good $f\in F$ is defined by
+
+\begin{equation}
+e_f = \min(p_f, z_f)
+\end{equation}
+
+And the effective production of a raw good $r\in R$ is defined as
+
+\begin{equation}
+e_r = p_r - \sum_{f\in F} P_{\{f,r\}} e_f
+\end{equation}
+
+The final amount($\Omega$) of the good $g\in (R\cup F)$ in the warehouse will be
+
+\begin{equation}
+\Omega_g = W_g + e_g
+\end{equation}
+
+\section{Lacking}
+
+{\em Lacking} means that a product could be produced, but wasn't. It can be defined for a finished good $f\in F$ as
+
+\begin{equation}
+l_f = e_f - p_f
+\end{equation}
+
+and as $l_r = 0$ for a raw good $r\in R$.
+
+\end{document}
