@@ -43,7 +43,7 @@ class WorkerUnit < LandUnit
     super
     if self.worker?
       @experience[@job] += 1
-      if not @skills.include? @job and @experience[@job] > 100 and rand(50) == 0
+      if not @skills.include? @job and @experience[@job] > 100
         @skills << @job
         if @working_on.is_a? Building
           city = @working_on.city
