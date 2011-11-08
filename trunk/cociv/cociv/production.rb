@@ -16,4 +16,12 @@ class Production
     @theorical, @effective, @lacking, @surplus = 0, 0, 0, 0
   end
 
+  def to_a
+    [@theorical, @effective, @lacking, @surplus]
+  end
+
+  def has_data?
+    return (@theorical != 0 or @effective != 0 or @lacking != 0 or @surplus != 0)
+  end
+
 end

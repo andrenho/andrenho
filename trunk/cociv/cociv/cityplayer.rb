@@ -61,15 +61,16 @@ class CityPlayer < City
             max = prod[raw].effective + @warehouse[raw]
             effective = max if effective > max
           end
+          effective = amount if effective > amount
           building.type.good.raw_material.each do |raw|
             # use up raw good
             prod[raw].surplus -= effective
             prod[raw].lacking = prod[raw].effective - prod[good].effective
           end
           # produce
-          prod[good].effective = effective
+          prod[good].effective = [amount,prod[good].effective].min
           prod[good].surplus = effective
-          prod[good].lacking = prod[good].theorical - prod[good].effective
+          prod[good].lacking = prod[good].effective
         end
       end
     end
@@ -109,6 +110,13 @@ class CityPlayer < City
   def init_round!
     @warehouse.throw_away_overload!
     produce!
+
+    Curses.close_screen
+    pr = production
+    Good.all.each do |g|
+      p g, pr[g].to_a if pr[g].has_data?
+    end
+    exit 0
   end
 
 

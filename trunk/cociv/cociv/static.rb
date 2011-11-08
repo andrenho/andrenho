@@ -59,7 +59,7 @@ class Good < Static
 
   attr_reader :name, :raw, :can_buy, :initial_prices, :raw_material, :all
 
-  def initialize(name, raw, can_buy, initial_prices=nil, raw_material=nil)
+  def initialize(name, raw, mined, can_buy, initial_prices=nil, raw_material=nil)
     super()
     @name, @raw, @can_buy, @initial_prices, @raw_material = name, raw, can_buy, initial_prices, raw_material
     @@all << self
@@ -69,26 +69,26 @@ class Good < Static
 
 end
 
-Food =      Good.new(_('Food'),      true,  true, [  1, 8 ])
-Cotton =    Good.new(_('Cotton'),    true,  true, [  4, 6 ])
-Barley =    Good.new(_('Barley'),    true,  true, [  4, 6 ])
-Olives =    Good.new(_('Olives'),    true,  true, [  6, 8 ])
-Wood =      Good.new(_('Wood'),      true,  true, [  1, 6 ])
-Copper =    Good.new(_('Copper'),    true,  true, [  5, 8 ])
-Mud =       Good.new(_('Mud'),       true,  true, [  1, 5 ])
-Tin =       Good.new(_('Tin'),       true,  true, [  7, 9 ])
-Gold =      Good.new(_('Gold'),      true,  true, [ 15,16 ])
-Clothes =   Good.new(_('Clothes'),   false, true, [ 12,13 ], [ Cotton ])
-Beer =      Good.new(_('Beer'),      false, true, [ 10,11 ], [ Barley ])
-Olive_oil = Good.new(_('Olive Oil'), false, true, [ 12,13 ], [ Olives ])
-Timber    = Good.new(_('Timber'), false, true, [ 10,11 ], [ Wood ])
-Utensils =  Good.new(_('Utensils'),  false, true, [ 12,13 ], [ Copper ])
-Bricks =    Good.new(_('Bricks'),    false, true, [  1, 8 ], [ Mud ])
-Riding =    Good.new(_('Animals'),   false, true, [  5, 8 ])
-Bronze =    Good.new(_('Bronze'),    false, true, [  9,10 ], [ Copper, Tin ])
-Weapons =   Good.new(_('Weapons'),   false, true, [  6, 7 ], [ Wood, Bronze ])
-Scrolls =   Good.new(_('Scrolls'),   false, false)
-Prayers =   Good.new(_('Prayers'),   false, false)
+Food =      Good.new(_('Food'),      true,  false, true, [  1, 8 ])
+Cotton =    Good.new(_('Cotton'),    true,  false, true, [  4, 6 ])
+Barley =    Good.new(_('Barley'),    true,  false, true, [  4, 6 ])
+Olives =    Good.new(_('Olives'),    true,  false, true, [  6, 8 ])
+Wood =      Good.new(_('Wood'),      true,  true,  true, [  1, 6 ])
+Copper =    Good.new(_('Copper'),    true,  true,  true, [  5, 8 ])
+Mud =       Good.new(_('Mud'),       true,  true,  true, [  1, 5 ])
+Tin =       Good.new(_('Tin'),       true,  true,  true, [  7, 9 ])
+Gold =      Good.new(_('Gold'),      true,  true,  [ 15,16 ])
+Clothes =   Good.new(_('Clothes'),   false, false, true, [ 12,13 ], [ Cotton ])
+Beer =      Good.new(_('Beer'),      false, false, true, [ 10,11 ], [ Barley ])
+Olive_oil = Good.new(_('Olive Oil'), false, false, true, [ 12,13 ], [ Olives ])
+Timber    = Good.new(_('Timber'),    false, false, true, [ 10,11 ], [ Wood ])
+Utensils =  Good.new(_('Utensils'),  false, false, true, [ 12,13 ], [ Copper ])
+Bricks =    Good.new(_('Bricks'),    false, false, true, [  1, 8 ], [ Mud ])
+Riding =    Good.new(_('Animals'),   false, false, true, [  5, 8 ])
+Bronze =    Good.new(_('Bronze'),    false, false, true, [  9,10 ], [ Copper, Tin ])
+Weapons =   Good.new(_('Weapons'),   false, false, true, [  6, 7 ], [ Wood, Bronze ])
+Scrolls =   Good.new(_('Scrolls'),   false, false, false)
+Prayers =   Good.new(_('Prayers'),   false, false, false)
 
 
 #
