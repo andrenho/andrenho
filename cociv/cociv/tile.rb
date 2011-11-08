@@ -23,7 +23,7 @@ class Tile
   # to what city this tile belongs to
   attr_accessor :belongs_to
 
-  attr_accessor :river, :extra
+  attr_accessor :river, :plow, :road, :extra
 
   # Create a new tile
   def initialize(game, x, y)
@@ -33,7 +33,7 @@ class Tile
     @city = nil
     @worker = nil
     @belongs_to = nil
-    @river = false
+    @river, @plow, @road = false, false, false
     @known = {}
 
     # extra
@@ -89,8 +89,7 @@ class Tile
       pr_other = abs_productivity(@terrain.preferred_good)
       return [[Food, (pr_food*3/2).to_i], [@terrain.preferred_good, (pr_other*3/2).to_i]]
     elsif @worker
-      pr = abs_productivity(@worker.job.good)
-      pr *= 2 if @worker.skills.include? @worker.job
+      pr = productivity_job(@worker, @worker.job)
       return [[@worker.job.good, pr]]
     else
       []
@@ -100,8 +99,10 @@ class Tile
   # Return what would be the production of this tile, 
   # if the unit were working on it.
   def productivity_job(unit, job)
-    n = self.abs_productivity(job.good) # TODO - rivers, etc
+    n = self.abs_productivity(job.good)
+    n *= 2 if (job.good.mined and @road) or (not job.good.mined and (@river or @plow))
     n *= 2 if @worker.skills.include? job
+    n *= 2 if @special
     n
   end
 
