@@ -1,0 +1,46 @@
+\begin{thebibliography}{}
+
+\bibitem[Carmagnola and Cena, 2009]{carmagnola09}
+Carmagnola, F. and Cena, F. (2009).
+\newblock User identification for cross-system personalisation.
+\newblock {\em Inf. Sci.}, 179:16--32.
+
+\bibitem[Chellouche et~al., 2010]{chellouche10}
+Chellouche, S.~A., Arnaud, J., and N\'{e}gru, D. (2010).
+\newblock Flexible user profile management for context-aware ubiquitous
+  environments.
+\newblock In {\em Proceedings of the 7th IEEE conference on Consumer
+  communications and networking conference}, CCNC'10, pages 980--984,
+  Piscataway, NJ, USA. IEEE Press.
+
+\bibitem[Dey, 2001]{dey2001}
+Dey, A. (2001).
+\newblock Understanding and using context.
+\newblock {\em Personal and Ubiquitous Computing}, 6(1):4--7.
+
+\bibitem[{IEEE}, 1991]{ieeedict}
+{IEEE} (1991).
+\newblock {IEEE} standard computer dictionary. a compilation of {IEEE} standard
+  computer glossaries.
+\newblock {\em IEEE Std 610}, page~1.
+
+\bibitem[Levis et~al., 2008]{pelep}
+Levis, D., Barbosa, J. L.~V., and Pinto, S. C. C.~S. (2008).
+\newblock Aperfeiçoamento automático do perfil do aprendiz em ambientes de
+  educação ubíqua.
+\newblock {\em Revista Brasileira de Informática na Educação}, 16(1).
+
+\bibitem[Nieder\'{e}e et~al., 2004]{niederee04}
+Nieder\'{e}e, C., Stewart, A., Mehta, B., and Hemmje, M. (2004).
+\newblock {A Multi-Dimensional, Unified User Model for Cross-System
+  Personalization}.
+\newblock In {\em E4PIA Workshop 2004}.
+
+\bibitem[Silva et~al., 2009]{silva09}
+Silva, J., Rosa, J., Barbosa, J., Barbosa, D. N.~F., and Palazzo, L. A.~M.
+  (2009).
+\newblock Content distribution in trial-aware environments.
+\newblock In {\em Proceedings of the XV Brazilian Symposium on Multimedia and
+  the Web}, WebMedia '09, pages 15:1--15:8, New York, NY, USA. ACM.
+
+\end{thebibliography}
