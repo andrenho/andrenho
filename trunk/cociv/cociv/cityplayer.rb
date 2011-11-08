@@ -55,10 +55,11 @@ class CityPlayer < City
         if amount
           prod[good].theorical += amount 
           # calculate how much effectively possible
-          effective = amount
+          effective = 9999
+          #effective = amount
           building.type.good.raw_material.each do |raw|
-            total = [prod[raw].effective + @warehouse[raw], amount].min
-            effective = total if prod[raw].effective < total
+            max = prod[raw].effective + @warehouse[raw]
+            effective = max if effective > max
           end
           building.type.good.raw_material.each do |raw|
             # use up raw good
