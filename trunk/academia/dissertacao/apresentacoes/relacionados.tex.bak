@@ -1,0 +1,185 @@
+\documentclass{beamer}
+\usetheme{Boadilla}
+%\usetheme{Copenhagen}
+
+\usepackage[portuguese]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{booktabs}
+\renewcommand{\arraystretch}{1.2}
+
+\title[Gerenciamento de Perfis]{Um Modelo para Gerenciamento de Perfis Distribuídos Através de Inferência em Trilhas}
+\author{André Wagner}
+\institute[UNISINOS]{
+  Universidade do Vale do Rio dos Sinos (UNISINOS) \\
+  PIPCA -- Mestrado em Computação Aplicada\\[1ex]
+  \texttt{andre.nho@gmail.com}
+}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Motivação}
+
+{\large Desenvolvimento de um modelo de gerenciamento de perfis que possa ser utilizado como parte integrante em outros modelos de Computação Ubíqua, onde o módulo de perfis não é o foco do modelo.}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[allowframebreaks]{Definições}
+
+  \begin{block}{Sensibilidade a Contexto}
+    \begin{itemize}
+      \item \textbf{Sistemas sensíveis a contexto} são aplicações nas quais o contexto atual de um usuário é levado em consideração na disponibilização de serviços.
+      \item \textbf{Contexto} é qualquer informação que pode ser utilizada para caracterizar a situação de uma entidade, onde uma entidade é uma pessoa, local ou objeto considerado relevante à interação entre o usuário e a aplicação. \cite{dey2001}
+      \item \textbf{Perfis} são essenciais na descoberta de informações pertinentes aos usuários que possam ser utilizadas na construção de um contexto.
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Trilhas}
+    \begin{itemize}
+      \item Uma \textbf{trilha} é o histórico de contextos visitados por uma entidade, e das ações realizadas pela entidade dentro do contexto. \cite{silva09}
+      \item A capacidade de uma aplicação compreender o contexto de uma entidade \emph{pode ser amplificada} através do uso de trilhas.
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Perfil de Usuário}
+    \begin{itemize}
+      \item Um \textbf{perfil de usuário} é o conjunto de dados no qual uma aplicação armazena seu conhecimento a respeito de um usuário. 
+      \item Os perfis de usuário são salvos em um formato chamado \textbf{modelo de usuário}.
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Coleta de informações}
+    \begin{description}
+      \item[Explícita:] é requisitado que o usuário preencha informações em um formulário pré-definido.
+      \item[Implícita:] a informação é inferida a partir do estudo do comportamento do usuário.
+    \end{description}
+  \end{block}
+
+  \begin{block}{Personalização inter-sistemas}
+    \begin{itemize} 
+      \item \textbf{Interoperabilidade} é a capacidade de dois ou mais sistemas ou componentes trocarem informações e utilizar a informação que foi trocada. \cite{ieeedict}
+      \item \textbf{Personalização inter-sistemas} é a capacidade de acessar e interpretar informação derivada de múltiplas fontes heterogênias e integrar esta informação em um modelo de usuário de granularidade própria. \cite{carmagnola09}
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Modelos de interoperabilidade}
+    \begin{description}
+      \item[Sintática:] diferenças entre os modelos de usuário são resolvidos em nível de aplicação.
+      \item[Semântica:] diferenças entre os modelos são resolvidos em nível de conhecimento.
+    \end{description}
+  \end{block}
+
+  \begin{block}{Abordagem para sistemas de modelos de usuário interoperáveis}
+    \begin{description}
+      \item[Baseado em padrões:] \emph{top-down}, define um padrão que todas as aplicações devem observar.
+      \item[Baseado em mediação:] \emph{bottom-up}, busca uma reconciliação entre diferentes modelos.
+    \end{description}
+  \end{block}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[shrink=10]{Trabalhos Relacionados - PeLeP \cite{pelep}}
+
+  \begin{center}
+    \includegraphics[width=0.5\textwidth]{../imagens/pelep1.png}
+  \end{center}
+
+  \begin{itemize}
+    \item Suporta o aperfeiçoamento automático do perfil do aprendiz em ambientes de educação ubíqua.
+    \item Usa o histórico dos aprendizes nos contextos de um ambiente ubíquo para atualização dos perfis.
+    \item O perfil do aprendiz no modelo é refinado e enriquecido através de inferências.
+    \item As inferências são baseadas na mobilidade do aprendiz e no monitoramento das tarefas que ele executa nos contextos de um ambiente de educação ubíqua.
+  \end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Trabalhos Relacionados - \cite{chellouche10}}
+
+  \begin{center}
+    \includegraphics[width=0.5\textwidth]{../imagens/chellouche1.png}
+  \end{center}
+
+  \begin{itemize}
+    \item \emph{Middleware} que pode ser usado por diferentes aplicativos como um servidor central de perfis.
+    \item Voltado para aplicações móveis.
+    \item Não permite que os aplicativos criem novos campos nem definam as regras para atualização dos campos existentes.
+  \end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Trabalhos Relacionados - UUCM \cite{niederee04}}
+
+  \begin{columns}
+    \begin{column}{0.6\textwidth}
+      \begin{itemize}
+        \item Pode ser utilizado para modelar as características de um usuário e seu contexto em ambientes de personalização inter-sistemas.
+        \item Requer que os sistemas que utilizam este modelo concordem em uma ontologia básica.
+        \item Utiliza a idéia de \emph{passaporte}, onde o usuário leva seu perfil consigo.
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.4\textwidth}
+      \begin{center}
+        \includegraphics[width=1\textwidth]{../imagens/niederee1.png}
+      \end{center}
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Comparação entre os trabalhos apresentados}
+
+\begin{table}\centering\footnotesize
+  \begin{tabular*}{1\textwidth}{@{}lllllll@{}}
+    \toprule
+                              & PeLeP    & Chellouche et al   & UUCM \\
+    \midrule
+    Interoperabilidade        & Não      & Sintática          & Sintática \\
+    Perfis dinâmicos          & Sim      & Sim                & Sim \\
+    Armazenamento             & Servidor & Servidor           & Cliente \\
+    Sensibilidade a contexto  & Sim      & Sim                & Sim \\
+    Utiliza trilhas           & Parcial  & Não                & Não \\
+    Domínio                   & Educação & Seviços multimídia & Genérico \\
+    \bottomrule
+  \end{tabular*}
+  \caption{Comparação entre os trabalhos apresentados}
+  \label{tab:comparacao}
+\end{table}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Proposta inicial}
+
+\textbf{eProfile}: um \textcolor{blue}{gerenciador de perfis} de \textcolor{blue}{domínio genérico} voltado para \textcolor{blue}{ambientes distribuídos}, com \textcolor{blue}{interperabilidade intra-sistemas}, que \textcolor{blue}{infere dados de perfil} através da \textcolor{blue}{análise das trilhas} de uma entidade (disponibilizadas por um gerenciador de trilhas), seguindo \textcolor{blue}{regras definidas pelas entidades}, e \textcolor{blue}{disponibiliza os dados} inferidos para serem utilizados pelas aplicações.
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[allowframebreaks]{Referências}
+
+\bibliographystyle{apalike}
+\bibliography{../ubicomp}
+
+\end{frame}
+
+\end{document}
