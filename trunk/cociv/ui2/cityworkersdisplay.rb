@@ -52,7 +52,7 @@ class CityWorkersDisplay < Display
       @scr.x = max_bd_len + 11
       good = building.type.good
       if good and pr[good].theorical > 0
-        @scr.print "#{pr[good].theorical} #{good.name.downcase} [<surplus>#{pr[good].surplus}<default>/<lacking>#{pr[good].lacking}<default>]"
+        @scr.print "#{pr[good].theorical} #{good.name.downcase} [<surplus>#{pr[good].effective}<default>/<lacking>#{pr[good].theorical - pr[good].effective}<default>]"
       end
 
       @scr.puts
@@ -114,7 +114,7 @@ class CityWorkersDisplay < Display
     #@scr.puts
     Good.all.select{ |g| g.raw }.each do |g|
       if pr[g].theorical > 0
-        @scr.puts "  #{pr[g].theorical} #{g.name.downcase} (<surplus>#{pr[g].surplus}<default>/<lacking>#{pr[g].lacking}<default>)"
+        @scr.puts "  #{pr[g].theorical} #{g.name.downcase} [<#{pr[g].effective > 0 ? 'surplus' : 'lacking'}>#{pr[g].effective}<default>]"
       end
     end
       
