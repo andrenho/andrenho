@@ -27,55 +27,59 @@ class CityPlayer < City
     @under_construction = Warehouse_1    
   end
 
+
+  def food_consumption
+    return residents.length * 2
+  end
+
   
   # Calculate production of the city. The value is returned as a hash, where
   # the goods are the keys and the values are Production classes.
   def production
-    prod = {}
-    Good.all.each { |good| prod[good] = Production.new }
-    # tiles
-    (x-1).upto(x+1) do |xx|
-      (y-1).upto(y+1) do |yy|
-        next if xx == 0 and yy == 0
-        @game[xx,yy].production.each do |p|
-          if p != []
-            prod[p[0]].theorical += p[1]
-            prod[p[0]].effective += p[1]
-            prod[p[0]].surplus += p[1]
-          end
-        end
-      end
-    end
-    # building
-    @buildings.each do |building|
-      if not building.workers.empty?
-        # calculate how much this building can produce with the current workers, not
-        # considering the amount of raw goods available
-        good, amount = building.production
-        if amount
-          prod[good].theorical += amount 
-          # calculate how much effectively possible
-          effective = 9999
-          #effective = amount
-          building.type.good.raw_material.each do |raw|
-            max = prod[raw].effective + @warehouse[raw]
-            effective = max if effective > max
-          end
-          effective = amount if effective > amount
-          building.type.good.raw_material.each do |raw|
-            # use up raw good
-            prod[raw].surplus -= effective
-            prod[raw].lacking = prod[raw].effective - prod[good].effective
-          end
-          # produce
-          prod[good].effective = [amount,prod[good].effective].min
-          prod[good].surplus = effective
-          prod[good].lacking = prod[good].effective
-        end
+
+    # initialize
+    pr = {}
+    Good.all.each { |g| pr[g] = Production.new }
+    
+    # theorical production - tiles
+    DIRECTIONS_C.each_value do |tile|
+      x = @x+tile[0]
+      y = @y+tile[1]
+      @game[x,y].production.each do |v|
+        good, amt = v
+        pr[good].theorical += amt
       end
     end
 
-    return prod
+    # theorical production - buildings
+    @buildings.each do |building|
+      good, amt = building.production
+      if good and amt > 0
+        pr[good].theorical += amt
+      end
+    end
+
+    # effective production - fabricated goods
+    Good.all.select{ |g| not g.raw }.each do |good|
+      raw_available = [9999]
+      good.raw_material.each do |raw|
+        raw_available << pr[raw].theorical + @warehouse[raw]
+      end
+      pr[good].effective = [pr[good].theorical, raw_available.min].min
+    end
+
+    # effective production - raw goods
+    Good.all.select{ |g| g.raw }.each do |good|
+      amt = 0
+      Good.all.select{ |g| not g.raw }.each do |f_good|
+        amt += f_good.raw_material.select{ |r| r == good }.length * pr[f_good].effective
+      end
+      pr[good].effective = pr[good].theorical - amt
+    end
+
+    pr[Food].effective -= self.food_consumption
+
+    return pr
   end
 
   # Returns a list of building types (BuildingType) that can be built on
@@ -110,13 +114,6 @@ class CityPlayer < City
   def init_round!
     @warehouse.throw_away_overload!
     produce!
-
-    Curses.close_screen
-    pr = production
-    Good.all.each do |g|
-      p g, pr[g].to_a if pr[g].has_data?
-    end
-    exit 0
   end
 
 
@@ -126,12 +123,10 @@ protected
   def produce!
     $log.debug "Producing goods for the city #{@name}..."
     self.production.each_pair do |good, pr|
-      if pr.surplus > 0
-        $log.debug "#{pr.surplus} of #{good.name} produced."
-        @warehouse.store(good, pr.surplus)
-      elsif pr.surplus < 0
-        $log.debug "#{pr.surplus.abs} of #{good.name} used."
-        @warehouse.load(good, pr.surplus.abs)
+      if pr.effective > 0
+        @warehouse.store(good, pr.effective)
+      elsif pr.effective < 0
+        @warehouse.load(good, pr.effective.abs)
       end
     end
   end

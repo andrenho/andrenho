@@ -57,11 +57,11 @@ class Good < Static
 
   @@all = []
 
-  attr_reader :name, :raw, :can_buy, :initial_prices, :raw_material, :all
+  attr_reader :name, :raw, :mined, :can_buy, :initial_prices, :raw_material, :all
 
-  def initialize(name, raw, mined, can_buy, initial_prices=nil, raw_material=nil)
+  def initialize(name, raw, mined, can_buy, initial_prices=nil, raw_material=[])
     super()
-    @name, @raw, @can_buy, @initial_prices, @raw_material = name, raw, can_buy, initial_prices, raw_material
+    @name, @raw, @mined, @can_buy, @initial_prices, @raw_material = name, raw, mined, can_buy, initial_prices, raw_material
     @@all << self
   end
 
