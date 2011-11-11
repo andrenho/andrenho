@@ -1,0 +1,24 @@
+digraph f {
+
+  subgraph cluster_Planted {
+    Food; Cotton; Barley; Olives;
+    label = "Planted";
+  }
+
+  subgraph cluster_Mined {
+    Wood; Copper; Mud; Tin;
+    label = "Mined";
+  }
+  
+  Cotton -> Clothes;
+  Barley -> Beer;
+  Olives -> "Olive Oil";
+  Wood -> Timber;
+  Copper -> Utensils;
+  Mud -> Bricks;
+  Copper -> Bronze;
+  Tin -> Bronze;
+  Wood -> Weapons;
+  Bronze -> Weapons;
+
+}
