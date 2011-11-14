@@ -1,0 +1,19 @@
+Como o eProfile é um modelo onde é necessário inferir informações de forma autônoma a respeito de dados armazenados em uma ontologia, a tecnologia de agentes autônomos foi escolhida para o desenvolvimento.
+
+O modelo do eProfile é composto por três agentes: (i) conversor, (ii) regulador e raciocinador.
+
+O \textbf{agente conversor} é responsável por realizar a conversão dos dados da trilha do gerenciador de trilhas (externo) para a ontologia de trilha do eProfile (interno). A trilha do gerenciador pode ser disponibilizada em qualquer formato e por qualquer meio, desde que o eProfile ofereça suporte ao gerenciador de trilhas específico. O agente conversor tem também a responsabilidade de verificar, a cada período pré-determinado, atualizações nos dados disponibilizados no gerenciador.
+
+O \textbf{agente regulador} realiza o recebimento das regras enviadas pela aplicação. Uma vez que as regras sejam recebidas, elas são validadas e, se forem consideradas válidas, são armazenadas na base de regras. A aplicação é então informada do aceite ou rejeição. O agente pode rejeitar uma regra se: (i) a regra for inválida ou (ii) se for verificado que a execução da regra irá consumir recursos excessivos do servidor.
+
+O \textbf{agente raciocinador} é responsável pela inferência das trilhas de acordo com as regras enviadas pela aplicação, e posterior atualização do perfil da entidade. A execução do agente não necessita que o cliente ou o gerenciador de trilhas esteja conectado, e ocorre da seguinte forma:
+
+\begin{enumerate}
+
+\item O agente verifica as regras, comparando a data da útlima execução da regra com a freqüência de execução, definida pela aplicação na criação da regra.
+
+\item Caso seja o momento da execução da regra, a mesma é executada através da biblioteca externa HermiT\cite{motik09}.
+
+\item Caso a regra tenha sido executada com sucesso, o resultado da regra é atualizado no perfil. Em caso de insucesso, o erro é enviado para a aplicação no momento que a mesma se reconectar.
+
+\end{enumerate}
