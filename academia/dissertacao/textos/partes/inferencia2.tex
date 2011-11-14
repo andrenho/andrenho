@@ -1,0 +1,41 @@
+Para que uma aplicação possa utilizar os serviços oferecidos pelo eProfile, é necessário que a aplicação envie ao eProfile a ontologia de perfil que ele irá utilizar, extendendo a ontologia do eProfile. A ontologia é enviada quando a aplicação faz seu primeiro acesso ao eProfile, e pode ser atualizada posteriormente. Ela deve ser enviada em formato OWL utilizando a sintaxe RDF/XML\cite{rdf}.
+
+%A Figura~\ref{fig:extensao} mostra um exemplo de uma ontologia de perfil. Neste caso, em um perfil pessoal a classe \texttt{Identity} está sendo extendida para a classe \texttt{PersonalInformation}, que tem as propriedades \texttt{hasName} e \texttt{hasAge}. Este exemplo mostra o OWL/XML gerado pelo editor de ontologias Protégé\cite{protege}. As linhas 19 e 14 importam a ontologia do eProfile e criam um {\em namespace} para ele; nas linhas 21 a 23 é criada a nova classe que extende da classe \texttt{Identity} do eProfile.
+
+\subsubsection{Regras de Inferência}
+
+A aplicação pode, a qualquer momento, criar, editar ou excluir regras para a inferência das informações de sua trilha, de modo a gerar informações úteis dentro da ontologia de perfil.
+
+As regras devem ser enviadas em formato \textbf{SWRL}\cite{swrl}. SWRL ({\em Semantic Web Rule Language}) é uma linguagem de regras proposta pela W3C. Esta linguagem foi escolhida pela expressividade que acrescenta à OWL.
+
+Cada nova regra é gravada em uma base de regras. Assim, regras podem ser compartilhadas entre diferentes aplicações, desde que ambas extendam da mesma forma a ontologia de trilha.
+
+Quando uma nova regra é enviada ao eProfile, ela deve conter as seguintes informações:
+
+\begin{description}
+  \item[Nome:] o nome da regra, para que possa ser atualizada ou excluída posteriormente;
+  \item[Tipo de regra:] se é uma regra em OWL, SPARQL ou SWRL;
+  \item[Regra:] a regra propriamente dita, na linguagem escolhida;
+  \item[Objeto:] classe, instância ou propriedade da ontologia de perfil que será atualizada;
+  \item[Instrução de atualização:] a forma como a instrução será atualizada;
+  \item[Freqüência de atualização:] a freqüência com que a regra deve ser atualizada;
+  \item[Validade:] a data limite até quando a regra será processada (pode ser ilimitada).
+\end{description}
+
+A instrução de atualização pode ser de um dos seguintes tipos:
+
+\begin{description}
+
+  \item[Substituição:] o item anterior é substituído por um novo item. Pode ser utilizado, por exemplo, em dados cadastrais como endereço e telefone, onde cada novo item substitui o anterior;
+
+  \item[Adição:] uma informação é adicionada, como a lista de endereços visitados por um carro;
+
+  \item[Expressão:] uma informação que precisa ser calculada. Neste caso, a própria aplicação passa a expressão do cálculo. Calcular o percentual de interesse de um usuário por um determinado assunto, por exemplo, seria uma informação deste tipo.
+
+\end{description}
+
+Uma vez que a regra tenha sido validada pelo agente regulador, ela entra em funcionamento e passa a ser elegível para execução.
+
+As regras são executadas através de um motor de inferências externo. Foram estudados os seguintes raciocinadores que oferecem suporte a estas operações: Pellet\cite{sirin05}, FaCT++\cite{tsarkov06} e HermiT\cite{motik09}. Devido ao conjunto de funcionalidades e ao desempenho superior, o HermiT foi escolhido como o raciocinador utilizado pelo eProfile.
+
+Um exemplo deste tipo de regra poderia ser a tentativa de identificação de parentesco entre duas entidades (neste caso, duas pessoas). Por exemplo, para identificar se duas pessoas são primas (isto é, se elas tem a propriedade \texttt{temPrimo} vinculando-as), a seguinte regra se aplicaria: \texttt{temPai(?a,?b) $\wedge$ temIrmao(?b,?c) $\wedge$ temFilho(?c,?d) $\Rightarrow$ temPrimo(?a,?d)}.
