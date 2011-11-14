@@ -20,11 +20,11 @@ class UI
     display = MapDisplay.new(@driver, @scr)
     while true
       @driver.run_round do
-        game_over! @driver.game.player.elimination if @driver.game.player.elimination
         display.redraw
         n = display.input
         display = n if n
         return if display == :exit
+        game_over! @driver.game.player.elimination if @driver.game.player.elimination
       end
     end
   end
