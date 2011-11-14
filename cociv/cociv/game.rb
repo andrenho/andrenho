@@ -42,6 +42,13 @@ class Game
   end
 
   def advance_round!
+    cities_famine = @player.cities.select { |c| c.warehouse[Food] < c.food_consumption }
+    if not cities_famine.empty?
+      if not $ui.ask_yn _('My king! The winter months are comming and we might not have enough food in %s! Do you want to continue?') % cities_famine.map{ |c| c.name }.join2(', ', ' and ')
+        return false
+      end        
+    end
+
     $log.debug "Year #{@year} closed."
     $log.debug '-------------------------------------'
     
@@ -49,6 +56,7 @@ class Game
     $log.debug "New year #{@year} started."
     
     @nations.each { |n| n.init_round }
+    return true
   end
 
   def inspect

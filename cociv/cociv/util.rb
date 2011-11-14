@@ -11,6 +11,16 @@ class Array
     self.inject{|sum,x| sum + x }
   end
 
+  def join2(*a)
+    if a.length == 1 or self.length < 2
+      return self.join(a[0])
+    elsif a.length == 2
+      return self[0..(self.length-2)].join(a[0]) + a[1] + self[-1]
+    else
+      raise
+    end
+  end
+
 end
 
 # code by Allan Odgaard

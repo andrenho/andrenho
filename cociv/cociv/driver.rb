@@ -54,7 +54,7 @@ class Driver
       else
         nation.autoplay!
       end
-      @game.advance_round!
+      redo if not @game.advance_round!
     end
   end
 
