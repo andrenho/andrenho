@@ -60,6 +60,9 @@ class Unit
     1 # TODO
   end
 
+  def prepare_to_die!
+  end
+
 protected
 
   def initialize(game, nation, military, x, y)

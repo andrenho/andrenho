@@ -47,6 +47,8 @@ class Driver
     @focused = @game.player.units.select { |u| u.has_moves_left? }[0]
 
     @game.nations.each do |nation|
+
+      # main loop
       $log.debug "Nation #{nation.name} playing."
       if nation == @game.player # human player
         yield if nation.round_over?
@@ -55,6 +57,9 @@ class Driver
         nation.autoplay!
       end
       redo if not @game.advance_round!
+
+      # check for game over
+      @game.check_for_nation_elimination!
     end
   end
 

@@ -1,7 +1,7 @@
 class Nation
 
   attr_reader :units, :color, :name, :cities
-  attr_accessor :gold
+  attr_accessor :gold, :elimination
 
   # Create a new nation.
   def initialize(game, name, color=nil)
@@ -54,7 +54,8 @@ class Nation
   end
 
   def kill!(unit)
-    assert { not @units.include? unit }
+    assert { @units.include? unit }
+    unit.prepare_to_die!
     @units.delete unit
     $log.debug "The unit #{unit.description} has been killed!"
   end
