@@ -123,6 +123,17 @@ protected
   def produce!
     $log.debug "Producing goods for the city #{@name}..."
     self.production.each_pair do |good, pr|
+      # kill unit from hunger
+      if good == Food
+        if pr.effective + @warehouse[Food] < 0
+          victim = residents.sample
+          @nation.kill! victim
+          $ui.messages << _('A %s has died of hunger in %s.') % [victim.description, @name]
+          next
+        end
+      end
+
+      # store/take from warehouse
       if pr.effective > 0
         @warehouse.store(good, pr.effective)
       elsif pr.effective < 0

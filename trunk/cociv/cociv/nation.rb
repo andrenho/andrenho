@@ -53,4 +53,10 @@ class Nation
     return true
   end
 
+  def kill!(unit)
+    assert { not @units.include? unit }
+    @units.delete unit
+    $log.debug "The unit #{unit.description} has been killed!"
+  end
+
 end

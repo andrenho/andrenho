@@ -2,10 +2,12 @@ Version 0.1:
  - Own units
    - Working on water
  - Own city
-   - Change skilled unit symbol
+   - Change skilled unit symbol (ok)
    - Building stuff
-   - Production excess - hammers, food
-   - Skills
+   - Production excess
+     - Hammers
+     - Food
+   - Skills (ok)
  - Map
    - Specials
 
