@@ -75,4 +75,14 @@ class Game
     $log.info 'Game saved.'
   end
 
+  def check_for_nation_elimination!
+    @nations.each do |nation|
+      if nation.units.empty?
+        nation.elimination = :no_more_units
+        @nations.delete nation
+        $log.debug "Nation #{nation.name} was wiped out!"
+      end
+    end
+  end
+
 end

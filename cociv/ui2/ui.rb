@@ -20,6 +20,7 @@ class UI
     display = MapDisplay.new(@driver, @scr)
     while true
       @driver.run_round do
+        game_over! @driver.game.player.elimination if @driver.game.player.elimination
         display.redraw
         n = display.input
         display = n if n
@@ -30,6 +31,14 @@ class UI
 
   def close
     @scr.exit if @scr
+  end
+
+protected
+
+  def game_over!(motive)
+    close
+    puts 'Game over.'
+    exit 0
   end
 
 end

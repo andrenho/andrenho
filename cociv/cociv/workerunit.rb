@@ -55,4 +55,8 @@ class WorkerUnit < LandUnit
     end
   end
 
+  def prepare_to_die!
+    abandon_job!
+  end
+
 end 
