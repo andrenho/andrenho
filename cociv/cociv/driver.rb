@@ -58,9 +58,10 @@ class Driver
       end
       redo if not @game.advance_round!
 
-      # check for game over
-      @game.check_for_nation_elimination!
     end
+
+    # check for game over
+    @game.check_for_nation_elimination!
   end
 
   # A generic method to move a unit. It'll move the selected unit and select

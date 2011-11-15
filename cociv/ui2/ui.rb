@@ -24,8 +24,8 @@ class UI
         n = display.input
         display = n if n
         return if display == :exit
-        game_over! @driver.game.player.elimination if @driver.game.player.elimination
       end
+      game_over! @driver.game.player.elimination if @driver.game.player.elimination
     end
   end
 
@@ -37,7 +37,9 @@ protected
 
   def game_over!(motive)
     close
-    puts 'Game over.'
+    if motive == :no_more_units
+      puts _('Game over: nation has no more units available.')
+    end
     exit 0
   end
 
