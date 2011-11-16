@@ -1,0 +1,39 @@
+digraph g {
+
+  size="9";
+
+  nation_has_moves_left [label=""];
+
+  start -> start_round;
+  start_round -> next_nation;
+
+  next_nation -> nation_has_moves_left [label="nations\nleft"];
+  advance_round -> start_round;
+  next_nation -> advance_round [label="no nations\nleft"];
+
+  nation_has_moves_left -> wait_next_round [label="no units with\nmoves left"];  
+  nation_has_moves_left -> focus_next_unit [label="units with\nmoves left"];
+
+  focus_next_unit -> wait_for_move [label="units with\nmoves left"];
+  focus_next_unit -> next_nation [label="no units with\nmoves left"];
+  focus_next_unit -> game_over [label="no units left"];
+  wait_next_round -> next_nation [label="key pressed"];
+
+  wait_for_move -> focus_next_unit [label="move,\nno moves left"];
+  wait_for_move -> focus_next_unit [label="wait"];
+  wait_for_move -> move [label="move,\nmoves left"];
+  move -> wait_for_move;
+  wait_for_move -> join_city [label="join city"];
+  wait_for_move -> build_city [label="build city"];
+  build_city -> join_city;
+  wait_for_move -> fight [label="attack"];
+  fight -> focus_next_unit [label="win or die"];
+
+  join_city -> focus_next_unit;
+  build_city -> focus_next_unit;
+
+  game_over -> end;
+
+  start [shape=Mdiamond];
+  end [shape=Mdiamond];
+}
