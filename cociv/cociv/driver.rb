@@ -41,11 +41,16 @@ class Driver
     end
   end
 
+  def run!
+  end
+
+protected
+
   def player_nation_active?
     return @game.nations.include? @game.player
   end
 
-  def run_round(display)
+  def run_round!(display)
     @game.start_round!
     @game.nations.each do |nation|
       if nation.round_over?
