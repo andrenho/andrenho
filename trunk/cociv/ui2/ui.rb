@@ -16,6 +16,7 @@ class UI
     init_color(@scr)
   end
 
+=begin
   def run!
     display = MapDisplay.new(@driver, @scr)
     while true
@@ -28,6 +29,15 @@ class UI
       game_over! @driver.game.player.elimination if @driver.game.player.elimination
     end
   end
+=end
+
+  def run!
+    display = MapDisplay.new(@driver, @scr)
+    while @driver.player_nation_active?
+      @driver.run_round! display
+    end
+    game_over! 
+  end
 
   def close
     @scr.exit if @scr
@@ -35,7 +45,7 @@ class UI
 
 protected
 
-  def game_over!(motive)
+  def game_over!(motive=nil)
     close
     if motive == :no_more_units
       puts _('Game over: nation has no more units available.')

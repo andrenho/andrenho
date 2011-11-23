@@ -41,6 +41,26 @@ class Driver
     end
   end
 
+  def player_nation_active?
+    return @game.nations.include? @game.player
+  end
+
+  def run_round(display)
+    @game.start_round!
+    @game.nations.each do |nation|
+      if nation.round_over?
+        $ui.messages << _('Press SPACE for the next round.')
+      else
+        loop do
+          select_next!
+          break if nation.round_over?
+        end
+      end
+    end
+    @game.advance_round!
+  end
+
+=begin
   # Runs one round. This is usually called from the UI. It yields in each move,
   # so that the UI can redraw and input before a new round.
   def run_round
@@ -63,6 +83,8 @@ class Driver
     # check for game over
     @game.check_for_nation_elimination!
   end
+=end
+
 
   # A generic method to move a unit. It'll move the selected unit and select
   # the next if the moves are over.

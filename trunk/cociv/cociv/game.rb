@@ -33,13 +33,18 @@ class Game
     @player = @nations[0]
     @year = -2000
 
-    @nations.each { |n| n.init_round }
+    start_round!
   end
 
   def [](x, y)
     return nil if x < 0 or y < 0 or x > @map_w-1 or y > @map_h - 1
     return @tiles[x + (y * @map_w)]
   end
+
+  def start_round!
+    @nations.each { |n| n.start_round! }
+  end
+
 
   def advance_round!
     cities_famine = @player.cities.select { |c| c.warehouse[Food] < c.food_consumption }
@@ -55,7 +60,6 @@ class Game
     @year += 1
     $log.debug "New year #{@year} started."
     
-    @nations.each { |n| n.init_round }
     return true
   end
 

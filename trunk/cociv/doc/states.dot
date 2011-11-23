@@ -14,19 +14,21 @@ digraph g {
   nation_has_moves_left -> wait_next_round [label="no units with\nmoves left"];  
   nation_has_moves_left -> focus_next_unit [label="units with\nmoves left"];
 
-  focus_next_unit -> wait_for_move [label="units with\nmoves left"];
+  focus_next_unit -> listen [label="units with\nmoves left"];
   focus_next_unit -> next_nation [label="no units with\nmoves left"];
   focus_next_unit -> game_over [label="no units left"];
   wait_next_round -> next_nation [label="key pressed"];
 
-  wait_for_move -> focus_next_unit [label="move,\nno moves left"];
-  wait_for_move -> focus_next_unit [label="wait"];
-  wait_for_move -> move [label="move,\nmoves left"];
-  move -> wait_for_move;
-  wait_for_move -> join_city [label="join city"];
-  wait_for_move -> build_city [label="build city"];
+  listen -> focus_next_unit [label="wait"];
+  listen -> move [label="move,\nmoves left"];
+  listen -> change_terrain [label="change terrain"];
+  change_terrain -> focus_next_unit;
+  move -> listen [label="moves left"];
+  move -> focus_next_unit [label="no moves left"];
+  listen -> join_city [label="join city"];
+  listen -> build_city [label="build city"];
   build_city -> join_city;
-  wait_for_move -> fight [label="attack"];
+  listen -> fight [label="attack"];
   fight -> focus_next_unit [label="win or die"];
 
   join_city -> focus_next_unit;
@@ -36,4 +38,5 @@ digraph g {
 
   start [shape=Mdiamond];
   end [shape=Mdiamond];
+  listen [shape=square];
 }
