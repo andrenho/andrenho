@@ -39,7 +39,7 @@ class Nation
     raise 'Not implemented.'
   end
 
-  def init_round
+  def start_round!
     @cities.each { |c| c.init_round! }
     @units.each  { |u| u.init_round! }
   end
