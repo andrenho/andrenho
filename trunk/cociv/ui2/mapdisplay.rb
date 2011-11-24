@@ -27,6 +27,19 @@ class MapDisplay < Display
       @scr.show_cursor = false
     end
   end
+
+  def manage_city(city)
+    display = CityWorkersDisplay.new(@driver, city, @scr)
+    loop do
+      display.redraw
+      d = display.input
+      if d == :exit
+        break
+      elsif d
+        display = d
+      end
+    end
+  end
   
 protected #################################
 
@@ -47,7 +60,7 @@ protected #################################
     options = []
     @game.player.cities.each { |city| options << [city, city.name] }
     choice = $ui.menu(_('Choose a city to manage:'), options)
-    return CityWorkersDisplay.new(@driver, choice, @scr) if choice
+    manage_city(choice) if choice
   end
 
 
@@ -62,7 +75,7 @@ protected #################################
   # abandon game
   def input_Q
     if $ui.ask_yn(_('Do you want to abandond the game?'))
-      return :exit
+      return :abandon
     end
     nil
   end
@@ -73,8 +86,7 @@ protected #################################
     if @driver.focused and @driver.focused.can_build_city?
       name = $ui.ask_s(_('What is the name of the new city?'))
       if name
-        city = @driver.focused.build_city(name)
-        return CityWorkersDisplay.new(@driver, city, @scr)
+        return [:build_city, name]
       end
     end
     nil
@@ -82,25 +94,21 @@ protected #################################
 
   # wait
   def input_w
-    @driver.select_next!
+    return [:wait]
   end
 
   # others keys (such as movement)
   def input_other(ch)
-    if @driver.focused
-      # check for movement
-      d = NETHACK_KEYS[ch] if NETHACK_KEYS.has_key? ch
-      if DIRECTIONS.has_key? d
-        @driver.move_unit(d)
-      # rest
-      elsif ch == ' '
-        @driver.focused.end_round
-        @driver.select_next!
-      end
-    else
-      if ch == ' '
-        @driver.game.player.end_round!
-      end
+
+    # move
+    d = NETHACK_KEYS[ch] if NETHACK_KEYS.has_key? ch
+    if DIRECTIONS.has_key? d
+      return [:move, d]
+
+    # rest
+    elsif ch == ' '
+      return [:rest]
+
     end
 
     # move screen

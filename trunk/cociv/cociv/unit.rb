@@ -27,6 +27,7 @@ class Unit
   end
 
   def has_moves_left?
+    return false if self.worker?
     DIRECTIONS.each_value do |dir|
       x,y = dir
       if @x+x >= 0 and @y+y >= 0 and @x+x < @game.map_w and @y+y < @game.map_h

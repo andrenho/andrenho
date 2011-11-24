@@ -44,8 +44,6 @@ class Driver
   def run!
   end
 
-protected
-
   def player_nation_active?
     return @game.nations.include? @game.player
   end
@@ -54,15 +52,42 @@ protected
     @game.start_round!
     @game.nations.each do |nation|
       if nation.round_over?
-        $ui.messages << _('Press SPACE for the next round.')
+        $ui.messages << _('Press ENTER for the next round.')
+        display.redraw
       else
+        # nation round loop
         loop do
           select_next!
           break if nation.round_over?
+
+          begin
+            # listen
+            display.redraw
+            command, *parameters = display.input
+
+            # move
+            if command == :move
+              move_unit(parameters[0]) 
+            end
+          end while command == :move and @focused.has_moves_left?
+
+          # execute other commands
+          if command == :rest
+            @focused.end_round if @focused
+          elsif command == :wait
+            next
+          elsif command == :abandon
+            return false
+          elsif command == :build_city
+            city = @focused.build_city(parameters[0])
+            display.manage_city(city)
+          end
+
         end
       end
     end
     @game.advance_round!
+    return true
   end
 
 =begin
@@ -90,6 +115,7 @@ protected
   end
 =end
 
+protected
 
   # A generic method to move a unit. It'll move the selected unit and select
   # the next if the moves are over.
@@ -102,9 +128,13 @@ protected
   # Select the next unit.
   def select_next!
     avail_units = @game.player.units.select { |u| u.has_moves_left? or u == @focused }
-    if avail_units.length == 0
-      return nil
+    return if avail_units.length == 0
+
+    if not @focused
+      @focused = avail_units[0]
+      return
     end
+    
     started = false
     avail_units.cycle 2 do |u|
       if not started
