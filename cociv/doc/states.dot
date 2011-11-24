@@ -1,6 +1,6 @@
 digraph g {
 
-  size="9";
+  size="11";
 
   nation_has_moves_left [label=""];
 
@@ -22,6 +22,8 @@ digraph g {
   listen -> focus_next_unit [label="wait"];
   listen -> move [label="move,\nmoves left"];
   listen -> change_terrain [label="change terrain"];
+  listen -> rest [label="rest"];
+  rest -> focus_next_unit;
   change_terrain -> focus_next_unit;
   move -> listen [label="moves left"];
   move -> focus_next_unit [label="no moves left"];

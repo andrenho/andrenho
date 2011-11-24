@@ -34,7 +34,7 @@ class UI
   def run!
     display = MapDisplay.new(@driver, @scr)
     while @driver.player_nation_active?
-      @driver.run_round! display
+      return unless @driver.run_round! display
     end
     game_over! 
   end
