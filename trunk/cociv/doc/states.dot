@@ -2,27 +2,23 @@ digraph g {
 
   size="11";
 
-  nation_has_moves_left [label=""];
-
   start -> start_round;
   start_round -> next_nation;
 
-  next_nation -> nation_has_moves_left [label="nations\nleft"];
+  next_nation -> focus_next_unit [label="nations\nleft"];
   advance_round -> start_round;
   next_nation -> advance_round [label="no nations\nleft"];
 
-  nation_has_moves_left -> wait_next_round [label="no units with\nmoves left"];  
-  nation_has_moves_left -> focus_next_unit [label="units with\nmoves left"];
-
   focus_next_unit -> listen [label="units with\nmoves left"];
   focus_next_unit -> next_nation [label="no units with\nmoves left"];
-  focus_next_unit -> game_over [label="no units left"];
-  wait_next_round -> next_nation [label="key pressed"];
+  focus_next_unit -> game_over [label="no units alive"];
 
   listen -> focus_next_unit [label="wait"];
   listen -> move [label="move,\nmoves left"];
   listen -> change_terrain [label="change terrain"];
-  listen -> rest [label="rest"];
+  listen -> rest [label="rest and\nunits left"];
+  listen -> next_nation [label="rest and\nno units left"];
+  
   rest -> focus_next_unit;
   change_terrain -> focus_next_unit;
   move -> listen [label="moves left"];

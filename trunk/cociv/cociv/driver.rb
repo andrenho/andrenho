@@ -51,39 +51,41 @@ class Driver
   def run_round!(display)
     @game.start_round!
     @game.nations.each do |nation|
-      if nation.round_over?
-        $ui.messages << _('Press ENTER for the next round.')
-        display.redraw
-      else
-        # nation round loop
-        loop do
-          select_next!
-          break if nation.round_over?
 
-          begin
-            # listen
-            display.redraw
-            command, *parameters = display.input
+      # nation round loop
+      loop do
+        select_next!
 
-            # move
-            if command == :move
-              move_unit(parameters[0]) 
-            end
-          end while command == :move and @focused.has_moves_left?
+        begin
+          # listen
+          display.redraw
+          command, *parameters = display.input
 
-          # execute other commands
-          if command == :rest
-            @focused.end_round if @focused
-          elsif command == :wait
-            next
-          elsif command == :abandon
-            return false
-          elsif command == :build_city
-            city = @focused.build_city(parameters[0])
-            display.manage_city(city)
+          # move
+          if command == :move
+            move_unit(parameters[0])
           end
+        end while command == :move and @focused.has_moves_left?
 
+        # execute other commands
+        if command == :rest
+          if nation.round_over?
+            break
+          else
+            @focused.end_round if @focused
+          end
+        elsif command == :wait
+          next
+        elsif command == :abandon
+          return false
+        elsif command == :build_city
+          city = @focused.build_city(parameters[0])
+          display.manage_city(city)
         end
+
+        # round over?
+        break if nation.round_over?
+
       end
     end
     @game.advance_round!
