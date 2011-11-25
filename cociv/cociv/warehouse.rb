@@ -17,6 +17,10 @@ class Warehouse < Building
     return @goods[good]
   end
 
+  def []=(good, amt)
+    @goods[good] = amt
+  end
+
   def load(good, amount=nil)
     if not amount
       n = @goods[good]
