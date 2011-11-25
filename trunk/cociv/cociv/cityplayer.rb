@@ -123,13 +123,18 @@ protected
   def produce!
     $log.debug "Producing goods for the city #{@name}..."
     self.production.each_pair do |good, pr|
-      # kill unit from hunger
       if good == Food
+        # kill unit from hunger
         if pr.effective + @warehouse[Food] < 0
           victim = residents.sample
           @nation.kill! victim
           $ui.messages << _('A %s has died of hunger in %s.') % [victim.description, @name]
           next
+        # create a new unit
+        elsif pr.effective + @warehouse[Food] > @warehouse.max_size
+          unit = @nation.create_unit!(Peasant, @x, @y)
+          $ui.messages << _('A new unit was born in %s!') % @name
+          @warehouse[Food] -= @warehouse.max_size
         end
       end
 
