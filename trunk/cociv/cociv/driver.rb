@@ -52,6 +52,8 @@ class Driver
     @game.start_round!
     @game.nations.each do |nation|
 
+      @focused = nil
+
       # nation round loop
       loop do
         select_next!
@@ -63,9 +65,9 @@ class Driver
 
           # move
           if command == :move
-            move_unit(parameters[0])
+            move_unit(parameters[0]) if @focused
           end
-        end while command == :move and @focused.has_moves_left?
+        end while command == :move and (@focused and @focused.has_moves_left?)
 
         # execute other commands
         if command == :rest
@@ -92,31 +94,6 @@ class Driver
     return true
   end
 
-=begin
-  # Runs one round. This is usually called from the UI. It yields in each move,
-  # so that the UI can redraw and input before a new round.
-  def run_round
-    @focused = @game.player.units.select { |u| u.has_moves_left? }[0]
-
-    @game.nations.each do |nation|
-
-      # main loop
-      $log.debug "Nation #{nation.name} playing."
-      if nation == @game.player # human player
-        yield if nation.round_over?
-        yield while not nation.round_over?
-      else
-        nation.autoplay!
-      end
-      redo if not @game.advance_round!
-
-    end
-
-    # check for game over
-    @game.check_for_nation_elimination!
-  end
-=end
-
 protected
 
   # A generic method to move a unit. It'll move the selected unit and select
@@ -130,7 +107,10 @@ protected
   # Select the next unit.
   def select_next!
     avail_units = @game.player.units.select { |u| u.has_moves_left? or u == @focused }
-    return if avail_units.length == 0
+    if avail_units.length == 0
+      @focused = nil
+      return
+    end
 
     if not @focused
       @focused = avail_units[0]
