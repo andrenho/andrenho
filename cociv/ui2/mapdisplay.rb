@@ -31,6 +31,7 @@ class MapDisplay < Display
   def manage_city(city)
     display = CityWorkersDisplay.new(@driver, city, @scr)
     loop do
+      return if display.is_a? MapDisplay
       display.redraw
       d = display.input
       if d == :exit
@@ -39,6 +40,9 @@ class MapDisplay < Display
         display = d
       end
     end
+  end
+
+  def inform_end_of_turn
   end
   
 protected #################################
