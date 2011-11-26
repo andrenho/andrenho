@@ -66,7 +66,11 @@ class Driver
           # move
           if command == :move
             move_unit(parameters[0]) if @focused
+          elsif command == :build_city
+            city = @focused.build_city(parameters[0])
+            display.manage_city(city)
           end
+          $log.debug command
         end while command == :move and (@focused and @focused.has_moves_left?)
 
         # execute other commands
@@ -80,9 +84,6 @@ class Driver
           next
         elsif command == :abandon
           return false
-        elsif command == :build_city
-          city = @focused.build_city(parameters[0])
-          display.manage_city(city)
         end
 
         # round over?
