@@ -30,15 +30,10 @@ class MapDisplay < Display
 
   def manage_city(city)
     display = CityWorkersDisplay.new(@driver, city, @scr)
-    loop do
-      return if display.is_a? MapDisplay
+    while display != :exit
       display.redraw
       d = display.input
-      if d == :exit
-        break
-      elsif d
-        display = d
-      end
+      display = d if d
     end
   end
 

@@ -76,7 +76,7 @@ protected #################################
 
   # Return to map screen
   def input_esc
-    return MapDisplay.new(@driver, @scr)
+    return :exit
   end
 
   def input_other(ch)
