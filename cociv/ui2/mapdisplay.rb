@@ -60,6 +60,7 @@ protected #################################
     @game.player.cities.each { |city| options << [city, city.name] }
     choice = $ui.menu(_('Choose a city to manage:'), options)
     manage_city(choice) if choice
+    return nil
   end
 
 

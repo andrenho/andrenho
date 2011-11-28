@@ -62,15 +62,16 @@ class Driver
           # listen
           display.redraw
           command, *parameters = display.input
+          redo if command == nil
 
           # move
           if command == :move
-            move_unit(parameters[0]) if @focused
-          elsif command == :build_city
-            city = @focused.build_city(parameters[0])
-            display.manage_city(city)
+            if @focused
+              move_unit(parameters[0]) 
+            else
+              redo
+            end
           end
-          $log.debug command
         end while command == :move and (@focused and @focused.has_moves_left?)
 
         # execute other commands
@@ -84,6 +85,10 @@ class Driver
           next
         elsif command == :abandon
           return false
+        elsif command == :build_city
+          city = @focused.build_city(parameters[0])
+          display.manage_city(city)
+          redo
         end
 
         # round over?

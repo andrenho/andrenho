@@ -62,18 +62,20 @@ class Tile
 
   # Can a city be built on this tile?
   def can_build_city?
-    return true # TODO
+    return false if [Ocean, Mountain].include? @terrain
+    return true
   end
   
   # Assing a worker (for producing raw goods) to this tile.
   def worker=(unit)
-    # TODO - assertions
+    # assing job
     if @worker
       w = @worker
       @worker = nil
       w.abandon_job!  # original worker leaves tile
     end
-    if unit # new worker abandons old job
+    # new worker abandons old job
+    if unit
       unit.abandon_job!
       unit.working_on = self
       unit.job = @terrain.suggested_job
@@ -99,6 +101,11 @@ class Tile
   # Return what would be the production of this tile, 
   # if the unit were working on it.
   def productivity_job(unit, job)
+    if job == Fisherman
+      return 0 if not @belongs_to
+      return 0 if @belongs_to.has_docks?
+    end
+    return 0 if job == Farmer and @terrain == Ocean
     n = self.abs_productivity(job.good)
     n *= 2 if (job.good.mined and @road) or (not job.good.mined and (@river or @plow))
     n *= 2 if @worker.skills.include? job
@@ -108,7 +115,11 @@ class Tile
 
   # Return the absolute production of this tile for a given good.
   def abs_productivity(good)
-    return @terrain.production[good]
+    if good == Food and @river
+      return 4
+    else
+      return @terrain.production[good]
+    end
   end
 
   # Return river tiles nearby
