@@ -1,10 +1,11 @@
 #include <iostream>
-#include <cstdlib>
 #include "SDL.h"
 
 #include "game.h"
 #include "ui.h"
 #include "worldenvironment.h"
+
+using namespace std;
 
 int main(int argc, char *argv[])
 {
@@ -17,10 +18,10 @@ int main(int argc, char *argv[])
   {
     ui->Init();
   }
-  catch(std::string s)
+  catch(string s)
   {
-    std::cerr << s << std::endl;
-    return EXIT_FAILURE;
+    cerr << s << endl;
+    return 1; // failure
   }
 
   // connect to server
@@ -45,5 +46,5 @@ int main(int argc, char *argv[])
   // finish
   game->Disconnect();
   ui->Close();
-  return EXIT_SUCCESS;
+  return 0;
 }

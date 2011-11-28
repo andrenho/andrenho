@@ -4,7 +4,6 @@
 class UI
 {
   public:
-    UI();
     void Init();
     bool Running();
     char* AskConnectAddress();
