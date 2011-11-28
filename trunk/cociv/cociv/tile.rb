@@ -104,6 +104,7 @@ class Tile
     if job == Fisherman
       return 0 if not @belongs_to
       return 0 if @belongs_to.has_docks?
+      return 0 if not @river and @terrain != Ocean
     end
     return 0 if job == Farmer and @terrain == Ocean
     n = self.abs_productivity(job.good)
