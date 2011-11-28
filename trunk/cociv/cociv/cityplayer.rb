@@ -117,6 +117,13 @@ class CityPlayer < City
   end
 
 
+  # Returns if the city has docks
+  def has_docks?
+    n = @buildings.select { |b| [Docks_1, Docks_2, Docks_3].include? b.type }
+    return n.length > 0
+  end
+
+
 protected
 
   # Produce all goods for one round.
