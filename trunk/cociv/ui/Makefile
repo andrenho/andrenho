@@ -1,6 +1,6 @@
 CC=g++
-CPPFLAGS=-c -Wall
-LDFLAGS=
+CPPFLAGS=-c -Wall -IC:\andre\lib\SDL-1.2.14\include\SDL
+LDFLAGS=-LC:\andre\lib\SDL-1.2.14\lib -lmingw32 -lSDLmain -lSDL -mwindows
 SRC=$(wildcard src/*.cpp)
 EXE=cociv
 
