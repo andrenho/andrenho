@@ -19,7 +19,9 @@ UI::Init()
   loadColors();
 
   // initialize fonts
-  initializeFonts();
+  pen = new Pen(color);
+  pen->Init(screen, colors["base3"], colors["base00"]);
+  pen->fontSize = 24;
 }
 
 /////////////////////////////////////////////////////////////
@@ -28,9 +30,8 @@ char*
 UI::AskConnectAddress()
 {
   SDL_FillRect(screen, NULL, colors["base3"]);
-  SDL_Surface* sf = TTF_RenderUTF8_Shaded(font, "Writing test!", 
-      color[colors["base00"]], color[colors["base3"]]);
-  SDL_BlitSurface(sf, NULL, screen, NULL);
+  pen->fontSize = 100;
+  pen->Write("Cradle of\nCivilization");
   return 0x0;
 }
 
@@ -94,17 +95,4 @@ UI::loadColors()
 
   if(SDL_SetColors(screen, color, 0, 256) == 0)
     throw new string("Could not setup colors.");
-}
-
-/////////////////////////////////////////////////////////////
-
-void
-UI::initializeFonts()
-{
-  if(TTF_Init() == -1)
-    throw new string(TTF_GetError());
-
-  font = TTF_OpenFont(DATA_DIR "/font.ttf", 24);
-  if(!font)
-    throw new string("Could not load font.");
 }

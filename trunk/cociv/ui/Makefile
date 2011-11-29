@@ -13,4 +13,4 @@ $(EXE): $(SRC:.cc=.o)
 	$(CC) -c $< $(CPPFLAGS) -o $@
 
 clean:
-	rm -f $(SRC:.cpp=.o) $(EXE) $(EXE).exe
+	rm -f $(SRC:.cc=.o) $(EXE) $(EXE).exe
