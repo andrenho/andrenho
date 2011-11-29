@@ -12,19 +12,20 @@ using namespace std;
 class Pen
 {
   public:
-    SDL_Color* color;
-    int x, y;
-    int w;
-    int fontSize;
-    int backgroundColor;
-    int foregroundColor;
+    unsigned int x, y;
+    unsigned int w;
+    unsigned int fontSize;
+    unsigned int backgroundColor;
+    unsigned int foregroundColor;
     SDL_Surface *destiny;
 
     Pen(SDL_Color* color) : color(color) { }
     void Init(SDL_Surface *destiny, int backgroundColor, int foregroundColor);
     void Write(string text);
+    unsigned int Height(string text);
 
   private:
+    SDL_Color* color;
     map<int, TTF_Font*> fonts;
     set<int> loadedSizes;
 };

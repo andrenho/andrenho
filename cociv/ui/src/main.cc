@@ -9,13 +9,13 @@ using namespace std;
 int main(int argc, char *argv[])
 {
   // initialize game
-  Game *game = new Game();
+  Game game;
 
   // initialize UI
-  UI *ui = new UI();
+  UI ui;
   try
   {
-    ui->Init();
+    ui.Init();
   }
   catch(string s)
   {
@@ -24,17 +24,19 @@ int main(int argc, char *argv[])
   }
 
   // connect to server
-  while(ui->Running())
+  game.Connect();
+  /*
+  while(ui.Running())
   {
-    if(!game->Connect(ui->AskConnectAddress()))
-      ui->Message("Could not connect to server.");
+    if(!game.Connect(ui.AskConnectAddress()))
+      ui.Message("Could not connect to server.");
     else
       break;
-  }
+  }*/
 
   // main loop
-  Environment *e = new WorldEnvironment(game, ui);
-  while(ui->Running())
+  Environment *e = new WorldEnvironment(&game, &ui);
+  while(ui.Running())
   {
     e->Redraw();
     Environment *e2 = e->Input();
@@ -43,6 +45,6 @@ int main(int argc, char *argv[])
   }
 
   // finish
-  game->Disconnect();
+  game.Disconnect();
   return 0;
 }

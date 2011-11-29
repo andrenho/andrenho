@@ -1,5 +1,10 @@
 #include "pen.h"
 
+#include <vector>
+#include <string>
+
+#include "util.h"
+
 void 
 Pen::Init(SDL_Surface *destiny, int backgroundColor, int foregroundColor)
 {
@@ -13,8 +18,27 @@ Pen::Init(SDL_Surface *destiny, int backgroundColor, int foregroundColor)
   this->foregroundColor = foregroundColor;
   this->backgroundColor = backgroundColor;
 }
+
+
+unsigned int 
+Pen::Height(string text)
+{
+  unsigned int h = 0;
+
+  // parse text
+  if(w > 0)
+    text = wrap(text, w);
+  vector<string>* v = split(text, '\n');
+
+  // calculate height
+  for(vector<string>::iterator it=v->begin(); it < v->end(); it++)
+    h += TTF_FontLineSkip(fonts[fontSize]);
+
+  return h;
+}
+
  
-void 
+void
 Pen::Write(string text)
 {
   // check if size was used, if not, load
@@ -27,12 +51,26 @@ Pen::Write(string text)
   }
 
   // parse text
+  if(w > 0)
+    text = wrap(text, w);
+  vector<string>* v = split(text, '\n');
 
   // write text
-  SDL_Surface* s = TTF_RenderUTF8_Shaded(fonts[fontSize], text.c_str(), 
-      color[foregroundColor], color[backgroundColor]);
-  SDL_Rect r = { x, y, 0, 0 };
-  SDL_BlitSurface(s, NULL, destiny, &r);
-  x += s->w;
-  SDL_FreeSurface(s);
+  int orig_x = x;
+  for(vector<string>::iterator it=v->begin(); it < v->end(); it++)
+  {
+    SDL_Surface* s = TTF_RenderUTF8_Shaded(fonts[fontSize], (*it).c_str(), 
+        color[foregroundColor], color[backgroundColor]);
+    SDL_Rect r = { x, y, 0, 0 };
+    SDL_BlitSurface(s, NULL, destiny, &r);
+    x += s->w;
+    if(it != v->end())
+    {
+      x = orig_x;
+      y += TTF_FontLineSkip(fonts[fontSize]);
+    }
+    SDL_FreeSurface(s);
+  }
+
+  delete v;
 }
