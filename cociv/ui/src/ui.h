@@ -1,14 +1,32 @@
 #ifndef UI_H
 #define UI_H
 
+#include <map>
+#include "SDL.h"
+#include "SDL_ttf.h"
+
+using namespace std;
+
 class UI
 {
   public:
     void Init();
-    bool Running();
+    bool Running() { return running; }
     char* AskConnectAddress();
     void Message(char* m);
-    void Close();
+    SDL_Surface* getScreen() { return screen; }
+    void Close() { running = false; }
+
+  private:
+    SDL_Surface* screen;
+    SDL_Color color[256];
+    TTF_Font *font;
+    bool running;
+    map<string, int> colors;
+
+    SDL_Surface* initializeSDL();
+    void initializeFonts();
+    void loadColors();
 };
 
 #endif

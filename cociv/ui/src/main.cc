@@ -1,5 +1,4 @@
 #include <iostream>
-#include "SDL.h"
 
 #include "game.h"
 #include "ui.h"
@@ -45,6 +44,5 @@ int main(int argc, char *argv[])
 
   // finish
   game->Disconnect();
-  ui->Close();
   return 0;
 }
