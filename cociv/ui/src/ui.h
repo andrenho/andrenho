@@ -3,7 +3,8 @@
 
 #include <map>
 #include "SDL.h"
-#include "SDL_ttf.h"
+
+#include "pen.h"
 
 using namespace std;
 
@@ -20,12 +21,11 @@ class UI
   private:
     SDL_Surface* screen;
     SDL_Color color[256];
-    TTF_Font *font;
     bool running;
     map<string, int> colors;
+    Pen *pen;
 
     SDL_Surface* initializeSDL();
-    void initializeFonts();
     void loadColors();
 };
 
