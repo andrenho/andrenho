@@ -18,10 +18,13 @@ UI::Init()
     throw string(SDL_GetError());
   loadColors();
 
-  // initialize fonts
+  // initialize pen
   pen = new Pen(color);
   pen->Init(screen, colors["base3"], colors["base00"]);
   pen->fontSize = 24;
+
+  // initialize message system
+  messages = new Messages();
 }
 
 /////////////////////////////////////////////////////////////
@@ -30,8 +33,6 @@ char*
 UI::AskConnectAddress()
 {
   SDL_FillRect(screen, NULL, colors["base3"]);
-  pen->fontSize = 100;
-  pen->Write("Cradle of\nCivilization");
   return 0x0;
 }
 

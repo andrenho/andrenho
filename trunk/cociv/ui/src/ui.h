@@ -5,6 +5,7 @@
 #include "SDL.h"
 
 #include "pen.h"
+#include "messages.h"
 
 using namespace std;
 
@@ -24,6 +25,7 @@ class UI
     bool running;
     map<string, int> colors;
     Pen *pen;
+    Messages *messages;
 
     SDL_Surface* initializeSDL();
     void loadColors();
