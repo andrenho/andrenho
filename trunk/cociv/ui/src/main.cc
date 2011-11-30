@@ -24,15 +24,13 @@ int main(int argc, char *argv[])
   }
 
   // connect to server
-  game.Connect();
-  /*
   while(ui.Running())
   {
     if(!game.Connect(ui.AskConnectAddress()))
       ui.Message("Could not connect to server.");
     else
       break;
-  }*/
+  }
 
   // main loop
   Environment *e = new WorldEnvironment(&game, &ui);
