@@ -9,6 +9,8 @@ require 'game'
 # of the game.
 class Driver
 
+  @@count = 1
+
   attr_reader :game
 
   # The currently focused unit.
@@ -17,8 +19,12 @@ class Driver
   # True if game in wizard (debug) mode.
   attr_reader :wizard
 
+  attr_reader :number
+
   # Initialize the driver.
   def initialize(wizard=false)
+    @number = @@count
+    @number += 1
     # initialize logger
     $log = Logger.new(STDERR)
     #$log = Logger.new(File.open("/home/andre/.cociv/log", 'a'))
@@ -31,14 +37,11 @@ class Driver
     $log.debug 'Logger initialized.'
 
     # initialize game
-    @wizard = wizard
-    $log.debug 'Wizard mode initialized.' if wizard
-    begin
-      @game = Game.load
-    rescue
-      $log.info 'Savefile not found.'
-      @game = Game.new(60,21)
-    end
+    @game = Game.new(60,21)
+  end
+
+  def join(player)
+    #    @nations = [ Nation.new(self, 'Israel', :light_blue) ]   
   end
 
   def run!
