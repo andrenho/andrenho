@@ -6,7 +6,7 @@
 #   - Apply directives
 #     - %include
 #     - %define
-#     - %ifdef, %ifndef, %else, %endif
+#     - %ifdef, %ifndef, %else, %endif (TODO)
 #     - %func, %endfunc
 #     - %pragma
 # 2. First pass
@@ -15,9 +15,11 @@
 #   - assemble
 
 $defines = {}
+$current_function = nil
+$functions = {}
+$enabled = true
 
-def assemble
-  code = STDIN.readlines
+def assemble(code)
   code = preprocess(code)
   code = first_pass(code)
   code = second_pass(code)
@@ -28,9 +30,13 @@ def preprocess(code)
   lines = []
   n = 1
   code.each do |line|
-    line = transform_data(line, n)
-    line = remove_comments(line.chomp, n)
-    lines << apply_directives(line, n)
+    line.chomp! if line[-1] == "\n"
+    line.strip!
+    if line != ''
+      line = transform_data(line, n)
+      line = remove_comments(line.chomp, n)
+      lines << "#{n}: #{apply_directives(line, n)}"
+    end
     n += 1
   end
   return lines
@@ -79,10 +85,39 @@ def apply_directives(line, n)
       d = line.split[1]
       v = line.split[2..-1].join(' ')
       $defines[d] = v
+    elsif directive == '%include'
+      file = line.split[1..-1].join(' ')
+      include_file file
+    elsif directive == '%func'
+      $current_function = line.split[1]
+      parameters = []
+      line.split[2..-1].join(' ').split(',').each do |par|
+        parameters << par.strip
+      end
+      $functions[$current_function] = [parameters]
+    else
+      STDERR.puts "Invalid directive #{directive} in #{n}."
     end
+    return ''
   else
-    return line
+    if $enabled and not $current_function
+      line_s = []
+      line.split.each do |word|
+        if $defines.has_key? word
+          line_s << $defines[word]
+        else
+          line_s << word
+        end
+      end
+      return line_s.join(' ')
+    else
+      return ''
+    end
   end
 end
 
-assemble
+def include_file(file)
+  assemble(File.open(file).readlines)
+end
+
+assemble(STDIN.readlines)
