@@ -94,13 +94,18 @@ def apply_directives(line, n)
       line.split[2..-1].join(' ').split(',').each do |par|
         parameters << par.strip
       end
-      $functions[$current_function] = [parameters]
+      $functions[$current_function] = [parameters, '']
+    elsif directive == '%endfunc'
+      $current_function = nil
     else
       STDERR.puts "Invalid directive #{directive} in #{n}."
     end
     return ''
   else
-    if $enabled and not $current_function
+    if $current_function
+      $functions[$current_function][1] += line + "\n"
+      return ''
+    elsif $enabled
       line_s = []
       line.split.each do |word|
         if $defines.has_key? word

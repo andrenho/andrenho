@@ -1,11 +1,8 @@
-%define bbb ccc
-%include teste2.asm
+%define NUMBER 0x40
 
-  bbb
-  nop
-  data  "asdas",$af,12,'d'
-  sum   $a, $b, $c  ; comment
+  jmp     teste
+  load.8  $a,$b,$c
 
-%func fct x,y
-  mov a,x,y
-%endfunc
+  ; line test
+teste:
+  and     $a,$b,NUMBER
