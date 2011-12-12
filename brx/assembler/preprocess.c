@@ -15,13 +15,6 @@ struct my_defines {
 };
 static struct my_defines *defines = NULL;
 
-typedef struct my_filestack {
-	char *filename;
-	int line;
-	struct my_filestack *next;
-} my_filestack;
-static my_filestack *filestack = NULL;
-
 
 int main()
 {
@@ -96,14 +89,23 @@ static void replace_token_define()
 
 static void include(FILE* f)
 {
-	my_filestack *fs = malloc(sizeof(my_filestack));
-	fs->filename = strdup(filename);
-	fs->line = line;
-	LL_PREPEND(filestack, fs); // TODO
+	char* old_filename = strdup(filename);
+	int old_line = line;
+	
+	// TODO - old c, old token, old string
 
+	// get new filename
 	tx_expect(f, STRING);
-	char* file = strdup(token.string);
+	filename = strdup(token.string);
+	line = 1;
 	tx_expect(f, EOL);
-	
-	
+
+	// read file
+	FILE* fd = tx_open_file(filename);
+	preprocess(fd);
+	fclose(fd);
+
+	// restore current file
+	filename = old_filename;
+	line = old_line;
 }

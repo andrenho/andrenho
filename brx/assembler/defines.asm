@@ -1,1 +1,1 @@
-%define NUMBER 0x40
+%define NUMBER xxx
