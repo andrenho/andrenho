@@ -15,7 +15,8 @@ FILE* tx_open_file(char* filename)
 	FILE* f = stdin;
 	if(filename)
 	{
-		// TODO
+		// TODO - check errors
+		f = fopen(filename, "r");
 	}
 	c = fgetc(f);
 	return f;
