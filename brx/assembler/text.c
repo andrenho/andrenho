@@ -46,8 +46,9 @@ void tx_next_token(FILE* f)
 	}
 	else if(c == '\n')
 	{
+		token = (TOKEN) { EOL, "" };
+		sprintf(token.string, " ; %s:%d\n", filename, line);
 		++line;
-		token = (TOKEN) { EOL, "\n" };
 		c = fgetc(f); 
 		return;
 	}
@@ -118,9 +119,9 @@ void tx_next_token(FILE* f)
 	// check if it's a opcode
 	else if(type == ID)
 	{
-		int i;
+		int i=0;
 		while(opcodes[i].name)
-			if(strcmp(opcodes[i].name, token.string))
+			if(strcmp(opcodes[i++].name, token.string))
 			{
 				type = OPCODE;
 				break;
