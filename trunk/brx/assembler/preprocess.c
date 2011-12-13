@@ -57,6 +57,7 @@ void preprocess(FILE* f)
 				printf("%s ", token.string);
 			}
 		}
+
 	} while(token.type != _EOF);
 }
 
