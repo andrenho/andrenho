@@ -21,7 +21,7 @@ int main()
 	FILE* f = tx_open_file(NULL);
 	preprocess(f);
 	fclose(f);
-	return 0;
+	return EXIT_SUCCESS;
 }
 
 
@@ -43,7 +43,7 @@ void preprocess(FILE* f)
 			{
 				fprintf(stderr, "Unsupported directive %s in %s:%d.\n", 
 						token.string, filename, line);
-				exit(1);
+				exit(EXIT_FAILURE);
 			}
 		}
 		// not preprocessor reserved words
@@ -91,9 +91,9 @@ static void include(FILE* f)
 {
 	char* old_filename = strdup(filename);
 	int old_line = line;
+	int old_c = c;
+	TOKEN old_token = token;
 	
-	// TODO - old c, old token, old string
-
 	// get new filename
 	tx_expect(f, STRING);
 	filename = strdup(token.string);
@@ -108,4 +108,6 @@ static void include(FILE* f)
 	// restore current file
 	filename = old_filename;
 	line = old_line;
+	c = old_c;
+	token = old_token;
 }

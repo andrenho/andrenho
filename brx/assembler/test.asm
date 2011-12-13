@@ -1,6 +1,6 @@
 %include "defines.asm"
 
-.code
+section .code
 	jmp	start		; jump to start
 	nop
 

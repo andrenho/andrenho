@@ -2,8 +2,12 @@
 #define TEXT_H
 
 #include <stdio.h>
+#include "opcodes.h"
 
-typedef enum { PREPROCESSOR, STRING, ID, EOL, _EOF } TOKEN_TYPE;
+typedef enum { 
+	PREPROCESSOR, STRING, ID, SECTION, REGISTER, NUMBER, COMMA, LABEL,
+	OPCODE, EOL, _EOF 
+} TOKEN_TYPE;
 typedef struct {
 	TOKEN_TYPE type;
 	char string[255];
@@ -12,6 +16,7 @@ TOKEN token;
 
 extern int line;
 extern char* filename;
+extern int c;
 
 FILE* tx_open_file(char* filename);
 void tx_next_token(FILE* f);
