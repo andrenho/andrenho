@@ -62,15 +62,23 @@ int main()
 		// label
 		else if(token.type == LABEL)
 			label();
-		else
+
+		// org
+		else if(token.type == ID && strcmp(token.string, "org") == 0)
 		{
-			// opcode
-			if(token.type == OPCODE)
-				opcode();
-			else
-				add_to_code();
+			tx_next_token(f);
+			address = strtoul(token.string, NULL, 16);
+			tx_expect(f, EOL);
 		}
 
+		// opcode
+		else if(token.type == OPCODE)
+			opcode();
+
+		// others
+		else
+			add_to_code();
+	
 	} while(token.type != _EOF);
 
 	print_labels();
