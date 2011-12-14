@@ -1,5 +1,7 @@
 %include "defines.asm"
 
+	org	0xf000
+
 section .code
 	jmp	start		; jump to start
 	nop

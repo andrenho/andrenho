@@ -2,18 +2,22 @@
 %line defines.asm 1
 %line defines.asm 1
  %line stdin 1
-section .code 
+org 0xf000 
  %line stdin 2
-jmp start  
- %line stdin 3
-nop 
- %line stdin 4
 
+ %line stdin 3
+section .code 
+ %line stdin 4
+jmp start  
  %line stdin 5
- 
+nop 
  %line stdin 6
-start: 
+
  %line stdin 7
-load.8 $a , $b , 0x40 
+ 
  %line stdin 8
+start: 
+ %line stdin 9
+load.8 $a , $b , 0x40 
+ %line stdin 10
  
