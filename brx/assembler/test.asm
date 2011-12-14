@@ -6,4 +6,4 @@ section .code
 
 ; start of code
 start:
-	load.8	$a, NUMBER
+	load.8	$a,$b,NUMBER

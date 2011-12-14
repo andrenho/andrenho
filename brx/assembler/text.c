@@ -31,7 +31,7 @@ FILE* tx_open_file(char* filename)
 
 void tx_next_token(FILE* f)
 {
-	TOKEN_TYPE type;
+	TOKEN_TYPE type = NOTYPE;
 
 	// skip spaces
 	while (isblank(c))
@@ -46,9 +46,7 @@ void tx_next_token(FILE* f)
 	}
 	else if(c == '\n')
 	{
-		token = (TOKEN) { EOL, "" };
-		sprintf(token.string, " ; %s:%d\n", filename, line);
-		++line;
+		token = (TOKEN) { EOL, "\n" };
 		c = fgetc(f); 
 		return;
 	}
@@ -69,7 +67,10 @@ void tx_next_token(FILE* f)
 	else if(isalpha(c))
 		type = ID;
 	else if(c == ';') // ignore comments
+	{
 		while((c = fgetc(f)) != '\n' && c != EOF);
+		type = COMMENT;
+	}
 	else if(c == '"')
 	{
 		int k = 0;
@@ -100,12 +101,11 @@ void tx_next_token(FILE* f)
 	// construct token
 	int k = 0;
 	string[k++] = c;
-	while(!isblank(c) && c != '\n' && c != EOF && k < 255)
+	while(!isblank(c) && c != '\n' && c != ',' && c != EOF && k < 255)
 		string[k++] = c = fgetc(f);
 	string[k-1] = 0;
 
 	// return structure
-	token.type = type;
 	strcpy(token.string, string);
 
 	// number? then parse
@@ -121,12 +121,14 @@ void tx_next_token(FILE* f)
 	{
 		int i=0;
 		while(opcodes[i].name)
-			if(strcmp(opcodes[i++].name, token.string))
+			if(strcmp(opcodes[i++].name, token.string) == 0)
 			{
 				type = OPCODE;
 				break;
 			}
 	}
+
+	token.type = type;
 }
 
 
