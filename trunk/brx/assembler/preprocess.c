@@ -29,6 +29,8 @@ void preprocess(FILE* f)
 {
 	do
 	{
+		printf("%%line %s %d\n", filename, line);
+
 		// find next token
 		tx_next_token(f);
 
@@ -56,6 +58,7 @@ void preprocess(FILE* f)
 				replace_token_define();
 				printf("%s ", token.string);
 			}
+			++line;
 		}
 
 	} while(token.type != _EOF);
