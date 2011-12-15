@@ -20,4 +20,8 @@ start:
  %line stdin 9
 load.8 $a , $b , 0x40 
  %line stdin 10
+
+ %line stdin 11
+db "Teste" , 0x42 
+ %line stdin 12
  

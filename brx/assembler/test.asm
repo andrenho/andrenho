@@ -9,3 +9,5 @@ section .code
 ; start of code
 start:
 	load.8	$a,$b,NUMBER
+
+	db "Teste", 0x42

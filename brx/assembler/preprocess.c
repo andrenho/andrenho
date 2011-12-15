@@ -100,7 +100,8 @@ static void include(FILE* f)
 	
 	// get new filename
 	tx_expect(f, STRING);
-	filename = strdup(token.string);
+	filename = strdup(&token.string[1]);
+	filename[strlen(filename)-1] = 0;
 	line = 1;
 	tx_expect(f, EOL);
 

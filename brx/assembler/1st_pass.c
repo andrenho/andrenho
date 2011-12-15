@@ -19,6 +19,7 @@ static long code_sz = MEM_INCREMENT;
 
 static void label();
 static void opcode();
+static void data();
 static void invalid_opcode_format();
 static void print_labels();
 static void print_code();
@@ -75,6 +76,9 @@ int main()
 		else if(token.type == OPCODE)
 			opcode();
 
+		else if(token.type == INITIALIZED_DATA)
+			data();
+
 		// others
 		else
 			add_to_code();
@@ -105,14 +109,15 @@ static void label()
 
 static void opcode()
 {
+	printf("1. %s\n", token.string);
 	add_to_code();
 	tx_next_token(f);
 
 	// format D
 	if(token.type == EOL)
 	{
+		add_to_code();
 		address += 1;
-		return;
 	}
 
 	// format J
@@ -144,11 +149,58 @@ static void opcode()
 	else
 		invalid_opcode_format();
 
+	printf("2. %s\n", token.string);
+
 	// nothing after
 	tx_next_token(f);
+	printf("3. %s\n", token.string);
 	add_to_code();
 	if(token.type != EOL)
 		invalid_opcode_format();
+}
+
+
+static void data()
+{
+	int sz;
+	switch(token.string[1])
+	{
+		case 'b': sz = 1; break;
+		case 'w': sz = 2; break;
+		case 'd': sz = 4; break;
+		case 'q': sz = 8; break;
+		default: abort();
+	}
+	add_to_code();
+
+	do
+	{
+		tx_next_token(f);
+		
+		if(token.type == STRING)
+			address += strlen(token.string);
+		else if(token.type == NUMBER)
+			address += sz;
+		else
+		{
+			fprintf(stderr, "Invalid value for data: %s in %s:%d.\n", 
+					token.string, filename, line);
+			exit(EXIT_FAILURE);
+		}
+		add_to_code();
+
+		tx_next_token(f);
+		add_to_code();
+		if(token.type != EOL && token.type != COMMA)
+		{
+			fprintf(stderr, "Syntax error in %s:%d: %s.\n", 
+					filename, line, token.string);
+			exit(EXIT_FAILURE);
+		}
+
+	} while(token.type != EOL);
+
+	tx_next_token(f);
 }
 
 
