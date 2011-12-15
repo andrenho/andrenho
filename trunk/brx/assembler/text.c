@@ -74,6 +74,7 @@ void tx_next_token(FILE* f)
 	else if(c == '"')
 	{
 		int k = 0;
+		string[k++] = '"';
 		string[k++] = c = fgetc(f);
 		while(c != '"')
 		{
@@ -85,7 +86,6 @@ void tx_next_token(FILE* f)
 				exit(EXIT_FAILURE);
 			}
 		}
-		string[k-1] = 0;
 		token.type = STRING;
 		strcpy(token.string, string);
 		c = fgetc(f);
@@ -116,9 +116,10 @@ void tx_next_token(FILE* f)
 	else if(type == ID && token.string[strlen(token.string)-1] == ':')
 		type = LABEL;
 
-	// check if it's a opcode
+	// check if it's a opcode or data
 	else if(type == ID)
 	{
+		// opcode
 		int i=0;
 		while(opcodes[i].name)
 			if(strcmp(opcodes[i++].name, token.string) == 0)
@@ -126,6 +127,10 @@ void tx_next_token(FILE* f)
 				type = OPCODE;
 				break;
 			}
+		// data
+		if(!strcmp(token.string, "db") || !strcmp(token.string, "dw")
+		|| !strcmp(token.string, "db") || !strcmp(token.string, "dw"))
+			type = INITIALIZED_DATA;
 	}
 
 	token.type = type;
