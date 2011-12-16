@@ -48,6 +48,7 @@ int main()
 		else if(token.type == OPCODE)
 			opcode();
 
+		// initialized data (db and friends)
 		else if(token.type == INITIALIZED_DATA)
 			data();
 
@@ -192,8 +193,6 @@ static void data()
 		}
 
 	} while(token.type != EOL);
-
-	tx_next_token(f);
 }
 
 

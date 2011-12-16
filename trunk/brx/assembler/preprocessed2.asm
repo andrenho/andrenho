@@ -23,5 +23,5 @@
  
  %line stdin 0xb 
  db "Teste" , 0x42 
- stdin 0xc 
+ %line stdin 0xc 
   
