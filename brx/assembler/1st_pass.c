@@ -196,8 +196,6 @@ static void data()
 		}
 
 	} while(token.type != EOL);
-
-	tx_next_token(f);
 }
 
 
