@@ -109,7 +109,6 @@ static void label()
 
 static void opcode()
 {
-	printf("1. %s\n", token.string);
 	add_to_code();
 	tx_next_token(f);
 
@@ -118,6 +117,7 @@ static void opcode()
 	{
 		add_to_code();
 		address += 1;
+		return;
 	}
 
 	// format J
@@ -149,11 +149,8 @@ static void opcode()
 	else
 		invalid_opcode_format();
 
-	printf("2. %s\n", token.string);
-
 	// nothing after
 	tx_next_token(f);
-	printf("3. %s\n", token.string);
 	add_to_code();
 	if(token.type != EOL)
 		invalid_opcode_format();
