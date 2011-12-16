@@ -17,6 +17,7 @@ static void define();
 static void opcode();
 static void data();
 static void invalid_opcode_format();
+static void byte(unsigned char b);
 
 int main()
 {
@@ -106,14 +107,30 @@ static void define()
 
 static void opcode()
 {
-	char* opcode = strdup(token.string);
+	char* opc = strdup(token.string);
+	int k = 0;
 
+	// find opcode index
+	int opc_idx = -1;
+	for(k=0; opcodes[k].name; k++)
+		if(strcmp(opc, opcodes[k].name) == 0)
+		{
+			opc_idx = k;
+			break;;
+		}
+	if(opc_idx == -1)
+	{
+		fprintf(stderr, "Invalid opcode %s in %s:%d.\n", opc, filename, line);
+		exit(EXIT_FAILURE);
+	}
+
+	// next token
 	tx_next_token(f);
 	
 	// format D
 	if(token.type == EOL)
 	{
-		// TODO
+		byte(opcodes[opc_idx].d);
 		return;
 	}
 
@@ -149,7 +166,7 @@ static void opcode()
 	if(token.type != EOL)
 		invalid_opcode_format();
 
-	free(opcode);
+	free(opc);
 }
 
 
@@ -200,4 +217,13 @@ static void invalid_opcode_format()
 {
 	fprintf(stderr, "Invalid opcode format in %s:%d.\n", filename, line);
 	exit(EXIT_FAILURE);
+}
+
+
+int i = 0;
+static void byte(unsigned char b)
+{
+	printf("%02X ", b);
+	if(i++ % 16 == 0)
+		printf("\n");
 }
