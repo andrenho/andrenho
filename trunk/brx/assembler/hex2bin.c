@@ -44,7 +44,7 @@ int main(int argc, char* argv[])
 			if(filename)
 				free(filename);
 			filename = strdup(token.string);
-			tx_expect(f, COLON);
+			tx_expect(f, VERTICALBAR);
 			tx_next_token(f); // line
 			line = strtoul(token.string, NULL, 16);
 			tx_expect(f, SBRACKET);
