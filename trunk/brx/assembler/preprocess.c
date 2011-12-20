@@ -16,9 +16,15 @@ struct my_defines {
 static struct my_defines *defines = NULL;
 
 
-int main()
+int main(int argc, char* argv[])
 {
-	FILE* f = tx_open_file(NULL);
+        if(argc != 2)
+        {
+                fprintf(stderr, "Usage: preprocess source.asm\n");
+                exit(1);
+        }
+	FILE* f = tx_open_file(argv[1]);
+        filename = strdup(argv[1]);
 	preprocess(f);
 	fclose(f);
 	return EXIT_SUCCESS;
