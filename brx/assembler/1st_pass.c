@@ -67,9 +67,12 @@ int main()
 		// org
 		else if(token.type == ID && strcmp(token.string, "org") == 0)
 		{
+			add_to_code();
 			tx_next_token(f);
+			add_to_code();
 			address = strtoul(token.string, NULL, 16);
 			tx_expect(f, EOL);
+			add_to_code();
 		}
 
 		// opcode
