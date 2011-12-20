@@ -76,6 +76,7 @@ static void define(FILE* f)
 	tx_next_token(f);
 	strcpy(d->value, token.string);
 	tx_expect(f, EOL);
+	++line;
 
 	// add to hash
 	HASH_ADD_STR(defines, name, d);
@@ -94,7 +95,7 @@ static void replace_token_define()
 static void include(FILE* f)
 {
 	char* old_filename = strdup(filename);
-	int old_line = line;
+	int old_line = line+1;
 	int old_c = c;
 	TOKEN old_token = token;
 	

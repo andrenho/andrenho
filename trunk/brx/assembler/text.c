@@ -56,6 +56,24 @@ void tx_next_token(FILE* f)
 		c = fgetc(f); 
 		return;
 	}
+	else if(c == '[' || c == ']')
+	{
+		token = (TOKEN) { SBRACKET, "[" };
+		c = fgetc(f); 
+		return;
+	}
+	else if(c == '{' || c == '}')
+	{
+		token = (TOKEN) { CBRACKET, "{" };
+		c = fgetc(f); 
+		return;
+	}
+	else if(c == ':')
+	{
+		token = (TOKEN) { COLON, ":" };
+		c = fgetc(f); 
+		return;
+	}
 	else if(c == '%')
 		type = PREPROCESSOR;
 	else if(c == '.')
@@ -101,7 +119,7 @@ void tx_next_token(FILE* f)
 	// construct token
 	int k = 0;
 	string[k++] = c;
-	while(!isblank(c) && c != '\n' && c != ',' && c != EOF && k < 255)
+	while(!isblank(c) && c != '\n' && c != ',' && c != EOF && k < 255 && c != ':' && c != ']' && c != '}')
 		string[k++] = c = fgetc(f);
 	string[k-1] = 0;
 
@@ -129,7 +147,7 @@ void tx_next_token(FILE* f)
 			}
 		// data
 		if(!strcmp(token.string, "db") || !strcmp(token.string, "dw")
-		|| !strcmp(token.string, "db") || !strcmp(token.string, "dw"))
+		|| !strcmp(token.string, "dd") || !strcmp(token.string, "dq"))
 			type = INITIALIZED_DATA;
 	}
 
