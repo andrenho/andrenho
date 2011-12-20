@@ -68,9 +68,9 @@ void tx_next_token(FILE* f)
 		c = fgetc(f); 
 		return;
 	}
-	else if(c == ':')
+	else if(c == '|')
 	{
-		token = (TOKEN) { COLON, ":" };
+		token = (TOKEN) { VERTICALBAR, "|" };
 		c = fgetc(f); 
 		return;
 	}
@@ -119,7 +119,7 @@ void tx_next_token(FILE* f)
 	// construct token
 	int k = 0;
 	string[k++] = c;
-	while(!isblank(c) && c != '\n' && c != ',' && c != EOF && k < 255 && c != ':' && c != ']' && c != '}')
+	while(!isblank(c) && c != '\n' && c != ',' && c != EOF && k < 255 && c != '|' && c != ']' && c != '}')
 		string[k++] = c = fgetc(f);
 	string[k-1] = 0;
 

@@ -100,7 +100,7 @@ static void dline()
 
 	tx_expect(f, EOL);
 
-	printf("[%s:%d] ", filename, line);
+	printf("[%s|%d] ", filename, line);
 }
 
 
