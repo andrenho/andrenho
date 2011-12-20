@@ -11,7 +11,7 @@ Keyboard* keyboard_init(Memory *mem)
 }
 
 
-void keyboard_step(Keyboard* keyboard, int* running)
+void keyboard_step(Keyboard* keyboard, int* running, int* debugger)
 {
 	int c = getch();
 
@@ -20,9 +20,8 @@ void keyboard_step(Keyboard* keyboard, int* running)
 		return;
 
 	// quit
-	if(c == 27)
-	{
-		*running = 0;
-		return;
-	}
+	if(c == 27) { *running = 0; return; }
+
+	// debugger
+	if(c == KEY_F(2)) { *debugger = 1; return; }
 }

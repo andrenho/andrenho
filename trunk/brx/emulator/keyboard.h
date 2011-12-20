@@ -8,6 +8,6 @@ typedef struct {
 } Keyboard;
 
 Keyboard* keyboard_init(Memory *mem);
-void keyboard_step(Keyboard* keyboard, int* running);
+void keyboard_step(Keyboard* keyboard, int* running, int* debugger);
 
 #endif
