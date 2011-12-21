@@ -9,6 +9,7 @@ void curses_init()
 	noecho();
 	keypad(stdscr, TRUE);
 	timeout(0);
+	curs_set(0);
 	refresh();
 }
 

@@ -3,8 +3,11 @@
 
 #include "memory.h"
 
+#include <stdint.h>
+
 typedef struct {
 	Memory *mem;
+	uint32_t p;
 } CPU;
 
 CPU* cpu_init(Memory *mem);

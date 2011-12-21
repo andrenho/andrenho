@@ -6,6 +6,7 @@ CPU* cpu_init(Memory *mem)
 {
 	CPU* cpu = malloc(sizeof(CPU));
 	cpu->mem = mem;
+	cpu->p = 0xf000;
 	return cpu;
 }
 
@@ -13,4 +14,5 @@ CPU* cpu_init(Memory *mem)
 void cpu_step(CPU* cpu)
 {
 	(void) cpu;
+	cpu->p += 1;
 }
