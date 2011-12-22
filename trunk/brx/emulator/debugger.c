@@ -130,6 +130,7 @@ static void read_file(SOURCE *src)
 
 static void print_source(SOURCE *src, int line)
 {
+	clear();
 	move(0, 0);
 	int i=0;
 
