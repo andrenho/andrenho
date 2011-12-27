@@ -4,7 +4,7 @@ $: << '.'
 $: << 'cociv'
 require 'game'
 
-# The driver controls the game. It initializes the game and control it's flow,
+# The driver controls the game. It initializes the game and control its flow,
 # like the change of focus between the unis, and giving each nation the control
 # of the game.
 class Driver
@@ -40,16 +40,16 @@ class Driver
     @game = Game.new(60,21)
   end
 
+  
   def join(player)
     #    @nations = [ Nation.new(self, 'Israel', :light_blue) ]   
   end
 
-  def run!
-  end
-
+  
   def player_nation_active?
     return @game.nations.include? @game.player
   end
+
 
   def run_round!(display)
     @game.start_round!

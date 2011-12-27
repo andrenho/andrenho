@@ -30,7 +30,8 @@ class Game
     $log.debug 'Initializing a new game.'
     create_world(w, h) # this method is in cociv/worldbuild.rb
     @year = -2000
-    @nations = []
+    @player = Nation.new(self, 'Israel', :light_blue)
+    @nations = [@player]
 
     start_round!
   end
