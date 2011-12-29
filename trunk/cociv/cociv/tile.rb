@@ -8,7 +8,10 @@ class Tile
     :produce => _('What should the %s work on?'),
   }
 
+  # Tile position
   attr_reader :x, :y
+
+  # Hash containing the nations as key and if they know this tile as value.
   attr_reader :known
   
   # Terrain of this tile
@@ -25,7 +28,9 @@ class Tile
 
   attr_accessor :river, :plow, :road, :extra
 
+  #
   # Create a new tile
+  #
   def initialize(game, x, y)
     @game = game
     @x, @y = x, y
@@ -43,7 +48,9 @@ class Tile
     @extra.altitude = 0
   end
 
+  #
   # Returns a Array containing the units in this tile
+  # 
   def units
     u = []
     @game.nations.each do |nation|
@@ -55,18 +62,24 @@ class Tile
     return u
   end
 
+  #
   # Move cost to enter this tile
+  # 
   def cost_to_enter(unit)
     @terrain.cost_to_enter # TODO - rivers, etc
   end
 
+  # 
   # Can a city be built on this tile?
+  #
   def can_build_city?
     return false if [Ocean, Mountain].include? @terrain
     return true
   end
   
+  # 
   # Assing a worker (for producing raw goods) to this tile.
+  #
   def worker=(unit)
     # assing job
     if @worker
@@ -98,8 +111,10 @@ class Tile
     end
   end
 
+  #
   # Return what would be the production of this tile, 
   # if the unit were working on it.
+  #
   def productivity_job(unit, job)
     if job == Fisherman
       return 0 if not @belongs_to
@@ -114,7 +129,9 @@ class Tile
     n
   end
 
+  # 
   # Return the absolute production of this tile for a given good.
+  #
   def abs_productivity(good)
     if good == Food and @river
       return 4
@@ -123,7 +140,9 @@ class Tile
     end
   end
 
+  # 
   # Return river tiles nearby
+  #
   def river_tiles
     t = []
     ((@x-1)..(@x+1)).each do |x|
@@ -136,7 +155,9 @@ class Tile
     return t
   end
 
+  # 
   # Calculate the extras
+  #
   def calculate_extras!
     # calculate humidity
     hum = 0.0

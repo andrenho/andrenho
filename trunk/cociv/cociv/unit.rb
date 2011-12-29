@@ -1,8 +1,25 @@
 class Unit
 
-  attr_reader :x, :y, :old_x, :old_y, :nation, :military, :moves_left
+  # Unit position
+  attr_reader :x, :y
+  
+  # Previous unit position.
+  attr_reader :old_x, :old_y
+
+  # Unit's nation.
+  attr_reader :nation
+  
+  # Unit military class.
+  attr_reader :military
+  
+  # Number of moves the unit has left.
+  attr_reader :moves_left
+
   attr_accessor :extra
 
+  #
+  # Move the unit to a given direction. This method calls the method `move_ok?` from the siblings.
+  #
   def move(dir)
     $log.debug 'Moving unit...'
     fx, fy = @x + DIRECTIONS[dir][0], @y + DIRECTIONS[dir][1]
@@ -18,14 +35,23 @@ class Unit
     return false
   end
 
+  # 
+  # Do what needs to be done in the beginning of the round.
+  # 
   def init_round!
     self.moves_left = @military.moves
   end
 
+  # 
+  # Do what needs to be done in the end of the round.
+  #
   def end_round
     self.moves_left = 0
   end
 
+  #
+  # Return if the unit still can move.
+  #
   def has_moves_left?
     return false if self.worker?
     DIRECTIONS.each_value do |dir|
@@ -37,6 +63,9 @@ class Unit
     return false
   end
 
+  #
+  # Return a description of the unit, that'll be used in the GUI.
+  #
   def description
     @military.name # TODO - skill/job
   end
@@ -45,18 +74,30 @@ class Unit
     "(#{@military.name})  M:#{@moves_left}"
   end
 
+  #
+  # Return the tile the unit is currently standing on.
+  #
   def tile
     @game[@x, @y]
   end
 
+  # 
+  # Return if a city can be built here by this unit.
+  #
   def can_build_city?
     false
   end
 
+  # 
+  # Return if the unit is working somewhere.
+  #
   def worker?
     false
   end
 
+  # 
+  # Return how far the unit can see.
+  #
   def sight
     1 # TODO
   end

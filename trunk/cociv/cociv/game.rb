@@ -17,15 +17,35 @@ require 'cociv/worldbuild'
 
 require 'pp'
 
+#
+# The game itself.
+#
 class Game
 
-  attr_reader :map_w, :map_h, :nations, :player, :year
+  # Map size
+  attr_reader :map_w, :map_h
+  
+  # List of nations playing.
+  attr_reader :nations
+  
+  # The nation controlled by the human.
+  attr_reader :player
+  
+  # The current year (negative values means B.C.)
+  attr_reader :year
 
+  # 
+  # Load the game from the disk.
+  #
   def Game.load
     $log.info "Loading game from #{ENV['HOME']}/.cociv/savefile..."
     return Marshal::load(File.open("#{ENV['HOME']}/.cociv/savefile", 'rb'))
   end
 
+
+  # 
+  # Create a new game, where the map has the size w and h.
+  #
   def initialize(w, h)
     $log.debug 'Initializing a new game.'
     create_world(w, h) # this method is in cociv/worldbuild.rb
@@ -36,16 +56,27 @@ class Game
     start_round!
   end
 
+
+  # 
+  # Return the tile in the position.
+  #
   def [](x, y)
     return nil if x < 0 or y < 0 or x > @map_w-1 or y > @map_h - 1
     return @tiles[x + (y * @map_w)]
   end
 
+
+  # 
+  # Do everything that needs to be done before a new round is started.
+  #
   def start_round!
     @nations.each { |n| n.start_round! }
   end
 
 
+  # 
+  # Advance a new round.
+  #
   def advance_round!
     cities_famine = @player.cities.select { |c| c.warehouse[Food] + c.production[Food].effective < c.food_consumption }
     if not cities_famine.empty?
@@ -67,6 +98,9 @@ class Game
     return "G:#{@year}"
   end
 
+  #
+  # Save a game onto the disk.
+  #
   def save!
     $log.info "Saving game to #{ENV['HOME']}/.cociv/savefile."
     begin 
@@ -79,6 +113,9 @@ class Game
     $log.info 'Game saved.'
   end
 
+  # 
+  # Check if a nation need to be eliminated from the game.
+  #
   def check_for_nation_elimination!
     @nations.each do |nation|
       if nation.units.empty?

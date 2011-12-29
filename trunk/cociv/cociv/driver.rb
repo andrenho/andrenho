@@ -11,6 +11,7 @@ class Driver
 
   @@count = 1
 
+  # The game that is being played.
   attr_reader :game
 
   # The currently focused unit.
@@ -21,7 +22,9 @@ class Driver
 
   attr_reader :number
 
+  #
   # Initialize the driver.
+  # 
   def initialize(wizard=false)
     @number = @@count
     @number += 1
@@ -37,20 +40,34 @@ class Driver
     $log.debug 'Logger initialized.'
 
     # initialize game
-    @game = Game.new(60,21)
+    begin
+      @game = Game.load
+    rescue Errno::ENOENT
+      @game = Game.new(60,21)
+    end
   end
 
   
+  #
+  # A new player joins the game.
+  #
   def join(player)
-    #    @nations = [ Nation.new(self, 'Israel', :light_blue) ]   
+    # TODO
+    #@game.nations << Nation.new(self, 'Israel', :light_blue)
   end
 
   
+  # 
+  # Return if a human player has already joined.
+  #
   def player_nation_active?
     return @game.nations.include? @game.player
   end
 
 
+  # 
+  # Run one round.
+  #
   def run_round!(display)
     @game.start_round!
     @game.nations.each do |nation|
@@ -105,15 +122,19 @@ class Driver
 
 protected
 
+  #
   # A generic method to move a unit. It'll move the selected unit and select
   # the next if the moves are over.
+  #
   def move_unit(dir)
     return if not @focused
     @focused.move(dir)
     select_next! if not @focused.has_moves_left?
   end
 
+  #
   # Select the next unit.
+  #
   def select_next!
     avail_units = @game.player.units.select { |u| u.has_moves_left? or u == @focused }
     if avail_units.length == 0

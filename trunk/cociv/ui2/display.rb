@@ -29,6 +29,8 @@ class Display
       show_help
     elsif ch == 27 # ESC
       return self.input_esc if self.respond_to? :input_esc
+    elsif ch.ord == 9
+      return self.input_tab if self.respond_to? :input_tab
     elsif self.respond_to? :input_other
       return input_other ch
     else

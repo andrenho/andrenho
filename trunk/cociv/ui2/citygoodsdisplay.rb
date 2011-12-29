@@ -22,7 +22,7 @@ class CityGoodsDisplay < Display
     @scr.box 0, 0, @scr.w-1, @scr.h-3
     s = "<title> #{@city.name} - #{_('Goods Management')} "
     @scr.print (@scr.w/2 - s.length/2), 0, s
-    @scr.print @scr.w-1, @scr.h-3, "<right><gold>$#{@game.player.gold}"
+    @scr.print @scr.w-1, @scr.h-4, "<right><gold>$#{@game.player.gold}"
 
     # goods available
     @scr.print 1, 1, '<title>' + _('Warehouse')
@@ -79,9 +79,12 @@ protected #################################
     return :exit
   end
 
-  def input_other(ch)
-    return CityWorkersDisplay.new(@driver, @city, @scr) if ch == '@'
+  # Go to workers screen
+  def input_tab
+    return CityWorkersDisplay.new(@driver, @city, @scr)
+  end
 
+  def input_other(ch)
     choice = (@goods[ch] or @units_store[ch])
     if choice
       @scr.show_cursor = true
