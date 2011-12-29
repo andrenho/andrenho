@@ -5,11 +5,11 @@ class CityPlayer < City
   # BuildingType under construction.
   attr_accessor :under_construction
 
-  # Hammers available for the construction of buildings.
-  attr_reader :hammers
-  
   # Array of buildings in the city.
   attr_reader :buildings
+
+  # City warehouse.
+  attr_reader :warehouse
 
   def initialize(game, nation, name, x, y)
     super(game, nation, name, x, y)
@@ -17,24 +17,26 @@ class CityPlayer < City
     # create buildings
     @buildings = []
     InitialBuildings.each do |building_type|
-      b = building_type.create_building(self)
-      @buildings << b
-      @warehouse = b if building_type == Storage
+      construct(building_type)
     end  
 
     # in construction
-    @hammers = 0
     @under_construction = Warehouse_1    
   end
 
 
+  # 
+  # Return how many units of food are the residents consumming.
+  #
   def food_consumption
     return residents.length * 2
   end
 
-  
+
+  #
   # Calculate production of the city. The value is returned as a hash, where
   # the goods are the keys and the values are Production classes.
+  #
   def production
 
     # initialize
@@ -82,8 +84,10 @@ class CityPlayer < City
     return pr
   end
 
+  #
   # Returns a list of building types (BuildingType) that can be built on
   # this city.
+  # 
   def buildable
     b = []
     bts_here = @buildings.map { |b| b.type }
@@ -97,7 +101,9 @@ class CityPlayer < City
   end
 
 
+  #
   # Returns a list of residents on this city.
+  #
   def residents
     u = []
     @buildings.each { |building| u << building.workers }
@@ -110,14 +116,19 @@ class CityPlayer < City
     return u.flatten.compact
   end
 
+  #
   # Initialize a new round
+  #
   def init_round!
     @warehouse.throw_away_overload!
     produce!
+    new_building!
   end
 
 
+  #
   # Returns if the city has docks
+  #
   def has_docks?
     n = @buildings.select { |b| [Docks_1, Docks_2, Docks_3].include? b.type }
     return n.length > 0
@@ -152,6 +163,36 @@ protected
         @warehouse.load(good, pr.effective.abs)
       end
     end
+  end
+
+
+  # If there are enough materials, builds the new building.
+  def new_building!
+    if @under_construction
+      if @warehouse[Planks] >= @under_construction.cost and @warehouse[Copper] >= @under_construction.copper
+        if construct(@under_construction)
+          @warehouse[Planks] -= @under_construction.cost
+          @warehouse[Copper] >= @under_construction.copper
+          $ui.messages << _('A new %s was built in %s.') % [@under_construction.name, @name]
+        end
+      end
+    end
+  end
+
+
+  # Construct a new building.
+  def construct(building_type)
+    # build new building
+    b = building_type.create_building(self)
+    @buildings << b
+    # replace warehouse
+    if [Warehouse_1, Warehouse_2].include? building_type
+      Good.all.each { |g| b[g] = @warehouse[g] }
+    end
+    @warehouse = b if [Storage, Warehouse_1, Warehouse_2].include? building_type 
+    # replace outdated building
+    @buildings.delete b.type.prerequisite
+    return true
   end
 
 end

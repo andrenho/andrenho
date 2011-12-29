@@ -1,3 +1,4 @@
+# A city. This is a abstract class that'll be inherited by CityPlayer and CityForeign.
 class City
 
   attr_reader :game, :nation
@@ -8,9 +9,6 @@ class City
   # City coordinates
   attr_reader :x, :y
   
-  # City warehouse.
-  attr_reader :warehouse
-
   # List of prices of goods in the city
   attr_reader :price
 
@@ -19,7 +17,9 @@ class City
     def initialize; @buy, @sell = 0, 0; end
   end
 
-  # create a new city
+  #
+  # Create a new city.
+  #
   def initialize(game, nation, name, x, y)
     @game, @nation, @name, @x, @y = game, nation, name, x, y
     raise 'City outside bounds.' if x < 1 or y < 1 or x > @game.map_w-2 or y > @game.map_h-2

@@ -64,7 +64,10 @@ class CityWorkersDisplay < Display
     @scr.puts
     @scr.print "<key>%<default>) #{_('Under construction')}: "
     if @city.under_construction
-      @scr.print '<message>' + @city.under_construction.name
+      @scr.puts '<message>' + @city.under_construction.name
+      @scr.print "(#{@city.under_construction.cost} #{Planks.name}"
+      @scr.print " + #{@city.under_construction.copper} #{Copper.name}" if @city.under_construction.copper > 0
+      @scr.print ')'
     else
       @scr.print '<message>' + _('Nothing')
     end
@@ -146,6 +149,11 @@ protected ################################
     }
   end
 
+  # Go to goods screen
+  def input_tab
+    return CityGoodsDisplay.new(@driver, @city, @scr)
+  end
+
   #
   # One of the buildings or units was chosen
   #
@@ -156,9 +164,6 @@ protected ################################
       change_construction 
       return nil
     end
-
-    # goods screen
-    return CityGoodsDisplay.new(@driver, @city, @scr) if ch == '$'
 
     # discover what the user chose
     choice = (@buildings[ch] or @outdoor_workers[ch] or @units_outside[ch])
