@@ -1,3 +1,74 @@
+1. Pre-game
+  1.1 Save/load
+  1.2 Initial options
+    1.2.1 Difficulty
+    1.2.2 Nationality
+    1.2.3 World creation options
+
+2. Game turn
+  2.1 Order of events
+    2.1.1 Date advances
+    2.1.2 Economy
+    2.1.3 Player issues
+    2.1.4 Movement
+    2.1.5 Enemy moves
+  2.2 Game end
+    2.2.1 Quit
+    2.2.2 Retire
+    2.2.3 Defeat
+    2.2.4 Victory
+
+3. Interface
+  3.1 Map view
+    3.1.1 Map scrolling
+      3.1.1.2 Map movement
+    3.1.2 Status view
+    3.1.3 Query information
+  3.2 City view
+
+4. World
+  4.1 World creation
+    4.1.1 Terrain/vegetation
+    4.1.2 Mountains
+    4.1.3 Rivers
+    4.1.4 Specials
+
+5. Nations and units
+  5.1 Nation
+  5.2 Units
+    5.2.1 Movement
+      5.2.1.1 Simple movement
+      5.2.1.2 Water movement
+      5.2.1.3 Embark/disembark
+    5.2.2 Orders
+      5.2.2.1 Goto
+      5.2.2.2 Fortify
+      5.2.2.3 Sentry
+      5.2.2.4 Clear/plow
+      5.2.2.5 Road
+      5.2.2.6 Build city
+      5.2.2.7 Skip unit
+      5.2.2.8 Wait next
+      5.2.2.9 Disband
+    5.2.3 Trade routes
+      5.2.3.1 Create/edit/delete
+      5.2.3.2 Assign
+      5.2.3.3 Use
+    5.2.4 Attack
+      5.2.4.1 Attack/defend
+      5.2.4.2 Capture city
+    5.2.5 Population growth
+
+6. Cities
+  6.1 New city
+  6.2 
+
+7. Foreign cities
+
+8. Egypt
+     
+
+
 Version 0.1:
  - Own units
    - Working on water

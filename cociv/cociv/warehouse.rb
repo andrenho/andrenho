@@ -2,8 +2,12 @@ class NotEnoughGoods < Exception; end
 
 class Warehouse < Building
 
+  # Maximum size of the warehouse.
   attr_accessor :max_size
 
+  #
+  # Create a new warehouse.
+  #
   def initialize(city, building_type)
     super(city, building_type)
     @max_size = building_type.storage
@@ -13,14 +17,23 @@ class Warehouse < Building
     end
   end
 
+  # 
+  # Return the amount of good in the warehouse.
+  #
   def [](good)
     return @goods[good]
   end
 
+  # 
+  # Sets the amount of good in the warehouse.
+  #
   def []=(good, amt)
     @goods[good] = amt
   end
 
+  # 
+  # Remove a given amount of goods from the warehouse.
+  #
   def load(good, amount=nil)
     if not amount
       n = @goods[good]
@@ -35,11 +48,17 @@ class Warehouse < Building
     end
   end
 
+  # 
+  # Store a given amount of goods from the warehouse.
+  #
   def store(good, amount)
     @goods[good] += amount
     $log.debug "#{amount} of #{good.name} stored in the warehouse."
   end
 
+  #
+  # Return a hash with the amount of goods there are overflowing from the warehouse.
+  #
   def overload
     g = {}
     Good.all.each do |good|
@@ -48,7 +67,9 @@ class Warehouse < Building
     return g
   end
 
+  #
   # Throw away when it doesn't fit in the warehouse.
+  #
   def throw_away_overload!
     away = []
     overload.each_pair do |good,amt|
