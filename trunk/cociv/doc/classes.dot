@@ -91,5 +91,15 @@ digraph G {
   Building -> City [ label = "city" ]
 
   Warehouse -> Building [ arrowhead = "empty" ]
+  Warehouse [ 
+    label = "{Warehouse | max_size\l | [](good)\lload(good,amt)\lstore(good,amt)\loverload\lthrow_away_overload!\l }"
+  ]
 
+  WorkerUnit -> LandUnit [ arrowhead = "empty" ]
+  WorkerUnit [ 
+    label = "{ WorkerUnit || can_build_city?\lbuild_city(name)\labandon_job!\lworker?\lend_round\lprepare_to_die!\l }"
+  ]
+  WorkerUnit -> Job [ label = "skills, job" ]
+  WorkerUnit -> Building [ label = "working_on" ]
+  WorkerUnit -> Tile [ label = "working_on" ]
 }
