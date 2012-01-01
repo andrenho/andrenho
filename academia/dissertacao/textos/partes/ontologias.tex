@@ -1,4 +1,4 @@
-O eProfile utiliza internamente duas ontologias: uma ontologia de trilhas e uma ontologia de perfis. Para o armazenamento e processamento das ontologias, foram estudadas algumas linguagens de representação de conhecimento CycL\cite{lenat89}, RDF/S\cite{rdfs}, DAML+OIL\cite{daconta03} e OWL\cite{daconta03}.
+O eProfile utiliza duas ontologias: uma ontologia de trilhas e uma ontologia de perfis. Para o armazenamento e processamento das ontologias, foram estudadas as linguagens de representação de conhecimento CycL\cite{lenat89}, RDF/S\cite{rdfs}, DAML+OIL\cite{daconta03} e OWL\cite{daconta03}.
 
 \begin{comment}
 % CycL
@@ -16,9 +16,9 @@ O \textbf{OWL} é a linguagem de ontologia mais expressiva definida ou em defini
 
 
 % Escolhido - OWL
-Devido à expressividade e ao suporte de ferramentas externas, o OWL foi escolhido como a linguagem de ontologias utilizado pelo eProfile para modelagem da ontologia do perfil.
+Devido à expressividade e ao suporte de ferramentas externas, o OWL foi escolhido como a linguagem de ontologias utilizado pelo eProfile para modelagem da ontologia do perfil e das trilhas.
 
-As ontologias utilizadas pelo eProfile -- tanto a ontologia de trilhas quanto a ontologia de perfil -- são ontologias básicas, extendidas através de subclasses de acordo com o formato da trilha enviada pelo gerenciador (no caso da ontologia de trilha) ou das necessidades da aplicação (no caso da ontologia do perfil). Isto é representado na Figura~\ref{fig:heranca}, onde o eProfile oferece uma classe genérica ``Evento'', que é especializada pela classe ``EventoDeCompra'', utilizada por um dos gerenciadores de trilha.
+As ontologias utilizadas pelo eProfile -- tanto a ontologia de trilhas quanto a ontologia de perfil -- são ontologias básicas, estendidas através de subclasses de acordo com o formato da trilha enviada pelo gerenciador (no caso da ontologia de trilha) ou das necessidades da aplicação (no caso da ontologia do perfil). Isto é representado na Figura~\ref{fig:heranca}, onde o eProfile oferece uma classe genérica ``Atividade'', que é especializada pela classe ``AtividadeDeCompra'', utilizada por um dos gerenciadores de trilha.
 
 \begin{figure}
   \centering\includegraphics[width=0.5\textwidth]{imagens/heranca.png}
@@ -28,11 +28,11 @@ As ontologias utilizadas pelo eProfile -- tanto a ontologia de trilhas quanto a 
 
 \subsubsection{Ontologia de Trilha}
 
-O eProfile implementa uma ontologia de trilha. Esta ontologia será alimentada a partir dos diferentes gerenciadores de trilhas suportados, onde o agente {\em conversor} é responsável por receber os dados no formato do gerenciador de trilhas e convertê-los para a ontologia de trilhas do eProfile. Assim, o raciocinador terá uma ontologia única sobre a qual poderá raciocinar.
+O eProfile implementa uma ontologia de trilha, a qual será chamada \textbf{eOntoTrail}. Esta ontologia será alimentada a partir dos diferentes gerenciadores de trilhas suportados, onde o agente {\textbf conversor} é responsável por receber os dados no formato do gerenciador de trilhas e convertê-los para a eOntoTrail. Assim, o raciocinador terá uma ontologia única sobre a qual poderá raciocinar.
 
-A ontologia de trilha está representada na Figura~\ref{fig:ont_trilha}, onde todos os relacionamentos, representados pelas setas, são do tipo ``has-some'' (tem-algum(s)).
+A eOntoTrail está representada na Figura~\ref{fig:ont_trilha}, onde todos os relacionamentos, representados pelas setas, são do tipo ou ``has-a'' ou ``has-some''.
 
-\todo[inline]{Está correto utilizar ``has-a'' e ``has-some''? Estou querendo representar ``0 ou 1'', e ``0 ou mais'' respectivamente.}
+%\todo[inline]{Está correto utilizar ``has-a'' e ``has-some''? Estou querendo representar ``0 ou 1'', e ``0 ou mais'' respectivamente.}
 
 \begin{figure*}
   \centering\includegraphics[width=1\textwidth]{imagens/ont_trilha.png}
@@ -40,17 +40,17 @@ A ontologia de trilha está representada na Figura~\ref{fig:ont_trilha}, onde to
   \label{fig:ont_trilha}
 \end{figure*}
 
-Abowd e Dey definem que aplicações sensíveis a contexto estão interessadas em saber {\em quem}, {\em onde}, {\em quando} e {\em o quê} (isto é, o que o usuário está fazendo), de forma a poderem descobrir por que a situação está ocorrendo\cite{abowd99}. Assim, uma trilha é representada por um conjunto de eventos caracterizados pelas seguintes classes:
+Abowd e Dey\cite{abowd99} definem que aplicações sensíveis a contexto estão interessadas em saber {\bf quem}, {\bf onde}, {\bf quando} e {\bf o quê} (isto é, o que o usuário está fazendo), de forma a poderem descobrir por que a situação está ocorrendo. Assim, uma trilha é representada por um conjunto de eventos caracterizados pelas seguintes classes:
 
 \begin{description}
 
-  \item[Indentity:] É a identidade da entidade que está realizando a ação. Esta entidade pode estar realizando a ação com um ou mais recursos ({\em Resource}) (como um aplicativo ou dispositivo) e pode estar vinculada a um perfil ({\em Profile}) dentro do eProfile. A classe \textbf{Participants} contém as identidades das entidades que estão participando deste evento;
+  \item[Identity:] É a identidade da entidade que está realizando a ação. Esta entidade pode estar realizando a ação com um ou mais recursos ({\em Resource}) (um aplicativo ou dispositivo, por exemplo) e pode estar vinculada a um perfil ({\em Profile}) dentro do eProfile. A classe \textbf{Participants} contém as identidades das entidades que estão participando deste evento;
 
-  \item[Location:] Onde está ocorrendo a ação. Uma localização pode ser uma localização física específica (como uma sala) ou não (uma estrada, por exemplo). A localização pode estar vinculada a uma região ({\em Region} (que, adicionalmente, pode estar vinculada a outras subregiões) e geralmente possui uma localização global (GPS) vinculada a ela. Outros tipos de localização podem ser extendidas a partir da classe;
+  \item[Location:] A localização onde está ocorrendo a ação. Uma localização pode ser uma localização física específica (como uma sala) ou não (uma estrada, por exemplo). A localização pode estar vinculada a uma região ({\em Region} que, adicionalmente, pode estar vinculada a outras subregiões e geralmente possui uma localização global (GPS) vinculada a ela. Outros tipos de localização podem ser extendidas a partir da classe;
 
-  \item[Time:] Reponde à questão de {\em quando} ocorreu o evento;
+  \item[Time:] A data e hora em que ocorreu o evento;
 
-  \item[Activity:] Refere-se à ação que o usuário está executou (ou tentou executar). É a classe mais abrangente da ontologia, e a que possivelmente será a mais especializada pelos gerenciadores de trilha.
+  \item[Activity:] Refere-se à ação que o usuário está executando (ou tentou executar). É a classe mais abrangente da ontologia, e a que possivelmente será a mais especializada pelos gerenciadores de trilha.
 
 \end{description}
 
