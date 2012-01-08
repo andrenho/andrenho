@@ -60,44 +60,56 @@ Abowd e Dey\cite{abowd99} definem que aplicações sensíveis a contexto estão 
 
 \subsubsection{Ontologia de Perfil}
 
-\todo[inline]{Estou pensando em substituir esta ontologia pela FOAF.}
+A ontologia de perfil é a ontologia utilizada para armazenar os modelos de usuário, bem como as informações de perfil que são inferidas a partir da trilha. Para que a ontologia seja viável dentro do modelo proposto, ela deve ser uma ontologia genérica que permita que suas classes seja estendidas pelas aplicações.
 
-A ontologia de perfil é a ontologia utilizada para armazenar as informações de perfil inferidas a partir da trilha. Esta ontologia está representada na Figura~\ref{fig:ont_perfil}.
+Existem algumas ontologias genéricas propostas, tais como FOAF\cite{foaf}, GUMO\cite{gumo}, Ontonym\cite{ontonym}, e a ontologia proposta por Golemati et al\cite{golemati07}.
 
-A ontologia possui duas classes básicas: {\em Entity} (entidade) e {\em Information} (informação). Assim, os perfis de várias entidades podem ser armazenados nesta ontologia, onde cada perfil possui um conjunto de informações. Este conjunto de informações será extendido pelas aplicações através de herança (subclasses). 
+Na ontologia proposta, a qual chamaremos eOntoProfile, está representada na Figura~\ref{ont_perfil}. A eOntoProfile é uma ontologia básica, que será estendida pelas aplicações de modo a montarem seus próprios modelos de usuário.
 
-Cada entidade é identificada por um nome único, mesmo que o perfil seja alimentado por várias aplicações. Desta forma, é possível que uma aplicação tenha acesso a informações de perfil gravadas por outra aplicação, desde que ela tenha conhecimento das classes utilizadas pelo outro.
-
-\begin{figure*}
-  \centering\includegraphics[width=1\textwidth]{imagens/ont_perfil.png}
+\begin{figure}
+  \centering\includegraphics[width=0.5\textwidth]{imagens/ont_perfil2.png}
   \caption{Ontologia de Perfil do eProfile}
   \label{fig:ont_perfil}
-\end{figure*}
+\end{figure}
 
-As informações podem ser de três tipos:
-
-\begin{description}
-
-  \item[PastInformation:] refere-se a eventos que ocorreram no passado. As informações armazenadas nesta classe são, de um modo geral, cumulativas. Exemplos seriam as escolas onde uma pessoa estudou, ou os destinos onde um caminhão já entregou alguma carga;
-
-  \item[PresentInformation:] são informações atuais da entidade, subdivididas em subclasses descritas mais adiante;
-
-  \item[FutureInformation:] são informações previstas a respeito do futuro de uma entidade, como o conjunto de disciplinas que uma pessoa tem a cursar, ou quantos quilômetros um caminhão pode percorrer antes de reabastecer.
-
-\end{description}
-
-As informações atuais podem ser dos seguintes tipos:
+A classe básica da ontologia é a classe {\em Element} (elemento). A classe {\em Element} representa qualquer coisa no mundo real. Ela tem como filhos as seguintes classes:
 
 \begin{description}
 
-  \item[Identity:] informações que identificam a entidade, como dados cadastrais.
+  \item[Entity:] representa uma entidade. Uma entidade é qualquer elemento que tenha um perfil associado a ela. Embora a idéia de um perfil geralmente esteja associada a uma pessoa, uma entidade pode também ser um dispositivo como um carro ou um celular;
 
-  \item[Preference:] preferências da entidade. Podem ser informações a respeito de interesses de um usuário ou aspectos mais técnicos, como protocolo preferencial de comunicação, ou até mesmo informações compostas, como qual qualidade de vídeo utilizar para cada banda de comunicação;
-
-  \item[Ability:] conjunto de capacidades de uma entidade. Capacidades incluem tanto habilidades de um usuário (como jogar xadrez) quanto capacidades de um serviço (por exemplo, suporte a webservices SOAP);
-
-  \item[Relation:] conjunto de relações relevantes desta entidade. As relações podem dizer respeito a uma outra entidade (por exemplo, um usuário que tenha outros amigos ou um carro que tem um dono) ou uma não-entidade (como um usuário que tem um dispositivo). No caso de relações com outras entidades, se a entidade possuir um perfil cadastrado, é possível realizar uma vinculação.
+  \item[NonEntity:] representa uma entidade que não possui um perfil associado a ela, como um objeto, um estabelecimento comercial, ou até mesmo uma pessoa que não tenha um perfil associado. Pode ser utilizada para identificar alguma relação que a entidade tenha com ela, por exemplo, um livro que uma pessoa possua ou uma loja que ela tenha visitado.
 
 \end{description}
+
+A ontologia FOAF\cite{foaf} utiliza o conceito de {\em knows} (conhece) para vincular duas pessoas. O eOntoProfile estende este conceito através das propriedade {\em relates-to} (se-relaciona-com) que vincula dois elementos. Através desta propriedade, é possível não apenas vincular os elementos, mas também descrever o tipo de relação que eles tem. Exemplos de relações são {\em friend-of} (amigo-de), representando uma amizade entre duas pessoas, {\em employee-of} (empregado-de), representando um vínculo empregatício entre duas pessoas, {\em owns} (possui), representando que uma pessoa possui um dispositivo, {\em depends} (depende), onde um dispositivo depende de outro, e qualquer outra relação que a aplicação deseje criar.
+
+Uma entidade pode conter diversas características. As características das entidades são inspiradas no modelo proposto por Golemati et al\cite{golemati07}, embora o modelo tenha sido simplificado. 
+ 
+\begin{description}
+
+  \item[PersonalInfo:] contém quaisquer informações pessoais do usuário, tais como nome, data de nascimento, moradia, emprego atual, entre outros;
+
+  \item[Interest:] quaisquer interesses ou preferências que o usuário tenha, como preferência musical ou preferência por um tema de cores específico em suas aplicações;
+
+  \item[Knowledge:] conhecimento possuido pelo usuário. Pode referir-se a conhecimento formal (tal como formação acadêmica) ou informal (habilidade ou experiência em alguma atividade).
+
+\end{description}
+
+Os modelos de usuário estenderão estas categorias de acordo com as suas necessidades.
+
+Todos os modelos de usuários definidos para um perfil serão estendidos em uma mesma ontologia. Isto possibilitará a interpersonalização, ou seja, permitirá com que os dados gerados por uma aplicação possam ser utilizadas por outra. Assim, existe a possibilidade de conflito de nomes, ou seja, uma aplicação pode criar uma classe chamada {\em Preference} onde ela registra preferências do usuário por um determinado tipo de livros, enquanto outro aplicativo cria uma classe com o mesmo nome para registrar as preferências de tela da aplicação.
+
+Para evitar este conflito, um nome único de aplicação deve ser concatenado ao nome da classe. Assim, se um dos aplicativos utilizasse o nome {\em books} e o outro utilizasse o nome {\em gps}, teríamos, respectivamente, as classes {\em books.Preference} e {\em gps.Preference}.
+
+Para que um aplicativo possa ter acesso aos dados gerados por outro, existem duas possibilidades:
+
+\begin{enumerate}
+
+  \item Um aplicativo acessar diretamente os dados gerados pelo outro. No exemplo acima, o aplicativo {\em books} acessaria diretamente os dados da classe {\em gps.Preference};
+
+  \item Os aplicativos utilizarem um contrato onde eles concordam em utilizar os mesmos campos. Assim, {\em books} e {\em gps} poderiam utilizar o nome {\em findlibrary}, criando o campo {\em findlibrary.Preference} onde ambos gravariam e leriam as informações.
+
+\end{enumerate}
 
 Todos as extensões (subclasses) da ontologia são definidas pelas aplicações, e todas as informações do perfil são inferidas. A forma como esta inferência ocorre é descrita na Seção~\ref{sec:inferencia}.
