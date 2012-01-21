@@ -1,0 +1,18 @@
+digraph heranca {
+
+  rankdir=LR;
+  //layout = dot;
+
+  PurchaseActivity [style=dotted,penwidth=2,label="AtividadeDeCompra"];
+  Activity [label="Atividade"];
+
+  subgraph cluster_eProfile {
+    label = "Ontologia do eProfile";
+    Activity;
+  }
+
+  subgraph cluster_external {
+    label = "Informação específica do cliente";
+    Activity -> PurchaseActivity [style=dotted,penwidth=2];
+  }
+}

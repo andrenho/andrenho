@@ -10,6 +10,8 @@
 % 
 \usepackage{graphicx}
 \usepackage{bibentry}
+\usepackage{booktabs}
+\renewcommand{\arraystretch}{1.2}
 
 % Configurações de bibliografia
 \unisinosbst
@@ -55,8 +57,17 @@ parcial para a obtenção do grau de Mestre em Computação Aplicada
 \begin{document}
 
 %\input{partes/partes_iniciais.tex}
+
 \folhaderosto
+\tableofcontents
+\listoffigures
+\listoftables
+
 \input{partes/introducao}
+
+\input{partes/conceitos}
+
+\input{partes/relacionados}
 
 \bibliography{dissertacao-eprofile}
 
