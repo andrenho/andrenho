@@ -1,0 +1,21 @@
+digraph modelo2 {
+
+  layout = fdp;
+  sep = 0.25;
+
+  eProfile [shape=box,width=2,height=1];
+
+  "Cliente 1" -> "Gerenciador\nde Trilhas A";
+  "Cliente 2" -> "Gerenciador\nde Trilhas A";
+  "Cliente 3" -> "Gerenciador\nde Trilhas B";
+  "Gerenciador\nde Trilhas A" -> eProfile;
+  "Gerenciador\nde Trilhas B" -> eProfile;
+  eProfile -> "Cliente 1";
+  eProfile -> "Cliente 2";
+  eProfile -> "Cliente 3";
+
+  fontsize = 12;
+
+  rankdir = LR;
+
+}
