@@ -17,7 +17,7 @@
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
 
-from data import Ingredient
+from data import Recipe
 
 class MainHandler(webapp.RequestHandler):
   def get(self):
@@ -25,7 +25,7 @@ class MainHandler(webapp.RequestHandler):
 
 class ResetHandler(webapp.RequestHandler):
   def get(self):
-    Ingredient.reset()
+    Recipe.reset()
     self.response.out.write('Done!')
 
 def main():
