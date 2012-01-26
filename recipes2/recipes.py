@@ -1,13 +1,28 @@
 import datetime
 
 class Verb(object):
-    def __init__(self, name):
-        self.name = name
+    def __init__(self):
+        self.ingredient = None
         
 
 class Ingredient(object):
-    def __init__(self, name):
-        self.name = name
+    def __init__(self, name_en):
+        self.name_en = name_en
+
+    def text(self, lang):
+        if lang == 'en':
+            return self.name_en
+
+
+class IngredientAmount(Ingredient):
+    def __init__(self, ingredient, amt, measure):
+        self.ingredient = ingredient
+        self.amt = amt
+        self.measure = measure
+
+    def text(self, lang):
+        if lang == 'en':
+            return str(self.amt) + ' ' + self.measure + ' of ' + self.ingredient.text(lang)
 
 
 class Recipe(Ingredient):
@@ -15,51 +30,76 @@ class Recipe(Ingredient):
         self.name = name
         self.steps = []
 
+    def ingredients(self):
+        i = []
+        for step in self.steps:
+            if step.ingredient:
+                i.append(step.ingredient)
+        return i
+
+    def write(self):
+        print self.name
+        print '-' * len(self.name)
+        print
+        self.write_detail()
+
+    def write_detail(self):
+        for ingredient in self.ingredients():
+            print ingredient.text('en')
+    
 
 class Equipment(object):
     def __init__(self, name):
         self.name = name
 
 
-class Measure(object):
-    def __init__(self, amount, measure):
-        self.amount = amount
-        self.measure = measure
+class Preheat(Verb):
+    def __init__(self, time):
+        Verb.__init__(self)
+        self.time = time
 
+class Bake(Verb):
+    def __init__(self, ingredient, time):
+        Verb.__init__(self)
+        self.ingredient = ingredient
+        self.time = time
 
-class Weight(Measure):
-    def __init__(self, amount, measure):
-        self.amount = amount
-        self.measure = measure
+class Mix(Verb):
+    def __init__(self, ingredient):
+        Verb.__init__(self)
+        self.ingredient = ingredient
 
-
-class Volume(Measure):
-    def __init__(self, amount, measure):
-        self.amount = amount
-        self.measure = measure
-
-
-put = Verb('put')
-mix = Verb('mix')
-preheat = Verb('preheat')
-bake = Verb('bake')
+class Put(Verb):
+    def __init__(self, ingredient, equipment):
+        Verb.__init__(self)
+        self.ingredient = ingredient
+        self.equipment = equipment
 
 bowl = Equipment('bowl')
 
 water = Ingredient('water')
 salt = Ingredient('salt')
 flour = Ingredient('flour')
-olive_oil = Ingredient('oilve_oil')
+olive_oil = Ingredient('oilve oil')
 
-cracker_mix = Recipe('cracker_mix')
-cracker_mix.steps.append((put, (flour, Weight(50, 'g')), bowl))
-cracker_mix.steps.append((put, (salt, Weight(1/2, 'tsp')), bowl))
-cracker_mix.steps.append((put, (olive_oil, Weight(1, 'tbsp')), bowl))
-cracker_mix.steps.append((put, (flour, Volume(30, 'ml')), bowl))
 
-cracker_dough = Recipe('cracker_dough')
-cracker_dough.steps.append((mix, bowl))
+class CrackerMix(Recipe):
+    def __init__(self):
+        Recipe.__init__(self, 'Cracker Mix')
+        self.steps.append(Put(IngredientAmount(flour, 50, 'g'), bowl))
+        self.steps.append(Put(IngredientAmount(salt, 0.5, 'tsp'), bowl))
+        self.steps.append(Put(IngredientAmount(olive_oil, 1, 'tbsp'), bowl))
+        self.steps.append(Put(IngredientAmount(water, 30, 'ml'), bowl))
 
-cracker = Recipe('cracker')
-cracker.steps.append((preheat, datetime.timedelta(minutes=15)))
-cracker.steps.append((bake, (cracker_dough, 1), datetime.timedelta(minutes=30)))
+class CrackerDough(Recipe):
+    def __init__(self):
+        Recipe.__init__(self)
+        self.steps.append(Mix(CrackerMix()))
+
+class Cracker(Recipe):
+    def __init__(self):
+        Recipe.__init__(self, 'Crackers')
+        self.steps.append(Preheat(datetime.timedelta(minutes=15)))
+        self.steps.append(Bake(CrackerDough(), datetime.timedelta(minutes=30)))
+
+CrackerMix().write()
