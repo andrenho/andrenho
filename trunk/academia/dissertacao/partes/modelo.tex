@@ -9,7 +9,7 @@
 A Figura~\ref{fig:modelo} apresenta o modelo do eProfile.
 
 \begin{figure}
-  \centering\includegraphics[width=0.5\textwidth]{imagens/modelo.png}
+  \centering\includegraphics[width=0.4\textwidth]{imagens/modelo.png}
   \caption{Modelo do eProfile, com as setas representando o fluxo de dados}
   \label{fig:modelo}
 \end{figure}
@@ -19,14 +19,14 @@ As \textbf{aplicações} são utilizados pelas entidades para se conectar ao ger
 As trilhas das entidades são buscadas do gerenciador de trilhas pelo eProfile. Como o eProfile pode se conectar a diferentes gerenciadores de trilha (Figura~\ref{fig:modelo2}), onde em cada um deles a trilha tem um formato específico, é necessário que seja realizada uma conversão entre o formato original e o formato utilizado pelo eProfile. Este trabalho é realizado por um agente entitulado \textbf{conversor}, que é capaz de realizar a conversão para os formatos de trilha suportados pelo eProfile.
 
 \begin{figure}
-  \centering\includegraphics[width=0.5\textwidth]{imagens/modelo2.png}
+  \centering\includegraphics[width=0.8\textwidth]{imagens/modelo2.png}
   \caption{eProfile conectado a mais de um gerenciador de trilhas}
   \label{fig:modelo2}
 \end{figure}
 
 Desta forma, o eProfile não tem a necessidade de conhecer a aplicação -- mas precisa conhecer o formato utilizado pelo gerenciador de trilhas.
 
-A trilha do usuário é então armazenada no eProfile em uma \textbf{ontologia de trilha}. Esta ontologia possui as classes básicas para a construção de uma trilha, sendo que a mesma pode ser estendida de acordo com a especificação do gerenciador de trilhas que está sendo utilizado. A forma como ocorre esta extensão é detalhada na Seção~\ref{sec:ontologias}.
+A trilha do usuário é então armazenada no eProfile em uma \textbf{ontologia de trilha}. Esta ontologia possui as classes básicas para a construção de uma trilha, sendo que a mesma pode ser estendida de acordo com a especificação do gerenciador de trilhas que está sendo utilizado. A forma como ocorre esta extensão é detalhada na Seção~\ref{sec:eontotrail}.
 
 Cada aplicação tem a possibilidade de montar seu próprio modelo de usuário. Para que o eProfile processe os perfis baseados em um modelo de usuário, ele precisa de três informações: (i) a trilha da entidade, (ii) o modelo de usuário utilizado pela aplicação e (iii) as regras de inferência para o perfil. A trilha da entidade é carregada pelo eProfile a partir do gerenciador de trilhas, enquanto as outras duas informações são enviadas diretamente da aplicação para o eProfile. Desta forma, as regras de inferência definidas pela aplicação serão utilizadas para inferir seu próprio perfil.
 
@@ -37,6 +37,32 @@ Uma vez de posse das trilhas, do modelo e das regras, o agente \textbf{raciocina
 Como o eProfile é um modelo onde é necessário inferir informações de forma autônoma a respeito de dados armazenados em uma ontologia, a tecnologia de agentes autônomos foi escolhida para o desenvolvimento.
 
 O modelo do eProfile é composto por três agentes: (i) conversor, (ii) regulador e raciocinador.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Modelagem dos Agentes}
+\label{sec:modelagem}
+
+O eProfile é um sistema orientado a agentes, onde a metodologia utilizada para a modelagem é a Prometheus\cite{prometheus}. Esta metodologia define um processo detalhado para a especificação, projeto, implementação e teste/depuração de sistemas de software orientados a agentes.\cite{prometheus-book}
+
+\begin{figure}
+  \includegraphics[width=0.8\textwidth]{imagens/prometheus.png}
+  \caption{Processo de projeto segundo a metodologia Prometheus \cite{prometheus-book}}
+  \label{fig:metodologia}
+\end{figure}
+
+A metodologia Prometheus, ilustrada na Figura~\ref{fig:metodologia} define que o primeiro passo da modelagem de um sistema é a identificação dos objetivos inciais do sistema. De acordo com o modelo do eProfile, os objetivos do sistema são:
+
+\begin{itemize}
+  \item Gerenciar múltiplos perfis;
+  \item Comunicar-se com um (ou mais) gerenciadores de trilhas;
+  \item Receber as regras de processamento dos clientes;
+  \item Inferir dados de perfil através da análise das trilhas, de acordo com as regras definidas pelos clientes;
+  \item Aceitar requisições de informações de perfil pelos clientes.
+\end{itemize}
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -74,19 +100,19 @@ O \textbf{agente raciocinador} é responsável pela inferência das trilhas de a
 \section{Ontologia}
 \label{sec:ontologia}
 
-O eProfile utiliza duas ontologias: uma ontologia de trilhas e uma ontologia de perfis. Para o armazenamento e processamento das ontologias, foram estudadas as linguagens de representação de conhecimento CycL\cite{lenat89}, RDF/S\cite{rdfs}, DAML+OIL\cite{daconta03} e OWL\cite{daconta03}.
+O eProfile utiliza duas ontologias: uma ontologia de trilhas e uma ontologia de perfis. Para o armazenamento e processamento das ontologias, foram estudadas as linguagens de representação de conhecimento CycL \cite{lenat89}, RDF/S \cite{rdfs}, DAML+OIL \cite{daconta03} e OWL \cite{daconta03}.
 
 % CycL
-A linguagem \textbf{CycL} é a linguagem utilizada pelo o projeto de \emph{Cyc}\cite{lenat89}. O Cyc é um projeto de inteligência artificial que tem o objetivo de montar uma ontologia e base de conhecimento a partir do senso comum, com o propósito de permitir que aplicações de inteligência artificial realizem raciocínio semelhante ao humano. A linguagem CycL é uma linguagem declarativa baseada em lógica de primeira ordem clássica, com extensões para operadores modais e lógica de ordem superior. A base de conhecimento é dividida em micro-teorias (Mt), que são coleções de conceitos e fatos tipicamente pertencentes a um domínio particular de conhecimentos e, ao contrário da base de conhecimento como um todo, cada micro-teoria deve estar livre de contradições.
+A linguagem \textbf{CycL} é a linguagem utilizada pelo o projeto de \emph{Cyc} \cite{lenat89}. O Cyc é um projeto de inteligência artificial que tem o objetivo de montar uma ontologia e base de conhecimento a partir do senso comum, com o propósito de permitir que aplicações de inteligência artificial realizem raciocínio semelhante ao humano. A linguagem CycL é uma linguagem declarativa baseada em lógica de primeira ordem clássica, com extensões para operadores modais e lógica de ordem superior. A base de conhecimento é dividida em micro-teorias (Mt), que são coleções de conceitos e fatos tipicamente pertencentes a um domínio particular de conhecimentos e, ao contrário da base de conhecimento como um todo, cada micro-teoria deve estar livre de contradições.
 
 % RDF/S
-\textbf{RDF} (\emph{Resource Description Framework}) é uma linguagem utilizada para representação de metadados a respeito de recursos na Web\cite{rdf}. No entanto, o conceito de ``recurso da Web'' pode ser generalizado, de forma que o RDF pode ser utilizado para representar informações a respeito de coisas que podem ser identificadas na Web, mesmo que elas não possam ser carregadas da Web. Recursos podem ser recursos eletrônicos, como arquivos, ou conceitos, como pessoas. O RDF é complementado pelo \textbf{RDF/S} (\emph{RDF/Schema}), uma extensão semântica do RDF. O RDF/S é uma linguagem de descrição de vocabulário que provê mecanismos para descrever grupos de recursos relacionados e os relacionamentos entre estes recursos\cite{rdfs}.
+\textbf{RDF} (\emph{Resource Description Framework}) é uma linguagem utilizada para representação de metadados a respeito de recursos na Web \cite{rdf}. No entanto, o conceito de ``recurso da Web'' pode ser generalizado, de forma que o RDF pode ser utilizado para representar informações a respeito de coisas que podem ser identificadas na Web, mesmo que elas não possam ser carregadas da Web. Recursos podem ser recursos eletrônicos, como arquivos, ou conceitos, como pessoas. O RDF é complementado pelo \textbf{RDF/S} (\emph{RDF/Schema}), uma extensão semântica do RDF. O RDF/S é uma linguagem de descrição de vocabulário que provê mecanismos para descrever grupos de recursos relacionados e os relacionamentos entre estes recursos \cite{rdfs}.
 
 % DAML+OIL
-O \textbf{DAML+OIL} é uma linguagem de representação de conhecimento baseada nas linguagens DAML e OIL. O DAML (\emph{DARPA Agent Markup Language}) foi desenvolvido pelo Centro de Pesquisas Avançadas da Defesa Americana e é uma linguagem de marcação de agentes baseada no RDF. Já o OIL (\emph{Ontology Inference Layer}) é uma linguagem com os mesmos objetivos, criada pelo por um grupo de universidades europeias. Ambos os esforços foram unidos na criação do DAML+OIL, que por sua vez deu origem ao OWL\cite{daconta03}.
+O \textbf{DAML+OIL} é uma linguagem de representação de conhecimento baseada nas linguagens DAML e OIL. O DAML (\emph{DARPA Agent Markup Language}) foi desenvolvido pelo Centro de Pesquisas Avançadas da Defesa Americana e é uma linguagem de marcação de agentes baseada no RDF. Já o OIL (\emph{Ontology Inference Layer}) é uma linguagem com os mesmos objetivos, criada pelo por um grupo de universidades europeias. Ambos os esforços foram unidos na criação do DAML+OIL, que por sua vez deu origem ao OWL \cite{daconta03}.
 
 % OWL
-O \textbf{OWL} é a linguagem de ontologia mais expressiva definida ou em definição para a Web Semântica\cite{daconta03}. O OWL utiliza URI\footnote{\emph{Uniform Resource Identifier}} para os nomes, e a estrutura de descrição disponibilizada pelo RDF. O OWL está uma camada acima do RDF e do RDF/S, e adiciona mais vocabulário para descrever propriedades e classes: entre outros, relações entre classes, cardinalidade, igualdade, tipagem mais avançada de propriedades, características de propriedades e classes enumeradas\cite{owl-guide}. O OWL está disponível em três sublinguages: \emph{OWL Lite}, \emph{OWL DL} e \emph{OWL Full}, cada uma aumentando o nível de complexidade e expressividade. Um grande número de ferramentas com capacidade para edição e raciocínio semântico com suporte para OWL está disponível no mercado.
+O \textbf{OWL} é a linguagem de ontologia mais expressiva definida ou em definição para a Web Semântica \cite{daconta03}. O OWL utiliza URI\footnote{\emph{Uniform Resource Identifier}} para os nomes, e a estrutura de descrição disponibilizada pelo RDF. O OWL está uma camada acima do RDF e do RDF/S, e adiciona mais vocabulário para descrever propriedades e classes: entre outros, relações entre classes, cardinalidade, igualdade, tipagem mais avançada de propriedades, características de propriedades e classes enumeradas \cite{owl-guide}. O OWL está disponível em três sublinguages: \emph{OWL Lite}, \emph{OWL DL} e \emph{OWL Full}, cada uma aumentando o nível de complexidade e expressividade. Um grande número de ferramentas com capacidade para edição e raciocínio semântico com suporte para OWL está disponível no mercado.
 
 % Escolhido - OWL
 Devido à expressividade e ao suporte de ferramentas externas, o OWL foi escolhido como a linguagem de ontologias utilizado pelo eProfile para modelagem da ontologia do perfil e das trilhas.
@@ -94,7 +120,7 @@ Devido à expressividade e ao suporte de ferramentas externas, o OWL foi escolhi
 As ontologias utilizadas pelo eProfile -- tanto a ontologia de trilhas quanto a ontologia de perfil -- são ontologias básicas, estendidas através de subclasses de acordo com o formato da trilha enviada pelo gerenciador (no caso da ontologia de trilha) ou das necessidades da aplicação (no caso da ontologia do perfil). Isto é representado na Figura~\ref{fig:heranca}, onde o eProfile oferece uma classe genérica ``Atividade'', que é especializada pela classe ``AtividadeDeCompra'', utilizada por um dos gerenciadores de trilha.
 
 \begin{figure}
-  \centering\includegraphics[width=0.5\textwidth]{imagens/heranca.png}
+  \centering\includegraphics[width=0.8\textwidth]{imagens/heranca.png}
   \caption{Exemplo da extensão de uma classe do eProfile}
   \label{fig:heranca}
 \end{figure}
@@ -116,7 +142,7 @@ A eOntoTrail está representada na Figura~\ref{fig:ont_trilha}, onde todos os re
   \label{fig:ont_trilha}
 \end{figure*}
 
-Abowd e Dey\cite{abowd99} definem que aplicações sensíveis a contexto estão interessadas em saber {\bf quem}, {\bf onde}, {\bf quando} e {\bf o quê} (isto é, o que o usuário está fazendo), de forma a poderem descobrir por que a situação está ocorrendo. Assim, uma trilha é representada por um conjunto de eventos caracterizados pelas seguintes classes:
+\citetexto{abowd99} definem que aplicações sensíveis a contexto estão interessadas em saber {\bf quem}, {\bf onde}, {\bf quando} e {\bf o quê} (isto é, o que o usuário está fazendo), de forma a poderem descobrir por que a situação está ocorrendo. Assim, uma trilha é representada por um conjunto de eventos caracterizados pelas seguintes classes:
 
 \begin{description}
 
@@ -139,12 +165,12 @@ Abowd e Dey\cite{abowd99} definem que aplicações sensíveis a contexto estão 
 
 A ontologia de perfil é a ontologia utilizada para armazenar os modelos de usuário, bem como as informações de perfil que são inferidas a partir da trilha. Para que a ontologia seja viável dentro do modelo proposto, ela deve ser uma ontologia genérica que permita que suas classes seja estendidas pelas aplicações.
 
-Existem algumas ontologias genéricas propostas, tais como FOAF\cite{foaf}, GUMO\cite{gumo}, Ontonym\cite{ontonym}, e a ontologia proposta por Golemati et al\cite{golemati07}.
+Existem algumas ontologias genéricas propostas, tais como FOAF \cite{foaf}, GUMO \cite{gumo}, Ontonym \cite{ontonym}, e a ontologia proposta por \citetexto{golemati07}.
 
-Na ontologia proposta, a qual chamaremos eOntoProfile, está representada na Figura~\ref{ont_perfil}. A eOntoProfile é uma ontologia básica, que será estendida pelas aplicações de modo a montarem seus próprios modelos de usuário.
+Na ontologia proposta, a qual chamaremos eOntoProfile, está representada na Figura~\ref{fig:ont_perfil}. A eOntoProfile é uma ontologia básica, que será estendida pelas aplicações de modo a montarem seus próprios modelos de usuário.
 
 \begin{figure}
-  \centering\includegraphics[width=0.5\textwidth]{imagens/ont_perfil2.png}
+  \centering\includegraphics[width=0.8\textwidth]{imagens/ont_perfil2.png}
   \caption{Ontologia de Perfil do eProfile}
   \label{fig:ont_perfil}
 \end{figure}
@@ -159,9 +185,9 @@ A classe básica da ontologia é a classe {\em Element} (elemento). A classe {\e
 
 \end{description}
 
-A ontologia FOAF\cite{foaf} utiliza o conceito de {\em knows} (conhece) para vincular duas pessoas. O eOntoProfile estende este conceito através das propriedade {\em relates-to} (se-relaciona-com) que vincula dois elementos. Através desta propriedade, é possível não apenas vincular os elementos, mas também descrever o tipo de relação que eles tem. Exemplos de relações são {\em friend-of} (amigo-de), representando uma amizade entre duas pessoas, {\em employee-of} (empregado-de), representando um vínculo empregatício entre duas pessoas, {\em owns} (possui), representando que uma pessoa possui um dispositivo, {\em depends} (depende), onde um dispositivo depende de outro, e qualquer outra relação que a aplicação deseje criar.
+A ontologia FOAF \cite{foaf} utiliza o conceito de {\em knows} (conhece) para vincular duas pessoas. O eOntoProfile estende este conceito através das propriedade {\em relates-to} (se-relaciona-com) que vincula dois elementos. Através desta propriedade, é possível não apenas vincular os elementos, mas também descrever o tipo de relação que eles tem. Exemplos de relações são {\em friend-of} (amigo-de), representando uma amizade entre duas pessoas, {\em employee-of} (empregado-de), representando um vínculo empregatício entre duas pessoas, {\em owns} (possui), representando que uma pessoa possui um dispositivo, {\em depends} (depende), onde um dispositivo depende de outro, e qualquer outra relação que a aplicação deseje criar.
 
-Uma entidade pode conter diversas características. As características das entidades são inspiradas no modelo proposto por Golemati et al\cite{golemati07}, embora o modelo tenha sido simplificado. 
+Uma entidade pode conter diversas características. As características das entidades são inspiradas no modelo proposto por \citetexto{golemati07}, embora o modelo tenha sido simplificado. 
  
 \begin{description}
 
@@ -234,11 +260,9 @@ Todos as extensões (subclasses) da ontologia são definidas pelas aplicações,
 \label{fig:extensao}
 \end{figure*}
 
-Para que uma aplicação possa utilizar os serviços oferecidos pelo eProfile, é necessário que a aplicação envie ao eProfile a ontologia de perfil que ele irá utilizar, extendendo a ontologia do eProfile. A ontologia é enviada quando a aplicação faz seu primeiro acesso ao eProfile, e pode ser atualizada posteriormente. Ela deve ser enviada em formato OWL utilizando a sintaxe RDF/XML\cite{rdf}.
+Para que uma aplicação possa utilizar os serviços oferecidos pelo eProfile, é necessário que a aplicação envie ao eProfile a ontologia de perfil que ele irá utilizar, extendendo a ontologia do eProfile. A ontologia é enviada quando a aplicação faz seu primeiro acesso ao eProfile, e pode ser atualizada posteriormente. Ela deve ser enviada em formato OWL utilizando a sintaxe RDF/XML \cite{rdf}.
 
-A Figura~\ref{fig:extensao} mostra um exemplo de uma ontologia de perfil. Neste caso, em um perfil pessoal a classe \texttt{Identity} está sendo extendida para a classe \texttt{PersonalInformation}, que tem as propriedades \texttt{hasName} e \texttt{hasAge}. Este exemplo mostra o OWL/XML gerado pelo editor de ontologias Protégé\cite{protege}. As linhas 19 e 14 importam a ontologia do eProfile e criam um {\em namespace} para ele; nas linhas 21 a 23 é criada a nova classe que extende da classe \texttt{Identity} do eProfile.
-
-\subsubsection{Regras de Inferência}
+A Figura~\ref{fig:extensao} mostra um exemplo de uma ontologia de perfil. Neste caso, em um perfil pessoal a classe \texttt{Identity} está sendo extendida para a classe \texttt{PersonalInformation}, que tem as propriedades \texttt{hasName} e \texttt{hasAge}. Este exemplo mostra o OWL/XML gerado pelo editor de ontologias Protégé \cite{protege}. As linhas 19 e 14 importam a ontologia do eProfile e criam um {\em namespace} para ele; nas linhas 21 a 23 é criada a nova classe que extende da classe \texttt{Identity} do eProfile.
 
 A aplicação pode, a qualquer momento, criar, editar ou excluir regras para a inferência das informações de sua trilha, de modo a gerar informações úteis dentro da ontologia de perfil.
 
@@ -248,9 +272,9 @@ Existem dois tipos de regras que podem ser criadas:
 
   \item[Regra em OWL:] uma regra é criada em OWL, extendendo a ontologia de trilha;
 
-  \item[SPARQL:] uma regra é criada em SPARQL (linguagem de consulta de ontologias\cite{sparql}), onde a consulta é executada contra a ontologia de trilha;
+  \item[SPARQL:] uma regra é criada em SPARQL (linguagem de consulta de ontologias \cite{sparql}), onde a consulta é executada contra a ontologia de trilha;
 
-  \item[SWRL:] uma regra é criada em SWRL (linguagem de regras\cite{swrl}), que será executada sobre a ontologia de trilha.
+  \item[SWRL:] uma regra é criada em SWRL (linguagem de regras \cite{swrl}), que será executada sobre a ontologia de trilha.
 
 \end{description}
 
@@ -282,15 +306,15 @@ A instrução de atualização pode ser de um dos seguintes tipos:
 
 Uma vez que a regra tenha sido validada pelo agente regulador, ela entra em funcionamento e passa a ser elegível para execução.
 
-Tanto as consultas via OWL quanto as consultas via SPARQL são executadas através de um motor de inferências externo. Foram estudados os seguintes raciocinadores que oferecem suporte a estas operações: Pellet\cite{sirin05}, FaCT++\cite{tsarkov06} e HermiT\cite{motik09}.
+Tanto as consultas via OWL quanto as consultas via SPARQL são executadas através de um motor de inferências externo. Foram estudados os seguintes raciocinadores que oferecem suporte a estas operações: Pellet \cite{sirin05}, FaCT++ \cite{tsarkov06} e HermiT \cite{motik09}.
 
 \begin{description}
 
-\item[Pellet:] é um racionador com suporte a OWL DL, que oferece bom desempenho e um \emph{middleware} extensível. O Pellet é escrito em Java pode ser utilizado para raciocinar com tipos de dados definidos pelo usuário e provê suporte para depuração em ontologias\cite{sirin05}.
+\item[Pellet:] é um racionador com suporte a OWL DL, que oferece bom desempenho e um \emph{middleware} extensível. O Pellet é escrito em Java pode ser utilizado para raciocinar com tipos de dados definidos pelo usuário e provê suporte para depuração em ontologias \cite{sirin05}.
 
-\item[FaCT++:] é um raciocinador de lógica proposicional criado como uma plataforma para experimentar com novos algoritmos de \emph{tableaux} semântico e técnicas de otimização. Ele incorpora a maior parte das técnicas de otimização padrão, mas inclui algumas novas\cite{tsarkov06}.
+\item[FaCT++:] é um raciocinador de lógica proposicional criado como uma plataforma para experimentar com novos algoritmos de \emph{tableaux} semântico e técnicas de otimização. Ele incorpora a maior parte das técnicas de otimização padrão, mas inclui algumas novas \cite{tsarkov06}.
 
-\item[HermiT:] é o primeiro raciocinador OWL que se baseia em um cálculo \emph{hypertableaux}, que provê desempenho superior a qualquer algoritmo anterior\cite{motik09}. O HermiT é disponibilizado como um plugin do Protegé, como uma ferramenta de linha de comando ou como uma biblioteca Java.
+\item[HermiT:] é o primeiro raciocinador OWL que se baseia em um cálculo \emph{hypertableaux}, que provê desempenho superior a qualquer algoritmo anterior \cite{motik09}. O HermiT é disponibilizado como um plugin do Protegé, como uma ferramenta de linha de comando ou como uma biblioteca Java.
 
 \end{description}
 
