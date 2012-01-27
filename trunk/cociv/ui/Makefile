@@ -1,6 +1,7 @@
 CC=g++
-CPPFLAGS=-g -Wall -IC:\andre\lib\SDL-1.2.14\include\SDL -DDATA_DIR="\"./data\""
-LDFLAGS=-LC:\andre\lib\SDL-1.2.14\lib -lmingw32 -lSDLmain -lSDL -lSDL_ttf -mwindows
+CPPFLAGS=-g -Wall -IC:\andre\lib\SDL-1.2.14\include\SDL -DDATA_DIR="\"./data\"" `sdl-config --cflags`
+#LDFLAGS=-LC:\andre\lib\SDL-1.2.14\lib -lmingw32 -lSDLmain -lSDL -lSDL_ttf -mwindows
+LDFLAGS=-lSDL_ttf `sdl-config --libs`
 SRC=$(wildcard src/*.cc)
 EXE=cociv
 
