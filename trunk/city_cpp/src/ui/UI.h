@@ -1,12 +1,14 @@
-#ifndef UI
-#define UI
+#ifndef UI_H
+#define UI_H
 
-#include "City.h"
+#include "city/City.h"
+#include <SDL.h>
 
 class UI
 {
   public:
     UI(City* city);
+    SDL_Surface* Screen;
     
   private:
     City* city;

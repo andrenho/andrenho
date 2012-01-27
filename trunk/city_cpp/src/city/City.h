@@ -2,7 +2,7 @@
 #define CITY_H
 
 #include <vector>
-#include "Person.h"
+#include "city/Person.h"
 
 class City
 {
