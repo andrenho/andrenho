@@ -1,0 +1,17 @@
+digraph modelo2 {
+
+  layout = fdp;
+  sep = 0.4;
+  eProfile [shape=box,width=2,height=1];
+
+  "Aplicação" -> "Gerenciador\nde Trilhas" [label="b"];
+  "Aplicação" -> eProfile [label="a"];
+  eProfile -> "Aplicação" [label="d"];
+  "Gerenciador\nde Trilhas" -> eProfile [label="c"];
+
+  fontsize = 12;
+  fontname = "Georgia";
+
+  rankdir = LR;
+
+}
