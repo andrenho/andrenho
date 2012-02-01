@@ -1,28 +1,57 @@
 \chapter{Modelo Proposto}
 \label{ch:modelo}
 
+Este capítulo apresenta o modelo do {\bf eProfile}, que se mostra como uma evolução do modelo atual de gerenciamento de perfis. Segundo \citetexto{weiser96}, é desejável que os sistemas do futuro se tornem cada vez mais invisíveis aos seus usuários, e \citetexto{satyanarayanan01} defende que um sistema só pode se tornar invisível se for pró-ativo, e só pode ser pró-ativo se souber a intenção do usuário. Acreditamos que para que um sistema possa conhecer a intenção do usuário, ele deve conhecer o usuário, o contexto que ele está inserido, e as ações que ele tomou anteriormente no mesmo contexto (ou num contexto similar). Não encontrou-se nenhum modelo que ofereça suporte a estes pré-requisitos de forma genérica (isto é, para qualquer tipo de contexto) e, assim, este modelo busca suprir esta necessidade.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Modelo do eProfile}
+\label{sec:modelo}
+
+\begin{figure}
+  \centering\includegraphics[width=0.6\textwidth]{imagens/modelobasico.png}
+  \caption{Modelo básico do eProfile}
+  \label{fig:modelobasico}
+\end{figure}
+
+A Figura~\ref{fig:modelobasico} apresenta o conceito básico do eProfile, onde cada figura representa um serviço, e as setas indicam o fluxo dos dados.
+
+O primeiro serviço representado é a {\bf aplicação}. A aplicação, dentro deste modelo, é qualquer aplicação que está sendo utilizada diretamente pela entidade. Para que uma aplicação seja considerada apta a este modelo (isto é, possa utilizar os serviços oferecidos pelo eProfile), ela precisa ser capaz de registrar seus eventos em um gerenciador de trilhas suportado pelo eProfile, e deverá seguir o protocolo de comunicação do eProfile para se comunicar com o mesmo. Seguidos estes pré-requisitos, a aplicação pode ser de qualquer tipo e operar em qualquer tipo de dispositivo que tenha comunicação com a internet.
+
+Quem faz uso da aplicação é uma {\bf entidade}. Uma entidade é um agente inteligente, que pode ser tanto uma pessoa (um usuário) quanto algum outro tipo de agente, como um carro.
+
+O segundo serviço representado é um {\bf gerenciador de trilhas}. Um gerenciador de trilhas é um serviço capaz de registrar eventos realizados por uma entidade, colocando-os em uma ordem cronológica e registando informações relevantes ao evento (como o contexto na qual o evento foi realizado). O modelo do eProfile é desenhado para oferecer suporte a qualquer gerenciador de trilhas, desde que o protocolo de comunicação entre o gerenciador de trilhas e o eProfile esteja codificadado no eProfile.
+
+A Figura~\ref{fig:modelobasico} apresenta ainda um terceiro serviço, o eProfile, que é o modelo apresentado neste trabalho. Detalhes sobre o funcionamento interno do eProfile são apresentados na Seção~\ref{sec:arquitetura}.
+
+As setas indicam o fluxo dos dados. A comunicação tem início quando a aplicação registra-se no eProfile, enviando (i) o modelo de usuário utilizado pela aplicação e (ii) as regras para construção deste modelo (seta ``a''). A partir deste momento, a aplcação passa a registrar os eventos no gerenciador de trilhas (seta ``b''). O eProfile, de tempos em tempos, busca esta informação a partir do gerenciador de trilhas, e constrói ou reconfigura o perfil de usuário da entidade (seta ``c''). À medida que a aplicação tem necessidade de um perfil atualizado, ela vai buscando este perfil no eProfile (seta ``d'').
+
+Como o eProfile oferece suporte a várias aplicações, é possível que diferentes aplicações utilizem diferentes gerenciadores trilhas. Por isso, o eProfile oferece também suporte à comunicação com vários gerenciadores de trilhas, segundo exemplificado na Figura~\ref{fig:gerenciadores}.
+
+\begin{figure}
+  \centering\includegraphics[width=0.8\textwidth]{imagens/modelo2.png}
+  \caption{eProfile conectado a mais de um gerenciador de trilhas}
+  \label{fig:gerenciadores}
+\end{figure}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Arquitetura}
 \label{sec:arquitetura}
 
-A Figura~\ref{fig:modelo} apresenta o modelo do eProfile.
+
+A Figura~\ref{fig:modelo} apresenta o arquitetura do eProfile.
 
 \begin{figure}
-  \centering\includegraphics[width=0.4\textwidth]{imagens/modelo.png}
-  \caption{Modelo do eProfile, com as setas representando o fluxo de dados}
+  \centering\includegraphics[width=0.6\textwidth]{imagens/modelo.png}
+  \caption{Arquitetura do eProfile, com as setas representando o fluxo de dados}
   \label{fig:modelo}
 \end{figure}
 
 As \textbf{aplicações} são utilizados pelas entidades para se conectar ao gerencidador de trilhas e ao gerenciador de perfil. Neste modelo, a aplicação se conecta a um gerenciador de trilhas, responsável pelo armazenamento da trilha da entidade. O perfil da entidade será inferido a partir das trilhas registradas no gerenciador.
 
 As trilhas das entidades são buscadas do gerenciador de trilhas pelo eProfile. Como o eProfile pode se conectar a diferentes gerenciadores de trilha (Figura~\ref{fig:modelo2}), onde em cada um deles a trilha tem um formato específico, é necessário que seja realizada uma conversão entre o formato original e o formato utilizado pelo eProfile. Este trabalho é realizado por um agente entitulado \textbf{conversor}, que é capaz de realizar a conversão para os formatos de trilha suportados pelo eProfile.
-
-\begin{figure}
-  \centering\includegraphics[width=0.8\textwidth]{imagens/modelo2.png}
-  \caption{eProfile conectado a mais de um gerenciador de trilhas}
-  \label{fig:modelo2}
-\end{figure}
 
 Desta forma, o eProfile não tem a necessidade de conhecer a aplicação -- mas precisa conhecer o formato utilizado pelo gerenciador de trilhas.
 
@@ -36,7 +65,7 @@ Uma vez de posse das trilhas, do modelo e das regras, o agente \textbf{raciocina
 
 Como o eProfile é um modelo onde é necessário inferir informações de forma autônoma a respeito de dados armazenados em uma ontologia, a tecnologia de agentes autônomos foi escolhida para o desenvolvimento.
 
-O modelo do eProfile é composto por três agentes: (i) conversor, (ii) regulador e raciocinador.
+O modelo do eProfile é composto por três agentes: (i) conversor, (ii) regulador e (iii) raciocinador.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
