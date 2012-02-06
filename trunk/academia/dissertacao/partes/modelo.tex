@@ -37,21 +37,20 @@ Como o eProfile oferece suporte a várias aplicações, é possível que diferen
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Arquitetura}
-\label{sec:arquitetura}
-
-
-A Figura~\ref{fig:modelo} apresenta o arquitetura do eProfile.
+\subsection{Detalhamento do eProfile}
+\label{sec:detalhamento}
 
 \begin{figure}
   \centering\includegraphics[width=0.6\textwidth]{imagens/modelo.png}
-  \caption{Arquitetura do eProfile, com as setas representando o fluxo de dados}
+  \caption{Detalhamento do modelo do eProfile, com as setas representando o fluxo de dados}
   \label{fig:modelo}
 \end{figure}
 
-As \textbf{aplicações} são utilizados pelas entidades para se conectar ao gerencidador de trilhas e ao gerenciador de perfil. Neste modelo, a aplicação se conecta a um gerenciador de trilhas, responsável pelo armazenamento da trilha da entidade. O perfil da entidade será inferido a partir das trilhas registradas no gerenciador.
+A Figura~\ref{fig:modelo} apresenta um detalhamento do eProfile. Os serviços ``Aplicação'' e ``Gerenciador de Trilhas'' são os mesmos mostrados na Figura~\ref{fig:modelobasico}, enquanto o serviço ``eProfile'' foi expandido para demonstrar seu funcionamento interno.
 
-As trilhas das entidades são buscadas do gerenciador de trilhas pelo eProfile. Como o eProfile pode se conectar a diferentes gerenciadores de trilha (Figura~\ref{fig:modelo2}), onde em cada um deles a trilha tem um formato específico, é necessário que seja realizada uma conversão entre o formato original e o formato utilizado pelo eProfile. Este trabalho é realizado por um agente entitulado \textbf{conversor}, que é capaz de realizar a conversão para os formatos de trilha suportados pelo eProfile.
+As setas da Figura~\ref{fig:modelo} indicam a direção do fluxo dos dados, onde podem se verificar dois pontos de entrada e um ponto de saída. Um dos pontos de entrada são as trilhas das entidades, que são buscadas do gerenciador de trilhas pelo eProfile. Como o eProfile pode se conectar a diferentes gerenciadores de trilha (Figura~\ref{fig:gerenciadores}), onde em cada um deles a trilha tem um formato específico, é necessário que seja realizada uma conversão entre o formato original e o formato utilizado pelo eProfile. Este trabalho é realizado por um agente entitulado \textbf{conversor}, que é capaz de realizar a conversão para os formatos de trilha suportados pelo eProfile.
+
+\todo[inline]{Continuar...}
 
 Desta forma, o eProfile não tem a necessidade de conhecer a aplicação -- mas precisa conhecer o formato utilizado pelo gerenciador de trilhas.
 
@@ -63,16 +62,12 @@ O agente responsável pela recepção das regras é o \textbf{regulador}. O regu
 
 Uma vez de posse das trilhas, do modelo e das regras, o agente \textbf{raciocinador} realiza a inferência na trilha, gerando assim a \textbf{ontologia de perfil}. Esta ontologia, da mesma forma que a ontologia de trilha, contém classes básicas a partir das quais as aplicações vão especializar, utilizando-as para armazenar informações próprias. A aplicação pode então conectar-se ao eProfile e buscar o perfil de sua entidade. A Figura~\ref{fig:modelo} exemplifica isso, onde a seta que conecta a Ontologia de Perfil (no eProfile) à aplicação mostra o sentido do fluxo de dados.
 
-Como o eProfile é um modelo onde é necessário inferir informações de forma autônoma a respeito de dados armazenados em uma ontologia, a tecnologia de agentes autônomos foi escolhida para o desenvolvimento.
-
-O modelo do eProfile é composto por três agentes: (i) conversor, (ii) regulador e (iii) raciocinador.
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Modelagem dos Agentes}
+\section{Modelagem dos Agentes}
 \label{sec:modelagem}
 
-O eProfile é um sistema orientado a agentes, onde a metodologia utilizada para a modelagem é a Prometheus\cite{prometheus}. Esta metodologia define um processo detalhado para a especificação, projeto, implementação e teste/depuração de sistemas de software orientados a agentes.\cite{prometheus-book}
+Como o eProfile é um modelo onde é necessário inferir informações de forma autônoma a respeito de dados armazenados em uma ontologia, a tecnologia de agentes autônomos foi escolhida para o desenvolvimento. A metodologia utilizada para a modelagem é a Prometheus \cite{prometheus}. Esta metodologia define um processo detalhado para a especificação, projeto, implementação e teste/depuração de sistemas de software orientados a agentes. \cite{prometheus-book}
 
 \begin{figure}
   \includegraphics[width=0.8\textwidth]{imagens/prometheus.png}
@@ -90,8 +85,9 @@ A metodologia Prometheus, ilustrada na Figura~\ref{fig:metodologia} define que o
   \item Aceitar requisições de informações de perfil pelos clientes.
 \end{itemize}
 
+O modelo do eProfile é composto por três agentes: (i) conversor, (ii) regulador e (iii) raciocinador.
 
-
+\todo[inline]{Mostrar a modelagem dos agentes, de acordo com a metodologia Prometheus}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -118,7 +114,7 @@ O \textbf{agente raciocinador} é responsável pela inferência das trilhas de a
 
 \item O agente verifica as regras, comparando a data da útlima execução da regra com a freqüência de execução, definida pela aplicação na criação da regra.
 
-\item Caso seja o momento da execução da regra, a mesma é executada através da biblioteca externa HermiT\cite{motik09}.
+\item Caso seja o momento da execução da regra, a mesma é executada através da biblioteca externa HermiT \cite{motik09}.
 
 \item Caso a regra tenha sido executada com sucesso, o resultado da regra é atualizado no perfil. Em caso de insucesso, o erro é enviado para a aplicação no momento que a mesma se reconectar.
 
