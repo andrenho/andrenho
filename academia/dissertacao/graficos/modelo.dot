@@ -4,7 +4,7 @@ digraph modelo {
   //rankdir = LR;
   sep = 0.3;
 
-  node [style=filled,fillcolor=white];
+  node [style=filled,fillcolor=white,fontname="FreeSerif"];
 
   // externos
   node [shape=box]; 
@@ -23,8 +23,8 @@ digraph modelo {
     Raciocinador;
     Conversor;
 
-  node [shape=diamond];
-    Entidade;
+//node [shape=diamond];
+//  Entidade;
 
   subgraph cluster_eProfile {
     label = "eProfile";
@@ -39,7 +39,7 @@ digraph modelo {
 
   subgraph cluster_ext {
     style = invisible;
-    Entidade -> Aplicação;
+//  Entidade -> Aplicação;
     Aplicação -> Regulador;
     OntologiaDePerfil -> Aplicação;
   }
