@@ -41,26 +41,34 @@ Como o eProfile oferece suporte a várias aplicações, é possível que diferen
 \label{sec:detalhamento}
 
 \begin{figure}
-  \centering\includegraphics[width=0.6\textwidth]{imagens/modelo.png}
+  \centering\includegraphics[width=1\textwidth]{imagens/modelo.png}
   \caption{Detalhamento do modelo do eProfile, com as setas representando o fluxo de dados}
   \label{fig:modelo}
 \end{figure}
 
 A Figura~\ref{fig:modelo} apresenta um detalhamento do eProfile. Os serviços ``Aplicação'' e ``Gerenciador de Trilhas'' são os mesmos mostrados na Figura~\ref{fig:modelobasico}, enquanto o serviço ``eProfile'' foi expandido para demonstrar seu funcionamento interno.
 
-As setas da Figura~\ref{fig:modelo} indicam a direção do fluxo dos dados, onde podem se verificar dois pontos de entrada e um ponto de saída. Um dos pontos de entrada são as trilhas das entidades, que são buscadas do gerenciador de trilhas pelo eProfile. Como o eProfile pode se conectar a diferentes gerenciadores de trilha (Figura~\ref{fig:gerenciadores}), onde em cada um deles a trilha tem um formato específico, é necessário que seja realizada uma conversão entre o formato original e o formato utilizado pelo eProfile. Este trabalho é realizado por um agente entitulado \textbf{conversor}, que é capaz de realizar a conversão para os formatos de trilha suportados pelo eProfile.
-
-\todo[inline]{Continuar...}
-
-Desta forma, o eProfile não tem a necessidade de conhecer a aplicação -- mas precisa conhecer o formato utilizado pelo gerenciador de trilhas.
-
-A trilha do usuário é então armazenada no eProfile em uma \textbf{ontologia de trilha}. Esta ontologia possui as classes básicas para a construção de uma trilha, sendo que a mesma pode ser estendida de acordo com a especificação do gerenciador de trilhas que está sendo utilizado. A forma como ocorre esta extensão é detalhada na Seção~\ref{sec:eontotrail}.
-
 Cada aplicação tem a possibilidade de montar seu próprio modelo de usuário. Para que o eProfile processe os perfis baseados em um modelo de usuário, ele precisa de três informações: (i) a trilha da entidade, (ii) o modelo de usuário utilizado pela aplicação e (iii) as regras de inferência para o perfil. A trilha da entidade é carregada pelo eProfile a partir do gerenciador de trilhas, enquanto as outras duas informações são enviadas diretamente da aplicação para o eProfile. Desta forma, as regras de inferência definidas pela aplicação serão utilizadas para inferir seu próprio perfil.
 
-O agente responsável pela recepção das regras é o \textbf{regulador}. O regulador tem a função de receber as regras, validá-las e inserí-las na \textbf{base de regras}. Juntamente com as regras, é especificado a criticidade da informação. O sistema utilizará esta informação para determinar com que freqüência a inferência desta informação será executada.
+As setas da Figura~\ref{fig:modelo} indicam a direção do fluxo dos dados, onde podem se verificar dois pontos de entrada e um ponto de saída.
 
-Uma vez de posse das trilhas, do modelo e das regras, o agente \textbf{raciocinador} realiza a inferência na trilha, gerando assim a \textbf{ontologia de perfil}. Esta ontologia, da mesma forma que a ontologia de trilha, contém classes básicas a partir das quais as aplicações vão especializar, utilizando-as para armazenar informações próprias. A aplicação pode então conectar-se ao eProfile e buscar o perfil de sua entidade. A Figura~\ref{fig:modelo} exemplifica isso, onde a seta que conecta a Ontologia de Perfil (no eProfile) à aplicação mostra o sentido do fluxo de dados.
+O primeiro ponto de entrada são as informações enviadas pela aplicação ao eProfile ou, mais especificamente, ao agente {\bf regulador} (Seção~\ref{sec:regulador}). As informações que devem ser enviadas pela aplicação são as seguintes:
+
+\begin{itemize}
+
+\item O modelo de usuário utilizado pela aplicação, ou seja, o formato do perfil da entidade. Uma vez que a trilha da entidade seja processada, as informações inferidas serão armazenadas e disponibilizadas para a aplicação neste formato;
+
+\item As regras para inferência do perfil. Estas regras serão rodadas em períodos regulares, de modo a atualizar o perfil da entidade (ver Seção~\ref{sec:regras}). O regulador tem a função de receber as regras, validá-las e inserí-las na \textbf{base de regras}. Juntamente com as regras, é especificado a criticidade da informação. O sistema utilizará esta informação para determinar com que freqüência a inferência desta informação será executada.
+
+\end{itemize}
+
+O segundo ponto de entrada é aquele através do qual são recebidas as trilhas das entidades, que são buscadas do gerenciador de trilhas pelo eProfile. Como o eProfile pode se conectar a diferentes gerenciadores de trilha (Figura~\ref{fig:gerenciadores}), onde em cada um deles a trilha tem um formato específico, é necessário que seja realizada uma conversão entre o formato original e o formato utilizado pelo eProfile, para que as trilhas sejam armazenadas de forma padronizada. Este trabalho é realizado por um agente entitulado {\bf conversor} (Seção~\ref{sec:conversor}), que é capaz de realizar a conversão para os formatos de trilha suportados pelo eProfile.
+
+A trilha do usuário é então armazenada no eProfile em uma ontologia de trilha, chamada {\bf eOntoTrail}. Esta ontologia possui as classes básicas para a construção de uma trilha, sendo que a mesma pode ser estendida de acordo com a especificação do gerenciador de trilhas que está sendo utilizado. A forma como ocorre esta extensão é detalhada na Seção~\ref{sec:eontotrail}.
+
+Uma vez de posse das trilhas, do modelo e das regras, o agente \textbf{raciocinador} (Seção~\ref{sec:raciocinador}) realiza a inferência na trilha, gerando assim um perfil da entidade, que será uma extensão de uma ontologia de perfil básica denominada {\bf eOntoProfile} (ver Seção~\ref{sec:eontoprofile}). Esta ontologia, da mesma forma que a ontologia de trilha, contém classes básicas a partir das quais as aplicações vão especializar, utilizando-as para armazenar informações próprias. A aplicação pode então conectar-se ao eProfile e buscar o perfil de sua entidade, cuja comunicação está representada na Figura~\ref{fig:modelo} pela seta que sai da ontologia de perfis para a aplicação.
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -152,7 +160,7 @@ As ontologias utilizadas pelo eProfile -- tanto a ontologia de trilhas quanto a 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{eOntoTrail}
+\subsection{Ontologia de Trilha (eOntoTrail)}
 \label{sec:eontotrail}
 
 O eProfile implementa uma ontologia de trilha, a qual será chamada \textbf{eOntoTrail}. Esta ontologia será alimentada a partir dos diferentes gerenciadores de trilhas suportados, onde o agente {\textbf conversor} é responsável por receber os dados no formato do gerenciador de trilhas e convertê-los para a eOntoTrail. Assim, o raciocinador terá uma ontologia única sobre a qual poderá raciocinar.
@@ -185,7 +193,7 @@ A eOntoTrail está representada na Figura~\ref{fig:ont_trilha}, onde todos os re
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{eOntoProfile}
+\subsection{Ontologia de Perfil (eOntoProfile)}
 \label{sec:eontoprofile}
 
 A ontologia de perfil é a ontologia utilizada para armazenar os modelos de usuário, bem como as informações de perfil que são inferidas a partir da trilha. Para que a ontologia seja viável dentro do modelo proposto, ela deve ser uma ontologia genérica que permita que suas classes seja estendidas pelas aplicações.
@@ -240,12 +248,14 @@ Para que um aplicativo possa ter acesso aos dados gerados por outro, existem dua
 
 \end{enumerate}
 
-Todos as extensões (subclasses) da ontologia são definidas pelas aplicações, e todas as informações do perfil são inferidas. A forma como esta inferência ocorre é descrita na Seção~\ref{sec:inferencia}.
+Todos as extensões (subclasses) da ontologia são definidas pelas aplicações, e todas as informações do perfil são inferidas. A forma como esta inferência ocorre é descrita na Seção~\ref{sec:regras}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Regras e Inferência}
 \label{sec:regras}
+
+\todo[inline]{Reescrever esta seção}
 
 \begin{figure*}
 \begin{lstlisting}

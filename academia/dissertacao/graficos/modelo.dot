@@ -1,7 +1,7 @@
 digraph modelo {
 
   //layout = fdp;
-  //rankdir = LR;
+  rankdir = LR;
   sep = 0.3;
 
   node [style=filled,fillcolor=white,fontname="FreeSerif"];
