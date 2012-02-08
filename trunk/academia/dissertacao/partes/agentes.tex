@@ -3,23 +3,102 @@
 
 Como o eProfile é um modelo onde é necessário inferir informações de forma autônoma a respeito de dados armazenados em uma ontologia, a tecnologia de agentes autônomos foi escolhida para o desenvolvimento. A metodologia utilizada para a modelagem é a Prometheus \cite{prometheus}. Esta metodologia define um processo detalhado para a especificação, projeto, implementação e teste/depuração de sistemas de software orientados a agentes. \cite{prometheus-book}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Especificação do Sistema}
+\label{sec:especificacao}
+
 \begin{figure}
   \includegraphics[width=0.8\textwidth]{imagens/prometheus.png}
   \caption[Metodologia Prometheus]{Processo de projeto segundo a metodologia Prometheus \cite{prometheus-book}}
   \label{fig:metodologia}
 \end{figure}
 
-A metodologia Prometheus, ilustrada na Figura~\ref{fig:metodologia} define que o primeiro passo da modelagem de um sistema é a identificação dos objetivos inciais do sistema. De acordo com o modelo do eProfile, os objetivos do sistema são:
+A metodologia Prometheus, ilustrada na Figura~\ref{fig:metodologia} define que o primeiro passo da modelagem de um sistema é a identificação dos objetivos inciais do sistema. De acordo com o modelo, 
+
+\begin{quotation}
+O eProfile é um sistema que gerencia perfis de entidades, permitindo que as aplicações definam (i) seus próprios modelos de usuário e (ii) regras através das quais a trilha de uma entidade será processada. Este processo de inferência monta ou atualiza um perfil de entidade, que é então disponibilizado para a aplicação.
+\end{quotation}
+
+A partir desta descrição, é possível identificar os objetivos e seus respectivos sub-objetivos, que são definidos considerando a forma como cada objetivo pode ser atingido \cite{prometheus-book}. Assim, os sub-objetivos são:
 
 \begin{itemize}
-  \item Gerenciar múltiplos perfis;
-  \item Comunicar-se com um (ou mais) gerenciadores de trilhas;
-  \item Receber as regras de processamento dos clientes;
-  \item Inferir dados de perfil através da análise das trilhas, de acordo com as regras definidas pelos clientes;
-  \item Aceitar requisições de informações de perfil pelos clientes.
+  \item Gerenciar múltiplos perfis de entidade.
+  \begin{itemize}
+    \item Permitir que aplicações se identifiquem;
+    \item Aceitar requisições de novas entidades;
+    \item Disponibilizar os perfis inferidos à aplicação.
+  \end{itemize}
+  \item Permitir que as aplicações definam seus próprios modelos de usuário.
+  \begin{itemize}
+    \item Receber novos modelos de usuário da aplicação;
+    \item Validar os modelos de usuário;
+    \item Armazenar os modelos de usuário.
+  \end{itemize}
+  \item Permitir que as aplicações definam suas regras de inferência.
+  \begin{itemize}
+    \item Receber as regras;
+    \item Validar as regras;
+    \item Armazenar as regras.
+  \end{itemize}
+  \item Buscar as trilhas de um usuário a partir de um gerenciador de trilhas.
+  \begin{itemize}
+    \item Interagir com os gerenciadores de trilhas suportados;
+    \item Converter as informações do formato de trilha original para a ontologia de trilhas do eProfile.
+  \end{itemize}
+  \item Inferir a trilha, montando um perfil de entidade.
+  \begin{itemize}
+    \item Agendar a execução das regras;
+    \item Executar a inferência de acordo com as regras;
+    \item Gerenciar sobrecarga do servidor e reagendar as regras, se necessário.
+  \end{itemize}
 \end{itemize}
 
-O modelo do eProfile é composto por três agentes: (i) conversor, (ii) regulador e (iii) raciocinador.
+A partir dos sub-objetivos, é possível extrair as funcionalidades do sistema. A Figura~\ref{fig:funcionalidades} indentifica as funcionalidades do eProfile, com as caixas representando as funcionalidades -- isto é, os conjutos de objetivos afins --, as formas ovais representando os objetivos, e os ícones de ação representando as ações. Cada funcionalidade possui pelo menos uma ação que é disparada através de um gatilho, e utiliza um conjunto de informações, de acordo com a Tabela~\ref{tab:funcionalidades}.
+
+\begin{figure}
+  \includegraphics[width=1\textwidth]{imagens/funcionalidades.png}
+  \caption{Funcionalidades do eProfile}
+  \label{fig:funcionalidades}
+\end{figure}
+
+\begin{table*}\centering\footnotesize
+  \begin{tabular*}{1\textwidth}{@{}p{4cm}p{2.5cm}p{2cm}p{2.4cm}p{3cm}@{}}
+    \toprule
+      Funcionalidade & Ação & Gatilho & Informações usadas & Informações geradas \\
+    \midrule
+      Gerenciamento de perfis & Disponibilizar perfis & Requisição da aplicação & Base de perfis & Perfil \\
+      Gerenciamento de regras & Armazenar regras & Envio pela aplicação & Regra & Base de regras \\
+      Gerenciamento de modelos & Armazenar modelos & Envio pela aplicação & Modelo & Base de modelos \\
+      Gerenciamento de trilhas & Buscar trilhas & Agendamento & Nenhum & Base de trilhas \\
+      Sistema de inferência & Executar inferência & Agendamento & Base de regras, modelos e trilhas & Base de perfis \\
+    \bottomrule
+  \end{tabular*}
+  \caption{Funcionalidades do eProfile}
+  \label{tab:funcionalidades}
+\end{table*}
+
+Para que a especificação do sistema seja completa, é necessário que sejam identificadas as {\em interfaces}, ou seja, os pontos onde o sistema se comunica com outros sistemas. Os pontos onde o sistema recebe informações de outros sistemas são chamados ``preceitos'', e os pontos onde o sistema envia informações para outros sistemas são chamados ``ações''. Assim, os preceitos do eProfile são os seguintes: 
+
+\begin{itemize}
+  \item Modelo definido pela aplicação
+  \item Regras para inferência das trilhas
+  \item Trilhas
+\end{itemize}
+
+O sistema tem como única ação o envio do perfil da entidade para a aplicação.
+
+É necessário também a identificação das bases de dados necessárias para o funcionamento do sistema. O eProfile faz uso das seguintes bases de dados:
+
+\begin{itemize}
+  \item Base de dados de modelos de usuário -- contém os modelos de usuário registrados pela aplicação;
+  \item Base de dados de regras de inferência -- contém as regras de inferência que foram enviados pela aplicação;
+  \item Base de dados de trilhas -- contém as trilhas buscadas do gerenciador de trilhas, e convertidas para o formato do eProfile;
+  \item Base de dados de perfis de entidades -- contém os perfis de entidades, já inferidos a partir dos modelos, regras e trilhas.
+\end{itemize}
+
+
+%O modelo do eProfile é composto por três agentes: (i) conversor, (ii) regulador e (iii) raciocinador.
 
 \todo[inline]{Mostrar a modelagem dos agentes, de acordo com a metodologia Prometheus}
 
