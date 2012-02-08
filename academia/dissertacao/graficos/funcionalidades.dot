@@ -1,0 +1,43 @@
+digraph G {
+
+  layout=fdp;
+  sep=0.3;
+  smoothing=true;
+  node [fontname="FreeSerif"];
+
+  node [shape=box]
+    GerenciamentoPerfis [label="Gerenciamento\n de Perfis"]; 
+    GerenciamentoModelos [label="Gerenciamento\n de Modelos"]; 
+    GerenciamentoRegras [label="Gerenciamento\n de Regras"]; 
+    GerenciamentoTrilhas [label="Gerenciamento\n de Trilhas"]; 
+    Inferencias [label="Sistema de\n Inferências"]; 
+
+  node [image="acao.png",color="white"]
+    "Enviar\n perfis";
+    "Armazenar\n modelos";
+    "Armazenar\n regras";
+    "Buscar\n trilhas";
+    "Executar\n inferência";
+    
+  node [image="",shape=oval,color="black"];
+  
+  GerenciamentoPerfis -> "Identificar\n aplicações";
+  GerenciamentoPerfis -> "Novas\n entidades";
+  GerenciamentoPerfis -> "Enviar\n perfis";
+
+  GerenciamentoModelos -> "Receber\n modelos";
+  GerenciamentoModelos -> "Validar\n modelos";
+  GerenciamentoModelos -> "Armazenar\n modelos";
+
+  GerenciamentoRegras -> "Receber\n regras";
+  GerenciamentoRegras -> "Validar\n regras";
+  GerenciamentoRegras -> "Armazenar\n regras";
+
+  GerenciamentoTrilhas -> "Buscar\n trilhas";
+  GerenciamentoTrilhas -> "Converter\n trilhas";
+
+  Inferencias -> "Agendar\n inferência";
+  Inferencias -> "Executar\n inferência";
+  Inferencias -> "Gerenciar\n carga";
+
+}
