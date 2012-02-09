@@ -6,8 +6,6 @@
 \section{Computação Ubíqua}
 \label{sec:ubicomp}
 
-\todo[inline]{Definir computação ubíqua}
-
 Em 1991, uma equipe do Laboratório de Ciência Computacional da {\em Xerox Palo Alto Research Center}, liderada por Mark Weiser, identificou um conjunto de tendências relacionadas à computação: \cite{weiser91}
 
 \begin{itemize}
@@ -49,7 +47,19 @@ Assim, a computação ubíqua herda os desafios da computação distribuída e m
 \section{Sensibilidade a Contexto}
 \label{sec:contexto}
 
-\todo[inline]{Definir sensibilidade a contexto}
+\citetexto{satyanarayanan01} defende que, para que um sistema seja minimamente intrusivo, é necessário que ele seja capaz de reconhecer o estado do usuário e seus arredores, e adapte seu comportamento de acordo com esta informação. Esta informação é chamada de ``contexto'' e sistemas capazes deste tipo de adaptação são chamados ``sensíveis a contexto''.
+
+Uma considerável quantidade de pesquisas tem sido feita na tentativa de obter um definição exata de contexto. \citetexto{schilit94} compreendem que uma das principais dificuldades nesta definição está no fato que, na computação móvel (e, por extensão, ubíqua) o ambiente está sempre mudando. A configuração de hardware (dispositivo, qualidade da rede, conectividade), localização, grupo de pessoas próximas, entre outros, está em constante mudança.
+
+\citetexto{schilit94} definem contexto como sendo: quem você é, com quem você está e que recursos estão próximos. Assim, o contexto é mais do que apenas a localização do usuário -- ele inclui também luminosidade, nível de ruído, conectividade de rede, custos de comunicação, qualidade da conexão e até mesmo a situação social, como as pessoas que estão ao redor.
+
+Já \citetexto{dey2001} entende que a definição de \citetexto{schilit94} é específica demais, pois não encompassa toda a situação relevante à aplicação e seu conjunto de usuários. Como não é possível enumerar todos os aspectos possíveis de todas as situações, a seguinte definição é dada:
+
+\begin{quotation}
+Contexto é qualquer informação que possa ser usada para caracterizar a situação de uma entidade. Uma entidade é uma pessoa, local ou objeto que seja considerada relevante para a interação entre um usuário e uma aplicação, incluíndo os próprios usuário e aplicação. \cite{dey2001}
+\end{quotation}
+
+Assim, por extensão, \citetexto{dey2001} define que ``um sistema é sensível a contexto se ele utiliza o contexto para oferecer informações relevantes e/ou serviços ao usuário, onde a relevância depende da tarefa do usuário.''
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

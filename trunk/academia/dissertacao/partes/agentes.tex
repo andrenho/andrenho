@@ -14,13 +14,9 @@ Como o eProfile é um modelo onde é necessário inferir informações de forma 
   \label{fig:metodologia}
 \end{figure}
 
-A metodologia Prometheus, ilustrada na Figura~\ref{fig:metodologia} define que o primeiro passo da modelagem de um sistema é a identificação dos objetivos inciais do sistema. De acordo com o modelo, 
+A metodologia Prometheus, ilustrada na Figura~\ref{fig:metodologia} define que o primeiro passo da modelagem de um sistema é a identificação dos objetivos inciais do sistema. De acordo com o modelo, o eProfile é um sistema que gerencia perfis de entidades, permitindo que as aplicações definam (i) seus próprios modelos de usuário e (ii) regras através das quais a trilha de uma entidade será processada. Este processo de inferência monta ou atualiza um perfil de entidade, que é então disponibilizado para a aplicação.
 
-\begin{quotation}
-O eProfile é um sistema que gerencia perfis de entidades, permitindo que as aplicações definam (i) seus próprios modelos de usuário e (ii) regras através das quais a trilha de uma entidade será processada. Este processo de inferência monta ou atualiza um perfil de entidade, que é então disponibilizado para a aplicação.
-\end{quotation}
-
-A partir desta descrição, é possível identificar os objetivos e seus respectivos sub-objetivos, que são definidos considerando a forma como cada objetivo pode ser atingido \cite{prometheus-book}. Assim, os sub-objetivos são:
+A partir desta descrição, é possível identificar os objetivos e seus respectivos sub-objetivos, que são definidos considerando a forma como cada objetivo pode ser atingido \cite{prometheus-book}. Assim, os objetivos e sub-objetivos são:
 
 \begin{itemize}
   \item Gerenciar múltiplos perfis de entidade.
@@ -78,15 +74,26 @@ A partir dos sub-objetivos, é possível extrair as funcionalidades do sistema. 
   \label{tab:funcionalidades}
 \end{table*}
 
-Para que a especificação do sistema seja completa, é necessário que sejam identificadas as {\em interfaces}, ou seja, os pontos onde o sistema se comunica com outros sistemas. Os pontos onde o sistema recebe informações de outros sistemas são chamados ``preceitos'', e os pontos onde o sistema envia informações para outros sistemas são chamados ``ações''. Assim, os preceitos do eProfile são os seguintes: 
+Para que a especificação do sistema seja completa, é necessário que sejam identificadas as {\em interfaces}, ou seja, os pontos onde o sistema se comunica com outros sistemas. Os pontos onde o sistema recebe informações de outros sistemas são chamados ``preceitos'', e os pontos onde o sistema envia informações para outros sistemas são chamados ``ações''. As ações e os preceitos estão identificados na Figura~\ref{fig:acoes_preceitos}.
 
-\begin{itemize}
-  \item Modelo definido pela aplicação
-  \item Regras para inferência das trilhas
-  \item Trilhas
-\end{itemize}
-
-O sistema tem como única ação o envio do perfil da entidade para a aplicação.
+\begin{figure}
+  \begin{minipage}[t]{0.5\textwidth}
+    {\bf Preceitos}
+    \begin{itemize}
+      \item Modelo definido pela aplicação;
+      \item Regras para inferência das trilhas;
+      \item Trilhas.
+    \end{itemize}
+  \end{minipage}
+  \begin{minipage}[t]{0.5\textwidth}
+    {\bf Ações}
+    \begin{itemize}
+      \item Perfil da entidade.
+    \end{itemize}
+  \end{minipage}
+  \caption{Ações e preceitos do eProfile}
+  \label{fig:acoes_preceitos}
+\end{figure}
 
 É necessário também a identificação das bases de dados necessárias para o funcionamento do sistema. O eProfile faz uso das seguintes bases de dados:
 
