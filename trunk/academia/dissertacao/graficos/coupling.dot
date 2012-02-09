@@ -1,0 +1,41 @@
+digraph G {
+
+  layout=dot;
+  sep=0.1;
+
+  node [fontname="FreeSerif"];
+  node [image="db.png",color="white"]
+    "BD modelos";
+    "BD regras";
+    "BD trilhas";
+    "BD perfis";
+    "BD entidades";
+    "BD aplicações";
+    
+  node [image="",shape=box,color="black"];
+    GerenciamentoPerfis [label="Gerenciamento\n de Perfis"]; 
+    GerenciamentoModelos [label="Gerenciamento\n de Modelos"]; 
+    GerenciamentoRegras [label="Gerenciamento\n de Regras"]; 
+    GerenciamentoTrilhas [label="Gerenciamento\n de Trilhas"]; 
+    Inferencias [label="Sistema de\n Inferências"]; 
+
+  "BD aplicações" -> GerenciamentoModelos;
+  "BD aplicações" -> GerenciamentoRegras;
+
+  "BD entidades" -> GerenciamentoModelos;
+  "BD entidades" -> GerenciamentoTrilhas;
+
+  GerenciamentoModelos -> "BD modelos";
+  GerenciamentoRegras -> "BD regras";
+  GerenciamentoTrilhas -> "BD trilhas";
+  
+  "BD modelos" -> Inferencias;
+  "BD regras" -> Inferencias;
+  "BD trilhas" -> Inferencias;
+  "BD entidades" -> Inferencias;
+  Inferencias -> "BD perfis";
+ 
+  "BD perfis" -> GerenciamentoPerfis;
+  "BD entidades" -> GerenciamentoPerfis [dir="both"];
+  "BD aplicações" -> GerenciamentoPerfis [dir="both"];
+}
