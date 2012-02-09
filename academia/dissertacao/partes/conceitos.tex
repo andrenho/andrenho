@@ -8,6 +8,49 @@
 
 \todo[inline]{Definir computação ubíqua}
 
+Em 1991, uma equipe do Laboratório de Ciência Computacional da {\em Xerox Palo Alto Research Center}, liderada por Mark Weiser, identificou um conjunto de tendências relacionadas à computação: \cite{weiser91}
+
+\begin{itemize}
+  \item O tamanho dos computadores está se tornando cada vez menor;
+  \item O custo do hardware está se tornando cada vez menor;
+  \item A proporção entre o número de pessoas e o número de computadores está se tornando cada maior (nos anos 1960, era comum o uso de um único computador por centenas de pessoas -- hoje, é comum que cada pessoa possua vários dispositivos computacionais, como computadores, GPS, telefones celulares, entre outros);
+  \item O acesso a redes {\em wireless} está cada vez mais disponível aos usuários. Embora na época do artigo o acesso {\em wireless} à Internet ainda não fosse uma realidade para a maioria dos usuários, é evidente que hoje esta também é uma tendência.
+\end{itemize}
+
+A análise é que todas estas tendências levarão a um aumento no número de dispositivos e no aumento da disponibilidade de acesso, que eventualmente levará a uma sobrecarga de informação sobre os usuários, de forma a causar um detrimento na qualidade da interação entre humanos e computadores e, conseqüentemente, na qualidade de vida dos usuários. \cite{weiser96}
+
+Assim, \citetexto{weiser91} inicia seu artigo seminal afirmando que ``as tecnologias mais profundas são aquelas que desaparecem. Elas se entrelaçam no tecido do dia-a-dia até que se tornem indistinguíveis dele.'' Ele defende que o futuro da computação está em integrar o computador ao mundo real, e chama este novo paradigma de {\bf computação ubíqua}. A noção de ``realidade virtual'' é apresentada como o oposto absoluto da computação ubíqua: enquanto a realidade virtual busca trazer o usuário para dentro de um mundo construído pelo computador, a computação ubíqua busca trazer os computadores para dentro de um mundo construído por pessoas.
+
+\citetexto{weiser96} apresentam o conceito de ``tecnologia calma'' como solução para o problema de sobrecarga de informações sobre o usuário. Este conceito integra-se intimamente com a computação ubíqua. Dentro desta idéia, a transmissão de informações entre o computador e o usuário devem ocorrer na ``periferia'' da atenção do usuário, movendo-se para o ``centro'' da atenção em momentos de urgência. Um exemplo é o motor de um carro: quando um motorista dirige um carro, sua atenção está focada na estrada, e ele mal percebe o som do motor. No entando, se houver algum som diferente no motor (o que pode indicar algum problema), a atenção do usuário passa a focar-se no motor. Da mesma forma, os sistemas devem, em seu curso normal, manter-se na periferia da atenção do usuário, trazendo a atenção para o centro nos momentos em que a atenção do usuário é necessária.
+
+Em termos de sistema, \citetexto{satyanarayanan01} vê a computação móvel como evolução da computação distribuída, e a computação ubíqua (ou pervasiva, como ele chama no artigo) como evolução da computação móvel. Ele defende que cada uma destas fases teve seus próprios desafios, e que cada nova fase trouxe junto os desafios da fase anterior, como pode ser visto na Figura~\ref{fig:desafios}.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=1\textwidth]{imagens/pervasive.png}
+  \caption[Problemas de pesquisa em sistemas de computação ubíqua]{Taxonomia de problemas de pesquisa para sistemas computacionais na computação ubíqua \cite{satyanarayanan01}}
+  \label{fig:desafios}
+\end{figure}
+
+Assim, a computação ubíqua herda os desafios da computação distribuída e movel, que são: (i) comunicação remota, (ii) tolerânica a falhas, (iii) alta disponibilidade, (iv) acesso a informações remotas, (v) segurança distribuída, (vi) redes móveis, (vii) acesso a informações móveis, (viii) aplicações adaptativas, (ix) sistemas sensíveis a energia e (x) sensitividade a localização. A estes problemas de pesquisa, a computação ubíqua acrescenta:
+
+\begin{description}
+  \item[Uso efetivo de espaços inteligentes] -- à medida que se acrescenta uma infraestrutura computacional aos espaços físicos, torna-se possíveis não apenas sentir o mundo exterior, mas também controlá-lo. O contrário também é possível: a influência do mundo exterior (como localização) sobre um software do usuário;
+
+  \item[Invisibilidade] -- a busca pelo completo desaparecimento da tecnologia computacional da mente do usuário ou, se inatingível, o mínimo de distração possível;
+
+  \item[Escalabilidade localizada] -- a capacidade de um ambiente suportar uma crescente densidade de dispositivos computacionais, possivelmente através da intensificação das interações locais em detrimento das interações distantes;
+
+  \item[Mascaramento de condições irregulares] -- a capacidade de um sistema de se adaptar a uma taxa de penetração de tecnologia ubíqua variável, dependendo da localização.
+\end{description}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Sensibilidade a Contexto}
+\label{sec:contexto}
+
+\todo[inline]{Definir sensibilidade a contexto}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Trilhas}
