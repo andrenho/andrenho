@@ -21,6 +21,7 @@ digraph G {
 
   "BD aplicações" -> GerenciamentoModelos;
   "BD aplicações" -> GerenciamentoRegras;
+  "BD aplicações" -> GerenciamentoTrilhas;
 
   "BD entidades" -> GerenciamentoModelos;
   "BD entidades" -> GerenciamentoTrilhas;
@@ -38,4 +39,10 @@ digraph G {
   "BD perfis" -> GerenciamentoPerfis;
   "BD entidades" -> GerenciamentoPerfis [dir="both"];
   "BD aplicações" -> GerenciamentoPerfis [dir="both"];
+
+  subgraph cluster_0 {
+    color=white;
+    GerenciamentoModelos;
+    GerenciamentoRegras;
+  }
 }

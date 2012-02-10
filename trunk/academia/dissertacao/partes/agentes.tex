@@ -16,9 +16,9 @@ Como o eProfile é um modelo onde é necessário inferir informações de forma 
   \label{fig:metodologia}
 \end{figure}
 
-A metodologia Prometheus, ilustrada na Figura~\ref{fig:metodologia} define que o primeiro passo da modelagem de um sistema é a identificação dos objetivos inciais do sistema. De acordo com o modelo, o eProfile é um sistema que gerencia perfis de entidades, permitindo que as aplicações definam (i) seus próprios modelos de usuário e (ii) regras através das quais a trilha de uma entidade será processada. Este processo de inferência monta ou atualiza um perfil de entidade, que é então disponibilizado para a aplicação.
+A metodologia Prometheus, ilustrada na Figura~\ref{fig:metodologia} define que ponto central da modelagem de um sistema é a identificação dos objetivos inciais do sistema. De acordo com o modelo apresentado na Seção~\ref{sec:modelo}, o eProfile é um sistema que gerencia perfis de entidades, permitindo que as aplicações definam (i) seus próprios modelos de usuário e (ii) regras através das quais a trilha de uma entidade será processada. Este processo de inferência monta ou atualiza um perfil de entidade, que é então disponibilizado para a aplicação.
 
-A partir desta descrição, é possível identificar os objetivos e seus respectivos sub-objetivos, que são definidos considerando a forma como cada objetivo pode ser atingido \cite{prometheus-book}. Assim, os objetivos e sub-objetivos são:
+A partir desta descrição, identificam-se os objetivos. Os respectivos sub-objetivos são definidos considerando a forma como cada objetivo pode ser atingido \cite{prometheus-book}. Assim, os objetivos e sub-objetivos do eProfile são:
 
 \begin{itemize}
   \item Gerenciar múltiplos perfis de entidade.
@@ -100,6 +100,8 @@ Para que a especificação do sistema seja completa, é necessário que sejam id
 É necessário também a identificação das bases de dados necessárias para o funcionamento do sistema. O eProfile faz uso das seguintes bases de dados:
 
 \begin{itemize}
+  \item Base de dados de aplicações -- contém a lista de aplicações registradas no servidor do eProfile;
+  \item Base de dados de entidades -- contém a listagem de entidades identificadas pelas aplicações;
   \item Base de dados de modelos de usuário -- contém os modelos de usuário registrados pela aplicação;
   \item Base de dados de regras de inferência -- contém as regras de inferência que foram enviados pela aplicação;
   \item Base de dados de trilhas -- contém as trilhas buscadas do gerenciador de trilhas, e convertidas para o formato do eProfile;
@@ -107,13 +109,20 @@ Para que a especificação do sistema seja completa, é necessário que sejam id
 \end{itemize}
 
 
-%O modelo do eProfile é composto por três agentes: (i) conversor, (ii) regulador e (iii) raciocinador.
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Arquitetura}
 \label{sec:arquitetura}
 
+A Figura~\ref{fig:coupling} apresenta o diagrama de ligação ({\em coupling}) do eProfile. Este diagrama representa a ligação entre as funcionalidades e as bases de dados, e tem como principal propósito a identificação de funcionalidades semelhantes para a identificação dos agentes do sistema.
+
+Como foi identificado que cada funcionalidade possui um propósito claro e específico, cada funcionalidade será representada por um agente individual no sistema.
+
+\begin{figure}
+  \includegraphics[width=0.8\textwidth]{imagens/coupling.png}
+  \caption{Diagrama de ligação do eProfile}
+  \label{fig:coupling}
+\end{figure}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
