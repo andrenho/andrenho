@@ -73,7 +73,12 @@ static int initialize_sdl()
 
 static void print_title()
 {
-	print(10, 10, "Teste");
+	int i = 0, y = 10;
+	while(title[i])
+	{
+		y = print(10, y, title[i]);
+		i += 1;
+	}
 	SDL_Flip(screen);
 }
 
