@@ -47,7 +47,7 @@ am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_8bitsprite_OBJECTS = main.$(OBJEXT) colors.$(OBJEXT) \
 	colorsui.$(OBJEXT) editor.$(OBJEXT) imageset.$(OBJEXT) \
-	imagesetui.$(OBJEXT) util.$(OBJEXT)
+	imagesetui.$(OBJEXT) util.$(OBJEXT) args.$(OBJEXT)
 8bitsprite_OBJECTS = $(am_8bitsprite_OBJECTS)
 8bitsprite_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
@@ -149,7 +149,10 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-8bitsprite_SOURCES = main.c colors.c colors.h colorsui.c colorsui.h editor.c  editor.h  imageset.c  imageset.h  imagesetui.c  imagesetui.h util.c util.h
+8bitsprite_SOURCES = main.c colors.c colors.h colorsui.c colorsui.h \
+	editor.c  editor.h  imageset.c  imageset.h  imagesetui.c  imagesetui.h \
+	util.c util.h args.c args.h
+
 AM_CFLAGS = -DDATADIR=\"$(datadir)/@PACKAGE@\"
 all: all-am
 
@@ -232,6 +235,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/args.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/colors.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/colorsui.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/editor.Po@am__quote@
