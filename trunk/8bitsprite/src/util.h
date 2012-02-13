@@ -9,6 +9,6 @@
 extern SDL_Surface* screen;
 extern TTF_Font* font;
 
-void print(int x, int y, char* fmt, ...);
+int print(int x, int y, char* fmt, ...);
 
 #endif

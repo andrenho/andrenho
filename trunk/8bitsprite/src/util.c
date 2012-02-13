@@ -1,6 +1,6 @@
 #include "util.h"
 
-void print(int x, int y, char* fmt, ...)
+int print(int x, int y, char* fmt, ...)
 {
 	char buffer[1024];
 	va_list args;
@@ -14,4 +14,6 @@ void print(int x, int y, char* fmt, ...)
 	SDL_FreeSurface(txt);
 
 	va_end(args);
+
+	return y + TTF_FontLineSkip(font);
 }
