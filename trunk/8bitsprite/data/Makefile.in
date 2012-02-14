@@ -156,7 +156,7 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 imagedir = $(datadir)/@PACKAGE@
-dist_image_DATA = Pic0.ttf
+dist_image_DATA = Pic0.ttf title.png
 all: all-am
 
 .SUFFIXES:
