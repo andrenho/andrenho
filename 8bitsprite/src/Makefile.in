@@ -153,7 +153,7 @@ top_srcdir = @top_srcdir@
 	editor.c  editor.h  imageset.c  imageset.h  imagesetui.c  imagesetui.h \
 	util.c util.h args.c args.h
 
-AM_CFLAGS = -DDATADIR=\"$(datadir)/@PACKAGE@\"
+AM_CFLAGS = -DDATADIR=\"$(datadir)/@PACKAGE@\" -Wall -Wextra -pedantic
 all: all-am
 
 .SUFFIXES:

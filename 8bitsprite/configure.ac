@@ -3,7 +3,7 @@
 
 AC_PREREQ([2.68])
 AC_INIT([8bitsprite], [0.1], [bug@noadress.com])
-AM_INIT_AUTOMAKE([foreign -Wall -Werror])
+AM_INIT_AUTOMAKE([-Wall -Werror])
 AC_CONFIG_SRCDIR([src/main.c])
 
 # Checks for programs.
@@ -20,7 +20,12 @@ CFLAGS="$CFLAGS $SDL_CFLAGS"
 LIBS="$LIBS $SDL_LIBS"
 
 AC_CHECK_LIB(SDL_ttf, TTF_Init, [], [
-	echo "Error! You need to have SDL_ttf library."
+	echo "Error! You need to have the SDL_ttf library."
+	exit -1
+	])
+
+AC_CHECK_LIB(SDL_image, IMG_Init, [], [
+	echo "Error! You need to have the SDL_image library."
 	exit -1
 	])
 
