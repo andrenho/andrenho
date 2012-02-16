@@ -33,7 +33,7 @@ int main(int argc, char* argv[])
 	// open imageset
 	Imageset* imageset = NULL;
 	if(opt->file == NEW)
-		imageset = imageset_new(opt->filename, opt->w, opt->h);
+		imageset = imageset_new(opt->filename);
 	/* else
 		imageset = imageset_load(opt->filename); */
 

@@ -6,8 +6,8 @@
 #include "SDL.h"
 #include "SDL_ttf.h"
 
-#define BLACK 0
-#define WHITE 254
+#define BLACK         0
+#define WHITE       254
 #define TRANSPARENT 255
 
 extern SDL_Surface* screen;

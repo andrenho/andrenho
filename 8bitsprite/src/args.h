@@ -4,7 +4,6 @@
 typedef struct {
 	enum { NEW, OPEN } file;
 	char* filename;
-	int w, h;
 } OPTIONS;
 
 OPTIONS* args_get(int argc, char* argv[]);
