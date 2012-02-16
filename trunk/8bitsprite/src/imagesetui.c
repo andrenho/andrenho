@@ -3,6 +3,7 @@
 #include "SDL.h"
 
 #include "util.h"
+#include "editor.h"
 
 static int image_selected = -1;
 static Imageset* imageset;
@@ -21,11 +22,10 @@ void imageset_ui_run(Imageset* is)
 	// draw buttons
 	SDL_FillRect(screen, NULL, 0);
 	int n_buttons = 1;
-	SDL_Rect* buttons = draw_buttons("New Image (C-N)", 0);
+	SDL_Rect* buttons = draw_buttons("New Image [N]", 0);
 	SDL_Flip(screen);
 
-	int running = 1;
-	while(running)
+	for(;;)
 	{
 		SDL_Event e;
 		while(SDL_PollEvent(&e))
@@ -49,6 +49,15 @@ void imageset_ui_run(Imageset* is)
 						}
 				}
 				break;
+			case SDL_KEYDOWN:
+				switch(e.key.keysym.sym)
+				{
+				case SDLK_n:
+					new_image();
+					break;
+				default:
+					break;
+				}
 			}
 		}
 	}
@@ -58,5 +67,5 @@ void imageset_ui_run(Imageset* is)
 static void new_image()
 {
 	Image* img = imageset_add_image(imageset);
-	(void) img;
+	editor_run(img);
 }
