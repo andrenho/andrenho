@@ -17,3 +17,34 @@ int print(int x, int y, char* fmt, ...)
 
 	return y + TTF_FontLineSkip(font);
 }
+
+
+SDL_Rect* draw_buttons(char* fmt, ...)
+{
+	va_list ap;
+	char* s;
+	int y = screen->h - 48;
+	int x = 10;
+	SDL_Color color={255,255,255};
+
+	va_start(ap, fmt);
+	s = fmt;
+	do
+	{
+		SDL_Surface* txt = TTF_RenderUTF8_Solid(font, s, color);
+		SDL_Rect r = { x, y, txt->w + 20, txt->h + 20 };
+		SDL_Rect r2 = { x+1, y+1, txt->w + 18, txt->h + 18 };
+		SDL_Rect r3 = { x+10, y+10 };
+		SDL_FillRect(screen, &r, WHITE);
+		SDL_FillRect(screen, &r2, BLACK);
+		SDL_BlitSurface(txt, NULL, screen, &r3);
+		SDL_FreeSurface(txt);
+		s = va_arg(ap, char *);
+		x += txt->w + 30;
+	} while(s);
+	va_end(ap);
+
+	// TODO - return rectangles
+
+	return NULL;
+}
