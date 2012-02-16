@@ -25,7 +25,9 @@ SDL_Rect* draw_buttons(char* fmt, ...)
 	char* s;
 	int y = screen->h - 48;
 	int x = 10;
+	int n_buttons = 0;
 	SDL_Color color={255,255,255};
+	SDL_Rect* rects = NULL;
 
 	va_start(ap, fmt);
 	s = fmt;
@@ -41,10 +43,12 @@ SDL_Rect* draw_buttons(char* fmt, ...)
 		SDL_FreeSurface(txt);
 		s = va_arg(ap, char *);
 		x += txt->w + 30;
+		n_buttons++;
+
+		rects = realloc(rects, sizeof(SDL_Rect) * n_buttons);
+		memcpy(&rects[n_buttons-1], &r, sizeof(SDL_Rect));
 	} while(s);
 	va_end(ap);
 
-	// TODO - return rectangles
-
-	return NULL;
+	return rects;
 }

@@ -8,7 +8,6 @@
 
 
 static void usage(char* progname, int reason);
-static int discover_size(char* size, int* w, int* h);
 
 
 /* get and interpret command line arguments*/
@@ -16,18 +15,19 @@ OPTIONS* args_get(int argc, char* argv[])
 {
 	int opt;
 	char* size = 0;
-	int w, h;
 
 	// find parameters
-	while((opt = getopt(argc, argv, "t:")) != -1)
+	while((opt = getopt(argc, argv, "")) != -1)
 	{
 		switch(opt)
 		{
+		/*
 		case 't':
 			size = strdup(optarg);
 			if(!discover_size(size, &w, &h))
 				usage(argv[0], EXIT_FAILURE);
 			break;
+		*/
 		default:
 			usage(argv[0], EXIT_FAILURE);
 		}
@@ -37,13 +37,8 @@ OPTIONS* args_get(int argc, char* argv[])
 	
 	// create option struct
 	OPTIONS* opts = malloc(sizeof(OPTIONS));
-	opts->file = size ? NEW : OPEN;
+	opts->file = size ? NEW : OPEN; // TODO
 	opts->filename = argv[argc-1];
-	if(opts->file == NEW)
-	{
-		opts->w = w;
-		opts->h = h;
-	}
 	return opts;
 }
 
@@ -58,6 +53,7 @@ static void usage(char* progname, int reason)
 }
 
 
+/*
 static int discover_size(char* size, int* w, int* h)
 {
 	char c, sz[2][50];
@@ -87,3 +83,4 @@ static int discover_size(char* size, int* w, int* h)
 
 	return 1;
 }
+*/
