@@ -7,6 +7,7 @@ typedef struct
 {
 	char* filename;
 	int n_images;
+	SDL_Color color[256];
 } Imageset;
 
 typedef struct

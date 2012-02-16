@@ -37,7 +37,7 @@ OPTIONS* args_get(int argc, char* argv[])
 	
 	// create option struct
 	OPTIONS* opts = malloc(sizeof(OPTIONS));
-	opts->file = size ? NEW : OPEN; // TODO
+	opts->file = NEW; // TODO
 	opts->filename = argv[argc-1];
 	return opts;
 }

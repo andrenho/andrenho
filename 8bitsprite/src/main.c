@@ -54,7 +54,7 @@ static int initialize_sdl()
 	}
 
 	// initialize video
-	screen = SDL_SetVideoMode(640, 480, 8, SDL_SWSURFACE|SDL_RESIZABLE);
+	screen = SDL_SetVideoMode(800, 600, 8, SDL_SWSURFACE|SDL_RESIZABLE);
 	if(!screen)
 	{
 		fprintf(stderr, "Unable to open SDL video: %s\n", SDL_GetError());

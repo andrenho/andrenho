@@ -3,7 +3,7 @@
 
 AC_PREREQ([2.68])
 AC_INIT([8bitsprite], [0.1], [bug@noadress.com])
-AM_INIT_AUTOMAKE([-Wall -Werror])
+AM_INIT_AUTOMAKE([-Wall])
 AC_CONFIG_SRCDIR([src/main.c])
 
 # Checks for programs, clear CFLAGS
@@ -22,7 +22,7 @@ AC_MSG_RESULT([$debugit])
 
 if test x"$debugit" = x"yes"; then
     AC_DEFINE([DEBUG],[],[Debug Mode])
-    AM_CFLAGS="$AM_CFLAGS -g -Wall -Werror -Wno-uninitialized -O0"
+    AM_CFLAGS="$AM_CFLAGS -g -Wall -Wno-uninitialized -O0"
 else
     AC_DEFINE([NDEBUG],[],[No-debug Mode])
     AM_CFLAGS="$AM_CFLAGS -O3"
