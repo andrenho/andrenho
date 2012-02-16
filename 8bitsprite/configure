@@ -572,6 +572,7 @@ LIBOBJS
 SDL_LIBS
 SDL_CFLAGS
 SDL_CONFIG
+AM_CFLAGS
 am__fastdepCC_FALSE
 am__fastdepCC_TRUE
 CCDEPMODE
@@ -653,6 +654,7 @@ ac_subst_files=''
 ac_user_opts='
 enable_option_checking
 enable_dependency_tracking
+enable_debug
 with_sdl_prefix
 with_sdl_exec_prefix
 enable_sdltest
@@ -1283,6 +1285,7 @@ Optional Features:
   --enable-FEATURE[=ARG]  include FEATURE [ARG=yes]
   --disable-dependency-tracking  speeds up one-time build
   --enable-dependency-tracking   do not reject slow dependency extractors
+  --enable-debug          enable debug data generation (def=no)
   --disable-sdltest       Do not try to compile and run a test SDL program
 
 Optional Packages:
@@ -2366,7 +2369,8 @@ am__tar='${AMTAR} chof - "$$tardir"'; am__untar='${AMTAR} xf -'
 
 
 
-# Checks for programs.
+# Checks for programs, clear CFLAGS
+OLD_CFLAGS=$CFLAGS
 ac_ext=c
 ac_cpp='$CPP $CPPFLAGS'
 ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
@@ -3345,6 +3349,33 @@ else
   am__fastdepCC_FALSE=
 fi
 
+
+CFLAGS=$OLD_CFLAGS
+
+# debug compilation support
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking whether to build with debug information" >&5
+$as_echo_n "checking whether to build with debug information... " >&6; }
+# Check whether --enable-debug was given.
+if test "${enable_debug+set}" = set; then :
+  enableval=$enable_debug; debugit="$enableval"
+else
+  debugit=no
+fi
+
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $debugit" >&5
+$as_echo "$debugit" >&6; }
+
+if test x"$debugit" = x"yes"; then
+
+$as_echo "#define DEBUG /**/" >>confdefs.h
+
+    AM_CFLAGS="$AM_CFLAGS -g -Wall -Werror -Wno-uninitialized -O0"
+else
+
+$as_echo "#define NDEBUG /**/" >>confdefs.h
+
+    AM_CFLAGS="$AM_CFLAGS -O3"
+fi
 
 
 # Checks for libraries.

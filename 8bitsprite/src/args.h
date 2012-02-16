@@ -3,8 +3,8 @@
 
 typedef struct {
 	enum { NEW, OPEN } file;
-	char* name;
-	int x, y;
+	char* filename;
+	int w, h;
 } OPTIONS;
 
 OPTIONS* args_get(int argc, char* argv[]);
