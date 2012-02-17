@@ -52,17 +52,3 @@ SDL_Rect* draw_buttons(char* fmt, ...)
 
 	return rects;
 }
-
-/*
-inline Uint8 get(SDL_Surface *sf, int x, int y)
-{
-	Uint8 *p = (Uint8 *)surface->pixels + y * surface->pitch + x * bpp;
-	return *p;
-}
-
-inline void set(SDL_Surface *sf, int x, int y, Uint8 color)
-{
-	Uint8 *p = (Uint8 *)surface->pixels + y * surface->pitch + x * bpp;
-	*p = color;
-}
-*/
