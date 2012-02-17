@@ -8,6 +8,7 @@
 
 #define BLACK         0
 #define WHITE       254
+#define GRAY        255
 #define TRANSPARENT 255
 
 #define P(sf,x,y) (*((Uint8 *)(sf)->pixels + (y) * (sf)->pitch + (x)))
