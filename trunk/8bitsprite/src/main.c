@@ -67,9 +67,10 @@ static int initialize_sdl()
 	for(i=0; i<=253; i++)
 		colors[0].r = colors[0].g = colors[0].b = 0;
 	colors[254].r = colors[254].g = colors[254].b = 255;
+	colors[255].r = colors[255].g = colors[255].b = 96;
 	SDL_SetColors(screen, colors, 0, 256);
 	free(colors); // ???
-	SDL_SetColorKey(screen, SDL_SRCCOLORKEY|SDL_RLEACCEL, 255);
+	//SDL_SetColorKey(screen, SDL_SRCCOLORKEY|SDL_RLEACCEL, 255);
 
 	// initialize TTF
 	if(TTF_Init())
@@ -95,6 +96,7 @@ static int initialize_sdl()
 	// window manager properties
 	SDL_WM_SetCaption("8bitsprite", "8bitsprite");
 	// TODO - set icon
+	SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY, SDL_DEFAULT_REPEAT_INTERVAL);
 
 	return 1;
 }
