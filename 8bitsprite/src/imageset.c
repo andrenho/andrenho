@@ -4,11 +4,13 @@
 
 #include "util.h"
 
+static UT_icd image_icd = { sizeof(Image), NULL, NULL, NULL };
+
 Imageset* imageset_new(char* filename)
 {
 	Imageset* is = malloc(sizeof(Imageset));
 	is->filename = filename;
-	is->n_images = 0;
+	utarray_new(is->images, &image_icd);
 
 	// colors
 	int i;
@@ -30,11 +32,9 @@ Imageset* imageset_new(char* filename)
 Image* imageset_add_image(Imageset* is)
 {
 	Image* img = malloc(sizeof(Image));
-	img->w = img->h = 32;
 	img->imageset = is;
 
 	img->sf = SDL_CreateRGBSurface(SDL_SWSURFACE, 32, 32, 8, 0, 0, 0, 0);
-	printf("%d\n", is->color[254].r);
 	SDL_SetColors(img->sf, is->color, 0, 256);
 	SDL_SetColorKey(img->sf, SDL_SRCCOLORKEY|SDL_RLEACCEL, 255);
 	SDL_Rect r = { 0, 0, 32, 32 };
@@ -43,6 +43,8 @@ Image* imageset_add_image(Imageset* is)
 	P(img->sf, 0, 0) = 254;
 	P(img->sf, 10, 10) = 254;
 	P(img->sf, 31, 31) = 254;
+
+	utarray_push_back(is->images, img);
 	
 	return img;
 }
