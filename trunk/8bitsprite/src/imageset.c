@@ -37,7 +37,6 @@ Image* imageset_add_image(Imageset* is)
 	img->sf = SDL_CreateRGBSurface(SDL_SWSURFACE, 32, 32, 8, 0, 0, 0, 0);
 	SDL_SetColors(img->sf, is->color, 0, 256);
 	SDL_SetColorKey(img->sf, SDL_SRCCOLORKEY|SDL_RLEACCEL, 255);
-	SDL_Rect r = { 0, 0, 32, 32 };
 	SDL_FillRect(img->sf, NULL, TRANSPARENT);
 	
 	P(img->sf, 0, 0) = 254;
@@ -47,4 +46,14 @@ Image* imageset_add_image(Imageset* is)
 	utarray_push_back(is->images, img);
 	
 	return img;
+}
+
+
+void imageset_delete_image(Imageset* imageset, int n)
+{
+	Image* img = (Image*)utarray_eltptr(imageset->images, n);
+	if(!img)
+		abort();
+	SDL_FreeSurface(img->sf);
+	utarray_erase(imageset->images, n, 1);
 }

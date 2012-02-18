@@ -14,6 +14,7 @@ static void draw_editor();
 static void draw_miniatures();
 static void draw_colors();
 static void draw_color(int y, int pos, int color);
+static void show_help();
 
 static int input();
 static void click(int b, int x, int y);
@@ -159,6 +160,27 @@ static void draw_color(int y, int pos, int color)
 }
 
 
+static void show_help()
+{
+	int y = 10;
+	SDL_FillRect(screen, NULL, BLACK);
+	y = 10 + print(10, y, "Commands:");
+	print(10, y, "  ARROW KEYS");          y = print(230, y, "Move cursor");
+	print(10, y, "  SPACE or LEFT CLICK"); y = print(230, y, "Draw pixel");
+	print(10, y, "  Z or RIGHT CLICK");    y = print(230, y, "Delete pixel");
+	print(10, y, "  PAGE UP/DOWN or MOUSE WHEEL"); y = print(230, y, "Change color");
+	print(10, y, "  H or ? or F1");        y = print(230, y, "Show this help");
+	print(10, y, "  ESC");                 y = print(230, y, "Leave editor");
+	SDL_Flip(screen);
+
+	SDL_Event e;
+	for(;;)
+		while(SDL_WaitEvent(&e))
+			if(e.type == SDL_MOUSEBUTTONDOWN || e.type == SDL_KEYDOWN)
+				return;
+}
+
+
 static int input()
 {
 	SDL_Event e;
@@ -256,6 +278,13 @@ static void key_press(SDL_KeyboardEvent k)
 	case SDLK_PAGEDOWN:
 		change_color(1);
 		break;
+
+	case SDLK_h:
+	case SDLK_F1:
+	case SDLK_QUESTION:
+		show_help();
+		break;
+
 	default:
 		break;
 	}
