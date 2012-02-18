@@ -19,6 +19,9 @@ extern TTF_Font* font;
 // print a string on the screen
 int print(int x, int y, char* fmt, ...);
 
+// question the user
+int ask_yn(char* question);
+
 // draw a list of buttons and return the coordinates
 SDL_Rect* draw_buttons(char* fmt, ...);
 

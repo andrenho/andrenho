@@ -19,6 +19,25 @@ int print(int x, int y, char* fmt, ...)
 }
 
 
+int ask_yn(char* question)
+{
+	SDL_FillRect(screen, NULL, BLACK);
+	print(10, 10, question);
+	SDL_Flip(screen);
+
+	SDL_Event e;
+	for(;;)
+		while(SDL_WaitEvent(&e))
+			if(e.type == SDL_KEYDOWN)
+			{
+				if(e.key.keysym.sym == SDLK_y)
+					return -1;
+				else
+					return 0;
+			}
+}
+
+
 SDL_Rect* draw_buttons(char* fmt, ...)
 {
 	va_list ap;
