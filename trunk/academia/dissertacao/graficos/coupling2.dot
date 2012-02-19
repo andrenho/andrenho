@@ -40,4 +40,30 @@ digraph G {
   "BD entidades" -> GerenciamentoPerfis [dir="both"];
   "BD aplicações" -> GerenciamentoPerfis [dir="both"];
 
+  subgraph cluster_0 {
+    label = "Configurador";
+    GerenciamentoRegras;
+    GerenciamentoModelos;
+    "BD regras";
+    "BD modelos";
+  }
+
+  subgraph cluster_1 {
+    label = "Conversor";
+    GerenciamentoTrilhas;
+    "BD trilhas";
+  }
+
+  subgraph cluster_2 {
+    label = "Raciocinador";
+    Inferencias;
+    "BD perfis";
+  }
+
+  subgraph cluster_3 {
+    label = "Comunicador";
+    GerenciamentoPerfis;
+    "BD aplicações";
+    "BD entidades";
+  }
 }
