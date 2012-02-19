@@ -3364,7 +3364,6 @@ fi
 
 { $as_echo "$as_me:${as_lineno-$LINENO}: result: $debugit" >&5
 $as_echo "$debugit" >&6; }
-
 if test x"$debugit" = x"yes"; then
 
 $as_echo "#define DEBUG /**/" >>confdefs.h
@@ -3378,7 +3377,7 @@ $as_echo "#define NDEBUG /**/" >>confdefs.h
 fi
 
 
-# Checks for libraries.
+# Checks for SDL libraries
 SDL_VERSION=1.2.0
 
 
@@ -3639,7 +3638,6 @@ rm -f core conftest.err conftest.$ac_objext \
 
 CFLAGS="$CFLAGS $SDL_CFLAGS"
 LIBS="$LIBS $SDL_LIBS"
-
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for TTF_Init in -lSDL_ttf" >&5
 $as_echo_n "checking for TTF_Init in -lSDL_ttf... " >&6; }
 if ${ac_cv_lib_SDL_ttf_TTF_Init+:} false; then :
@@ -3690,7 +3688,6 @@ else
 
 fi
 
-
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for IMG_Init in -lSDL_image" >&5
 $as_echo_n "checking for IMG_Init in -lSDL_image... " >&6; }
 if ${ac_cv_lib_SDL_image_IMG_Init+:} false; then :
@@ -3737,6 +3734,110 @@ _ACEOF
 else
 
 	echo "Error! You need to have the SDL_image library."
+	exit -1
+
+fi
+
+
+# Check for libconfuse
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for cfg_init in -lconfuse" >&5
+$as_echo_n "checking for cfg_init in -lconfuse... " >&6; }
+if ${ac_cv_lib_confuse_cfg_init+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-lconfuse  $LIBS"
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char cfg_init ();
+int
+main ()
+{
+return cfg_init ();
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"; then :
+  ac_cv_lib_confuse_cfg_init=yes
+else
+  ac_cv_lib_confuse_cfg_init=no
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_confuse_cfg_init" >&5
+$as_echo "$ac_cv_lib_confuse_cfg_init" >&6; }
+if test "x$ac_cv_lib_confuse_cfg_init" = xyes; then :
+  cat >>confdefs.h <<_ACEOF
+#define HAVE_LIBCONFUSE 1
+_ACEOF
+
+  LIBS="-lconfuse $LIBS"
+
+else
+
+	echo "Error! You need to have the libconfuse library."
+	exit -1
+
+fi
+
+
+# Check for libtar
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for archive_write_new in -larchive" >&5
+$as_echo_n "checking for archive_write_new in -larchive... " >&6; }
+if ${ac_cv_lib_archive_archive_write_new+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-larchive  $LIBS"
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char archive_write_new ();
+int
+main ()
+{
+return archive_write_new ();
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"; then :
+  ac_cv_lib_archive_archive_write_new=yes
+else
+  ac_cv_lib_archive_archive_write_new=no
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_archive_archive_write_new" >&5
+$as_echo "$ac_cv_lib_archive_archive_write_new" >&6; }
+if test "x$ac_cv_lib_archive_archive_write_new" = xyes; then :
+  cat >>confdefs.h <<_ACEOF
+#define HAVE_LIBARCHIVE 1
+_ACEOF
+
+  LIBS="-larchive $LIBS"
+
+else
+
+	echo "Error! You need to have the libarchive library."
 	exit -1
 
 fi

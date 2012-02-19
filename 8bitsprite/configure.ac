@@ -19,7 +19,6 @@ AC_ARG_ENABLE([debug],
     [debugit="$enableval"],
     [debugit=no])
 AC_MSG_RESULT([$debugit])
-
 if test x"$debugit" = x"yes"; then
     AC_DEFINE([DEBUG],[],[Debug Mode])
     AM_CFLAGS="$AM_CFLAGS -g -Wall -Wno-uninitialized -O0"
@@ -29,7 +28,7 @@ else
 fi
 AC_SUBST([AM_CFLAGS])
 
-# Checks for libraries.
+# Checks for SDL libraries
 SDL_VERSION=1.2.0
 AM_PATH_SDL($SDL_VERSION,
             :,
@@ -37,14 +36,24 @@ AM_PATH_SDL($SDL_VERSION,
 )
 CFLAGS="$CFLAGS $SDL_CFLAGS"
 LIBS="$LIBS $SDL_LIBS"
-
 AC_CHECK_LIB(SDL_ttf, TTF_Init, [], [
 	echo "Error! You need to have the SDL_ttf library."
 	exit -1
 	])
-
 AC_CHECK_LIB(SDL_image, IMG_Init, [], [
 	echo "Error! You need to have the SDL_image library."
+	exit -1
+	])
+
+# Check for libconfuse
+AC_CHECK_LIB(confuse, cfg_init, [], [
+	echo "Error! You need to have the libconfuse library."
+	exit -1
+	])
+
+# Check for libtar
+AC_CHECK_LIB(archive, archive_write_new, [], [
+	echo "Error! You need to have the libarchive library."
 	exit -1
 	])
 
