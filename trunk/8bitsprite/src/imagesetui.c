@@ -111,6 +111,9 @@ static void keypress(SDLKey sym)
 			delete_image();
 			change_image(&n_buttons, &buttons);
 			break;
+		case SDLK_s:
+			imageset_save(imageset);
+			break;
 		default:
 			break;
 		}

@@ -3,6 +3,12 @@
 /* Debug Mode */
 #undef DEBUG
 
+/* Define to 1 if you have the `archive' library (-larchive). */
+#undef HAVE_LIBARCHIVE
+
+/* Define to 1 if you have the `confuse' library (-lconfuse). */
+#undef HAVE_LIBCONFUSE
+
 /* Define to 1 if you have the `SDL_image' library (-lSDL_image). */
 #undef HAVE_LIBSDL_IMAGE
 
