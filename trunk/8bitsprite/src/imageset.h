@@ -21,6 +21,7 @@ typedef struct Imageset
 } Imageset;
 
 Imageset* imageset_new(char* filename);
+Imageset* imageset_load(char* filename);
 void imageset_save(Imageset* is);
 Image* imageset_add_image(Imageset* is);
 void imageset_delete_image(Imageset* is, int n);
