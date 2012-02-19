@@ -76,9 +76,9 @@ A partir dos sub-objetivos, é possível extrair as funcionalidades do sistema. 
   \label{tab:funcionalidades}
 \end{table*}
 
-Para que a especificação do sistema seja completa, é necessário que sejam identificadas as {\em interfaces}, ou seja, os pontos onde o sistema se comunica com outros sistemas. Os pontos onde o sistema recebe informações de outros sistemas são chamados ``preceitos'', e os pontos onde o sistema envia informações para outros sistemas são chamados ``ações''. As ações e os preceitos estão identificados na Figura~\ref{fig:acoes_preceitos}.
+Para que a especificação do sistema seja completa, é necessário que sejam identificadas as {\em interfaces}, ou seja, os pontos onde o sistema se comunica com outros sistemas. Os pontos onde o sistema recebe informações de outros sistemas são chamados ``preceitos'', e os pontos onde o sistema envia informações para outros sistemas são chamados ``ações''. As ações e os preceitos são os seguintes:
 
-\begin{figure}
+\vspace{8mm}
   \begin{minipage}[t]{0.5\textwidth}
     {\bf Preceitos}
     \begin{itemize}
@@ -93,9 +93,7 @@ Para que a especificação do sistema seja completa, é necessário que sejam id
       \item Perfil da entidade.
     \end{itemize}
   \end{minipage}
-  \caption{Ações e preceitos do eProfile}
-  \label{fig:acoes_preceitos}
-\end{figure}
+\vspace{8mm}
 
 É necessário também a identificação das bases de dados necessárias para o funcionamento do sistema. O eProfile faz uso das seguintes bases de dados:
 
@@ -114,35 +112,32 @@ Para que a especificação do sistema seja completa, é necessário que sejam id
 \subsection{Arquitetura}
 \label{sec:arquitetura}
 
+\subsubsection{Agentes}
+\label{sec:agentes}
+
 A Figura~\ref{fig:coupling} apresenta o diagrama de ligação ({\em coupling}) do eProfile. Este diagrama representa a ligação entre as funcionalidades e as bases de dados, e tem como principal propósito a identificação de funcionalidades semelhantes para a identificação dos agentes do sistema.
 
-Como foi identificado que cada funcionalidade possui um propósito claro e específico, cada funcionalidade será representada por um agente individual no sistema.
+A partir do diagrama de ligação representado na Figura~\ref{fig:coupling}, é possível agrupar as bases de dados e funcionalidades em grupos afins, e identificar os agentes resultantes, como é mostrado na Figura~\ref{fig:coupling_agentes}. Quatro agentes foram identificados: (i) comunicador, (ii) configurador, (iii) conversor e (iv) raciocinador.
 
 \begin{figure}
-  \includegraphics[width=0.8\textwidth]{imagens/coupling.png}
+  \includegraphics[width=0.7\textwidth]{imagens/coupling.png}
   \caption{Diagrama de ligação do eProfile}
   \label{fig:coupling}
 \end{figure}
 
+\begin{figure}
+  \includegraphics[width=1\textwidth]{imagens/coupling2.png}
+  \caption{Diagrama de ligação do eProfile, com a identificação dos clientes}
+  \label{fig:coupling_agentes}
+\end{figure}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+O \textbf{agente comunicador} é responsável pela comunicação entre as aplicações e o eProfile. Ele cadastra as aplicações na base de dados de aplicações e permite que as aplicações cadastrem as entidades na base de dados de entidades. Ele também disponibiliza os perfis inferidos pelo agente raciocinador para que sejam recuperados pelas aplicações.
 
-\subsection{Conversor}
-\label{sec:conversor}
+O \textbf{agente configurador} recebe as seguintes configurações das aplicações: modelos de usuário e regras. Quando um modelo de usuário é recebido, ele é validado e, se aceito, é armazenado na base de dados de modelos de usuário.
+
+O agente realiza também o recebimento das regras enviadas pela aplicação. Uma vez que as regras sejam recebidas, elas são validadas e, se forem consideradas válidas, são armazenadas na base de regras. A aplicação é então informada do aceite ou rejeição. O agente pode rejeitar uma regra se: (i) a regra for inválida ou (ii) se for verificado que a execução da regra irá consumir recursos excessivos do servidor.
 
 O \textbf{agente conversor} é responsável por realizar a conversão dos dados da trilha do gerenciador de trilhas (externo) para a ontologia de trilha do eProfile (interno). A trilha do gerenciador pode ser disponibilizada em qualquer formato e por qualquer meio, desde que o eProfile ofereça suporte ao gerenciador de trilhas específico. O agente conversor tem também a responsabilidade de verificar, a cada período pré-determinado, atualizações nos dados disponibilizados no gerenciador.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{Regulador}
-\label{sec:regulador}
-
-O \textbf{agente regulador} realiza o recebimento das regras enviadas pela aplicação. Uma vez que as regras sejam recebidas, elas são validadas e, se forem consideradas válidas, são armazenadas na base de regras. A aplicação é então informada do aceite ou rejeição. O agente pode rejeitar uma regra se: (i) a regra for inválida ou (ii) se for verificado que a execução da regra irá consumir recursos excessivos do servidor.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{Raciocinador}
-\label{sec:raciocinador}
 
 O \textbf{agente raciocinador} é responsável pela inferência das trilhas de acordo com as regras enviadas pela aplicação, e posterior atualização do perfil da entidade. A execução do agente não necessita que o cliente ou o gerenciador de trilhas esteja conectado, e ocorre da seguinte forma:
 
