@@ -45,12 +45,6 @@ AC_CHECK_LIB(SDL_image, IMG_Init, [], [
 	exit -1
 	])
 
-# Check for libconfuse
-AC_CHECK_LIB(confuse, cfg_init, [], [
-	echo "Error! You need to have the libconfuse library."
-	exit -1
-	])
-
 # Check for libtar
 AC_CHECK_LIB(archive, archive_write_new, [], [
 	echo "Error! You need to have the libarchive library."

@@ -34,8 +34,8 @@ int main(int argc, char* argv[])
 	Imageset* imageset = NULL;
 	if(opt->file == NEW)
 		imageset = imageset_new(opt->filename);
-	/* else
-		imageset = imageset_load(opt->filename); */
+	else
+		imageset = imageset_load(opt->filename);
 
 	// open editor
 	imageset_ui_run(imageset);
@@ -113,7 +113,10 @@ static void print_title()
 
 	int y = 140;
 	y = print(10, y, "Created by Andre' Wagner (2012).");
-	y = print(10, y, "Licensed under the GPLv3. Please see COPYING file for details.");
+	y = print(10, y, "Licensed under the GPLv3. Please see COPYING file "
+			 "for details.");
+	y = print(10, y+50, "THIS IS A VERY EARLY ALPHA VERSION. DON'T TRY TO "
+			    "USE IT FOR ANYTHING EXCEPT SCIENTIFIC CURIOSITY!");
 
 	print(10, screen->h - 30, "Press any key to continue.");
 

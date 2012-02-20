@@ -37,8 +37,15 @@ OPTIONS* args_get(int argc, char* argv[])
 	
 	// create option struct
 	OPTIONS* opts = malloc(sizeof(OPTIONS));
-	opts->file = NEW; // TODO
 	opts->filename = argv[argc-1];
+	FILE *f;
+	if((f = fopen(opts->filename, "r")))
+	{
+		fclose(f);
+		opts->file = OPEN;
+	}
+	else
+		opts->file = NEW;
 	return opts;
 }
 

@@ -47,7 +47,8 @@ am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_8bitsprite_OBJECTS = main.$(OBJEXT) colors.$(OBJEXT) \
 	colorsui.$(OBJEXT) editor.$(OBJEXT) imageset.$(OBJEXT) \
-	imagesetui.$(OBJEXT) util.$(OBJEXT) args.$(OBJEXT)
+	imagesetui.$(OBJEXT) util.$(OBJEXT) args.$(OBJEXT) \
+	imageset_io.$(OBJEXT)
 8bitsprite_OBJECTS = $(am_8bitsprite_OBJECTS)
 8bitsprite_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
@@ -152,7 +153,7 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 8bitsprite_SOURCES = main.c colors.c colors.h colorsui.c colorsui.h \
 	editor.c  editor.h  imageset.c  imageset.h  imagesetui.c  imagesetui.h \
-	util.c util.h args.c args.h
+	util.c util.h args.c args.h imageset_io.c
 
 all: all-am
 
@@ -240,6 +241,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/colorsui.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/editor.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/imageset.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/imageset_io.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/imagesetui.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/util.Po@am__quote@

@@ -25,6 +25,9 @@ void imageset_ui_run(Imageset* is)
 {
 	imageset = is;
 
+	if(utarray_len(is->images) > 0)
+		image_selected = 0;
+
 	change_image(&n_buttons, &buttons);
 
 	for(;;)
