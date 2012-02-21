@@ -28,6 +28,9 @@ void imageset_ui_run(Imageset* is)
 	if(utarray_len(is->images) > 0)
 		image_selected = 0;
 
+	// setup colors
+	SDL_SetColors(screen, is->color, 0, 256);
+
 	change_image(&n_buttons, &buttons);
 
 	for(;;)
