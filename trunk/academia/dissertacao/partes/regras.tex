@@ -1,89 +1,49 @@
 \section{Regras e Inferência}
 \label{sec:regras}
 
-\todo[inline]{Reescrever esta seção}
+A aplicação de regras é o coração do funcionamento do eProfile. Uma regra é uma instrução de inferência registrada por uma aplicação que será executada sobre um conjunto de trilhas de uma entidade, resultando num perfil de entidade de acordo com um modelo de usuário previamente cadastrado pela aplicação.
 
-\begin{figure*}
-\begin{lstlisting}
-<?xml version="1.0"?>
-<!DOCTYPE rdf:RDF [
-    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
-    <!ENTITY person "http://www.example.com/person#" >
-    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
-    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
-    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
-    <!ENTITY trail "http://code.google.com/p/eprofile/trail.owl#" >
-]>
-<rdf:RDF xmlns="http://www.example.com/person#"
-     xml:base="http://www.example.com/person"
-     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-     xmlns:person="http://www.example.com/person#"
-     xmlns:trail="http://code.google.com/p/eprofile/trail.owl#"
-     xmlns:owl="http://www.w3.org/2002/07/owl#"
-     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
-     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-    <owl:Ontology rdf:about="http://www.example.com/person">
-        <owl:imports rdf:resource="http://code.google.com/p/eprofile/trail.owl"/>
-    </owl:Ontology>
-    <owl:Class rdf:about="&person;PersonalInformation">
-        <rdfs:subClassOf rdf:resource="&trail;Identity"/>
-    </owl:Class>
-    <owl:DatatypeProperty rdf:about="&person;hasAge">
-        <rdfs:range rdf:resource="&xsd;positiveInteger"/>
-    </owl:DatatypeProperty>
-    <owl:DatatypeProperty rdf:about="&person;hasName">
-        <rdfs:range rdf:resource="&xsd;string"/>
-    </owl:DatatypeProperty>
-</rdf:RDF>
+Para que uma regra possa ser aplicada, as seguintes informações precisam ter sido previamente registradas no eProfile:
 
-\end{lstlisting}
-\caption{Extensão de uma classe no eProfile}
-\label{fig:extensao}
-\end{figure*}
+\begin{itemize}
 
-Para que uma aplicação possa utilizar os serviços oferecidos pelo eProfile, é necessário que a aplicação envie ao eProfile a ontologia de perfil que ele irá utilizar, extendendo a ontologia do eProfile. A ontologia é enviada quando a aplicação faz seu primeiro acesso ao eProfile, e pode ser atualizada posteriormente. Ela deve ser enviada em formato OWL utilizando a sintaxe RDF/XML \cite{rdf}.
+\item A regra propriamente dita;
 
-A Figura~\ref{fig:extensao} mostra um exemplo de uma ontologia de perfil. Neste caso, em um perfil pessoal a classe \texttt{Identity} está sendo extendida para a classe \texttt{PersonalInformation}, que tem as propriedades \texttt{hasName} e \texttt{hasAge}. Este exemplo mostra o OWL/XML gerado pelo editor de ontologias Protégé \cite{protege}. As linhas 19 e 14 importam a ontologia do eProfile e criam um {\em namespace} para ele; nas linhas 21 a 23 é criada a nova classe que extende da classe \texttt{Identity} do eProfile.
+\item Um modelo de usuário, que servirá como base para o formato de perfil da entidade;
 
-A aplicação pode, a qualquer momento, criar, editar ou excluir regras para a inferência das informações de sua trilha, de modo a gerar informações úteis dentro da ontologia de perfil.
+\item A trilha da entidade, sobre a qual a inferência será executada.
 
-Existem dois tipos de regras que podem ser criadas:
+\end{itemize}
+
+A partir destas três informações, o raciocinador tem condições de gerar um perfil de usuário, de acordo com a Figura~\ref{fig:dados_inferencia}.
+
+\begin{figure}
+  \includegraphics[width=0.8\textwidth]{imagens/dados_inferencia.png}
+  \caption{Fluxo de dados para inferência do perfil de usuário}
+  \label{fig:dados_inferencia}
+\end{figure}
+
+As regras são sempre definidas pela aplicação, e uma regra é composto pelo seguinte conjunto de informações:
 
 \begin{description}
 
-  \item[Regra em OWL:] uma regra é criada em OWL, extendendo a ontologia de trilha;
+\item[Nome:] um identificador único para a regra, que permitirá que a aplicação identifique a regra posteriormente, para que possa editá-la ou excluí-la;
 
-  \item[SPARQL:] uma regra é criada em SPARQL (linguagem de consulta de ontologias \cite{sparql}), onde a consulta é executada contra a ontologia de trilha;
+\item[Campo do perfil:] define qual é o campo do perfil da entidade que deverá ser atualizado através da execução desta inferência. Este campo deve ser obrigatoriamente equivalente a uma classe definida na ontologia de modelo de usuário;
 
-  \item[SWRL:] uma regra é criada em SWRL (linguagem de regras \cite{swrl}), que será executada sobre a ontologia de trilha.
+\item[Regra:] a regra que será executada sobre a trilha da entidade;
 
-\end{description}
+\item[Atualização:] uma instrução que define como o campo será atualizado (por exemplo, o valor pode ser simplesmente sobrescrito ou atualizado de acordo com alguma fórmula);
 
-A nova regra é gravada em uma base de regras. Assim, regras podem ser compartilhadas entre diferentes aplicações, desde que ambas extendam da mesma forma a ontologia de trilha.
+\item[Freqüência de atualização:] define de quanto em quanto tempo esta regra deve ser atualizada. É importante notar que o valor definido aqui pode não ser honrado, devido a outros motivos (como uma sobrecarga no servidor);
 
-Quando uma nova regra é enviada ao eProfile, ela deve conter as seguintes informações:
-
-\begin{description}
-  \item[Nome:] o nome da regra, para que possa ser atualizada ou excluída posteriormente;
-  \item[Tipo de regra:] se é uma regra em OWL, SPARQL ou SWRL;
-  \item[Regra:] a regra propriamente dita, na linguagem escolhida;
-  \item[Objeto:] classe, instância ou propriedade da ontologia de perfil que será atualizada;
-  \item[Instrução de atualização:] a forma como a instrução será atualizada;
-  \item[Freqüência de atualização:] a freqüência com que a regra deve ser atualizada;
-  \item[Validade:] a data limite até quando a regra será processada (pode ser ilimitada).
-\end{description}
-
-A instrução de atualização pode ser de um dos seguintes tipos:
-
-\begin{description}
-
-  \item[Substituição:] o item anterior é substituído por um novo item. Pode ser utilizado, por exemplo, em dados cadastrais como endereço e telefone, onde cada novo item substitui o anterior;
-
-  \item[Adição:] uma informação é adicionada, como a lista de endereços visitados por um carro;
-
-  \item[Expressão:] uma informação que precisa ser calculada. Neste caso, a própria aplicação passa a expressão do cálculo. Calcular o percentual de interesse de um usuário por um determinado assunto, por exemplo, seria uma informação deste tipo.
+\item[Validade]: define qual a data limite para a execução desta regra. A ausência desta informação define que a regra continuará sendo processada indefinidamente;
 
 \end{description}
+
+O raciocinador gerenciará a carga de processamento no servidor. Assim, algumas regras podem não ser executadas de acordo com o agendamento solicitado. Além disso, é possível que uma aplicação registre certas regras mas deixe de usar o servidor, fazendo com que as regras continuem sendo executadas desnecessariamente. Assim, caso um perfil não seja consultado por mais de um mês, a freqüencia da execução das regras passa a diminuir progressivamente, até o ponto em que a regra não seja mais executada. Caso a aplicação volte a consultar os perfis, a freqüencia de execução das regras é normalizada.
+
+As regras podem ser escritas em duas linguagens diferentes: SPARQL ou SWRL. O SPARQL \cite{sparql} é uma linguagem de consulta de ontologias cuja sintaxe lembra vagamente a linguagem de consulta de banco de dados SQL \cite{sql}, enquanto o SWRL \cite{swrl} é uma linguagem de regras que permite a consulta utilizando construtores lógicos mais complexos que o SPARQL.
 
 Uma vez que a regra tenha sido validada pelo agente regulador, ela entra em funcionamento e passa a ser elegível para execução.
 
@@ -100,3 +60,5 @@ Tanto as consultas via OWL quanto as consultas via SPARQL são executadas atrav�
 \end{description}
 
 Devido ao conjunto de funcionalidades e ao desempenho superior, o HermiT foi escolhido como o raciocinador utilizado pelo eProfile.
+
+\todo[inline]{Colocar um exemplo de uma regra}
