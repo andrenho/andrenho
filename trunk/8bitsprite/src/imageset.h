@@ -28,6 +28,5 @@ Image* imageset_add_image(Imageset* is);
 void imageset_delete_image(Imageset* is, int n);
 
 static UT_icd image_icd = { sizeof(Image), NULL, NULL, NULL };
-static UT_icd sf_icd = { sizeof(char*), NULL, NULL, NULL };
 
 #endif
