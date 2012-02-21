@@ -8,8 +8,7 @@
 #include <tar.h>
 
 static void read_config_file(Imageset* is, struct archive* a);
-static char* read_image_file(struct archive* a);
-static void import_images(Imageset* is, UT_array* img_tmp);
+static char* read_image_file(struct archive* a, struct archive_entry* entry);
 static void create_config_file(Imageset* is, struct archive* a);
 static void write_image_files(Imageset* is, struct archive* a);
 
@@ -28,8 +27,7 @@ Imageset* imageset_load(char* filename)
 	archive_read_support_format_tar(a);
 
 	// load images temporarily
-	UT_array *img_tmp;
-	utarray_new(img_tmp, &sf_icd); // TODO - free this!
+	void* images[20480]; // TODO
 
 	// open archive and read config
 	if(archive_read_open_filename(a, filename, 16384) != ARCHIVE_OK)
@@ -49,10 +47,8 @@ Imageset* imageset_load(char* filename)
 			// create image and read from archive
 			char* endptr = (char*)&filename[5];
 			int v = strtol(filename, &endptr, 10);
-			if(v+1 >= utarray_len(img_tmp))
-				utarray_resize(img_tmp, v);
-			void* img = read_image_file(a);
-			utarray_insert(img_tmp, img, v);
+			void* img = read_image_file(a, entry);
+			images[v] = img;
 		}
 	}
 	
@@ -60,7 +56,19 @@ Imageset* imageset_load(char* filename)
 	archive_read_finish(a);
 
 	// import images
-	import_images(is, img_tmp);
+	/* (the images are stored in a temporary array first because it might
+	    happend that the images are found before the config.txt in the
+	    archive) */
+	int i;
+	for(i=0; i<utarray_len(is->images); i++)
+	{
+		Image* img = (Image*)utarray_eltptr(is->images, i);
+		img->sf = SDL_CreateRGBSurfaceFrom(images[i], img->_w, img->_h,
+				8, img->_w, 0, 0, 0, 0);
+		printf("%x\n", img->sf[500]);
+		SDL_SetColors(img->sf, is->color, 0, 256);
+		SDL_SetColorKey(img->sf, SDL_SRCCOLORKEY|SDL_RLEACCEL, 255);
+	}
 	
 	return is;
 }
@@ -143,29 +151,12 @@ static void read_config_file(Imageset* is, struct archive* a)
 }
 
 
-static char* read_image_file(struct archive* a)
+static char* read_image_file(struct archive* a, struct archive_entry* entry)
 {
-	char* bp;
-	size_t size;
-	FILE* f = open_memstream(&bp, &size);
-
-	archive_read_data_into_fd(a, fileno(f));
-	fclose(f);
-	return bp;
-}
-
-
-static void import_images(Imageset* is, UT_array* img_tmp)
-{
-	int i;
-	for(i=0; i<utarray_len(is->images); i++)
-	{
-		Image* img = (Image*)utarray_eltptr(is->images, i);
-		void* sf_ptr = (void*)utarray_eltptr(img_tmp, i);
-		img->sf = SDL_CreateRGBSurfaceFrom(sf_ptr, img->_w, img->_h,
-				8, 1, 0, 0, 0, 0);
-		printf("%d\n", img->sf);
-	}
+	size_t size = archive_entry_size(entry);
+	char* pixels = malloc(size);
+	archive_read_data(a, pixels, size);
+	return pixels;
 }
 
 

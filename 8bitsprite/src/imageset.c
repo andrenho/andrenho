@@ -36,10 +36,6 @@ Image* imageset_add_image(Imageset* is)
 	SDL_SetColors(img->sf, is->color, 0, 256);
 	SDL_SetColorKey(img->sf, SDL_SRCCOLORKEY|SDL_RLEACCEL, 255);
 	SDL_FillRect(img->sf, NULL, TRANSPARENT);
-	
-	P(img->sf, 0, 0) = 254;
-	P(img->sf, 10, 10) = 254;
-	P(img->sf, 31, 31) = 254;
 
 	utarray_push_back(is->images, img);
 	
