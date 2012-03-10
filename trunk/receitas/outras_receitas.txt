@@ -9,6 +9,11 @@ Blog Simplesmente Delícia:
 Site AllRecipes.com
  - Alfaces enrolados asiáticos <http://allrecipes.com/recipe/asian-lettuce-wraps-2/detail.aspx>
 
+Site Macheesmo
+ - Vagens fritas <http://www.macheesmo.com/2012/02/fried-green-beans/>
+ - Bolo BTS <http://www.macheesmo.com/2012/02/better-than-sex-cake/>
+ - Salada de batatas com limão <http://www.macheesmo.com/2010/07/lemony-potato-salad/>
+
 Livro "Revolução na Cozinha - Jamie Oliver":
  - Estrogonofe de frango e alho-poró
  - Massa com camembert assado
@@ -33,3 +38,4 @@ Livro "200 Receitas de Pães Tentadores":
  - Pão de semolina com azeite
  - Tiras de alho com manteiga e manjericão
  - Trança com mirtilos e baunilha
+ - Grissini
