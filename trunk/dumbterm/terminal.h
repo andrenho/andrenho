@@ -11,17 +11,22 @@ class Terminal
 {
 public:
 	Terminal(Options const& options);
+	~Terminal();
 
 	void BeginFrame() { }
 	void Process();
 	void EndFrame() { }
+	void SetChar(const char c, const int x, const int y);
 
-	inline uint8_t T(int x, int y) const { return sf[y*w+x]; }
+	inline uint8_t T(const int x, const int y) const { return sf[y*w+x]; }
+
 private:
+	const Font* const font;
 	Options const& options;
-	uint8_t* sf;
+public:
 	const int w, h;
-	Font font;
+private:
+	uint8_t* sf;
 };
 
 #endif

@@ -1,41 +1,38 @@
 #include "font.h"
 
+#include "SDL.h"
+
+#define P(sf,x,y) *((Uint8*)(sf)->pixels + (y)*(sf)->pitch + (x))
+
 Font::Font()
+	: char_w(9), char_h(14)
 {
-	int error = FT_Init_FreeType(&library);
-	if(error)
-		throw "FT_Init_FreeType";
-	
-	error = FT_New_Face(library,
-			"data/Nouveau_IBM_Stretch.ttf",
-			0,
-			&face);
-	if(error)
-		throw "FT_New_Face";
+	ch = new uint8_t*[256];
 
-	error = FT_Set_Char_Size(face, 0, 12*64, 300, 300);
-	if(error)
-		throw "FT_Set_Char_Size";
+	SDL_Surface* sf = SDL_LoadBMP("data/mda9.bmp");
+	if(!sf)
+		throw "Invalid font image.";
 
-	slot = face->glyph;
+	int x=0, y=0;
+	for(int i=0; i<256; i++)
+	{
+		ch[i] = new uint8_t[char_w*char_h];
+		for(int xx=0; xx<char_w; xx++)
+			for(int yy=0; yy<char_h; yy++)
+				ch[i][yy*9+xx] = (P(sf,x+xx,y+yy) == 1 ? 0 : 2);
+		x += 9;
+		if(x >= sf->w)
+		{
+			x = 0;
+			y += char_h;
+		}
+	}
 
-	InitChar('A');
+	SDL_FreeSurface(sf);
 }
 
 
-void Font::InitChar(const char c)
+Font::~Font()
 {
-	int error = FT_Load_Char(face, c, FT_LOAD_DEFAULT);
-	if(error)
-		throw "FT_Load_Char";
-
-	FT_Bitmap *bmp = &slot->bitmap;
-
-	int i = 0;
-	for(int y=0; y<bmp->rows; y++)
-	{
-		for(int x=0; x<bmp->width; x++, i++)
-			printf("%02X ", bmp->buffer[i]);
-		printf("\n");
-	}
+	// TODO
 }

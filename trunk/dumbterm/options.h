@@ -9,11 +9,11 @@ using namespace std;
 class Options
 {
 public:
-	Options() : scale(2), pw(400), ph(300) { }
+	Options() : scale(2), w(80), h(25) { }
 	inline vector<Filter> const Filters() const { return filters; }
 
 	const int scale;
-	const int pw, ph;
+	const int w, h;
 
 private:
 	vector<Filter> const filters;
