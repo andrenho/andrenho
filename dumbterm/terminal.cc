@@ -8,7 +8,7 @@ Terminal::Terminal(Options const& options)
 {
 	for(int i=0; i<(options.pw * options.ph); i++)
 		sf[i] = 0;
-	sf[100*400+100] = 255;
+	sf[100*400+100] = 2;
 }
 
 

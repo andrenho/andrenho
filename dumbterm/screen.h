@@ -24,6 +24,9 @@ private:
 	Terminal const& terminal;
 	const int w, h;
 	SDL_Surface* screen;
+
+	static const SDL_Color BACKGROUND;
+	static const SDL_Color BRIGHT;
 };
 
 #endif

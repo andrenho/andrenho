@@ -2,6 +2,9 @@
 #define TERMINAL_H
 
 #include <stdint.h>
+#include "SDL.h"
+
+#include "font.h"
 #include "options.h"
 
 class Terminal
@@ -18,6 +21,7 @@ private:
 	Options const& options;
 	uint8_t* sf;
 	const int w, h;
+	Font font;
 };
 
 #endif

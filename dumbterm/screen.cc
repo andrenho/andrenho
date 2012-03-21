@@ -3,6 +3,9 @@
 #include <cstdlib>
 #include "SDL.h"
 
+const SDL_Color Screen::BACKGROUND = (SDL_Color) { 30, 30, 30 };
+const SDL_Color Screen::BRIGHT = (SDL_Color) { 120, 255, 170 };
+
 Screen::Screen(Options const& options, Terminal const& terminal)
 	: options(options), terminal(terminal), w(options.pw * options.scale),
 	  h(options.ph * options.scale)
@@ -21,10 +24,16 @@ Screen::Screen(Options const& options, Terminal const& terminal)
 void
 Screen::initializePalette()
 {
+	double rr = (BRIGHT.r - BACKGROUND.r) / 255.0;
+	double rg = (BRIGHT.g - BACKGROUND.g) / 255.0;
+	double rb = (BRIGHT.b - BACKGROUND.b) / 255.0;
+
 	SDL_Color palette[256];
-	palette[0] = (SDL_Color) { 0, 0, 0 };
-	// TODO
-	palette[255] = (SDL_Color) { 104, 255, 159 };
+	for(double i=0; i<256; i++)
+		palette[(Uint8)i] = (SDL_Color) {
+			(Uint8)(BACKGROUND.r + (rr * i)),
+			(Uint8)(BACKGROUND.g + (rg * i)),
+			(Uint8)(BACKGROUND.b + (rb * i)) };
 	SDL_SetColors(screen, palette, 0, 256);
 }
 
@@ -43,8 +52,23 @@ Screen::UpdateFromTerminal()
 		for(int y=0; y<options.ph; y++)
 			for(int i=0; i<options.scale; i++)
 				for(int j=0; j<options.scale; j++)
-					P(screen, x*sc+i, y*sc+j) = 
-							terminal.T(x, y);
+					switch(terminal.T(x, y))
+					{
+					case 0:
+						P(screen, x*sc+i, y*sc+j) = 0;
+						break;
+					case 1:
+						P(screen, x*sc+i, y*sc+j) = 0;
+						break;
+					case 2:
+						P(screen, x*sc+i, y*sc+j) = 255;
+						break;
+					case 3:
+						P(screen, x*sc+i, y*sc+j) = 255;
+						break;
+					default:
+						abort();
+					}
 }
 
 
