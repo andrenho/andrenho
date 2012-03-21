@@ -1,22 +1,36 @@
+#include <vector>
+#include "SDL.h"
 using namespace std;
 
-int main()
+#include "filter.h"
+#include "options.h"
+#include "screen.h"
+#include "terminal.h"
+
+int main(int argc, char* argv[])
 {
+	if(SDL_Init(SDL_INIT_VIDEO) == -1)
+	{
+		fprintf(stderr, "Error opening SDL: %s.", SDL_GetError());
+		return 1;
+	}
+
 	Options options;
-	Screen screen;
-	Terminal terminal(options, screen);
+	Terminal terminal(options);
+	Screen screen(options, terminal);
 
 	while(1)
 	{
-		screen.BeginFrame();
-		screen.Update();
+		terminal.BeginFrame();
+		terminal.Process();
 
-		for(vector<Filter>::const_iterator filter = options.Filters().begin(); 
+		screen.UpdateFromTerminal();
+		vector<Filter>::const_iterator filter;
+		for(filter = options.Filters().begin(); 
 				filter < options.Filters().end(); filter++)
-			terminal.ApplyFilter(*filter);
+			screen.ApplyFilter(*filter);
+		screen.UpdateToScreen();
 
-		terminal.UpdateToScreen();
-
-		screen.EndFrame();
+		terminal.EndFrame();
 	}
 }
