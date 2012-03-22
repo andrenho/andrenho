@@ -3,6 +3,7 @@
 using namespace std;
 
 #include "filter.h"
+#include "filter_inexact.h"
 #include "options.h"
 #include "screen.h"
 #include "terminal.h"
@@ -26,11 +27,14 @@ int main(int argc, char* argv[])
 			break;
 
 		screen.UpdateFromTerminal();
-		vector<Filter*>::const_iterator filter;
-		for(filter = options.Filters().begin(); 
-				filter < options.Filters().end(); 
+		vector<Filter*>::iterator filter;
+		for(filter = options.Filters()->begin(); 
+				filter < options.Filters()->end(); 
 				filter++)
-			(*filter)->Apply(screen);
+		{
+			Filter* f = (*filter);
+			f->Apply(screen);
+		}
 		screen.UpdateToScreen();
 
 		terminal.EndFrame();
