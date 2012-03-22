@@ -11,7 +11,7 @@ Options::Options()
 	: scale(2), w(80), h(25) 
 {
 	//filters.push_back(new FilterScanline());
-	//filters.push_back(new FilterInexact(20));
+	//filters.push_back(new FilterInexact(30));
 	filters.push_back(new FilterBright);
 }
 
