@@ -16,6 +16,7 @@ public:
 
 	const int scale;
 	const int w, h;
+	const int border_x, border_y;
 
 private:
 	vector<Filter*> filters;

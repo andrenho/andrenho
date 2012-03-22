@@ -11,6 +11,7 @@ Terminal::Terminal(Options const& options)
 		sf[i] = 0;
 	for(char c='A', i=0; c<='z'; c++, i++)
 		SetChar(c, i, 0);
+	SetChar('@', 79, 24);
 }
 
 Terminal::~Terminal()

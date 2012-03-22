@@ -7,8 +7,11 @@ const SDL_Color Screen::BACKGROUND = (SDL_Color) { 30, 30, 30 };
 const SDL_Color Screen::BRIGHT = (SDL_Color) { 140, 255, 190 };
 
 Screen::Screen(Options const& options, Terminal const& terminal)
-	: options(options), terminal(terminal), w(terminal.w * options.scale),
-	  h(terminal.h * options.scale)
+	: options(options), terminal(terminal), 
+	  border_x(options.border_x * options.scale),
+	  border_y(options.border_y * options.scale),
+	  w(terminal.w * options.scale + (border_x * 2)), 
+	  h(terminal.h * options.scale + (border_y * 2))
 {
        	screen = SDL_SetVideoMode(w, h, 8, SDL_SWSURFACE);
 	if(!screen)
@@ -62,7 +65,7 @@ Screen::UpdateFromTerminal()
 						case 2: c = 200; break;
 						case 3: c = 255; break;
 					}
-					P(screen, x*sc+i, y*sc+j) = c;
+					P(screen, x*sc+i+border_x, y*sc+j+border_y) = c;
 				}
 }
 
