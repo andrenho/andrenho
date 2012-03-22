@@ -13,6 +13,8 @@ class Screen
 {
 public:
 	Screen(Options const& options, Terminal const& terminal);
+	~Screen();
+
 	void ApplyFilter(Filter const& filter);
 	void UpdateFromTerminal();
 	void UpdateToScreen();

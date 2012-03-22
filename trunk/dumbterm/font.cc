@@ -19,8 +19,8 @@ Font::Font()
 		ch[i] = new uint8_t[char_w*char_h];
 		for(int xx=0; xx<char_w; xx++)
 			for(int yy=0; yy<char_h; yy++)
-				ch[i][yy*9+xx] = (P(sf,x+xx,y+yy) == 1 ? 0 : 2);
-		x += 9;
+				ch[i][yy*char_w+xx] = (P(sf,x+xx,y+yy) == 1 ? 0 : 2);
+		x += char_w;
 		if(x >= sf->w)
 		{
 			x = 0;
@@ -34,5 +34,7 @@ Font::Font()
 
 Font::~Font()
 {
-	// TODO
+	for(int i=0; i<256; i++)
+		delete[] ch[i];
+	delete[] ch;
 }
