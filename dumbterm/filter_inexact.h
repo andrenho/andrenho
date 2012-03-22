@@ -7,11 +7,14 @@
 class FilterInexact : public Filter
 {
 public:
-	~FilterInexact() { printf("Destroy\n"); }
-	void Apply(Screen const& screen);
+	FilterInexact(int level=30, bool background=false) 
+		: level(level), background(background) { }
+	~FilterInexact() { }
+	void Apply(Screen const& screen, Options const& opt) const;
 
 private:
-	static const int LEVEL = 30;
+	const int level;
+	const bool background;
 };
 
 #endif

@@ -7,8 +7,8 @@
 class Filter
 {
 public:
-	virtual ~Filter() { printf("Destroy\n"); }
-	virtual void Apply(Screen const& screen) { printf("1\n") ; }
+	virtual ~Filter() { }
+	virtual void Apply(Screen const& screen, Options const& opt) const = 0;
 };
 
 #endif
