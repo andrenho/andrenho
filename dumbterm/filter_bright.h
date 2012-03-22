@@ -9,15 +9,15 @@ class FilterBright : public Filter
 public:
 	FilterBright(double level=1) 
 		: level(level), bsf(NULL) { }
-	~FilterBright() { }
+	~FilterBright();
 
 	void Apply(Screen const& screen, Options const& opt) const;
 
 private:
-	void InitBacksurface(Screen const& screen);
+	void InitBacksurface(Screen const& screen) const;
 
-	uint8_t* bsf;
 	const double level;
+	mutable uint8_t* bsf;
 };
 
 #endif
