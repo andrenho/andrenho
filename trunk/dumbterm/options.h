@@ -12,7 +12,7 @@ public:
 	Options();
 	~Options();
 
-	inline vector<Filter*> const Filters() const { return filters; }
+	inline vector<Filter*>* Filters() { return &filters; }
 
 	const int scale;
 	const int w, h;

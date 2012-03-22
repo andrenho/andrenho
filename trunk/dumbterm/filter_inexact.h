@@ -1,16 +1,17 @@
 #ifndef FILTER_INEXACT_H
 #define FILTER_INEXACT_H
 
+#include <cstdio>
 #include "filter.h"
 
 class FilterInexact : public Filter
 {
 public:
-	~FilterInexact() { }
-	void Apply(Screen const& screen) const;
+	~FilterInexact() { printf("Destroy\n"); }
+	void Apply(Screen const& screen);
 
 private:
-	static const int LEVEL = 10;
+	static const int LEVEL = 30;
 };
 
 #endif

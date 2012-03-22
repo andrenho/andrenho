@@ -5,9 +5,8 @@
 using namespace std;
 
 void 
-FilterInexact::Apply(Screen const& screen) const
+FilterInexact::Apply(Screen const& screen)
 {
-	/*
 	srand(0);
 	SDL_Surface* sf = screen.ScreenSurface();
 
@@ -19,5 +18,4 @@ FilterInexact::Apply(Screen const& screen) const
 			v = min(max(v+n, 0), 255);
 			P(sf, x, y) = v;
 		}
-	*/
 }
