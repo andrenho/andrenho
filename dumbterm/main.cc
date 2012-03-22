@@ -26,14 +26,16 @@ int main(int argc, char* argv[])
 			break;
 
 		screen.UpdateFromTerminal();
-		vector<Filter>::const_iterator filter;
+		vector<Filter*>::const_iterator filter;
 		for(filter = options.Filters().begin(); 
-				filter < options.Filters().end(); filter++)
-			screen.ApplyFilter(*filter);
+				filter < options.Filters().end(); 
+				filter++)
+			(*filter)->Apply(screen);
 		screen.UpdateToScreen();
 
 		terminal.EndFrame();
 	}
 
 	SDL_Quit();
+	return 0;
 }

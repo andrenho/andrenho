@@ -4,19 +4,21 @@
 #include <vector>
 using namespace std;
 
-#include "filter.h"
+class Filter;
 
 class Options
 {
 public:
-	Options() : scale(2), w(80), h(25) { }
-	inline vector<Filter> const Filters() const { return filters; }
+	Options();
+	~Options();
+
+	inline vector<Filter*> const Filters() const { return filters; }
 
 	const int scale;
 	const int w, h;
 
 private:
-	vector<Filter> const filters;
+	vector<Filter*> filters;
 };
 
 #endif
