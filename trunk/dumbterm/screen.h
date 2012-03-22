@@ -3,7 +3,6 @@
 
 #include "SDL.h"
 
-#include "filter.h"
 #include "options.h"
 #include "terminal.h"
 
@@ -15,9 +14,10 @@ public:
 	Screen(Options const& options, Terminal const& terminal);
 	~Screen();
 
-	void ApplyFilter(Filter const& filter);
 	void UpdateFromTerminal();
 	void UpdateToScreen();
+
+	SDL_Surface* ScreenSurface() const { return screen; }
 
 private:
 	void initializePalette();

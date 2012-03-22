@@ -4,7 +4,7 @@
 #include "SDL.h"
 
 const SDL_Color Screen::BACKGROUND = (SDL_Color) { 30, 30, 30 };
-const SDL_Color Screen::BRIGHT = (SDL_Color) { 100, 255, 150 };
+const SDL_Color Screen::BRIGHT = (SDL_Color) { 120, 255, 170 };
 
 Screen::Screen(Options const& options, Terminal const& terminal)
 	: options(options), terminal(terminal), w(terminal.w * options.scale),
@@ -43,37 +43,27 @@ Screen::initializePalette()
 }
 
 
-void 
-Screen::ApplyFilter(Filter const& filter)
-{
-}
-
-
 void
 Screen::UpdateFromTerminal()
 {
+	// TODO - make it faster
+	
 	const int sc = options.scale;
 	for(int x=0; x<terminal.w; x++)
 		for(int y=0; y<terminal.h; y++)
 			for(int i=0; i<options.scale; i++)
 				for(int j=0; j<options.scale; j++)
+				{
+					uint8_t c;
 					switch(terminal.T(x, y))
 					{
-					case 0:
-						P(screen, x*sc+i, y*sc+j) = 0;
-						break;
-					case 1:
-						P(screen, x*sc+i, y*sc+j) = 0;
-						break;
-					case 2:
-						P(screen, x*sc+i, y*sc+j) = 255;
-						break;
-					case 3:
-						P(screen, x*sc+i, y*sc+j) = 255;
-						break;
-					default:
-						abort();
+						case 0: c =   0; break;
+						case 1: c = 100; break;
+						case 2: c = 200; break;
+						case 3: c = 255; break;
 					}
+					P(screen, x*sc+i, y*sc+j) = c;
+				}
 }
 
 
