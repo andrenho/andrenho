@@ -20,22 +20,26 @@ int main(int argc, char* argv[])
 	Terminal terminal(options);
 	Screen screen(options, terminal);
 
+	bool i = true;
 	while(1)
 	{
 		terminal.BeginFrame();
 		if(!terminal.Process())
 			break;
 
-		screen.UpdateFromTerminal();
-		vector<Filter*>::const_iterator filter;
-		for(filter = options.Filters()->begin(); 
-				filter < options.Filters()->end(); 
-				filter++)
+		if(i)
 		{
-			Filter* f = (*filter);
-			f->Apply(screen, options);
+			screen.UpdateFromTerminal();
+
+			vector<Filter*>::const_iterator filter;
+			for(filter = options.Filters()->begin(); 
+					filter < options.Filters()->end(); 
+					filter++)
+				(*filter)->Apply(screen, options);
+			
+			screen.UpdateToScreen();
+			i = false;
 		}
-		screen.UpdateToScreen();
 
 		terminal.EndFrame();
 	}
