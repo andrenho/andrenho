@@ -24,6 +24,7 @@ private:
 
 	Options const& options;
 	Terminal const& terminal;
+	const int border_x, border_y;
 	const int w, h;
 	SDL_Surface* screen;
 
