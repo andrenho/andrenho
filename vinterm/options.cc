@@ -8,7 +8,7 @@ using namespace std;
 #include "filter_bright.h"
 
 Options::Options() 
-	: scale(2), w(80), h(25), border_x(20), border_y(30)
+	: scale(3), w(80), h(25), border_x(20), border_y(30)
 {
 	filters.push_back(new FilterBright(2,0));
 	filters.push_back(new FilterScanline());
