@@ -4,7 +4,7 @@
 #include "SDL.h"
 
 const SDL_Color Screen::BACKGROUND = (SDL_Color) { 30, 30, 30 };
-const SDL_Color Screen::BRIGHT = (SDL_Color) { 120, 255, 170 };
+const SDL_Color Screen::BRIGHT = (SDL_Color) { 140, 255, 190 };
 
 Screen::Screen(Options const& options, Terminal const& terminal)
 	: options(options), terminal(terminal), w(terminal.w * options.scale),

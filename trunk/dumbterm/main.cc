@@ -27,13 +27,13 @@ int main(int argc, char* argv[])
 			break;
 
 		screen.UpdateFromTerminal();
-		vector<Filter*>::iterator filter;
+		vector<Filter*>::const_iterator filter;
 		for(filter = options.Filters()->begin(); 
 				filter < options.Filters()->end(); 
 				filter++)
 		{
 			Filter* f = (*filter);
-			f->Apply(screen);
+			f->Apply(screen, options);
 		}
 		screen.UpdateToScreen();
 

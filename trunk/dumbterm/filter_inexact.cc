@@ -5,7 +5,7 @@
 using namespace std;
 
 void 
-FilterInexact::Apply(Screen const& screen)
+FilterInexact::Apply(Screen const& screen, Options const& opt) const
 {
 	srand(0);
 	SDL_Surface* sf = screen.ScreenSurface();
@@ -13,9 +13,12 @@ FilterInexact::Apply(Screen const& screen)
 	for(int x=0; x<sf->w; x++)
 		for(int y=0; y<sf->h; y++)
 		{
-			int n = (rand() % (LEVEL * 2)) - LEVEL;
 			int v = P(sf, x, y);
-			v = min(max(v+n, 0), 255);
-			P(sf, x, y) = v;
+			if(v > 10 || background)
+			{
+				int n = (rand() % (level * 2)) - level;
+				v = min(max(v+n, 0), 255);
+				P(sf, x, y) = v;
+			}
 		}
 }
