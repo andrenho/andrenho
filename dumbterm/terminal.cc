@@ -10,12 +10,12 @@ Terminal::Terminal(Options const& options)
 	for(int i=0; i<(w*h); i++)
 		sf[i] = 0;
 	SetChar('A', 0, 0);
-	sf[0] = 2;
 }
 
 Terminal::~Terminal()
 {
 	delete font;
+	delete[] sf;
 }
 
 void 
@@ -23,13 +23,13 @@ Terminal::SetChar(const char c, const int x, const int y)
 {
 	// TODO - check borders
 	for(int yy=0; yy<font->char_h; yy++)
-		memcpy(&sf[(y*font->char_h)*w+(x*font->char_w)],
+		memcpy(&sf[(y*font->char_h+yy)*w+(x*font->char_w)],
 		       &font->ch[(int)c][yy*font->char_w], 
 		       font->char_w);
 }
 
 
-void
+bool
 Terminal::Process()
 {
 	SDL_Event e;
@@ -38,8 +38,8 @@ Terminal::Process()
 		switch(e.type)
 		{
 		case SDL_QUIT:
-			SDL_Quit();
-			exit(0);
+			return false;
 		}
 	}
+	return true;
 }

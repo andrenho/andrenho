@@ -22,7 +22,8 @@ int main(int argc, char* argv[])
 	while(1)
 	{
 		terminal.BeginFrame();
-		terminal.Process();
+		if(!terminal.Process())
+			break;
 
 		screen.UpdateFromTerminal();
 		vector<Filter>::const_iterator filter;
@@ -33,4 +34,6 @@ int main(int argc, char* argv[])
 
 		terminal.EndFrame();
 	}
+
+	SDL_Quit();
 }

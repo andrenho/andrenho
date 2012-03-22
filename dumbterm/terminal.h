@@ -14,7 +14,7 @@ public:
 	~Terminal();
 
 	void BeginFrame() { }
-	void Process();
+	bool Process();
 	void EndFrame() { }
 	void SetChar(const char c, const int x, const int y);
 
