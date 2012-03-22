@@ -10,7 +10,10 @@ Terminal::Terminal(Options const& options)
 	for(int i=0; i<(w*h); i++)
 		sf[i] = 0;
 	for(char c='A', i=0; c<='z'; c++, i++)
+	{
 		SetChar(c, i, 0);
+		SetChar(c, i, 1);
+	}
 	SetChar('@', 79, 24);
 }
 
