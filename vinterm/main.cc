@@ -20,27 +20,11 @@ int main(int argc, char* argv[])
 	Terminal terminal(options);
 	Screen screen(options, terminal);
 
-	bool i = true;
 	while(1)
 	{
 		if(!terminal.Process())
 			break;
-
-		if(i)
-		{
-			screen.UpdateFromTerminal();
-
-                        /*
-			vector<Filter*>::const_iterator filter;
-			for(filter = options.Filters()->begin(); 
-					filter < options.Filters()->end(); 
-					filter++)
-				(*filter)->Apply(screen, options);
-                        */
-			
-			screen.UpdateToScreen();
-			i = false;
-		}
+		screen.Update();
 	}
 
 	SDL_Quit();

@@ -15,8 +15,7 @@ public:
 	Screen(Options const& options, Terminal& terminal);
 	~Screen();
 
-	void UpdateFromTerminal();
-	void UpdateToScreen();
+	void Update();
 
 	SDL_Surface* ScreenSurface() const { return screen; }
 	static void initializePalette(SDL_Surface* sf, Options const& options);
@@ -31,6 +30,7 @@ private:
 	const int border_x, border_y;
 	const int w, h;
 	SDL_Surface* screen;
+	SDL_Rect* rects;
 };
 
 #endif

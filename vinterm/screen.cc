@@ -11,7 +11,8 @@ Screen::Screen(Options const& options, Terminal& terminal)
 	  border_x(options.border_x * options.scale),
 	  border_y(options.border_y * options.scale),
 	  w(terminal.w * font->char_w * options.scale + (border_x * 2)), 
-	  h(terminal.h * font->char_h * options.scale + (border_y * 2))
+	  h(terminal.h * font->char_h * options.scale + (border_y * 2)),
+	  rects(new SDL_Rect[terminal.w * terminal.h])
 {
        	screen = SDL_SetVideoMode(w, h, 8, SDL_SWSURFACE);
 	if(!screen)
@@ -26,6 +27,7 @@ Screen::Screen(Options const& options, Terminal& terminal)
 
 Screen::~Screen()
 {
+	delete rects;
 	delete font;
 	delete chars;
 }
@@ -49,8 +51,11 @@ Screen::initializePalette(SDL_Surface* sf, Options const& options)
 
 
 void
-Screen::UpdateFromTerminal()
+Screen::Update()
 {
+	int i = 0;
+
+	// update data from the terminal
 	set<int>::const_iterator n;
 	for(n = terminal.dirty.begin(); n != terminal.dirty.end(); n++)
 	{
@@ -61,16 +66,13 @@ Screen::UpdateFromTerminal()
 			- (options.scale * chars->start_at_x);
 		int yy = (y * font->char_h * options.scale) + border_y
 			- (options.scale * chars->start_at_y);
-		SDL_Rect r = { xx, yy };
-		SDL_BlitSurface(chars->Char(ch.ch, ch.attr), NULL, screen, &r);
+		SDL_Surface* sf = chars->Char(ch.ch, ch.attr);
+		rects[i] = (SDL_Rect) { xx, yy, sf->w, sf->h };
+		SDL_BlitSurface(sf, NULL, screen, &rects[i]);
+		i++;
 	}
-
 	terminal.dirty.clear();
-}
 
-
-void 
-Screen::UpdateToScreen()
-{
-	SDL_Flip(screen); // TODO
+	// update screen
+	SDL_UpdateRects(screen, i, rects);
 }
