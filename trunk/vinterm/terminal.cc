@@ -7,13 +7,6 @@ Terminal::Terminal(Options const& options)
 {
 	for(int x=0; x<w; x++)
 		ch[x] = new TerminalChar[h];
-
-	for(char c='A', i=0; c<='z'; c++, i++)
-	{
-		SetChar(i, 0, c, NORMAL);
-		SetChar(i, 1, c, NORMAL);
-	}
-	SetChar(79, 24, '@', NORMAL);
 }
 
 

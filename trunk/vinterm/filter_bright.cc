@@ -5,9 +5,6 @@
 using namespace std;
 
 
-// TODO - remove backsurface, doesn't make sense anymore
-
-
 void 
 FilterBright::Apply(SDL_Surface* sf, Options const& opt) const
 {
@@ -56,11 +53,6 @@ FilterBright::ApplyPixel(SDL_Surface* sf, int x, int y, int sp, uint8_t* bsf) co
 
 	// apply brightness
 	if(c > 50)
-		c += (brightness * 10);
+		c += (int)(brightness * 10);
 	bsf[(y*sf->w)+x] = max(min(c, 255), 0);
-}
-
-
-FilterBright::~FilterBright()
-{
 }

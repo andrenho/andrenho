@@ -9,7 +9,7 @@ class FilterBright : public Filter
 public:
 	FilterBright(double brightness=1, int sharpness=0) 
 		: brightness(brightness), sharpness(sharpness) { }
-	~FilterBright();
+	~FilterBright() { }
 
 	void Apply(SDL_Surface* sf, Options const& opt) const;
 	inline FilterType Type() const { return PRE; }
