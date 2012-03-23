@@ -7,6 +7,13 @@
 #include "font.h"
 #include "options.h"
 
+typedef enum { NORMAL=0, NUM_ATTRS } CharAttr;
+
+typedef struct {
+	char ch;
+	CharAttr attr;
+} TerminalChar;
+
 class Terminal
 {
 public:
@@ -17,9 +24,11 @@ public:
 	void SetChar(const char c, const int x, const int y);
 
 	const int w, h;
+	TerminalChar Ch(int x, int y) const { return ch[x][y]; }
 
 private:
 	Options const& options;
+	TerminalChar** ch;
 };
 
 #endif
