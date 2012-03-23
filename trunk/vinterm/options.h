@@ -13,7 +13,7 @@ public:
 	Options();
 	~Options();
 
-	inline vector<Filter*>* Filters() { return &filters; }
+	inline const vector<Filter*>* PreFilters() const { return &prefilters; }
 
 	const int scale;
 	const int w, h;
@@ -21,7 +21,7 @@ public:
 	const SDL_Color background_color, bright_color;
 
 private:
-	vector<Filter*> filters;
+	vector<Filter*> prefilters;
 };
 
 #endif

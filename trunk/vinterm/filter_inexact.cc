@@ -5,10 +5,9 @@
 using namespace std;
 
 void 
-FilterInexact::Apply(Screen const& screen, Options const& opt) const
+FilterInexact::Apply(SDL_Surface* sf, Options const& opt) const
 {
 	srand(0);
-	SDL_Surface* sf = screen.ScreenSurface();
 
 	for(int x=0; x<sf->w; x++)
 		for(int y=0; y<sf->h; y++)

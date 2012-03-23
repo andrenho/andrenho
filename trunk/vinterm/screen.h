@@ -12,7 +12,7 @@
 class Screen
 {
 public:
-	Screen(Options const& options, Terminal const& terminal);
+	Screen(Options const& options, Terminal& terminal);
 	~Screen();
 
 	void UpdateFromTerminal();
@@ -27,7 +27,7 @@ private:
 	Options const& options;
 	const Font* const font;
 	Chars* chars;
-	Terminal const& terminal;
+	Terminal& terminal;
 	const int border_x, border_y;
 	const int w, h;
 	SDL_Surface* screen;

@@ -8,19 +8,18 @@ class FilterBright : public Filter
 {
 public:
 	FilterBright(double brightness=1, int sharpness=0) 
-		: brightness(brightness), sharpness(sharpness), bsf(NULL) { }
+		: brightness(brightness), sharpness(sharpness) { }
 	~FilterBright();
 
-	void Apply(Screen const& screen, Options const& opt) const;
+	void Apply(SDL_Surface* sf, Options const& opt) const;
 	inline FilterType Type() const { return PRE; }
 
 private:
-	void InitBacksurface(Screen const& screen) const;
-	void ApplyPixel(Screen const& screen, int x, int y, int sp) const;
+	void ApplyPixel(SDL_Surface* sf, int x, int y, int sp, 
+			uint8_t* bsf) const;
 
 	const double brightness;
 	const int sharpness;
-	mutable uint8_t* bsf;
 };
 
 #endif

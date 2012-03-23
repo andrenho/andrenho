@@ -5,28 +5,41 @@
 using namespace std;
 
 
+// TODO - remove backsurface, doesn't make sense anymore
+
+
 void 
-FilterBright::Apply(Screen const& screen, Options const& opt) const
+FilterBright::Apply(SDL_Surface* sf, Options const& opt) const
 {
-	SDL_Surface* sf = screen.ScreenSurface();
 	int sp = (6-opt.scale)*2 + sharpness;
 
-	if(!bsf)
-		InitBacksurface(screen);
+	uint8_t* bsf = new uint8_t[sf->w * sf->h];
 	for(int x=0; x<sf->w; x++)
 		for(int y=0; y<sf->h; y++)
-			ApplyPixel(screen, x, y, sp);
+			ApplyPixel(sf, x, y, sp, bsf);
+
+	for(int x=0; x<sf->w; x++)
+	{
+		for(int y=0; y<sf->h; y++)
+			if(bsf[(y*sf->w)+x])
+				printf("X");
+			else
+				printf(" ");
+		printf("\n");
+	}
+	exit(1);
 
 	memcpy(sf->pixels, bsf, sf->w*sf->h);
+	delete[] bsf;
 }
 
 
 void 
-FilterBright::ApplyPixel(Screen const& screen, int x, int y, int sp) const
+FilterBright::ApplyPixel(SDL_Surface* sf, int x, int y, int sp, uint8_t* bsf) const
 {
-	SDL_Surface* sf = screen.ScreenSurface();
-
 	int c = P(sf, x, y);
+	bsf[(y*sf->w)+x] = c;
+	return;
 
 	static struct { int x,y; } dirs[] = { 
 		{-1,-1},{-1,0},{-1,1},
@@ -56,16 +69,6 @@ FilterBright::ApplyPixel(Screen const& screen, int x, int y, int sp) const
 }
 
 
-void 
-FilterBright::InitBacksurface(Screen const& screen) const
-{
-	SDL_Surface* sf = screen.ScreenSurface();
-	bsf = new uint8_t[sf->w * sf->h];
-}
-
-
 FilterBright::~FilterBright()
 {
-	if(bsf)
-		delete[] bsf;
 }

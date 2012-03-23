@@ -7,14 +7,13 @@ Terminal::Terminal(Options const& options)
 {
 	for(int x=0; x<w; x++)
 		ch[x] = new TerminalChar[h];
-	/*
+
 	for(char c='A', i=0; c<='z'; c++, i++)
 	{
-		SetChar(c, i, 0);
-		SetChar(c, i, 1);
+		SetChar(i, 0, c, NORMAL);
+		SetChar(i, 1, c, NORMAL);
 	}
-	SetChar('@', 79, 24);
-	*/
+	SetChar(79, 24, '@', NORMAL);
 }
 
 
@@ -23,13 +22,17 @@ Terminal::~Terminal()
 	for(int x=0; x<w; x++)
 		delete[] ch[x];
 	delete[] ch;
+	dirty.clear();
 }
 
 
 void 
-Terminal::SetChar(const char c, const int x, const int y)
+Terminal::SetChar(const int x, const int y, char c, CharAttr attr)
 {
-	// TODO
+	// TODO - check bounds
+	ch[x][y].ch = c;
+	ch[x][y].attr = attr;
+	dirty.insert(y*w+x);
 }
 
 

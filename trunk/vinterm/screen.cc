@@ -3,7 +3,7 @@
 #include <cstdlib>
 #include "SDL.h"
 
-Screen::Screen(Options const& options, Terminal const& terminal)
+Screen::Screen(Options const& options, Terminal& terminal)
 	: options(options), 
 	  font(new Font()), 
 	  chars(new Chars(options, *font)),
@@ -51,46 +51,26 @@ Screen::initializePalette(SDL_Surface* sf, Options const& options)
 void
 Screen::UpdateFromTerminal()
 {
-	// TODO - make it faster
-	
-	/*
-	const int sc = options.scale;
-	for(int x=0; x<terminal.w; x++)
-		for(int y=0; y<terminal.h; y++)
-			for(int i=0; i<options.scale; i++)
-				for(int j=0; j<options.scale; j++)
-				{
-					uint8_t c;
-					switch(terminal.T(x, y))
-					{
-						case 0: c =   0; break;
-						case 1: c = 100; break;
-						case 2: c = 200; break;
-						case 3: c = 255; break;
-					}
-					P(screen, x*sc+i+border_x, y*sc+j+border_y) = c;
-				}
-	*/
+	set<int>::const_iterator n;
+	for(n = terminal.dirty.begin(); n != terminal.dirty.end(); n++)
+	{
+		int x = (*n) % terminal.w;
+		int y = (*n) / terminal.w;
+		TerminalChar ch = terminal.Ch(x, y);
+		int xx = (x * font->char_w * options.scale) + border_x 
+			- (options.scale * chars->start_at_x);
+		int yy = (y * font->char_h * options.scale) + border_y
+			- (options.scale * chars->start_at_y);
+		SDL_Rect r = { xx, yy };
+		SDL_BlitSurface(chars->Char(ch.ch, ch.attr), NULL, screen, &r);
+	}
+
+	terminal.dirty.clear();
 }
-
-
-/*
-void 
-Screen::SetChar(const char c, const int x, const int y)
-{
-	// TODO - check borders
-	for(int yy=0; yy<font->char_h; yy++)
-		memcpy(&sf[(y*font->char_h+yy)*w+(x*font->char_w)],
-		       &font->ch[(int)c][yy*font->char_w], 
-		       font->char_w);
-
-}
-*/
-
 
 
 void 
 Screen::UpdateToScreen()
 {
-	SDL_Flip(screen);
+	SDL_Flip(screen); // TODO
 }
