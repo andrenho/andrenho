@@ -11,6 +11,7 @@ public:
 		: level(level), each(each) { }
 	~FilterScanline() { }
 	void Apply(Screen const& screen, Options const& opt) const;
+	inline FilterType Type() const { return PRE; }
 
 private:
 	const double level;

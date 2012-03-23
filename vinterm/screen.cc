@@ -3,15 +3,15 @@
 #include <cstdlib>
 #include "SDL.h"
 
-const SDL_Color Screen::BACKGROUND = (SDL_Color) { 30, 30, 30 };
-const SDL_Color Screen::BRIGHT = (SDL_Color) { 140, 255, 190 };
-
 Screen::Screen(Options const& options, Terminal const& terminal)
-	: options(options), terminal(terminal), 
+	: options(options), 
+	  font(new Font()), 
+	  chars(new Chars(options, *font)),
+	  terminal(terminal), 
 	  border_x(options.border_x * options.scale),
 	  border_y(options.border_y * options.scale),
-	  w(terminal.w * options.scale + (border_x * 2)), 
-	  h(terminal.h * options.scale + (border_y * 2))
+	  w(terminal.w * font->char_w * options.scale + (border_x * 2)), 
+	  h(terminal.h * font->char_h * options.scale + (border_y * 2))
 {
        	screen = SDL_SetVideoMode(w, h, 8, SDL_SWSURFACE);
 	if(!screen)
@@ -20,29 +20,31 @@ Screen::Screen(Options const& options, Terminal const& terminal)
 				SDL_GetError());
 		exit(1);
 	}
-	initializePalette();
+	initializePalette(screen, options);
 }
 
 
 Screen::~Screen()
 {
+	delete font;
+	delete chars;
 }
 
 
 void
-Screen::initializePalette()
+Screen::initializePalette(SDL_Surface* sf, Options const& options)
 {
-	double rr = (BRIGHT.r - BACKGROUND.r) / 255.0;
-	double rg = (BRIGHT.g - BACKGROUND.g) / 255.0;
-	double rb = (BRIGHT.b - BACKGROUND.b) / 255.0;
+	double rr = (options.bright_color.r - options.background_color.r) / 255.0;
+	double rg = (options.bright_color.g - options.background_color.g) / 255.0;
+	double rb = (options.bright_color.b - options.background_color.b) / 255.0;
 
 	SDL_Color palette[256];
 	for(double i=0; i<256; i++)
 		palette[(Uint8)i] = (SDL_Color) {
-			(Uint8)(BACKGROUND.r + (rr * i)),
-			(Uint8)(BACKGROUND.g + (rg * i)),
-			(Uint8)(BACKGROUND.b + (rb * i)) };
-	SDL_SetColors(screen, palette, 0, 256);
+			(Uint8)(options.background_color.r + (rr * i)),
+			(Uint8)(options.background_color.g + (rg * i)),
+			(Uint8)(options.background_color.b + (rb * i)) };
+	SDL_SetColors(sf, palette, 0, 256);
 }
 
 
@@ -51,6 +53,7 @@ Screen::UpdateFromTerminal()
 {
 	// TODO - make it faster
 	
+	/*
 	const int sc = options.scale;
 	for(int x=0; x<terminal.w; x++)
 		for(int y=0; y<terminal.h; y++)
@@ -67,7 +70,23 @@ Screen::UpdateFromTerminal()
 					}
 					P(screen, x*sc+i+border_x, y*sc+j+border_y) = c;
 				}
+	*/
 }
+
+
+/*
+void 
+Screen::SetChar(const char c, const int x, const int y)
+{
+	// TODO - check borders
+	for(int yy=0; yy<font->char_h; yy++)
+		memcpy(&sf[(y*font->char_h+yy)*w+(x*font->char_w)],
+		       &font->ch[(int)c][yy*font->char_w], 
+		       font->char_w);
+
+}
+*/
+
 
 
 void 

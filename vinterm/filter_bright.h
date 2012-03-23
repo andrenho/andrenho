@@ -12,6 +12,7 @@ public:
 	~FilterBright();
 
 	void Apply(Screen const& screen, Options const& opt) const;
+	inline FilterType Type() const { return PRE; }
 
 private:
 	void InitBacksurface(Screen const& screen) const;

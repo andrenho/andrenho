@@ -5,6 +5,7 @@
 
 #include "options.h"
 #include "terminal.h"
+#include "chars.h"
 
 #define P(sf,x,y) *((Uint8*)(sf)->pixels + (y)*(sf)->pitch + (x))
 
@@ -20,16 +21,16 @@ public:
 	SDL_Surface* ScreenSurface() const { return screen; }
 
 private:
-	void initializePalette();
+	static void initializePalette(SDL_Surface* sf, Options const& options);
+	void initializeChars();
 
 	Options const& options;
+	const Font* const font;
+	Chars* chars;
 	Terminal const& terminal;
 	const int border_x, border_y;
 	const int w, h;
 	SDL_Surface* screen;
-
-	static const SDL_Color BACKGROUND;
-	static const SDL_Color BRIGHT;
 };
 
 #endif

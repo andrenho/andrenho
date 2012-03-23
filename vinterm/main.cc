@@ -23,7 +23,6 @@ int main(int argc, char* argv[])
 	bool i = true;
 	while(1)
 	{
-		terminal.BeginFrame();
 		if(!terminal.Process())
 			break;
 
@@ -31,17 +30,17 @@ int main(int argc, char* argv[])
 		{
 			screen.UpdateFromTerminal();
 
+                        /*
 			vector<Filter*>::const_iterator filter;
 			for(filter = options.Filters()->begin(); 
 					filter < options.Filters()->end(); 
 					filter++)
 				(*filter)->Apply(screen, options);
+                        */
 			
 			screen.UpdateToScreen();
 			i = false;
 		}
-
-		terminal.EndFrame();
 	}
 
 	SDL_Quit();
