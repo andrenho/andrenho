@@ -10,7 +10,7 @@ public:
 	FilterInexact(int level=30, bool background=false) 
 		: level(level), background(background) { }
 	~FilterInexact() { }
-	void Apply(Screen const& screen, Options const& opt) const;
+	void Apply(SDL_Surface* sf, Options const& opt) const;
 	inline FilterType Type() const { return PRE; }
 
 private:

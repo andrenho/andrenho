@@ -13,6 +13,10 @@ public:
 	Chars(Options const& options, Font const& font);
 	~Chars();
 
+	SDL_Surface* Char(int c, CharAttr attr) const { return chars[c][attr]; }
+
+	const int start_at_x, start_at_y;
+
 private:
 	SDL_Surface* CreateChar(int c, CharAttr attr);
 

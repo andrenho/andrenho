@@ -10,7 +10,7 @@ public:
 	FilterScanline(double level=.75, int each=2) 
 		: level(level), each(each) { }
 	~FilterScanline() { }
-	void Apply(Screen const& screen, Options const& opt) const;
+	void Apply(SDL_Surface* sf, Options const& opt) const;
 	inline FilterType Type() const { return PRE; }
 
 private:
