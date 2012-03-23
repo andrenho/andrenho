@@ -11,6 +11,7 @@ public:
 		: level(level), background(background) { }
 	~FilterInexact() { }
 	void Apply(Screen const& screen, Options const& opt) const;
+	inline FilterType Type() const { return PRE; }
 
 private:
 	const int level;

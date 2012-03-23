@@ -19,7 +19,7 @@ Font::Font()
 		ch[i] = new uint8_t[char_w*char_h];
 		for(int xx=0; xx<char_w; xx++)
 			for(int yy=0; yy<char_h; yy++)
-				ch[i][yy*char_w+xx] = (P(sf,x+xx,y+yy) == 1 ? 0 : 2);
+				ch[i][yy*char_w+xx] = (P(sf,x+xx,y+yy) == 1 ? 0 : 1);
 		x += char_w;
 		if(x >= sf->w)
 		{

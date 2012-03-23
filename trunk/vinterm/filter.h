@@ -4,11 +4,14 @@
 #include <cstdio>
 #include "screen.h"
 
+typedef enum { PRE, POST } FilterType;
+
 class Filter
 {
 public:
 	virtual ~Filter() { }
 	virtual void Apply(Screen const& screen, Options const& opt) const = 0;
+	virtual FilterType Type() const = 0;
 };
 
 #endif
