@@ -8,7 +8,7 @@ using namespace std;
 #include "filter_bright.h"
 
 Options::Options() 
-	: scale(2), w(80), h(25), border_x(20), border_y(30),
+	: scale(1), w(80), h(25), border_x(20), border_y(30),
 	  background_color((SDL_Color) { 30, 30, 30 }),
 	  bright_color((SDL_Color) { 140, 255, 190 })
 {

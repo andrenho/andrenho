@@ -19,17 +19,11 @@ FilterBright::Apply(SDL_Surface* sf, Options const& opt) const
 			ApplyPixel(sf, x, y, sp, bsf);
 
 	for(int x=0; x<sf->w; x++)
-	{
 		for(int y=0; y<sf->h; y++)
-			if(bsf[(y*sf->w)+x])
-				printf("X");
-			else
-				printf(" ");
-		printf("\n");
-	}
-	exit(1);
+			P(sf, x, y) =  bsf[(y*sf->w)+x];
 
-	memcpy(sf->pixels, bsf, sf->w*sf->h);
+	//memcpy(sf->pixels, bsf, sf->w*sf->h);
+
 	delete[] bsf;
 }
 
@@ -38,8 +32,6 @@ void
 FilterBright::ApplyPixel(SDL_Surface* sf, int x, int y, int sp, uint8_t* bsf) const
 {
 	int c = P(sf, x, y);
-	bsf[(y*sf->w)+x] = c;
-	return;
 
 	static struct { int x,y; } dirs[] = { 
 		{-1,-1},{-1,0},{-1,1},
