@@ -3,8 +3,10 @@
 #include "SDL.h"
 
 Terminal::Terminal(Options const& options)
-	: w(80), h(25), options(options)
+	: w(80), h(25), options(options), ch(new TerminalChar*[w])
 {
+	for(int x=0; x<w; x++)
+		ch[x] = new TerminalChar[h];
 	/*
 	for(char c='A', i=0; c<='z'; c++, i++)
 	{
@@ -18,6 +20,9 @@ Terminal::Terminal(Options const& options)
 
 Terminal::~Terminal()
 {
+	for(int x=0; x<w; x++)
+		delete[] ch[x];
+	delete[] ch;
 }
 
 

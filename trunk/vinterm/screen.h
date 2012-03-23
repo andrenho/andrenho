@@ -19,9 +19,9 @@ public:
 	void UpdateToScreen();
 
 	SDL_Surface* ScreenSurface() const { return screen; }
+	static void initializePalette(SDL_Surface* sf, Options const& options);
 
 private:
-	static void initializePalette(SDL_Surface* sf, Options const& options);
 	void initializeChars();
 
 	Options const& options;

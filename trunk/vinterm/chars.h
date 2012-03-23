@@ -5,22 +5,20 @@
 
 #include "font.h"
 #include "options.h"
-
-typedef struct TerminalChar
-{
-	SDL_Surface *normal;
-};
+#include "terminal.h"
 
 class Chars
 {
 public:
 	Chars(Options const& options, Font const& font);
-	~Chars() { delete[] chars; }
+	~Chars();
 
 private:
+	SDL_Surface* CreateChar(int c, CharAttr attr);
+
 	Options const& options;
 	Font const& font;
-	TerminalChar* chars;
+	SDL_Surface*** chars;
 };
 
 #endif
