@@ -25,4 +25,9 @@ Options::Options()
 
 Options::~Options()
 {
+	vector<Filter*>::iterator filter;
+	for(filter = options.Filters()->begin(); 
+			filter < options.Filters()->end(); 
+			filter++)
+		delete *filter;
 }
