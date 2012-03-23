@@ -18,7 +18,11 @@ Chars::Chars(Options const& options, Font const& font)
 Chars::~Chars()
 {
 	for(int i=0; i<256; i++)
+	{
+		for(int j=0; j<NUM_ATTRS; j++)
+			SDL_FreeSurface(chars[i][NORMAL]);
 		delete[] chars[i];
+	}
 	delete[] chars;
 }
 
