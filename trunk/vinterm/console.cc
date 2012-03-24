@@ -16,7 +16,7 @@ Console::Console()
 	else if(!pid)
 	{
 		// child
-		if (putenv((char*)"TERM=con80x25"))
+		if (putenv((char*)"TERM=console"))
 		{
 			perror("putenv");
 			abort();

@@ -27,6 +27,7 @@ int main(int argc, char* argv[])
 		if(!terminal.Process())
 			break;
 		screen.Update();
+		SDL_Delay(5);
 	}
 
 	SDL_Quit();
