@@ -7,6 +7,7 @@ using namespace std;
 #include "options.h"
 #include "screen.h"
 #include "terminal.h"
+#include "console.h"
 
 int main(int argc, char* argv[])
 {
@@ -17,7 +18,8 @@ int main(int argc, char* argv[])
 	}
 
 	Options options;
-	Terminal terminal(options);
+	Console console;
+	Terminal terminal(options, console);
 	Screen screen(options, terminal);
 
 	while(1)
