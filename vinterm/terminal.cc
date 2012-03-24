@@ -4,13 +4,18 @@
 
 Terminal::Terminal(Options const& options, Console& console)
 	: w(80), h(25), options(options), console(console), 
-	  ch(new TerminalChar*[w]), cursor_x(0), cursor_y(0)
+	  ch(new TerminalChar*[w]), cursor_x(0), cursor_y(0),
+	  old_cursor_x(0), old_cursor_y(0), blink_on(true), 
+	  last_blink(SDL_GetTicks())
 {
 	SDL_EnableUNICODE(1);
 	SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY, 
 			SDL_DEFAULT_REPEAT_INTERVAL);
+
 	for(int x=0; x<w; x++)
 		ch[x] = new TerminalChar[h];
+
+	UpdateCursorPosition();
 }
 
 
@@ -26,7 +31,18 @@ Terminal::~Terminal()
 bool
 Terminal::Process()
 {
-	// read chars and send them to the console (TODO - move to screen?)
+	if(SDL_GetTicks() >= last_blink + options.blink_speed)
+		Blink();
+	if(!ConsoleInput())
+	       return false;
+	return ConsoleOutput();
+}
+
+
+bool
+Terminal::ConsoleInput()
+{
+	// read chars and send them to the console
 	SDL_Event e;
 	while(SDL_PollEvent(&e))
 	{
@@ -43,7 +59,13 @@ Terminal::Process()
 			return false;
 		}
 	}
+	return true;
+}
 
+
+bool
+Terminal::ConsoleOutput()
+{
 	// read console and draw on terminal
 	string s;
 	if(console.ReceiveString(s) == Console::READ_OK)
@@ -52,7 +74,6 @@ Terminal::Process()
 		for(it = s.begin(); it != s.end(); it++)
 			PrintChar(*it);
 	}
-
 	return true;
 }
 
@@ -66,7 +87,7 @@ Terminal::KeyPress(uint16_t key)
 
 
 void 
-Terminal::PrintChar(const int c)
+Terminal::PrintChar(const uint8_t c)
 {
 	switch(c)
 	{
@@ -80,23 +101,28 @@ Terminal::PrintChar(const int c)
 		break;
 	case '\r': // carriage return
 		cursor_x = 0;
+		UpdateCursorPosition();
 		break;
 	case '\b':
 		if(cursor_x > 0)
 		{
 			SetChar(cursor_x-1, cursor_y, ' ', NORMAL);
 			--cursor_x;
+			UpdateCursorPosition();
 		}
 		break;
 	default:
 		SetChar(cursor_x, cursor_y, c, NORMAL);
 		AdvanceCursorX();
 	}
+
+	blink_on = false;
+	Blink();
 }
 
 
 void 
-Terminal::SetChar(const int x, const int y, int c, CharAttr attr)
+Terminal::SetChar(const int x, const int y, uint8_t c, CharAttr attr)
 {
 	if(x < 0 || y < 0 || x >= w || y >= h)
 		abort();
@@ -115,6 +141,7 @@ Terminal::AdvanceCursorX()
 		AdvanceCursorY();
 		cursor_x = 0;
 	}
+	UpdateCursorPosition();
 }
 
 
@@ -133,5 +160,40 @@ Terminal::AdvanceCursorY()
 			SetChar(x, h-1, ' ', NORMAL);
 		--cursor_y;
 	}
+	UpdateCursorPosition();
+}
 
+
+void
+Terminal::UpdateCursorPosition()
+{
+	if(cursor_x >= w || cursor_y >= h)
+		return;
+
+	TerminalChar* old = &ch[old_cursor_x][old_cursor_y];
+	old->cursor = false;
+	SetChar(old_cursor_x, old_cursor_y, old->ch, old->attr);
+	
+	TerminalChar* _new = &ch[cursor_x][cursor_y];
+	_new->cursor = true;
+	SetChar(cursor_x, cursor_y, _new->ch, _new->attr);
+
+	old_cursor_x = cursor_x;
+	old_cursor_y = cursor_y;
+}
+
+
+void
+Terminal::Blink()
+{
+	blink_on = !blink_on;
+
+	for(int x=0; x<w; x++)
+		for(int y=0; y<h; y++)
+			if(ch[x][y].isReverse())
+				SetChar(x, y, ch[x][y].ch, ch[x][y].attr);
+	SetChar(cursor_x, cursor_y, ch[cursor_x][cursor_y].ch,
+			ch[cursor_x][cursor_y].attr);
+
+	last_blink = SDL_GetTicks();
 }

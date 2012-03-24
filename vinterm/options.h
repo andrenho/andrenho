@@ -1,6 +1,7 @@
 #ifndef OPTIONS_H
 #define OPTIONS_H
 
+#include <stdint.h>
 #include <vector>
 #include "SDL.h"
 using namespace std;
@@ -19,6 +20,7 @@ public:
 	const int w, h;
 	const int border_x, border_y;
 	const SDL_Color background_color, bright_color;
+	const uint32_t blink_speed;
 
 private:
 	vector<Filter*> prefilters;

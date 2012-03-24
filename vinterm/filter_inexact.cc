@@ -7,8 +7,6 @@ using namespace std;
 void 
 FilterInexact::Apply(SDL_Surface* sf, Options const& opt) const
 {
-	srand(0);
-
 	for(int x=0; x<sf->w; x++)
 		for(int y=0; y<sf->h; y++)
 		{
