@@ -28,7 +28,7 @@ Screen::Screen(Options const& options, Terminal& terminal)
 
 Screen::~Screen()
 {
-	delete rects;
+	delete[] rects;
 	delete font;
 	delete chars;
 }

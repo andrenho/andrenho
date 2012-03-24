@@ -14,7 +14,7 @@ Options::Options()
 {
 	prefilters.push_back(new FilterBright(2,0));
 	if(scale == 1)
-		prefilters.push_back(new FilterInexact(15));
+		prefilters.push_back(new FilterInexact(20));
 	else
 	{
 		prefilters.push_back(new FilterScanline());
