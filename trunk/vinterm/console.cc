@@ -103,15 +103,20 @@ int Console::ReceiveString(string& s) const
 
 	if(nread == -1)
 	{
-		if(errno != EAGAIN)
+		if(errno == EAGAIN)
+		{
+			if(s.length() == 0)
+				return NO_DATA;
+			else
+				return READ_OK;
+		}
+		else if(errno == EIO)
+			return EOF;
+		else
 		{
 			perror("read");
 			abort();
 		}
-		if(s.length() == 0)
-			return NO_DATA;
-		else
-			return READ_OK;
 	}
 	else if(nread == 0)
 		return EOF;

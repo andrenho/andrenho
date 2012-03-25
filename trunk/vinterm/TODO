@@ -1,0 +1,8 @@
+- ignore ESCAPE codes
+- get correct terminal
+- fix exit abort
+- fix memory leaks
+- comment everything, write docs, man page
+- autotools
+- alpha message
+- icon
