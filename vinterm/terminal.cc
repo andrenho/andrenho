@@ -68,12 +68,17 @@ Terminal::ConsoleOutput()
 {
 	// read console and draw on terminal
 	string s;
-	if(console.ReceiveString(s) == Console::READ_OK)
+	int ret;
+	if((ret = console.ReceiveString(s)) == Console::READ_OK)
 	{
 		string::const_iterator it;
 		for(it = s.begin(); it != s.end(); it++)
 			PrintChar(*it);
+		return true;
 	}
+	else if(ret == EOF)
+		return false;
+
 	return true;
 }
 
