@@ -1,25 +1,27 @@
-\chapter{Conceitos Gerais}
+\chapter{Conceituação}
 \label{ch:conceitos}
+
+Computação ubíqua, sensibilidade a contexto, trilhas e personalização são as áreas relacionadas a este trabalho. Este capítulo apresenta uma breve explicação sobre cada uma delas.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Computação Ubíqua}
 \label{sec:ubicomp}
 
-Em 1991, uma equipe do Laboratório de Ciência Computacional da {\em Xerox Palo Alto Research Center}, liderada por Mark Weiser, identificou um conjunto de tendências relacionadas à computação: \cite{weiser91}
+Em 1991, uma equipe do Laboratório de Ciência Computacional da {\em Xerox Palo Alto Research Center}, liderada por Mark Weiser, identificou um conjunto de tendências relacionadas à computação \cite{weiser91}.
 
 \begin{itemize}
-  \item O tamanho dos computadores está se tornando cada vez menor;
-  \item O custo do hardware está se tornando cada vez menor;
-  \item A proporção entre o número de pessoas e o número de computadores está se tornando cada maior (nos anos 1960, era comum o uso de um único computador por centenas de pessoas -- hoje, é comum que cada pessoa possua vários dispositivos computacionais, como computadores, GPS, telefones celulares, entre outros);
-  \item O acesso a redes {\em wireless} está cada vez mais disponível aos usuários. Embora na época do artigo o acesso {\em wireless} à Internet ainda não fosse uma realidade para a maioria dos usuários, é evidente que hoje esta também é uma tendência.
+  \item o tamanho dos computadores estava se tornando cada vez menor;
+  \item o custo do hardware estava se tornando cada vez menor -- tendência que continua até os dias atuais;
+  \item a proporção entre o número de pessoas e o número de computadores estava se tornando cada vez maior (nos anos 1960, era comum o uso de um único computador por centenas de pessoas -- atualmente, é comum que cada pessoa possua vários dispositivos computacionais, como computadores, GPS, telefones celulares, entre outros);
+  \item o acesso a redes {\em wireless} estava cada vez mais disponível aos usuários. Embora na época do artigo o acesso {\em wireless} à Internet ainda não fosse uma realidade para a maioria dos usuários, é evidente que hoje esta também é uma tendência.
 \end{itemize}
 
-A análise é que todas estas tendências levarão a um aumento no número de dispositivos e no aumento da disponibilidade de acesso, que eventualmente levará a uma sobrecarga de informação sobre os usuários, de forma a causar um detrimento na qualidade da interação entre humanos e computadores e, conseqüentemente, na qualidade de vida dos usuários. \cite{weiser96}
+A análise é que todas estas tendências levarão a um aumento no número de dispositivos e no aumento da disponibilidade de acesso, que eventualmente levará a uma sobrecarga de informação sobre os usuários, de forma a causar um detrimento na qualidade da interação entre humanos e computadores e, conseqüentemente, na qualidade de vida das pessoas \cite{weiser96}.
 
-Assim, \citetexto{weiser91} inicia seu artigo seminal afirmando que ``as tecnologias mais profundas são aquelas que desaparecem. Elas se entrelaçam no tecido do dia-a-dia até que se tornem indistinguíveis dele.'' Ele defende que o futuro da computação está em integrar o computador ao mundo real, e chama este novo paradigma de {\bf computação ubíqua}. A noção de ``realidade virtual'' é apresentada como o oposto absoluto da computação ubíqua: enquanto a realidade virtual busca trazer o usuário para dentro de um mundo construído pelo computador, a computação ubíqua busca trazer os computadores para dentro de um mundo construído por pessoas.
+Assim, \citetexto{weiser91} inicia seu artigo afirmando que ``as tecnologias mais profundas são aquelas que desaparecem. Elas se entrelaçam no tecido do dia-a-dia até que se tornem indistinguíveis dele.'' Ele defende que o futuro da computação está em integrar o computador ao mundo real, e chama este novo paradigma de {\bf computação ubíqua}. A noção de ``realidade virtual'' é apresentada como o oposto absoluto da computação ubíqua. Enquanto a realidade virtual busca trazer o usuário para dentro de um mundo construído pelo computador, a computação ubíqua busca trazer os computadores para dentro de um mundo construído por pessoas.
 
-\citetexto{weiser96} apresentam o conceito de ``tecnologia calma'' como solução para o problema de sobrecarga de informações sobre o usuário. Este conceito integra-se intimamente com a computação ubíqua. Dentro desta idéia, a transmissão de informações entre o computador e o usuário devem ocorrer na ``periferia'' da atenção do usuário, movendo-se para o ``centro'' da atenção em momentos de urgência. Um exemplo é o motor de um carro: quando um motorista dirige um carro, sua atenção está focada na estrada, e ele mal percebe o som do motor. No entando, se houver algum som diferente no motor (o que pode indicar algum problema), a atenção do usuário passa a focar-se no motor. Da mesma forma, os sistemas devem, em seu curso normal, manter-se na periferia da atenção do usuário, trazendo a atenção para o centro nos momentos em que a atenção do usuário é necessária.
+\citetexto{weiser96} apresentam o conceito de ``tecnologia calma'' como solução para o problema de sobrecarga de informações sobre o usuário. Este conceito integra-se intimamente com a computação ubíqua. Dentro desta idéia, a transmissão de informações entre o computador e o usuário devem ocorrer na ``periferia'' da atenção do usuário, movendo-se para o ``centro'' da atenção em momentos de urgência. Um exemplo é o motor de um carro: quando um motorista dirige um carro, sua atenção está focada na estrada, e ele mal percebe o som do motor. No entanto, se houver algum som diferente no motor (o que pode indicar algum problema), a atenção do usuário passa a focar-se no motor. Da mesma forma, os sistemas devem, em seu curso normal, manter-se na periferia da atenção do usuário, trazendo a atenção para o centro nos momentos em que a atenção é necessária.
 
 Em termos de sistema, \citetexto{satyanarayanan01} vê a computação móvel como evolução da computação distribuída, e a computação ubíqua (ou pervasiva, como ele chama no artigo) como evolução da computação móvel. Ele defende que cada uma destas fases teve seus próprios desafios, e que cada nova fase trouxe junto os desafios da fase anterior, como pode ser visto na Figura~\ref{fig:desafios}.
 
@@ -32,14 +34,14 @@ Em termos de sistema, \citetexto{satyanarayanan01} vê a computação móvel com
 
 Assim, a computação ubíqua herda os desafios da computação distribuída e movel, que são: (i) comunicação remota, (ii) tolerânica a falhas, (iii) alta disponibilidade, (iv) acesso a informações remotas, (v) segurança distribuída, (vi) redes móveis, (vii) acesso a informações móveis, (viii) aplicações adaptativas, (ix) sistemas sensíveis a energia e (x) sensitividade a localização. A estes problemas de pesquisa, a computação ubíqua acrescenta:
 
-\begin{description}
-  \item[Uso efetivo de espaços inteligentes] -- à medida que se acrescenta uma infraestrutura computacional aos espaços físicos, torna-se possíveis não apenas sentir o mundo exterior, mas também controlá-lo. O contrário também é possível: a influência do mundo exterior (como localização) sobre um software do usuário;
+\begin{itemize}
+  \item uso efetivo de espaços inteligentes: à medida que se acrescenta uma infraestrutura computacional aos espaços físicos, torna-se possíveis não apenas sentir o mundo exterior, mas também controlá-lo. O contrário também é possível, ou seja, a influência do mundo exterior (como localização) sobre um software do usuário;
 
-  \item[Invisibilidade] -- a busca pelo completo desaparecimento da tecnologia computacional da mente do usuário ou, se inatingível, o mínimo de distração possível;
+  \item invisibilidade: a busca pelo completo desaparecimento da tecnologia computacional da mente do usuário ou, se inatingível, o mínimo de distração possível;
 
-  \item[Escalabilidade localizada] -- a capacidade de um ambiente suportar uma crescente densidade de dispositivos computacionais, possivelmente através da intensificação das interações locais em detrimento das interações distantes;
+  \item escalabilidade localizada: a capacidade de um ambiente suportar uma crescente densidade de dispositivos computacionais, possivelmente através da intensificação das interações locais em detrimento das interações distantes;
 
-  \item[Mascaramento de condições irregulares] -- a capacidade de um sistema de se adaptar a uma taxa de penetração de tecnologia ubíqua variável, dependendo da localização.
+  \item mascaramento de condições irregulares: a capacidade de um sistema de se adaptar a uma taxa de penetração de tecnologia ubíqua variável, dependendo da localização.
 \end{description}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -47,28 +49,28 @@ Assim, a computação ubíqua herda os desafios da computação distribuída e m
 \section{Sensibilidade a Contexto}
 \label{sec:contexto}
 
-\citetexto{satyanarayanan01} defende que, para que um sistema seja minimamente intrusivo, é necessário que ele seja capaz de reconhecer o estado do usuário e seus arredores, e adapte seu comportamento de acordo com esta informação. Esta informação é chamada de ``contexto'' e sistemas capazes deste tipo de adaptação são chamados ``sensíveis a contexto''.
+\citetexto{satyanarayanan01} defende que, para que um sistema seja minimamente intrusivo, é necessário que ele seja capaz de reconhecer a situação do usuário e seus arredores, e adapte seu comportamento de acordo com esta informação. Esta informação é chamada de ``contexto'' e sistemas capazes deste tipo de adaptação são chamados ``sensíveis a contexto''.
 
-Uma considerável quantidade de pesquisas tem sido feita na tentativa de obter um definição exata de contexto. \citetexto{schilit94} compreendem que uma das principais dificuldades nesta definição está no fato que, na computação móvel (e, por extensão, ubíqua) o ambiente está sempre mudando. A configuração de hardware (dispositivo, qualidade da rede, conectividade), localização, grupo de pessoas próximas, entre outros, está em constante mudança.
+Uma considerável quantidade de pesquisas tem sido feita na tentativa de obter uma definição exata de contexto. \citetexto{schilit94} compreendem que uma das principais dificuldades nesta definição está no fato que, na computação móvel (e, por extensão, ubíqua) o ambiente está sempre mudando. A configuração de hardware (dispositivo, qualidade da rede, conectividade), localização, grupo de pessoas próximas, entre outros, está em constante mudança.
 
-\citetexto{schilit94} definem contexto como sendo: quem você é, com quem você está e que recursos estão próximos. Assim, o contexto é mais do que apenas a localização do usuário -- ele inclui também luminosidade, nível de ruído, conectividade de rede, custos de comunicação, qualidade da conexão e até mesmo a situação social, como as pessoas que estão ao redor.
+\citetexto{schilit94} definem contexto como sendo: quem você é, com quem você está e que recursos estão próximos. Assim, o contexto é mais do que apenas a localização do usuário; ele inclui também luminosidade, nível de ruído, conectividade de rede, custos de comunicação, qualidade da conexão e até mesmo a situação social, como as pessoas que estão ao redor.
 
-Já \citetexto{dey2001} entende que a definição de \citetexto{schilit94} é específica demais, pois não encompassa toda a situação relevante à aplicação e seu conjunto de usuários. Como não é possível enumerar todos os aspectos possíveis de todas as situações, a seguinte definição é dada:
+\citetexto{dey2001}, por sua vez, entende que a definição de \citetexto{schilit94} é específica demais, pois não encompassa toda a situação relevante à aplicação e seu conjunto de usuários. Como não é possível enumerar todos os aspectos possíveis de todas as situações, a seguinte definição é dada:
 
 \begin{quotation}
-Contexto é qualquer informação que possa ser usada para caracterizar a situação de uma entidade. Uma entidade é uma pessoa, local ou objeto que seja considerada relevante para a interação entre um usuário e uma aplicação, incluíndo os próprios usuário e aplicação. \cite{dey2001}
+Contexto é qualquer informação que possa ser usada para caracterizar a situação de uma entidade. Uma entidade é uma pessoa, local ou objeto que seja considerada relevante para a interação entre um usuário e uma aplicação, incluíndo os próprios usuário e aplicação \cite{dey2001}.
 \end{quotation}
 
-Assim, por extensão, \citetexto{dey2001} define que ``um sistema é sensível a contexto se ele utiliza o contexto para oferecer informações relevantes e/ou serviços ao usuário, onde a relevância depende da tarefa do usuário.''
+Assim, por extensão, \citetexto{dey2001} define que ``um sistema é sensível a contexto se ele utiliza o contexto para oferecer informações relevantes e/ou serviços ao usuário, onde a relevância depende da tarefa do usuário''.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Trilhas}
 \label{sec:trilhas}
 
-Estudos recentes indicam que além do contexto atual de um usuário, a histórico de contextos visitados podem permitir uma ampliação na capacidade de um sistema sensível a contextos de se adaptar a um usuário. A este histórico é dado o nome de ``trilha''. \cite{silva09,driver08,clarke04}
+Estudos recentes indicam que além do contexto atual de um usuário, a histórico de contextos visitados podem permitir uma ampliação na capacidade de um sistema sensível a contextos de se adaptar a um usuário. A este histórico é dado o nome de ``trilha'' \cite{silva09,driver08,clarke04}.
 
-Embora a trilha geralmente esteja vinculada à localização de um usuário, ela possui um conceito mais amplo, que inclui as atividades realizadas, aplicações usadas, conteúdos acessados -- entre outros -- dentro de um contexto e um período de tempo específico. \cite{silva09}
+Embora a trilha geralmente esteja vinculada à localização de um usuário, ela possui um conceito mais amplo, que inclui as atividades realizadas, aplicações usadas, conteúdos acessados -- entre outros -- dentro de um contexto e um período de tempo específico \cite{silva09}.
 
 De acordo com \citetexto{driver04}, a pesquisa na área de trilhas é relevante para o campo do desenvolvimento de aplicações ubíquas, uma vez que a utilização de trilhas vai ao encontro do desafio central da área de computação ubíqua, isto é, o desenvolvimento de aplicações transparentes ao usuário.
 
@@ -77,32 +79,35 @@ De acordo com \citetexto{driver04}, a pesquisa na área de trilhas é relevante 
 \section{Personalização}
 \label{sec:personalizacao}
 
-\citetexto{mulvenna00} definem ``personalização'' como sendo a disponibilização de produtos, serviços e informações adaptados individualmente. A tecnologia de personalização geralmente envolve programas que aprendam padrões, hábitos e preferências.
-
-A coleta de informações de um usuário pode ser explícita ou implícita \cite{viviani10}. Na coleta explícita, é requisitado ao usuário que preencha informações através de um formulário pré-definido, enquanto na coleta implícita, a informação é inferida a partir do estudo do comportamento do usuário.
-
-O objetivo principal por detrás dos sistemas de personalização modernos é oferecer aos usuários o que eles querem sem requisitar que eles informem isto de forma explícita \cite{mulvenna00}. Fica claro que este propósito vai de encontro ao propósito da computação ubíqua, isto é, o desenvolvimento de uma tecnologia que ``desapareça''.
-
-Informações a respeito de um usuário colhidas por uma aplicação podem ser úteis para outras aplicações que tenham o mesmo usuário \cite{viviani10}. No entanto, os diferentes modelos de usuário utilizados pelas aplicações tornam difícil a utilização de informações de um mesmo perfil de usuário por várias aplicações. Além disso, algumas das informações do usuário podem ser válidas apenas dentro de um contexto específico, o que dificulta ainda mais que diferentes aplicações compartilharem o mesmo perfil.
-
-Visando resolver estas questões, o conceito de personalização inter-sistemas foi introduzido \cite{niederee04} como forma de compartilhar informações de usuários entre diferentes aplicações. Como o maior problema deste tipo de modelo é o alinhamento entre as diferentes abordagens de personalização, o estudo de sistemas de modelos de usuário é atualmente o principal desafio da pesquisa na área de personalização.\cite{viviani10}
-
-O IEEE Standard Computer Dictionary \cite{ieeedict} define interoperabilidade como ``a capacidade de dois ou mais sistemas ou componentes trocarem informações e utilizar a informação que foi trocada.'' No âmbito da personalização, interoperabilidade é a capacidade de acessar e interpretar informação derivada de múltiplas fontes heterogênias e integrar esta informação em um modelo de usuário comum \cite{carmagnola09}. Os dois principais modelos de interoperabilidade são: 
-
-\begin{description}
-
-  \item[Interoperabilidade sintática:] onde as diferenças entre os modelos de usuário são resolvidos em nível de aplicação;
-  \item[Interoperabilidade semântica:] onde as diferenças entre os modelos são resolvidos em nível de conhecimento.
-
-\end{description}
-
-As duas principais abordagens utilizadas em sistemas de modelos de usuários interoperáveis são \cite{viviani10}:
-
-\begin{description}
-
-  \item[Baseados em padrões:] são baseados numa visão \emph{top-down}, definindo um padrão que todas as aplicações envolvidas devem observar;
-  \item[Baseados em mediação:] se baseiam numa visão \emph{bottom-up}, onde ocorre algum tipo de reconciliação entre os diferentes modelos de representação.
-
-\end{description}
+\citetexto{mulvenna00} definem ``personalização'' como sendo a disponibilização de produtos, serviços e informações adaptados individualmente. A tecnologia de personalização geralmente envolve programas que aprendam padrões, hábitos e preferências de um usuário.
 
 \citetexto{silva09} definem ``entidade'' como uma extensão do conceito de usuário. Enquanto um usuário geralmente refere-se a uma pessoa que está utilizando um aplicativo, uma entidade pode ser qualquer objeto móvel, como um carro ou mesmo um dispositivo.
+
+Dentro do âmbito da personalização, a esturutra de dados utilizada para armazenar as informações das entidades por uma aplicação é chamada modelo de entidade, enquanto o conjunto de informações referentes a uma entidade específica é chamado de perfil de entidade.
+
+A coleta de informações de uma entidade pode ser explícita ou implícita \cite{viviani10}. Na coleta explícita, é requisitado ao usuário que preencha informações através de um formulário pré-definido, enquanto na coleta implícita, a informação é inferida a partir do estudo do comportamento da entidade.
+
+O objetivo principal por detrás dos sistemas de personalização modernos é oferecer às entidades o que elas querem sem requisitar que elas informem isto de forma explícita \cite{mulvenna00}. Fica claro que este propósito vai ao encontro do propósito da computação ubíqua, isto é, o desenvolvimento de uma tecnologia que ``desapareça''.
+
+Informações a respeito de uma entidade colhidas por uma aplicação podem ser úteis para outras aplicações utilizadas pela mesma entidade \cite{viviani10}. No entanto, os diferentes modelos de entidade utilizados pelas aplicações tornam difícil a utilização de informações de um mesmo perfil de entidade por várias aplicações. Além disso, algumas das informações da entidade podem ser válidas apenas dentro de um contexto específico, o que dificulta ainda mais que diferentes aplicações compartilharem o mesmo perfil.
+
+Visando resolver estas questões, o conceito de personalização inter-sistemas foi introduzido \cite{niederee04} como forma de compartilhar informações de entidades entre diferentes aplicações. Como o maior problema deste tipo de modelo é o alinhamento entre as diferentes abordagens de personalização, o estudo de sistemas de modelos de usuários (e, por extensão, de entidades) é atualmente o principal desafio da pesquisa na área de personalização \cite{viviani10}.
+
+O IEEE Standard Computer Dictionary \cite{ieeedict} define interoperabilidade como ``a capacidade de dois ou mais sistemas ou componentes trocarem informações e utilizarem as informações que foram trocadas.'' No âmbito da personalização, interoperabilidade é a capacidade de acessar e interpretar informação derivada de múltiplas fontes heterogênias e integrar esta informação em um modelo de entidade comum. Os dois principais modelos de interoperabilidade são \cite{carmagnola09}: 
+
+\begin{itemize}
+
+  \item interoperabilidade sintática: onde as diferenças entre os modelos de entidade são resolvidos em nível de aplicação;
+  \item interoperabilidade semântica: onde as diferenças entre os modelos são resolvidos em nível de conhecimento.
+
+\end{itemize}
+
+As duas principais abordagens utilizadas em sistemas de modelos de entidades interoperáveis são \cite{viviani10}:
+
+\begin{itemize}
+
+  \item baseados em padrões: são baseados numa visão \emph{top-down}, definindo um padrão que todas as aplicações envolvidas devem observar;
+  \item baseados em mediação: se baseiam numa visão \emph{bottom-up}, onde ocorre algum tipo de reconciliação entre os diferentes modelos de representação.
+
+\end{itemize}
+
