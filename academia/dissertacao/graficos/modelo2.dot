@@ -5,14 +5,14 @@ digraph modelo2 {
 
   eProfile [shape=box,width=2,height=1];
 
-  "Cliente 1" -> "Gerenciador\nde Trilhas A";
-  "Cliente 2" -> "Gerenciador\nde Trilhas A";
-  "Cliente 3" -> "Gerenciador\nde Trilhas B";
+  "Aplicação 1" -> "Gerenciador\nde Trilhas A";
+  "Aplicação 2" -> "Gerenciador\nde Trilhas A";
+  "Aplicação 3" -> "Gerenciador\nde Trilhas B";
   "Gerenciador\nde Trilhas A" -> eProfile;
   "Gerenciador\nde Trilhas B" -> eProfile;
-  eProfile -> "Cliente 1";
-  eProfile -> "Cliente 2";
-  eProfile -> "Cliente 3";
+  eProfile -> "Aplicação 1";
+  eProfile -> "Aplicação 2";
+  eProfile -> "Aplicação 3";
 
   fontsize = 12;
 

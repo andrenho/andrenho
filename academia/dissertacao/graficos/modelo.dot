@@ -44,7 +44,8 @@ digraph modelo {
     OntologiaDePerfil -> Aplicação;
   }
   
-  Aplicação -> GerenciadorDeTrilhas -> Conversor;
+  Aplicação -> GerenciadorDeTrilhas [label = "b"];
+  GerenciadorDeTrilhas -> Conversor;
 
   fontsize = 12;
 }

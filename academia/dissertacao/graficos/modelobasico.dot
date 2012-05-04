@@ -2,7 +2,7 @@ digraph modelo2 {
 
   layout = fdp;
   sep = 0.4;
-  eProfile [shape=box,width=2,height=1];
+  eProfile [width=2,height=1];
 
   "Aplicação" -> "Gerenciador\nde Trilhas" [label="b"];
   "Aplicação" -> eProfile [label="a"];
