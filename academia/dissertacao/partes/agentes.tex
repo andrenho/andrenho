@@ -1,11 +1,13 @@
 \section{Modelagem dos Agentes}
 \label{sec:modelagem}
 
-Como o eProfile é um modelo onde é necessário inferir informações de forma autônoma a respeito de dados armazenados em uma ontologia, a tecnologia de agentes autônomos foi escolhida para o desenvolvimento. A metodologia utilizada para a modelagem é a Prometheus \cite{prometheus}. Esta metodologia define um processo detalhado para a especificação, projeto, implementação e teste/depuração de sistemas de software orientados a agentes. \cite{prometheus-book}
+% TODO - acrescentar referência para agentes autônomos
+
+Como o eProfile é um modelo que infere informações de forma autônoma a respeito de dados armazenados em uma ontologia, e está organizado em partes independentes, a tecnologia de agentes autônomos foi escolhida para o desenvolvimento. A metodologia utilizada para a modelagem é a Prometheus \cite{prometheus}. Esta metodologia define um processo detalhado para a especificação, projeto, implementação e teste/depuração de sistemas de software orientados a agentes \cite{prometheus-book}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Especificação do Sistema}
+\subsection{Especificação do Modelo}
 \label{sec:especificacao}
 
 \begin{figure}
@@ -14,44 +16,44 @@ Como o eProfile é um modelo onde é necessário inferir informações de forma 
   \label{fig:metodologia}
 \end{figure}
 
-A metodologia Prometheus, ilustrada na Figura~\ref{fig:metodologia} define que ponto central da modelagem de um sistema é a identificação dos objetivos inciais do sistema. De acordo com o modelo apresentado na Seção~\ref{sec:modelo}, o eProfile é um sistema que gerencia perfis de entidades, permitindo que as aplicações definam (i) seus próprios modelos de usuário e (ii) regras através das quais a trilha de uma entidade será processada. Este processo de inferência monta ou atualiza um perfil de entidade, que é então disponibilizado para a aplicação.
+A metodologia Prometheus, ilustrada na Figura~\ref{fig:metodologia} define que ponto central da modelagem de um sistema é a identificação dos objetivos inciais do sistema. De acordo com a Seção~\ref{sec:modelo}, o eProfile é um modelo que gerencia perfis de entidades, permitindo que as aplicações definam (i) seus próprios modelos de entidade e (ii) regras através das quais a trilha de uma entidade será processada. Um processo de inferência beaseado nestas informações monta ou atualiza um perfil de entidade, que é então disponibilizado para a aplicação.
 
 A partir desta descrição, identificam-se os objetivos. Os respectivos sub-objetivos são definidos considerando a forma como cada objetivo pode ser atingido \cite{prometheus-book}. Assim, os objetivos e sub-objetivos do eProfile são:
 
 \begin{itemize}
-  \item Gerenciar múltiplos perfis de entidade.
+  \item gerenciar múltiplos perfis de entidade;
   \begin{itemize}
-    \item Permitir que aplicações se identifiquem;
-    \item Aceitar requisições de novas entidades;
-    \item Disponibilizar os perfis inferidos à aplicação.
+    \item permitir que aplicações se identifiquem;
+    \item aceitar requisições de novas entidades;
+    \item disponibilizar os perfis inferidos à aplicação;
   \end{itemize}
-  \item Permitir que as aplicações definam seus próprios modelos de usuário.
+  \item permitir que as aplicações definam seus próprios modelos de entidade.
   \begin{itemize}
-    \item Receber novos modelos de usuário da aplicação;
-    \item Validar os modelos de usuário;
-    \item Armazenar os modelos de usuário.
+    \item receber novos modelos de entidade da aplicação;
+    \item validar os modelos de entidade;
+    \item armazenar os modelos de entidade;
   \end{itemize}
-  \item Permitir que as aplicações definam suas regras de inferência.
+  \item permitir que as aplicações definam suas regras de inferência.
   \begin{itemize}
-    \item Receber as regras;
-    \item Validar as regras;
-    \item Armazenar as regras;
-    \item Gerenciar o agendamento da execução das regras.
+    \item receber as regras;
+    \item validar as regras;
+    \item armazenar as regras;
+    \item gerenciar o agendamento da execução das regras;
   \end{itemize}
-  \item Buscar as trilhas de um usuário a partir de um gerenciador de trilhas.
+  \item buscar as trilhas de uma entidade a partir de um gerenciador de trilhas.
   \begin{itemize}
-    \item Interagir com os gerenciadores de trilhas suportados;
-    \item Converter as informações do formato de trilha original para a ontologia de trilhas do eProfile.
+    \item interagir com os gerenciadores de trilhas suportados;
+    \item converter as informações do formato de trilha original para a ontologia de trilhas do eProfile;
   \end{itemize}
-  \item Inferir a trilha, montando um perfil de entidade.
+  \item inferir a trilha, montando um perfil de entidade;
   \begin{itemize}
-    \item Agendar a execução das regras;
-    \item Executar a inferência de acordo com as regras;
-    \item Gerenciar sobrecarga do servidor e reagendar as regras, se necessário.
+    \item agendar a execução das regras;
+    \item executar a inferência de acordo com as regras;
+    \item gerenciar sobrecarga do servidor e reagendar as regras, se necessário.
   \end{itemize}
 \end{itemize}
 
-A partir dos sub-objetivos, é possível extrair as funcionalidades do sistema. A Figura~\ref{fig:funcionalidades} indentifica as funcionalidades do eProfile, com as caixas representando as funcionalidades -- isto é, os conjutos de objetivos afins --, as formas ovais representando os objetivos, e os ícones de ação representando as ações. Cada funcionalidade possui pelo menos uma ação que é disparada através de um gatilho, e utiliza um conjunto de informações, de acordo com a Tabela~\ref{tab:funcionalidades}.
+A partir dos sub-objetivos, é possível extrair as funcionalidades do sistema. A Figura~\ref{fig:funcionalidades} identifica as funcionalidades do eProfile, com as caixas representando as funcionalidades (baseadas dos objetivos), as formas ovais representando os sub-objetivos, e os ícones pentagonais representando as ações. Cada objetivo possui pelo menos uma ação que é disparada através de um gatilho, e utiliza um conjunto de informações, de acordo com a Tabela~\ref{tab:funcionalidades}.
 
 \begin{figure}
   \includegraphics[width=1\textwidth]{imagens/funcionalidades.png}
@@ -64,7 +66,7 @@ A partir dos sub-objetivos, é possível extrair as funcionalidades do sistema. 
     \toprule
       Funcionalidade & Ação & Gatilho & Informações usadas & Informações geradas \\
     \midrule
-      Gerenciamento de perfis & Disponibilizar perfis & Requisição da aplicação & Base de perfis & Perfil \\
+      Gerenciamento de perfis & Enviar perfis & Requisição da aplicação & Base de perfis & Perfil \\
       Gerenciamento de regras & Armazenar regras & Envio pela aplicação & Regra & Base de regras \\
       Gerenciamento de modelos & Armazenar modelos & Envio pela aplicação & Modelo & Base de modelos \\
       Gerenciamento de trilhas & Buscar trilhas & Agendamento & Nenhum & Base de trilhas \\
@@ -75,10 +77,8 @@ A partir dos sub-objetivos, é possível extrair as funcionalidades do sistema. 
   \label{tab:funcionalidades}
 \end{table*}
 
-Para que a especificação do sistema seja completa, é necessário que sejam identificadas as {\em interfaces}, ou seja, os pontos onde o sistema se comunica com outros sistemas. Os pontos onde o sistema recebe informações de outros sistemas são chamados ``preceitos'', e os pontos onde o sistema envia informações para outros sistemas são chamados ``ações''. As ações e os preceitos são os seguintes:
+Para que a especificação do sistema seja completa, a metodologia propões que sejam identificadas as {\em interfaces}, ou seja, os pontos onde o sistema se comunica com outros sistemas. Os pontos onde o sistema recebe informações de outros sistemas são chamados ``preceitos'', e os pontos onde o sistema envia informações para outros sistemas são chamados ``ações''. As ações e os preceitos são os seguintes:
 
-\vspace{8mm}
-  \begin{minipage}[t]{0.5\textwidth}
     {\bf Preceitos}
     \begin{itemize}
       \item Registro de nova aplicação;
@@ -87,19 +87,16 @@ Para que a especificação do sistema seja completa, é necessário que sejam id
       \item Regras para inferência das trilhas;
       \item Trilhas.
     \end{itemize}
-  \end{minipage}
-  \begin{minipage}[t]{0.5\textwidth}
+
     {\bf Ações}
     \begin{itemize}
       \item Perfil da entidade.
     \end{itemize}
-  \end{minipage}
-\vspace{8mm}
 
 É necessário também a identificação das bases de dados necessárias para o funcionamento do sistema. O eProfile faz uso das seguintes bases de dados:
 
 \begin{itemize}
-  \item Base de dados de aplicações -- contém a lista de aplicações registradas no servidor do eProfile;
+  \item Base de dados de aplicações -- contém a lista de aplicações registradas no eProfile;
   \item Base de dados de entidades -- contém a listagem de entidades identificadas pelas aplicações;
   \item Base de dados de modelos de usuário -- contém os modelos de usuário registrados pela aplicação;
   \item Base de dados de regras de inferência -- contém as regras de inferência que foram enviados pela aplicação;
@@ -143,15 +140,15 @@ O \textbf{agente raciocinador} é responsável pela inferência das trilhas de a
 
 \begin{enumerate}
 
-\item O agente verifica as regras, de acordo com a solicitação feita pelo agente configurador.
+\item o agente verifica as regras, de acordo com a solicitação feita pelo agente configurador;
 
-\item A regra é executada através da biblioteca externa HermiT \cite{motik09}.
+\item a regra é executada através de um raciocinador;
 
-\item Caso a regra tenha sido executada com sucesso, o resultado da regra é atualizado no perfil. Em caso de insucesso, o erro é enviado para a aplicação no momento que a mesma se reconectar.
+\item caso a regra tenha sido executada com sucesso, o resultado da regra é atualizado no perfil. Em caso de insucesso, o erro é enviado para a aplicação no momento que a mesma se reconectar.
 
 \end{enumerate}
 
-A Figura~\ref{fig:overview} mosta o diagrama da visão geral do sistema, que junta todas as partes da arquitetura.
+A Figura~\ref{fig:overview} mosta o diagrama da visão geral do sistema, que junta todas as partes da arquitetura. Esta figura é comparável à Figura~\ref{fig:modelo}, porém apresentando uma representação mais completa.
 
 \begin{figure}
   \includegraphics[width=1\textwidth]{imagens/overview.png}
@@ -161,7 +158,7 @@ A Figura~\ref{fig:overview} mosta o diagrama da visão geral do sistema, que jun
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Agentes}
-\label{sec:agentes}
+%\subsection{Agentes}
+%\label{sec:agentes}
 
-\todo[inline]{Descrever os agentes de forma detalhada}
+%\todo[inline]{Descrever os agentes de forma detalhada}
