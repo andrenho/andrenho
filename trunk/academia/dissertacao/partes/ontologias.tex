@@ -3,24 +3,7 @@
 \section{Ontologias}
 \label{sec:ontologia}
 
-O eProfile utiliza duas ontologias: uma ontologia de trilhas e uma ontologia de perfis. Para o armazenamento e processamento das ontologias, foram estudadas as linguagens de representação de conhecimento CycL \cite{lenat89}, RDF/S \cite{rdfs}, DAML+OIL \cite{daconta03} e OWL \cite{daconta03}.
-
-% CycL
-A linguagem \textbf{CycL} é a linguagem utilizada pelo o projeto de \emph{Cyc} \cite{lenat89}. O Cyc é um projeto de inteligência artificial que tem o objetivo de montar uma ontologia e base de conhecimento a partir do senso comum, com o propósito de permitir que aplicações de inteligência artificial realizem raciocínio semelhante ao humano. A linguagem CycL é uma linguagem declarativa baseada em lógica de primeira ordem clássica, com extensões para operadores modais e lógica de ordem superior. A base de conhecimento é dividida em micro-teorias (Mt), que são coleções de conceitos e fatos tipicamente pertencentes a um domínio particular de conhecimentos e, ao contrário da base de conhecimento como um todo, cada micro-teoria deve estar livre de contradições.
-
-% RDF/S
-\textbf{RDF} (\emph{Resource Description Framework}) é uma linguagem utilizada para representação de metadados a respeito de recursos na Web \cite{rdf}. No entanto, o conceito de ``recurso da Web'' pode ser generalizado, de forma que o RDF pode ser utilizado para representar informações a respeito de coisas que podem ser identificadas na Web, mesmo que elas não possam ser carregadas da Web. Recursos podem ser recursos eletrônicos, como arquivos, ou conceitos, como pessoas. O RDF é complementado pelo \textbf{RDF/S} (\emph{RDF/Schema}), uma extensão semântica do RDF. O RDF/S é uma linguagem de descrição de vocabulário que provê mecanismos para descrever grupos de recursos relacionados e os relacionamentos entre estes recursos \cite{rdfs}.
-
-% DAML+OIL
-O \textbf{DAML+OIL} é uma linguagem de representação de conhecimento baseada nas linguagens DAML e OIL. O DAML (\emph{DARPA Agent Markup Language}) foi desenvolvido pelo Centro de Pesquisas Avançadas da Defesa Americana e é uma linguagem de marcação de agentes baseada no RDF. Já o OIL (\emph{Ontology Inference Layer}) é uma linguagem com os mesmos objetivos, criada pelo por um grupo de universidades europeias. Ambos os esforços foram unidos na criação do DAML+OIL, que por sua vez deu origem ao OWL \cite{daconta03}.
-
-% OWL
-O \textbf{OWL} é a linguagem de ontologia mais expressiva definida ou em definição para a Web Semântica \cite{daconta03}. O OWL utiliza uma URI (\emph{Uniform Resource Identifier}) para os nomes, e a estrutura de descrição disponibilizada pelo RDF. O OWL está uma camada acima do RDF e do RDF/S, e adiciona mais vocabulário para descrever propriedades e classes: entre outros, relações entre classes, cardinalidade, igualdade, tipagem mais avançada de propriedades, características de propriedades e classes enumeradas \cite{owl-guide}. O OWL está disponível em três sublinguages: \emph{OWL Lite}, \emph{OWL DL} e \emph{OWL Full}, cada uma aumentando o nível de complexidade e expressividade. Um grande número de ferramentas com capacidade para edição e raciocínio semântico com suporte para OWL está disponível no mercado.
-
-% Escolhido - OWL
-Devido à expressividade e ao suporte de ferramentas externas, o OWL foi escolhido como a linguagem de ontologias utilizado pelo eProfile para modelagem da ontologia do perfil e das trilhas.
-
-As ontologias utilizadas pelo eProfile -- tanto a ontologia de trilhas quanto a ontologia de perfil -- são ontologias básicas, estendidas através de subclasses de acordo com o formato da trilha enviada pelo gerenciador (no caso da ontologia de trilha) ou das necessidades da aplicação (no caso da ontologia do perfil). Isto é representado na Figura~\ref{fig:heranca}, onde o eProfile oferece uma classe genérica ``Atividade'', que é especializada pela classe ``AtividadeDeCompra'', utilizada por um dos gerenciadores de trilha.
+O eProfile utiliza duas ontologias: uma ontologia de trilhas e uma ontologia de perfis. As ontologias utilizadas pelo eProfile -- tanto a ontologia de trilhas quanto a ontologia de perfil -- são ontologias básicas, estendidas através de subclasses de acordo com o formato da trilha enviada pelo gerenciador (no caso da ontologia de trilha) ou das necessidades da aplicação (no caso da ontologia do perfil). Isto é representado na Figura~\ref{fig:heranca}, onde o eProfile oferece uma classe genérica ``Atividade'', que é especializada pela classe ``AtividadeDeCompra'', utilizada por um dos gerenciadores de trilha.
 
 \begin{figure}
   \centering\includegraphics[width=0.8\textwidth]{imagens/heranca.png}
