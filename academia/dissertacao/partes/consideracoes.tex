@@ -6,7 +6,42 @@
 \section{Contribuições}
 \label{sec:contribuicoes}
 
-\todo[inline]{Escrever esta seção}
+Atualmente, os campos de computação ubíqua, sensibilidade a contexto, trilhas e personalização são bastante promissores, sendo que uma extensa gama de trabalhos é publicada anualmente utilizando as pesquisas nesta área com o objetivo de melhorar cada vez mais a relação entre humanos e computadores. No entanto, não foi encontrado nenhum trabalho que faça uso dos três primeiros com o objetivo de personalizar a experiência do usuário dentro de um domínio genérico. Assim, o modelo apresentado neste trabalho busca preencher esta lacuna. 
+
+A Tabela~\ref{tab:comparacao} exibe um comparativo entre o eProfile e os trabalhos apresentados no Capítulo~\ref{ch:relacionados}, onde os seguintes fatores são levados em consideração:
+
+\begin{description}
+  \item[Interoperabilidade:] considera se o modelo apresenta interoperabilidade -- caso positivo, se a mesma é sintática ou semântica;
+  \item[Perfis dinâmicos:] identifica se o modelo de perfil permite que os perfis sejam atualizados de acordo com eventos externos, sem a interferência do usuário;
+  \item[Armazenamento:] define onde ficam armazenados os perfis do usuário;
+  \item[Sensíbilidade a contexto:] considera se o contexto do usuário é levado em consideração na formação do perfil;
+  \item[Utiliza trilhas:] define se as trilhas do usuário são levadas em consideração na construção do perfil;
+  \item[Domínio:] identifica se o perfil é voltado para um domínio específico, ou se o mesmo permite que vários domínios possam ser utilizados.
+\end{description}
+
+\begin{table*}\centering\footnotesize
+  \begin{tabular*}{1\textwidth}{@{}lllllll@{}}
+    \toprule
+                                         & Interope-  & Perfis    & Armaze-  & Sensibilidade & Utiliza & \\
+    Trabalho                             & rabilidade & dinâmicos & namento  & a contexto    & trilhas & Domínio \\
+    \midrule
+    PeLeP                                & Não        & Sim       & Servidor & Sim           & Parcial & Educação \\
+    Chellouche et al                     & Sintática  & Sim       & Servidor & Sim           & Não     & Serviços multimídia \\
+    UUCM                                 & Sintática  & Sim       & Cliente  & Sim           & Não     & Genérico \\
+    eProfile                             & Semântica  & Sim       & Servidor & Sim           & Sim     & Genérico \\
+    \bottomrule
+  \end{tabular*}
+  \caption{Comparação entre os trabalhos apresentados}
+  \label{tab:comparacao}
+\end{table*}
+
+O PeLeP\cite{pelep} é um modelo que suporta o aperfeiçoamento automático do perfil do aprendiz em ambientes de educação ubíqua. Ele usa o histórico dos aprendizes nos contextos de um ambiente ubíquo para atualização dos perfis. O perfil do aprendiz no modelo é refinado e enriquecido através de inferências. As inferências são baseadas na mobilidade do aprendiz e no monitoramento das tarefas que ele executa nos contextos de um ambiente de educação ubíqua.
+
+O modelo apresentado por \citetexto{chellouche10} apresenta um \emph{middleware} voltado para aplicações móveis que pode ser usado por diferentes aplicativos como um servidor central de perfis. Este modelo propõe como solução um \emph{middleware} que gerencia o perfil de um usuário dinamicamente e supre às aplicações todas as informações que elas podem precisar durante o período de adaptação.
+
+O UUCM\cite{niederee04} é um modelo que pode ser utilizado para modelar as características de um usuário e seu contexto em ambientes de personalização de múltiplos sistemas. A proposta diz respeito a uma ontologia básica, baseada em contexto, a qual os sistemas podem estender, desde que os sistemas que usem este modelo concordem em uma ontologia básica.
+
+Dos trabalhos avaliados, o PeLeP suporta o aperfeiçoamento automático do usuário, o modelo apresentado por \citetexto{chellouche10} distribui um perfil unificado entre as aplicações, e o UUCM apresenta uma ontologia básica de perfis que as aplicações podem estender, e que podem ser utilizadas por diversas aplicações, além de trabalhar em um domínio genérico. O eProfile possui todas estas características, além de trabalhar com o conceito de entidade e fazer uso de trilhas para a extração de informações.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

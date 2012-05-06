@@ -53,13 +53,26 @@ Devido à expressividade e ao suporte de ferramentas externas, o OWL foi escolhi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Avaliação}
+\section{Metodologia de Avaliação}
 \label{sec:avaliacao}
 
-\todo[inline]{Detalhar melhor esta seção}
+O trabalho apresenta um modelo que auxilia aplicações a montarem seu perfil de entidade baseado em uma trilha. O eProfile é uma proposta de infra-estrutura e, portanto, sua avaliação é problemática, uma vez que não é visível para o usuário final. Segundo \citetexto{edwards03}, somente é possível avaliar as funcionalidades de um framework construindo aplicações que as utilizem e então avaliá-las, de modo a obter uma avaliação indireta do framework.
 
-A validação deste modelo busca provar que o modelo apresentado é funcional e efetivo.
+Assim sendo, para a avaliação desta proposta será realizada uma abordagem sob duas perspectivas: {\bf funcionalidade} e {\bf cenário}. Na primeira, a avaliação se dará sobre as funcionalidades propostas, isto é, se protótipo é funcional e atende o modelo proposto no Capítulo~\ref{ch:modelo}. Na segunda, será desenvolvido dois protótipos de aplicação, que seguirão um roteiro definido em um cenário. Será, então, verificado se o eProfile conseguiu cumprir as premissas descritas no cenário.
 
-Para o teste de funcionalidade, o modelo será implementado e integrado com o eTrail, um gerenciador de trilhas. Uma vez que esta integração esteja realizada, um conjunto de regras será desenvolvido, de modo a verificar a capacidade de inferência do eProfile.
+Para o teste de funcionalidades, serão verificadas as premissas descritas abaixo. Caso seja necessário, serão desenvolvidos programas capazes de realizar os testes.
 
-A seguir, será testada a capacidade do eProfile em gerenciar perfis de forma efetiva. Para tal, um grupo de usuários utilizará um aplicativo cujo perfil é gerenciado pelo eProfile. Após a utilização, será apresentado a estes usuários um questionário que buscará avaliar a efetividade do eProfile.
+\begin{itemize}
+
+\item O eProfile é capaz de se conectar a uma aplicação e um gerenciador de trilhas;
+\item a aplicação pode registrar uma nova entidade no eProfile;
+\item a aplicação pode registrar um novo modelo de entidade no eProfile;
+\item a aplicação pode registrar novas regras no eProfile;
+\item o eProfile busca a trilha da entidade no gerenciador de trilhas;
+\item o eProfile traduz a trilha da entidade do formato do gerenciador de trilhas para seu formato próprio;
+\item o eProfile é capaz de utilizar as regras para realizar a inferência das trilhas de uma entidade, e montar um perfil de acordo com o modelo de entidade;
+\item o eProfile é capaz de realizar todos os testes acima para múltiplos gerenciadores de trilha, múltiplas aplicações e múltiplas entidades.
+
+\end{itemize}
+
+Para a realização do teste de cenário, serão desenvolvidos de dois a três cenários que simularão algumas atividades realizadas por múltiplas aplicações e múltiplas entidades, onde o cenário terá um resultado pré-definido, contra o qual será verificado o resultado obtido pelo protótipo do eProfile.
