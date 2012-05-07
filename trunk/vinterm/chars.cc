@@ -25,7 +25,10 @@ Chars::Chars(Options const& options, Font const& font)
 
 Chars::~Chars()
 {
-	for(uint8_t i=0; i<=255; i++)
+	for(int i=0; i<10; i++)
+		SDL_FreeSurface(reverse_space[i]);
+	delete[] reverse_space;
+	for(uint8_t i=0; i<255; i++)
 	{
 		for(int j=0; j<NUM_ATTRS; j++)
 			SDL_FreeSurface(chars[i][j]);

@@ -7,7 +7,7 @@ using namespace std;
 class Console
 {
 public:
-	Console();
+	Console(string terminal="con80x25");
 	~Console();
 	void SendChar(const char c);
 	void SendString(const string data);

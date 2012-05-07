@@ -8,20 +8,26 @@
 #include <sys/wait.h>
 #include <fcntl.h>
 
-Console::Console()
+Console::Console(string terminal)
 {
+	char* shell = getenv("SHELL");
+	if(!shell)
+		shell = (char*)"/bin/sh";
+	else
+		shell = &shell[5];
+
 	pid_t pid;
 	if((pid = forkpty(&fd, NULL, NULL, NULL)) < 0)
 		abort();
 	else if(!pid)
 	{
 		// child
-		if (putenv((char*)"TERM=console"))
+		if (putenv((char*)("TERM=" + terminal).c_str()))
 		{
 			perror("putenv");
 			abort();
 		}
-		if(execlp("/bin/sh", "sh", (void*)0) == -1)
+		if(execlp(shell, "sh", (void*)0) == -1)
 		{
 			perror("execlp");
 			abort();

@@ -1,12 +1,14 @@
 #include "terminal.h"
 
 #include "SDL.h"
+#include <iostream>
+using namespace std;
 
 Terminal::Terminal(Options const& options, Console& console)
 	: w(80), h(25), options(options), console(console), 
 	  ch(new TerminalChar*[w]), cursor_x(0), cursor_y(0),
 	  old_cursor_x(0), old_cursor_y(0), blink_on(true), 
-	  last_blink(SDL_GetTicks())
+	  last_blink(SDL_GetTicks()), escape_mode(false)
 {
 	SDL_EnableUNICODE(1);
 	SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY, 
@@ -16,6 +18,8 @@ Terminal::Terminal(Options const& options, Console& console)
 		ch[x] = new TerminalChar[h];
 
 	UpdateCursorPosition();
+
+	PrintString("This is a VERY EARLY ALHPA RELEASE of Vintage Terminal. Don't expect things\r\nto work correctly at al. Use at YOUR OWN RISK.\r\n\r\n");
 }
 
 
@@ -73,7 +77,10 @@ Terminal::ConsoleOutput()
 	{
 		string::const_iterator it;
 		for(it = s.begin(); it != s.end(); it++)
-			PrintChar(*it);
+			if(escape_mode)
+				AddEscapeChar(*it);
+			else
+				PrintChar(*it);
 		return true;
 	}
 	else if(ret == EOF)
@@ -86,16 +93,27 @@ Terminal::ConsoleOutput()
 void
 Terminal::KeyPress(uint16_t key)
 {
-	printf("%d\n", key);
+	//printf("%d\n", key);
 	console.SendChar((uint8_t)key);
 }
 
 
 void 
+Terminal::PrintString(string const& s)
+{
+	string::const_iterator it;
+	for(it = s.begin(); it < s.end(); it++)
+		PrintChar(*it);
+}
+void 
 Terminal::PrintChar(const uint8_t c)
 {
 	switch(c)
 	{
+	case 27: // ESC
+		escape_mode = true;
+		escape_sequence = string(1, (char)27);
+		break;
 	case '\t': // tab
 		AdvanceCursorX();
 		while((cursor_x % 8) != 0)
@@ -134,6 +152,19 @@ Terminal::SetChar(const int x, const int y, uint8_t c, CharAttr attr)
 	ch[x][y].ch = c;
 	ch[x][y].attr = attr;
 	dirty.insert(y*w+x);
+}
+
+
+void 
+Terminal::AddEscapeChar(const uint8_t c)
+{
+	escape_sequence += (char)c;
+	if((escape_sequence.length() == 2 && (char)c != '[')
+	|| (escape_sequence.length() > 2 && c >= 64 && c <= 126))
+	{
+		escape_mode = false;
+		ExecuteEscapeSequence(escape_sequence);
+	}
 }
 
 
@@ -201,4 +232,18 @@ Terminal::Blink()
 			ch[cursor_x][cursor_y].attr);
 
 	last_blink = SDL_GetTicks();
+}
+
+
+void 
+Terminal::ExecuteEscapeSequence(string const& s)
+{
+	cout << "Invalid escape sequence: ";
+	string::const_iterator it;
+	for(it = s.begin(); it < s.end(); it++)
+		if(*it == 27)
+			cout << "ESC";
+		else
+			cout << *it;
+	cout << endl;
 }

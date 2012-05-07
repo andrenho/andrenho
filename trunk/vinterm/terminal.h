@@ -39,13 +39,16 @@ private:
 	bool ConsoleOutput();
 
 	void KeyPress(uint16_t key);
+	void PrintString(string const& s);
 	void PrintChar(const uint8_t c);
 	void SetChar(const int x, const int y, 
 			const uint8_t c, const CharAttr attr);
+	void AddEscapeChar(const uint8_t c);
 	void AdvanceCursorX();
 	void AdvanceCursorY();
 	void UpdateCursorPosition();
 	void Blink();
+	virtual void ExecuteEscapeSequence(string const& s);
 
 	Options const& options;
 	Console& console;
@@ -53,6 +56,9 @@ private:
 	int cursor_x, cursor_y, old_cursor_x, old_cursor_y;
 	bool blink_on;
 	uint32_t last_blink;
+
+	bool escape_mode;
+	string escape_sequence;
 };
 
 #endif

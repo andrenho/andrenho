@@ -28,7 +28,8 @@ Options::Options()
 
 Options::~Options()
 {
-	vector<Filter*>::iterator filter;
-	for(filter = prefilters.begin(); filter < prefilters.end(); filter++)
+	vector<Filter*>::reverse_iterator filter;
+	for(filter = prefilters.rbegin(); filter < prefilters.rend(); filter++)
 		delete (*filter);
+	prefilters.clear();
 }
