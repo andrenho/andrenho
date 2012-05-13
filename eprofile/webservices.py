@@ -7,5 +7,5 @@ class WebServices:
 		while True:
 			pass
 
-	def register_service(self):
+	def register_service(self, klass):
 		pass
