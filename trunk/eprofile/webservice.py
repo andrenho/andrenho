@@ -1,2 +1,3 @@
 class WebService:
-	pass
+	
+	

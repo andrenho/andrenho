@@ -8,4 +8,4 @@ class WebServices:
 			pass
 
 	def register_service(self, klass):
-		pass
+		
