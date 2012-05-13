@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 
-from webservices import *
+import webservices
+import dummy
 
-webservices = WebServices()
+webservices = webservices.WebServices()
+webservices.register_service(dummy.Dummy)
 webservices.start()
