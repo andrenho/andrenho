@@ -15,9 +15,12 @@ sed 's/^[[:space:]]*\(\*\+[[:space:]]*\)\+[[:space:]]*$//g' <temp.1 >temp.2
 
 # process chapters/titles
 
-# split paragraphs
+# remove empty lines
 tr '\n' '~' <temp.2 >temp.3
-sed 's/\([[:punct:]]\)\~[[:space:]]*\(\-\|[[:upper:]]\|\"\|[[:digit:]]\)/\1~~\2/g' <temp.3 >temp.4
+sed 's/\([[:lower:]]\)\~\~\+/\1\~/g' <temp.3 >temp.a
+
+# split paragraphs
+sed 's/\([[:punct:]]\)\~[[:space:]]*\(\-\|[[:upper:]]\|\"\|[[:digit:]]\)/\1~~\2/g' <temp.a >temp.4
 
 # join paragraphs
 sed 's/\([^\~]\)\~\([^\~]\)/\1 \2/g' <temp.4 >temp.5
