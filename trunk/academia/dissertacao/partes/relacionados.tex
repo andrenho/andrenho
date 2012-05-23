@@ -1,13 +1,15 @@
 \chapter{Trabalhos Relacionados}
 \label{ch:relacionados}
 
-Esta seção apresenta trabalhos relacionados a com o modelo proposto, bem como uma comparação entre os mesmos. Foram escolhidos trabalhos que tivessem como foco a adaptação de um perfil de entidade (ou de usuário) de acordo com as ações tomadas pelo mesmo. Como não pode ser encontrado nenhum modelo que tivesse o foco pretendido para este trabalho (montagem de um perfil através de inferência em trilhas), foram escolhidos modelos que tivessem uma ou mais características que se farão úteis para o modelo deste trabalho.
+Esta seção apresenta trabalhos relacionados com o modelo proposto, bem como uma comparação entre os mesmos. Foram escolhidos trabalhos que tivessem como foco a adaptação de um perfil de entidade de acordo com as ações tomadas pela mesma. Como não pode ser encontrado nenhum modelo que tivesse o foco pretendido para este trabalho (montagem de um perfil através de inferência em trilhas), foram escolhidos modelos que tivessem uma ou mais características que se farão úteis para o modelo deste trabalho.
+
+Os trabalhos apresentados utilizam o conceito de modelo e perfil de usuário ao invés de modelo e perfil de entidade, que é o termo utilizado neste trabalho. Assim sendo, os termos modelo e perfil de usuário serão utilizados quando apropriado.
 
 \section{PeLeP}
 
 O projeto PeLeP, apresentado por \citetexto{pelep}, integra a utilização de perfis aperfeiçoados automaticamente com ambientes de educação ubíqua.
 
-\citetexto{barbosa05} compreendem \emph{educação ubíqua} como sendo processos educacionais que ocorrem em qualquer lugar, a qualquer tempo e com qualquer dispositivo, de forma contínua, contextualizada e integrada ao cotidiano do aprendiz. Desta forma, o conhecimento presente no dia-a-dia das mais diferentes formas e em diferentes locais podem ser relacionados com processos educacionais direcionados aos aprendizes.
+\citetexto{barbosa05} compreendem Educação Ubíqua como sendo processos educacionais que ocorrem em qualquer lugar, a qualquer tempo e com qualquer dispositivo, de forma contínua, contextualizada e integrada ao cotidiano do aprendiz. Desta forma, o conhecimento presente no dia-a-dia das mais diferentes formas e em diferentes locais podem ser relacionados com processos educacionais direcionados aos aprendizes.
 
 O PeLeP, cujo modelo é mostrado na Figura~\ref{fig:pelep1}, é dedicado ao gerenciamento de perfis de aprendizes em um ambiente ubíquo de ensino e aprendizagem. O modelo administra os perfis automaticamente, inferindo informações através do histórico do aprendiz. As alterações realizadas no perfil refletem o comportamento do aprendiz no ambiente ubíquo, levando em consideração o seu modelo de mobilidade e de contexto.
 
@@ -18,9 +20,9 @@ O PeLeP, cujo modelo é mostrado na Figura~\ref{fig:pelep1}, é dedicado ao gere
   \label{fig:pelep1}
 \end{figure}
 
-No PeLeP, o \emph{perfil do aprendiz} consiste em um perfil contendo campos pré-definidos, voltados para o ambiente de educação ubíqua. Os campos são distribuídos nas seguintes categorias: identificação, objetivos, agenda, segurança, relacionamentos, competências e preferências. 
+No PeLeP, o Perfil do Aprendiz consiste em um perfil contendo campos pré-definidos, voltados para o ambiente de educação ubíqua. Os campos são distribuídos nas seguintes categorias: identificação, objetivos, agenda, segurança, relacionamentos, competências e preferências. 
 
-É realizado um acompanhamento (\emph{tracking}) do histórico do aprendiz, onde são armazenados os contextos visitados pelo usuário, bem como os conteúdos, dispositivos e aplicativos utilizados em cada contexto. Os valores relativos das variáveis numéricas recebidas no \emph{tracking} são regularizados através de um processo de normalização de amplitude. Como diferentes valores podem ter diferentes impactos para a determinação da preferência de um usuário, calcula-se o Fator de Certeza ($FC$), de acordo com a equação~\ref{eq:pelep-fc}, onde $f_i$ é o valor normalizado para o fator, $p_i$ o seu percentual, e $n$ o número de fatores considerados.
+É realizado um acompanhamento ({\em tracking}) do histórico do aprendiz, onde são armazenados os contextos visitados pelo usuário, bem como os conteúdos, dispositivos e aplicativos utilizados em cada contexto. Os valores relativos das variáveis numéricas recebidas no {\emph tracking} são regularizados através de um processo de normalização de amplitude. Como diferentes valores podem ter diferentes impactos para a determinação da preferência de um usuário, calcula-se o Fator de Certeza ($FC$), de acordo com a equação~\ref{eq:pelep-fc}, onde $f_i$ é o valor normalizado para o fator, $p_i$ o seu percentual, e $n$ o número de fatores considerados.
 
 \begin{equation}
   FC = \frac{\frac{\displaystyle\sum_{i=0}^n f_i p_i}{100}}{n}
@@ -31,42 +33,42 @@ O fator tempo também é levado em consideração, onde Fatores de Certeza mais 
 
 O processo de atualização do modelo do aprendiz é então realizado através de regras pré-definidas, que levam em conta as ocorrências e o seu fator de certeza. As regras suportam conclusões a partir de evidências antecedentes, e cada categoria de informação possui regras diferentes.
 
-O PeLeP foi validado através da integração com o Local ({\em Location and Context-Aware Learning}), um sistema de educação ubíqua sensível a contexto \cite{barbosa08}.
+O PeLeP foi validado através da integração com o Local ({\em Location and Context-Aware Learning}), um sistema de educação ubíqua sensível a contexto \cite{barbosa11}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Chellouche et al}
+\section{Middleware de \citetexto{chellouche10}}
 
 O modelo de \citetexto{chellouche10} busca resolver as dificuldades atuais no desenvolvimento de aplicativos para dispositivos móveis, uma vez que os mesmos possuem uma grande variedade de resolução, memória, poder computacional, entre outros. Além disso, a qualidade da conexão de um usuário pode variar significativamente, e isto também deve ser levado em consideração no desenvolvimento.
 
-O conjunto de informações que caracteriza um usuário é chamada de \emph{perfil de usuário}. Com a intenção de compartilhar o contexto do usuário entre serviços e minimizar as mudanças no desenvolvimento de aplicações sensíveis a contexto, os autores propõem como solução um \emph{middleware} que gerencia o perfil de um usuário dinamicamente e supre às aplicações todas as informações que elas podem precisar durante o período de adaptação.
+O conjunto de informações que caracteriza um usuário é chamada de Perfil de Usuário. Com a intenção de compartilhar o contexto do usuário entre serviços e minimizar as mudanças no desenvolvimento de aplicações sensíveis a contexto, os autores propõem como solução um {\em middleware} que gerencia o perfil de um usuário dinamicamente e supre às aplicações todas as informações que elas podem precisar durante o período de adaptação.
 
 O perfil do usuário é constituído por seu contexto, onde a definição de contexto utilizada é aquela dada por \citetexto{dey2001}, na qual contexto refere-se a qualquer informação que pode ser utilizada para caracterizar a situação de uma entidade. Assim, o perfil de usuário é dividido em cinco componentes:
 
-\begin{description}
-  \item[Perfil geral:] refere-se às informações básicas, como nome, endereço, telefone, idade, sexo, entre outros;
-  \item[Perfil do dispositivo:] contém informações a respeito dos dispositivos do usuário, tais como marca, capacidade, sistema operacional, entre outros;
-  \item[Perfil de rede:] descreve as redes às quais o usuário pode se conectar, com suas características;
-  \item[Perfil dos serviços:] registra as informações a respeito de serviços, como nome, versão, porta e conteúdo;
-  \item[Perfil de contexto:] contém informações a respeito do ambiente do usuário, como hora, data e localização, aplicações em execução e banda disponível. É considerada a parte dinâmica do perfil, composta por dados voláteis.
-\end{description}
+\begin{itemize}
+  \item Perfil geral: refere-se às informações básicas, como nome, endereço, telefone, idade, sexo, entre outros;
+  \item Perfil do dispositivo: contém informações a respeito dos dispositivos do usuário, tais como marca, capacidade, sistema operacional, entre outros;
+  \item Perfil de rede: descreve as redes às quais o usuário pode se conectar, com suas características;
+  \item Perfil dos serviços: registra as informações a respeito de serviços, como nome, versão, porta e conteúdo;
+  \item Perfil de contexto: contém informações a respeito do ambiente do usuário, como hora, data e localização, aplicações em execução e banda disponível. É considerada a parte dinâmica do perfil, composta por dados voláteis.
+\end{itemize}
 
-O \emph{middleware} é apresentado segundo ilustrado na Figura~\ref{fig:chellouche1}, sendo composto dos seguintes módulos:
+O {\em middleware} é apresentado segundo ilustrado na Figura~\ref{fig:chellouche1}, sendo composto dos seguintes módulos:
 
 \begin{figure}
   \centering
   \includegraphics[width=0.8\textwidth]{imagens/chellouche1.png}
-  \caption[Arquitetura do {\em middleware} de Chellouche et al]{Arquitetura do \emph{middleware} de \citetexto{chellouche10}}
+  \caption[Arquitetura do {\em middleware} de Chellouche et al]{Arquitetura do {\em middleware} de \citetexto{chellouche10}}
   \label{fig:chellouche1}
 \end{figure}
 
-\begin{description}
-  \item[Gerenciador de perfil de usuário:] módulo central da arquitetura, que interage com todos os outros módulos com o objetivo de construir o perfil correto;
-  \item[Gerenciador de contexto:] monitora o ambiente, coletando informações com o objetivo de atualizar a parte dinâmica do perfil;
-  \item[Gerenciador de consultas:] módulo responsável por validar e salvar um modelo de consulta para cada aplicação;
-  \item[Gerenciador de trasporte:] faz a comunicação do perfil de usuário para a aplicação;
-  \item[API]: constitui o ponto de interface entre as aplicações e o \emph{middleware}.
-\end{description}
+\begin{itemize}
+  \item Gerenciador de perfil de usuário: módulo central da arquitetura, que interage com todos os outros módulos com o objetivo de construir o perfil correto;
+  \item Gerenciador de contexto: monitora o ambiente, coletando informações com o objetivo de atualizar a parte dinâmica do perfil;
+  \item Gerenciador de consultas: módulo responsável por validar e salvar um modelo de consulta para cada aplicação;
+  \item Gerenciador de trasporte: faz a comunicação do perfil de usuário para a aplicação;
+  \item API: constitui o ponto de interface entre as aplicações e o \emph{middleware}.
+\end{itemize}
 
 O perfil é construído seguindo o fluxo apresentado na Figura~\ref{fig:chellouche2}. A aplicação solicita os dados ao gerenciador de perfis, através da API, que por sua vez repassa a solicitação ao gerenciador de consultas. Ao mesmo tempo, o gerenciador de contextos é informado que a aplicação está em execução e passa a atualizar o gerenciador de perfis com as informações atualizadas. O perfil de usuário é criado e enviado ao gerenciador de transporte, que retorna o perfil solicitado à aplicação solicitante.
 
@@ -102,22 +104,22 @@ No nível \emph{concreto}, um conjunto de dimensões e facetas são definidos. A
   \label{fig:niederee1}
 \end{figure}
 
-O modelo do UUCM é apresentado na Figura~\ref{fig:niederee1}. Segundo o modelo, um perfil de usuário (\emph{Unified User Context Model}) é dividido em um conjunto de contextos de trabalho (\emph{Working Context}), onde cada contexto é descrito por um conjunto de facetas (\emph{UUCM Facet}). Cada faceta é vinculada a uma dimensão (\emph{UUCMDimension}).
+O modelo do UUCM é apresentado na Figura~\ref{fig:niederee1}. Segundo o modelo, um perfil de usuário ({\em Unified User Context Model}) é dividido em um conjunto de contextos de trabalho ({\em Working Context}), onde cada contexto é descrito por um conjunto de facetas ({\em UUCM Facet}). Cada faceta é vinculada a uma dimensão ({\em UUCMDimension}).
 
 O UUCM apenas define o método através do qual o perfil de contexto de usuário é descrito e estruturado para personalização multi-sistema. Para a descrição de perfis de contexto concretos, o UUCM utiliza ontologias (ou vocabulários) para as dimensões, facetas e valores de faceta.
 
 As seguintes dimensões são utilizadas:
 
-\begin{description}
-  \item[Cognitiva] (\emph{CognitivePattern}): descreve as dimensões cognitivas do usuário, tais como \emph{áreas de interesse}, \emph{competências} e \emph{preferências};
-  \item[Tarefa] (\emph{Task}): descreve os objetivos do usuário quando ele interage com sistemas. Esta dimensão utiliza dados tais como \emph{tarefa atual}, \emph{papel do usuário na tarefa} e \emph{histórico da tarefa};
-  \item[Relacionamentos] (\emph{Relationship}): armazena as entidades com as quais o usuário tem alguma relação;
-  \item[Ambiente] (\emph{Environment}): parâmetros que são tipicamente utilizados para abordagens sensíveis a contexto, tais como \emph{tempo}, \emph{localização}, \emph{dispositivo} e \emph{linguagem}.
-\end{description}
+\begin{itemize}
+  \item Cognitiva: ({\em CognitivePattern}): descreve as dimensões cognitivas do usuário, tais como áreas de interesse, competências e preferências;
+  \item Tarefa: ({\em Task}): descreve os objetivos do usuário quando ele interage com sistemas. Esta dimensão utiliza dados tais como tarefa atual, papel do usuário na tarefa e histórico da tarefa;
+  \item Relacionamentos: ({\em Relationship}): armazena as entidades com as quais o usuário tem alguma relação;
+  \item Ambiente: ({\em Environment}): parâmetros que são tipicamente utilizados para abordagens sensíveis a contexto, tais como tempo, localização, dispositivo e linguagem.
+\end{itemize}
 
-O perfil de usuário do UUCM é codificado como um \emph{RDF Schema}\cite{rdf}, ampliado com expressões \emph{OWL}.
+O perfil de usuário do UUCM é codificado como um RDF Schema\cite{rdf}, ampliado com expressões OWL.
 
-O modelo inclui ainda o conceito de \emph{passaporte de contexto}. O passaporte de contexto é uma representação compacta do modelo de contexto atual do usuário para a personalização multi-sistemas. Ele contém informações ontologicamente arranjadas a respeito dos padrões cognitivos (habilidades, interesses, etc), o ambiente (data, local, dispositivo usado) e sua rede pessoal de pessoas e relacionamentos envolvidos.
+O modelo inclui ainda o conceito de Passaporte de Contexto. O passaporte de contexto é uma representação compacta do modelo de contexto atual do usuário para a personalização multi-sistemas. Ele contém informações ontologicamente arranjadas a respeito dos padrões cognitivos (habilidades, interesses, etc), o ambiente (data, local, dispositivo usado) e sua rede pessoal de pessoas e relacionamentos envolvidos.
 
 Para utilizar o passaporte de contexto em um ambiente de personalização multi-sistemas, o usuário ``apresenta'' o passaporte ao sistema que o usuário deseja utilizar. Como o passaporte está vinculado a uma ontologia compartilhada, é possível que o sistema consiga interpretar parcialmente o passaporte através de uma arquitetura mediadora. Como resultado, dois fluxos são possíveis: (i) do passaporte para o sistema, auxiliando o sistema a compreender o contexto do usuário, e (ii) do sistema para o passaporte, realizando alterações nas informações de contexto do usuário.
 
