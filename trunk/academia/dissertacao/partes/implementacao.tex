@@ -17,15 +17,15 @@ As bases de dados serão implementadas utilizando o banco de dados SQLite3 \cite
 \subsection{Motor de Inferência}
 \label{sec:motor_inferencia}
 
-Foram estudados os seguintes raciocinadores que oferecem suporte a estas operações:
+A Figura~\ref{fig:dados_inferencia} apresenta o fluxo de dados para a inferência do perfil de uma entidade. No centro desta operação está o agente raciocinador, que utiliza um motor de inferência externo para a execução das regras. Foram estudados os seguintes raciocinadores que oferecem suporte a esta operação:
 
 \begin{itemize}
 
-\item {\bf Pellet:} é um racionador com suporte a OWL DL, que oferece bom desempenho e um \emph{middleware} extensível. O Pellet é escrito em Java pode ser utilizado para raciocinar com tipos de dados definidos pelo usuário e provê suporte para depuração em ontologias \cite{sirin05}.
+\item {\bf Pellet:} é um racionador com suporte a OWL DL, que oferece bom desempenho e um {\em middleware} extensível. O Pellet é escrito em Java e pode ser utilizado para raciocinar com tipos de dados definidos pelo usuário e provê suporte para depuração em ontologias \cite{sirin05};
 
-\item {\bf FaCT++:} é um raciocinador de lógica proposicional criado como uma plataforma para experimentar com novos algoritmos de \emph{tableaux} semântico e técnicas de otimização. Ele incorpora a maior parte das técnicas de otimização padrão, mas inclui algumas novas \cite{tsarkov06}.
+\item {\bf FaCT++:} é um raciocinador de lógica proposicional criado como uma plataforma para utilização de algoritmos de {\em tableaux} semântico e técnicas de otimização. Ele incorpora a maior parte das técnicas de otimização padrão \cite{tsarkov06};
 
-\item {\bf HermiT:} é o primeiro raciocinador OWL que se baseia em um cálculo \emph{hypertableaux}, que provê desempenho superior a qualquer algoritmo anterior \cite{motik09}. O HermiT é disponibilizado como um plugin do Protegé, como uma ferramenta de linha de comando ou como uma biblioteca Java.
+\item {\bf HermiT:} é o primeiro raciocinador OWL que se baseia em um cálculo {\em hypertableaux}, o qual provê desempenho superior a qualquer algoritmo anterior \cite{motik09}. O HermiT é disponibilizado como um plugin do Protegé, como uma ferramenta de linha de comando ou como uma biblioteca Java.
 
 \end{itemize}
 
@@ -39,42 +39,42 @@ Devido ao conjunto de funcionalidades e ao desempenho superior, o HermiT foi esc
 Para o armazenamento e processamento das ontologias, foram estudadas as linguagens de representação de conhecimento CycL \cite{lenat89}, RDF/S \cite{rdfs}, DAML+OIL \cite{daconta03} e OWL \cite{daconta03}.
 
 % CycL
-A linguagem \textbf{CycL} é a linguagem utilizada pelo o projeto de \emph{Cyc} \cite{lenat89}. O Cyc é um projeto de inteligência artificial que tem o objetivo de montar uma ontologia e base de conhecimento a partir do senso comum, com o propósito de permitir que aplicações de inteligência artificial realizem raciocínio semelhante ao humano. A linguagem CycL é uma linguagem declarativa baseada em lógica de primeira ordem clássica, com extensões para operadores modais e lógica de ordem superior. A base de conhecimento é dividida em micro-teorias (Mt), que são coleções de conceitos e fatos tipicamente pertencentes a um domínio particular de conhecimentos e, ao contrário da base de conhecimento como um todo, cada micro-teoria deve estar livre de contradições.
+A linguagem \textbf{CycL} é a linguagem utilizada pelo projeto \emph{Cyc} \cite{lenat89}. O Cyc é um projeto de inteligência artificial que tem o objetivo de montar uma ontologia e base de conhecimento a partir do senso comum, com o propósito de permitir que aplicações de inteligência artificial realizem raciocínio semelhante ao humano. A linguagem CycL é uma linguagem declarativa baseada em lógica de primeira ordem clássica, com extensões para operadores modais e lógica de ordem superior. A base de conhecimento é dividida em micro-teorias, que são coleções de conceitos e fatos tipicamente pertencentes a um domínio particular de conhecimentos e, ao contrário da base de conhecimento como um todo, cada micro-teoria deve estar livre de contradições.
 
 % RDF/S
 \textbf{RDF} (\emph{Resource Description Framework}) é uma linguagem utilizada para representação de metadados a respeito de recursos na Web \cite{rdf}. No entanto, o conceito de ``recurso da Web'' pode ser generalizado, de forma que o RDF pode ser utilizado para representar informações a respeito de coisas que podem ser identificadas na Web, mesmo que elas não possam ser carregadas da Web. Recursos podem ser recursos eletrônicos, como arquivos, ou conceitos, como pessoas. O RDF é complementado pelo \textbf{RDF/S} (\emph{RDF/Schema}), uma extensão semântica do RDF. O RDF/S é uma linguagem de descrição de vocabulário que provê mecanismos para descrever grupos de recursos relacionados e os relacionamentos entre estes recursos \cite{rdfs}.
 
 % DAML+OIL
-O \textbf{DAML+OIL} é uma linguagem de representação de conhecimento baseada nas linguagens DAML e OIL. O DAML (\emph{DARPA Agent Markup Language}) foi desenvolvido pelo Centro de Pesquisas Avançadas da Defesa Americana e é uma linguagem de marcação de agentes baseada no RDF. Já o OIL (\emph{Ontology Inference Layer}) é uma linguagem com os mesmos objetivos, criada pelo por um grupo de universidades europeias. Ambos os esforços foram unidos na criação do DAML+OIL, que por sua vez deu origem ao OWL \cite{daconta03}.
+O \textbf{DAML+OIL} é uma linguagem de representação de conhecimento baseada nas linguagens DAML e OIL. O DAML (\emph{DARPA Agent Markup Language}) foi desenvolvido pelo Centro de Pesquisas Avançadas da Defesa Americana e é uma linguagem de marcação de agentes baseada no RDF. Já o OIL (\emph{Ontology Inference Layer}) é uma linguagem com os mesmos objetivos, criada por um grupo de universidades européias. Ambos os esforços foram unidos na criação do DAML+OIL, que por sua vez deu origem ao OWL \cite{daconta03}.
 
 % OWL
-O \textbf{OWL} é a linguagem de ontologia mais expressiva definida ou em definição para a Web Semântica \cite{daconta03}. O OWL utiliza uma URI (\emph{Uniform Resource Identifier}) para os nomes, e a estrutura de descrição disponibilizada pelo RDF. O OWL está uma camada acima do RDF e do RDF/S, e adiciona mais vocabulário para descrever propriedades e classes: entre outros, relações entre classes, cardinalidade, igualdade, tipagem mais avançada de propriedades, características de propriedades e classes enumeradas \cite{owl-guide}. O OWL está disponível em três sublinguages: \emph{OWL Lite}, \emph{OWL DL} e \emph{OWL Full}, cada uma aumentando o nível de complexidade e expressividade. Um grande número de ferramentas com capacidade para edição e raciocínio semântico com suporte para OWL está disponível no mercado.
+O \textbf{OWL} é a linguagem de ontologia mais expressiva definida ou em definição para a Web Semântica \cite{daconta03}. O OWL utiliza uma URI (\emph{Uniform Resource Identifier}) para os nomes, e a estrutura de descrição disponibilizada pelo RDF. O OWL está uma camada acima do RDF e do RDF/S, e adiciona mais vocabulário para descrever propriedades e classes, tais como relações entre classes, cardinalidade, igualdade, tipagem mais avançada de propriedades, características de propriedades e classes enumeradas \cite{owl-guide}. O OWL está disponível em três sublinguages: \emph{OWL Lite}, \emph{OWL DL} e \emph{OWL Full}, cada uma aumentando o nível de complexidade e expressividade. Um grande número de ferramentas com capacidade para edição e raciocínio semântico com suporte para OWL está disponível no mercado.
 
 % Escolhido - OWL
-Devido à expressividade e ao suporte de ferramentas externas, o OWL foi escolhido como a linguagem de ontologias utilizado pelo eProfile para modelagem da ontologia do perfil e das trilhas.
+Devido à expressividade e ao suporte de ferramentas externas, o OWL foi escolhido como a linguagem de ontologias utilizada pelo eProfile para modelagem das ontologia de perfis e de trilhas.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Metodologia de Avaliação}
 \label{sec:avaliacao}
 
-O trabalho apresenta um modelo que auxilia aplicações a montarem seu perfil de entidade baseado em uma trilha. O eProfile é uma proposta de infra-estrutura e, portanto, sua avaliação é problemática, uma vez que não é visível para o usuário final. Segundo \citetexto{edwards03}, somente é possível avaliar as funcionalidades de um framework construindo aplicações que as utilizem e então avaliá-las, de modo a obter uma avaliação indireta do framework.
+O trabalho apresenta um modelo que auxilia aplicações a montarem perfis de entidades utilizando inferência em trilhas. O eProfile é uma proposta de infraestrutura e, portanto, sua avaliação é difícil, uma vez que não é visível para o usuário final. Segundo \citetexto{edwards03}, somente é possível avaliar as funcionalidades de uma proposta de infraestrutura construindo aplicações que a utilizem e então avaliá-las, de modo a obter uma avaliação indireta do framework.
 
-Assim sendo, para a avaliação desta proposta será realizada uma abordagem sob duas perspectivas: {\bf funcionalidade} e {\bf cenário}. Na primeira, a avaliação se dará sobre as funcionalidades propostas, isto é, se protótipo é funcional e atende o modelo proposto no Capítulo~\ref{ch:modelo}. Na segunda, será desenvolvido dois protótipos de aplicação, que seguirão um roteiro definido em um cenário. Será, então, verificado se o eProfile conseguiu cumprir as premissas descritas no cenário.
+Assim sendo, para a avaliação desta proposta será realizada uma abordagem sob duas perspectivas: {\bf funcionalidade} e {\bf cenário}. Na primeira, a avaliação se dará sobre as funcionalidades propostas, isto é, se o protótipo é funcional e atende o modelo proposto no Capítulo~\ref{ch:modelo}. Na segunda, serão desenvolvidos dois protótipos de aplicação (representando duas aplicações diferentes), que seguirão roteiros definidos em um conjunto de cenários. Será, então, verificado se o eProfile conseguiu cumprir as premissas descritas no cenário.
 
-Para o teste de funcionalidades, serão verificadas as premissas descritas abaixo. Caso seja necessário, serão desenvolvidos programas capazes de realizar os testes.
+Para o teste de funcionalidades, serão verificadas as premissas descritas abaixo. Caso seja necessário, serão desenvolvidos programas capazes de realizar os seguintes testes:
 
 \begin{itemize}
 
-\item O eProfile é capaz de se conectar a uma aplicação e um gerenciador de trilhas;
+\item o eProfile é capaz de se conectar a uma aplicação e um gerenciador de trilhas;
 \item a aplicação pode registrar uma nova entidade no eProfile;
 \item a aplicação pode registrar um novo modelo de entidade no eProfile;
 \item a aplicação pode registrar novas regras no eProfile;
 \item o eProfile busca a trilha da entidade no gerenciador de trilhas;
 \item o eProfile traduz a trilha da entidade do formato do gerenciador de trilhas para seu formato próprio;
-\item o eProfile é capaz de utilizar as regras para realizar a inferência das trilhas de uma entidade, e montar um perfil de acordo com o modelo de entidade;
-\item o eProfile é capaz de realizar todos os testes acima para múltiplos gerenciadores de trilha, múltiplas aplicações e múltiplas entidades.
+\item o eProfile é capaz de utilizar as regras para realizar a inferência nas trilhas de uma entidade, e montar um perfil de acordo com o modelo de entidade;
+\item o eProfile é capaz de realizar todos os testes acima para múltiplos gerenciadores de trilhas, múltiplas aplicações e múltiplas entidades.
 
 \end{itemize}
 
-Para a realização do teste de cenário, serão desenvolvidos de dois a três cenários que simularão algumas atividades realizadas por múltiplas aplicações e múltiplas entidades, onde o cenário terá um resultado pré-definido, contra o qual será verificado o resultado obtido pelo protótipo do eProfile.
+Para a realização do teste de cenário, serão desenvolvidos de dois a três cenários que simularão atividades realizadas por múltiplas aplicações e múltiplas entidades, onde o cenário terá um resultado pré-definido, contra o qual será verificado o resultado obtido pelo protótipo do eProfile.
