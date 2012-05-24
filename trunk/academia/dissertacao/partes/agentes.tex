@@ -10,37 +10,37 @@ Como o eProfile é um modelo que infere informações de forma autônoma a respe
 \subsection{Especificação do Modelo}
 \label{sec:especificacao}
 
-\begin{figure}
-  \includegraphics[width=0.8\textwidth]{imagens/prometheus.png}
-  \caption[Metodologia Prometheus]{Processo de projeto segundo a metodologia Prometheus \cite{prometheus-book}}
-  \label{fig:metodologia}
-\end{figure}
+%\begin{figure}
+%  \includegraphics[width=0.8\textwidth]{imagens/prometheus.png}
+%  \caption[Metodologia Prometheus]{Processo de projeto segundo a metodologia Prometheus \cite{prometheus-book}}
+%  \label{fig:metodologia}
+%\end{figure}
 
-A metodologia Prometheus, ilustrada na Figura~\ref{fig:metodologia} define que ponto central da modelagem de um sistema é a identificação dos objetivos inciais do sistema. De acordo com a Seção~\ref{sec:modelo}, o eProfile é um modelo que gerencia perfis de entidades, permitindo que as aplicações definam (i) seus próprios modelos de entidade e (ii) regras através das quais a trilha de uma entidade será processada. Um processo de inferência beaseado nestas informações monta ou atualiza um perfil de entidade, que é então disponibilizado para a aplicação.
+A metodologia Prometheus define que o ponto central da modelagem de um sistema é a identificação dos objetivos iniciais do sistema. De acordo com a Seção~\ref{sec:modelo}, o eProfile é um modelo que gerencia perfis de entidades, permitindo que as aplicações definam (i) seus próprios modelos de entidade e (ii) regras através das quais a trilha de uma entidade será processada. Um processo de inferência baseado nestas informações monta ou atualiza um perfil de entidade, que é então disponibilizado para a aplicação.
 
 A partir desta descrição, identificam-se os objetivos. Os respectivos sub-objetivos são definidos considerando a forma como cada objetivo pode ser atingido \cite{prometheus-book}. Assim, os objetivos e sub-objetivos do eProfile são:
 
 \begin{itemize}
-  \item gerenciar múltiplos perfis de entidade;
+  \item gerenciar múltiplos perfis de entidade
   \begin{itemize}
     \item permitir que aplicações se identifiquem;
     \item aceitar requisições de novas entidades;
     \item disponibilizar os perfis inferidos à aplicação;
   \end{itemize}
-  \item permitir que as aplicações definam seus próprios modelos de entidade.
+  \item permitir que as aplicações definam seus próprios modelos de entidade
   \begin{itemize}
     \item receber novos modelos de entidade da aplicação;
     \item validar os modelos de entidade;
     \item armazenar os modelos de entidade;
   \end{itemize}
-  \item permitir que as aplicações definam suas regras de inferência.
+  \item permitir que as aplicações definam suas regras de inferência
   \begin{itemize}
     \item receber as regras;
     \item validar as regras;
     \item armazenar as regras;
     \item gerenciar o agendamento da execução das regras;
   \end{itemize}
-  \item buscar as trilhas de uma entidade a partir de um gerenciador de trilhas.
+  \item buscar as trilhas de uma entidade a partir de um gerenciador de trilhas
   \begin{itemize}
     \item interagir com os gerenciadores de trilhas suportados;
     \item converter as informações do formato de trilha original para a ontologia de trilhas do eProfile;
@@ -53,7 +53,11 @@ A partir desta descrição, identificam-se os objetivos. Os respectivos sub-obje
   \end{itemize}
 \end{itemize}
 
-A partir dos sub-objetivos, é possível extrair as funcionalidades do sistema. A Figura~\ref{fig:funcionalidades} identifica as funcionalidades do eProfile, com as caixas representando as funcionalidades (baseadas dos objetivos), as formas ovais representando os sub-objetivos, e os ícones pentagonais representando as ações. Cada objetivo possui pelo menos uma ação que é disparada através de um gatilho, e utiliza um conjunto de informações, de acordo com a Tabela~\ref{tab:funcionalidades}.
+Para que a especificação do modelo seja completa, a metodologia propõe que sejam identificadas as {\em interfaces}, ou seja, os pontos onde o modelo se comunica com outros sistemas. Os pontos onde o modelo recebe informações de outros sistemas são chamados ``preceitos'', e os pontos onde o modelo envia informações para outros sistemas são chamados ``ações''.
+
+A partir dos sub-objetivos, é possível extrair as funcionalidades do modelo. A Figura~\ref{fig:funcionalidades} identifica as funcionalidades do eProfile, com as caixas representando as funcionalidades (baseadas nos objetivos), as formas ovais representando os sub-objetivos, e os ícones pentagonais representando as ações. Cada objetivo possui pelo menos uma ação que é executada através de um gatilho, e utiliza um conjunto de informações, de acordo com a Tabela~\ref{tab:funcionalidades}.
+
+Os preceitos do modelo, isto é, os pontos onde o eProfile recebe informações de outros sistemas são: (i) registro de nova aplicação, (ii) registro de nova entidade, (iii) modelo definido pela aplicação, (iv) regras para inferência das trilhas e (v) as próprias trilhas. O eProfile possui apenas uma ação, isto é, apenas uma saída de informações, que são os perfis das entidades que são gerados pelo modelo.
 
 \begin{figure}
   \includegraphics[width=1\textwidth]{imagens/funcionalidades.png}
@@ -77,31 +81,15 @@ A partir dos sub-objetivos, é possível extrair as funcionalidades do sistema. 
   \label{tab:funcionalidades}
 \end{table*}
 
-Para que a especificação do sistema seja completa, a metodologia propões que sejam identificadas as {\em interfaces}, ou seja, os pontos onde o sistema se comunica com outros sistemas. Os pontos onde o sistema recebe informações de outros sistemas são chamados ``preceitos'', e os pontos onde o sistema envia informações para outros sistemas são chamados ``ações''. As ações e os preceitos são os seguintes:
-
-    {\bf Preceitos}
-    \begin{itemize}
-      \item Registro de nova aplicação;
-      \item Registro de nova entidade;
-      \item Modelo definido pela aplicação;
-      \item Regras para inferência das trilhas;
-      \item Trilhas.
-    \end{itemize}
-
-    {\bf Ações}
-    \begin{itemize}
-      \item Perfil da entidade.
-    \end{itemize}
-
-É necessário também a identificação das bases de dados necessárias para o funcionamento do sistema. O eProfile faz uso das seguintes bases de dados:
+É necessário também a identificação das bases de dados necessárias para o funcionamento do modelo. O eProfile faz uso das seguintes bases de dados:
 
 \begin{itemize}
-  \item Base de dados de aplicações -- contém a lista de aplicações registradas no eProfile;
-  \item Base de dados de entidades -- contém a listagem de entidades identificadas pelas aplicações;
-  \item Base de dados de modelos de usuário -- contém os modelos de usuário registrados pela aplicação;
-  \item Base de dados de regras de inferência -- contém as regras de inferência que foram enviados pela aplicação;
-  \item Base de dados de trilhas -- contém as trilhas buscadas do gerenciador de trilhas, e convertidas para o formato do eProfile;
-  \item Base de dados de perfis de entidades -- contém os perfis de entidades, já inferidos a partir dos modelos, regras e trilhas.
+  \item Base de dados de aplicações: contém a lista de aplicações registradas no eProfile;
+  \item Base de dados de entidades: contém a listagem de entidades identificadas pelas aplicações;
+  \item Base de dados de modelos de entidades: contém os modelos de entidade registrados pela aplicação;
+  \item Base de dados de regras de inferência: contém as regras de inferência que foram enviadas pela aplicação;
+  \item Base de dados de trilhas: contém as trilhas buscadas do gerenciador de trilhas, e convertidas para o formato do eProfile;
+  \item Base de dados de perfis de entidades: contém os perfis de entidades, já inferidos a partir dos modelos, regras e trilhas.
 \end{itemize}
 
 
@@ -110,9 +98,7 @@ Para que a especificação do sistema seja completa, a metodologia propões que 
 \subsection{Arquitetura}
 \label{sec:arquitetura}
 
-A Figura~\ref{fig:coupling} apresenta o diagrama de ligação ({\em coupling}) do eProfile. Este diagrama representa a ligação entre as funcionalidades e as bases de dados, e tem como principal propósito a identificação de funcionalidades semelhantes para a identificação dos agentes do sistema.
-
-A partir do diagrama de ligação representado na Figura~\ref{fig:coupling}, é possível agrupar as bases de dados e funcionalidades em grupos afins, e identificar os agentes resultantes, como é mostrado na Figura~\ref{fig:coupling_agentes}. Quatro agentes foram identificados: (i) comunicador, (ii) configurador, (iii) conversor e (iv) raciocinador.
+A Figura~\ref{fig:coupling} apresenta o diagrama de ligação ({\em coupling}) do eProfile. A partir deste diagrama, é possível agrupar as bases de dados e funcionalidades em grupos afins, e identificar os agentes resultantes, como é mostrado na Figura~\ref{fig:coupling_agentes}. Quatro agentes foram identificados: (i) comunicador, (ii) configurador, (iii) conversor e (iv) raciocinador.
 
 \begin{figure}
   \includegraphics[width=0.7\textwidth]{imagens/coupling.png}
@@ -128,13 +114,13 @@ A partir do diagrama de ligação representado na Figura~\ref{fig:coupling}, é 
 
 O \textbf{agente comunicador} é responsável pela comunicação entre as aplicações e o eProfile. Ele cadastra as aplicações na base de dados de aplicações e permite que as aplicações cadastrem as entidades na base de dados de entidades. Ele também disponibiliza os perfis inferidos pelo agente raciocinador para que sejam recuperados pelas aplicações.
 
-O \textbf{agente configurador} recebe as seguintes configurações das aplicações: modelos de usuário e regras. Quando um modelo de usuário é recebido, ele é validado e, se aceito, é armazenado na base de dados de modelos de usuário.
+O \textbf{agente configurador} recebe as seguintes configurações das aplicações: modelos de entidade e regras. Quando um modelo de entidade é recebido, ele é validado e, se aceito, é armazenado na base de dados de modelos de entidades.
 
-O agente realiza também o recebimento das regras enviadas pela aplicação. Uma vez que as regras sejam recebidas, elas são validadas e, se forem consideradas válidas, são armazenadas na base de regras. A aplicação é então informada do aceite ou rejeição. O agente pode rejeitar uma regra se: (i) a regra for inválida ou (ii) se for verificado que a execução da regra irá consumir recursos excessivos do servidor.
+O agente realiza também o recebimento das regras enviadas pela aplicação. Uma vez que as regras sejam recebidas, elas são validadas e, se forem consideradas válidas, são armazenadas na base de regras. A aplicação é então informada do aceite ou rejeição. O agente pode rejeitar uma regra se a mesma for inválida.
 
-O \textbf{agente conversor} é responsável por realizar a conversão dos dados da trilha do gerenciador de trilhas (externo) para a ontologia de trilha do eProfile (interno). A trilha do gerenciador pode ser disponibilizada em qualquer formato e por qualquer meio, desde que o eProfile ofereça suporte ao gerenciador de trilhas específico. O agente conversor tem também a responsabilidade de verificar, a cada período pré-determinado, atualizações nos dados disponibilizados no gerenciador.
+O \textbf{agente conversor} realiza a conversão dos dados da trilha do gerenciador de trilhas (externo) para a ontologia de trilhas do eProfile (interno). A trilha do gerenciador pode ser disponibilizada em qualquer formato e por qualquer meio, desde que o eProfile ofereça suporte ao gerenciador de trilhas específico. O agente conversor tem também a responsabilidade de verificar, a cada período pré-determinado, atualizações nos dados disponibilizados no gerenciador.
 
-O \textbf{agente raciocinador} é responsável pela inferência das trilhas de acordo com as regras enviadas pela aplicação, e posterior atualização do perfil da entidade. A execução do agente não necessita que o cliente ou o gerenciador de trilhas esteja conectado, e ocorre da seguinte forma:
+O \textbf{agente raciocinador} infere trilhas de acordo com as regras enviadas pela aplicação, e atualiza o perfil da entidade. A execução do agente não necessita que o aplicativo ou o gerenciador de trilhas esteja conectado no momento da execução da inferência, e ocorre da seguinte forma:
 
 \begin{enumerate}
 
@@ -142,15 +128,15 @@ O \textbf{agente raciocinador} é responsável pela inferência das trilhas de a
 
 \item a regra é executada através de um raciocinador;
 
-\item caso a regra tenha sido executada com sucesso, o resultado da regra é atualizado no perfil. Em caso de insucesso, o erro é enviado para a aplicação no momento que a mesma se reconectar.
+\item caso a regra tenha sido executada com sucesso, o resultado da regra é atualizado no perfil. Em caso de insucesso, o erro é enviado para a aplicação. Se a aplicação não estiver conectada ao eProfile, o resultado é enviado à aplicação no momento que a mesma se reconectar.
 
 \end{enumerate}
 
-A Figura~\ref{fig:overview} mosta o diagrama da visão geral do sistema, que junta todas as partes da arquitetura. Esta figura é comparável à Figura~\ref{fig:modelo}, porém apresentando uma representação mais completa.
+A Figura~\ref{fig:overview} mosta o diagrama da visão geral do modelo, que junta todas as partes da arquitetura. Esta figura é comparável à Figura~\ref{fig:modelo}, porém apresentando uma representação mais completa.
 
 \begin{figure}
   \includegraphics[width=1\textwidth]{imagens/overview.png}
-  \caption{Diagrama da visão geral do sistema}
+  \caption{Diagrama da visão geral do modelo}
   \label{fig:overview}
 \end{figure}
 
