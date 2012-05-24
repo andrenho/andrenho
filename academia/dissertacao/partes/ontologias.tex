@@ -3,7 +3,7 @@
 \section{Ontologias}
 \label{sec:ontologia}
 
-O eProfile utiliza duas ontologias: uma ontologia de trilhas e uma ontologia de perfis. As ontologias utilizadas pelo eProfile -- tanto a ontologia de trilhas quanto a ontologia de perfil -- são ontologias básicas, estendidas através de subclasses de acordo com o formato da trilha enviada pelo gerenciador (no caso da ontologia de trilha) ou das necessidades da aplicação (no caso da ontologia do perfil). Isto é representado na Figura~\ref{fig:heranca}, onde o eProfile oferece uma classe genérica ``Atividade'', que é especializada pela classe ``AtividadeDeCompra'', utilizada por um dos gerenciadores de trilha.
+O eProfile utiliza duas ontologias: uma ontologia de trilhas e uma ontologia de perfis. As ontologias utilizadas pelo eProfile, tanto a ontologia de trilhas quanto a ontologia de perfis, são ontologias básicas, estendidas através de subclasses de acordo com o formato da trilha enviada pelo gerenciador (no caso da ontologia de trilha) ou das necessidades da aplicação (no caso da ontologia do perfil). Isto é exemplificado na Figura~\ref{fig:heranca}, onde o eProfile oferece uma classe genérica ``Atividade'', que é especializada pela classe ``AtividadeDeCompra'', utilizada por um dos gerenciadores de trilha.
 
 \begin{figure}
   \centering\includegraphics[width=0.8\textwidth]{imagens/heranca.png}
@@ -16,7 +16,7 @@ O eProfile utiliza duas ontologias: uma ontologia de trilhas e uma ontologia de 
 \subsection{Ontologia de Trilha (eOntoTrail)}
 \label{sec:eontotrail}
 
-O eProfile implementa uma ontologia de trilha, a qual será chamada \textbf{eOntoTrail}. Esta ontologia será alimentada a partir dos diferentes gerenciadores de trilhas suportados, onde o agente {\textbf conversor} é responsável por receber os dados no formato do gerenciador de trilhas e convertê-los para a eOntoTrail. Assim, o raciocinador terá uma ontologia única sobre a qual poderá raciocinar.
+O eProfile implementa uma ontologia de trilha, a qual será chamada \textbf{eOntoTrail}. Esta ontologia será alimentada a partir dos diferentes gerenciadores de trilhas suportados, onde o agente conversor é responsável por receber os dados no formato do gerenciador de trilhas e convertê-los para a eOntoTrail. Assim, o raciocinador terá uma ontologia única sobre a qual poderá raciocinar.
 
 A eOntoTrail está representada na Figura~\ref{fig:ont_trilha}, onde todos os relacionamentos, representados pelas setas, são do tipo ou ``has-a'' ou ``has-some''.
 
@@ -30,17 +30,17 @@ A eOntoTrail está representada na Figura~\ref{fig:ont_trilha}, onde todos os re
 
 \citetexto{abowd99} definem que aplicações sensíveis a contexto estão interessadas em saber {\bf quem}, {\bf onde}, {\bf quando} e {\bf o quê} (isto é, o que o usuário está fazendo), de forma a poderem descobrir por que a situação está ocorrendo. Assim, uma trilha é representada por um conjunto de eventos caracterizados pelas seguintes classes:
 
-\begin{description}
+\begin{itemize}
 
-  \item[Identity:] é a identidade da entidade que está realizando a ação. Esta entidade pode estar realizando a ação com um ou mais recursos ({\em Resource}) (um aplicativo ou dispositivo, por exemplo) e pode estar vinculada a um perfil ({\em Profile}) dentro do eProfile. A classe \textbf{Participants} contém as identidades das entidades que estão participando deste evento;
+  \item {\em Identity:} é a identidade da entidade que está realizando a ação. Esta entidade pode estar realizando a ação com um ou mais recursos ({\em Resource}) (um aplicativo ou dispositivo, por exemplo) e pode estar vinculada a um perfil ({\em Profile}) dentro do eProfile. A classe {\em Participants} contém as identidades das entidades que estão participando deste evento;
 
-  \item[Location:] a localização onde está ocorrendo a ação. Uma localização pode ser uma localização física específica (como uma sala) ou não (uma estrada, por exemplo). A localização pode estar vinculada a uma região ({\em Region}) que, adicionalmente, pode estar vinculada a outras subregiões e geralmente possui uma localização global (GPS) vinculada a ela. Outros tipos de localização podem ser extendidas a partir da classe;
+  \item {\em Location:} a localização onde está ocorrendo a ação. Uma localização pode ser uma localização física específica (como uma sala) ou não (uma estrada, por exemplo). A localização pode estar vinculada a uma região ({\em Region}) que, adicionalmente, pode estar vinculada a outras subregiões e geralmente possui uma localização global (GPS) vinculada a ela. Outros tipos de localização podem ser estendidas a partir da classe;
 
-  \item[Time:] data e hora em que ocorreu o evento;
+  \item {\em Time:} data e hora em que ocorreu o evento;
 
-  \item[Activity:] refere-se à ação que a entidade está executando (ou tentou executar). É a classe mais abrangente da ontologia, e a que possivelmente será a mais especializada pelos gerenciadores de trilha.
+  \item {\em Activity:} refere-se à ação que a entidade está executando (ou tentou executar). É a classe mais abrangente da ontologia, e a que possivelmente será a mais especializada pelos gerenciadores de trilha.
 
-\end{description}
+\end{itemize}
 
 %É importante notar que a própria classe base {\em Thing}\footnote{Em OWL, a classe {\em Thing} é a classe base a partir da qual todas as outras classes são extendidas.} pode ser extendida, como forma de registrar outras informações necessárias. Por exemplo, a trilha registra o interesse de um usuário em um determinado produto, a classe {\em Thing} pode ser extendida à classe {\em Product} para o registro das informações deste produto.
 

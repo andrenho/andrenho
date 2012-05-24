@@ -32,6 +32,7 @@ digraph G {
   GerenciamentoRegras -> "Receber\n regras";
   GerenciamentoRegras -> "Validar\n regras";
   GerenciamentoRegras -> "Armazenar\n regras";
+  GerenciamentoRegras -> "Agendar\n regras";
 
   GerenciamentoTrilhas -> "Buscar\n trilhas";
   GerenciamentoTrilhas -> "Converter\n trilhas";
