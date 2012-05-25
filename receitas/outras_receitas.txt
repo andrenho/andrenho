@@ -1,39 +1,39 @@
 PRATOS PRINCIPAIS
 
- - Alho-por√≥ assado cremoso 
-     <livro:Revolu√ß√£o na Cozinha - Jamie Oliver>
+ - Alho-porÛ assado cremoso 
+     <livro:RevoluÁ„o na Cozinha - Jamie Oliver>
  - Arroz carreteiro
      <head:>
  - Bife
      <file:bife.txt>
- - Carne mo√≠da Wellington 
-     <livro:Revolu√ß√£o na Cozinha - Jamie Oliver>
+ - Carne moÌda Wellington 
+     <livro:RevoluÁ„o na Cozinha - Jamie Oliver>
  - Chilli con carne 
-     <livro:Revolu√ß√£o na Cozinha - Jamie Oliver>
+     <livro:RevoluÁ„o na Cozinha - Jamie Oliver>
  - Conchinhas com molho cremoso de bacon defumado e ervilhas 
-     <livro:Revolu√ß√£o na Cozinha - Jamie Oliver>
+     <livro:RevoluÁ„o na Cozinha - Jamie Oliver>
  - Ensopado de carne (gado, cordeiro, frango e porco)
-     <livro:Revolu√ß√£o na Cozinha - Jamie Oliver>
- - Estrogonofe de frango e alho-por√≥ 
-     <livro:Revolu√ß√£o na Cozinha - Jamie Oliver>
- - Feij√£o com arroz
+     <livro:RevoluÁ„o na Cozinha - Jamie Oliver>
+ - Estrogonofe de frango e alho-porÛ 
+     <livro:RevoluÁ„o na Cozinha - Jamie Oliver>
+ - Feij„o com arroz
      <head:>
  - Lentilhas
      <file:lentilhas.txt>
  - Massa caseira
      <file:massa_caseira.txt>
  - Massa com camembert assado 
-     <livro:Revolu√ß√£o na Cozinha - Jamie Oliver>
- - Molho √† bolonhesa 
-     <livro:Revolu√ß√£o na Cozinha - Jamie Oliver>
+     <livro:RevoluÁ„o na Cozinha - Jamie Oliver>
+ - Molho ‡ bolonhesa 
+     <livro:RevoluÁ„o na Cozinha - Jamie Oliver>
  - Moranga recheada
      <file:moranga_recheada.txt>
- - Peito de frango com parmes√£o e presunto crocante 
-     <livro:Revolu√ß√£o na Cozinha - Jamie Oliver>
- - Salm√£o com manjeric√£o
+ - Peito de frango com parmes„o e presunto crocante 
+     <livro:RevoluÁ„o na Cozinha - Jamie Oliver>
+ - Salm„o com manjeric„o
      <file:salmao.txt>
  - Vindaloo 
-     <livro:Revolu√ß√£o na Cozinha - Jamie Oliver>
+     <livro:RevoluÁ„o na Cozinha - Jamie Oliver>
 
 ACOMPANHAMENTO
 
@@ -45,90 +45,90 @@ ACOMPANHAMENTO
      <http://www.simplesmentedelicia.com/?p=826>
      <file:batatas_assadas.txt>
  - Batatas francesas assadas 
-     <livro:Revolu√ß√£o na Cozinha - Jamie Oliver>
- - Pur√™ de batatas
+     <livro:RevoluÁ„o na Cozinha - Jamie Oliver>
+ - PurÍ de batatas
      <head:>
 
 SALADAS
 
- - Alfaces enrolados asi√°ticos 
+ - Alfaces enrolados asi·ticos 
      <http://allrecipes.com/recipe/asian-lettuce-wraps-2/detail.aspx>
- - Br√≥colis com molho asi√°tico 
-     <livro:Revolu√ß√£o na Cozinha - Jamie Oliver>
- - Salada C√©sar
+ - BrÛcolis com molho asi·tico 
+     <livro:RevoluÁ„o na Cozinha - Jamie Oliver>
+ - Salada CÈsar
      <head:>
- - Salada de batatas com lim√£o 
+ - Salada de batatas com lim„o 
      <http://www.macheesmo.com/2010/07/lemony-potato-salad/>
  - Salada de bife e batatas 
      <http://www.macheesmo.com/2012/04/steak-and-potato-salad/>
- - Salada de r√∫cula com galinha e alho 
+ - Salada de r˙cula com galinha e alho 
      <http://www.macheesmo.com/2012/05/a-grill-disaster-plus-a-salad/>
 
 SOBREMESAS/DOCES
 
- - Barras de puro lim√£o 
+ - Barras de puro lim„o 
      <http://www.simplesmentedelicia.com/?p=922>
  - Bolo BTS
      <http://www.macheesmo.com/2012/02/better-than-sex-cake/>
- - P√£o-de-l√≥ com morangos e creme 
-     <livro:Revolu√ß√£o na Cozinha - Jamie Oliver>
+ - P„o-de-lÛ com morangos e creme 
+     <livro:RevoluÁ„o na Cozinha - Jamie Oliver>
  - Sorvete de morangos 
      <http://www.simplesmentedelicia.com/?p=2068>
- - Sobremesa r√°pida
+ - Sobremesa r·pida
      <http://tudogostoso.uol.com.br/receita/3426-sobremesa-rapida.html>
 
 BEBIDAS
 
- - Masala Chai (ch√° com especiarias) 
+ - Masala Chai (ch· com especiarias) 
      <http://www.simplesmentedelicia.com/?paged=20>
 
-CAF√â-DA-MANH√É
+CAF…-DA-MANH√
 
  - Mingau 
-     <livro:Revolu√ß√£o na Cozinha - Jamie Oliver>
+     <livro:RevoluÁ„o na Cozinha - Jamie Oliver>
      <file:mingau.txt>
 
 LANCHES
 
  - Bolachinhas salgadas
      <file:bolachinas.txt>
- - Bolinho de queijo e ling√ºi√ßa 
+ - Bolinho de queijo e ling¸iÁa 
      <http://www.macheesmo.com/2012/03/ham-and-cheese-popovers/>
  - Milho ao estilo mexicano 
-     <livro:Revolu√ß√£o na Cozinha - Jamie Oliver>
+     <livro:RevoluÁ„o na Cozinha - Jamie Oliver>
  - Omelete 
-     <livro:Revolu√ß√£o na Cozinha - Jamie Oliver>
+     <livro:RevoluÁ„o na Cozinha - Jamie Oliver>
  - Vagens fritas 
      <http://www.macheesmo.com/2012/02/fried-green-beans/>
 
-P√ÉES
+P√ES
 
  - Baguete
      <livro:The Fresh Loaf Pocket Book of Bread Baking>
  - Brioche
-     <livro:200 Receitas de P√£es Tentadores>
+     <livro:200 Receitas de P„es Tentadores>
  - Grissini
-     <livro:200 Receitas de P√£es Tentadores>
- - P√£o australiano 
+     <livro:200 Receitas de P„es Tentadores>
+ - P„o australiano 
      <http://thinkfood.com.br/index.php/2010/06/04/aussiebread-pao-australiano/>
- - P√£o branco simples
-     <livro:200 Receitas de P√£es Tentadores>
- - P√£o com abobrinha
-     <livro:200 Receitas de P√£es Tentadores>
- - P√£o com alho assado 
+ - P„o branco simples
+     <livro:200 Receitas de P„es Tentadores>
+ - P„o com abobrinha
+     <livro:200 Receitas de P„es Tentadores>
+ - P„o com alho assado 
      <http://www.macheesmo.com/2010/09/roasted-garlic-bread/>
- - P√£o doce portugu√™s 
+ - P„o doce portuguÍs 
      <http://www.macheesmo.com/2012/01/portuguese-sweet-bread/>
- - P√£o integral dos Wagners
+ - P„o integral dos Wagners
      <pao_integral.txt>
- - P√£o n√£o-sovado 
+ - P„o n„o-sovado 
      <http://www.macheesmo.com/2008/10/life-changing-bread/>
- - P√£o de semolina com azeite
-     <livro:200 Receitas de P√£es Tentadores>
- - P√£o toscano com uvas 
+ - P„o de semolina com azeite
+     <livro:200 Receitas de P„es Tentadores>
+ - P„o toscano com uvas 
      <http://www.simplesmentedelicia.com/?p=2059>
- - Tiras de alho com manteiga e manjeric√£o
-     <livro:200 Receitas de P√£es Tentadores>
- - Tran√ßa com mirtilos e baunilha
-     <livro:200 Receitas de P√£es Tentadores>
+ - Tiras de alho com manteiga e manjeric„o
+     <livro:200 Receitas de P„es Tentadores>
+ - TranÁa com mirtilos e baunilha
+     <livro:200 Receitas de P„es Tentadores>
 
