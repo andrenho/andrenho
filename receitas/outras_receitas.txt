@@ -1,51 +1,134 @@
-Blog Simplesmente Delícia:
- - Batata-doce assada <http://www.simplesmentedelicia.com/?p=2177>
- - Pão toscano com uvas <http://www.simplesmentedelicia.com/?p=2059>
- - Sorvete de morangos <http://www.simplesmentedelicia.com/?p=2068>
- - Masala Chai (chá com especiarias) <http://www.simplesmentedelicia.com/?paged=20>
- - Barras de puro limão <http://www.simplesmentedelicia.com/?p=922>
- - Batatas assados com alho e azeite <http://www.simplesmentedelicia.com/?paged=32>
+PRATOS PRINCIPAIS
 
-Site AllRecipes.com
- - Alfaces enrolados asiáticos <http://allrecipes.com/recipe/asian-lettuce-wraps-2/detail.aspx>
-
-Site Macheesmo
- - Vagens fritas <http://www.macheesmo.com/2012/02/fried-green-beans/>
- - Bolo BTS <http://www.macheesmo.com/2012/02/better-than-sex-cake/>
- - Salada de batatas com limão <http://www.macheesmo.com/2010/07/lemony-potato-salad/>
- - Bolinho de queijo e lingüiça <http://www.macheesmo.com/2012/03/ham-and-cheese-popovers/>
- - Salada de bife e batatas <http://www.macheesmo.com/2012/04/steak-and-potato-salad/>
- - Pão com alho assado <http://www.macheesmo.com/2010/09/roasted-garlic-bread/>
- - Salada de rúcula com galinha e alho <http://www.macheesmo.com/2012/05/a-grill-disaster-plus-a-salad/>
- - Pão doce português <http://www.macheesmo.com/2012/01/portuguese-sweet-bread/>
- - Pão não-sovado <http://www.macheesmo.com/2008/10/life-changing-bread/>
-
-Outos sites
- - Pão australiano <http://thinkfood.com.br/index.php/2010/06/04/aussiebread-pao-australiano/>
-
-Livro "Revolução na Cozinha - Jamie Oliver":
- - Estrogonofe de frango e alho-poró
- - Massa com camembert assado
- - Conchinhas com molho cremoso de bacon defumado e ervilhas
- - Vindaloo
- - Carne moída Wellington
- - Molho à bolonhesa
- - Chilli con carne
+ - Alho-poró assado cremoso 
+     <livro:Revolução na Cozinha - Jamie Oliver>
+ - Arroz carreteiro
+     <head:>
+ - Bife
+     <file:bife.txt>
+ - Carne moída Wellington 
+     <livro:Revolução na Cozinha - Jamie Oliver>
+ - Chilli con carne 
+     <livro:Revolução na Cozinha - Jamie Oliver>
+ - Conchinhas com molho cremoso de bacon defumado e ervilhas 
+     <livro:Revolução na Cozinha - Jamie Oliver>
  - Ensopado de carne (gado, cordeiro, frango e porco)
- - Brócolis com molho asiático
- - Alho-poró assado cremoso
- - Batatas francesas assadas
- - Milho ao estilo mexicano
- - Peito de frango com parmesão e presunto crocante
- - Mingau
- - Omelete
- - Pão-de-ló com morangos e creme
+     <livro:Revolução na Cozinha - Jamie Oliver>
+ - Estrogonofe de frango e alho-poró 
+     <livro:Revolução na Cozinha - Jamie Oliver>
+ - Feijão com arroz
+     <head:>
+ - Lentilhas
+     <file:lentilhas.txt>
+ - Massa caseira
+     <file:massa_caseira.txt>
+ - Massa com camembert assado 
+     <livro:Revolução na Cozinha - Jamie Oliver>
+ - Molho à bolonhesa 
+     <livro:Revolução na Cozinha - Jamie Oliver>
+ - Moranga recheada
+     <file:moranga_recheada.txt>
+ - Peito de frango com parmesão e presunto crocante 
+     <livro:Revolução na Cozinha - Jamie Oliver>
+ - Salmão com manjericão
+     <file:salmao.txt>
+ - Vindaloo 
+     <livro:Revolução na Cozinha - Jamie Oliver>
 
-Livro "200 Receitas de Pães Tentadores":
- - Pão branco simples
+ACOMPANHAMENTO
+
+ - Arroz
+     <file:arroz.txt>
+ - Batata-doce assada 
+     <http://www.simplesmentedelicia.com/?p=2177>
+ - Batatas assados com alho e azeite 
+     <http://www.simplesmentedelicia.com/?p=826>
+     <file:batatas_assadas.txt>
+ - Batatas francesas assadas 
+     <livro:Revolução na Cozinha - Jamie Oliver>
+ - Purê de batatas
+     <head:>
+
+SALADAS
+
+ - Alfaces enrolados asiáticos 
+     <http://allrecipes.com/recipe/asian-lettuce-wraps-2/detail.aspx>
+ - Brócolis com molho asiático 
+     <livro:Revolução na Cozinha - Jamie Oliver>
+ - Salada César
+     <head:>
+ - Salada de batatas com limão 
+     <http://www.macheesmo.com/2010/07/lemony-potato-salad/>
+ - Salada de bife e batatas 
+     <http://www.macheesmo.com/2012/04/steak-and-potato-salad/>
+ - Salada de rúcula com galinha e alho 
+     <http://www.macheesmo.com/2012/05/a-grill-disaster-plus-a-salad/>
+
+SOBREMESAS/DOCES
+
+ - Barras de puro limão 
+     <http://www.simplesmentedelicia.com/?p=922>
+ - Bolo BTS
+     <http://www.macheesmo.com/2012/02/better-than-sex-cake/>
+ - Pão-de-ló com morangos e creme 
+     <livro:Revolução na Cozinha - Jamie Oliver>
+ - Sorvete de morangos 
+     <http://www.simplesmentedelicia.com/?p=2068>
+ - Sobremesa rápida
+     <http://tudogostoso.uol.com.br/receita/3426-sobremesa-rapida.html>
+
+BEBIDAS
+
+ - Masala Chai (chá com especiarias) 
+     <http://www.simplesmentedelicia.com/?paged=20>
+
+CAFÉ-DA-MANHÃ
+
+ - Mingau 
+     <livro:Revolução na Cozinha - Jamie Oliver>
+     <file:mingau.txt>
+
+LANCHES
+
+ - Bolachinhas salgadas
+     <file:bolachinas.txt>
+ - Bolinho de queijo e lingüiça 
+     <http://www.macheesmo.com/2012/03/ham-and-cheese-popovers/>
+ - Milho ao estilo mexicano 
+     <livro:Revolução na Cozinha - Jamie Oliver>
+ - Omelete 
+     <livro:Revolução na Cozinha - Jamie Oliver>
+ - Vagens fritas 
+     <http://www.macheesmo.com/2012/02/fried-green-beans/>
+
+PÃES
+
+ - Baguete
+     <livro:The Fresh Loaf Pocket Book of Bread Baking>
  - Brioche
- - Pão de semolina com azeite
- - Tiras de alho com manteiga e manjericão
- - Trança com mirtilos e baunilha
+     <livro:200 Receitas de Pães Tentadores>
  - Grissini
+     <livro:200 Receitas de Pães Tentadores>
+ - Pão australiano 
+     <http://thinkfood.com.br/index.php/2010/06/04/aussiebread-pao-australiano/>
+ - Pão branco simples
+     <livro:200 Receitas de Pães Tentadores>
  - Pão com abobrinha
+     <livro:200 Receitas de Pães Tentadores>
+ - Pão com alho assado 
+     <http://www.macheesmo.com/2010/09/roasted-garlic-bread/>
+ - Pão doce português 
+     <http://www.macheesmo.com/2012/01/portuguese-sweet-bread/>
+ - Pão integral dos Wagners
+     <pao_integral.txt>
+ - Pão não-sovado 
+     <http://www.macheesmo.com/2008/10/life-changing-bread/>
+ - Pão de semolina com azeite
+     <livro:200 Receitas de Pães Tentadores>
+ - Pão toscano com uvas 
+     <http://www.simplesmentedelicia.com/?p=2059>
+ - Tiras de alho com manteiga e manjericão
+     <livro:200 Receitas de Pães Tentadores>
+ - Trança com mirtilos e baunilha
+     <livro:200 Receitas de Pães Tentadores>
+
