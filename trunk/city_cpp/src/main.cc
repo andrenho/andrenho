@@ -12,7 +12,9 @@ int main(int argc, char* argv[])
 	UI ui(city);
 
 	city.Build(new Building(1, 1, 4, 4));
-	city.ReceiveImmigrant(new Person(0.5, 0.5));
+
+	Person* p = new Person(0.5, 0.5);
+	city.ReceiveImmigrant(p);
 
 	try
 	{
