@@ -1,9 +1,7 @@
 CC=g++
 CFLAGS=-c -Wall -I. -g `sdl-config --cflags`
 LDFLAGS=`sdl-config --libs`
-SOURCES=main.cc \
-	city/city.cc city/building.cc city/person.cc \
-	ui/ui.cc
+SOURCES=main.cc city.cc ui.cc building.cc person.cc
 OBJECTS=$(SOURCES:.cc=.o)
 EXECUTABLE=city
 
