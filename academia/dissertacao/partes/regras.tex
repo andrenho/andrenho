@@ -41,12 +41,16 @@ As regras são sempre definidas pela aplicação, e uma regra é composto pelo s
 
 \end{itemize}
 
-O raciocinador gerenciará a carga de processamento no servidor. Assim, algumas regras podem não ser executadas de acordo com o agendamento solicitado. Além disso, é possível que uma aplicação registre certas regras mas deixe de usar o servidor, fazendo com que as regras continuem sendo executadas desnecessariamente. Assim, caso um perfil não seja consultado por mais de um mês, por exemplo, a freqüencia da execução das regras passa a diminuir progressivamente, até o ponto em que a regra não seja mais executada. Caso a aplicação volte a consultar os perfis, a freqüencia de execução das regras é normalizada.
+O raciocinador gerenciará a carga de processamento no servidor. Assim, algumas regras podem não ser executadas de acordo com o agendamento solicitado. Além disso, é possível que uma aplicação registre certas regras mas deixe de usar o servidor, fazendo com que as regras continuem sendo executadas desnecessariamente. Assim, caso um perfil não seja consultado por um tempo determinado, a freqüencia da execução das regras passa a diminuir progressivamente, até o ponto em que a regra não seja mais executada. Caso a aplicação volte a consultar os perfis, a freqüencia de execução das regras é normalizada.
 
 As regras podem ser escritas em duas linguagens diferentes: SPARQL ou SWRL. O SPARQL \cite{sparql} é uma linguagem de consulta de ontologias cuja sintaxe assemelha-se a linguagem de consulta de banco de dados SQL \cite{sql}, enquanto o SWRL \cite{swrl} é uma linguagem de regras que permite a consulta utilizando construtores lógicos mais complexos que o SPARQL.
 
 Uma vez que a regra tenha sido validada pelo agente regulador, ela entra em funcionamento e passa a ser elegível para execução.
 
-Tanto as consultas via OWL quanto as consultas via SPARQL são executadas através de um motor de inferências externo. 
+Tanto as consultas via OWL quanto as consultas via SPARQL são executadas através de um motor de inferências externo que é descrito na Seção~\ref{sec:motor_inferencia}.
 
-\todo[inline]{Colocar um exemplo de uma regra}
+\section{Considerações sobre o Capítulo}
+
+O modelo eProfile é um modelo para gerenciamento de perfis através de inferência em trilhas. Ao contrário da maioria das propostas de gerenciamento de perfis, o eProfile não trabalha dentro de um domínio específico, mas pode operar com qualquer tipo de informação. Ele se conecta a aplicativos que definem seus modelos de entidades e regras de inferência, e a gerenciadores de trilhas que disponibilizam a trilha das entidades e, a partir destas informações, é capaz de montar os perfis de entidade.
+
+O Capítulo seguinte define os aspectos de implementação do protótipo e as estratégias de avaliação do modelo.
