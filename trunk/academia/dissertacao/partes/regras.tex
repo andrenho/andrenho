@@ -23,7 +23,7 @@ A partir destas três informações, o raciocinador tem condições de gerar um 
   \label{fig:dados_inferencia}
 \end{figure}
 
-As regras são sempre definidas pela aplicação, e uma regra é composto pelo seguinte conjunto de informações:
+As regras são sempre definidas pela aplicação, e uma regra é composta pelo seguinte conjunto de informações:
 
 \begin{itemize}
 
@@ -35,13 +35,13 @@ As regras são sempre definidas pela aplicação, e uma regra é composto pelo s
 
 \item {\bf Atualização:} uma instrução que define como o campo será atualizado (por exemplo, o valor pode ser simplesmente sobrescrito ou atualizado de acordo com alguma fórmula);
 
-\item {\bf Freqüência de atualização:} define de quanto em quanto tempo esta regra deve ser executada. É importante notar que o valor definido aqui pode não ser honrado, devido a outros motivos (como uma sobrecarga no servidor);
+\item {\bf Frequência de atualização:} define de quanto em quanto tempo esta regra deve ser executada. É importante notar que o valor definido aqui pode não ser honrado, devido a outros motivos (como uma sobrecarga no servidor);
 
 \item {\bf Validade}: define qual a data limite para a execução desta regra. A ausência desta informação define que a regra continuará sendo processada indefinidamente;
 
 \end{itemize}
 
-O raciocinador gerenciará a carga de processamento no servidor. Assim, algumas regras podem não ser executadas de acordo com o agendamento solicitado. Além disso, é possível que uma aplicação registre certas regras mas deixe de usar o servidor, fazendo com que as regras continuem sendo executadas desnecessariamente. Assim, caso um perfil não seja consultado por um tempo determinado, a freqüencia da execução das regras passa a diminuir progressivamente, até o ponto em que a regra não seja mais executada. Caso a aplicação volte a consultar os perfis, a freqüencia de execução das regras é normalizada.
+O raciocinador gerenciará a carga de processamento no servidor. Assim, algumas regras podem não ser executadas de acordo com o agendamento solicitado. Além disso, é possível que uma aplicação registre certas regras mas deixe de usar o servidor, fazendo com que as regras continuem sendo executadas desnecessariamente. Assim, caso um perfil não seja consultado por um tempo determinado, a frequência da execução das regras passa a diminuir progressivamente, até o ponto em que a regra não seja mais executada. Caso a aplicação volte a consultar os perfis, a frequência de execução das regras é normalizada.
 
 As regras podem ser escritas em duas linguagens diferentes: SPARQL ou SWRL. O SPARQL \cite{sparql} é uma linguagem de consulta de ontologias cuja sintaxe assemelha-se a linguagem de consulta de banco de dados SQL \cite{sql}, enquanto o SWRL \cite{swrl} é uma linguagem de regras que permite a consulta utilizando construtores lógicos mais complexos que o SPARQL.
 
