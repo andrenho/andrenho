@@ -18,7 +18,7 @@ Como o eProfile é um modelo que infere informações de forma autônoma a respe
 
 A metodologia Prometheus define que o ponto central da modelagem de um sistema é a identificação dos objetivos iniciais do sistema. De acordo com a Seção~\ref{sec:modelo}, o eProfile é um modelo que gerencia perfis de entidades, permitindo que as aplicações definam (i) seus próprios modelos de entidade e (ii) regras através das quais a trilha de uma entidade será processada. Um processo de inferência baseado nestas informações monta ou atualiza um perfil de entidade, que é então disponibilizado para a aplicação.
 
-A partir desta descrição, identificam-se os objetivos. Os respectivos sub-objetivos são definidos considerando a forma como cada objetivo pode ser atingido \cite{prometheus-book}. Assim, os objetivos e sub-objetivos do eProfile são:
+A partir desta descrição, identificam-se os objetivos. Os respectivos subobjetivos são definidos considerando a forma como cada objetivo pode ser atingido \cite{prometheus-book}. Assim, os objetivos e subobjetivos do eProfile são:
 
 \begin{itemize}
   \item gerenciar múltiplos perfis de entidade
@@ -55,7 +55,7 @@ A partir desta descrição, identificam-se os objetivos. Os respectivos sub-obje
 
 Para que a especificação do modelo seja completa, a metodologia propõe que sejam identificadas as {\em interfaces}, ou seja, os pontos onde o modelo se comunica com outros sistemas. Os pontos onde o modelo recebe informações de outros sistemas são chamados ``preceitos'', e os pontos onde o modelo envia informações para outros sistemas são chamados ``ações''.
 
-A partir dos sub-objetivos, é possível extrair as funcionalidades do modelo. A Figura~\ref{fig:funcionalidades} identifica as funcionalidades do eProfile, com as caixas representando as funcionalidades (baseadas nos objetivos), as formas ovais representando os sub-objetivos, e os ícones pentagonais representando as ações. Cada objetivo possui pelo menos uma ação que é executada através de um gatilho, e utiliza um conjunto de informações, de acordo com a Tabela~\ref{tab:funcionalidades}.
+A partir dos subobjetivos, é possível extrair as funcionalidades do modelo. A Figura~\ref{fig:funcionalidades} identifica as funcionalidades do eProfile, com as caixas representando as funcionalidades (baseadas nos objetivos), as formas ovais representando os subobjetivos, e os ícones pentagonais representando as ações. Cada objetivo possui pelo menos uma ação que é executada através de um gatilho, e utiliza um conjunto de informações, de acordo com a Tabela~\ref{tab:funcionalidades}.
 
 Os preceitos do modelo, isto é, os pontos onde o eProfile recebe informações de outros sistemas são: (i) registro de nova aplicação, (ii) registro de nova entidade, (iii) modelo definido pela aplicação, (iv) regras para inferência das trilhas e (v) as próprias trilhas. O eProfile possui apenas uma ação, isto é, apenas uma saída de informações, que são os perfis das entidades que são gerados pelo modelo.
 
@@ -132,7 +132,7 @@ O \textbf{agente raciocinador} infere trilhas de acordo com as regras enviadas p
 
 \end{enumerate}
 
-A Figura~\ref{fig:overview} mosta o diagrama da visão geral do modelo, que junta todas as partes da arquitetura. Esta figura é comparável à Figura~\ref{fig:modelo}, porém apresentando uma representação mais completa.
+A Figura~\ref{fig:overview} mostra o diagrama da visão geral do modelo, que junta todas as partes da arquitetura. Esta figura é comparável à Figura~\ref{fig:modelo}, porém apresentando uma representação mais completa.
 
 \begin{figure}
   \includegraphics[width=1\textwidth]{imagens/overview.png}
