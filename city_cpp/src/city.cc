@@ -15,6 +15,9 @@ City::~City()
 void
 City::Step()
 {
+	for(vector<Person*>::iterator pi = people.begin();
+			pi != people.end(); pi++)
+		(*pi)->Step();
 }
 
 
@@ -30,4 +33,5 @@ void
 City::ReceiveImmigrant(Person* p)
 {
 	people.push_back(p);
+	p->city = this;
 }

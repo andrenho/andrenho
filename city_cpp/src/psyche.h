@@ -8,15 +8,15 @@ class Psyche
 public:
 	void Init(Person* person);
 
-private:
 	typedef enum {
-		FOOD, SLEEP, HEALTH, MORALITY, MONEY, HOME, FUN, FRIENDS, FAMILY, RESPECT,
+		FOOD, SLEEP, HEALTH, MORALITY, EMPLOYMENT, HOME, FUN, FRIENDS, FAMILY, RESPECT,
 		ACHIEVEMENT, RELIGION, _END
 	} Need;
+	Need UnachievedNeed();
 
+private:
 	Person* person;
 
-	Need UnachievedNeed();
 	bool IsNeedFullfilled(Need need);
 };
 
