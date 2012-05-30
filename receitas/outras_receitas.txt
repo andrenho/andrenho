@@ -18,8 +18,6 @@ PRATOS PRINCIPAIS
      <livro:Revolução na Cozinha - Jamie Oliver>
  - Feijão com arroz
      <head:>
- - Lentilhas
-     <file:lentilhas.txt>
  - Massa caseira
      <file:massa_caseira.txt>
  - Massa com camembert assado 
@@ -68,7 +66,7 @@ SOBREMESAS/DOCES
 
  - Barras de puro limão 
      <http://www.simplesmentedelicia.com/?p=922>
- - Bolo BTS
+ - Bolo de Caramelo
      <http://www.macheesmo.com/2012/02/better-than-sex-cake/>
  - Pão-de-ló com morangos e creme 
      <livro:Revolução na Cozinha - Jamie Oliver>
@@ -79,7 +77,7 @@ SOBREMESAS/DOCES
 
 BEBIDAS
 
- - Masala Chai (chá com especiarias) 
+ - Masala Chai (chá com especiarias)
      <http://www.simplesmentedelicia.com/?paged=20>
 
 CAFÉ-DA-MANHÃ
@@ -96,9 +94,9 @@ LANCHES
      <http://www.macheesmo.com/2012/03/ham-and-cheese-popovers/>
  - Milho ao estilo mexicano 
      <livro:Revolução na Cozinha - Jamie Oliver>
- - Omelete 
+ - Omelete
      <livro:Revolução na Cozinha - Jamie Oliver>
- - Vagens fritas 
+ - Vagens fritas
      <http://www.macheesmo.com/2012/02/fried-green-beans/>
  - Tortillas de Sonora
      <http://www.texascooking.com/features/sept98flourtortillas.htm>
@@ -109,9 +107,13 @@ SOPAS
 
  - Sopa de feijão fradinho
      <http://www.macheesmo.com/2008/12/good-luck-pea-soup/>
+ - Lentilhas
+     <file:lentilhas.txt>
 
 MOLHOS
 
+ - Guacamole
+     <http://www.macheesmo.com/2008/11/holy-guacamole/>
  - Humus com pimentão assado
      <http://www.macheesmo.com/2010/03/hummus-two-ways/>
 
@@ -145,4 +147,3 @@ PÃES
      <livro:200 Receitas de Pães Tentadores>
  - Trança com mirtilos e baunilha
      <livro:200 Receitas de Pães Tentadores>
-
