@@ -47,6 +47,13 @@ ACOMPANHAMENTO
  - Purê de batatas
      <head:>
 
+ENSOPADOS
+
+ - Sopa de feijão fradinho
+     <http://www.macheesmo.com/2008/12/good-luck-pea-soup/>
+ - Lentilhas
+     <file:lentilhas.txt>
+
 SALADAS
 
  - Alfaces enrolados asiáticos 
@@ -90,8 +97,6 @@ CAFÉ-DA-MANHÃ
 
 LANCHES
 
- - Bolachinhas salgadas
-     <file:bolachinas.txt>
  - Bolinho de queijo e lingüiça 
      <http://www.macheesmo.com/2012/03/ham-and-cheese-popovers/>
  - Milho ao estilo mexicano 
@@ -105,12 +110,10 @@ LANCHES
  - Quesadillas de milho
      <http://www.macheesmo.com/2011/04/sweet-corn-quesadilla/>
 
-SOPAS
+BISCOITOS
 
- - Sopa de feijão fradinho
-     <http://www.macheesmo.com/2008/12/good-luck-pea-soup/>
- - Lentilhas
-     <file:lentilhas.txt>
+ - Bolachinhas salgadas
+     <file:bolachinas.txt>
 
 MOLHOS
 
