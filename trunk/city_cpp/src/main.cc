@@ -1,10 +1,13 @@
-#include "city.h"
-#include "ui.h"
 #include "SDL.h"
 
 #include <iostream>
 #include <string>
 using namespace std;
+
+#include "city.h"
+#include "ui.h"
+
+#include "farm.h"
 
 int main(int argc, char* argv[])
 {

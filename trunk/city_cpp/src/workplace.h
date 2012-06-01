@@ -13,14 +13,12 @@ class Workplace : public Building
 public:
 	Workplace(int x, int y, int w, int h)
 		: Building(x, y, w, h) { }
+	virtual ~Workplace() { }
 	
 	bool IsWorkplace() { return true; }
-	const vector<Person*> Workers() const { return workers; }
 	void Hire(Person* p);
 	
-
-protected:
-	vector<Person*> workers;
+	vector<Person*> Workers;
 };
 
 #endif
