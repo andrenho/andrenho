@@ -1,8 +1,10 @@
 #include "city.h"
 
+#include <algorithm>
 #include <map>
 
 #include "debug.h"
+#include "workplace.h"
 
 City::City()
 {
@@ -94,7 +96,10 @@ int
 City::JobScore(Workplace* workplace, Person* p)
 {
 	// check if worker doesn't already works here
-	
+	if(find(workplace->Workers.begin(), 
+				workplace->Workers.end(), 
+				p) != workplace->Workers.end())
+		return -1;
 
 	return 0;
 }
