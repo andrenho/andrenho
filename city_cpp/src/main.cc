@@ -11,7 +11,7 @@ int main(int argc, char* argv[])
 	City city;
 	UI ui(city);
 
-	city.Build(new Building(1, 1, 4, 4));
+	city.Build(new Farm(1, 1, 4, 4));
 
 	Person* p = new Person(0.5, 0.5);
 	city.ReceiveImmigrant(p);

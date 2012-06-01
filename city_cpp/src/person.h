@@ -15,7 +15,6 @@ public:
 	Person(float x, float y);
 	void Step();
 	void ReceiveMoney(int amount);
-	void LookForJob();
 
 	int Health() const;
 	bool HasJob() const;
@@ -23,11 +22,12 @@ public:
 	float Y() const { return y; }
 	int Money() const { return money; }
 	int Stamina() const { return stamina; }
+	string Name() { return name + " " + surname; }
 
-	const string name, surname;
 	City* city;
 
 protected:
+	const string name, surname;
 	Psyche psyche;
 	float x, y;
 	int money;
