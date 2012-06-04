@@ -64,6 +64,8 @@ SALADAS
      <livro:Revolução na Cozinha - Jamie Oliver>
  - Salada César
      <head:>
+ - Salada francesa com bacon
+    <http://www.youtube.com/watch?v=r8oLeUraylA>
  - Salada de batatas com limão 
      <http://www.macheesmo.com/2010/07/lemony-potato-salad/>
  - Salada de bife e batatas 
