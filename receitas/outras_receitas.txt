@@ -4,6 +4,8 @@ PRATOS PRINCIPAIS
      <livro:Revolução na Cozinha - Jamie Oliver>
  - Arroz carreteiro
      <head:>
+ - Boeuf bourguignon
+     <http://www.macheesmo.com/2011/01/beef-burgundy/>
  - Bife
      <file:bife.txt>
  - Carne moída Wellington 
@@ -28,24 +30,10 @@ PRATOS PRINCIPAIS
      <file:moranga_recheada.txt>
  - Peito de frango com parmesão e presunto crocante 
      <livro:Revolução na Cozinha - Jamie Oliver>
- - Salmão com manjericão
+ - Salmão com manjerona
      <file:salmao.txt>
  - Vindaloo 
      <livro:Revolução na Cozinha - Jamie Oliver>
-
-ACOMPANHAMENTO
-
- - Arroz
-     <file:arroz.txt>
- - Batata-doce assada 
-     <http://www.simplesmentedelicia.com/?p=2177>
- - Batatas assados com alho e azeite 
-     <http://www.simplesmentedelicia.com/?p=826>
-     <file:batatas_assadas.txt>
- - Batatas francesas assadas 
-     <livro:Revolução na Cozinha - Jamie Oliver>
- - Purê de batatas
-     <head:>
 
 ENSOPADOS
 
@@ -53,6 +41,20 @@ ENSOPADOS
      <http://www.macheesmo.com/2008/12/good-luck-pea-soup/>
  - Lentilhas
      <file:lentilhas.txt>
+
+ACOMPANHAMENTO
+
+ - Arroz
+     <file:arroz.txt>
+ - Batata-doce assada 
+     <http://www.simplesmentedelicia.com/?p=2177>
+ - Batatas assadas com alho e azeite 
+     <http://www.simplesmentedelicia.com/?p=826>
+     <file:batatas_assadas.txt>
+ - Batatas francesas assadas 
+     <livro:Revolução na Cozinha - Jamie Oliver>
+ - Purê de batatas
+     <head:>
 
 SALADAS
 
@@ -103,12 +105,14 @@ LANCHES
      <livro:Revolução na Cozinha - Jamie Oliver>
  - Omelete
      <livro:Revolução na Cozinha - Jamie Oliver>
- - Vagens fritas
-     <http://www.macheesmo.com/2012/02/fried-green-beans/>
- - Tortillas de Sonora
-     <http://www.texascooking.com/features/sept98flourtortillas.htm>
  - Quesadillas de milho
      <http://www.macheesmo.com/2011/04/sweet-corn-quesadilla/>
+ - Sanduiche de abacate e sardinhas
+     <http://www.macheesmo.com/2012/05/the-sardine-sandwich/>
+ - Tortillas de Sonora
+     <http://www.texascooking.com/features/sept98flourtortillas.htm>
+ - Vagens fritas
+     <http://www.macheesmo.com/2012/02/fried-green-beans/>
 
 BISCOITOS
 
@@ -117,10 +121,16 @@ BISCOITOS
 
 MOLHOS
 
+ - Chimichurri (vinagrete)
+     <http://www.macheesmo.com/2011/03/argentine-chimichurri/>
  - Guacamole
      <http://www.macheesmo.com/2008/11/holy-guacamole/>
  - Humus com pimentão assado
      <http://www.macheesmo.com/2010/03/hummus-two-ways/>
+ - Molho de alho
+     <http://www.macheesmo.com/2012/05/a-grill-disaster-plus-a-salad/>
+ - Molho de sardinha e ovo
+     <http://www.macheesmo.com/2010/07/panzanella-salad/>
 
 PÃES
 
