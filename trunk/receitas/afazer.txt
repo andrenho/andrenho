@@ -1,9 +1,9 @@
 PRATOS PRINCIPAIS
 
  - Chille Relleno Burrito
-     <http://www.macheesmo.com/2011/05/chile -relleno -burrito/>
+     <http://www.macheesmo.com/2011/05/chile-relleno-burrito/>
  - Taco batatas/bacon
-     <http://www.macheesmo.com/2011/04/breakfast -tacos/>
+     <http://www.macheesmo.com/2011/04/breakfast-tacos/>
 
 ACOMPANHAMENTOS
 
@@ -13,12 +13,12 @@ ACOMPANHAMENTOS
 ENSOPADOS
 
  - Cassarola de vagens
-     <http://www.macheesmo.com/2010/11/green -bean -casserole -from -scratch/>
+     <http://www.macheesmo.com/2010/11/green-bean-casserole-from-scratch/>
 
 SALADAS
 
  - Salada Nicoise
-     <http://www.macheesmo.com/2009/07/nicoise -salad/>
+     <http://www.macheesmo.com/2009/07/nicoise-salad/>
  - Salada de batatas com pesto de salsa
      <http://www.simplesmentedelicia.com/?p=2345>
 
@@ -26,55 +26,57 @@ SOBREMESAS/DOCES
 
  - Alfajor
      <http://www.macheesmo.com/2010/12/alfajores/>
+ - Cheesecake de limão individual
+     <http://www.mybakingaddiction.com/lemon-cheesecake-in-a-jar/>
  - Trufas
-     <http://www.macheesmo.com/2011/12/almond -truffles/>
+     <http://www.macheesmo.com/2011/12/almond-truffles/>
 
 BEBIDAS
 
  - Irish Coffee
-     <http://startcooking.com/blog/175/Irish -Coffee>
+     <http://startcooking.com/blog/175/Irish-Coffee>
  - Limonada com manjericão
-     <http://www.macheesmo.com/2012/06/fresh -basil -lemonade/>
+     <http://www.macheesmo.com/2012/06/fresh-basil-lemonade/>
 
 CAFÉ -DA -MANHÃ
 
  - Muesli (mingau) com frutas e mel
-     <http://www.macheesmo.com/2010/01/fruit -and -honey -muesli/>
+     <http://www.macheesmo.com/2010/01/fruit-and-honey-muesli/>
  - Rabanada
      <?>
 
 PÃES
 
  - Bobka de chocoloate (cuca)
-     <http://www.macheesmo.com/2010/01/chocolate -babka/>
+     <http://www.macheesmo.com/2010/01/chocolate-babka/>
  - Pão de sanduiche
-     <http://www.macheesmo.com/2011/05/stecca -sandwich -bread/>
+     <http://www.macheesmo.com/2011/05/stecca-sandwich-bread/>
 
 LANCHES
 
  - Hamburguers de Santa Fe
-     <http://www.macheesmo.com/2009/06/sante -fe -burgers/>
+     <http://www.macheesmo.com/2009/06/sante-fe-burgers/>
  - Saundiche de baguette
-     <http://www.macheesmo.com/2008/11/good -day -sir -crunchy/>
+     <http://www.macheesmo.com/2008/11/good-day-sir-crunchy/>
  - Sanduiche de Brie e Pesto
-     <http://www.macheesmo.com/2009/01/pesto -and -brie -grilled -cheese/>
+     <http://www.macheesmo.com/2009/01/pesto-and-brie-grilled-cheese/>
  - Sanduiche alto
-     <http://www.macheesmo.com/2010/11/the -mile -high -sandwich/>
+     <http://www.macheesmo.com/2010/11/the-mile-high-sandwich/>
  - Sanduiche de frango
-     <http://www.macheesmo.com/2011/07/chipotle -chicken -sandwiches/>
+     <http://www.macheesmo.com/2011/07/chipotle-chicken-sandwiches/>
  - Cebola roxa frita
-     <http://www.macheesmo.com/2011/07/red -onion -strings/>
+     <http://www.macheesmo.com/2011/07/red-onion-strings/>
 
 MOLHOS
 
  - Hummus de caju
-     <http://www.macheesmo.com/2011/12/cashew -dip/>
+     <http://www.macheesmo.com/2011/12/cashew-dip/>
 
 BISCOITOS
 
  - Biscoitos de queijo e ervas
-     <http://www.macheesmo.com/2009/10/cheese -and -herb -biscuits/>
+     <http://www.macheesmo.com/2009/10/cheese-and-herb-biscuits/>
  - Doritos
-     <http://www.macheesmo.com/2008/11/kind -of -cool -ranch -doritos/>
+     <http://www.macheesmo.com/2008/11/kind-of-cool-ranch-doritos/>
 
 
