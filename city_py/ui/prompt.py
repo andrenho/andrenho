@@ -1,7 +1,7 @@
 import cmd
 import sys
 
-from building import *
+from building.building import *
 from pos import *
 
 

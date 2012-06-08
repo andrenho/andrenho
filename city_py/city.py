@@ -4,7 +4,7 @@ import _thread
 
 from ui.ui import *
 from ui.prompt import *
-from building import *
+from building.building import *
 
 
 class City:
