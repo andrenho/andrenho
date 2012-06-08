@@ -17,5 +17,5 @@ class Prompt(cmd.Cmd):
         sys.exit()
 
     def do_farm(self, arg):
-        x, y, w, h = arg.split()
+        x, y, w, h = map(int, arg.split())
         self.city.build(Farm(Pos(x, y), Size(w, h)))

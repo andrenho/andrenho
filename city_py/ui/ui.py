@@ -7,7 +7,7 @@ from ui.colors import *
 
 class UI:
 
-    scale = 10
+    scale = 20
 
     def __init__(self, city):
         self.city = city
@@ -31,7 +31,7 @@ class UI:
         pygame.display.update()
 
     def draw_building(self, b):
-        rect = pygame.Rect(b.pos.tuple(), b.size.tuple())
+        rect = pygame.Rect([n * self.scale for n in b.rect()])
         pygame.draw.rect(self.sf, Color.BLACK, rect, 1)
 
     def do_events(self):
