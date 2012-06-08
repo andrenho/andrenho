@@ -30,6 +30,8 @@ PRATOS PRINCIPAIS
      <file:moranga_recheada.txt>
  - Peito de frango com parmesão e presunto crocante 
      <livro:Revolução na Cozinha - Jamie Oliver>
+ - Raviolli
+     <http://www.macheesmo.com/2011/12/winter-squash-ravioli/>
  - Salmão com manjerona
      <file:salmao.txt>
  - Vindaloo 
