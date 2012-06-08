@@ -24,11 +24,13 @@ if __name__ == '__main__':
     city = City()
     ui = UI(city)
     prompt = Prompt(city, ui)
+    try:
+        for line in open('init.txt'):
+            prompt.onecmd(line)
+    except IOError:
+        pass
     _thread.start_new_thread(prompt.cmdloop, ())
     ui.run()
-    #_thread.start_new_thread(ui.run, ())
-    #city.build(Farm((1, 1), (4, 4)))
-    #ui.run()
 
 
 # vim: ts=8 et sw=4 sts=4
