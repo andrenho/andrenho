@@ -32,6 +32,8 @@ PRATOS PRINCIPAIS
      <livro:Revolução na Cozinha - Jamie Oliver>
  - Raviolli
      <http://www.macheesmo.com/2011/12/winter-squash-ravioli/>
+ - Rabanetes tailandeses
+     <http://www.macheesmo.com/2012/06/spicy-radish-toss/>
  - Salmão com manjerona
      <file:salmao.txt>
  - Vindaloo 
