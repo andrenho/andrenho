@@ -50,7 +50,7 @@ BEBIDAS
  - Limonada com manjericão
      <http://www.macheesmo.com/2012/06/fresh-basil-lemonade/>
 
-CAFÉ -DA -MANHÃ
+CAFÉ-DA-MANHÃ
 
  - Muesli (mingau) com frutas e mel
      <http://www.macheesmo.com/2010/01/fruit-and-honey-muesli/>
@@ -66,6 +66,9 @@ PÃES
 
 LANCHES
 
+ - Hamburguer
+     <http://allrecipes.com/recipe/authentic-thousand-island-dressing/>
+     <http://www.macheesmo.com/2011/05/stecca-sandwich-bread/>
  - Hamburguers de Santa Fe
      <http://www.macheesmo.com/2009/06/sante-fe-burgers/>
  - Saundiche de baguette
