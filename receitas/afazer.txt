@@ -67,8 +67,9 @@ PÃES
 LANCHES
 
  - Hamburguer
-     <http://allrecipes.com/recipe/authentic-thousand-island-dressing/>
-     <http://www.macheesmo.com/2011/05/stecca-sandwich-bread/>
+     Pão:   <http://www.wildyeastblog.com/2008/06/10/hamburger-rolls/>
+     Molho: <http://allrecipes.com/recipe/authentic-thousand-island-dressing/>
+     Carne: <livro:Revolução na Cozinha - Jamie Oliver>
  - Hamburguers de Santa Fe
      <http://www.macheesmo.com/2009/06/sante-fe-burgers/>
  - Saundiche de baguette
