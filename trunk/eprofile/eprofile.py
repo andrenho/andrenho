@@ -3,7 +3,7 @@
 import logging
 
 import webservices
-import dummy
+import communicator
 
 logger = logging.getLogger('eprofile')
 logger.setLevel(logging.DEBUG)
@@ -13,4 +13,4 @@ ch.setFormatter(formatter)
 logger.addHandler(ch)
 
 webservices = webservices.WebServices(logger)
-webservices.register_service(dummy.Dummy)
+webservices.register_service(communicator.Communicator)
