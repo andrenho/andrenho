@@ -11,12 +11,17 @@ class Eprofile:
 
 	class Comunicador:
 		
-		def __init__(self, bd_aplicacoes):
+		def __init__(self, bd_aplicacoes, bd_entidades):
 			self.bd_aplicacoes = bd_aplicacoes
+			self.bd_entidades = bd_entidades
 
 		def registra_aplicacao(self, app):
-			self.bd_aplicacoes.append(app)
+			self.bd_aplicacoes.insert(app)
 			logger.debug('Aplicação ' + app + ' registrada.')
+
+		def registra_entidade(self, entidade):
+			self.bd_entidades.insert(entidade)
+			logger.debug('Entidade ' + entidade + ' registrada.')
 
 
 	class Configurador:
@@ -39,10 +44,11 @@ class Eprofile:
 
 	def __init__(self):
 		# bancos de dados
-		self.bd_aplicacoes = []
+		self.bd_aplicacoes = set()
+		self.bd_entidades = set()
 		self.bd_modelos = {}
 		# agentes
-		self.comunicador = Eprofile.Comunicador(self.bd_aplicacoes)
+		self.comunicador = Eprofile.Comunicador(self.bd_aplicacoes, self.bd_entidades)
 		self.configurador = Eprofile.Configurador(self.bd_modelos)
 		self.raciocinador = Eprofile.Raciocinador()
 		self.conversor = Eprofile.Conversor()
@@ -52,6 +58,9 @@ class Eprofile:
 
 	def registra_modelo(self, app, modelo):
 		self.configurador.registra_modelo(app.codigo(), modelo)
+
+	def registra_entidade(self, entidade):
+		self.comunicador.registra_entidade(entidade)
 
 
 class Aplicacao:
@@ -69,6 +78,9 @@ class Aplicacao:
 	def registra_modelo(self, modelo):
 		self.modelo = modelo
 		self.gr_perfis.registra_modelo(self, modelo)
+
+	def nova_entidade(self, entidade):
+		self.gr_perfis.registra_entidade(self, entidade)
 
 	def codigo(self):
 		raise Exception('Implementar este método.')
@@ -92,3 +104,4 @@ if __name__ == '__main__':
 	app.conecta_gerenciador_trilhas(trail)
 	app.conecta_gerenciador_perfis(eprofile)
 	app.registra_modelo({ 'nome': str, 'idade': int })
+	app.registra_entidade('andre')
