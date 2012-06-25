@@ -6,6 +6,8 @@ PRATOS PRINCIPAIS
      <head:>
  - Boeuf bourguignon
      <http://www.macheesmo.com/2011/01/beef-burgundy/>
+ - Batatas francesas
+     <http://www.youtube.com/watch?v=xn4x-g26P70>
  - Bife
      <file:bife.txt>
  - Carne moída Wellington 
@@ -20,6 +22,8 @@ PRATOS PRINCIPAIS
      <livro:Revolução na Cozinha - Jamie Oliver>
  - Feijão com arroz
      <head:>
+ - Frango jamaicano
+     <http://www.youtube.com/watch?v=MxPqgNvc5sQ>
  - Massa caseira
      <file:massa_caseira.txt>
  - Massa com camembert assado 
@@ -101,6 +105,14 @@ SOBREMESAS/DOCES
      <http://tudogostoso.uol.com.br/receita/3426-sobremesa-rapida.html>
  - Tiramisu de conhaque
      <http://www.macheesmo.com/2010/02/bourbon-tiramisu/>
+ - Torta americana
+     Massa: <http://www.youtube.com/watch?v=bjQ0GSSVymU>
+     Massa trançada:
+       <http://www.youtube.com/watch?v=Hv4809RKhzg>
+       <http://www.simplyrecipes.com/recipes/how_to_make_a_lattice_top_for_a_pie_crust/>
+     Torta completa: <http://www.macheesmo.com/2008/10/a-proper-pie/>
+ - Trufas
+     <http://www.macheesmo.com/2011/12/almond-truffles/>
 
 BEBIDAS
 
@@ -125,6 +137,8 @@ LANCHES
      <livro:Revolução na Cozinha - Jamie Oliver>
  - Omelete
      <livro:Revolução na Cozinha - Jamie Oliver>
+ - Omelete de Denver
+     <http://www.macheesmo.com/2010/04/the-denver-omelet/>
  - Quesadillas de milho
      <http://www.macheesmo.com/2011/04/sweet-corn-quesadilla/>
  - Sanduiche de abacate e sardinhas
@@ -138,6 +152,8 @@ BISCOITOS
 
  - Bolachinhas salgadas
      <file:bolachinas.txt>
+ - Biscoitos de queijo e ervas
+     <http://www.macheesmo.com/2009/10/cheese-and-herb-biscuits/>
 
 MOLHOS
 
