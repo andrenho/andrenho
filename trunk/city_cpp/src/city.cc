@@ -16,10 +16,10 @@ City::~City()
 {
 	for(vector<Building*>::iterator bi = buildings.begin();
 			bi != buildings.end(); bi++)
-		free(*bi);
+		delete *bi;
 	for(vector<Person*>::iterator pi = people.begin();
 			pi != people.end(); pi++)
-		free(*pi);
+		delete *pi;
 }
 
 

@@ -17,6 +17,7 @@ int main(int argc, char* argv[])
 	city.Build(new Farm(1, 1, 4, 4));
 
 	Person* p = new Person(0.5, 0.5);
+	p->ReceiveMoney(1000);
 	city.ReceiveImmigrant(p);
 
 	try
