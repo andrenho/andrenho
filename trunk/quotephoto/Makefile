@@ -10,8 +10,8 @@ vainwrite.en.jpg: _vainwrite.jpg
 
 vainwrite.pt.jpg: _vainwrite.jpg
 	$(CONVERT) _vainwrite.jpg \
-		-stroke black -strokewidth 4 -pointsize 35 -font Kingthings.ttf -annotate +60+90 'Quão vão é sentar para escrever\nquando não se levantou para viver.\n-- Thoreau' \
-	    -stroke none  -fill white    -pointsize 35 -font Kingthings.ttf -annotate +60+90 'Quão vão é sentar para escrever\nquando não se levantou para viver.\n-- Thoreau' \
+		-stroke black -strokewidth 4 -pointsize 35 -font Kingthings.ttf -annotate +60+90 'Quão vão é sentar-se para escrever\nquando não se levantou para viver.\n-- Thoreau' \
+	    -stroke none  -fill white    -pointsize 35 -font Kingthings.ttf -annotate +60+90 'Quão vão é sentar-se para escrever\nquando não se levantou para viver.\n-- Thoreau' \
 		vainwrite.pt.jpg
 
 #convert dragon.gif -gravity south \
