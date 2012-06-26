@@ -1,4 +1,5 @@
-CONVERT=c:\andre\programas\ImageMagick\convert.exe
+#CONVERT=c:\andre\programas\ImageMagick\convert.exe
+CONVERT=convert
 
 all: vainwrite.en.jpg vainwrite.pt.jpg
 
