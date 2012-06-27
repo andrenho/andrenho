@@ -16,10 +16,11 @@
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
      ontologyIRI="http://www.semanticweb.org/aw98156/ontologies/2012/5/untitled-ontology-6">
-    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
-    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
-    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="" IRI="http://www.w3.org/2002/07/owl#"/>
     <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
     <Import>http://code.google.com/p/andrenho/trilha.owl</Import>
     <Declaration>
         <Class IRI="#AndreCoffeePurchases"/>
@@ -36,32 +37,34 @@
     <EquivalentClasses>
         <Class IRI="#AndreCoffeePurchases"/>
         <ObjectIntersectionOf>
-            <Class IRI="http://code.google.com/p/andrenho/trilha.owl#Purchase"/>
             <ObjectSomeValuesFrom>
                 <ObjectProperty IRI="http://code.google.com/p/andrenho/trilha.owl#doneBy"/>
                 <Class IRI="http://code.google.com/p/andrenho/trilha.owl#Andre"/>
             </ObjectSomeValuesFrom>
             <ObjectSomeValuesFrom>
                 <ObjectProperty IRI="http://code.google.com/p/andrenho/trilha.owl#objectBought"/>
-                <Class IRI="http://code.google.com/p/andrenho/trilha.owl#_CoffeeBuyableProduct"/>
+                <Class IRI="#CoffeeBuyableProduct"/>
             </ObjectSomeValuesFrom>
         </ObjectIntersectionOf>
     </EquivalentClasses>
     <EquivalentClasses>
         <Class IRI="#CoffeeBuyableProduct"/>
         <ObjectUnionOf>
-            <Class IRI="http://code.google.com/p/andrenho/trilha.owl#_CoffeeFood"/>
-            <ObjectSomeValuesFrom>
-                <ObjectProperty IRI="http://code.google.com/p/andrenho/trilha.owl#hasIngredient"/>
-                <Class IRI="http://code.google.com/p/andrenho/trilha.owl#Coffee"/>
-            </ObjectSomeValuesFrom>
+            <Class IRI="#CoffeeFood"/>
+            <ObjectIntersectionOf>
+                <Class IRI="http://code.google.com/p/andrenho/trilha.owl#Book"/>
+                <ObjectSomeValuesFrom>
+                    <ObjectProperty IRI="http://code.google.com/p/andrenho/trilha.owl#hasSubject"/>
+                    <Class IRI="http://code.google.com/p/andrenho/trilha.owl#Coffee"/>
+                </ObjectSomeValuesFrom>
+            </ObjectIntersectionOf>
         </ObjectUnionOf>
     </EquivalentClasses>
     <EquivalentClasses>
         <Class IRI="#CoffeeFood"/>
         <ObjectUnionOf>
             <Class IRI="http://code.google.com/p/andrenho/trilha.owl#Coffee"/>
-            <Class IRI="http://code.google.com/p/andrenho/trilha.owl#_CoffeePreparedFood"/>
+            <Class IRI="#CoffeePreparedFood"/>
         </ObjectUnionOf>
     </EquivalentClasses>
     <EquivalentClasses>
