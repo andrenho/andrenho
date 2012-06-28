@@ -24,6 +24,8 @@ ENSOPADOS
      <http://www.macheesmo.com/2010/11/green-bean-casserole-from-scratch/>
  - Cappelletti
      <http://italianfood.about.com/library/rec/blr0102.htm>
+ - Caldo de carne
+     <http://www.macheesmo.com/2012/06/roasted-beef-stock/>
 
 SALADAS
 
@@ -65,11 +67,13 @@ PÃES
      <http://www.macheesmo.com/2011/05/stecca-sandwich-bread/>
  - Pão de milho
      <http://www.macheesmo.com/2012/06/granny-leonas-cornbread/>
- - Pão sírio
-     <http://www.thefreshloaf.com/recipes/pitabread/>
 
 LANCHES
 
+ - Cebola roxa frita
+     <http://www.macheesmo.com/2011/07/red-onion-strings/>
+ - Enroladinhos
+     <http://www.youtube.com/watch?v=ccRQSXKg5Qs>
  - Saundiche de baguette
      <http://www.macheesmo.com/2008/11/good-day-sir-crunchy/>
  - Sanduiche de Brie e Pesto
@@ -78,8 +82,6 @@ LANCHES
      <http://www.macheesmo.com/2010/11/the-mile-high-sandwich/>
  - Sanduiche de frango
      <http://www.macheesmo.com/2011/07/chipotle-chicken-sandwiches/>
- - Cebola roxa frita
-     <http://www.macheesmo.com/2011/07/red-onion-strings/>
 
 MOLHOS
 
@@ -93,4 +95,7 @@ BISCOITOS
  - Doritos
      <http://www.macheesmo.com/2008/11/kind-of-cool-ranch-doritos/>
 
+TEMPEROS
 
+ - Za'atar
+     <http://en.wikibooks.org/wiki/Cookbook:Za%27atar>
