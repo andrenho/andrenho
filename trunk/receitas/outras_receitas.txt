@@ -192,6 +192,8 @@ PÃES
      <http://www.macheesmo.com/2008/10/life-changing-bread/>
  - Pão de semolina com azeite
      <livro:200 Receitas de Pães Tentadores>
+ - Pão sírio
+     <http://www.thefreshloaf.com/recipes/pitabread/>
  - Pão toscano com uvas 
      <http://www.simplesmentedelicia.com/?p=2059>
  - Tiras de alho com manteiga e manjericão
