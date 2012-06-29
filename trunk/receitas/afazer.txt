@@ -47,6 +47,8 @@ SOBREMESAS/DOCES
 
 BEBIDAS
 
+ - Iced Coffee
+     <http://www.macheesmo.com/2009/08/cold-brewed-coffee/>
  - Irish Coffee
      <http://startcooking.com/blog/175/Irish-Coffee>
  - Limonada com manjericão
