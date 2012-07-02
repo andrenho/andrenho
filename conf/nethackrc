@@ -17,6 +17,8 @@ OPTIONS=!legacy, menustyle=partial
 # Paranoid
 OPTIONS=paranoid_hit, paranoid_quit, paranoid_remove
 
+OPTIONS=dumpfile:dump.txt
+
 #
 # Menucolors
 #
