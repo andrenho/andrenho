@@ -45,6 +45,8 @@ PRATOS PRINCIPAIS
 
 ENSOPADOS
 
+ - Cappelletti
+     <http://italianfood.about.com/library/rec/blr0102.htm>
  - Sopa de feijão fradinho
      <http://www.macheesmo.com/2008/12/good-luck-pea-soup/>
  - Lentilhas
@@ -143,8 +145,6 @@ LANCHES
      <http://www.macheesmo.com/2011/04/sweet-corn-quesadilla/>
  - Sanduiche de abacate e sardinhas
      <http://www.macheesmo.com/2012/05/the-sardine-sandwich/>
- - Tortillas de Sonora
-     <http://www.texascooking.com/features/sept98flourtortillas.htm>
  - Vagens fritas
      <http://www.macheesmo.com/2012/02/fried-green-beans/>
 
@@ -198,5 +198,7 @@ PÃES
      <http://www.simplesmentedelicia.com/?p=2059>
  - Tiras de alho com manteiga e manjericão
      <livro:200 Receitas de Pães Tentadores>
+ - Tortillas de Sonora
+     <http://www.texascooking.com/features/sept98flourtortillas.htm>
  - Trança com mirtilos e baunilha
      <livro:200 Receitas de Pães Tentadores>
