@@ -48,6 +48,8 @@ SOBREMESAS/DOCES
      <http://www.mybakingaddiction.com/lemon-cheesecake-in-a-jar/>
  - Cheesecake estilo New York
      <http://www.joepastry.com/category/pastry/cheesecake/new-york-cheesecake/>
+ - Loukoumades
+     <http://allrecipes.com/recipe/loukoumades/>
  - Massa folhada dinamarquesa
      <http://www.joepastry.com/category/pastry/danish-pastry/>
  - Pastel de forno de pêssegos
