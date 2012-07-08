@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.5.28)  8 JUL 2012 18:47
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.5.28)  8 JUL 2012 20:27
 entering extended mode
  %&-line parsing enabled.
 **eprofile_wscad.tex
@@ -468,7 +468,15 @@ Overfull \hbox (12.4666pt too wide) in paragraph at lines 140--141
 [][][][][][][][][][][][][][][] 
  []
 
-(./eprofile_wscad.bbl
+
+LaTeX Warning: Reference `sec:regras' on page 2 undefined on input line 146.
+
+[2]
+Overfull \hbox (2.8665pt too wide) in paragraph at lines 182--183
+[][][][][][][][][] 
+ []
+
+[3 <./imagens/cen1_ontologia.png (PNG copy)>] (./eprofile_wscad.bbl
 Underfull \hbox (badness 10000) in paragraph at lines 9--13
 []\T1/ptm/m/n/9 W3C.  OWL 2 web on-to-logy lan-
  []
@@ -483,23 +491,23 @@ Overfull \hbox (19.3737pt too wide) in paragraph at lines 9--13
 \T1/pcr/m/n/9 http://www.w3.org/TR/owl2-manchester-syntax/\T1/ptm/m/n/9 .
  []
 
-[2]
+
 Underfull \hbox (badness 5189) in paragraph at lines 15--18
 []\T1/ptm/m/n/9 W3C.  OWL web on-to-logy lan-guage guide, 2011.
  []
 
-) [3
+) [4
 
- <./imagens/cen1_ontologia.png (PNG copy)>] (./eprofile_wscad.aux)
+] (./eprofile_wscad.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 4439 strings out of 495041
- 59536 string characters out of 1181897
+ 4440 strings out of 495041
+ 59548 string characters out of 1181897
  137067 words of memory out of 3000000
- 7574 multiletter control sequences out of 15000+50000
+ 7575 multiletter control sequences out of 15000+50000
  48202 words of font info for 57 fonts, out of 3000000 for 9000
  30 hyphenation exceptions out of 8191
  36i,8n,38p,877b,1074s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -509,9 +517,9 @@ pe1/urw/courier/ucrr8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/helvetic/u
 hvb8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/times/utmb8a.pfb></usr/shar
 e/texmf-texlive/fonts/type1/urw/times/utmr8a.pfb></usr/share/texmf-texlive/font
 s/type1/urw/times/utmri8a.pfb>
-Output written on eprofile_wscad.pdf (3 pages, 213814 bytes).
+Output written on eprofile_wscad.pdf (4 pages, 219006 bytes).
 PDF statistics:
- 41 PDF objects out of 1000 (max. 8388607)
+ 44 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

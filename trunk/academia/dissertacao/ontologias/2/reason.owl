@@ -26,9 +26,6 @@
         <Class IRI="AndreJavaLessons"/>
     </Declaration>
     <Declaration>
-        <Class IRI="JavaAndreLesson"/>
-    </Declaration>
-    <Declaration>
         <Class IRI="JavaRequirement"/>
     </Declaration>
     <EquivalentClasses>
@@ -43,6 +40,10 @@
                 <ObjectProperty IRI="http://www.eprofile.com/things/hasLearningObject"/>
                 <Class IRI="JavaRequirement"/>
             </ObjectSomeValuesFrom>
+            <DataHasValue>
+                <DataProperty IRI="http://www.eprofile.com/things/isFirstTime"/>
+                <Literal datatypeIRI="&xsd;boolean">true</Literal>
+            </DataHasValue>
         </ObjectIntersectionOf>
     </EquivalentClasses>
     <EquivalentClasses>
@@ -55,10 +56,6 @@
             </ObjectSomeValuesFrom>
         </ObjectUnionOf>
     </EquivalentClasses>
-    <SubClassOf>
-        <Class IRI="JavaAndreLesson"/>
-        <Class IRI="JavaRequirement"/>
-    </SubClassOf>
 </Ontology>
 
 
