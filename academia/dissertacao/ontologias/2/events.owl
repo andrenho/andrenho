@@ -60,6 +60,20 @@
         </ObjectSomeValuesFrom>
     </SubClassOf>
     <SubClassOf>
+        <Class IRI="FinishedLOEvent1"/>
+        <DataHasValue>
+            <DataProperty IRI="http://www.eprofile.com/things/hasDateTime"/>
+            <Literal datatypeIRI="&rdf;PlainLiteral">2012-07-08T10:30:00</Literal>
+        </DataHasValue>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="FinishedLOEvent1"/>
+        <DataHasValue>
+            <DataProperty IRI="http://www.eprofile.com/things/isFirstTime"/>
+            <Literal datatypeIRI="&xsd;boolean">true</Literal>
+        </DataHasValue>
+    </SubClassOf>
+    <SubClassOf>
         <Class IRI="FinishedLOEvent2"/>
         <Class IRI="http://www.eprofile.com/things/FinishedLOEvent"/>
     </SubClassOf>

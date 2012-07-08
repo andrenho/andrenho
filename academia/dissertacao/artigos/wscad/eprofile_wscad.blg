@@ -1,0 +1,45 @@
+This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
+The top-level auxiliary file: eprofile_wscad.aux
+The style file: latex8.bst
+Database file #1: eprofile_wscad.bib
+You've used 3 entries,
+            2118 wiz_defined-function locations,
+            516 strings with 4190 characters,
+and the built_in function-call counts, 824 in all, are:
+= -- 77
+> -- 37
+< -- 0
++ -- 15
+- -- 12
+* -- 48
+:= -- 144
+add.period$ -- 9
+call.type$ -- 3
+change.case$ -- 15
+chr.to.int$ -- 0
+cite$ -- 3
+duplicate$ -- 25
+empty$ -- 71
+format.name$ -- 12
+if$ -- 168
+int.to.chr$ -- 0
+int.to.str$ -- 3
+missing$ -- 1
+newline$ -- 18
+num.names$ -- 6
+pop$ -- 23
+preamble$ -- 1
+purify$ -- 12
+quote$ -- 0
+skip$ -- 21
+stack$ -- 0
+substring$ -- 40
+swap$ -- 3
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 12
+warning$ -- 0
+while$ -- 8
+width$ -- 4
+write$ -- 33

@@ -1,0 +1,162 @@
+% configurações
+\documentclass[times, 10pt, twocolumn]{article}
+
+% português
+\usepackage[utf8]{inputenc}
+\usepackage[portuges,brazilian]{babel}
+\usepackage[T1]{fontenc}
+
+% pacotes
+\usepackage{latex8}
+\usepackage{authblk}
+\usepackage[pdftex]{graphicx}  % figuras
+\usepackage{times}
+\usepackage[bf,sf,font=normalsize,textfont=sf]{caption}
+
+% configurações listings
+\usepackage{listings}
+\lstset{
+	basicstyle=\footnotesize\tt,
+	numbers=left,
+	numberstyle=\tiny,
+	numbersep=5pt,
+	frame=single
+}
+
+\pagestyle{empty}
+
+\begin{document}
+
+%----------------------------------------------------------------------------
+\title{A Model for Entity Profile Management Through Inference in Trails}
+
+\author{André Wagner}
+\author{Jorge Luis Victória Barbosa}
+\affil{Universidade do Vale do Rio dos Sinos (UNISINOS)\\
+Unidade Acadêmica de Pesquisa e Pós-Graduação\\
+Av. Unisinos, 950, São Leopoldo - RS, Brazil\\
+}
+% TODO - adicionar e-mails
+
+\maketitle
+\thispagestyle{empty}
+
+\begin{abstract}
+	To be written\ldots % TODO
+\end{abstract}
+
+%----------------------------------------------------------------------------
+\section{Protótipo e Estudo de Caso}
+
+O estudo de caso apresentado é baseado na geração simulada de trilhas de estudantes de um curso de gradução em Ciência da Computação. Foi decidido pela utilização de um cenário simplificado, de modo que o mesmo pudesse ser apresentado de forma aprofundada.
+
+\subsection{Definição do Cenário}
+\label{sec:cenario}
+
+O cenário simula um curso de programação em linguagens orientadas a objeto. Deste curso participam três alunos (André, Pedro e Maria), cada um dos quais representado por uma entidade no eProfile.
+
+O curso consiste em um conjunto de módulos relacionados a orientação a objetos. Destes módulos fazem parte conceitos básicos da matéria (classes, herança, {\em interfaces} e ponteiros) e linguagens de programação orientadas a objeto (C++, Python e Java). O estudante não é obrigado a concluir todos os módulos. No final do curso, no entanto, ele deve escolher a linguagem de programação que ele utilizará para responder as questões da prova final. Dependendo da linguagem que escolher, ele deve ter concluído, no mínimo, os módulos referentes àquela linguagem.
+
+Por exemplo, caso o aluno decida realizar a prova em Java. Neste caso ele deve ter estudado classes, herança e {\em interfaces}, além do Java propriamente dito. Como a linguagem Java não contém o conceito de ponteiros, ele não é obrigado a ter cursado este módulo.
+
+As obrigatoriedades dos módulos são representados pela Figura~\ref{fig:cen1_modulos}. No exemplo proposto, para que o estudante possa realizar a prova na linguagem Python, ele deve ter concluído no mínimo os módulos Classes, Herança e Python.
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.2\textwidth]{imagens/cen1_modulos.png}
+  \end{center}
+  \caption{\textbf{Módulos de estudo obrigatórios}}
+  \label{fig:cen1_modulos}
+\end{figure}
+
+O ambiente é integrado a um sistema de educação ubíqua denominado LOCAL \cite{barbosa08}, utilizado para a distribuição contextualizada de objetos de aprendizagem (LO -- {\em Learning Objects}). Os conteúdos dos módulos são distrubídos pelo LOCAL como objetos de aprendizagem, e o LOCAL registra em um gerenciador de trilhas cada vez que um módulo é iniciado ou concluído.
+
+Cada evento (início ou conclusão de um objeto de aprendizagem) é registrado contendo as seguintes informações: (i) entidade que realizou o evento, (ii) objeto de aprendizagem, (iii) tipo de evento (início ou conclusão), (iii) data e hora e (iv) se é a primeira vez que o estudante realiza este tipo de evento.
+
+O LOCAL registra no gerenciador de trilha não apenas os eventos, mas também as informações relacionadas àqueles eventos. Por exemplo, toda vez que um evento possui relação com um objeto de aprendizagem que está sendo mencionado pela primeira vez, é necessário que sejam incluídas todas as informações relevantes a este objeto, de modo que o eProfile possa utilizar estas informações ao montar a inferência.
+
+Levando em conta o ambiente apresentado, a questão que o LOCAL deseja que o eProfile processe e registre no perfil da entidade é: esta entidade é proeficiente em determinada linguagem? As subsessões a seguir descrevem como ocorre este processo de inferência.
+
+\subsection{Ontologia}
+
+À medida que o registro das informações vai sendo realizada pelo LOCAL no gerenciador de trilhas, o eProfile vai solicitando informações atualizadas ao gerenciador de trilhas. A forma como o LOCAL e o gerenciador de trilhas se comunicam não é relevante ao eProfile, desde que o gerenciador de trilhas envie as informações em um formato que o eProfile seja capaz de interpretar.
+
+De acordo com a Figura~\ref{fig:modelo}, o gerenciador de trilhas envia as informações ao módulo conversor do eProfile, que as converte para o formato OWL. As informações enviadas são de dois tipos: (i) as ocorrências, isto é, a trilha propriamente dita e (ii) as informações acessórias, que ajudarão o eProfile a montar a ontologia necessária para a inferência das informações. No cenário que está sendo descrito, um módulo concluído é um exemplo de ocorrência, enquanto as informações de dependências entre os módulos de aprendizagem são informações acessórias.
+
+Tendo por base as informações enviadas pelo gerenciador de trilhas de acordo com o cenário descrito na Sessão~\ref{sec:cenario}, o eProfile montou a ontologia mostrada na Figura~\ref{fig:cen1_ontologia}. Cada círculo representa uma classe da ontologia.
+
+É importante notar que cada uma das classes pai tem alguma representação na ontologia de trilha do eProfile, apresentada na Figura~\ref{fig:ont_trilha}.
+
+\begin{figure*}
+  \begin{center}
+    \includegraphics[width=0.9\textwidth]{imagens/cen1_ontologia.png}
+  \end{center}
+  \caption{\textbf{Ontologia do cenário apresentado}}
+  \label{fig:cen1_ontologia}
+\end{figure*}
+
+Algumas classes possuem informações que são necessárias para que o eProfile possa determinar se um estudante é proeficiente em determinada linguagem. Um exemplo disto são os módulos referentes a conceitos básicos de orientação a objetos, que estão representados na ontologia como classes filhas da classe {\tt ObjectOrientation}. A classe {\tt OO-Interface}, por exemplo, diz respeito a um módulo que estuda o conceito de {\em interfaces}. Este conceito está presente nas linguagens C++ e Java, mas não em Python. Assim, esta classe é descrita da seguinte forma em OWL\footnote{Embora o eProfile utilize internamente a sintaxe OWL/RDF \cite{owl-guide}, a sintaxe Manchester-OWL está sendo usada neste artigo por ser mais compacta a amigável \cite{owl-manchester}.}:
+
+\begin{lstlisting}
+Class: <el:OO-Interfaces>
+    SubClassOf: 
+        <el:ObjectOrientation>,
+        <el:relatesTo> some <el:C++>,
+        <el:relatesTo> some <el:Java>
+\end{lstlisting}
+
+No exemplo, a linha 1 registra a classe, indicando que ela é filha da classe ObjectOrientation (linha 3, ver Figura~\ref{fig:cen1_ontologia}). Além disso, as linhas 4 e 5 utilizam a propriedade {\tt relatesTo} para indicar que o conceito de {\em interfaces} está relacionado às linguagens de programação (e, por conseqüência, às classes) {\tt C++} e {\tt Java}. Note-se que não é feita relação à classe {\tt Python}.
+
+Os eventos de requisição e conclusão do estudo de um objeto de aprendizado são registrados como classes filhas da classes {\tt RequestedLOEvent} e {\tt FinishedLOEvent} respectivamente que, por sua vez, são filhas da classe {\tt LearningEvent}. Cada especialização da classe exige informações adicionais, de modo que a classe {\tt FinishedLOEvent}. Este conjunto de classes é representado da seguinte forma:
+
+\begin{lstlisting}
+Class: <el:Event>
+    SubClassOf: 
+        Thing,
+        <el:hasEntity> some <el:Entity>,
+        <el:hasDateTime> exactly 1 xsd:dateTime,
+Class: <el:LearningEvent>
+    SubClassOf: 
+        <el:Event>,
+        <el:hasLearningObject> some 
+	                       <el:LearningObject>
+Class: <el:FinishedLOEvent>
+    SubClassOf: 
+        <el:LearningEvent>,
+	<el:isFirstTime> exactly 1 xsd:boolean
+\end{lstlisting}
+
+Desta forma, cada evento registrado deve ser vinculado a uma entidade (linha 4) e ter uma data e hora (linha 5); um evento de aprendizagem deve ter um objeto de aprendizagem relacionado (linhas 9 e 10); e um evento de término de aprendizado deve ter registrado se o evento ocorreu pela primeira vez.
+
+O código abaixo representa o registro de um evento, onde a entidade André (linha 4) concluiu um objeto de aprendizagem sobre Classes (linha 5) pela primeira vez (linha 6) em 08/07/2012 às 10h30 (linha 7). Note-se que, como esta classe é filha da classe {\tt FinishedLOEvent}, as propriedades requisitadas na classe estão sendo informadas nas classes filhas.
+
+\begin{lstlisting}
+Class: <el:FinishedLOEvent1>
+    SubClassOf: 
+        <el:FinishedLOEvent>,
+        <el:hasEntity> some <el:Andre>,
+        <el:hasLearningObject> some <el:OO-Classes>
+        <el:isFirstTime> value true,
+        <el:hasDateTime> value "2012-07-08T10:30:00"
+\end{lstlisting}
+
+
+\subsection{Regras}
+
+A aplicação de regras é discutida na Seção~\ref{sec:regras}.
+
+Para adicionar ao perifl de um aluno se ele é proeficiente em uma determinada linguagem (que é o objetivo do cenário, de acordo com a Seção~\ref{sec:cenario}, os seguintes passos devem ser realizados:
+
+\begin{itemize}
+  \item Identificar os objetos de aprendizados requeridos para a proeficiência na linguagem;
+  \item Identificar os objetos de aprendizagem concluídos pelo estudante referentes ao item 1;
+  \item Verificar se todos os objetos de aprendizagem necessários foram concluídos.
+\end{itemize}
+
+
+
+%---------------------------------------------------------------------------
+\bibliographystyle{latex8}
+\bibliography{eprofile_wscad}
+
+\end{document}
