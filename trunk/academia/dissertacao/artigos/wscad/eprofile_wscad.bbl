@@ -1,0 +1,19 @@
+\begin{thebibliography}{1}\setlength{\itemsep}{-1ex}\small
+
+\bibitem{barbosa08}
+J.~Barbosa, R.~Hahn, S.~Rabello, and D.~Barbosa.
+\newblock Local: a model geared towards ubiquitous learning.
+\newblock {\em SIGCSE Bull.}, 40:432--436, March 2008.
+
+\bibitem{owl-manchester}
+W3C.
+\newblock {OWL} 2 web ontology language manchester syntax, 2009.
+\newblock \texttt{http://www.w3.org/TR/owl2-manchester-syntax/}. Acessado em
+  08/07/2012.
+
+\bibitem{owl-guide}
+W3C.
+\newblock {OWL} web ontology language guide, 2011.
+\newblock \texttt{http://www.w3.org/TR/owl-guide/}. Acessado em 05/05/2012.
+
+\end{thebibliography}
