@@ -99,6 +99,13 @@
         </ObjectSomeValuesFrom>
     </SubClassOf>
     <SubClassOf>
+        <Class IRI="FinishedLOEvent2"/>
+        <DataHasValue>
+            <DataProperty IRI="http://www.eprofile.com/things/isFirstTime"/>
+            <Literal datatypeIRI="&xsd;boolean">true</Literal>
+        </DataHasValue>
+    </SubClassOf>
+    <SubClassOf>
         <Class IRI="FinishedLOEvent3"/>
         <Class IRI="http://www.eprofile.com/things/FinishedLOEvent"/>
     </SubClassOf>
@@ -124,6 +131,13 @@
         </ObjectSomeValuesFrom>
     </SubClassOf>
     <SubClassOf>
+        <Class IRI="FinishedLOEvent3"/>
+        <DataHasValue>
+            <DataProperty IRI="http://www.eprofile.com/things/isFirstTime"/>
+            <Literal datatypeIRI="&xsd;boolean">true</Literal>
+        </DataHasValue>
+    </SubClassOf>
+    <SubClassOf>
         <Class IRI="FinishedLOEvent4"/>
         <Class IRI="http://www.eprofile.com/things/FinishedLOEvent"/>
     </SubClassOf>
@@ -147,6 +161,20 @@
             <ObjectProperty IRI="http://www.eprofile.com/things/hasLearningObject"/>
             <Class IRI="http://www.eprofile.com/things/Java"/>
         </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="FinishedLOEvent4"/>
+        <DataHasValue>
+            <DataProperty IRI="http://www.eprofile.com/things/isFirstTime"/>
+            <Literal datatypeIRI="&xsd;boolean">true</Literal>
+        </DataHasValue>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.eprofile.com/things/FinishedLOEvent"/>
+        <DataHasValue>
+            <DataProperty IRI="http://www.eprofile.com/things/isFirstTime"/>
+            <Literal datatypeIRI="&xsd;boolean">true</Literal>
+        </DataHasValue>
     </SubClassOf>
 </Ontology>
 

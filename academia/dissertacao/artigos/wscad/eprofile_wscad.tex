@@ -46,6 +46,9 @@ Av. Unisinos, 950, São Leopoldo - RS, Brazil\\
 \end{abstract}
 
 %----------------------------------------------------------------------------
+
+
+%----------------------------------------------------------------------------
 \section{Protótipo e Estudo de Caso}
 
 O estudo de caso apresentado é baseado na geração simulada de trilhas de estudantes de um curso de gradução em Ciência da Computação. Foi decidido pela utilização de um cenário simplificado, de modo que o mesmo pudesse ser apresentado de forma aprofundada.
@@ -147,12 +150,54 @@ A aplicação de regras é discutida na Seção~\ref{sec:regras}.
 
 Para adicionar ao perifl de um aluno se ele é proeficiente em uma determinada linguagem (que é o objetivo do cenário, de acordo com a Seção~\ref{sec:cenario}, os seguintes passos devem ser realizados:
 
-\begin{itemize}
+\begin{enumerate}
   \item Identificar os objetos de aprendizados requeridos para a proeficiência na linguagem;
   \item Identificar os objetos de aprendizagem concluídos pelo estudante referentes ao item 1;
   \item Verificar se todos os objetos de aprendizagem necessários foram concluídos.
-\end{itemize}
+\end{enumerate}
 
+Neste exemplo, será verificado se o estudante é proeficiente na linguagem Java. Para tal, ele deve ter concluído os objetos de aprendizagens que fazem relação com a linguagem Java (neste caso, classes, herança em {\em interfaces}), bem como o objeto de aprendizado da linguagem Java. Na ontologia, isto refere-se à criação de uma nova classe ({\tt JavaRequirement}) que seja equivalente à classe {\tt Java} (que é filha da classe de {\tt LearningObject} e, portanto, um objeto de aprendizado, ou quaisquer outras classes cuja propriedade {\tt relatesTo} aponte para a classe {\tt Java}. Assim, esta regra fica definida da seguinte forma:
+
+\begin{lstlisting}
+Class: <el:JavaRequirement>
+    EquivalentTo: 
+        <el:Java>
+         or (<el:relatesTo> some <el:Java>)
+\end{lstlisting}
+
+O segundo passo é a identificação dos objetos de aprendizagem concluídos pelo estudante relacionados ao Java. Para tal, é necessário que:
+
+\begin{enumerate} 
+  \item os eventos sejam do tipo {\tt FinishedLOEvent} (só é importante saber os objetos de aprendizado que o estudante concluiu, e não os que ele iniciou);
+  \item os eventos tenham sido realizados pela entidade específica;
+  \item os eventos sejam relacionados ao Java, ou seja, filhas da classe {\tt JavaRequirement} criada acima;
+  \item os eventos tenham sido realizados pela primeira vez (somente é importante saber os objetos de aprendizado concluídos pelo aluno, e não quantas vezes).
+\end{enumerate}
+
+Para que o eProfile possa identificar estes eventos para a entidade Andre, a seguinte regra é enviada ao eProfile:
+
+\begin{lstlisting}
+Class: <el:JavaLessonsTaken>
+    EquivalentTo: 
+        <el:FinishedLOEvent>
+         and (<el:hasEntity> some <el:Andre>)
+         and (<el:hasLearningObject> some 
+	                     <el:JavaRequirement>)
+         and (<el:isFirstTime> value true)
+\end{lstlisting}
+
+Uma vez que estas duas regras estejam criadas na ontologia, o eProfile irá executar o raciocinador, que gerará uma nova ontologia OWL, com as classes inferidas identificadas como filhas das classes criadas.
+
+A partir da execução do raciocinador, uma regra de atualização de perfil é criada, onde são comparados o número de módulos Java com o número de objetos de aprendizagem relacionados ao Java que foram concluídos pela entidade. Se o número for igual, o usuário é proeficiente. Esta regra é definida da seguinte forma:
+
+\begin{lstlisting}
+JavaProficience <= 
+  (Count(SubClasses(JavaRequirement))) equals
+          (Count(SubClasses(JavaLessonsTaken)))
+\end{lstlisting}
+
+%---------------------------------------------------------------------------
+\section{Conclusão}
 
 
 %---------------------------------------------------------------------------
