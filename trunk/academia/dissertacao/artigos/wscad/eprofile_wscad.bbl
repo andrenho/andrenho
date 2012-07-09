@@ -14,11 +14,6 @@ J.~Barbosa, R.~Hahn, S.~Rabello, and D.~Barbosa.
 \newblock Local: a model geared towards ubiquitous learning.
 \newblock {\em SIGCSE Bull.}, 40:432--436, March 2008.
 
-\bibitem{carmagnola09}
-F.~Carmagnola and F.~Cena.
-\newblock User identification for cross-system personalisation.
-\newblock {\em Inf. Sci.}, 179:16--32, January 2009.
-
 \bibitem{chellouche10}
 S.~A. Chellouche, J.~Arnaud, and D.~N\'{e}gru.
 \newblock Flexible user profile management for context-aware ubiquitous
@@ -27,38 +22,16 @@ S.~A. Chellouche, J.~Arnaud, and D.~N\'{e}gru.
   communications and networking conference}, CCNC'10, pages 980--984,
   Piscataway, NJ, USA, 2010. IEEE Press.
 
-\bibitem{clarke04}
-S.~Clarke and C.~Driver.
-\newblock Context-aware trails [mobile computing].
-\newblock {\em Computer}, 37(8):97 -- 99, aug. 2004.
-
 \bibitem{dey2001}
 A.~Dey.
 \newblock Understanding and using context.
 \newblock {\em Personal and Ubiquitous Computing}, 6(1):4--7, 2001.
-
-\bibitem{driver04}
-C.~Driver and S.~Clarke.
-\newblock Hermes: A software framework for mobile, context-aware trails.
-\newblock In {\em Workshop on Computer Support for Human Tasks and Activities
-  at Pervasive 2004}, Apr. 2004.
-
-\bibitem{driver08}
-C.~Driver and S.~Clarke.
-\newblock An application framework for mobile, context-aware trails.
-\newblock {\em Pervasive Mob. Comput.}, 4:719--736, October 2008.
 
 \bibitem{heckmann05}
 D.~Heckmann.
 \newblock {\em Ubiquitous User Modeling}.
 \newblock PhD thesis, Department of Computer Science, Saarland University,
   Germany, November 2005.
-
-\bibitem{ieeedict}
-{IEEE}.
-\newblock {IEEE} standard computer dictionary. a compilation of {IEEE} standard
-  computer glossaries.
-\newblock {\em IEEE Std 610}, page~1, 1991.
 
 \bibitem{pelep}
 D.~Levis, J.~L.~V. Barbosa, S.~C. C.~S. Pinto, and D.~N.~F. Barbosa.
@@ -81,12 +54,6 @@ C.~Niederée, A.~Stewart, B.~Mehta, and M.~Hemmje.
 M.~Satyanarayanan.
 \newblock Pervasive computing: Vision and challenges.
 \newblock {\em IEEE Personal Communications}, 8:10--17, 2001.
-
-\bibitem{schilit94}
-B.~Schilit, N.~Adams, and R.~Want.
-\newblock Context-aware computing applications.
-\newblock In {\em In Proceedings of the Workshop on Mobile Computing Systems
-  and Applications}, pages 85--90. IEEE Computer Society, 1994.
 
 \bibitem{silva10}
 J.~Silva, J.~Rosa, J.~Barbosa, D.~Barbosa, and L.~Palazzo.
