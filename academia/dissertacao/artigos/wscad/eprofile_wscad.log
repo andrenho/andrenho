@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.5.28)  8 JUL 2012 21:29
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.5.28)  9 JUL 2012 11:43
 entering extended mode
  %&-line parsing enabled.
 **eprofile_wscad.tex
@@ -335,6 +335,17 @@ Package: verbatim 2003/08/22 v1.5q LaTeX2e package for verbatim enhancements
 \verbatim@line=\toks18
 \verbatim@in@stream=\read1
 )
+(/usr/share/texmf-texlive/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count93
+\float@exts=\toks19
+\float@box=\box26
+\@float@everytoks=\toks20
+\@floatcapt=\box27
+)
+\@float@every@code=\toks21
+\c@code=\count94
+
 (/usr/share/texmf-texlive/tex/latex/booktabs/booktabs.sty
 Package: booktabs 2005/04/14 v1.61803 publication quality tables
 \heavyrulewidth=\dimen112
@@ -347,33 +358,33 @@ Package: booktabs 2005/04/14 v1.61803 publication quality tables
 \cmidrulesep=\dimen119
 \cmidrulekern=\dimen120
 \defaultaddspace=\dimen121
-\@cmidla=\count93
-\@cmidlb=\count94
+\@cmidla=\count95
+\@cmidlb=\count96
 \@aboverulesep=\dimen122
 \@belowrulesep=\dimen123
-\@thisruleclass=\count95
-\@lastruleclass=\count96
+\@thisruleclass=\count97
+\@lastruleclass=\count98
 \@thisrulewidth=\dimen124
 )
 (/usr/share/texmf-texlive/tex/latex/listings/listings.sty
-\lst@mode=\count97
-\lst@gtempboxa=\box26
-\lst@token=\toks19
-\lst@length=\count98
+\lst@mode=\count99
+\lst@gtempboxa=\box28
+\lst@token=\toks22
+\lst@length=\count100
 \lst@currlwidth=\dimen125
-\lst@column=\count99
-\lst@pos=\count100
+\lst@column=\count101
+\lst@pos=\count102
 \lst@lostspace=\dimen126
 \lst@width=\dimen127
-\lst@newlines=\count101
-\lst@lineno=\count102
+\lst@newlines=\count103
+\lst@lineno=\count104
 \lst@maxwidth=\dimen128
 
 (/usr/share/texmf-texlive/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2007/02/22 1.4 (Carsten Heinz)
-\c@lstnumber=\count103
-\lst@skipnumbers=\count104
-\lst@framebox=\box27
+\c@lstnumber=\count105
+\lst@skipnumbers=\count106
+\lst@framebox=\box29
 )
 (/usr/share/texmf-texlive/tex/latex/listings/listings.cfg
 File: listings.cfg 2007/02/22 1.4 listings configuration
@@ -387,221 +398,194 @@ LaTeX Warning: Unused global option(s):
 (./eprofile_wscad.aux)
 \openout1 = `eprofile_wscad.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Try loading font information for T1+ptm on input line 31.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Try loading font information for T1+ptm on input line 34.
  (/usr/share/texmf-texlive/tex/latex/psnfss/t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 )
 (/usr/share/texmf-texlive/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count105
+\scratchcounter=\count107
 \scratchdimen=\dimen129
-\scratchbox=\box28
-\nofMPsegments=\count106
-\nofMParguments=\count107
-\everyMPshowfont=\toks20
-\MPscratchCnt=\count108
+\scratchbox=\box30
+\nofMPsegments=\count108
+\nofMParguments=\count109
+\everyMPshowfont=\toks23
+\MPscratchCnt=\count110
 \MPscratchDim=\dimen130
-\MPnumerator=\count109
-\everyMPtoPDFconversion=\toks21
+\MPnumerator=\count111
+\everyMPtoPDFconversion=\toks24
 )
 Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: float package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
-\c@lstlisting=\count110
+\c@lstlisting=\count112
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 44.
-LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
 (Font)              Font shape `T1/ptm/b/n' tried instead on input line 47.
-Missing character: There is no ç in font cmbx10!
-Missing character: There is no ã in font cmbx10!
-Missing character: There is no í in font cmbx10!
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 77.
- (/usr/share/texmf-texlive/tex/latex/psnfss/omsptm.fd
-File: omsptm.fd 
-)
-LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 77.
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 50.
  [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 
-] [2]
-Missing character: There is no ç in font cmbx10!
-Missing character: There is no ã in font cmbx10!
-
-Underfull \hbox (badness 1831) in paragraph at lines 162--163
-[]\T1/ptm/m/n/10 baseados em me-di-a-ção: se ba-seiam numa vi-são
- []
-
-[3] <imagens/modelobasico.png, id=16, 428.60126pt x 229.85875pt>
+]
+<imagens/modelobasico.png, id=8, 428.60126pt x 229.85875pt>
 File: imagens/modelobasico.png Graphic file (type png)
 
 <use imagens/modelobasico.png>
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 180.
-LaTeX Font Info:    Try loading font information for T1+phv on input line 180.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 85.
+LaTeX Font Info:    Try loading font information for T1+phv on input line 85.
 
 (/usr/share/texmf-texlive/tex/latex/psnfss/t1phv.fd
 File: t1phv.fd 2001/06/04 scalable font definitions for T1/phv.
 )
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <10> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 180.
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 85.
 
-<imagens/modelo2.png, id=17, 783.92876pt x 284.06125pt>
+<imagens/modelo2.png, id=9, 783.92876pt x 284.06125pt>
 File: imagens/modelo2.png Graphic file (type png)
 
 <use imagens/modelo2.png>
-Overfull \hbox (11.29218pt too wide) in paragraph at lines 195--196
+Overfull \hbox (11.29218pt too wide) in paragraph at lines 100--101
  [][] 
  []
 
-<imagens/modelo.png, id=18, 793.96625pt x 509.905pt>
-File: imagens/modelo.png Graphic file (type png)
- <use imagens/modelo.png>
-Overfull \hbox (36.1365pt too wide) in paragraph at lines 202--203
+<imagens/modelo_big.png, id=10, 820.06375pt x 509.905pt>
+File: imagens/modelo_big.png Graphic file (type png)
+
+<use imagens/modelo_big.png>
+Overfull \hbox (11.29218pt too wide) in paragraph at lines 107--108
  [][] 
  []
 
-[4 <./imagens/modelobasico.png (PNG copy)> <./imagens/modelo2.png (PNG copy)> <
-./imagens/modelo.png>] <imagens/ont_trilha.png, id=26, 819.06pt x 369.38pt>
+[2 <./imagens/modelobasico.png (PNG copy)>]
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 122.
+
+
+(/usr/share/texmf-texlive/tex/latex/psnfss/omsptm.fd
+File: omsptm.fd 
+)
+LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 122.
+
+<imagens/ont_trilha.png, id=16, 819.06pt x 369.38pt>
 File: imagens/ont_trilha.png Graphic file (type png)
 
 <use imagens/ont_trilha.png>
-Overfull \hbox (11.29218pt too wide) in paragraph at lines 228--229
+Overfull \hbox (11.29218pt too wide) in paragraph at lines 133--134
  [][] 
  []
 
-<imagens/ont_perfil2.png, id=27, 557.08125pt x 308.15125pt>
+<imagens/ont_perfil2.png, id=17, 557.08125pt x 308.15125pt>
 File: imagens/ont_perfil2.png Graphic file (type png)
 
-<use imagens/ont_perfil2.png>
-Missing character: There is no ç in font cmbx10!
-Missing character: There is no ã in font cmbx10!
-Missing character: There is no á in font cmbx10!
- [5 <./imagens/ont_trilha.png> <./imagens/ont_perfil2.png (PNG copy)>] <imagens
-/cen1_modulos.png, id=32, 366.63pt x 424.05pt>
+<use imagens/ont_perfil2.png> [3 <./imagens/modelo2.png (PNG copy)> <./imagens/
+modelo_big.png> <./imagens/ont_trilha.png> <./imagens/ont_perfil2.png (PNG copy
+)>] <imagens/cen1_modulos.png, id=24, 366.63pt x 424.05pt>
 File: imagens/cen1_modulos.png Graphic file (type png)
 
 <use imagens/cen1_modulos.png>
-<imagens/cen1_ontologia.png, id=33, 688.5725pt x 346.29375pt>
+<imagens/cen1_ontologia.png, id=25, 688.5725pt x 346.29375pt>
 File: imagens/cen1_ontologia.png Graphic file (type png)
 
 <use imagens/cen1_ontologia.png>
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 294.
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 196.
 
 (/usr/share/texmf-texlive/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 294.
+(Font)              <7> on input line 196.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 294.
+(Font)              <5> on input line 196.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 294.
+(Font)              <8> on input line 196.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 294.
-
-Underfull \hbox (badness 5578) in paragraph at lines 306--307
+(Font)              <6> on input line 196.
+ [4 <./imagens/cen1_modulos.png>]
+Underfull \hbox (badness 5578) in paragraph at lines 210--211
 \T1/pcr/m/n/10 LearningEvent\T1/ptm/m/n/10 . Cada es-pe-ci-a-li-za-ção da class
 e
  []
 
 
-Underfull \hbox (badness 2237) in paragraph at lines 306--307
+Underfull \hbox (badness 2237) in paragraph at lines 210--211
 \T1/ptm/m/n/10 exige in-for-ma-ções adi-ci-o-nais, de modo que a classe
  []
 
-[6 <./imagens/cen1_modulos.png>]
-Overfull \hbox (2.8665pt too wide) in paragraph at lines 318--319
+
+Overfull \hbox (2.8665pt too wide) in paragraph at lines 223--224
 [][][][][][][][][] 
  []
 
-
-Overfull \hbox (7.66655pt too wide) in paragraph at lines 334--335
-[][][][][][][][][][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (12.4666pt too wide) in paragraph at lines 336--337
-[][][][][][][][][][][][][][][] 
- []
-
-
-LaTeX Warning: Reference `sec:regras' on page 7 undefined on input line 342.
-
-[7 <./imagens/cen1_ontologia.png (PNG copy)>]
-Overfull \hbox (2.8665pt too wide) in paragraph at lines 378--379
-[][][][][][][][][] 
- []
-
-
-Underfull \hbox (badness 10000) in alignment at lines 400--410
+[5 <./imagens/cen1_ontologia.png (PNG copy)>]
+Underfull \hbox (badness 10000) in alignment at lines 313--323
 [][][][][][][]
  []
 
-(./eprofile_wscad.bbl
+[6]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [8]
-Underfull \hbox (badness 10000) in paragraph at lines 111--115
+
+(./eprofile_wscad.bbl [7]
+Underfull \hbox (badness 10000) in paragraph at lines 78--82
 []\T1/ptm/m/n/9 W3C.  OWL 2 web on-to-logy lan-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 111--115
+Underfull \hbox (badness 10000) in paragraph at lines 78--82
 \T1/ptm/m/n/9 guage man-ches-ter syn-tax, 2009.
  []
 
 
-Overfull \hbox (24.3737pt too wide) in paragraph at lines 111--115
+Overfull \hbox (24.3737pt too wide) in paragraph at lines 78--82
 \T1/pcr/m/n/9 http://www.w3.org/TR/owl2-manchester-syntax/\T1/ptm/m/n/9 .
  []
 
 
-Underfull \hbox (badness 3568) in paragraph at lines 117--120
+Underfull \hbox (badness 3568) in paragraph at lines 84--87
 []\T1/ptm/m/n/9 W3C.  OWL web on-to-logy lan-guage guide, 2011.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 117--120
+Underfull \hbox (badness 10000) in paragraph at lines 84--87
 \T1/pcr/m/n/9 http://www.w3.org/TR/owl-guide/\T1/ptm/m/n/9 . Aces-sado
  []
 
-) [9] (./eprofile_wscad.aux)
+) [8
 
-LaTeX Warning: There were undefined references.
-
- ) 
+] (./eprofile_wscad.aux) ) 
 Here is how much of TeX's memory you used:
- 4603 strings out of 495041
- 62123 string characters out of 1181897
- 133674 words of memory out of 3000000
- 7722 multiletter control sequences out of 15000+50000
+ 4652 strings out of 495041
+ 62721 string characters out of 1181897
+ 140079 words of memory out of 3000000
+ 7767 multiletter control sequences out of 15000+50000
  49356 words of font info for 58 fonts, out of 3000000 for 9000
  30 hyphenation exceptions out of 8191
- 36i,8n,38p,908b,1576s stack positions out of 5000i,500n,10000p,200000b,50000s
-{/usr/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}</usr/share/texmf-texli
-ve/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-texlive/fonts/ty
-pe1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/type1/urw/cou
-rier/ucrr8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/helvetic/uhvb8a.pfb><
-/usr/share/texmf-texlive/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texmf-
-texlive/fonts/type1/urw/times/utmb8a.pfb></usr/share/texmf-texlive/fonts/type1/
-urw/times/utmr8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/times/utmri8a.pf
-b>
-Output written on eprofile_wscad.pdf (9 pages, 426926 bytes).
+ 36i,8n,38p,964b,1195s stack positions out of 5000i,500n,10000p,200000b,50000s
+{/usr/share/texmf-texlive/fonts/enc/dvips/base/8r.enc
+}</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/shar
+e/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-tex
+live/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texmf-texlive/fonts/type1/u
+rw/helvetic/uhvb8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/helvetic/uhvr8
+a.pfb></usr/share/texmf-texlive/fonts/type1/urw/times/utmb8a.pfb></usr/share/te
+xmf-texlive/fonts/type1/urw/times/utmr8a.pfb></usr/share/texmf-texlive/fonts/ty
+pe1/urw/times/utmri8a.pfb>
+Output written on eprofile_wscad.pdf (8 pages, 422664 bytes).
 PDF statistics:
- 76 PDF objects out of 1000 (max. 8388607)
+ 73 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  36 words of extra memory for PDF output out of 10000 (max. 10000000)
 
