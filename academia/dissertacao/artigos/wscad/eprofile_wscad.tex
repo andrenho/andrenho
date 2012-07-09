@@ -12,6 +12,9 @@
 \usepackage[pdftex]{graphicx}  % figuras
 \usepackage{times}
 \usepackage[bf,sf,font=normalsize,textfont=sf]{caption}
+\usepackage{verbatim}
+\usepackage{booktabs}          % Tabelas bonitas
+\renewcommand{\arraystretch}{1.2}
 
 % configurações listings
 \usepackage{listings}
@@ -46,12 +49,202 @@ Av. Unisinos, 950, São Leopoldo - RS, Brazil\\
 \end{abstract}
 
 %----------------------------------------------------------------------------
+\section{Introdução}
+\label{ch:introducao}
+
+Atualmente, a maioria dos usuários interage com uma grande variedade de sistemas computacionais. Cada vez mais, existe a tendência do aumento da interconectividade entre estes sistemas, devido ao fato da internet estar cada vez mais presente e disponível em qualquer lugar. Assim, pesquisas recentes preveem a integração completa de todos estes sistemas em uma federação de sistemas computacionais, que podem ser descritos como Ambientes Inteligentes \cite{heckmann05}.
+
+Uma visão para o conceito de ambientes inteligentes foi discutida por Weiser em seu artigo seminal, onde ele apresentou um cenário em que o computador se tornaria invisível e indistinguível de seu ambiente \cite{weiser91}. Neste cenário, a interação entre humanos e computadores ocorreria não como a usual -- onde o humano dedica 100\% de sua atenção ao computador --, mas constituíra-se de pequenas interações rápidas, geralmente em locais e dispositivos distintos, muitas vezes utilizando a periferia da atenção do usuário \cite{weiser96} ou sem ele se dar conta de estar interagindo com um sistema computacional.
+
+Para que este cenário seja possível, é necessário que os aplicativos tenham condições de considerar o contexto no qual se encontram e adaptar-se a este contexto, ou seja, é necessário que sejam ``sensíveis a contexto'' \cite{dey2001}. Para que um aplicativo possa se adaptar a um usuário de forma eficaz, é importante que ele conheça não apenas o histórico de contextos visitados por um usuário, mas conheça quem o usuário é. As aplicações deste tipo organizam seu conhecimento a respeito do usuário em perfis de usuário, os quais armazenam as informações em um formato baseado em um modelo de usuário específico \cite{viviani10}. 
+
+Pesquisas nesta área têm indicado que não apenas é interessante conhecer o contexto do usuário no momento em que um determinado serviço está sendo oferecido, mas que o histórico de contextos visitados pode ser uma informação valiosa na adaptação da aplicação ao usuário. Este histórico de contextos recebe o nome de Trilha \cite{silva10}.
+
+Para que um sistema tenha sucesso em obter a intenção do usuário, é necessário que ele conheça o usuário, o contexto que o usuário está inserido e as ações que ele tomou anteriormente quando se encontrava no mesmo contexto ou em contextos semelhantes. As informações do usuário podem se enquadrar em um Perfil de Usuário, enquanto as informações históricas de contexto se encaixam na ideia de Trilha \cite{satyanarayanan01}.
+
+Este artigo está organizado da seguinte forma. A Seção~\ref{ch:conceitos} descreve os principais conceitos referentes às áreas relacionadas a este trabalho. Na Seção~\ref{ch:modelo} é proposto o modelo do eProfile, bem como sua forma de operação. A Seção~\ref{ch:cenario} apresenta um estudo de caso detalhando a utilização do eProfile. A Seção~\ref{ch:relacionados} descreve trabalhos relacionados, apresentando as contribuições deste modelo. Por fim, a Seção~\ref{sec:conclusao} apresenta as considerações finais.
+
+%----------------------------------------------------------------------------
+\section{Conceitos}
+\label{ch:conceitos}
+
+\subsection{Computação Ubíqua}
+\label{sec:ubicomp}
+
+Em 1991, uma equipe do Laboratório de Ciência Computacional da {\em Xerox Palo Alto Research Center}, liderada por Mark Weiser, identificou um conjunto de tendências relacionadas à computação \cite{weiser91}:
+
+\begin{itemize}
+  \item o tamanho dos computadores estava se tornando cada vez menor;
+  \item o custo do hardware estava se tornando cada vez menor -- tendência que continua até os dias atuais;
+  \item a proporção entre o número de pessoas e o número de computadores estava se tornando cada vez maior (em 1960, era comum o uso de um único computador por centenas de pessoas -- atualmente, é comum que cada pessoa possua vários dispositivos computacionais, como computadores, GPS, telefones celulares, entre outros);
+  \item o acesso a redes {\em wireless} estava cada vez mais disponível aos usuários. Embora na época do artigo o acesso {\em wireless} à Internet ainda não fosse uma realidade para a maioria dos usuários, é evidente que hoje esta também é uma tendência.
+\end{itemize}
+
+Concluiu-se que todas estas tendências ocasionariam um aumento no número de dispositivos e um aumento da disponibilidade de acesso, que eventualmente levaria a uma sobrecarga de informação sobre os usuários, de forma a causar um detrimento na qualidade da interação entre humanos e computadores e, consequentemente, na qualidade de vida das pessoas \cite{weiser96}.
+
+Assim, Weiser inicia seu artigo afirmando que ``as tecnologias mais profundas são aquelas que desaparecem. Elas se entrelaçam no tecido do dia-a-dia até que se tornem indistinguíveis dele'' \cite{weiser91}. Ele defende que o futuro da computação está em integrar o computador ao mundo real, e chama este novo paradigma de Computação Ubíqua. A noção de realidade virtual é apresentada como o oposto absoluto da computação ubíqua. Enquanto a realidade virtual busca trazer o usuário para dentro de um mundo construído pelo computador, a computação ubíqua busca trazer os computadores para dentro de um mundo construído por pessoas.
+
+O conceito de ``tecnologia calma'' como solução para o problema de sobrecarga de informações sobre o usuário \cite{weiser96}. Este conceito integra-se intimamente com a computação ubíqua. Dentro desta ideia, a transmissão de informações entre o computador e o usuário devem ocorrer na ``periferia'' da atenção do usuário, movendo-se para o ``centro'' da atenção em momentos de urgência. Um exemplo é o motor de um carro: quando um motorista dirige um carro, sua atenção está focada na estrada, e ele mal percebe o som do motor. No entanto, se houver algum som diferente no motor (o que pode indicar algum problema), a atenção do usuário passa a focar-se no motor. Da mesma forma, os sistemas devem, em seu curso normal, manter-se na periferia da atenção do usuário, trazendo a atenção para o centro nos momentos em que a atenção é necessária.
+
+Em termos de sistema, a computação móvel pode ser vista como evolução da computação distribuída, e a computação ubíqua (ou pervasiva, como ele chama no artigo) como evolução da computação móvel \cite{satyanarayanan01}. Cada uma destas fases teve seus próprios desafios, e que cada nova fase trouxe junto os desafios da fase anterior.
+
+Assim, a computação ubíqua herda os desafios da computação distribuída e móvel, que são: (i) comunicação remota, (ii) tolerância a falhas, (iii) alta disponibilidade, (iv) acesso a informações remotas, (v) segurança distribuída, (vi) redes móveis, (vii) acesso a informações móveis, (viii) aplicações adaptativas, (ix) sistemas sensíveis a energia e (x) sensitividade a localização. A estes problemas de pesquisa, a computação ubíqua acrescenta:
+
+\begin{itemize}
+  \item uso efetivo de espaços inteligentes: à medida que se acrescenta uma infraestrutura computacional aos espaços físicos, torna-se possível não apenas sentir o mundo exterior, mas também controlá-lo. O contrário também é possível, ou seja, a influência do mundo exterior (como localização) sobre um software do usuário;
+
+  \item invisibilidade: a busca pelo completo desaparecimento da tecnologia computacional da mente do usuário ou, se inatingível, o mínimo de distração possível;
+
+  \item escalabilidade localizada: a capacidade de um ambiente suportar uma crescente densidade de dispositivos computacionais, possivelmente através da intensificação das interações locais em detrimento das interações distantes;
+
+  \item mascaramento de condições irregulares: a capacidade de um sistema de se adaptar a uma taxa de penetração de tecnologia ubíqua variável, dependendo da localização.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Sensibilidade a Contexto}
+\label{sec:contexto}
+
+Para que um sistema seja minimamente intrusivo, é necessário que ele seja capaz de reconhecer a situação do usuário e seus arredores, e adapte seu comportamento de acordo com esta informação. Esta informação é chamada de ``contexto'' e sistemas capazes deste tipo de adaptação são chamados ``sensíveis a contexto'' \cite{satyanarayanan01}.
+
+Uma considerável quantidade de pesquisas tem sido feita na tentativa de obter uma definição exata de contexto. Uma das principais dificuldades nesta definição está no fato que, na computação móvel (e, por extensão, ubíqua) o ambiente está sempre mudando \cite{schilit94}. A configuração de hardware (dispositivo, qualidade da rede, conectividade), localização, grupo de pessoas próximas, entre outros, está em constante mudança.
+
+Uma das definições de contexto mais aceitas é a de que
+
+\begin{quotation}
+Contexto é qualquer informação que possa ser usada para caracterizar a situação de uma entidade. Uma entidade é uma pessoa, local ou objeto que seja considerada relevante para a interação entre um usuário e uma aplicação, incluindo o próprio usuário e aplicação \cite{dey2001}.
+\end{quotation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Trilhas}
+\label{sec:trilhas}
+
+Estudos recentes indicam que além do contexto atual de um usuário, o histórico de contextos visitados pode permitir uma ampliação na capacidade de um sistema sensível a contextos de se adaptar a um usuário. A este histórico é dado o nome de Trilha \cite{silva09,driver08,clarke04}.
+
+Embora a trilha geralmente esteja vinculada à localização de um usuário, ela possui um conceito mais amplo, que inclui as atividades realizadas, aplicações usadas, conteúdos acessados -- entre outros -- dentro de um contexto e um período de tempo específico \cite{silva09}.
+
+A pesquisa na área de trilhas é relevante para o campo do desenvolvimento de aplicações ubíquas, uma vez que a utilização de trilhas vai ao encontro do desafio central da área de computação ubíqua, isto é, o desenvolvimento de aplicações transparentes ao usuário.\cite{driver04}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Personalização}
+\label{sec:personalizacao}
+
+Personalização é a disponibilização de produtos, serviços e informações adaptados individualmente. A tecnologia de personalização geralmente envolve programas que aprendam padrões, hábitos e preferências de um usuário \cite{mulvenna00}.
+
+Entidade é uma extensão do conceito de usuário. Enquanto um usuário geralmente refere-se a uma pessoa que está utilizando um aplicativo, a definição de entidade utilizada por estes autores é de que pode ser qualquer objeto móvel, como um carro ou mesmo um dispositivo \cite{silva09}.
+
+Dentro do âmbito da personalização, este trabalho dá à estrutura de dados utilizada para armazenar as informações das entidades por uma aplicação o nome de Modelo de Entidade, enquanto o conjunto de informações referentes a uma entidade específica é nomeada Perfil de Entidade.
+
+A coleta de informações de uma entidade pode ser explícita ou implícita \cite{viviani10}. Na coleta explícita, é requisitado ao usuário que preencha informações através de um formulário pré-definido, enquanto na coleta implícita, a informação é inferida a partir do estudo do comportamento da entidade.
+
+O objetivo principal por detrás dos sistemas de personalização modernos é oferecer às entidades o que elas querem sem requisitar que elas informem isto de forma explícita \cite{mulvenna00}. Fica claro que este propósito vai ao encontro do propósito da computação ubíqua, isto é, o desenvolvimento de uma tecnologia que ``desapareça''.
+
+Informações a respeito de uma entidade colhidas por uma aplicação podem ser úteis para outras aplicações utilizadas pela mesma entidade \cite{viviani10}. No entanto, os diferentes modelos de entidade utilizados pelas aplicações tornam difícil a utilização de informações de um mesmo perfil de entidade por várias aplicações. Além disso, algumas das informações da entidade podem ser válidas apenas dentro de um contexto específico, o que dificulta ainda mais que diferentes aplicações compartilharem o mesmo perfil.
+
+Visando resolver estas questões, o conceito de personalização inter-sistemas foi introduzido \cite{niederee04} como forma de compartilhar informações de entidades entre diferentes aplicações. Como o maior problema deste tipo de modelo é o alinhamento entre as diferentes abordagens de personalização, o estudo de sistemas de modelos de usuários (e, por extensão, de entidades, dentro do âmbito deste trabalho) é atualmente o principal desafio da pesquisa na área de personalização \cite{viviani10}.
+
+O {\em IEEE Standard Computer Dictionary} \cite{ieeedict} define interoperabilidade como ``a capacidade de dois ou mais sistemas ou componentes trocarem informações e utilizarem as informações que foram trocadas''. No âmbito da personalização, interoperabilidade é a capacidade de acessar e interpretar informação derivada de múltiplas fontes heterogêneas e integrar esta informação em um modelo de entidade comum. Os dois principais modelos de interoperabilidade são \cite{carmagnola09}: 
+
+\begin{itemize}
+
+  \item interoperabilidade sintática: onde as diferenças entre os modelos de entidade são resolvidos em nível de aplicação;
+  \item interoperabilidade semântica: onde as diferenças entre os modelos são resolvidos em nível de conhecimento.
+
+\end{itemize}
+
+As duas principais abordagens utilizadas em sistemas de modelos de entidades interoperáveis são \cite{viviani10}:
+
+\begin{itemize}
+
+  \item baseados em padrões: são baseados numa visão {\textit top-down}, definindo um padrão que todas as aplicações envolvidas devem observar;
+  \item baseados em mediação: se baseiam numa visão {\textit bottom-up}, onde ocorre algum tipo de reconciliação entre os diferentes modelos de representação.
+
+\end{itemize}
 
 
 %----------------------------------------------------------------------------
-\section{Protótipo e Estudo de Caso}
+\section{Modelo}
+\label{ch:modelo}
 
-O estudo de caso apresentado é baseado na geração simulada de trilhas de estudantes de um curso de gradução em Ciência da Computação. Foi decidido pela utilização de um cenário simplificado, de modo que o mesmo pudesse ser apresentado de forma aprofundada.
+Pesquisas apontem que é desejável que os sistemas do futuro se tornem cada vez mais invisíveis aos seus usuários \cite{weiser96}, e que um sistema só pode se tornar invisível se for pró-ativo, e só pode ser pró-ativo se conhecer o usuário \cite{satyanarayanan01}. Para que um sistema possa conhecer uma entidade, ele deve conhecer o histórico da entidade, compreender o contexto em que ela está inserido, bem como os dados coletados a respeito dela no mesmo contexto (ou num contexto similar), e ser capaz de processar este conjunto de informações em um perfil de entidade.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Modelo do eProfile}
+\label{sec:modelo}
+
+\begin{figure}
+  \centering\includegraphics[width=0.4\textwidth]{imagens/modelobasico.png}
+  \caption{Modelo básico do eProfile}
+  \label{fig:modelobasico}
+\end{figure}
+
+A Figura~\ref{fig:modelobasico} apresenta a visão geral do eProfile, onde cada círculo representa um componente, e as setas indicam o fluxo dos dados.
+
+O primeiro componente representado é a {\bf aplicação}. A aplicação, dentro deste modelo, é qualquer aplicação que está sendo utilizada diretamente por uma entidade. Para que uma aplicação seja considerada apta a este modelo (isto é, possa utilizar as funcionalidades oferecidas pelo eProfile), ela precisa ser capaz de registrar suas informações em um gerenciador de trilhas suportado pelo eProfile, e deverá seguir o protocolo de comunicação do eProfile para se comunicar com o mesmo. Seguidos estes pré-requisitos, a aplicação pode ser de qualquer tipo e operar em qualquer tipo de dispositivo que tenha comunicação com a internet.
+
+O segundo componente representado é um {\bf gerenciador de trilhas}. Um gerenciador de trilhas é capaz de registrar eventos realizados por uma entidade, colocando-os em uma ordem cronológica e registando informações relevantes ao evento (como o contexto na qual o evento foi realizado). O modelo do eProfile é desenhado para oferecer suporte a qualquer gerenciador de trilhas, desde que o protocolo de comunicação entre o gerenciador de trilhas e o eProfile esteja codificadado no eProfile.
+
+A Figura~\ref{fig:modelobasico} apresenta ainda um terceiro serviço, o eProfile, que é o modelo apresentado neste trabalho. As setas indicam o fluxo dos dados. A comunicação tem início quando a aplicação registra-se no eProfile, enviando (i) o modelo de entidade utilizado pela aplicação e (ii) as regras para construção deste modelo (seta ``a''). A partir deste momento, a aplicação passa a registrar os eventos no gerenciador de trilhas (seta ``b''). O eProfile periodicamente busca esta informação a partir do gerenciador de trilhas, e constrói ou reconfigura o perfil de entidade (seta ``c''). À medida que a aplicação tem necessidade de um perfil atualizado, ela busca este perfil no eProfile (seta ``d'').
+
+Como o eProfile oferece suporte a várias aplicações, é possível que diferentes aplicações utilizem diferentes gerenciadores de trilhas. Por isso, o eProfile oferece também suporte à comunicação com vários gerenciadores de trilhas, segundo exemplificado na Figura~\ref{fig:gerenciadores}.
+
+\begin{figure}
+  \centering\includegraphics[width=0.5\textwidth]{imagens/modelo2.png}
+  \caption{eProfile conectado a mais de um gerenciador de trilhas}
+  \label{fig:gerenciadores}
+\end{figure}
+
+
+\begin{figure}
+  \centering\includegraphics[width=0.55\textwidth]{imagens/modelo.png}
+  \caption{Modelo do eProfile}
+  \label{fig:modelo}
+\end{figure}
+
+A Figura~\ref{fig:modelo} apresenta o modelo do eProfile. Os serviços ``Aplicação'' e ``Gerenciador de Trilhas'' são os mesmos mostrados na Figura~\ref{fig:modelobasico}, enquanto o serviço ``eProfile'' foi expandido para mostrar seu funcionamento interno.
+
+Cada aplicação tem a possibilidade de montar seu próprio modelo de entidade. Para que o eProfile processe os perfis baseados em um modelo de entidade, ele precisa de três informações: (i) a trilha da entidade, (ii) o modelo de entidade utilizado pela aplicação e (iii) as regras de inferência para o perfil. Isto é visível na Figura~\ref{fig:modelo}, onde o agente ``Raciocinador'' recebe dados destes três bancos. A trilha da entidade é carregada pelo eProfile a partir do gerenciador de trilhas, enquanto as outras duas informações são enviadas diretamente da aplicação para o eProfile. Desta forma, as regras de inferência definidas pela aplicação serão utilizadas para inferir o perfil da entidade.
+
+As setas da Figura~\ref{fig:modelo} indicam a direção do fluxo dos dados, onde podem se verificar dois pontos de entrada e um ponto de saída.
+
+O primeiro ponto de entrada são as informações enviadas pela aplicação ao eProfile ou, mais especificamente, ao agente {\bf configurador}. As informações que devem ser enviadas pela aplicação são as seguintes:
+
+\begin{itemize}
+
+\item o modelo de entidade utilizado pela aplicação, ou seja, o formato do perfil da entidade. Uma vez que a trilha da entidade seja processada, as informações inferidas serão armazenadas e disponibilizadas para a aplicação neste formato;
+
+\item as regras para inferência do perfil. Estas regras serão executadas em períodos regulares, de modo a atualizar o perfil da entidade. O configurador tem a função de receber as regras, validá-las e inseri-las na \textbf{base de regras}. Juntamente com as regras, é especificado a criticidade da informação. O sistema utilizará esta informação para determinar com que frequência a inferência desta informação será executada.
+
+\end{itemize}
+
+O segundo ponto de entrada é aquele através do qual são recebidas as trilhas das entidades, que são buscadas do gerenciador de trilhas pelo eProfile. Como o eProfile pode se conectar a diferentes gerenciadores de trilha (Figura~\ref{fig:gerenciadores}), onde em cada um deles a trilha tem um formato específico, é necessário que seja realizada uma conversão entre o formato original e o formato utilizado pelo eProfile, para que as trilhas sejam armazenadas de forma padronizada. Este trabalho é realizado por um agente intitulado {\bf conversor}, que é capaz de realizar a conversão para os formatos de trilha suportados pelo eProfile.
+
+A trilha da entidade é então armazenada no eProfile em uma ontologia de trilha, chamada {\bf eOntoTrail} (Figura~\ref{fig:ont_trilha}). Esta ontologia possui as classes básicas para a construção de uma trilha, sendo que a mesma pode ser estendida de acordo com a especificação do gerenciador de trilhas que está sendo utilizado.
+
+\begin{figure}
+  \centering\includegraphics[width=0.5\textwidth]{imagens/ont_trilha.png}
+  \caption{Ontologia de Trilha do eProfile}
+  \label{fig:ont_trilha}
+\end{figure}
+
+Uma vez de posse das trilhas, do modelo e das regras, o agente \textbf{raciocinador} realiza a inferência na trilha, gerando assim um perfil da entidade, que será uma extensão de uma ontologia de perfil básica denominada {\bf eOntoProfile} (Figura~\ref{fig:ont_perfil}). Esta ontologia, da mesma forma que a ontologia de trilha, contém classes básicas a partir das quais as aplicações vão especializar, utilizando-as para armazenar informações próprias. A aplicação pode então conectar-se ao eProfile e buscar o perfil de sua entidade, cujos dados são enviados pelo agente \textbf{comunicador}.
+
+\begin{figure}
+  \centering\includegraphics[width=0.4\textwidth]{imagens/ont_perfil2.png}
+  \caption{Ontologia de Perfil do eProfile}
+  \label{fig:ont_perfil}
+\end{figure}
+
+%----------------------------------------------------------------------------
+\section{Estudo de Caso}
+\label{ch:cenario}
+
+O estudo de caso apresentado é baseado na geração simulada de trilhas de estudantes dentro de um contexto de Educação Ubíqua. Educação Ubíqua pode ser compreendido como processos educacionais que ocorrem em qualquer lugar, a qualquer tempo e com qualquer dispositivo, de forma contínua, contextualizada e integrada ao cotidiano do aprendiz \cite{barbosa05}.
+
+Foi decidido pela utilização de um cenário simplificado, de modo que o mesmo pudesse ser apresentado de forma aprofundada.
 
 \subsection{Definição do Cenário}
 \label{sec:cenario}
@@ -86,7 +279,7 @@ Levando em conta o ambiente apresentado, a questão que o LOCAL deseja que o ePr
 
 De acordo com a Figura~\ref{fig:modelo}, o gerenciador de trilhas envia as informações ao módulo conversor do eProfile, que as converte para o formato OWL. As informações enviadas são de dois tipos: (i) as ocorrências, isto é, a trilha propriamente dita e (ii) as informações acessórias, que ajudarão o eProfile a montar a ontologia necessária para a inferência das informações. No cenário que está sendo descrito, um módulo concluído é um exemplo de ocorrência, enquanto as informações de dependências entre os módulos de aprendizagem são informações acessórias.
 
-Tendo por base as informações enviadas pelo gerenciador de trilhas de acordo com o cenário descrito na Sessão~\ref{sec:cenario}, o eProfile montou a ontologia mostrada na Figura~\ref{fig:cen1_ontologia}. Cada círculo representa uma classe da ontologia.
+Tendo por base as informações enviadas pelo gerenciador de trilhas de acordo com o cenário descrito na Seção~\ref{sec:cenario}, o eProfile montou a ontologia mostrada na Figura~\ref{fig:cen1_ontologia}. Cada círculo representa uma classe da ontologia.
 
 É importante notar que cada uma das classes pai tem alguma representação na ontologia de trilha do eProfile, apresentada na Figura~\ref{fig:ont_trilha}.
 
@@ -196,9 +389,44 @@ JavaProficience <=
           (Count(SubClasses(JavaLessonsTaken)))
 \end{lstlisting}
 
+
+%----------------------------------------------------------------------------
+\section{Trabalhos Relacionados}
+\label{ch:relacionados}
+
+Atualmente, as áreas de computação ubíqua, sensibilidade a contexto, trilhas e personalização são bastante promissoras, sendo que um grande número de trabalhos são publicados anualmente a este respeito. No entanto, não foi encontrado nenhum trabalho que faça uso de inferência em trilhas com o objetivo de personalizar a experiência do usuário dentro de um domínio genérico. Assim, o modelo apresentado neste trabalho busca preencher esta lacuna. 
+
+\begin{table*}\centering\footnotesize
+  \begin{tabular*}{1\textwidth}{@{}lllllll@{}}
+    \toprule
+                                         & Interope-  & Perfis    & Armaze-  & Sensibilidade & Utiliza & \\
+    Trabalho                             & rabilidade & dinâmicos & namento  & a contexto    & trilhas & Domínio \\
+    \midrule
+    PeLeP                                & Não        & Sim       & Servidor & Sim           & Parcial & Educação \\
+    Chellouche et al                     & Sintática  & Sim       & Servidor & Sim           & Não     & Serviços multimídia \\
+    UUCM                                 & Sintática  & Sim       & Cliente  & Sim           & Não     & Genérico \\
+    eProfile                             & Semântica  & Sim       & Servidor & Sim           & Sim     & Genérico \\
+    \bottomrule
+  \end{tabular*}
+  \caption{Comparação entre os trabalhos apresentados}
+  \label{tab:comparacao2}
+\end{table*}
+
+% Não encontrou-se nenhum modelo que ofereça suporte a estes pré-requisitos de forma genérica (isto é, para qualquer tipo de contexto) e, assim, este modelo busca suprir esta necessidade.
+
+O PeLeP \cite{pelep} suporta aperfeiçoamento automático do perfil de um aprendiz em ambientes de educação ubíqua, utilizando o histórico dos aprendizes para a atualização dos perfis através de inferências. O eProfile utiliza uma estratégia semelhante. No entanto, as regras de inferência são definidas pela aplicação, e não pelo modelo. Esta alteração é necessária para que a inferência passe de um domínio específico (educação) para um domínio genérico. Além disso, ao contrário do eProfile, as regras são dinâmicas (uma aplicação pode definir ou remover regras dinamicamente), ao invés de estarem pré-definidas no modelo. Isto permite a evolução e refino das regras de inferência.
+
+O modelo apresentado por Chellouche et al \cite{chellouche10}, assim como o eProfile, apresenta um perfil unificado que pode ser utilizado por diversas aplicações. No entanto, ao contrário do eProfile, o modelo assume a interoperabilidade sintática, o que significa que as todas aplicações precisam registrar os eventos utilizando o mesmo formato, o que pode fazer com que a aplicação não consiga registrar o evento com a riqueza de detalhes necessária. Além disso, assim como o PeLeP, o modelo de Chellouche et al \cite{chellouche10} está limitado a um domínio específico, que são os serviços multimídia.
+
+O modelo UUCM \cite{niederee04}, ao contrário dos outros modelos, trabalha em um domínio genérico. Ele faz isso através da criação de uma ontologia básica que pode ser estendida pelas aplicações. Ao contrário das outras propostas (e do eProfile), o UUCM armazena os perfis no cliente, ao invés do servidor. Isto traz vantagens e desvantagens. Entre as vantagens pode-se citar a privacidade e acesso desconectado. No entanto, esta abordagem limita a interoperabilidade entre sistemas, uma vez que cada cliente fica com uma versão do próprio perfil, restringindo a utilização de um perfil unificado.
+
+A Tabela~\ref{tab:comparacao2} exibe um comparativo entre o eProfile e os trabalhos relacionados apresentados.
+
+O eProfile fez utilização das ideias apresentadas nos trabalhos, como o aperfeiçoamento automático de perfis, a utilização de perfis unificados e o funcionamento em um domínio genérico. A estas ideias, o eProfile traz como inovação a utilização de trilhas para a extração de perfis, o que facilita a inferência com sensibilidade a contexto. Além disso, o eProfile permite que cada aplicação registre sua trilha no formato que considerar mais proveitoso para si, permitindo assim que a riqueza de detalhes registrados por uma aplicação possa se traduzir em um perfil mais exato da entidade.
+
 %---------------------------------------------------------------------------
 \section{Conclusão}
-
+\label{sec:conclusao}
 
 %---------------------------------------------------------------------------
 \bibliographystyle{latex8}

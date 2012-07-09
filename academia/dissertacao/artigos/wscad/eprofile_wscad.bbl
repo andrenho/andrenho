@@ -1,9 +1,111 @@
-\begin{thebibliography}{1}\setlength{\itemsep}{-1ex}\small
+\begin{thebibliography}{10}\setlength{\itemsep}{-1ex}\small
+
+\bibitem{barbosa05}
+D.~Barbosa, C.~Geyer, and J.~Barbosa.
+\newblock Globaledu - an architecture to support learning in a pervasive
+  computing environment.
+\newblock In A.~Rettberg and C.~Bobda, editors, {\em New Trends and
+  Technologies in Computer-Aided Learning for Computer-Aided Design}, volume
+  192 of {\em IFIP International Federation for Information Processing}, pages
+  1--10. Springer Boston, 2005.
 
 \bibitem{barbosa08}
 J.~Barbosa, R.~Hahn, S.~Rabello, and D.~Barbosa.
 \newblock Local: a model geared towards ubiquitous learning.
 \newblock {\em SIGCSE Bull.}, 40:432--436, March 2008.
+
+\bibitem{carmagnola09}
+F.~Carmagnola and F.~Cena.
+\newblock User identification for cross-system personalisation.
+\newblock {\em Inf. Sci.}, 179:16--32, January 2009.
+
+\bibitem{chellouche10}
+S.~A. Chellouche, J.~Arnaud, and D.~N\'{e}gru.
+\newblock Flexible user profile management for context-aware ubiquitous
+  environments.
+\newblock In {\em Proceedings of the 7th IEEE conference on Consumer
+  communications and networking conference}, CCNC'10, pages 980--984,
+  Piscataway, NJ, USA, 2010. IEEE Press.
+
+\bibitem{clarke04}
+S.~Clarke and C.~Driver.
+\newblock Context-aware trails [mobile computing].
+\newblock {\em Computer}, 37(8):97 -- 99, aug. 2004.
+
+\bibitem{dey2001}
+A.~Dey.
+\newblock Understanding and using context.
+\newblock {\em Personal and Ubiquitous Computing}, 6(1):4--7, 2001.
+
+\bibitem{driver04}
+C.~Driver and S.~Clarke.
+\newblock Hermes: A software framework for mobile, context-aware trails.
+\newblock In {\em Workshop on Computer Support for Human Tasks and Activities
+  at Pervasive 2004}, Apr. 2004.
+
+\bibitem{driver08}
+C.~Driver and S.~Clarke.
+\newblock An application framework for mobile, context-aware trails.
+\newblock {\em Pervasive Mob. Comput.}, 4:719--736, October 2008.
+
+\bibitem{heckmann05}
+D.~Heckmann.
+\newblock {\em Ubiquitous User Modeling}.
+\newblock PhD thesis, Department of Computer Science, Saarland University,
+  Germany, November 2005.
+
+\bibitem{ieeedict}
+{IEEE}.
+\newblock {IEEE} standard computer dictionary. a compilation of {IEEE} standard
+  computer glossaries.
+\newblock {\em IEEE Std 610}, page~1, 1991.
+
+\bibitem{pelep}
+D.~Levis, J.~L.~V. Barbosa, S.~C. C.~S. Pinto, and D.~N.~F. Barbosa.
+\newblock Aperfeiçoamento automático do perfil do aprendiz em ambientes de
+  educação ubíqua.
+\newblock {\em Revista Brasileira de Informática na Educação}, 16(1), 2008.
+
+\bibitem{mulvenna00}
+M.~D. Mulvenna, S.~S. Anand, and A.~G. B\"{u}chner.
+\newblock Personalization on the net using web mining: introduction.
+\newblock {\em Commun. ACM}, 43:122--125, August 2000.
+
+\bibitem{niederee04}
+C.~Niederée, A.~Stewart, B.~Mehta, and M.~Hemmje.
+\newblock {A Multi-Dimensional, Unified User Model for Cross-System
+  Personalization}.
+\newblock In {\em E4PIA Workshop 2004}, 2004.
+
+\bibitem{satyanarayanan01}
+M.~Satyanarayanan.
+\newblock Pervasive computing: Vision and challenges.
+\newblock {\em IEEE Personal Communications}, 8:10--17, 2001.
+
+\bibitem{schilit94}
+B.~Schilit, N.~Adams, and R.~Want.
+\newblock Context-aware computing applications.
+\newblock In {\em In Proceedings of the Workshop on Mobile Computing Systems
+  and Applications}, pages 85--90. IEEE Computer Society, 1994.
+
+\bibitem{silva10}
+J.~Silva, J.~Rosa, J.~Barbosa, D.~Barbosa, and L.~Palazzo.
+\newblock Content distribution in trail-aware environments.
+\newblock {\em Journal of the Brazilian Computer Society}, 16:163--176, 2010.
+\newblock 10.1007/s13173-010-0015-1.
+
+\bibitem{silva09}
+J.~Silva, J.~Rosa, J.~Barbosa, D.~N.~F. Barbosa, and L.~A.~M. Palazzo.
+\newblock Content distribution in trial-aware environments.
+\newblock In {\em Proceedings of the XV Brazilian Symposium on Multimedia and
+  the Web}, WebMedia '09, pages 15:1--15:8, New York, NY, USA, 2009. ACM.
+
+\bibitem{viviani10}
+M.~Viviani, N.~Bennani, and E.~Egyed-Zsigmond.
+\newblock {A Survey on User Modeling in Multi-Application Environments}.
+\newblock In {\em The Third International Conference on Advances in
+  Human-oriented and Personalized Mechanisms, Technologies, and Services
+  CENTRIC'10}, pages 111--116. IEEE, Aug. 2010.
 
 \bibitem{owl-manchester}
 W3C.
@@ -15,5 +117,15 @@ W3C.
 W3C.
 \newblock {OWL} web ontology language guide, 2011.
 \newblock \texttt{http://www.w3.org/TR/owl-guide/}. Acessado em 05/05/2012.
+
+\bibitem{weiser91}
+M.~Weiser.
+\newblock The computer for the 21st century.
+\newblock {\em Scientific America}, pages 94--104, 1991.
+
+\bibitem{weiser96}
+M.~Weiser and J.~S. Brown.
+\newblock Designing calm technology.
+\newblock {\em PowerGrid Journal}, July 1996.
 
 \end{thebibliography}

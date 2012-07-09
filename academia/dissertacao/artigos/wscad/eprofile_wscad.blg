@@ -2,44 +2,44 @@ This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
 The top-level auxiliary file: eprofile_wscad.aux
 The style file: latex8.bst
 Database file #1: eprofile_wscad.bib
-You've used 3 entries,
+You've used 22 entries,
             2118 wiz_defined-function locations,
-            516 strings with 4190 characters,
-and the built_in function-call counts, 824 in all, are:
-= -- 77
-> -- 37
-< -- 0
-+ -- 15
-- -- 12
-* -- 48
-:= -- 144
-add.period$ -- 9
-call.type$ -- 3
-change.case$ -- 15
+            639 strings with 7574 characters,
+and the built_in function-call counts, 7619 in all, are:
+= -- 767
+> -- 337
+< -- 8
++ -- 134
+- -- 110
+* -- 512
+:= -- 1249
+add.period$ -- 72
+call.type$ -- 22
+change.case$ -- 119
 chr.to.int$ -- 0
-cite$ -- 3
-duplicate$ -- 25
-empty$ -- 71
-format.name$ -- 12
-if$ -- 168
+cite$ -- 22
+duplicate$ -- 304
+empty$ -- 601
+format.name$ -- 110
+if$ -- 1625
 int.to.chr$ -- 0
-int.to.str$ -- 3
-missing$ -- 1
-newline$ -- 18
-num.names$ -- 6
-pop$ -- 23
+int.to.str$ -- 22
+missing$ -- 19
+newline$ -- 114
+num.names$ -- 46
+pop$ -- 124
 preamble$ -- 1
-purify$ -- 12
+purify$ -- 98
 quote$ -- 0
-skip$ -- 21
+skip$ -- 223
 stack$ -- 0
-substring$ -- 40
-swap$ -- 3
-text.length$ -- 0
+substring$ -- 452
+swap$ -- 79
+text.length$ -- 8
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 12
+type$ -- 88
 warning$ -- 0
-while$ -- 8
-width$ -- 4
-write$ -- 33
+while$ -- 77
+width$ -- 24
+write$ -- 252
