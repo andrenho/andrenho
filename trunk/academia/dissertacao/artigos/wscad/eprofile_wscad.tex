@@ -167,13 +167,13 @@ As obrigatoriedades dos módulos são representados pela Figura~\ref{fig:cen1_mo
   \label{fig:cen1_modulos}
 \end{figure}
 
-O ambiente é integrado a um sistema de educação ubíqua denominado LOCAL \cite{barbosa08}, utilizado para a distribuição contextualizada de objetos de aprendizagem (LO -- {\em Learning Objects}). Os conteúdos dos módulos são distrubídos pelo LOCAL como objetos de aprendizagem, e o LOCAL registra em um gerenciador de trilhas cada vez que um módulo é iniciado ou concluído.
+O ambiente é integrado a um sistema de educação ubíqua denominado LOCAL \cite{barbosa08}, utilizado para a distribuição contextualizada de objetos de aprendizagem (LO -- {\em Learning Objects}). Os conteúdos dos módulos são distribuídos pelo LOCAL como objetos de aprendizagem, e o LOCAL registra em um gerenciador de trilhas cada vez que um módulo é iniciado ou concluído.
 
 Cada evento (início ou conclusão de um objeto de aprendizagem) é registrado contendo as seguintes informações: (i) entidade que realizou o evento, (ii) objeto de aprendizagem, (iii) tipo de evento (início ou conclusão), (iii) data e hora e (iv) se é a primeira vez que o estudante realiza este tipo de evento.
 
 O LOCAL registra no gerenciador de trilha não apenas os eventos, mas também as informações relacionadas àqueles eventos. Por exemplo, toda vez que um evento possui relação com um objeto de aprendizagem que está sendo mencionado pela primeira vez, é necessário que sejam incluídas todas as informações relevantes a este objeto, de modo que o eProfile possa utilizar estas informações ao montar a inferência.
 
-Levando em conta o ambiente apresentado, a questão que o LOCAL deseja que o eProfile processe e registre no perfil da entidade é: esta entidade é proeficiente em determinada linguagem? As subsessões a seguir descrevem como ocorre este processo de inferência.
+Levando em conta o ambiente apresentado, a questão que o LOCAL deseja que o eProfile processe e registre no perfil da entidade é: esta entidade é proficiente em determinada linguagem? As subseções a seguir descrevem como ocorre este processo de inferência.
 
 \subsection{Ontologia}
 
@@ -181,7 +181,7 @@ Levando em conta o ambiente apresentado, a questão que o LOCAL deseja que o ePr
 
 De acordo com a Figura~\ref{fig:modelo}, o gerenciador de trilhas envia as informações ao módulo conversor do eProfile, que as converte para o formato OWL. As informações enviadas são de dois tipos: (i) as ocorrências, isto é, a trilha propriamente dita e (ii) as informações acessórias, que ajudarão o eProfile a montar a ontologia necessária para a inferência das informações. No cenário que está sendo descrito, um módulo concluído é um exemplo de ocorrência, enquanto as informações de dependências entre os módulos de aprendizagem são informações acessórias.
 
-Tendo por base as informações enviadas pelo gerenciador de trilhas de acordo com o cenário descrito na Seção~\ref{sec:cenario}, o eProfile montou a ontologia mostrada na Figura~\ref{fig:cen1_ontologia}. Cada círculo representa uma classe da ontologia.
+Tendo por base as informações enviadas pelo gerenciador de trilhas de acordo com o cenário descrito na Seção~\ref{ch:cenario}, o eProfile montou a ontologia mostrada na Figura~\ref{fig:cen1_ontologia}. Cada círculo representa uma classe da ontologia.
 
 É importante notar que cada uma das classes pai tem alguma representação na ontologia de trilha do eProfile, apresentada na Figura~\ref{fig:ont_trilha}.
 
@@ -193,7 +193,7 @@ Tendo por base as informações enviadas pelo gerenciador de trilhas de acordo c
   \label{fig:cen1_ontologia}
 \end{figure*}
 
-Algumas classes possuem informações que são necessárias para que o eProfile possa determinar se um estudante é proeficiente em determinada linguagem. Um exemplo disto são os módulos referentes a conceitos básicos de orientação a objetos, que estão representados na ontologia como classes filhas da classe {\tt ObjectOrientation}. A classe {\tt OO-Interface}, por exemplo, diz respeito a um módulo que estuda o conceito de {\em interfaces}. Este conceito está presente nas linguagens C++ e Java, mas não em Python. Assim, esta classe é descrita da seguinte forma em OWL\footnote{Embora o eProfile utilize internamente a sintaxe OWL/RDF \cite{owl-guide}, a sintaxe Manchester-OWL está sendo usada neste artigo por ser mais compacta a amigável \cite{owl-manchester}.}:
+Algumas classes possuem informações que são necessárias para que o eProfile possa determinar se um estudante é proficiente em determinada linguagem. Um exemplo disto são os módulos referentes a conceitos básicos de orientação a objetos, que estão representados na ontologia como classes filhas da classe {\tt ObjectOrientation}. A classe {\tt OO-Interface}, por exemplo, diz respeito a um módulo que estuda o conceito de {\em interfaces}. Este conceito está presente nas linguagens C++ e Java, mas não em Python. Assim, esta classe é descrita da seguinte forma em OWL\footnote{Embora o eProfile utilize internamente a sintaxe OWL/RDF \cite{owl-guide}, a sintaxe Manchester-OWL está sendo usada neste artigo por ser mais compacta a amigável \cite{owl-manchester}.}:
 
 \begin{code}
 \begin{lstlisting}
@@ -205,7 +205,7 @@ Class: <el:OO-Interfaces>
 \end{lstlisting}
 \end{code}
 
-No exemplo, a linha 1 registra a classe, indicando que ela é filha da classe ObjectOrientation (linha 3, ver Figura~\ref{fig:cen1_ontologia}). Além disso, as linhas 4 e 5 utilizam a propriedade {\tt relatesTo} para indicar que o conceito de {\em interfaces} está relacionado às linguagens de programação (e, por conseqüência, às classes) {\tt C++} e {\tt Java}. Note-se que não é feita relação à classe {\tt Python}.
+No exemplo, a linha 1 registra a classe, indicando que ela é filha da classe ObjectOrientation (linha 3, ver Figura~\ref{fig:cen1_ontologia}). Além disso, as linhas 4 e 5 utilizam a propriedade {\tt relatesTo} para indicar que o conceito de {\em interfaces} está relacionado às linguagens de programação (e, por consequência, às classes) {\tt C++} e {\tt Java}. Note-se que não é feita relação à classe {\tt Python}.
 
 Os eventos de requisição e conclusão do estudo de um objeto de aprendizado são registrados como classes filhas da classes {\tt RequestedLOEvent} e {\tt FinishedLOEvent} respectivamente que, por sua vez, são filhas da classe {\tt LearningEvent}. Cada especialização da classe exige informações adicionais, de modo que a classe {\tt FinishedLOEvent}. Este conjunto de classes é representado da seguinte forma:
 
@@ -248,15 +248,15 @@ Class: <el:FinishedLOEvent1>
 
 \subsection{Regras}
 
-Para adicionar ao perifl de um aluno se ele é proeficiente em uma determinada linguagem (que é o objetivo do cenário, de acordo com a Seção~\ref{sec:cenario}, os seguintes passos devem ser realizados:
+Para adicionar ao perfil de um aluno se ele é proficiente em uma determinada linguagem (que é o objetivo do cenário, de acordo com a Seção~\ref{ch:cenario}, os seguintes passos devem ser realizados:
 
 \begin{enumerate}
-  \item Identificar os objetos de aprendizados requeridos para a proeficiência na linguagem;
+  \item Identificar os objetos de aprendizados requeridos para a proficiência na linguagem;
   \item Identificar os objetos de aprendizagem concluídos pelo estudante referentes ao item 1;
   \item Verificar se todos os objetos de aprendizagem necessários foram concluídos.
 \end{enumerate}
 
-Neste exemplo, será verificado se o estudante é proeficiente na linguagem Java. Para tal, ele deve ter concluído os objetos de aprendizagens que fazem relação com a linguagem Java (neste caso, classes, herança em {\em interfaces}), bem como o objeto de aprendizado da linguagem Java. Na ontologia, isto refere-se à criação de uma nova classe ({\tt JavaRequirement}) que seja equivalente à classe {\tt Java} (que é filha da classe de {\tt LearningObject} e, portanto, um objeto de aprendizado, ou quaisquer outras classes cuja propriedade {\tt relatesTo} aponte para a classe {\tt Java}. Assim, esta regra fica definida da seguinte forma:
+Neste exemplo, será verificado se o estudante é proficiente na linguagem Java. Para tal, ele deve ter concluído os objetos de aprendizagens que fazem relação com a linguagem Java (neste caso, classes, herança em {\em interfaces}), bem como o objeto de aprendizado da linguagem Java. Na ontologia, isto refere-se à criação de uma nova classe ({\tt JavaRequirement}) que seja equivalente à classe {\tt Java} (que é filha da classe de {\tt LearningObject} e, portanto, um objeto de aprendizado, ou quaisquer outras classes cuja propriedade {\tt relatesTo} aponte para a classe {\tt Java}. Assim, esta regra fica definida da seguinte forma:
 
 \begin{code}
 \begin{lstlisting}
@@ -292,7 +292,7 @@ Class: <el:JavaLessonsTaken>
 
 Uma vez que estas duas regras estejam criadas na ontologia, o eProfile irá executar o raciocinador, que gerará uma nova ontologia OWL, com as classes inferidas identificadas como filhas das classes criadas.
 
-A partir da execução do raciocinador, uma regra de atualização de perfil é criada, onde são comparados o número de módulos Java com o número de objetos de aprendizagem relacionados ao Java que foram concluídos pela entidade. Se o número for igual, o usuário é proeficiente. Esta regra é definida da seguinte forma:
+A partir da execução do raciocinador, uma regra de atualização de perfil é criada, onde são comparados o número de módulos Java com o número de objetos de aprendizagem relacionados ao Java que foram concluídos pela entidade. Se o número for igual, o usuário é proficiente. Esta regra é definida da seguinte forma:
 
 \begin{code}
 \begin{lstlisting}
@@ -341,9 +341,9 @@ O eProfile fez utilização das ideias apresentadas nos trabalhos, como o aperfe
 \section{Conclusão}
 \label{sec:conclusao}
 
-Apresentamos neste artigo o eProfile como um modelo para suporte ao gerenciamento de perfis em ambientes ubíquos. O eProfile permite a inferência de trilhas de entidades através da definição de regras pelas aplicações. Foi realizado um experimento onde foi simulada a inferência de informações a respeito de estudantes em um ambiente de Educação Ubíqua. As principais contribuições do modelo são: (i) a utilização de trilhas para extração de perfis e (ii) a interoperabilidade semântica, que permite que as diferentes aplicações registrem suas trilhas utilizando uma ontologia própria e permitindo com que as aplicações trabalhem em um domínio genérico, isto é, sem um contexto pré-estabelecido.
+Apresentamos neste artigo o eProfile como um modelo para suporte ao gerenciamento de perfis em ambientes ubíquos. O eProfile permite a inferência de trilhas de entidades através da definição de regras pelas aplicações. Foi realizado um experimento onde foi simulada a inferência de informações a respeito de estudantes em um ambiente de Educação Ubíqua. As principais contribuições do modelo são: (i) a utilização de trilhas para extração de perfis e (ii) a interoperabilidade semântica, que permite que as diferentes aplicações registrem suas trilhas utilizando uma ontologia própria e permitindo com que as aplicações trabalhem em um domínio genérico, isto é, sem um contexto preestabelecido.
 
-O eProfile é uma prosta inicial e requer aperfeiçoamento, especialmente na expansão dos cenários. O cenário apresentado mostra o eProfile trabalhando dentro de um domínio específico e, desta forma, não demonstra como múltiplas aplicações trabalhando em contextos diferentes podem gerar um perfil único. Desta forma, trabalho futuro neste modelo será realizado nesta direção.
+O eProfile é uma proposta inicial e requer aperfeiçoamento, especialmente na expansão dos cenários. O cenário apresentado mostra o eProfile trabalhando dentro de um domínio específico e, desta forma, não demonstra como múltiplas aplicações trabalhando em contextos diferentes podem gerar um perfil único. Desta forma, trabalho futuro neste modelo será realizado nesta direção.
 
 %---------------------------------------------------------------------------
 \bibliographystyle{latex8}

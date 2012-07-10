@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.5.28)  9 JUL 2012 11:43
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.5.28)  9 JUL 2012 11:50
 entering extended mode
  %&-line parsing enabled.
 **eprofile_wscad.tex
@@ -568,10 +568,10 @@ Underfull \hbox (badness 10000) in paragraph at lines 84--87
 
 ] (./eprofile_wscad.aux) ) 
 Here is how much of TeX's memory you used:
- 4652 strings out of 495041
- 62721 string characters out of 1181897
- 140079 words of memory out of 3000000
- 7767 multiletter control sequences out of 15000+50000
+ 4651 strings out of 495041
+ 62708 string characters out of 1181897
+ 140069 words of memory out of 3000000
+ 7766 multiletter control sequences out of 15000+50000
  49356 words of font info for 58 fonts, out of 3000000 for 9000
  30 hyphenation exceptions out of 8191
  36i,8n,38p,964b,1195s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -583,7 +583,7 @@ rw/helvetic/uhvb8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/helvetic/uhvr8
 a.pfb></usr/share/texmf-texlive/fonts/type1/urw/times/utmb8a.pfb></usr/share/te
 xmf-texlive/fonts/type1/urw/times/utmr8a.pfb></usr/share/texmf-texlive/fonts/ty
 pe1/urw/times/utmri8a.pfb>
-Output written on eprofile_wscad.pdf (8 pages, 422664 bytes).
+Output written on eprofile_wscad.pdf (8 pages, 422656 bytes).
 PDF statistics:
  73 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
