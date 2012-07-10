@@ -18,9 +18,12 @@ class Worker < LevelObject
         @dir = dir
     end
 
+    def move!
+        @x, @y = dir.next(@x, @y)
+    end
+
 end
 
 
 class Box < LevelObject
 end
-
