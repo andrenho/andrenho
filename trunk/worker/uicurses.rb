@@ -16,6 +16,8 @@ class UICurses
     def draw!
         raise if not @level
 
+        clear
+
         @level.structures.each do |s|
             setpos s.y, s.x
             if s.class == Wall
@@ -47,6 +49,7 @@ class UICurses
 
     def step!
         getch
+        @level.step!
     end
 
 
