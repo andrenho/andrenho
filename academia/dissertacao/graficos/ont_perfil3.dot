@@ -1,0 +1,13 @@
+digraph perfil {
+
+  Element -> Entity;
+  Element -> NonEntity;
+  //Entity -> Device;
+
+  Entity -> Element [label="relates-to", style="dotted"];
+  //Entity -> Device [label="owns", style="dotted"];
+  Entity -> Characteristic [label="has"];
+  //Entity -> Entity [label="knows", style="dotted"];
+
+  //labelfontsize=10;
+}
