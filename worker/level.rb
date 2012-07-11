@@ -63,7 +63,6 @@ class Level
     def step!
         @objects.select{ |o| o.class == Worker }.each do |w|
             #fx, fy = w.dir.next(w.x, w.y)
-            p w
             w.move!
         end
     end
