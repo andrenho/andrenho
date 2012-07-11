@@ -1,5 +1,12 @@
 \begin{thebibliography}{10}\setlength{\itemsep}{-1ex}\small
 
+\bibitem{abowd99}
+G.~D. Abowd, A.~K. Dey, P.~J. Brown, N.~Davies, M.~Smith, and P.~Steggles.
+\newblock Towards a better understanding of context and context-awareness.
+\newblock In {\em Proceedings of the 1st international symposium on Handheld
+  and Ubiquitous Computing}, HUC '99, pages 304--307, London, UK, 1999.
+  Springer-Verlag.
+
 \bibitem{barbosa05}
 D.~Barbosa, C.~Geyer, and J.~Barbosa.
 \newblock Globaledu - an architecture to support learning in a pervasive
@@ -14,6 +21,23 @@ J.~Barbosa, R.~Hahn, S.~Rabello, and D.~Barbosa.
 \newblock Local: a model geared towards ubiquitous learning.
 \newblock {\em SIGCSE Bull.}, 40:432--436, March 2008.
 
+\bibitem{barbosa11}
+J.~L.~V. Barbosa, R.~M. Hahn, D.~N.~F. Barbosa, and A.~I. da~Costa
+  Zanel~Saccol.
+\newblock A ubiquitous learning model focused on learner interaction.
+\newblock {\em International Journal of Learning Technology 2011}, 6(1):62 --
+  83, 2011.
+
+\bibitem{foaf}
+D.~Brickley and L.~Miller.
+\newblock {FOAF Vocabulary Specification 0.97}.
+\newblock Namespace document, January 2010.
+
+\bibitem{carmagnola09}
+F.~Carmagnola and F.~Cena.
+\newblock User identification for cross-system personalisation.
+\newblock {\em Inf. Sci.}, 179:16--32, January 2009.
+
 \bibitem{chellouche10}
 S.~A. Chellouche, J.~Arnaud, and D.~N\'{e}gru.
 \newblock Flexible user profile management for context-aware ubiquitous
@@ -22,16 +46,41 @@ S.~A. Chellouche, J.~Arnaud, and D.~N\'{e}gru.
   communications and networking conference}, CCNC'10, pages 980--984,
   Piscataway, NJ, USA, 2010. IEEE Press.
 
+\bibitem{daconta03}
+M.~C. Daconta, L.~J. Obrst, and K.~T. Smith.
+\newblock {\em The Semantic Web : A Guide to the Future of XML, Web Services,
+  and Knowledge Management}.
+\newblock Wiley, Indianapolis, May 2003.
+
 \bibitem{dey2001}
 A.~Dey.
 \newblock Understanding and using context.
 \newblock {\em Personal and Ubiquitous Computing}, 6(1):4--7, 2001.
+
+\bibitem{franco11}
+L.~K. Franco, J.~H. Rosa, J.~L. Barbosa, C.~A. Costa, and A.~C. Yamin.
+\newblock Mucs: A model for ubiquitous commerce support.
+\newblock {\em Electronic Commerce Research and Applications}, 10(2):237 --
+  246, 2011.
+\newblock <ce:title>Special Issue on Electronic Auctions: Strategies and
+  Methods</ce:title>.
 
 \bibitem{heckmann05}
 D.~Heckmann.
 \newblock {\em Ubiquitous User Modeling}.
 \newblock PhD thesis, Department of Computer Science, Saarland University,
   Germany, November 2005.
+
+\bibitem{sqlite3}
+Hwaci.
+\newblock Sqlite home page, 2012.
+\newblock \texttt{http://www.sqlite.org/}. Acessado em 05/05/2012.
+
+\bibitem{ieeedict}
+{IEEE}.
+\newblock {IEEE} standard computer dictionary. a compilation of {IEEE} standard
+  computer glossaries.
+\newblock {\em IEEE Std 610}, page~1, 1991.
 
 \bibitem{pelep}
 D.~Levis, J.~L.~V. Barbosa, S.~C. C.~S. Pinto, and D.~N.~F. Barbosa.
@@ -50,6 +99,11 @@ C.~Niederée, A.~Stewart, B.~Mehta, and M.~Hemmje.
   Personalization}.
 \newblock In {\em E4PIA Workshop 2004}, 2004.
 
+\bibitem{python}
+G.~Rossum.
+\newblock Python reference manual.
+\newblock Technical report, Amsterdam, The Netherlands, The Netherlands, 1995.
+
 \bibitem{satyanarayanan01}
 M.~Satyanarayanan.
 \newblock Pervasive computing: Vision and challenges.
@@ -63,9 +117,16 @@ J.~Silva, J.~Rosa, J.~Barbosa, D.~Barbosa, and L.~Palazzo.
 
 \bibitem{silva09}
 J.~Silva, J.~Rosa, J.~Barbosa, D.~N.~F. Barbosa, and L.~A.~M. Palazzo.
-\newblock Content distribution in trial-aware environments.
+\newblock Content distribution in trail-aware environments.
 \newblock In {\em Proceedings of the XV Brazilian Symposium on Multimedia and
   the Web}, WebMedia '09, pages 15:1--15:8, New York, NY, USA, 2009. ACM.
+
+\bibitem{tsarkov06}
+D.~Tsarkov and I.~Horrocks.
+\newblock Fact++ description logic reasoner: System description.
+\newblock In {\em Proc. of the Int. Joint Conf. on Automated Reasoning (IJCAR
+  2006)}, volume 4130 of {\em Lecture Notes in Artificial Intelligence}, pages
+  292--297. Springer, 2006.
 
 \bibitem{viviani10}
 M.~Viviani, N.~Bennani, and E.~Egyed-Zsigmond.
@@ -84,6 +145,11 @@ W3C.
 W3C.
 \newblock {OWL} web ontology language guide, 2011.
 \newblock \texttt{http://www.w3.org/TR/owl-guide/}. Acessado em 05/05/2012.
+
+\bibitem{rdfs}
+W3C.
+\newblock {RDF} vocabulary description language 1.0: Rdf schema, 2011.
+\newblock \texttt{http://www.w3.org/TR/rdf-schema/}. Acessado em 05/05/2012.
 
 \bibitem{weiser91}
 M.~Weiser.

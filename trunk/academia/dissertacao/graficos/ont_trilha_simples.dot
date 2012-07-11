@@ -1,0 +1,13 @@
+digraph OntologiaTrilhas {
+
+  Event -> Activity [label="has-some",fontsize=10];
+  Event -> Location [label="has-a",fontsize=10];
+  Event -> Entity [label="has-a",fontsize=10];
+  Event -> Time [label="has-a",fontsize=10];
+  Event -> Participants [label="has-some",fontsize=10];
+
+  Participants -> Entity [label="has-a",fontsize=10];
+  Entity -> Profile [label="has-a",fontsize=10];
+
+  rankdir=LR;
+}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.5.28)  9 JUL 2012 11:50
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.5.28)  10 JUL 2012 22:04
 entering extended mode
  %&-line parsing enabled.
 **eprofile_wscad.tex
@@ -263,7 +263,10 @@ Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
 (/usr/share/texmf-texlive/tex/latex/base/t1enc.def
 File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
 LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
-)) (./latex8.sty
+))
+(/usr/share/texmf-texlive/tex/latex/psnfss/times.sty
+Package: times 2005/04/12 PSNFSS-v9.2a (SPQR) 
+) (./latex8.sty
 IEEE 8.5 x 11-Inch Proceedings Style `latex8.sty'.
 \@ctmp=\skip43
 \@figindent=\skip44
@@ -299,9 +302,6 @@ File: pdftex.def 2010/03/12 v0.04p Graphics/color for pdfTeX
 ))
 \Gin@req@height=\dimen104
 \Gin@req@width=\dimen105
-)
-(/usr/share/texmf-texlive/tex/latex/psnfss/times.sty
-Package: times 2005/04/12 PSNFSS-v9.2a (SPQR) 
 )
 (/usr/share/texmf-texlive/tex/latex/caption/caption.sty
 Package: caption 2009/10/09 v3.1k Customizing captions (AR)
@@ -440,152 +440,144 @@ LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
 
 
 ]
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 90.
+
 <imagens/modelobasico.png, id=8, 428.60126pt x 229.85875pt>
 File: imagens/modelobasico.png Graphic file (type png)
 
 <use imagens/modelobasico.png>
-LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 85.
-LaTeX Font Info:    Try loading font information for T1+phv on input line 85.
+LaTeX Font Info:    Try loading font information for T1+phv on input line 94.
 
 (/usr/share/texmf-texlive/tex/latex/psnfss/t1phv.fd
 File: t1phv.fd 2001/06/04 scalable font definitions for T1/phv.
 )
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <10> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 85.
-
-<imagens/modelo2.png, id=9, 783.92876pt x 284.06125pt>
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 94.
+ [2 <./imagens/modelobasico.png (PNG copy)>] <imagens/modelo2.png, id=13, 783.9
+2876pt x 284.06125pt>
 File: imagens/modelo2.png Graphic file (type png)
 
 <use imagens/modelo2.png>
-Overfull \hbox (11.29218pt too wide) in paragraph at lines 100--101
+Overfull \hbox (11.29218pt too wide) in paragraph at lines 109--110
  [][] 
  []
 
-<imagens/modelo_big.png, id=10, 820.06375pt x 509.905pt>
+<imagens/modelo_big.png, id=14, 820.06375pt x 509.905pt>
 File: imagens/modelo_big.png Graphic file (type png)
 
 <use imagens/modelo_big.png>
-Overfull \hbox (11.29218pt too wide) in paragraph at lines 107--108
+Overfull \hbox (11.29218pt too wide) in paragraph at lines 119--120
  [][] 
  []
 
-[2 <./imagens/modelobasico.png (PNG copy)>]
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 122.
-
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 136.
 
 (/usr/share/texmf-texlive/tex/latex/psnfss/omsptm.fd
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 122.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 136.
+ [3 <./imagens/modelo2.png (PNG copy)> <./imagens/modelo_big.png>]
+<imagens/ont_trilha_simples.png, id=21, 822.07124pt x 341.275pt>
+File: imagens/ont_trilha_simples.png Graphic file (type png)
 
-<imagens/ont_trilha.png, id=16, 819.06pt x 369.38pt>
-File: imagens/ont_trilha.png Graphic file (type png)
-
-<use imagens/ont_trilha.png>
-Overfull \hbox (11.29218pt too wide) in paragraph at lines 133--134
+<use imagens/ont_trilha_simples.png>
+Overfull \hbox (11.29218pt too wide) in paragraph at lines 155--156
  [][] 
  []
 
-<imagens/ont_perfil2.png, id=17, 557.08125pt x 308.15125pt>
-File: imagens/ont_perfil2.png Graphic file (type png)
+<imagens/ont_perfil3.png, id=22, 358.33875pt x 308.15125pt>
+File: imagens/ont_perfil3.png Graphic file (type png)
 
-<use imagens/ont_perfil2.png> [3 <./imagens/modelo2.png (PNG copy)> <./imagens/
-modelo_big.png> <./imagens/ont_trilha.png> <./imagens/ont_perfil2.png (PNG copy
-)>] <imagens/cen1_modulos.png, id=24, 366.63pt x 424.05pt>
-File: imagens/cen1_modulos.png Graphic file (type png)
+<use imagens/ont_perfil3.png> [4 <./imagens/ont_trilha_simples.png (PNG copy)> 
+<./imagens/ont_perfil3.png (PNG copy)>]
+<imagens/dados_inferencia.png, id=26, 512.91624pt x 264.99pt>
+File: imagens/dados_inferencia.png Graphic file (type png)
 
-<use imagens/cen1_modulos.png>
-<imagens/cen1_ontologia.png, id=25, 688.5725pt x 346.29375pt>
-File: imagens/cen1_ontologia.png Graphic file (type png)
+<use imagens/dados_inferencia.png>
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 374.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 374.
 
-<use imagens/cen1_ontologia.png>
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 196.
+Underfull \hbox (badness 10000) in alignment at lines 374--384
+[][][][][][][]
+ []
+
+[5 <./imagens/dados_inferencia.png>] (./eprofile_wscad.bbl [6]
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 77.
 
 (/usr/share/texmf-texlive/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 196.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 196.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 196.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 196.
- [4 <./imagens/cen1_modulos.png>]
-Underfull \hbox (badness 5578) in paragraph at lines 210--211
-\T1/pcr/m/n/10 LearningEvent\T1/ptm/m/n/10 . Cada es-pe-ci-a-li-za-ção da class
-e
+Underfull \hbox (badness 10000) in paragraph at lines 75--78
+[]\T1/ptm/m/n/9 Hwaci.  Sq-lite home page, 2012.
  []
 
 
-Underfull \hbox (badness 2237) in paragraph at lines 210--211
-\T1/ptm/m/n/10 exige in-for-ma-ções adi-ci-o-nais, de modo que a classe
- []
-
-
-Overfull \hbox (2.8665pt too wide) in paragraph at lines 223--224
-[][][][][][][][][] 
- []
-
-[5 <./imagens/cen1_ontologia.png (PNG copy)>]
-Underfull \hbox (badness 10000) in alignment at lines 313--323
-[][][][][][][]
- []
-
-[6]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-(./eprofile_wscad.bbl [7]
-Underfull \hbox (badness 10000) in paragraph at lines 78--82
+Underfull \hbox (badness 10000) in paragraph at lines 139--143
 []\T1/ptm/m/n/9 W3C.  OWL 2 web on-to-logy lan-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 78--82
+Underfull \hbox (badness 10000) in paragraph at lines 139--143
 \T1/ptm/m/n/9 guage man-ches-ter syn-tax, 2009.
  []
 
 
-Overfull \hbox (24.3737pt too wide) in paragraph at lines 78--82
+Overfull \hbox (24.3737pt too wide) in paragraph at lines 139--143
 \T1/pcr/m/n/9 http://www.w3.org/TR/owl2-manchester-syntax/\T1/ptm/m/n/9 .
  []
 
 
-Underfull \hbox (badness 3568) in paragraph at lines 84--87
+Underfull \hbox (badness 3568) in paragraph at lines 145--148
 []\T1/ptm/m/n/9 W3C.  OWL web on-to-logy lan-guage guide, 2011.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 84--87
+Underfull \hbox (badness 10000) in paragraph at lines 145--148
 \T1/pcr/m/n/9 http://www.w3.org/TR/owl-guide/\T1/ptm/m/n/9 . Aces-sado
  []
 
-) [8
 
-] (./eprofile_wscad.aux) ) 
+Underfull \hbox (badness 10000) in paragraph at lines 150--153
+[]\T1/ptm/m/n/9 W3C.  RDF vo-ca-bu-lary des-crip-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 150--153
+\T1/ptm/m/n/9 tion lan-guage 1.0: Rdf schema, 2011.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 150--153
+\T1/pcr/m/n/9 http://www.w3.org/TR/rdf-schema/\T1/ptm/m/n/9 . Aces-
+ []
+
+) [7] (./eprofile_wscad.aux)
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
 Here is how much of TeX's memory you used:
- 4651 strings out of 495041
- 62708 string characters out of 1181897
- 140069 words of memory out of 3000000
- 7766 multiletter control sequences out of 15000+50000
- 49356 words of font info for 58 fonts, out of 3000000 for 9000
+ 4372 strings out of 495041
+ 60537 string characters out of 1181897
+ 124150 words of memory out of 3000000
+ 7500 multiletter control sequences out of 15000+50000
+ 35403 words of font info for 40 fonts, out of 3000000 for 9000
  30 hyphenation exceptions out of 8191
- 36i,8n,38p,964b,1195s stack positions out of 5000i,500n,10000p,200000b,50000s
-{/usr/share/texmf-texlive/fonts/enc/dvips/base/8r.enc
-}</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/shar
-e/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-tex
-live/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texmf-texlive/fonts/type1/u
-rw/helvetic/uhvb8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/helvetic/uhvr8
-a.pfb></usr/share/texmf-texlive/fonts/type1/urw/times/utmb8a.pfb></usr/share/te
-xmf-texlive/fonts/type1/urw/times/utmr8a.pfb></usr/share/texmf-texlive/fonts/ty
-pe1/urw/times/utmri8a.pfb>
-Output written on eprofile_wscad.pdf (8 pages, 422656 bytes).
+ 36i,7n,38p,964b,399s stack positions out of 5000i,500n,10000p,200000b,50000s
+{/usr/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}</usr/share/texmf-texli
+ve/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/ty
+pe1/urw/courier/ucrr8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/helvetic/u
+hvb8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/s
+hare/texmf-texlive/fonts/type1/urw/times/utmb8a.pfb></usr/share/texmf-texlive/f
+onts/type1/urw/times/utmr8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/times
+/utmri8a.pfb>
+Output written on eprofile_wscad.pdf (7 pages, 292825 bytes).
 PDF statistics:
- 73 PDF objects out of 1000 (max. 8388607)
+ 64 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 36 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 31 words of extra memory for PDF output out of 10000 (max. 10000000)
 

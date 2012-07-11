@@ -2,44 +2,47 @@ This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
 The top-level auxiliary file: eprofile_wscad.aux
 The style file: latex8.bst
 Database file #1: eprofile_wscad.bib
-You've used 16 entries,
+Warning--empty institution in foaf
+Warning--empty institution in python
+You've used 27 entries,
             2118 wiz_defined-function locations,
-            601 strings with 6629 characters,
-and the built_in function-call counts, 5669 in all, are:
-= -- 571
-> -- 260
-< -- 6
-+ -- 103
-- -- 86
-* -- 383
-:= -- 932
-add.period$ -- 53
-call.type$ -- 16
-change.case$ -- 89
+            668 strings with 8532 characters,
+and the built_in function-call counts, 9273 in all, are:
+= -- 928
+> -- 429
+< -- 10
++ -- 172
+- -- 142
+* -- 624
+:= -- 1529
+add.period$ -- 89
+call.type$ -- 27
+change.case$ -- 151
 chr.to.int$ -- 0
-cite$ -- 16
-duplicate$ -- 222
-empty$ -- 437
-format.name$ -- 86
-if$ -- 1207
+cite$ -- 29
+duplicate$ -- 358
+empty$ -- 715
+format.name$ -- 142
+if$ -- 1970
 int.to.chr$ -- 0
-int.to.str$ -- 16
-missing$ -- 13
-newline$ -- 84
-num.names$ -- 34
-pop$ -- 93
+int.to.str$ -- 27
+missing$ -- 21
+newline$ -- 140
+num.names$ -- 56
+pop$ -- 161
 preamble$ -- 1
-purify$ -- 74
+purify$ -- 124
 quote$ -- 0
-skip$ -- 166
+skip$ -- 267
 stack$ -- 0
-substring$ -- 330
-swap$ -- 61
-text.length$ -- 6
+substring$ -- 520
+swap$ -- 94
+text.length$ -- 10
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 64
-warning$ -- 0
-while$ -- 56
-width$ -- 18
-write$ -- 186
+type$ -- 106
+warning$ -- 2
+while$ -- 89
+width$ -- 29
+write$ -- 311
+(There were 2 warnings)
