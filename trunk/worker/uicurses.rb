@@ -93,6 +93,7 @@ private
         if has_colors?
             start_color
             use_default_colors
+            init_pair(1, COLOR_BLACK, COLOR_WHITE)
         end
         curs_set 2
         setpos @y, @x
