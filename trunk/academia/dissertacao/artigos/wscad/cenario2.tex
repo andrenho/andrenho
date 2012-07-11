@@ -1,0 +1,352 @@
+% configurações
+\documentclass[times, 10pt, twocolumn]{article}
+
+% português
+\usepackage[utf8]{inputenc}
+\usepackage[portuges,brazilian]{babel}
+\usepackage[T1]{fontenc}
+
+% pacotes
+\usepackage{latex8}
+\usepackage{authblk}
+\usepackage[pdftex]{graphicx}  % figuras
+\usepackage{times}
+\usepackage[bf,sf,font=normalsize,textfont=sf]{caption}
+\usepackage{verbatim}
+\usepackage{float}
+\floatstyle{plain} % optionally change the style of the new float
+\newfloat{code}{H}{myc}
+\usepackage{booktabs}          % Tabelas bonitas
+\renewcommand{\arraystretch}{1.2}
+
+% configurações listings
+\usepackage{listings}
+\lstset{
+	basicstyle=\footnotesize\ttfamily,
+	numbers=left,
+	numberstyle=\tiny,
+	numbersep=5pt,
+	frame=single
+}
+
+\pagestyle{empty}
+
+\begin{document}
+
+%----------------------------------------------------------------------------
+\title{A Model for Entity Profile Management Through Inference in Trails}
+
+\author{André Wagner}
+\author{Jorge Luis Victória Barbosa}
+\affil{Universidade do Vale do Rio dos Sinos (UNISINOS)\\
+Unidade Acadêmica de Pesquisa e Pós-Graduação\\
+Av. Unisinos, 950, São Leopoldo - RS, Brazil\\
+}
+% TODO - adicionar e-mails
+
+\maketitle
+\thispagestyle{empty}
+
+\begin{abstract}
+Context-aware and ubiquitous systems present the challenge of implicitly collect relevant information about the users, and use this information to understand the user and predict user behaviour. This will allow the applications to adapt themselves to the user, thus avoiding to overflow the user with inquires and information. This article presents a model that allows applications to register users' actions and infer profile informations from these actions, using semantic interoperability and thus allowing different applications of different domains to be able to share informations and infer a unified profile.
+\end{abstract}
+
+%----------------------------------------------------------------------------
+\section{Introdução}
+\label{ch:introducao}
+
+Atualmente, a maioria dos usuários interage com uma grande variedade de sistemas computacionais. Cada vez mais, existe a tendência do aumento da interconectividade entre estes sistemas, devido ao fato da internet estar cada vez mais presente e disponível em qualquer lugar. Assim, pesquisas recentes preveem a integração completa de todos estes sistemas em uma federação de sistemas computacionais, que podem ser descritos como Ambientes Inteligentes \cite{heckmann05}.
+
+Uma visão para o conceito de ambientes inteligentes foi discutida por Weiser, onde ele apresentou um cenário em que o computador se tornaria invisível e indistinguível de seu ambiente \cite{weiser91}. Neste cenário, a interação entre humanos e computadores ocorreria não como a usual -- onde o humano dedica 100\% de sua atenção ao computador --, mas constituíra-se de pequenas interações rápidas, geralmente em locais e dispositivos distintos, muitas vezes utilizando a periferia da atenção do usuário \cite{weiser96} ou sem ele se dar conta de estar interagindo com um sistema computacional. Segundo o autor, ``as tecnologias mais profundas são aquelas que desaparecem. Elas se entrelaçam no tecido do dia-a-dia até que se tornem indistinguíveis dele'' \cite{weiser91}. Ele defende que o futuro da computação está em integrar o computador ao mundo real, e chama este novo paradigma de Computação Ubíqua.
+
+No entanto, o aumento dos recursos computacionais disponíveis a qualquer momento e em qualquer lugar oferece o risco da sobrecarga de informações para o usuário. Para resolver este problema, foi criado o conceito de ``tecnologia calma'' \cite{weiser96}. Dentro desta ideia, a transmissão de informações entre o computador e o usuário devem ocorrer na ``periferia'' da atenção do usuário, movendo-se para o ``centro'' da atenção em momentos de urgência. Um exemplo é o motor de um carro: quando um motorista dirige um carro, sua atenção está focada na estrada, e ele mal percebe o som do motor. No entanto, se houver algum som diferente no motor (o que pode indicar algum problema), a atenção do usuário passa a focar-se no motor.
+
+Para que um sistema seja minimamente intrusivo, é necessário que ele seja capaz de reconhecer a situação do usuário e seus arredores, e adapte seu comportamento de acordo com esta informação. Esta informação é chamada de contexto e sistemas capazes deste tipo de adaptação são chamados sensíveis a contexto \cite{satyanarayanan01,dey2001}. 
+
+Pesquisas nesta área têm indicado que não apenas é interessante conhecer o contexto do usuário no momento em que um determinado serviço está sendo oferecido, mas que o histórico de contextos visitados pode ser uma informação valiosa na adaptação da aplicação ao usuário. Este histórico de contextos recebe o nome de Trilha \cite{silva10}. Embora a trilha geralmente esteja vinculada à localização de um usuário, ela possui um conceito mais amplo, que inclui as atividades realizadas, aplicações usadas, conteúdos acessados -- entre outros -- dentro de um contexto e um período de tempo específico \cite{silva09}.
+
+Para que um aplicativo possa se adaptar a um usuário de forma eficaz, é importante que ele conheça não apenas o histórico de contextos visitados por um usuário, mas possa compreender quem o usuário é, isto é, quais são suas características. As aplicações deste tipo organizam seu conhecimento a respeito do usuário em perfis de usuário, os quais armazenam as informações em um formato baseado em um modelo de usuário específico \cite{viviani10}. Este conceito dá origem à Personalização.
+
+Personalização é a disponibilização de produtos, serviços e informações adaptados individualmente. A tecnologia de personalização geralmente envolve programas que aprendam padrões, hábitos e preferências de um usuário \cite{mulvenna00}. O objetivo principal por detrás dos sistemas de personalização modernos é oferecer às entidades o que elas querem sem requisitar que elas informem isto de forma explícita \cite{mulvenna00}. Fica claro que este propósito vai ao encontro do propósito da computação ubíqua, isto é, o desenvolvimento de uma tecnologia que ``desapareça''.
+
+Dentro do âmbito da personalização, este trabalho dá à estrutura de dados utilizada para armazenar as informações das entidades por uma aplicação o nome de Modelo de Entidade, enquanto o conjunto de informações referentes a uma entidade específica é nomeada Perfil de Entidade.
+
+Este artigo está organizado da seguinte forma. Na Seção~\ref{ch:modelo} é proposto o modelo do eProfile, bem como sua forma de operação. A Seção~\ref{ch:cenario} apresenta um estudo de caso detalhando a utilização do eProfile. A Seção~\ref{ch:relacionados} descreve trabalhos relacionados, apresentando as contribuições deste modelo. Por fim, a Seção~\ref{sec:conclusao} apresenta as considerações finais.
+
+
+%----------------------------------------------------------------------------
+\section{Modelo}
+\label{ch:modelo}
+
+Pesquisas apontem que é desejável que os sistemas do futuro se tornem cada vez mais invisíveis aos seus usuários \cite{weiser96}, e que um sistema só pode se tornar invisível se for pró-ativo, e só pode ser pró-ativo se conhecer o usuário \cite{satyanarayanan01}. Para que um sistema possa conhecer uma entidade, ele deve conhecer o histórico da entidade, compreender o contexto em que ela está inserido, bem como os dados coletados a respeito dela no mesmo contexto (ou num contexto similar), e ser capaz de processar este conjunto de informações em um perfil de entidade.
+
+\begin{figure}
+  \centering\includegraphics[width=0.4\textwidth]{imagens/modelobasico.png}
+  \caption{\textbf{Modelo básico do eProfile}}
+  \label{fig:modelobasico}
+\end{figure}
+
+A Figura~\ref{fig:modelobasico} apresenta a visão geral do eProfile, onde cada círculo representa um componente, e as setas indicam o fluxo dos dados.
+
+O primeiro componente representado é a {\bf aplicação}. A aplicação, dentro deste modelo, é qualquer aplicação que está sendo utilizada diretamente por uma entidade. Para que uma aplicação seja considerada apta a este modelo (isto é, possa utilizar as funcionalidades oferecidas pelo eProfile), ela precisa ser capaz de registrar suas informações em um gerenciador de trilhas suportado pelo eProfile, e deverá seguir o protocolo de comunicação do eProfile para se comunicar com o mesmo. Seguidos estes pré-requisitos, a aplicação pode ser de qualquer tipo e operar em qualquer tipo de dispositivo que tenha comunicação com a internet.
+
+O segundo componente representado é um {\bf gerenciador de trilhas}. Um gerenciador de trilhas é capaz de registrar eventos realizados por uma entidade, colocando-os em uma ordem cronológica e registando informações relevantes ao evento (como, por exemplo, o contexto na qual o evento foi realizado). O modelo do eProfile é desenhado para oferecer suporte a qualquer gerenciador de trilhas, desde que o protocolo de comunicação entre o gerenciador de trilhas e o eProfile esteja codificadado no eProfile.
+
+A Figura~\ref{fig:modelobasico} apresenta ainda um terceiro serviço, o eProfile, que é o modelo apresentado neste trabalho. As setas indicam o fluxo dos dados. A comunicação tem início quando a aplicação registra-se no eProfile, enviando (i) o modelo de entidade utilizado pela aplicação e (ii) as regras para construção deste modelo (seta ``a''). A partir deste momento, a aplicação passa a registrar os eventos no gerenciador de trilhas (seta ``b''). O eProfile periodicamente busca esta informação a partir do gerenciador de trilhas, e constrói ou reconfigura o perfil de entidade (seta ``c''). À medida que a aplicação tem necessidade de um perfil atualizado, ela busca este perfil no eProfile (seta ``d'').
+
+Como o eProfile oferece suporte a várias aplicações, é possível que diferentes aplicações utilizem diferentes gerenciadores de trilhas. Por isso, o eProfile oferece também suporte à comunicação com vários gerenciadores de trilhas, segundo exemplificado na Figura~\ref{fig:gerenciadores}.
+
+\begin{figure}
+  \centering\includegraphics[width=0.5\textwidth]{imagens/modelo2.png}
+  \caption{\textbf{eProfile conectado a mais de um gerenciador de trilhas}}
+  \label{fig:gerenciadores}
+\end{figure}
+
+
+\begin{figure}
+  \centering\includegraphics[width=0.5\textwidth]{imagens/modelo_big.png}
+  \caption{\textbf{Modelo do eProfile}}
+  \label{fig:modelo}
+\end{figure}
+
+A Figura~\ref{fig:modelo} apresenta o modelo do eProfile. Os serviços ``Aplicação'' e ``Gerenciador de Trilhas'' são os mesmos mostrados na Figura~\ref{fig:modelobasico}, enquanto o serviço ``eProfile'' foi expandido para mostrar seu funcionamento interno.
+
+Cada aplicação tem a possibilidade de montar seu próprio modelo de entidade. Para que o eProfile processe os perfis baseados em um modelo de entidade, ele precisa de três informações: (i) a trilha da entidade, (ii) o modelo de entidade utilizado pela aplicação e (iii) as regras de inferência para o perfil. Isto é visível na Figura~\ref{fig:modelo}, onde o agente ``Raciocinador'' recebe dados destes três bancos. A trilha da entidade é carregada pelo eProfile a partir do gerenciador de trilhas, enquanto as outras duas informações são enviadas diretamente da aplicação para o eProfile. Desta forma, as regras de inferência definidas pela aplicação serão utilizadas para inferir o perfil da entidade.
+
+As setas da Figura~\ref{fig:modelo} indicam a direção do fluxo dos dados, onde podem se verificar dois pontos de entrada e um ponto de saída.
+
+O primeiro ponto de entrada são as informações enviadas pela aplicação ao eProfile ou, mais especificamente, ao agente {\bf configurador}. As informações que devem ser enviadas pela aplicação são as seguintes:
+
+\begin{itemize}
+
+\item o modelo de entidade utilizado pela aplicação, ou seja, o formato do perfil da entidade. Uma vez que a trilha da entidade seja processada, as informações inferidas serão armazenadas e disponibilizadas para a aplicação neste formato;
+
+\item as regras para inferência do perfil. Estas regras serão executadas em períodos regulares, de modo a atualizar o perfil da entidade. O configurador tem a função de receber as regras, validá-las e inseri-las na \textbf{base de regras}. Juntamente com as regras, é especificado a criticidade da informação. O sistema utilizará esta informação para determinar com que frequência a inferência desta informação será executada.
+
+\end{itemize}
+
+O segundo ponto de entrada é aquele através do qual são recebidas as trilhas das entidades, que são buscadas do gerenciador de trilhas pelo eProfile. Como o eProfile pode se conectar a diferentes gerenciadores de trilha (Figura~\ref{fig:gerenciadores}), onde em cada um deles a trilha tem um formato específico, é necessário que seja realizada uma conversão entre o formato original e o formato utilizado pelo eProfile, para que as trilhas sejam armazenadas de forma padronizada. Este trabalho é realizado por um agente intitulado {\bf conversor}, que é capaz de realizar a conversão para os formatos de trilha suportados pelo eProfile.
+
+A trilha da entidade é então armazenada no eProfile em uma ontologia de trilha, chamada {\bf eOntoTrail} (Figura~\ref{fig:ont_trilha}). Esta ontologia possui as classes básicas para a construção de uma trilha, sendo que a mesma pode ser estendida de acordo com a especificação do gerenciador de trilhas que está sendo utilizado.
+
+\begin{figure}
+  \centering\includegraphics[width=0.5\textwidth]{imagens/ont_trilha.png}
+  \caption{\textbf{Ontologia de Trilha do eProfile}}
+  \label{fig:ont_trilha}
+\end{figure}
+
+Uma vez de posse das trilhas, do modelo e das regras, o agente \textbf{raciocinador} realiza a inferência na trilha, gerando assim um perfil da entidade, que será uma extensão de uma ontologia de perfil básica denominada {\bf eOntoProfile} (Figura~\ref{fig:ont_perfil}). Esta ontologia, da mesma forma que a ontologia de trilha, contém classes básicas a partir das quais as aplicações vão especializar, utilizando-as para armazenar informações próprias. A aplicação pode então conectar-se ao eProfile e buscar o perfil de sua entidade, cujos dados são enviados pelo agente \textbf{comunicador}.
+
+\begin{figure}
+  \centering\includegraphics[width=0.3\textwidth]{imagens/ont_perfil2.png}
+  \caption{\textbf{Ontologia de Perfil do eProfile}}
+  \label{fig:ont_perfil}
+\end{figure}
+
+%----------------------------------------------------------------------------
+\section{Estudo de Caso}
+\label{ch:cenario}
+
+O estudo de caso apresentado é baseado na geração simulada de trilhas de estudantes dentro de um contexto de Educação Ubíqua. Educação Ubíqua pode ser compreendido como processos educacionais que ocorrem em qualquer lugar, a qualquer tempo e com qualquer dispositivo, de forma contínua, contextualizada e integrada ao cotidiano do aprendiz \cite{barbosa05}.
+
+Foi decidido pela utilização de um cenário simplificado, de modo que o mesmo pudesse ser apresentado de forma aprofundada.
+
+O cenário simula um curso de programação em linguagens orientadas a objeto. Deste curso participam três alunos (André, Pedro e Maria), cada um dos quais representado por uma entidade no eProfile.
+
+O curso consiste em um conjunto de módulos relacionados a orientação a objetos. Destes módulos fazem parte conceitos básicos da matéria (classes, herança, {\em interfaces} e ponteiros) e linguagens de programação orientadas a objeto (C++, Python e Java). O estudante não é obrigado a concluir todos os módulos. No final do curso, no entanto, ele deve escolher a linguagem de programação que ele utilizará para responder as questões da prova final. Dependendo da linguagem que escolher, ele deve ter concluído, no mínimo, os módulos referentes àquela linguagem.
+
+Por exemplo, caso o aluno decida realizar a prova em Java. Neste caso ele deve ter estudado classes, herança e {\em interfaces}, além do Java propriamente dito. Como a linguagem Java não contém o conceito de ponteiros, ele não é obrigado a ter cursado este módulo.
+
+As obrigatoriedades dos módulos são representados pela Figura~\ref{fig:cen1_modulos}. No exemplo proposto, para que o estudante possa realizar a prova na linguagem Python, ele deve ter concluído no mínimo os módulos Classes, Herança e Python.
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.2\textwidth]{imagens/cen1_modulos.png}
+  \end{center}
+  \caption{\textbf{Módulos de estudo obrigatórios}}
+  \label{fig:cen1_modulos}
+\end{figure}
+
+O ambiente é integrado a um sistema de educação ubíqua denominado LOCAL \cite{barbosa08}, utilizado para a distribuição contextualizada de objetos de aprendizagem (LO -- {\em Learning Objects}). Os conteúdos dos módulos são distribuídos pelo LOCAL como objetos de aprendizagem, e o LOCAL registra em um gerenciador de trilhas cada vez que um módulo é iniciado ou concluído.
+
+Cada evento (início ou conclusão de um objeto de aprendizagem) é registrado contendo as seguintes informações: (i) entidade que realizou o evento, (ii) objeto de aprendizagem, (iii) tipo de evento (início ou conclusão), (iii) data e hora e (iv) se é a primeira vez que o estudante realiza este tipo de evento.
+
+O LOCAL registra no gerenciador de trilha não apenas os eventos, mas também as informações relacionadas àqueles eventos. Por exemplo, toda vez que um evento possui relação com um objeto de aprendizagem que está sendo mencionado pela primeira vez, é necessário que sejam incluídas todas as informações relevantes a este objeto, de modo que o eProfile possa utilizar estas informações ao montar a inferência.
+
+Levando em conta o ambiente apresentado, a questão que o LOCAL deseja que o eProfile processe e registre no perfil da entidade é: esta entidade é proficiente em determinada linguagem? As subseções a seguir descrevem como ocorre este processo de inferência.
+
+\subsection{Ontologia}
+
+À medida que o registro das informações vai sendo realizada pelo LOCAL no gerenciador de trilhas, o eProfile vai solicitando informações atualizadas ao gerenciador de trilhas. A forma como o LOCAL e o gerenciador de trilhas se comunicam não é relevante ao eProfile, desde que o gerenciador de trilhas envie as informações em um formato que o eProfile seja capaz de interpretar.
+
+De acordo com a Figura~\ref{fig:modelo}, o gerenciador de trilhas envia as informações ao módulo conversor do eProfile, que as converte para o formato OWL. As informações enviadas são de dois tipos: (i) as ocorrências, isto é, a trilha propriamente dita e (ii) as informações acessórias, que ajudarão o eProfile a montar a ontologia necessária para a inferência das informações. No cenário que está sendo descrito, um módulo concluído é um exemplo de ocorrência, enquanto as informações de dependências entre os módulos de aprendizagem são informações acessórias.
+
+Tendo por base as informações enviadas pelo gerenciador de trilhas de acordo com o cenário descrito na Seção~\ref{ch:cenario}, o eProfile montou a ontologia mostrada na Figura~\ref{fig:cen1_ontologia}. Cada círculo representa uma classe da ontologia.
+
+É importante notar que cada uma das classes pai tem alguma representação na ontologia de trilha do eProfile, apresentada na Figura~\ref{fig:ont_trilha}.
+
+\begin{figure*}
+  \begin{center}
+    \includegraphics[width=0.9\textwidth]{imagens/cen1_ontologia.png}
+  \end{center}
+  \caption{\textbf{Ontologia do cenário apresentado}}
+  \label{fig:cen1_ontologia}
+\end{figure*}
+
+Algumas classes possuem informações que são necessárias para que o eProfile possa determinar se um estudante é proficiente em determinada linguagem. Um exemplo disto são os módulos referentes a conceitos básicos de orientação a objetos, que estão representados na ontologia como classes filhas da classe {\tt ObjectOrientation}. A classe {\tt OO-Interface}, por exemplo, diz respeito a um módulo que estuda o conceito de {\em interfaces}. Este conceito está presente nas linguagens C++ e Java, mas não em Python. Assim, esta classe é descrita da seguinte forma em OWL\footnote{Embora o eProfile utilize internamente a sintaxe OWL/RDF \cite{owl-guide}, a sintaxe Manchester-OWL está sendo usada neste artigo por ser mais compacta a amigável \cite{owl-manchester}.}:
+
+\begin{code}
+\begin{lstlisting}
+Class: <el:OO-Interfaces>
+    SubClassOf: 
+        <el:ObjectOrientation>,
+        <el:relatesTo> some <el:C++>,
+        <el:relatesTo> some <el:Java>
+\end{lstlisting}
+\end{code}
+
+No exemplo, a linha 1 registra a classe, indicando que ela é filha da classe ObjectOrientation (linha 3, ver Figura~\ref{fig:cen1_ontologia}). Além disso, as linhas 4 e 5 utilizam a propriedade {\tt relatesTo} para indicar que o conceito de {\em interfaces} está relacionado às linguagens de programação (e, por consequência, às classes) {\tt C++} e {\tt Java}. Note-se que não é feita relação à classe {\tt Python}.
+
+Os eventos de requisição e conclusão do estudo de um objeto de aprendizado são registrados como classes filhas da classes {\tt RequestedLOEvent} e {\tt FinishedLOEvent} respectivamente que, por sua vez, são filhas da classe {\tt LearningEvent}. Cada especialização da classe exige informações adicionais, de modo que a classe {\tt FinishedLOEvent}. Este conjunto de classes é representado da seguinte forma:
+
+\begin{code}
+\begin{lstlisting}
+Class: <el:Event>
+    SubClassOf: 
+        Thing,
+        <el:hasEntity> some <el:Entity>,
+        <el:hasDateTime> exactly 1 xsd:dateTime,
+Class: <el:LearningEvent>
+    SubClassOf: 
+        <el:Event>,
+        <el:hasLearningObject> some 
+	                       <el:LearningObject>
+Class: <el:FinishedLOEvent>
+    SubClassOf: 
+        <el:LearningEvent>,
+	<el:isFirstTime> exactly 1 xsd:boolean
+\end{lstlisting}
+\end{code}
+
+Desta forma, cada evento registrado deve ser vinculado a uma entidade (linha 4) e ter uma data e hora (linha 5); um evento de aprendizagem deve ter um objeto de aprendizagem relacionado (linhas 9 e 10); e um evento de término de aprendizado deve ter registrado se o evento ocorreu pela primeira vez.
+
+O código abaixo representa o registro de um evento, onde a entidade André (linha 4) concluiu um objeto de aprendizagem sobre Classes (linha 5) pela primeira vez (linha 7) em 08/07/2012 às 10h30 (linhas 8 e 9). Note-se que, como esta classe é filha da classe {\tt FinishedLOEvent}, as propriedades requisitadas na classe estão sendo informadas nas classes filhas.
+
+\begin{code}
+\begin{lstlisting}
+Class: <el:FinishedLOEvent1>
+    SubClassOf: 
+        <el:FinishedLOEvent>,
+        <el:hasEntity> some <el:Andre>,
+        <el:hasLearningObject> some 
+	                          <el:OO-Classes>
+        <el:isFirstTime> value true,
+        <el:hasDateTime> value 
+	                    "2012-07-08T10:30:00"
+\end{lstlisting}
+\end{code}
+
+\subsection{Regras}
+
+Para adicionar ao perfil de um aluno se ele é proficiente em uma determinada linguagem (que é o objetivo do cenário, de acordo com a Seção~\ref{ch:cenario}, os seguintes passos devem ser realizados:
+
+\begin{enumerate}
+  \item Identificar os objetos de aprendizados requeridos para a proficiência na linguagem;
+  \item Identificar os objetos de aprendizagem concluídos pelo estudante referentes ao item 1;
+  \item Verificar se todos os objetos de aprendizagem necessários foram concluídos.
+\end{enumerate}
+
+Neste exemplo, será verificado se o estudante é proficiente na linguagem Java. Para tal, ele deve ter concluído os objetos de aprendizagens que fazem relação com a linguagem Java (neste caso, classes, herança em {\em interfaces}), bem como o objeto de aprendizado da linguagem Java. Na ontologia, isto refere-se à criação de uma nova classe ({\tt JavaRequirement}) que seja equivalente à classe {\tt Java} (que é filha da classe de {\tt LearningObject} e, portanto, um objeto de aprendizado, ou quaisquer outras classes cuja propriedade {\tt relatesTo} aponte para a classe {\tt Java}. Assim, esta regra fica definida da seguinte forma:
+
+\begin{code}
+\begin{lstlisting}
+Class: <el:JavaRequirement>
+    EquivalentTo: 
+        <el:Java>
+         or (<el:relatesTo> some <el:Java>)
+\end{lstlisting}
+\end{code}
+
+O segundo passo é a identificação dos objetos de aprendizagem concluídos pelo estudante relacionados ao Java. Para tal, é necessário que:
+
+\begin{enumerate} 
+  \item os eventos sejam do tipo {\tt FinishedLOEvent} (só é importante saber os objetos de aprendizado que o estudante concluiu, e não os que ele iniciou);
+  \item os eventos tenham sido realizados pela entidade específica;
+  \item os eventos sejam relacionados ao Java, ou seja, filhas da classe {\tt JavaRequirement} criada acima;
+  \item os eventos tenham sido realizados pela primeira vez (somente é importante saber os objetos de aprendizado concluídos pelo aluno, e não quantas vezes).
+\end{enumerate}
+
+Para que o eProfile possa identificar estes eventos para a entidade Andre, a seguinte regra é enviada ao eProfile:
+
+\begin{code}
+\begin{lstlisting}
+Class: <el:JavaLessonsTaken>
+    EquivalentTo: 
+        <el:FinishedLOEvent>
+         and (<el:hasEntity> some <el:Andre>)
+         and (<el:hasLearningObject> some 
+	                    <el:JavaRequirement>)
+         and (<el:isFirstTime> value true)
+\end{lstlisting}
+\end{code}
+
+Uma vez que estas duas regras estejam criadas na ontologia, o eProfile irá executar o raciocinador, que gerará uma nova ontologia OWL, com as classes inferidas identificadas como filhas das classes criadas.
+
+A partir da execução do raciocinador, uma regra de atualização de perfil é criada, onde são comparados o número de módulos Java com o número de objetos de aprendizagem relacionados ao Java que foram concluídos pela entidade. Se o número for igual, o usuário é proficiente. Esta regra é definida da seguinte forma:
+
+\begin{code}
+\begin{lstlisting}
+JavaProficience <= 
+  (Count(SubClasses(JavaRequirement))) equals
+          (Count(SubClasses(JavaLessonsTaken)))
+\end{lstlisting}
+\end{code}
+
+
+%----------------------------------------------------------------------------
+\section{Trabalhos Relacionados}
+\label{ch:relacionados}
+
+Atualmente, as áreas de computação ubíqua, sensibilidade a contexto, trilhas e personalização são bastante promissoras, sendo que um grande número de trabalhos são publicados anualmente a este respeito. No entanto, não foi encontrado nenhum trabalho que faça uso de inferência em trilhas com o objetivo de personalizar a experiência do usuário dentro de um domínio genérico. Assim, o modelo apresentado neste trabalho busca preencher esta lacuna. 
+
+\begin{table*}\centering
+  \begin{tabular*}{1\textwidth}{@{}lllllll@{}}
+    \toprule
+                                         & Interope-  & Perfis    & Armaze-  & Sensibilidade & Utiliza & \\
+    Trabalho                             & rabilidade & dinâmicos & namento  & a contexto    & trilhas & Domínio \\
+    \midrule
+    PeLeP                                & Não        & Sim       & Servidor & Sim           & Parcial & Educação \\
+    Chellouche et al                     & Sintática  & Sim       & Servidor & Sim           & Não     & Serviços multimídia \\
+    UUCM                                 & Sintática  & Sim       & Cliente  & Sim           & Não     & Genérico \\
+    eProfile                             & Semântica  & Sim       & Servidor & Sim           & Sim     & Genérico \\
+    \bottomrule
+  \end{tabular*}
+  \caption{Comparação entre os trabalhos apresentados}
+  \label{tab:comparacao2}
+\end{table*}
+
+% Não encontrou-se nenhum modelo que ofereça suporte a estes pré-requisitos de forma genérica (isto é, para qualquer tipo de contexto) e, assim, este modelo busca suprir esta necessidade.
+
+O PeLeP \cite{pelep} suporta aperfeiçoamento automático do perfil de um aprendiz em ambientes de educação ubíqua, utilizando o histórico dos aprendizes para a atualização dos perfis através de inferências. O eProfile utiliza uma estratégia semelhante. No entanto, as regras de inferência são definidas pela aplicação, e não pelo modelo. Esta alteração é necessária para que a inferência passe de um domínio específico (educação) para um domínio genérico. Além disso, ao contrário do eProfile, as regras são dinâmicas (uma aplicação pode definir ou remover regras dinamicamente), ao invés de estarem pré-definidas no modelo. Isto permite a evolução e refino das regras de inferência.
+
+O modelo apresentado por Chellouche et al \cite{chellouche10}, assim como o eProfile, apresenta um perfil unificado que pode ser utilizado por diversas aplicações. No entanto, ao contrário do eProfile, o modelo assume a interoperabilidade sintática, o que significa que as todas aplicações precisam registrar os eventos utilizando o mesmo formato, o que pode fazer com que a aplicação não consiga registrar o evento com a riqueza de detalhes necessária. Além disso, assim como o PeLeP, o modelo de Chellouche et al \cite{chellouche10} está limitado a um domínio específico, que são os serviços multimídia.
+
+O modelo UUCM \cite{niederee04}, ao contrário dos outros modelos, trabalha em um domínio genérico. Ele faz isso através da criação de uma ontologia básica que pode ser estendida pelas aplicações. Ao contrário das outras propostas (e do eProfile), o UUCM armazena os perfis no cliente, ao invés do servidor. Isto traz vantagens e desvantagens. Entre as vantagens pode-se citar a privacidade e acesso desconectado. No entanto, esta abordagem limita a interoperabilidade entre sistemas, uma vez que cada cliente fica com uma versão do próprio perfil, restringindo a utilização de um perfil unificado.
+
+A Tabela~\ref{tab:comparacao2} exibe um comparativo entre o eProfile e os trabalhos relacionados apresentados.
+
+O eProfile fez utilização das ideias apresentadas nos trabalhos, como o aperfeiçoamento automático de perfis, a utilização de perfis unificados e o funcionamento em um domínio genérico. A estas ideias, o eProfile traz como inovação a utilização de trilhas para a extração de perfis, o que facilita a inferência com sensibilidade a contexto. Além disso, o eProfile permite que cada aplicação registre sua trilha no formato que considerar mais proveitoso para si, permitindo assim que a riqueza de detalhes registrados por uma aplicação possa se traduzir em um perfil mais exato da entidade.
+
+%---------------------------------------------------------------------------
+\section{Conclusão}
+\label{sec:conclusao}
+
+Apresentamos neste artigo o eProfile como um modelo para suporte ao gerenciamento de perfis em ambientes ubíquos. O eProfile permite a inferência de trilhas de entidades através da definição de regras pelas aplicações. Foi realizado um experimento onde foi simulada a inferência de informações a respeito de estudantes em um ambiente de Educação Ubíqua. As principais contribuições do modelo são: (i) a utilização de trilhas para extração de perfis e (ii) a interoperabilidade semântica, que permite que as diferentes aplicações registrem suas trilhas utilizando uma ontologia própria e permitindo com que as aplicações trabalhem em um domínio genérico, isto é, sem um contexto preestabelecido.
+
+O eProfile é uma proposta inicial e requer aperfeiçoamento, especialmente na expansão dos cenários. O cenário apresentado mostra o eProfile trabalhando dentro de um domínio específico e, desta forma, não demonstra como múltiplas aplicações trabalhando em contextos diferentes podem gerar um perfil único. Desta forma, trabalho futuro neste modelo será realizado nesta direção.
+
+%---------------------------------------------------------------------------
+\bibliographystyle{latex8}
+\bibliography{eprofile_wscad}
+
+\end{document}
