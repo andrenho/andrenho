@@ -209,7 +209,7 @@ A linguagem de representação de conhecimento utilizada para o armazenamento e 
 
 Somente é possível avaliar as funcionalidades de uma proposta de infraestrutura construindo aplicações que a utilizem e então avaliá-las, de modo a obter uma avaliação indireta do modelo \cite{edwards03}. A comunidade científica vem utilizando cenários para realizar este tipo de avaliação indireta em ambientes sensíveis a contexto (como a abordagem realizada por Dey \cite{dey2001b}) e ubíquos (de acordo com Satyanarayanan \cite{satyanarayanan01}). Este trabalho segue a mesma abordagem, foram criados um protótipo e um cenário para realização de um experimento que avalie o eProfile.
 
-O experimento apresentado é baseado na geração simulada de trilhas de estudantes dentro de um contexto de Educação Ubíqua. Educação Ubíqua pode ser compreendido como processos educacionais que ocorrem em qualquer lugar, a qualquer tempo e com qualquer dispositivo, de forma contínua, contextualizada e integrada ao cotidiano do aprendiz \cite{barbosa05}.
+O experimento apresentado é baseado na geração simulada de trilhas de estudantes dentro de um contexto de Educação Ubíqua. Educação Ubíqua pode ser compreendida como processos educacionais que ocorrem em qualquer lugar, a qualquer tempo e com qualquer dispositivo, de forma contínua, contextualizada e integrada ao cotidiano do aprendiz \cite{barbosa05}.
 
 O cenário simula um curso de programação em linguagens orientadas a objeto. O curso consiste em um conjunto de módulos relacionados a orientação a objetos que o usuário transfere para seu dispositivo móvel e estuda através dele. Destes módulos fazem parte conceitos básicos da matéria (classes, herança, {\em interfaces} e ponteiros) e linguagens de programação orientadas a objeto (C++, Python e Java). O estudante não é obrigado a concluir todos os módulos. No final do curso, no entanto, ele deve escolher a linguagem de programação que ele utilizará para responder as questões da prova final. Dependendo da linguagem que escolher, ele deve ter concluído, no mínimo, os módulos referentes àquela linguagem.
 
@@ -274,7 +274,7 @@ Class: <el:JavaRequirement>
 \label{cod:regra1}
 \end{figure}
 
-O segundo passo é a identificação dos objetos de aprendizagem concluídos pelo estudante relacionados ao Java. Esta regra é apresentada na Figura~\ref{cod:regra2}. Assim, são considerados apenas os eventos de conclusão de objeto de aprendizagem (linha 3) realizados pela entidade (linha 4), relacionados ao Java (linha 5) e que tenham sido realizados pela primeira vez (linha 7), uma vez que o aluno pode estudar o mesmo material várias vezes. O parâmetro \texttt{?entity} será substituído pela entidade na execução da regra de cada perfil. É importante notar que para verificar se a disciplina está relacionada ao Java, a regra criada na Figura~\ref{cod:regra1} é utilizada (linhas 5 e 6).
+O segundo passo é a identificação dos objetos de aprendizagem concluídos pelo estudante relacionados ao Java. Esta regra é apresentada na Figura~\ref{cod:regra2}. Assim, são considerados apenas os eventos de conclusão de objeto de aprendizagem (linha 3) realizados pela entidade (linha 4), relacionados ao Java (linha 5) e que tenham sido realizados pela primeira vez (linha 7), uma vez que o aluno pode estudar o mesmo material várias vezes. O parâmetro \texttt{[?entity]} será substituído pela entidade na execução da regra de cada perfil. É importante notar que para verificar se a disciplina está relacionada ao Java, a regra criada na Figura~\ref{cod:regra1} é utilizada (linhas 5 e 6).
 
 \begin{figure}
 \begin{lstlisting}
@@ -292,7 +292,7 @@ Class: <el:JavaLessonsTaken>
 
 Uma vez que estas duas regras estejam criadas na ontologia, o eProfile executa o raciocinador, que gera uma nova ontologia OWL, com as classes inferidas identificadas como filhas das classes criadas.
 
-A terceira regra é uma regra de atualização de perfil (Figura~\ref{cod:regra3}. Nesta regra, são comparados o número de módulos Java (regra da Figura~\ref{cod:regra1}) com o número de objetos de aprendizagem relacionados ao Java que foram concluídos pela entidade (regra da Figura~\ref{cod:regra2}). Se o número for igual, o usuário é considerado proficiente, caso contrário não, e esta regra é atualizada no perfil da entidade.
+A terceira regra é uma regra de atualização de perfil (Figura~\ref{cod:regra3}. Nesta regra, são comparados o número de módulos Java (regra da Figura~\ref{cod:regra1}) com o número de objetos de aprendizagem relacionados ao Java que foram concluídos pela entidade (regra da Figura~\ref{cod:regra2}). Se o número for igual, o usuário é considerado proficiente, e esta regra é atualizada no perfil da entidade.
 
 \begin{figure}
 \begin{lstlisting}
