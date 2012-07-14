@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.5.28)  13 JUL 2012 21:55
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.5.28)  14 JUL 2012 16:02
 entering extended mode
  %&-line parsing enabled.
 **eprofile_wscad.tex
@@ -390,19 +390,19 @@ LaTeX Warning: Unused global option(s):
 (./eprofile_wscad.aux)
 \openout1 = `eprofile_wscad.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Try loading font information for T1+ptm on input line 34.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Try loading font information for T1+ptm on input line 53.
  (/usr/share/texmf-texlive/tex/latex/psnfss/t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 )
@@ -425,15 +425,15 @@ Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
 \c@lstlisting=\count109
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 54.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 55.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 54.
+(Font)              <12> on input line 55.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 54.
+(Font)              <8> on input line 55.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 54.
+(Font)              <6> on input line 55.
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 57.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 58.
 
 Underfull \vbox (badness 1281) has occurred while \output is active []
 
@@ -441,83 +441,76 @@ Underfull \vbox (badness 1281) has occurred while \output is active []
 
 
 ]
-<imagens/modelobasico.png, id=8, 428.60126pt x 229.85875pt>
+<imagens/modelobasico.png, id=9, 428.60126pt x 229.85875pt>
 File: imagens/modelobasico.png Graphic file (type png)
 
 <use imagens/modelobasico.png>
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 98.
-LaTeX Font Info:    Try loading font information for T1+phv on input line 98.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 99.
+LaTeX Font Info:    Try loading font information for T1+phv on input line 99.
 
 (/usr/share/texmf-texlive/tex/latex/psnfss/t1phv.fd
 File: t1phv.fd 2001/06/04 scalable font definitions for T1/phv.
 )
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <10> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 98.
- [2 <./imagens/modelobasico.png (PNG copy)>] <imagens/modelo2.png, id=13, 783.9
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 99.
+ [2 <./imagens/modelobasico.png (PNG copy)>] <imagens/modelo2.png, id=14, 783.9
 2876pt x 284.06125pt>
 File: imagens/modelo2.png Graphic file (type png)
 
 <use imagens/modelo2.png>
-Overfull \hbox (11.29218pt too wide) in paragraph at lines 113--114
- [][] 
- []
-
-<imagens/modelo_big.png, id=14, 820.06375pt x 509.905pt>
+<imagens/modelo_big.png, id=15, 820.06375pt x 509.905pt>
 File: imagens/modelo_big.png Graphic file (type png)
 
 <use imagens/modelo_big.png>
-Overfull \hbox (11.29218pt too wide) in paragraph at lines 123--124
- [][] 
- []
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 141.
 
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 140.
 
 (/usr/share/texmf-texlive/tex/latex/psnfss/omsptm.fd
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 140.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 141.
  [3 <./imagens/modelo2.png (PNG copy)> <./imagens/modelo_big.png>]
-<imagens/ont_trilha_simples.png, id=21, 822.07124pt x 341.275pt>
+<imagens/ont_trilha_simples.png, id=22, 822.07124pt x 341.275pt>
 File: imagens/ont_trilha_simples.png Graphic file (type png)
 
 <use imagens/ont_trilha_simples.png>
-Overfull \hbox (11.29218pt too wide) in paragraph at lines 159--160
+Overfull \hbox (11.29218pt too wide) in paragraph at lines 160--161
  [][] 
  []
 
-<imagens/ont_perfil3.png, id=22, 358.33875pt x 308.15125pt>
+<imagens/ont_perfil3.png, id=23, 358.33875pt x 308.15125pt>
 File: imagens/ont_perfil3.png Graphic file (type png)
 
 <use imagens/ont_perfil3.png>
-<imagens/dados_inferencia.png, id=23, 510.90875pt x 203.76125pt>
+<imagens/dados_inferencia.png, id=24, 510.90875pt x 203.76125pt>
 File: imagens/dados_inferencia.png Graphic file (type png)
 
 <use imagens/dados_inferencia.png> [4 <./imagens/ont_trilha_simples.png (PNG co
 py)> <./imagens/ont_perfil3.png (PNG copy)>]
-<imagens/cen1_modulos.png, id=27, 366.63pt x 424.05pt>
+<imagens/cen1_modulos.png, id=28, 366.63pt x 424.05pt>
 File: imagens/cen1_modulos.png Graphic file (type png)
 
-<use imagens/cen1_modulos.png> [5 <./imagens/dados_inferencia.png> <./imagens/c
-en1_modulos.png>]
+<use imagens/cen1_modulos.png>
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 234.
+(Font)              <5> on input line 233.
 
-Underfull \hbox (badness 10000) in alignment at lines 234--248
+Underfull \hbox (badness 10000) in alignment at lines 233--247
 [][][][][]
  []
 
-<cen_ontologia.png, id=33, 1064.97874pt x 654.445pt>
+[5 <./imagens/dados_inferencia.png> <./imagens/cen1_modulos.png>]
+<cen_ontologia.png, id=34, 1064.97874pt x 654.445pt>
 File: cen_ontologia.png Graphic file (type png)
  <use cen_ontologia.png>
-Overfull \hbox (11.29218pt too wide) in paragraph at lines 259--260
+Overfull \hbox (11.29218pt too wide) in paragraph at lines 256--257
  [] 
  []
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 267.
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 270.
+(Font)              <7> on input line 264.
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 267.
 (/usr/share/texmf-texlive/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 ) [6 <./cen_ontologia.png (PNG copy)>] (./eprofile_wscad.bbl [7]
@@ -567,22 +560,23 @@ Underfull \hbox (badness 10000) in paragraph at lines 163--166
 
 ) [8] (./eprofile_wscad.aux) ) 
 Here is how much of TeX's memory you used:
- 4607 strings out of 495041
- 62331 string characters out of 1181897
- 133452 words of memory out of 3000000
- 7725 multiletter control sequences out of 15000+50000
- 48494 words of font info for 58 fonts, out of 3000000 for 9000
+ 4609 strings out of 495041
+ 62350 string characters out of 1181897
+ 134890 words of memory out of 3000000
+ 7726 multiletter control sequences out of 15000+50000
+ 49115 words of font info for 60 fonts, out of 3000000 for 9000
  30 hyphenation exceptions out of 8191
- 36i,8n,38p,968b,1181s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 36i,8n,38p,965b,1181s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/share/texmf-texlive/fonts/enc/dvips/base/8r
-.enc}</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/
-share/texmf-texlive/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texmf-texliv
-e/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texmf-texlive/fonts/type1/urw
-/times/utmb8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/times/utmr8a.pfb></
-usr/share/texmf-texlive/fonts/type1/urw/times/utmri8a.pfb>
-Output written on eprofile_wscad.pdf (8 pages, 464830 bytes).
+.enc}</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/sh
+are/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-t
+exlive/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texmf-texlive/fonts/type1
+/urw/helvetic/uhvb8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/times/utmb8a
+.pfb></usr/share/texmf-texlive/fonts/type1/urw/times/utmr8a.pfb></usr/share/tex
+mf-texlive/fonts/type1/urw/times/utmri8a.pfb>
+Output written on eprofile_wscad.pdf (8 pages, 472656 bytes).
 PDF statistics:
- 66 PDF objects out of 1000 (max. 8388607)
+ 70 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  41 words of extra memory for PDF output out of 10000 (max. 10000000)
 
