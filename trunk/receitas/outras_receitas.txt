@@ -40,6 +40,8 @@ PRATOS PRINCIPAIS
      <http://www.macheesmo.com/2012/06/spicy-radish-toss/>
  - Salmão com manjerona
      <file:salmao.txt>
+ - Sardinhas assadas
+     <http://www.youtube.com/watch?v=aWB3Es7Xn2k>
  - Vindaloo 
      <livro:Revolução na Cozinha - Jamie Oliver>
 
@@ -58,11 +60,15 @@ ACOMPANHAMENTO
      <file:arroz.txt>
  - Batata-doce assada 
      <http://www.simplesmentedelicia.com/?p=2177>
+ - Batatas assadas
+     <http://www.youtube.com/watch?v=dsqODd789wI>
  - Batatas assadas com alho e azeite 
      <http://www.simplesmentedelicia.com/?p=826>
      <file:batatas_assadas.txt>
  - Batatas francesas assadas 
      <livro:Revolução na Cozinha - Jamie Oliver>
+ - Batatinhas assadas
+     <http://homecookingadventure.com/recipes/show/roasted-baby-potatoes>
  - Purê de batatas
      <head:>
 
@@ -101,6 +107,9 @@ SOBREMESAS/DOCES
      <http://www.youtube.com/watch?v=aWB3Es7Xn2k>
  - Pão-de-ló com morangos e creme 
      <livro:Revolução na Cozinha - Jamie Oliver>
+ - Pastéis de belém
+     <http://www.joepastry.com/2012/pasteis-de-belemnata-recipe/>
+     <http://www.joepastry.com/2012/making-pasteis-de-belem/>
  - Sorvete de morangos 
      <http://www.simplesmentedelicia.com/?p=2068>
  - Sobremesa rápida
@@ -188,6 +197,8 @@ PÃES
      <livro:200 Receitas de Pães Tentadores>
  - Pão com alho assado 
      <http://www.macheesmo.com/2010/09/roasted-garlic-bread/>
+ - Pão de queijo (assar 30 min)
+     <http://www.joepastry.com/category/bread/pao-de-queijo/>
  - Pão doce português 
      <http://www.macheesmo.com/2012/01/portuguese-sweet-bread/>
  - Pão integral dos Wagners
@@ -196,7 +207,7 @@ PÃES
      <http://www.macheesmo.com/2008/10/life-changing-bread/>
  - Pão de semolina com azeite
      <livro:200 Receitas de Pães Tentadores>
- - Pão sírio
+ - Pita (pão sírio)
      <http://www.thefreshloaf.com/recipes/pitabread/>
  - Pão toscano com uvas 
      <http://www.simplesmentedelicia.com/?p=2059>

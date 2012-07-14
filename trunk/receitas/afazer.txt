@@ -10,17 +10,10 @@ PRATOS PRINCIPAIS
      <http://www.macheesmo.com/2011/04/breakfast-tacos/>
  - Frango com mostarda
      <http://www.youtube.com/watch?v=xn4x-g26P70>
- - Sardinhas assadas
-     <http://www.youtube.com/watch?v=aWB3Es7Xn2k>
  - Tilapia com verdes
      <http://www.blue-kitchen.com/2012/06/20/butter-poached-tilapia/>
 
 ACOMPANHAMENTOS
-
- - Batatinhas assadas
-     <http://homecookingadventure.com/recipes/show/roasted-baby-potatoes>
- - Batatas assadas
-     <http://www.youtube.com/watch?v=dsqODd789wI>
 
 ENSOPADOS
 
@@ -54,9 +47,8 @@ SOBREMESAS/DOCES
      <http://www.joepastry.com/category/pastry/danish-pastry/>
  - Pastel de forno de pêssegos
      <http://www.macheesmo.com/2010/07/portable-peach-pies/>
- - Pastéis de belém
-     <http://www.joepastry.com/2012/pasteis-de-belemnata-recipe/>
-     <http://www.joepastry.com/2012/making-pasteis-de-belem/>
+ - Rolinhos de canela e tâmaras
+     <http://www.macheesmo.com/2012/07/date-cinnamon-rolls/>
  - Shortbread
      <http://www.joepastry.com/category/miscellaneous-desserts-and-cookies/shortbread/>
 
@@ -80,8 +72,6 @@ PÃES
 
  - Bobka de chocoloate (cuca)
      <http://www.macheesmo.com/2010/01/chocolate-babka/>
- - Pão de queijo
-     <http://www.joepastry.com/category/bread/pao-de-queijo/>
  - Pão de sanduiche
      <http://www.macheesmo.com/2011/05/stecca-sandwich-bread/>
  - Pão de milho
