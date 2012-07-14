@@ -57,6 +57,19 @@ A.~Dey.
 \newblock Understanding and using context.
 \newblock {\em Personal and Ubiquitous Computing}, 6(1):4--7, 2001.
 
+\bibitem{dey2001b}
+A.~K. Dey, G.~D. Abowd, and D.~Salber.
+\newblock A conceptual framework and a toolkit for supporting the rapid
+  prototyping of context-aware applications.
+\newblock {\em Hum.-Comput. Interact.}, 16(2):97--166, Dec. 2001.
+
+\bibitem{edwards03}
+W.~K. Edwards, V.~Bellotti, A.~K. Dey, and M.~W. Newman.
+\newblock The challenges of user-centered design and evaluation for
+  infrastructure.
+\newblock In {\em Proceedings of the SIGCHI conference on Human factors in
+  computing systems}, CHI '03, pages 297--304, New York, NY, USA, 2003. ACM.
+
 \bibitem{franco11}
 L.~K. Franco, J.~H. Rosa, J.~L. Barbosa, C.~A. Costa, and A.~C. Yamin.
 \newblock Mucs: A model for ubiquitous commerce support.

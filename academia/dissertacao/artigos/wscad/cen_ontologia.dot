@@ -1,0 +1,21 @@
+digraph modelo {
+
+rankdir = RL;
+
+LearningObject -> Thing;
+ProgrammingLanguage -> LearningObject;
+"C++" -> ProgrammingLanguage;
+Python -> ProgrammingLanguage;
+Java -> ProgrammingLanguage;
+ObjectOrientation -> LearningObject;
+"OO-Interfaces" -> ObjectOrientation;
+"OO-Inheritance" -> ObjectOrientation;
+"OO-Pointers" -> ObjectOrientation;
+"OO-Classes" -> ObjectOrientation;
+Andre -> Entity;
+Maria -> Entity;
+LearningEvent -> Thing;
+RequestedLOEvent -> LearningEvent;
+FinishedLOEvent -> LearningEvent;
+
+}
