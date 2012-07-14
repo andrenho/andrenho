@@ -4,45 +4,45 @@ The style file: latex8.bst
 Database file #1: eprofile_wscad.bib
 Warning--empty institution in foaf
 Warning--empty institution in python
-You've used 27 entries,
+You've used 29 entries,
             2118 wiz_defined-function locations,
-            668 strings with 8532 characters,
-and the built_in function-call counts, 9273 in all, are:
-= -- 928
-> -- 429
-< -- 10
-+ -- 172
-- -- 142
-* -- 624
-:= -- 1529
-add.period$ -- 89
-call.type$ -- 27
-change.case$ -- 151
+            681 strings with 9018 characters,
+and the built_in function-call counts, 10164 in all, are:
+= -- 1022
+> -- 470
+< -- 11
++ -- 190
+- -- 156
+* -- 692
+:= -- 1667
+add.period$ -- 96
+call.type$ -- 29
+change.case$ -- 164
 chr.to.int$ -- 0
-cite$ -- 29
-duplicate$ -- 358
-empty$ -- 715
-format.name$ -- 142
-if$ -- 1970
+cite$ -- 31
+duplicate$ -- 392
+empty$ -- 780
+format.name$ -- 156
+if$ -- 2162
 int.to.chr$ -- 0
-int.to.str$ -- 27
-missing$ -- 21
-newline$ -- 140
-num.names$ -- 56
-pop$ -- 161
+int.to.str$ -- 29
+missing$ -- 23
+newline$ -- 150
+num.names$ -- 60
+pop$ -- 172
 preamble$ -- 1
-purify$ -- 124
+purify$ -- 135
 quote$ -- 0
-skip$ -- 267
+skip$ -- 293
 stack$ -- 0
-substring$ -- 520
-swap$ -- 94
-text.length$ -- 10
+substring$ -- 586
+swap$ -- 105
+text.length$ -- 11
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 106
+type$ -- 114
 warning$ -- 2
-while$ -- 89
-width$ -- 29
-write$ -- 311
+while$ -- 98
+width$ -- 31
+write$ -- 336
 (There were 2 warnings)
