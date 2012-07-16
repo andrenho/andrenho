@@ -1,8 +1,8 @@
 #include <stdlib.h>
 
 #include "level.h"
-#ifdef SDL_SIMPLE
-#  include "simplesdl/ui.h"
+#ifdef SDL
+#  include "sdl/ui.h"
 #endif
 
 int main(int argc, char** argv)
