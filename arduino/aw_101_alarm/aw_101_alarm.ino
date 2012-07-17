@@ -1,12 +1,11 @@
-#include "pitches.h"
-
 //
 // Ports
 //
 const int TIMER = A0;          // potentiometer port (changes time)
-const int SPEAKER = A1;        // speaker port
+const int SPEAKER = 8;         // speaker port
 const int SELECTOR = 2;        // button port (select time)
 const int SILENCE = 3;         // silence button
+const int NOTE_A4 = 440;
 
 //
 // Timer potentiometer
@@ -30,7 +29,7 @@ unsigned long next_sec = 0;  // millisecond of the next second
 //
 int last_pot = 0;            // last reading from potentiometer
 int last_button = 0;         // last reading from selector button
-int timer[N_TIMERS];         // current time of each timer
+signed int timer[N_TIMERS];         // current time of each timer
 bool alarm[N_TIMERS];        // check if alarm is on
 int selected = 0;            // timer currently selected
 
@@ -126,10 +125,11 @@ void oneSecond()
     if(timer[i] > 0)
     {
       timer[i] -= 1;
-      if(timer[i] < 0)
+      if(timer[i] == 0)
       {
+        Serial.print("Alarm on! ");
+        Serial.println(i);
         alarm[i] = true;
-        timer[i] = 0;
       }
     }
   }
@@ -152,7 +152,7 @@ void playAlarm()
   for(int i=0; i<(a+1); i++)
   {
     Serial.print("Beep! ");
-    tone(SPEAKER, NOTE_C4, time);
+    tone(SPEAKER, NOTE_A4, time);
     delay(time * 2); // half time playing, half time silent
     if(checkSilence(a))
       return;
@@ -202,6 +202,7 @@ void setup()
   pinMode(SILENCE, INPUT);
   for(int i=0; i<N_TIMERS; i++)
     timer[i] = 0;
+  timer[3] = 5;
   last_pot = analogRead(TIMER);
   last_button = digitalRead(SELECTOR);
 }
