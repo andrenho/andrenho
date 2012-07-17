@@ -4,6 +4,7 @@
 // Ports
 //
 const int TIMER = A0;          // potentiometer port (changes time)
+const int SPEAKER = A1;        // speaker port
 const int SELECTOR = 2;        // button port (select time)
 const int SILENCE = 3;         // silence button
 
