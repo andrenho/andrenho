@@ -150,11 +150,13 @@ void playAlarm()
   int time = 500 / ((a+1) * 2);
   for(int i=0; i<(a+1); i++)
   {
+    Serial.print("Beep! ");
     tone(SPEAKER, NOTE_C4, time);
     delay(time * 2); // half time playing, half time silent
     if(checkSilence(a))
       return;
   }
+  Serial.println("");
   // don't play
   for(int i=0; i<5; i++)
   {
