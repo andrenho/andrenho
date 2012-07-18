@@ -1,0 +1,63 @@
+% configurações
+\documentclass[twocolumn]{article}
+
+% português
+\usepackage[utf8]{inputenc}
+\usepackage[portuges,brazilian]{babel}
+\usepackage[T1]{fontenc}
+
+% pacotes
+\usepackage{tikz}
+\usepackage[siunitx]{circuitikz}
+\usepackage{amssymb,amsmath}
+\usepackage{hyperref}
+
+\title{Entendendo Eletrônica}
+\author{André Wagner}
+
+\begin{document}
+
+\maketitle
+
+\section{Básico}
+
+\subsection{Lei de Ohm}
+
+\begin{description}
+  \item[Voltagem ($V$)]: potencial. Equivalente à pressão d'água. Medido em Volts ($V$).
+  \item[Corrente ($I$)]: quantidade de elétrons passando por um ponto em determinado momento. Equivalente ao fluxo de água. Medido em Amperes ($A$).
+  \item[Resistência ($R$)]: o quanto o condutor se opõe à passagem de energia. Equivalente a um cano mais fino. Medido em Ohms ($\ohm$).
+\end{description}
+
+$$ V = IR $$
+$$ I = \frac{V}{R} $$
+$$ R = \frac{V}{I} $$
+
+\url{http://www.falstad.com/circuit/e-ohms.html}
+
+\begin{circuitikz} \draw
+ (0,0) node[ground] {}
+   to[short, l=$50\milli A$] (0,1)
+   to[R, l=$100\ohm$] (0,3)
+   -- (2,3)
+   to[R, l=$1k\ohm$] (2,1)
+   to[short, l=$5\milli A$] (2,0)
+   node[ground] {}
+ (1,3) to[V, l=$5V$] (1,5)
+;
+\end{circuitikz}
+
+No circuito acima, no lado esquerdo:
+$$ V = IR \longrightarrow 5 = 100 \times 0,05 $$
+
+No lado direito:
+$$ V = IR \longrightarrow 5 = 1000 \times 0,005 $$
+
+Isso significa que mais energia ``flui'' do lado esquerdo que do lado direito.
+
+
+\subsection{Resistores}
+
+
+
+\end{document}
