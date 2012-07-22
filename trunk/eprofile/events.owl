@@ -1,0 +1,184 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE Ontology [
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY xml "http://www.w3.org/XML/1998/namespace" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.eprofile.com/events/"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     ontologyIRI="http://www.eprofile.com/events/">
+    <Prefix name="" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Import>http://www.eprofile.com/things/</Import>
+    <Declaration>
+        <Class IRI="FinishedLOEvent1"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="FinishedLOEvent2"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="FinishedLOEvent3"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="FinishedLOEvent4"/>
+    </Declaration>
+    <SubClassOf>
+        <Class IRI="FinishedLOEvent1"/>
+        <Class IRI="http://www.eprofile.com/things/FinishedLOEvent"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="FinishedLOEvent1"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="http://www.eprofile.com/things/hasDevice"/>
+            <Class IRI="http://www.eprofile.com/things/Desktop"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="FinishedLOEvent1"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="http://www.eprofile.com/things/hasEntity"/>
+            <Class IRI="http://www.eprofile.com/things/Andre"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="FinishedLOEvent1"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="http://www.eprofile.com/things/hasLearningObject"/>
+            <Class IRI="http://www.eprofile.com/things/OO-Classes"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="FinishedLOEvent1"/>
+        <DataHasValue>
+            <DataProperty IRI="http://www.eprofile.com/things/hasDateTime"/>
+            <Literal datatypeIRI="&rdf;PlainLiteral">2012-07-08T10:30:00</Literal>
+        </DataHasValue>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="FinishedLOEvent1"/>
+        <DataHasValue>
+            <DataProperty IRI="http://www.eprofile.com/things/isFirstTime"/>
+            <Literal datatypeIRI="&xsd;boolean">true</Literal>
+        </DataHasValue>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="FinishedLOEvent2"/>
+        <Class IRI="http://www.eprofile.com/things/FinishedLOEvent"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="FinishedLOEvent2"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="http://www.eprofile.com/things/hasDevice"/>
+            <Class IRI="http://www.eprofile.com/things/Desktop"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="FinishedLOEvent2"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="http://www.eprofile.com/things/hasEntity"/>
+            <Class IRI="http://www.eprofile.com/things/Andre"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="FinishedLOEvent2"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="http://www.eprofile.com/things/hasLearningObject"/>
+            <Class IRI="http://www.eprofile.com/things/OO-Inheritance"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="FinishedLOEvent2"/>
+        <DataHasValue>
+            <DataProperty IRI="http://www.eprofile.com/things/isFirstTime"/>
+            <Literal datatypeIRI="&xsd;boolean">true</Literal>
+        </DataHasValue>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="FinishedLOEvent3"/>
+        <Class IRI="http://www.eprofile.com/things/FinishedLOEvent"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="FinishedLOEvent3"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="http://www.eprofile.com/things/hasDevice"/>
+            <Class IRI="http://www.eprofile.com/things/Desktop"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="FinishedLOEvent3"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="http://www.eprofile.com/things/hasEntity"/>
+            <Class IRI="http://www.eprofile.com/things/Andre"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="FinishedLOEvent3"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="http://www.eprofile.com/things/hasLearningObject"/>
+            <Class IRI="http://www.eprofile.com/things/OO-Pointers"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="FinishedLOEvent3"/>
+        <DataHasValue>
+            <DataProperty IRI="http://www.eprofile.com/things/isFirstTime"/>
+            <Literal datatypeIRI="&xsd;boolean">true</Literal>
+        </DataHasValue>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="FinishedLOEvent4"/>
+        <Class IRI="http://www.eprofile.com/things/FinishedLOEvent"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="FinishedLOEvent4"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="http://www.eprofile.com/things/hasDevice"/>
+            <Class IRI="http://www.eprofile.com/things/Desktop"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="FinishedLOEvent4"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="http://www.eprofile.com/things/hasEntity"/>
+            <Class IRI="http://www.eprofile.com/things/Andre"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="FinishedLOEvent4"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="http://www.eprofile.com/things/hasLearningObject"/>
+            <Class IRI="http://www.eprofile.com/things/Java"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="FinishedLOEvent4"/>
+        <DataHasValue>
+            <DataProperty IRI="http://www.eprofile.com/things/isFirstTime"/>
+            <Literal datatypeIRI="&xsd;boolean">true</Literal>
+        </DataHasValue>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.eprofile.com/things/FinishedLOEvent"/>
+        <DataHasValue>
+            <DataProperty IRI="http://www.eprofile.com/things/isFirstTime"/>
+            <Literal datatypeIRI="&xsd;boolean">true</Literal>
+        </DataHasValue>
+    </SubClassOf>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 3.3.1957) http://owlapi.sourceforge.net -->
+

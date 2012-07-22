@@ -1,0 +1,490 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE Ontology [
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY xml "http://www.w3.org/XML/1998/namespace" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.eprofile.com/things/"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     ontologyIRI="http://www.eprofile.com/things/">
+    <Prefix name="" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Declaration>
+        <Class IRI="Andre"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="C++"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="Classroom"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="Concept"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="Desktop"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="Device"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="Entity"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="Entrance"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="Event"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="Exit"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="FinishedLOEvent"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="Flash"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="Java"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="Laboratory"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="LearningEvent"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="LearningObject"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="Location"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="Maria"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="MediaType"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="MovementEvent"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="MovementType"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="OO-Classes"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="OO-Inheritance"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="OO-Interfaces"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="OO-Pointers"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="ObjectOrientation"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="PDF"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="Pedro"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="ProgrammingLanguage"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="Python"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="RequestedLOEvent"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="Resource"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="TXT"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="TrainStation"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="iPhone"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="hasDevice"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="hasEntity"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="hasLearningObject"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="hasLocation"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="hasMediaTypeAvailable"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="hasMovementType"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="hasSubject"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="relatesTo"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="hasDateTime"/>
+    </Declaration>
+    <SubClassOf>
+        <Class IRI="Andre"/>
+        <Class IRI="Entity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="C++"/>
+        <Class IRI="ProgrammingLanguage"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="Classroom"/>
+        <Class IRI="Location"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="Concept"/>
+        <Class abbreviatedIRI="owl:Thing"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="Desktop"/>
+        <Class IRI="Device"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="Desktop"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="hasMediaTypeAvailable"/>
+            <Class IRI="Flash"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="Desktop"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="hasMediaTypeAvailable"/>
+            <Class IRI="PDF"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="Desktop"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="hasMediaTypeAvailable"/>
+            <Class IRI="TXT"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="Device"/>
+        <Class IRI="Resource"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="Device"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="hasMediaTypeAvailable"/>
+            <Class IRI="MediaType"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="Entity"/>
+        <Class abbreviatedIRI="owl:Thing"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="Entrance"/>
+        <Class IRI="MovementType"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="Event"/>
+        <Class abbreviatedIRI="owl:Thing"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="Event"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="hasDevice"/>
+            <Class IRI="Device"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="Event"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="hasEntity"/>
+            <Class IRI="Entity"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="Event"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="hasLocation"/>
+            <Class IRI="Location"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="Event"/>
+        <DataExactCardinality cardinality="1">
+            <DataProperty IRI="hasDateTime"/>
+            <Datatype abbreviatedIRI="xsd:dateTime"/>
+        </DataExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="Exit"/>
+        <Class IRI="MovementType"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="FinishedLOEvent"/>
+        <Class IRI="LearningEvent"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="Flash"/>
+        <Class IRI="MediaType"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="Java"/>
+        <Class IRI="ProgrammingLanguage"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="Laboratory"/>
+        <Class IRI="Location"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="LearningEvent"/>
+        <Class IRI="Event"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="LearningEvent"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="hasLearningObject"/>
+            <Class IRI="LearningObject"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="LearningObject"/>
+        <Class IRI="Resource"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="Location"/>
+        <Class abbreviatedIRI="owl:Thing"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="Maria"/>
+        <Class IRI="Entity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="MediaType"/>
+        <Class IRI="Concept"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="MovementEvent"/>
+        <Class IRI="Event"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="MovementEvent"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="hasMovementType"/>
+            <Class IRI="MovementType"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="MovementType"/>
+        <Class IRI="Concept"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="OO-Classes"/>
+        <Class IRI="ObjectOrientation"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="OO-Classes"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="relatesTo"/>
+            <Class IRI="C++"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="OO-Classes"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="relatesTo"/>
+            <Class IRI="Java"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="OO-Classes"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="relatesTo"/>
+            <Class IRI="Python"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="OO-Inheritance"/>
+        <Class IRI="ObjectOrientation"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="OO-Inheritance"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="relatesTo"/>
+            <Class IRI="C++"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="OO-Inheritance"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="relatesTo"/>
+            <Class IRI="Java"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="OO-Inheritance"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="relatesTo"/>
+            <Class IRI="Python"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="OO-Interfaces"/>
+        <Class IRI="ObjectOrientation"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="OO-Interfaces"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="relatesTo"/>
+            <Class IRI="C++"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="OO-Interfaces"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="relatesTo"/>
+            <Class IRI="Java"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="OO-Pointers"/>
+        <Class IRI="ObjectOrientation"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="OO-Pointers"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="relatesTo"/>
+            <Class IRI="C++"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="ObjectOrientation"/>
+        <Class IRI="LearningObject"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="ObjectOrientation"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="relatesTo"/>
+            <Class IRI="ProgrammingLanguage"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="PDF"/>
+        <Class IRI="MediaType"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="Pedro"/>
+        <Class IRI="Entity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="ProgrammingLanguage"/>
+        <Class IRI="LearningObject"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="Python"/>
+        <Class IRI="ProgrammingLanguage"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="RequestedLOEvent"/>
+        <Class IRI="LearningEvent"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="Resource"/>
+        <Class abbreviatedIRI="owl:Thing"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="TXT"/>
+        <Class IRI="MediaType"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="TrainStation"/>
+        <Class IRI="Location"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="iPhone"/>
+        <Class IRI="Device"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="iPhone"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="hasMediaTypeAvailable"/>
+            <Class IRI="PDF"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="iPhone"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="hasMediaTypeAvailable"/>
+            <Class IRI="TXT"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <DisjointClasses>
+        <Class IRI="Andre"/>
+        <Class IRI="Maria"/>
+        <Class IRI="Pedro"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="Classroom"/>
+        <Class IRI="Laboratory"/>
+        <Class IRI="TrainStation"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="Concept"/>
+        <Class IRI="Entity"/>
+        <Class IRI="Event"/>
+        <Class IRI="Location"/>
+        <Class IRI="Resource"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="Desktop"/>
+        <Class IRI="iPhone"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="Device"/>
+        <Class IRI="LearningObject"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="Flash"/>
+        <Class IRI="PDF"/>
+        <Class IRI="TXT"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="OO-Classes"/>
+        <Class IRI="OO-Inheritance"/>
+        <Class IRI="OO-Interfaces"/>
+    </DisjointClasses>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 3.3.1957) http://owlapi.sourceforge.net -->
+
