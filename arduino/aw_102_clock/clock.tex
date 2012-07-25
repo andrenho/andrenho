@@ -1,0 +1,55 @@
+% configurações
+\documentclass{article}
+
+% português
+%\usepackage[utf8]{inputenc}
+%\usepackage[portuges,brazilian]{babel}
+%\usepackage[T1]{fontenc}
+
+% pacotes
+%\usepackage{tikz}
+%\usepackage[siunitx]{circuitikz}
+\usepackage{pst-circ}
+%\usepackage{amssymb,amsmath}
+%\usepackage{hyperref}
+
+% símbolos
+\newcommand{\ohm}{\Omega}
+\newcommand{\milli}{\mu}
+
+\title{Clock}
+
+\begin{document}
+
+%\maketitle
+
+\begin{pspicture}[showgrid=true](10,10)
+  \pnode(1,10){A}
+  \pnode(2,10){B}
+  \pnode(6,10){C}
+  \pnode(8,10){D}
+  \pnode(2,8){E}
+  \wire[arrows=o-*](A)(B)
+  \wire[arrows=*-*](B)(C)
+  \wire[arrows=*-*](C)(D)
+  \resistor[dipolestyle=zigzag](B)(E){$R1$}
+
+\begin{pspicture}
+  \logicic[nicpins=8,bubblesize=0.1,%
+    pintl=true,pintllabel=tl,pintlnumber=1,%
+    pintc=true,pintclabel=tc,pintcnumber=2,%
+    pintr=true,pintrlabel=tr,pintrnumber=3,%
+    invertpintl=true,invertpintc=true,invertpintr=true,%
+    pinbl=true,pinbllabel=bl,pinblnumber=1,%
+    pinbc=true,pinbclabel=bc,pinbcnumber=2,%
+    pinbr=true,pinbrlabel=br,pinbrnumber=3,%
+    invertpinbl=true,invertpinbc=true,invertpinbr=true,%
+    pinalabel=a,pinblabel=b,pinclabel=c,pindlabel=d,%
+    pinelabel=e,pinflabel=f,pinglabel=g,pinhlabel=h,%
+    pinanumber=1,pinbnumber=2,pincnumber=3,pindnumber=4,%
+    pinenumber=5,pinfnumber=6,pingnumber=7,pinhnumber=8](3,7){Name}
+\end{pspicture}
+
+\end{pspicture}
+
+\end{document}
