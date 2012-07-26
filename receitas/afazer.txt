@@ -20,8 +20,6 @@ ACOMPANHAMENTOS
 
 ENSOPADOS
 
- - Cassarola de vagens
-     <http://www.macheesmo.com/2010/11/green-bean-casserole-from-scratch/>
  - Caldo de carne
      <http://www.macheesmo.com/2012/06/roasted-beef-stock/>
 
@@ -58,6 +56,10 @@ SOBREMESAS/DOCES
      <http://www.macheesmo.com/2012/07/date-cinnamon-rolls/>
  - Shortbread
      <http://www.joepastry.com/category/miscellaneous-desserts-and-cookies/shortbread/>
+ - Torta de pêssego
+     <http://smittenkitchen.com/2012/07/peach-pie/>
+ - Torta de xarope de Revani
+     <http://www.kalofagas.ca/2012/07/24/revani-syrup-cake/>
 
 BEBIDAS
 
