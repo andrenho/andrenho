@@ -42,6 +42,8 @@ PRATOS PRINCIPAIS
      <file:salmao.txt>
  - Sardinhas assadas
      <http://www.youtube.com/watch?v=aWB3Es7Xn2k>
+ - Tofu com pimenta do reino
+     <http://www.macheesmo.com/2012/07/black-pepper-tofu/>
  - Vindaloo 
      <livro:Revolução na Cozinha - Jamie Oliver>
 
