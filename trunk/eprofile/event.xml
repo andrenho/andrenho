@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<event>
+    <Declaration>
+        <Class IRI="FinishedLOEvent1"/>
+    </Declaration>
+    <SubClassOf>
+        <Class IRI="FinishedLOEvent1"/>
+        <Class IRI="http://www.eprofile.com/things/FinishedLOEvent"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="FinishedLOEvent1"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="http://www.eprofile.com/things/hasDevice"/>
+            <Class IRI="http://www.eprofile.com/things/Desktop"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="FinishedLOEvent1"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="http://www.eprofile.com/things/hasEntity"/>
+            <Class IRI="http://www.eprofile.com/things/Andre"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="FinishedLOEvent1"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="http://www.eprofile.com/things/hasLearningObject"/>
+            <Class IRI="http://www.eprofile.com/things/OO-Classes"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="FinishedLOEvent1"/>
+        <DataHasValue>
+            <DataProperty IRI="http://www.eprofile.com/things/hasDateTime"/>
+            <Literal datatypeIRI="&rdf;PlainLiteral">2012-07-08T10:30:00</Literal>
+        </DataHasValue>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="FinishedLOEvent1"/>
+        <DataHasValue>
+            <DataProperty IRI="http://www.eprofile.com/things/isFirstTime"/>
+            <Literal datatypeIRI="&xsd;boolean">true</Literal>
+        </DataHasValue>
+    </SubClassOf>
+</event>
