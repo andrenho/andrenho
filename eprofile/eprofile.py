@@ -12,8 +12,10 @@ class Application:
     def sendContext(self, context):
         self.profileManager.updateContextInfo(self, context)
 
-    def sendRules(self, rules):
-        self.profileManager.updateRules(self, rules)
+    def sendRules(self, inf_rules, ruleset):
+        self.profileManager.updateInferenceRules(self, inf_rules)
+        for rule in ruleset:
+            self.profileManager.addRule(self, rule)
         
 
 #################################################################
@@ -31,7 +33,11 @@ class StudentApp(Application):
         f = open('rules.xml')
         rules = f.read()
         f.close()
-        Application.sendRules(self, rules)
+        def javaProficience(classes):
+            return classes.count_subclasses('AndreJavaLessons') == classes.count_subclasses('JavaRequirement')
+        Application.sendRules(self, rules, [
+            ('JavaProficience', bool, javaProficience),
+        ])
 
     def registerRandomEvent(self):
         f = open('event.xml')
@@ -63,28 +69,39 @@ class TrailManager:
 
 #################################################################
 
+class Class:
+    pass
+
 class Eprofile:
 
     def __init__(self):
         self.apps = set()
         self.contextInfo = {}
         self.events = {}
+        self.inference = {}
         self.rules = {}
+        self.classes = {}
 
     def registerApp(self, app):
         logging.info('Application ' + app.name + ' registered.')
         self.apps.add(app)
         self.contextInfo[app] = None
-        self.rules[app] = None
+        self.inference[app] = None
         self.events[app] = []
+        self.rules[app] = []
+        self.classes[app] = []
 
     def updateContextInfo(self, app, context):
         logging.info('Context information for app ' + app.name + ' updated.')
         self.contextInfo[app] = context
 
-    def updateRules(self, app, rules):
-        logging.info('Rules for app ' + app.name + ' updated.')
-        self.rules[app] = rules
+    def updateInferenceRules(self, app, rules):
+        logging.info('Inference rules for app ' + app.name + ' updated.')
+        self.inference[app] = rules
+
+    def addRule(self, app, rule):
+        self.rules[app].append(rule)
+        logging.info('New rule for app ' + app.name + ', field ' + rule[0] + '.')
 
     def retrieveEvents(self):
         n = 0
@@ -104,7 +121,7 @@ class Eprofile:
             for event in self.events[app]:
                 eventTrees.append(etree.fromstring(event))
             # insert reasoning
-            rulesTree = etree.fromstring(self.rules[app])
+            rulesTree = etree.fromstring(self.inference[app])
             # merge all information
             for eventTree in eventTrees:
                 for evt_el in eventTree.getchildren():
@@ -116,6 +133,18 @@ class Eprofile:
             f.write(etree.tostring(contextTree))
             f.close()
             os.system('./reason')
+
+    def updateProfiles(self):
+        f = open('temp.txt', 'r')
+        for line in f:
+            if len(line.strip()) == 0:
+                continue
+            init_spaces = 0
+            while line[init_spaces:(init_spaces+1)] == ' ':
+                init_spaces += 1
+            level = (init_spaces - 1) / 3
+            print(line + str(level))
+        f.close()
             
 #################################################################
 
@@ -139,8 +168,7 @@ if __name__ == '__main__':
     #for _ in range(50):
     app.registerRandomEvent()
 
-    # eProfile retrieve events from trail managers
+    # eProfile do its thing
     eprofile.retrieveEvents()
-    
-    # eprofile
     eprofile.reason()
+    eprofile.updateProfiles()
