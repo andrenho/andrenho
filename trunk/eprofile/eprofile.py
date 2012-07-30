@@ -1,3 +1,5 @@
+import xml.etree.ElementTree as etree
+
 import logging
 logging.basicConfig(level=logging.INFO)
 
@@ -93,12 +95,26 @@ class Eprofile:
         logging.info(str(n) + ' new event(s) retrieved from the trail managers.')
 
     def reason(self):
-        # open up context information
-        # insert events
-        # insert reasoning
-        # call reasoner
-        
-
+        for app in self.apps:
+            # open up context information
+            contextTree = etree.fromstring(self.contextInfo[app])
+            # insert events
+            eventTrees = []
+            for event in self.events[app]:
+                eventTrees.append(etree.fromstring(event))
+            # insert reasoning
+            rulesTree = etree.fromstring(self.rules[app])
+            # merge all information
+            for eventTree in eventTrees:
+                for evt_el in eventTree.getchildren():
+                    contextTree.append(evt_el)
+            for rule_el in rulesTree:
+                contextTree.append(rule_el)                
+            # call reasoner
+            f = open('temp.owl', 'wb')
+            f.write(etree.tostring(contextTree))
+            f.close()
+            
 #################################################################
 
 if __name__ == '__main__':
