@@ -1,3 +1,4 @@
+import os
 import xml.etree.ElementTree as etree
 
 import logging
@@ -114,6 +115,7 @@ class Eprofile:
             f = open('temp.owl', 'wb')
             f.write(etree.tostring(contextTree))
             f.close()
+            os.system('./reason')
             
 #################################################################
 
