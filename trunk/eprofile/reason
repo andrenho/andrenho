@@ -1,0 +1,4 @@
+#!/bin/sh
+
+cd pellet-2.3.0
+./pellet.sh classify ../temp.owl > ../temp.txt
