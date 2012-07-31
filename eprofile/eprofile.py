@@ -34,7 +34,7 @@ class StudentApp(Application):
         rules = f.read()
         f.close()
         def javaProficience(classes):
-            return classes.count_subclasses('AndreJavaLessons') == classes.count_subclasses('JavaRequirement')
+            return classes.countSubclasses('AndreJavaLessons') == classes.countSubclasses('JavaRequirement')
         Application.sendRules(self, rules, [
             ('JavaProficience', bool, javaProficience),
         ])
@@ -70,37 +70,50 @@ class TrailManager:
 #################################################################
 
 class Class:
-    pass
+    
+    def __init__(self, name):
+        self.name = name
+        self.children = []
+
+    def countSubclasses(self, name):
+        def countSubclasses2(c, name):
+            if c.name == name:
+                return len(c.children)
+            else:
+                return sum([countSubclasses2(m, name) for m in c.children])
+        return countSubclasses2(self, name)
+
+class EprofileAppInfo:
+    def __init__(self):
+        self.contextInfo = None
+        self.inference = None
+        self.events = []
+        self.rules = []
+        self.rootClass = None
+        self.profile = {}
+
 
 class Eprofile:
 
     def __init__(self):
         self.apps = set()
-        self.contextInfo = {}
-        self.events = {}
-        self.inference = {}
-        self.rules = {}
-        self.classes = {}
+        self.appInfo = {}
 
     def registerApp(self, app):
         logging.info('Application ' + app.name + ' registered.')
         self.apps.add(app)
-        self.contextInfo[app] = None
-        self.inference[app] = None
-        self.events[app] = []
-        self.rules[app] = []
-        self.classes[app] = []
+        self.appInfo[app] = EprofileAppInfo()
 
     def updateContextInfo(self, app, context):
         logging.info('Context information for app ' + app.name + ' updated.')
-        self.contextInfo[app] = context
+        self.appInfo[app].contextInfo = context
 
     def updateInferenceRules(self, app, rules):
         logging.info('Inference rules for app ' + app.name + ' updated.')
-        self.inference[app] = rules
+        self.appInfo[app].inference = rules
 
     def addRule(self, app, rule):
-        self.rules[app].append(rule)
+        self.appInfo[app].rules.append(rule)
         logging.info('New rule for app ' + app.name + ', field ' + rule[0] + '.')
 
     def retrieveEvents(self):
@@ -108,20 +121,20 @@ class Eprofile:
         trail_managers = set([app.trailManager for app in self.apps])
         for tm in trail_managers:
             for event in tm.sendEvents():
-                self.events[event.app].append(event.event)
+                self.appInfo[event.app].events.append(event.event)
                 n += 1
         logging.info(str(n) + ' new event(s) retrieved from the trail managers.')
 
     def reason(self):
         for app in self.apps:
             # open up context information
-            contextTree = etree.fromstring(self.contextInfo[app])
+            contextTree = etree.fromstring(self.appInfo[app].contextInfo)
             # insert events
             eventTrees = []
-            for event in self.events[app]:
+            for event in self.appInfo[app].events:
                 eventTrees.append(etree.fromstring(event))
             # insert reasoning
-            rulesTree = etree.fromstring(self.inference[app])
+            rulesTree = etree.fromstring(self.appInfo[app].inference)
             # merge all information
             for eventTree in eventTrees:
                 for evt_el in eventTree.getchildren():
@@ -133,18 +146,51 @@ class Eprofile:
             f.write(etree.tostring(contextTree))
             f.close()
             os.system('./reason')
+            self.appInfo[app].rootClass = self.interpretPelletOutput()
 
-    def updateProfiles(self):
+    def interpretPelletOutput(self):
         f = open('temp.txt', 'r')
+        class_stack = []
+        class_level = -1
+        root = None
         for line in f:
             if len(line.strip()) == 0:
                 continue
             init_spaces = 0
             while line[init_spaces:(init_spaces+1)] == ' ':
                 init_spaces += 1
-            level = (init_spaces - 1) / 3
-            print(line + str(level))
+            level = int((init_spaces - 1) / 3)
+            name = line[(line.find(':')+1):len(line)-1]
+
+            c = Class(name)
+            if not root:
+                root = c
+            if level > class_level:
+                if len(class_stack) > 0:
+                    class_stack[-1].children.append(c)
+                class_stack.append(c)
+            else:
+                for _ in range(class_level - level + 1):
+                    class_stack.pop()
+                if len(class_stack) > 0:
+                    class_stack[-1].children.append(c)
+                class_stack.append(c)
+            class_level = level            
         f.close()
+        """
+        def print_class(c, l=0):
+            print((' ' * l * 2) + c.name)
+            for ch in c.children:
+                print_class(ch, l+1)
+        print_class(root)
+        """
+        return root
+
+
+    def updateProfiles(self):
+        for app in self.apps:
+            for fieldName, _type, fct in self.appInfo[app].rules:
+                self.appInfo[app].profile[fieldName] = fct(self.appInfo[app].rootClass)
             
 #################################################################
 
@@ -172,3 +218,4 @@ if __name__ == '__main__':
     eprofile.retrieveEvents()
     eprofile.reason()
     eprofile.updateProfiles()
+    print(eprofile.appInfo[app].profile)
