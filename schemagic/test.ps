@@ -1,0 +1,50 @@
+%!PS
+
+%
+% components
+%
+/wire { % size
+   newpath
+   0 0 moveto
+   -10 mul 0
+   exch
+   2 copy % return values
+   rlineto
+   stroke
+} def
+
+
+/battery { % cells
+   newpath
+   0  0 moveto
+   0 -14 rlineto 
+   0  3 rmoveto
+   dup {
+      0 -3 rmoveto
+    -10  0 rlineto % top (big) bar
+     20  0 rlineto
+    -10 -3 rmoveto
+     -4  0 rlineto % bottom (small) bar
+      8  0 rlineto
+     -4  0 rmoveto
+   } repeat
+   0 -17 rlineto
+   2 sub 0 exch 6 mul % (2 - cells) * 6
+   rlineto
+   stroke
+   0 -40 % return values
+} def
+
+% 
+% initialize
+%
+0 0 moveto
+60 800 translate
+
+% 
+% tests
+%
+2 (9V) battery translate
+
+
+showpage
