@@ -10,6 +10,9 @@ const int DIGIT_V_START = 4;   // first of the digits supply
 const int TIMER_1 = 12;        // timer selector
 const int TIMER_2 = 13;
 
+const int TIME_UP = 10;
+const int TIME_DOWN = 11;
+
 //
 // Timer selector
 //
@@ -33,12 +36,6 @@ void time_fmt(int timer, int& h, int& m, int& s)
 }
 
 
-// check if the button was pressed
-void checkSelector()
-{
-  // TODO
-}
-
 // check if the silence button was pressed
 bool checkSilence(int a)
 {
@@ -49,6 +46,26 @@ bool checkSilence(int a)
   }
   else
     return false;
+}
+
+// check if a button was pressed
+void checkButtons()
+{
+  int change = 0;
+  if(digitalRead(TIME_UP))
+    change = 1;
+  else if(digitalRead(TIME_UP))
+    change = -1;
+
+  if(change)
+  {
+    int tmr = selectedTimer();
+    timer[tmr] += change;
+    if(timer[tmr] < 0)
+      timer[tmr] = 0;
+    if(timer[tmr] >= 36000)
+      timer[tmr] = 35999;
+  }
 }
 
 // run the timer (decrease) for one second
@@ -80,8 +97,11 @@ void playAlarm()
   int time = 500 / ((a+1) * 2);
   for(int i=0; i<(a+1); i++)
   {
+    int tm = (time * 2) + millis();
     tone(SPEAKER, NOTE_A4, time);
-    delay(time * 2); // half time playing, half time silent
+    while(tm > millis())
+      displayNumbers();
+    //delay(time * 2); // half time playing, half time silent
     if(checkSilence(a))
       return;
   }
@@ -90,7 +110,10 @@ void playAlarm()
   {
     if(checkSilence(a))
       return;
-    delay(100);
+    //delay(100);
+    int tm = (time * 2) + millis();
+    while(tm > millis())
+      displayNumbers();
   }
 }
 
@@ -103,18 +126,23 @@ bool isAlarmed()
   return false;
 }
 
+// return the selected timer
+int selectedTimer()
+{
+  if(digitalRead(TIMER_1))
+    return 0;
+  else if(digitalRead(TIMER_2))
+    return 1;
+  else
+    return 2;
+}
+
 // show all the numbers in the display
 void displayNumbers()
 {
-  int tmr;
-  if(digitalRead(TIMER_1))
-    tmr = 0;
-  else if(digitalRead(TIMER_2))
-    tmr = 1;
-  else
-    tmr = 2;
   int h, m, s;
   int n[5];
+  int tmr = selectedTimer();
   
   time_fmt(timer[tmr], h, m, s);
   n[0] = s % 10;
@@ -145,9 +173,8 @@ void loop()
     playAlarm();
   else
   {
-    checkSelector();
     displayNumbers();
-    delay(1);
+    checkButtons();
   }
 }
 
@@ -167,9 +194,10 @@ void setup()
   pinMode(SILENCE, INPUT);
   pinMode(TIMER_1, INPUT);
   pinMode(TIMER_2, INPUT);
+  pinMode(TIME_UP, INPUT);
+  pinMode(TIME_DOWN, INPUT);
   
   // initialize timers
   for(int i=0; i<N_TIMERS; i++)
     timer[i] = 0;
-  timer[0] = 5;
 }
