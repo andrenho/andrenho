@@ -95,14 +95,14 @@ void playAlarm()
     }
   if(a == -1)
     return;
-  
+    
   // play
   int time = 500 / ((a+1) * 2);
   for(int i=0; i<(a+1); i++)
   {
-    int tm = (time * 2) + millis();
+    unsigned long tm = (time * 2) + millis();
     tone(SPEAKER, NOTE_A4, time);
-    while(tm > millis())
+    while(millis() < tm)
       displayNumbers();
     //delay(time * 2); // half time playing, half time silent
     if(checkSilence(a))
