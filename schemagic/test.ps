@@ -1,9 +1,47 @@
 %!PS
 
 %
+% initialization
+%
+/initfont {
+   /New-Century-Schoolbook findfont
+   9 scalefont
+   setfont
+} def
+
+/init-schemagic {
+   initfont
+   0 0 moveto
+   2 setlinecap
+   2 setlinejoin
+   70 780 translate
+} def
+
+/t { translate } def
+
+%
+% drawing
+%
+/grid { % w h grid
+   /h exch def
+   10 mul /w exch def
+   gsave
+      newpath
+      -40 40 moveto
+      [0.3 9.7] 0 setdash
+      0.5 setlinewidth
+      h {
+         w 0 rlineto
+         0 w sub -10 rmoveto
+      } repeat
+      stroke
+   grestore
+} def
+
+%
 % components
 %
-/wire { % size
+/wire { % size wire
    newpath
    0 0 moveto
    -10 mul 0
@@ -14,37 +52,90 @@
 } def
 
 
-/battery { % cells
-   newpath
-   0  0 moveto
-   0 -14 rlineto 
-   0  3 rmoveto
-   dup {
-      0 -3 rmoveto
-    -10  0 rlineto % top (big) bar
-     20  0 rlineto
-    -10 -3 rmoveto
-     -4  0 rlineto % bottom (small) bar
-      8  0 rlineto
-     -4  0 rmoveto
-   } repeat
-   0 -17 rlineto
-   2 sub 0 exch 6 mul % (2 - cells) * 6
-   rlineto
-   stroke
+/battery { % cells voltage battery
+   gsave
+      newpath
+      0  0 moveto
+      gsave % text
+        17 -22 moveto
+        show
+      grestore
+      gsave % plus sign
+        4 -9 moveto
+        (+) show
+      grestore
+      0 -14 rlineto % drawing
+      0  4 rmoveto
+      dup {
+         0 -4 rmoveto
+       -10  0 rlineto % top (big) bar
+        20  0 rlineto
+       -10 -4 rmoveto
+        -4  0 rlineto % bottom (small) bar
+         8  0 rlineto
+        -4  0 rmoveto
+      } repeat
+      0 -13 rlineto
+      2 sub 0 exch 8 mul % (2 - cells) * 6
+      rlineto
+      stroke
+   grestore
+   0 -40 rmoveto
    0 -40 % return values
 } def
 
-% 
-% initialize
-%
-0 0 moveto
-60 800 translate
+/resistor { % resistence
+   /resistence exch def
+   gsave % text
+     10 -22 moveto
+     resistence show
+   grestore
+   gsave
+      newpath     % image
+      0 0 moveto
+      0 -8 rlineto
+      4 -2 rlineto
+      2 {
+         -8 -4 rlineto
+          8 -4 rlineto
+      } repeat
+      -8 -4 rlineto
+      4 -2 rlineto
+      0 -7 rlineto
+      stroke
+   grestore
+   0 -40 rmoveto
+   0 -40 % return values
+} def
+
+/conn {
+   newpath 0 0 moveto 
+   0 0 1.7 0 360 arc closepath fill 
+   stroke
+   0 0
+} def
+
+/terminal {
+   gsave
+      newpath 0 0 moveto
+      0 0 2.2 0 360 arc closepath
+      1 setgray fill 
+      stroke
+   grestore
+   0 0
+} def
 
 % 
-% tests
+% main document
 %
-2 (9V) battery translate
+init-schemagic
+% 30 30 grid
+
+2 (9V) battery t
+%1 (3.3V) battery t
+(200k) resistor t
+gsave 4 wire t grestore
+terminal t
 
 
 showpage
