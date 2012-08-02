@@ -39,7 +39,7 @@ void time_fmt(int timer, int& h, int& m, int& s)
 // check if the silence button was pressed
 bool checkSilence(int a)
 {
-  if(analogRead(SILENCE) == 1023)
+  if(analogRead(SILENCE) > 500)
   {
     alarm[a] = false;
     return true;
@@ -54,7 +54,7 @@ void checkButtons()
   int change = 0;
   if(digitalRead(TIME_UP))
     change = 1;
-  else if(digitalRead(TIME_UP))
+  else if(digitalRead(TIME_DOWN))
     change = -1;
 
   if(change)
@@ -86,13 +86,16 @@ void oneSecond()
 void playAlarm()
 {
   // find alarm
-  int a = 0;
+  int a = -1;
   for(int i=0; i<N_TIMERS; i++)
     if(alarm[i])
     {
       a = i;
       break;
     }
+  if(a == -1)
+    return;
+  
   // play
   int time = 500 / ((a+1) * 2);
   for(int i=0; i<(a+1); i++)
