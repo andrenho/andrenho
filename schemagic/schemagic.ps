@@ -19,6 +19,13 @@
 
 /t { translate } def
 
+% 
+% helping functions
+%
+/center {
+   moveto dup stringwidth pop -2 div 0 rmoveto show
+} def
+
 %
 % drawing
 %
@@ -42,13 +49,27 @@
 % components
 %
 /wire { % size wire
-   newpath
-   0 0 moveto
-   -10 mul 0
-   exch
-   2 copy % return values
-   rlineto
-   stroke
+   gsave
+      newpath
+      0 0 moveto
+      -10 mul 0
+      exch
+      2 copy % return values
+      rlineto
+      stroke
+   grestore
+} def
+
+
+/nothing { % size nothing
+   gsave
+      newpath 0 0 moveto
+      -10 mul 0
+      exch
+      2 copy % return values
+      rmoveto
+      stroke
+   grestore
 } def
 
 
@@ -84,7 +105,7 @@
    0 -40 % return values
 } def
 
-/resistor { % resistence
+/resistor { % (resistence) resistor
    /resistence exch def
    gsave % text
      10 -22 moveto
@@ -108,19 +129,46 @@
    0 -40 % return values
 } def
 
-/conn {
-   newpath 0 0 moveto 
-   0 0 1.7 0 360 arc closepath fill 
-   stroke
+/conn { % conn
+   gsave
+      newpath 0 0 moveto 
+      0 0 2 0 360 arc closepath fill 
+      stroke
+   grestore
    0 0
 } def
 
-/terminal {
+/icpin {
+   /label exch def
    gsave
       newpath 0 0 moveto
-      0 0 2.2 0 360 arc closepath
-      1 setgray fill 
+      20 0 rlineto
+      0 9 rlineto
       stroke
+   grestore
+   20 0
+} def
+
+/icnopin {
+   gsave
+      newpath 0 0 moveto
+      19 0 rlineto
+      stroke
+   grestore
+   20 0
+} def
+
+/icname {
+   /w exch def
+   /h exch def
+   /label exch def
+   gsave
+      newpath 0 0 moveto
+      /New-Century-Schoolbook findfont
+      13 scalefont setfont
+      w 20 mul 2 div % position x
+      0 rmoveto
+      label 0 0 center
    grestore
    0 0
 } def
@@ -131,11 +179,35 @@
 init-schemagic
 % 30 30 grid
 
-2 (9V) battery t
-%1 (3.3V) battery t
-(200k) resistor t
-gsave 4 wire t grestore
-terminal t
-
+(220) resistor t
+4 wire t
+(4048) 5 2 icname
+(A1) icpin t
+gsave
+   180 rotate
+   1 nothing t 3 wire t
+   90 rotate
+   2 wire t conn t 6 wire t
+   90 rotate
+   8 wire t
+grestore
+(A2) icpin t
+(A3) icpin t
+(A4) icpin t
+icnopin t -90 rotate 
+(B1) icpin t
+(B2) icpin t
+icnopin t -90 rotate 
+(C1) icpin t
+(C2) icpin t
+(C3) icpin t
+(C4) icpin t
+(C5) icpin t
+icnopin t -90 rotate 
+(D1) icpin t
+icnopin t
+icnopin t -90 rotate
+icnopin t
+%() resistor t
 
 showpage
