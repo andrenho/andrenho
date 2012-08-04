@@ -22,6 +22,8 @@ PRATOS PRINCIPAIS
      <livro:Revolução na Cozinha - Jamie Oliver>
  - Feijão com arroz
      <head:>
+ - Frango adobo
+     <http://www.macheesmo.com/2012/02/chicken-adobo/>
  - Frango jamaicano
      <http://www.youtube.com/watch?v=MxPqgNvc5sQ>
  - Massa caseira
@@ -144,6 +146,8 @@ LANCHES
 
  - Bolinho de queijo e lingüiça 
      <http://www.macheesmo.com/2012/03/ham-and-cheese-popovers/>
+ - Bolinhos de jalapeño
+     <http://www.macheesmo.com/2012/08/jalapeno-hush-puppies/>
  - Enroladinhos
      <http://www.youtube.com/watch?v=ccRQSXKg5Qs>
  - Hamburguer
