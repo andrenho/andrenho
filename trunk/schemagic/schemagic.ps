@@ -129,6 +129,23 @@
    0 -40 % return values
 } def
 
+/diode {
+   gsave
+      newpath 0 0 moveto
+      0 -12 rlineto
+      -6 -1 rmoveto
+      12 0 rlineto
+      -6 -12 rlineto
+      -6 12 rlineto
+      0 -12 rmoveto
+      12 0 rlineto
+      -6 -1 rmoveto
+      0 -15 rlineto
+      stroke
+   grestore
+   0 -40 2 copy rmoveto
+} def
+
 /conn { % conn
    gsave
       newpath 0 0 moveto 
@@ -159,16 +176,19 @@
 } def
 
 /icname {
-   /w exch def
    /h exch def
+   /w exch def
    /label exch def
    gsave
       newpath 0 0 moveto
       /New-Century-Schoolbook findfont
       13 scalefont setfont
-      w 20 mul 2 div % position x
-      0 rmoveto
-      label 0 0 center
+      label stringwidth pop -2 div %  (stringwidth/-2)
+      w 10 mul 10 sub add          % +       (w*10)-10
+      /w exch def              % position rx
+      /h h -20 mul 4 add def  % position ry
+      w h rmoveto
+      label show
    grestore
    0 0
 } def
@@ -176,38 +196,38 @@
 % 
 % main document
 %
-init-schemagic
+%init-schemagic
 % 30 30 grid
 
-(220) resistor t
-4 wire t
-(4048) 5 2 icname
-(A1) icpin t
-gsave
-   180 rotate
-   1 nothing t 3 wire t
-   90 rotate
-   2 wire t conn t 6 wire t
-   90 rotate
-   8 wire t
-grestore
-(A2) icpin t
-(A3) icpin t
-(A4) icpin t
-icnopin t -90 rotate 
-(B1) icpin t
-(B2) icpin t
-icnopin t -90 rotate 
-(C1) icpin t
-(C2) icpin t
-(C3) icpin t
-(C4) icpin t
-(C5) icpin t
-icnopin t -90 rotate 
-(D1) icpin t
-icnopin t
-icnopin t -90 rotate
-icnopin t
+%(220) resistor t
+%4 wire t
+%(4048) 5 2 icname
+%(A1) icpin t
+%gsave
+%   180 rotate
+%   1 nothing t 3 wire t
+%   90 rotate
+%   2 wire t conn t 6 wire t
+%   90 rotate
+%   8 wire t
+%grestore
+%(A2) icpin t
+%(A3) icpin t
+%(A4) icpin t
+%icnopin t -90 rotate 
+%(B1) icpin t
+%(B2) icpin t
+%icnopin t -90 rotate 
+%(C1) icpin t
+%(C2) icpin t
+%(C3) icpin t
+%(C4) icpin t
+%(C5) icpin t
+%icnopin t -90 rotate 
+%(D1) icpin t
+%icnopin t
+%icnopin t -90 rotate
+%icnopin t
 %() resistor t
 
-showpage
+%showpage
