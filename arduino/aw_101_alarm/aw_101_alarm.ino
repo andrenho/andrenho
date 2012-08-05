@@ -53,9 +53,9 @@ void checkButtons()
 {
   int change = 0;
   if(digitalRead(TIME_UP))
-    change = 1;
+    change = 5;
   else if(digitalRead(TIME_DOWN))
-    change = -1;
+    change = -5;
 
   if(change)
   {
@@ -114,7 +114,7 @@ void playAlarm()
     if(checkSilence(a))
       return;
     //delay(100);
-    int tm = (time * 2) + millis();
+    unsigned long tm = (time * 2) + millis();
     while(tm > millis())
       displayNumbers();
   }
@@ -133,11 +133,11 @@ bool isAlarmed()
 int selectedTimer()
 {
   if(digitalRead(TIMER_1))
-    return 0;
-  else if(digitalRead(TIMER_2))
     return 1;
-  else
+  else if(digitalRead(TIMER_2))
     return 2;
+  else
+    return 0;
 }
 
 // show all the numbers in the display
@@ -172,6 +172,7 @@ void loop()
     next_sec = millis() + 1000;
     oneSecond();
   }
+  displayNumbers();
   if(isAlarmed())
     playAlarm();
   else
