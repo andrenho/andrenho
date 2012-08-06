@@ -14,7 +14,8 @@
    0 0 moveto
    2 setlinecap
    2 setlinejoin
-   70 780 translate
+   70 700 translate
+   %180 rotate
 } def
 
 /t { translate } def
@@ -22,8 +23,24 @@
 % 
 % helping functions
 %
-/center {
-   moveto dup stringwidth pop -2 div 0 rmoveto show
+/rotvalue 0 def
+/rot {
+  dup rotvalue add
+  /rotvalue exch store
+  rotate
+} def
+
+/straighten {
+  360 rotvalue sub rotate
+} def
+
+/show-straight {
+   gsave
+      straighten
+      dup stringwidth pop -2 div
+      0 rmoveto
+      show
+   grestore
 } def
 
 %
@@ -78,23 +95,24 @@
       newpath
       0  0 moveto
       gsave % text
-        17 -22 moveto
-        show
+        20 -22 moveto
+        show-straight
       grestore
       gsave % plus sign
-        4 -9 moveto
+        dup -8 mul -19 add
+        -9 exch moveto
         (+) show
       grestore
       0 -14 rlineto % drawing
       0  4 rmoveto
       dup {
          0 -4 rmoveto
-       -10  0 rlineto % top (big) bar
-        20  0 rlineto
-       -10 -4 rmoveto
-        -4  0 rlineto % bottom (small) bar
+        -4  0 rlineto % top (big) bar
          8  0 rlineto
-        -4  0 rmoveto
+        -4 -4 rmoveto
+       -10  0 rlineto % bottom (small) bar
+        20  0 rlineto
+       -10  0 rmoveto
       } repeat
       0 -13 rlineto
       2 sub 0 exch 8 mul % (2 - cells) * 6
@@ -109,7 +127,7 @@
    /resistence exch def
    gsave % text
      10 -22 moveto
-     resistence show
+     resistence show-straight
    grestore
    gsave
       newpath     % image
@@ -129,7 +147,7 @@
    0 -40 % return values
 } def
 
-/diode {
+/diode { % diode
    gsave
       newpath 0 0 moveto
       0 -12 rlineto
@@ -140,8 +158,45 @@
       0 -12 rmoveto
       12 0 rlineto
       -6 -1 rmoveto
-      0 -15 rlineto
+      0 -14 rlineto
       stroke
+   grestore
+   0 -40 2 copy rmoveto
+} def
+
+/capacitor { % capacitance capacitor
+   gsave % text
+      20 -22 moveto
+      show-straight
+   grestore
+   gsave
+      newpath 0 0 moveto
+      0 -17 rlineto
+      -9 0 rmoveto
+      18 0 rlineto
+      0 -5 rmoveto
+      -18 0 rlineto
+      9 0 rmoveto
+      0 -17 rlineto
+      stroke
+   grestore
+   0 -40 2 copy rmoveto
+} def
+
+/spst {
+   gsave % shape
+      newpath 0 0 moveto
+      0 -14 rlineto
+      10 -14 rlineto
+      -10 0 rmoveto
+      0 -14 rlineto
+      stroke
+
+      0 -14 2.5 0 360 arc gsave 1 setgray fill grestore
+      stroke
+      0 -28 2.5 0 360 arc gsave 1 setgray fill grestore
+      stroke
+      
    grestore
    0 -40 2 copy rmoveto
 } def
@@ -155,8 +210,12 @@
    0 0
 } def
 
-/icpin {
-   /label exch def
+/icpin { % name icpin
+   gsave % text
+      0 -9 moveto
+      -90 rotate
+      show-straight
+   grestore
    gsave
       newpath 0 0 moveto
       20 0 rlineto
@@ -166,7 +225,7 @@
    20 0
 } def
 
-/icnopin {
+/icnopin { % icnopin
    gsave
       newpath 0 0 moveto
       19 0 rlineto
@@ -175,7 +234,7 @@
    20 0
 } def
 
-/icname {
+/icname { % label w h icname
    /h exch def
    /w exch def
    /label exch def
@@ -185,12 +244,11 @@
       13 scalefont setfont
       label stringwidth pop -2 div %  (stringwidth/-2)
       w 10 mul 10 sub add          % +       (w*10)-10
-      /w exch def              % position rx
-      /h h -20 mul 4 add def  % position ry
+      /w exch def               % position rx
+      /h h -20 mul 4 add def    % position ry
       w h rmoveto
       label show
    grestore
-   0 0
 } def
 
 % 
@@ -199,7 +257,8 @@
 %init-schemagic
 % 30 30 grid
 
-%(220) resistor t
+%conn t
+%spst t
 %4 wire t
 %(4048) 5 2 icname
 %(A1) icpin t
