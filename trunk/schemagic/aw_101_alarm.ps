@@ -1,9 +1,28 @@
 %!PS
-(schemagic.ps) run
+(C:/andre/projects/andrenho/schemagic/schemagic.ps) run
 init-schemagic
 
-1 (9V) battery t
-diode t
+180 rot
+2 (9V) battery t
+4 wire t
+-90 rot
+4 wire t diode t
 conn t
+-90 rot
+spst t
+conn t
+gsave
+  -90 rot
+  (100mF) capacitor t
+  90 rot
+  4 wire t
+  -90 rot
+  4 wire t conn t
+grestore
+4 wire t
+(IN) icpin t
+(4805) 1 2 icname
+icnopin t -90 rotate
+icnopin
 
 showpage quit
