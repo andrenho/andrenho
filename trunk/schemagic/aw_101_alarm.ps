@@ -7,22 +7,25 @@ init-schemagic
 4 wire t
 -90 rot
 4 wire t diode t
-conn t
+conn
 -90 rot
 spst t
-conn t
+conn
 gsave
   -90 rot
   (100mF) capacitor t
   90 rot
   4 wire t
   -90 rot
-  4 wire t conn t
+  4 wire t conn
 grestore
 4 wire t
-(IN) icpin t
 (4805) 1 2 icname
-icnopin t -90 rotate
-icnopin
+(IN) icpin t
+iccorner t 
+-90 rotate
+icnopin t
+iccorner t
+(GND) icpin t
 
 showpage quit

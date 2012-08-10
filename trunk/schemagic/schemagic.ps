@@ -207,19 +207,17 @@
       0 0 2 0 360 arc closepath fill 
       stroke
    grestore
-   0 0
 } def
 
 /icpin { % name icpin
    gsave % text
-      0 -9 moveto
-      -90 rotate
+      0 -18 moveto
       show-straight
    grestore
    gsave
       newpath 0 0 moveto
-      20 0 rlineto
-      0 9 rlineto
+      0 -20 rlineto
+      19 0 rlineto
       stroke
    grestore
    20 0
@@ -228,10 +226,22 @@
 /icnopin { % icnopin
    gsave
       newpath 0 0 moveto
+      0 -10 rmoveto
       19 0 rlineto
       stroke
    grestore
    20 0
+} def
+
+/iccorner { % icorner
+   gsave
+      newpath 0 0 moveto
+      0 -20 rmoveto
+      10 0 rlineto
+      0 -10 rlineto
+      stroke
+   grestore
+   20 -20
 } def
 
 /icname { % label w h icname
@@ -254,14 +264,20 @@
 % 
 % main document
 %
-%init-schemagic
+init-schemagic
 % 30 30 grid
 
 %conn t
 %spst t
-%4 wire t
-%(4048) 5 2 icname
-%(A1) icpin t
+4 wire t conn
+(4048) 5 2 icname
+(A1) icpin t
+(B1) icpin t
+iccorner t 90 rotate
+%icnopin t
+%(C1) icpin t
+%iccorner t -90 rotate 
+%(D1) icpin t
 %gsave
 %   180 rotate
 %   1 nothing t 3 wire t
