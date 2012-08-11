@@ -114,7 +114,7 @@ void playAlarm()
     if(checkSilence(a))
       return;
     //delay(100);
-    unsigned long tm = millis() + 100;
+    unsigned long tm = (time * 2) + millis();
     while(tm > millis())
       displayNumbers();
   }
