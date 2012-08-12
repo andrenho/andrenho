@@ -33,7 +33,7 @@
     \begin{itemize}
       \item Computadores cada vez menores e mais rápidos
       \item Componentes cada vez mais baratos
-      \item Acesso a redes \item{wireless} cada vez mais disponível
+      \item Acesso a redes {\em wireless} cada vez mais disponível
     \end{itemize}
     \item Serviços computacionais disponíveis a todo momento em qualquer lugar
     \item Tecnologia Calma
@@ -62,7 +62,7 @@
       \item ``Contexto é qualquer informação que possa ser usada para 
       caracterizar a situação de uma entidade. Uma entidade é uma pessoa, 
       local ou objeto que seja considerada relevante para a interação entre 
-      um usuário e uma aplicação, incluíndo os próprios usuário e aplicação.'' (Dey, 2001)
+      um usuário e uma aplicação, incluindo o próprio usuário e aplicação.'' (Dey, 2001)
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -74,7 +74,7 @@
   \begin{itemize}
     \item Contexto é composto apenas pelo momento atual
     \item A capacidade de uma aplicação compreender o contexto de uma entidade pode ser ampliada através da análise dos históricos.
-    \item Uma \textbf{trilha} é o histórico de contextos visitados por uma entidade, e das ações realizadas pela entidade dentro do contexto
+    \item Uma \textbf{trilha} é o histórico de contextos visitados por uma entidade e das ações realizadas pela entidade dentro do contexto
   \end{itemize}
 \end{frame}
     
@@ -83,10 +83,10 @@
 \begin{frame}
   \frametitle{Perfis}
     \begin{itemize}
-      \item \textbf{Perfis} são essenciais na descoberta de informações pertinentes aos usuários que possam ser utilizadas na construção de um contexto.
-      \item Um \textbf{perfil de usuário} é o conjunto de dados no qual uma aplicação armazena seu conhecimento a respeito de um usuário. 
-      \item Os perfis de usuário são salvos em um formato chamado \textbf{modelo de usuário}.
       \item Este trabalho usa o conceito de \textbf{entidade} ao invés de usuário.
+      \item \textbf{Perfis} são essenciais na descoberta de informações pertinentes às entidades que possam ser utilizadas na construção de um contexto.
+      \item Um \textbf{perfil de entidade} é o conjunto de dados no qual uma aplicação armazena seu conhecimento a respeito de uma entidade. 
+      \item Os perfis de entidade são salvos em um formato chamado \textbf{modelo de entidade}.
     \end{itemize}
 \end{frame}
     
@@ -283,7 +283,7 @@ As setas representam o fluxo dos dados.
       \item Campo de perfil
       \item Regra
       \item Atualização (sobrescrito/fórmula)
-      \item Freqüência de atualização
+      \item Frequência de atualização
       \item Validade
     \end{itemize}
   \end{itemize}
@@ -335,14 +335,56 @@ As setas representam o fluxo dos dados.
       \item {\bf Cenário:} criação e implementação de dois cenários.
     \end{itemize}
   \end{itemize}
-  \begin{itemize}
-    \item Cenários:
-    \begin{enumerate}
-      \item Educação ubíqua: geração de perfis de estudantes através da avaliação de trilhas (simples);
-      \item Confiança: cálculo de confiança de entidades baseado na análise de transações comerciais.
-    \end{enumerate}
-  \end{itemize}
 
+	\begin{itemize}
+		\item Os cenários irão demonstrar:
+		\begin{itemize}
+			\item Mútliplos aplicativos usando perfis únicos
+			\item Múltiplas entidades referenciando uma a outra
+			\item Mútliplos domínios
+		\end{itemize}
+	\end{itemize}
+
+\end{frame}
+
+%%%%%
+
+\begin{frame}
+	\frametitle{Cenário 1 - Educação Ubíqua}
+
+	\begin{itemize}
+		\item Aplicativo 1: gerenciador educacional
+		\begin{itemize}
+			\item Ambiente de educação ubíqua em um curso universitário
+			\item Gerenciador de trilhas registra atividades dos estudantes
+			\item Perfil inferido contendo interesses e conhecimentos
+		\end{itemize}
+		\item Aplicativo 2: empresarial
+		\begin{itemize}
+			\item Utiliza um perfil de empresa
+			\item Seleciona possíveis candidatos baseados em seus conhecimentos
+		\end{itemize}
+		\item Cenário parcialmente implementado
+	\end{itemize}
+\end{frame}
+
+%%%%%
+
+\begin{frame}
+	\frametitle{Cenário 2 - Confiança em Comércio Ubíquo}
+	\begin{itemize}
+		\item Leilão virtual
+		\item Milhares de agentes comprando e vendendo itens
+		\begin{itemize}
+			\item Alguns honestos e outros desonestos
+		\end{itemize}
+		\item Agentes formam opiniões uns sobre os outros (perfil)
+		\item Opiniões são expandidas por recomendação
+		\begin{itemize}
+			\item (agente A questiona agente B sobre agente C)
+		\end{itemize}
+		\item Objetivo: isolar agentes desonestos
+	\end{itemize}
 \end{frame}
 
 %%%%%
