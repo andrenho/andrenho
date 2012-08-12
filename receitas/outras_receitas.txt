@@ -1,5 +1,7 @@
 PRATOS PRINCIPAIS
 
+ - Adobo de galinha
+     <http://www.macheesmo.com/2012/02/chicken-adobo/>
  - Alho-poró assado cremoso 
      <livro:Revolução na Cozinha - Jamie Oliver>
  - Arroz carreteiro
@@ -30,8 +32,6 @@ PRATOS PRINCIPAIS
      <file:massa_caseira.txt>
  - Massa com camembert assado 
      <livro:Revolução na Cozinha - Jamie Oliver>
- - Molho à bolonhesa 
-     <livro:Revolução na Cozinha - Jamie Oliver>
  - Moranga recheada
      <file:moranga_recheada.txt>
  - Peito de frango com parmesão e presunto crocante 
@@ -44,6 +44,8 @@ PRATOS PRINCIPAIS
      <file:salmao.txt>
  - Sardinhas assadas
      <http://www.youtube.com/watch?v=aWB3Es7Xn2k>
+ - Taco batatas/bacon
+     <http://www.macheesmo.com/2011/04/breakfast-tacos/>
  - Tofu com pimenta do reino
      <http://www.macheesmo.com/2012/07/black-pepper-tofu/>
  - Vindaloo 
@@ -184,6 +186,8 @@ MOLHOS
      <http://www.macheesmo.com/2008/11/holy-guacamole/>
  - Humus com pimentão assado
      <http://www.macheesmo.com/2010/03/hummus-two-ways/>
+ - Molho à bolonhesa 
+     <livro:Revolução na Cozinha - Jamie Oliver>
  - Molho de alho
      <http://www.macheesmo.com/2012/05/a-grill-disaster-plus-a-salad/>
  - Molho de sardinha e ovo
