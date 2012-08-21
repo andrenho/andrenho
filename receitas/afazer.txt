@@ -29,8 +29,8 @@ SALADAS
      <http://www.simplesmentedelicia.com/?p=2345>
  - Salada provençal
      <http://www.simplyrecipes.com/recipes/provencal_potato_salad/>
- - Salada verde com ovos
-     <http://www.macheesmo.com/2008/12/warmed-greens-with-poached-egg/>
+ - Salada caprese com frango
+     <http://www.macheesmo.com/2012/08/chicken-caprese-salad/>
 
 SOBREMESAS/DOCES
 
@@ -38,6 +38,8 @@ SOBREMESAS/DOCES
      <http://www.macheesmo.com/2010/12/alfajores/>
  - Beignet
      <http://www.macheesmo.com/2009/01/can-you-say-beignet/>
+ - Bolo de abacate
+     <http://www.macheesmo.com/2012/08/avocado-pound-cake/>
  - Cheesecake de limão individual
      <http://www.mybakingaddiction.com/lemon-cheesecake-in-a-jar/>
  - Cheesecake estilo New York
@@ -86,10 +88,16 @@ PÃES
 
 LANCHES
 
+ - Batatas fritas temperadas
+     <http://www.macheesmo.com/2012/08/homemade-spicy-chips/>
+ - Bolinhos de abobrinha
+     <http://www.macheesmo.com/2012/08/zucchini-parm-fritters/>
  - Cebola roxa frita
      <http://www.macheesmo.com/2011/07/red-onion-strings/>
  - Gougères
      <http://www.joepastry.com/category/pastry/gougeres/>
+ - Omelete de milho
+     <http://www.macheesmo.com/2012/07/charred-corn-omelets/>
  - Saundiche de baguette
      <http://www.macheesmo.com/2008/11/good-day-sir-crunchy/>
  - Sanduiche de Brie e Pesto
@@ -105,6 +113,8 @@ MOLHOS
      <http://www.macheesmo.com/2011/12/cashew-dip/>
  - Molho de vinagre de estragão
      <http://www.macheesmo.com/2010/01/the-house-dressing/>
+ - Molho de pimenta para bifes
+     <http://smittenkitchen.com/blog/2012/08/charred-pepper-steak-sauce/>
 
 BISCOITOS
 
