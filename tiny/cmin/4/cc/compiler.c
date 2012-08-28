@@ -16,8 +16,12 @@ Function* current_function = NULL;
 
 void initialize()
 {
-	printf("; Code start\n");
-	printf("\n");
+	printf("; Start of code\n\n");
+}
+
+void finalize()
+{
+	printf("; End of code\n");
 }
 
 void function_init(char* name)

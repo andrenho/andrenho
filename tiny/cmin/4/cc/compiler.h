@@ -3,6 +3,7 @@
 
 // Initialize everything
 void initialize();
+void finalize();
 
 // Function declarations
 void function_init(char* name);
