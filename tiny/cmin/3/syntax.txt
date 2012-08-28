@@ -7,7 +7,7 @@ block ::= "{" stats "}"
 stat ::= 
   ["global"] type id [":=" expression]
   "def" id "(" parameters ")" ":" type block
-  id "=" expression
+  assignment
   expression
   "break"
   "goto" id
@@ -16,6 +16,11 @@ stat ::=
   "if" expression block ["elseif" expression block]* ["else" block]
   "for" "(" expression ";" expression ";" assignment ")" block
   "return" expression
+
+assignment ::=
+  id "=" expression
+  expression "=" expression
+  id ["++" | "--"]
 
 type ::= int8 | uint8 | int32 | uint32
 
@@ -35,4 +40,4 @@ exp ::= id | "&" id | constant | id "(" parameters ")"
 
 parameters ::= expression ["," parameters]
 
-constant ::= [-?0-9.0-9]
+constant ::= number | char
