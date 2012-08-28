@@ -13,6 +13,7 @@ IS			(u|U|l|L)*
 void count();
 void comment();
 int check_type();
+unsigned long parse_number(char* s);
 
 %}
 
@@ -54,14 +55,14 @@ int check_type();
 
 {L}({L}|{D})*		{ count(); return(check_type()); }
 
-0[xX]{H}+{IS}?		{ yylval.value = strdup(yytext); count(); return(CONSTANT); }
-0{D}+{IS}?		{ yylval.value = strdup(yytext); count(); return(CONSTANT); }
-{D}+{IS}?		{ yylval.value = strdup(yytext); count(); return(CONSTANT); }
-L?'(\\.|[^\\'])+'	{ yylval.value = strdup(yytext); count(); return(CONSTANT); }
+0[xX]{H}+{IS}?		{ yylval.value = parse_number(yytext); count(); return(CONSTANT); }
+0{D}+{IS}?		{ yylval.value = parse_number(yytext); count(); return(CONSTANT); }
+{D}+{IS}?		{ yylval.value = parse_number(yytext); count(); return(CONSTANT); }
+L?'(\\.|[^\\'])+'	{ yylval.value = parse_number(yytext); count(); return(CONSTANT); }
 
-{D}+{E}{FS}?		{ yylval.value = strdup(yytext); count(); return(CONSTANT); }
-{D}*"."{D}+({E})?{FS}?	{ yylval.value = strdup(yytext); count(); return(CONSTANT); }
-{D}+"."{D}*({E})?{FS}?	{ yylval.value = strdup(yytext); count(); return(CONSTANT); }
+{D}+{E}{FS}?		{ yylval.value = parse_number(yytext); count(); return(CONSTANT); }
+{D}*"."{D}+({E})?{FS}?	{ yylval.value = parse_number(yytext); count(); return(CONSTANT); }
+{D}+"."{D}*({E})?{FS}?	{ yylval.value = parse_number(yytext); count(); return(CONSTANT); }
 
 L?\"(\\.|[^\\"])*\"	{ count(); return(STRING_LITERAL); }
 
@@ -160,6 +161,12 @@ void count()
 }
 
 
+unsigned long parse_number(char* s)
+{
+	return 0.0;
+}
+
+
 int check_type()
 {
 /*
@@ -175,6 +182,6 @@ int check_type()
 *	it actually will only return IDENTIFIER
 */
 
-	yylval.value = strdup(yytext);
+	yylval.name = strdup(yytext);
 	return(IDENTIFIER);
 }

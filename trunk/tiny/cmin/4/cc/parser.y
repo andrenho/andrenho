@@ -1,9 +1,14 @@
 %{
 
+#define YYDEBUG 1
+
 #include <stdlib.h>
+#include "compiler.h"
+#include "type.h"
+#include "error.h"
 
 int yylex();
-void yyerror(char *s);
+//void yyerror(char *s);
 void unsupported(char const* feature);
 extern char yytext[];
 
@@ -24,8 +29,12 @@ extern char yytext[];
 %token CASE DEFAULT IF ELSE SWITCH WHILE DO FOR GOTO CONTINUE BREAK RETURN
 
 %union {
-        char* value;
+	unsigned long value;
+	char* name;
 }
+
+%type<value> CONSTANT
+%type<name> declarator IDENTIFIER
 
 %start translation_unit
 
@@ -33,20 +42,20 @@ extern char yytext[];
 
 primary_expression
 	: IDENTIFIER
-	| CONSTANT
-	| STRING_LITERAL
+	| CONSTANT		{ constant($1); }
+	| STRING_LITERAL	{ unsupported("string literal"); }
 	| '(' expression ')'
 	;
 
 postfix_expression
 	: primary_expression
-	| postfix_expression '[' expression ']'
-	| postfix_expression '(' ')'
-	| postfix_expression '(' argument_expression_list ')'
-	| postfix_expression '.' IDENTIFIER
-	| postfix_expression PTR_OP IDENTIFIER
-	| postfix_expression INC_OP
-	| postfix_expression DEC_OP
+	| postfix_expression '[' expression ']'			{ unsupported("array"); }
+	| postfix_expression '(' ')'				{ unsupported("function-call"); }
+	| postfix_expression '(' argument_expression_list ')'	{ unsupported("function-call (with parameters)"); }
+	| postfix_expression '.' IDENTIFIER			{ unsupported("dotted variable"); }
+	| postfix_expression PTR_OP IDENTIFIER			{ unsupported("pointer"); }
+	| postfix_expression INC_OP				{ unsupported("increment (post)"); }
+	| postfix_expression DEC_OP				{ unsupported("decrement (post)"); }
 	;
 
 argument_expression_list
@@ -56,93 +65,93 @@ argument_expression_list
 
 unary_expression
 	: postfix_expression
-	| INC_OP unary_expression
-	| DEC_OP unary_expression
+	| INC_OP unary_expression				{ unsupported("increment (pre)"); }
+	| DEC_OP unary_expression				{ unsupported("increment (pre)"); }
 	| unary_operator cast_expression
-	| SIZEOF unary_expression
-	| SIZEOF '(' type_name ')'
+	| SIZEOF unary_expression				{ unsupported("sizeof-exp"); }
+	| SIZEOF '(' type_name ')'				{ unsupported("sizeof-type"); }
 	;
 
 unary_operator
-	: '&'
-	| '*'
-	| '+'
-	| '-'
-	| '~'
-	| '!'
+	: '&'	{ unsupported("variable address"); }
+	| '*'	{ unsupported("pointer"); }
+	| '+'	{ unsupported("unary +"); }
+	| '-'	{ unsupported("unary -"); }
+	| '~'	{ unsupported("unary ~"); }
+	| '!'	{ unsupported("unary !"); }
 	;
 
 cast_expression
 	: unary_expression
-	| '(' type_name ')' cast_expression
+	| '(' type_name ')' cast_expression	{ unsupported("cast"); }
 	;
 
 multiplicative_expression
 	: cast_expression
-	| multiplicative_expression '*' cast_expression
-	| multiplicative_expression '/' cast_expression
-	| multiplicative_expression '%' cast_expression
+	| multiplicative_expression '*' cast_expression	{ unsupported("miltiplication"); }
+	| multiplicative_expression '/' cast_expression	{ unsupported("division"); }
+	| multiplicative_expression '%' cast_expression	{ unsupported("rest"); }
 	;
 
 additive_expression
 	: multiplicative_expression
-	| additive_expression '+' multiplicative_expression
-	| additive_expression '-' multiplicative_expression
+	| additive_expression '+' multiplicative_expression	{ unsupported("sum"); }
+	| additive_expression '-' multiplicative_expression	{ unsupported("substraction"); }
 	;
 
 shift_expression
 	: additive_expression
-	| shift_expression LEFT_OP additive_expression
-	| shift_expression RIGHT_OP additive_expression
+	| shift_expression LEFT_OP additive_expression	{ unsupported("shift left"); }
+	| shift_expression RIGHT_OP additive_expression	{ unsupported("shift right"); }
 	;
 
 relational_expression
 	: shift_expression
-	| relational_expression '<' shift_expression
-	| relational_expression '>' shift_expression
-	| relational_expression LE_OP shift_expression
-	| relational_expression GE_OP shift_expression
+	| relational_expression '<' shift_expression	{ unsupported("less than"); }
+	| relational_expression '>' shift_expression	{ unsupported("greater than"); }
+	| relational_expression LE_OP shift_expression	{ unsupported("leq than"); }
+	| relational_expression GE_OP shift_expression	{ unsupported("geq than"); }
 	;
 
 equality_expression
 	: relational_expression
-	| equality_expression EQ_OP relational_expression
-	| equality_expression NE_OP relational_expression
+	| equality_expression EQ_OP relational_expression	{ unsupported("equals"); }
+	| equality_expression NE_OP relational_expression	{ unsupported("not equals"); }
 	;
 
 and_expression
 	: equality_expression
-	| and_expression '&' equality_expression
+	| and_expression '&' equality_expression	{ unsupported("and (&)"); }
 	;
 
 exclusive_or_expression
 	: and_expression
-	| exclusive_or_expression '^' and_expression
+	| exclusive_or_expression '^' and_expression	{ unsupported("xor (^)"); }
 	;
 
 inclusive_or_expression
 	: exclusive_or_expression
-	| inclusive_or_expression '|' exclusive_or_expression
+	| inclusive_or_expression '|' exclusive_or_expression	{ unsupported("or (|)"); }
 	;
 
 logical_and_expression
 	: inclusive_or_expression
-	| logical_and_expression AND_OP inclusive_or_expression
+	| logical_and_expression AND_OP inclusive_or_expression	{ unsupported("and (&&)"); }
 	;
 
 logical_or_expression
 	: logical_and_expression
-	| logical_or_expression OR_OP logical_and_expression
+	| logical_or_expression OR_OP logical_and_expression	{ unsupported("or (||)"); }
 	;
 
 conditional_expression
 	: logical_or_expression
-	| logical_or_expression '?' expression ':' conditional_expression
+	| logical_or_expression '?' expression ':' conditional_expression	{ unsupported("conditional"); }
 	;
 
 assignment_expression
 	: conditional_expression
-	| unary_expression assignment_operator assignment_expression
+	| unary_expression assignment_operator assignment_expression	{ unsupported("assignment"); }
 	;
 
 assignment_operator
@@ -169,17 +178,20 @@ constant_expression
 	;
 
 declaration
-/*	: declaration_specifiers ';' */
-	: declaration_specifiers init_declarator_list ';'
+	: declaration_specifiers ';' 
+	| declaration_specifiers init_declarator_list ';'
 	;
 
+init_type /* empty */
+        : { type_init(); }
+
 declaration_specifiers
-	: storage_class_specifier
-	| storage_class_specifier declaration_specifiers
-	| type_specifier
-	| type_specifier declaration_specifiers
-	| type_qualifier
-	| type_qualifier declaration_specifiers
+	: init_type storage_class_specifier				{ type_end(); }
+	| init_type storage_class_specifier declaration_specifiers	{ type_end(); }
+	| init_type type_specifier					{ type_end(); }
+	| init_type type_specifier declaration_specifiers		{ type_end(); }
+	| init_type type_qualifier					{ type_end(); }
+	| init_type type_qualifier declaration_specifiers		{ type_end(); }
 	;
 
 init_declarator_list
@@ -193,26 +205,26 @@ init_declarator
 	;
 
 storage_class_specifier
-	: TYPEDEF
-	| EXTERN
-	| STATIC
+	: TYPEDEF	{ unsupported("typedef"); }
+	| EXTERN	{ unsupported("extern"); }
+	| STATIC	{ unsupported("static"); }
 	| AUTO
-	| REGISTER
+	| REGISTER	{ unsupported("register"); }
 	;
 
 type_specifier
-	: VOID
-	| CHAR
-	| SHORT
+	: VOID				{ unsupported("void"); }
+	| CHAR				{ unsupported("char"); }
+	| SHORT				{ unsupported("short"); }
 	| INT
 	| LONG
-	| FLOAT
-	| DOUBLE
-	| SIGNED
-	| UNSIGNED
-	| struct_or_union_specifier
-	| enum_specifier
-	| TYPE_NAME
+	| FLOAT				{ unsupported("float"); }
+	| DOUBLE			{ unsupported("double"); }
+	| SIGNED			{ unsupported("signed"); }
+	| UNSIGNED			{ unsupported("unsigned"); }
+	| struct_or_union_specifier	{ unsupported("struct"); }
+	| enum_specifier		{ unsupported("enum"); }
+	| TYPE_NAME	
 	;
 
 struct_or_union_specifier
@@ -270,8 +282,8 @@ enumerator
 	;
 
 type_qualifier
-	: CONST
-	| VOLATILE
+	: CONST		{ unsupported("const"); }
+	| VOLATILE	{ unsupported("volatile"); }
 	;
 
 declarator
@@ -282,10 +294,10 @@ declarator
 direct_declarator
 	: IDENTIFIER
 	| '(' declarator ')'
-	| direct_declarator '[' constant_expression ']'
-	| direct_declarator '[' ']'
-	| direct_declarator '(' parameter_type_list ')'
-	| direct_declarator '(' identifier_list ')'
+	| direct_declarator '[' constant_expression ']'		{ unsupported("array declaration"); }
+	| direct_declarator '[' ']'				{ unsupported("array declaration (empty)"); }
+	| direct_declarator '(' parameter_type_list ')'		{ unsupported("function declaration (a)"); }
+	| direct_declarator '(' identifier_list ')'		{ unsupported("function declaration (b)"); }
 	| direct_declarator '(' ')'
 	;
 
@@ -367,16 +379,16 @@ statement
 	;
 
 labeled_statement
-	: IDENTIFIER ':' statement
-	| CASE constant_expression ':' statement
-	| DEFAULT ':' statement
+	: IDENTIFIER ':' statement			{ unsupported("label"); }
+	| CASE constant_expression ':' statement	{ unsupported("case label"); }
+	| DEFAULT ':' statement				{ unsupported("default label"); }
 	;
 
 compound_statement
 	: '{' '}'
-	| '{' statement_list '}'
-	| '{' declaration_list '}'
-	| '{' declaration_list statement_list '}'
+	| '{' { block_init(); } statement_list '}'			{ block_end(); }
+	| '{' { block_init(); } declaration_list '}'			{ block_end(); }
+	| '{' { block_init(); } declaration_list statement_list '}'	{ block_end(); }
 	;
 
 declaration_list
@@ -391,28 +403,28 @@ statement_list
 
 expression_statement
 	: ';'
-	| expression ';'
+	| expression ';' { unsupported("expression"); }
 	;
 
 selection_statement
-	: IF '(' expression ')' statement
-	| IF '(' expression ')' statement ELSE statement
-	| SWITCH '(' expression ')' statement
+	: IF '(' expression ')' statement			{ unsupported("if"); }
+	| IF '(' expression ')' statement ELSE statement	{ unsupported("if-else"); }
+	| SWITCH '(' expression ')' statement			{ unsupported("switch"); }
 	;
 
 iteration_statement
-	: WHILE '(' expression ')' statement
-	| DO statement WHILE '(' expression ')' ';'
-	| FOR '(' expression_statement expression_statement ')' statement
-	| FOR '(' expression_statement expression_statement expression ')' statement
+	: WHILE '(' expression ')' statement						{ unsupported("while"); }
+	| DO statement WHILE '(' expression ')' ';'					{ unsupported("do"); }
+	| FOR '(' expression_statement expression_statement ')' statement		{ unsupported("for (a)"); }
+	| FOR '(' expression_statement expression_statement expression ')' statement	{ unsupported("for (b)"); }
 	;
 
 jump_statement
-	: GOTO IDENTIFIER ';'
-	| CONTINUE ';'
-	| BREAK ';'
-	| RETURN ';'
-	| RETURN expression ';'
+	: GOTO IDENTIFIER ';'		{ unsupported("goto"); }
+	| CONTINUE ';'			{ unsupported("continue"); }
+	| BREAK ';'			{ unsupported("break"); }
+	| RETURN ';'			{ _return(0); }
+	| RETURN expression ';'		{ _return(1); }
 	;
 
 translation_unit
@@ -426,32 +438,19 @@ external_declaration
 	;
 
 function_definition
-	: declaration_specifiers declarator declaration_list compound_statement
-	| declaration_specifiers declarator compound_statement
-	| declarator declaration_list compound_statement
-	| declarator compound_statement
+	: declaration_specifiers declarator declaration_list compound_statement		{ unsupported("function definition (a)"); }
+	| declaration_specifiers declarator { function_init($2); } compound_statement { function_end($2); }
+	| declarator declaration_list compound_statement				{ unsupported("function definition (c)"); }
+	| declarator compound_statement							{ unsupported("function definition (d)"); }
 	;
 
 %%
 #include <stdio.h>
 
-extern int column;
-
-void yyerror(char* s)
-{
-	fflush(stdout);
-	printf("\n%*s\n%*s\n", column, "^", column, s);
-}
-
-void not_supported()
-{
-	yyerror("This feature is not yet supported.");
-	exit(1);
-}
-
 int main()
 {
-	//initialize();
+	yydebug = 0;
+	initialize();
 	yyparse();
 	return 0;
 }

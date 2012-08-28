@@ -1,5 +1,5 @@
-OBJECTS = lex.yy.o parser.tab.o
-CFLAGS = -Wall -Wextra -g
+OBJECTS = lex.yy.o parser.tab.o compiler.o type.o error.o
+CFLAGS = -Wall -Wextra -g -DDEBUG
 
 cc: $(OBJECTS)
 	gcc $(CFLAGS) -o $@ $^ -lfl
