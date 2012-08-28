@@ -452,5 +452,6 @@ int main()
 	yydebug = 0;
 	initialize();
 	yyparse();
+	finalize();
 	return 0;
 }
