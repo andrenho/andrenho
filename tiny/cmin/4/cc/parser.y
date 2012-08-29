@@ -384,11 +384,14 @@ labeled_statement
 	| DEFAULT ':' statement				{ unsupported("default label"); }
 	;
 
+init_block /* empty */
+	: { block_init(); }
+
 compound_statement
 	: '{' '}'
-	| '{' { block_init(); } statement_list '}'			{ block_end(); }
-	| '{' { block_init(); } declaration_list '}'			{ block_end(); }
-	| '{' { block_init(); } declaration_list statement_list '}'	{ block_end(); }
+	| '{' init_block statement_list '}'			{ block_end(); }
+	| '{' init_block declaration_list '}'			{ block_end(); }
+	| '{' init_block declaration_list statement_list '}'	{ block_end(); }
 	;
 
 declaration_list

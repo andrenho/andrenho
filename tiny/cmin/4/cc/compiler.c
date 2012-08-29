@@ -14,6 +14,16 @@ typedef struct {
 Function* current_function = NULL;
 
 
+typedef struct Variable
+
+
+typedef struct Block {
+	
+	struct Block* next;
+} Block;
+Block block_stack = NULL;
+
+
 void initialize()
 {
 	printf("; Start of code\n\n");
