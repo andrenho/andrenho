@@ -10,6 +10,8 @@ IS			(u|U|l|L)*
 #include <string.h>
 #include "parser.tab.h"
 
+#include "error.h"
+
 void count();
 void comment();
 int check_type();
@@ -163,6 +165,21 @@ void count()
 
 unsigned long parse_number(char* s)
 {
+	if(s[0] == '0') // hexa or octal
+	{
+		unsupported("hexadecimal or octal");
+	}
+	else
+	{
+		unsigned int i=0;
+		for(; i<strlen(s); i++)
+			if(s[i] == '.')
+				goto _float;
+		return strtol(s, NULL, 10);
+	}
+
+_float:
+	unsupported("float values");
 	return 0.0;
 }
 
