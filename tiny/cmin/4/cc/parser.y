@@ -178,7 +178,7 @@ constant_expression
 	;
 
 declaration
-	: declaration_specifiers ';' 
+	: declaration_specifiers ';'
 	| declaration_specifiers init_declarator_list ';'
 	;
 
@@ -200,8 +200,8 @@ init_declarator_list
 	;
 
 init_declarator
-	: declarator
-	| declarator '=' initializer
+	: declarator { declaration(); }
+	| declarator '=' initializer { unsupported("variable initialization"); }
 	;
 
 storage_class_specifier

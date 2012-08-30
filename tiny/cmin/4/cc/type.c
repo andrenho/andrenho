@@ -4,7 +4,7 @@
 
 #include "error.h"
 
-Type* current_type = NULL;
+struct Type* current_type = NULL;
 
 void type_init()
 {
@@ -31,7 +31,7 @@ void type_size(signed char size)
 }
 
 
-void type_cast(Type* from, Type* to)
+void type_cast(struct Type* from, struct Type* to)
 {
 	if(!from->pointer && !to->pointer)
 	{
