@@ -151,21 +151,21 @@ conditional_expression
 
 assignment_expression
 	: conditional_expression
-	| unary_expression assignment_operator assignment_expression	{ unsupported("assignment"); }
+	| unary_expression assignment_operator assignment_expression	{ assignment(); }
 	;
 
 assignment_operator
-	: '='
-	| MUL_ASSIGN
-	| DIV_ASSIGN
-	| MOD_ASSIGN
-	| ADD_ASSIGN
-	| SUB_ASSIGN
-	| LEFT_ASSIGN
-	| RIGHT_ASSIGN
-	| AND_ASSIGN
-	| XOR_ASSIGN
-	| OR_ASSIGN
+	: '='		{ unsupported("assignment"); }
+	| MUL_ASSIGN	{ unsupported("mul assignment"); }
+	| DIV_ASSIGN	{ unsupported("div assignment"); }
+	| MOD_ASSIGN	{ unsupported("mod assignment"); }
+	| ADD_ASSIGN	{ unsupported("add assignment"); }
+	| SUB_ASSIGN	{ unsupported("sub assignment"); }
+	| LEFT_ASSIGN	{ unsupported("left assignment"); }
+	| RIGHT_ASSIGN	{ unsupported("right assignment"); }
+	| AND_ASSIGN	{ unsupported("and assignment"); }
+	| XOR_ASSIGN	{ unsupported("xor assignment"); }
+	| OR_ASSIGN	{ unsupported("or assignment"); }
 	;
 
 expression

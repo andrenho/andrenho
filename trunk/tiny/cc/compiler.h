@@ -15,6 +15,7 @@ void block_end();
 
 // Variable declarations
 void declaration(const char* name);
+void assignment();
 
 // Data
 void constant(unsigned long d);
