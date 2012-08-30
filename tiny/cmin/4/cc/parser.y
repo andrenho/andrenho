@@ -8,7 +8,7 @@
 #include "error.h"
 
 int yylex();
-//void yyerror(char *s);
+void yyerror(char *s);
 void unsupported(char const* feature);
 extern char yytext[];
 
@@ -41,7 +41,7 @@ extern char yytext[];
 %%
 
 primary_expression
-	: IDENTIFIER
+	: IDENTIFIER		{ variable($1); }
 	| CONSTANT		{ constant($1); }
 	| STRING_LITERAL	{ unsupported("string literal"); }
 	| '(' expression ')'

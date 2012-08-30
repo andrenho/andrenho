@@ -1,6 +1,7 @@
 #include "error.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 
 extern int column;
 
@@ -22,5 +23,14 @@ void unsupported(char const* feature)
 
 void warning(const char* message)
 {
-	fprintf(stderr, "%s\n", message);
+	fprintf(stderr, "warning: %s\n", message);
+}
+
+
+void _error(const char* message)
+{
+	char s[256];
+	snprintf(s, 255, "error: %s", message);
+	yyerror((char*)s);
+	exit(1);
 }

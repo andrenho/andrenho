@@ -16,6 +16,7 @@ static struct Function* current_function = NULL;
 struct Variable {
 	char* name;
 	struct Type* type;
+	unsigned int address;
 	struct Variable* next;
 };
 
@@ -41,10 +42,13 @@ void finalize()
 
 void function_init(char* name)
 {
-	printf("; Start of function: %s\n", name);
+	printf(";-----------------------------------\n");
+	printf("; %s\n", name);
+	printf(";-----------------------------------\n");
 	printf(":%s\n", name);
 	printf("\tPUSH FP\n");
-	printf("\tSET FP, PC");
+	printf("\tSET FP, PC\n");
+	printf("\n");
 
 	current_function = malloc(sizeof(struct Function));
 	current_function->name = strdup(name);
@@ -56,7 +60,6 @@ void function_end(char* name)
 {
 	assert(current_function);
 
-	printf("; End of function %s\n", name);
 	printf(":__%s_end\n", name);
 	printf("\tPOP FP\n");
 
@@ -96,7 +99,7 @@ void block_end()
 		size += v->type->size;
 		v = v->next;
 	}
-	printf("\tSUB ST, 0x%X\n", size/8);
+	printf("\tADD ST, 0x%X\n", size/8);
 	
 	// end of block
 	assert(current_function);
@@ -113,6 +116,10 @@ void declaration(const char* name)
 	struct Variable* var = malloc(sizeof(struct Variable));
 	var->name = strdup(name);
 	var->type = current_type;
+	if(block_stack->variable_stack)
+		var->address = block_stack->variable_stack + var->type->size;
+	else
+		var->address = 0;
 	var->next = block_stack->variable_stack;
 
 	// push into variable stack
@@ -120,6 +127,34 @@ void declaration(const char* name)
 
 	// increment program stack
 	printf("\tPUSH%d A\n", var->type->size);
+}
+
+
+void variable(const char* name)
+{
+	struct Block* b = block_stack;
+	while(b)
+	{
+		struct Variable* v = b->variable_stack;
+		while(v)
+		{
+			if(strcmp(v->name, name) == 0)
+			{
+				printf("\tSET A, FP   ; %s\n", name);
+				if(v->address)
+					printf("\tSUB A, %d\n", v->address);
+				printf("\tSET A, [A]\n");
+				return;
+			}
+			v = v->next;
+		}
+		b = b->next;
+	}
+
+	// variable not found, fail
+	char message[256];
+	sprintf(message, "Variable %s not found.", name);
+	_error(message);
 }
 
 
@@ -144,7 +179,7 @@ void _return(int has_expression)
 		}
 		b = b->next;
 	}
-	printf("\tSUB ST, 0x%X\n", size/8);
+	printf("\tADD ST, 0x%X\n", size/8);
 
 	if(has_expression) // do casting
 		type_cast(current_type, current_function->type);
