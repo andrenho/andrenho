@@ -10,7 +10,8 @@ void type_init()
 {
 	if(current_type)
 	{
-		free(current_type);
+		/* don't free because type might still be in use
+		free(current_type); */
 		current_type = NULL;
 	}
 

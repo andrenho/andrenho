@@ -15,12 +15,12 @@ static struct Function* current_function = NULL;
 
 struct Variable {
 	char* name;
-	struct Type type;
+	struct Type* type;
 	struct Variable* next;
 };
 
 struct Block {
-	struct Variable* variables;
+	struct Variable* variable_stack;
 	struct Block* next;
 	unsigned long n;
 };
@@ -43,6 +43,8 @@ void function_init(char* name)
 {
 	printf("; Start of function: %s\n", name);
 	printf(":%s\n", name);
+	printf("\tPUSH FP\n");
+	printf("\tSET FP, PC");
 
 	current_function = malloc(sizeof(struct Function));
 	current_function->name = strdup(name);
@@ -56,6 +58,7 @@ void function_end(char* name)
 
 	printf("; End of function %s\n", name);
 	printf(":__%s_end\n", name);
+	printf("\tPOP FP\n");
 
 	free(current_function->name);
 	free(current_function);
@@ -69,7 +72,7 @@ void block_init()
 {
 	// push a new block to the block stack
 	struct Block* block = malloc(sizeof(struct Block));
-	block->variables = NULL;
+	block->variable_stack = NULL;
 	block->next = block_stack;
 	block->n = block_number;
 	block_stack = block;
@@ -86,17 +89,37 @@ void block_end()
 	block_stack = block_stack->next;
 
 	// unwind variables
-	// TODO
+	unsigned int size = 0;
+	struct Variable* v = b->variable_stack;
+	while(v)
+	{
+		size += v->type->size;
+		v = v->next;
+	}
+	printf("\tSUB ST, 0x%X\n", size/8);
+	
+	// end of block
 	assert(current_function);
 	printf(":__%s_%ld\n", current_function->name, b->n);
 	free(b);
 }
 
 
-void declaration()
+void declaration(const char* name)
 {
+	assert(block_stack);
+
 	// register variable
-	//struct Variable* var = malloc(sizeof(
+	struct Variable* var = malloc(sizeof(struct Variable));
+	var->name = strdup(name);
+	var->type = current_type;
+	var->next = block_stack->variable_stack;
+
+	// push into variable stack
+	block_stack->variable_stack = var;
+
+	// increment program stack
+	printf("\tPUSH%d A\n", var->type->size);
 }
 
 
@@ -108,7 +131,22 @@ void constant(unsigned long d)
 
 void _return(int has_expression)
 {
+	// jump over all function blocks
+	unsigned int size = 0;
+	struct Block* b = block_stack;
+	while(b)
+	{
+		struct Variable* v = b->variable_stack;
+		while(v)
+		{
+			size += v->type->size;
+			v = v->next;
+		}
+		b = b->next;
+	}
+	printf("\tSUB ST, 0x%X\n", size/8);
+
 	if(has_expression) // do casting
 		type_cast(current_type, current_function->type);
-	printf("\tGOTO __%s_end\n", current_function->name);
+	printf("\tJMP __%s_end\n", current_function->name);
 }

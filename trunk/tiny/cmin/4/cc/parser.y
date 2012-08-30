@@ -200,8 +200,8 @@ init_declarator_list
 	;
 
 init_declarator
-	: declarator { declaration(); }
-	| declarator '=' initializer { unsupported("variable initialization"); }
+	: declarator { declaration($1); }
+	| declarator '=' initializer { declaration($1); }
 	;
 
 storage_class_specifier
