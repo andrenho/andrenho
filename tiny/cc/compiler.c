@@ -130,6 +130,11 @@ void declaration(const char* name)
 }
 
 
+void assignment()
+{
+}
+
+
 void variable(const char* name)
 {
 	struct Block* b = block_stack;
@@ -143,7 +148,7 @@ void variable(const char* name)
 				printf("\tSET A, FP   ; %s\n", name);
 				if(v->address)
 					printf("\tSUB A, %d\n", v->address);
-				printf("\tSET A, [A]\n");
+				//printf("\tSET A, [A]\n");
 				return;
 			}
 			v = v->next;
