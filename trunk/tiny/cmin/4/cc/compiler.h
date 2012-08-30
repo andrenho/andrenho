@@ -13,6 +13,9 @@ void function_end(char* name);
 void block_init();
 void block_end();
 
+// Variable declarations
+void declaration();
+
 // Data
 void constant(unsigned long d);
 

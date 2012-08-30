@@ -2,17 +2,17 @@
 #define TYPE_H
 
 
-typedef struct {
+struct Type {
 	signed char size;
 	int pointer;
-} Type;
-extern Type* current_type;
+};
+extern struct Type* current_type;
 
 
 void type_init();
 void type_end();
 void type_size(signed char size);
 
-void type_cast(Type* from, Type* to);
+void type_cast(struct Type* from, struct Type* to);
 
 #endif
