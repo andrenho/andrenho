@@ -18,6 +18,7 @@ void declaration(const char* name);
 
 // Data
 void constant(unsigned long d);
+void variable(const char* name);
 
 // Commands
 void _return(int has_expression);
