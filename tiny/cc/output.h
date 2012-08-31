@@ -5,4 +5,7 @@
  * able to rollback the printing sometimes. */
 int output(char* fmt, ...);
 
+void commit();
+void rollback();
+
 #endif
