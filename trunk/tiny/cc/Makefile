@@ -1,4 +1,4 @@
-OBJECTS = lex.yy.o parser.tab.o compiler.o type.o error.o
+OBJECTS = lex.yy.o parser.tab.o compiler.o type.o error.o output.o
 CFLAGS = -Wall -Wextra -g -DDEBUG
 
 cc: $(OBJECTS)
