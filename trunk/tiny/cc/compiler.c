@@ -6,6 +6,7 @@
 #include <assert.h>
 
 #include "type.h"
+#include "error.h"
 
 struct Function {
 	char* name;
@@ -47,7 +48,7 @@ void function_init(char* name)
 	printf(";-----------------------------------\n");
 	printf(":%s\n", name);
 	printf("\tPUSH FP\n");
-	printf("\tSET FP, PC\n");
+	printf("\tSET FP, SP\n");
 	printf("\n");
 
 	current_function = malloc(sizeof(struct Function));
@@ -99,7 +100,7 @@ void block_end()
 		size += v->type->size;
 		v = v->next;
 	}
-	printf("\tADD ST, 0x%X\n", size/8);
+	printf("\tADD ST, 0x%X   ; restore local stack\n", size/8);
 	
 	// end of block
 	assert(current_function);
@@ -117,7 +118,7 @@ void declaration(const char* name)
 	var->name = strdup(name);
 	var->type = current_type;
 	if(block_stack->variable_stack)
-		var->address = block_stack->variable_stack + var->type->size;
+		var->address = block_stack->variable_stack->address + var->type->size;
 	else
 		var->address = 0;
 	var->next = block_stack->variable_stack;
@@ -126,11 +127,16 @@ void declaration(const char* name)
 	block_stack->variable_stack = var;
 
 	// increment program stack
-	printf("\tPUSH%d A\n", var->type->size);
+	printf("\tPUSH%d A   ; variable declaration\n", var->type->size);
 }
 
 
 void assignment()
+{
+}
+
+
+void no_dereference()
 {
 }
 
@@ -145,10 +151,10 @@ void variable(const char* name)
 		{
 			if(strcmp(v->name, name) == 0)
 			{
-				printf("\tSET A, FP   ; %s\n", name);
+				printf("\tSET A, FP   ; restore '%s'\n", name);
 				if(v->address)
 					printf("\tSUB A, %d\n", v->address);
-				//printf("\tSET A, [A]\n");
+				printf("\tSET A, [A]\n");
 				return;
 			}
 			v = v->next;
@@ -184,7 +190,7 @@ void _return(int has_expression)
 		}
 		b = b->next;
 	}
-	printf("\tADD ST, 0x%X\n", size/8);
+	printf("\tADD ST, 0x%X   ; return stmt, restore local stack\n", size/8);
 
 	if(has_expression) // do casting
 		type_cast(current_type, current_function->type);
