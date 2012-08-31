@@ -20,6 +20,7 @@ void assignment();
 // Data
 void constant(unsigned long d);
 void variable(const char* name);
+void no_dereference();
 
 // Commands
 void _return(int has_expression);

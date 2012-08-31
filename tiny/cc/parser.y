@@ -151,11 +151,11 @@ conditional_expression
 
 assignment_expression
 	: conditional_expression
-	| unary_expression assignment_operator assignment_expression	{ assignment(); }
+	| unary_expression assignment_operator assignment_expression	{ no_dereference(); assignment(); }
 	;
 
 assignment_operator
-	: '='		{ unsupported("assignment"); }
+	: '='
 	| MUL_ASSIGN	{ unsupported("mul assignment"); }
 	| DIV_ASSIGN	{ unsupported("div assignment"); }
 	| MOD_ASSIGN	{ unsupported("mod assignment"); }
@@ -406,7 +406,7 @@ statement_list
 
 expression_statement
 	: ';'
-	| expression ';' { unsupported("expression"); }
+	| expression ';'
 	;
 
 selection_statement
