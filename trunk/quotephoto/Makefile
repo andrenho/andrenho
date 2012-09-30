@@ -1,5 +1,5 @@
-CONVERT=c:\andre\programas\ImageMagick\convert.exe
-#CONVERT=convert
+#CONVERT=c:\andre\programas\ImageMagick\convert.exe
+CONVERT=convert
 
 all: vainwrite.en.jpg vainwrite.pt.jpg house.en.jpg
 
@@ -11,8 +11,8 @@ vainwrite.en.jpg: _vainwrite.jpg
 
 vainwrite.pt.jpg: _vainwrite.jpg
 	$(CONVERT) _vainwrite.jpg \
-		-stroke black -strokewidth 4 -pointsize 35 -font Kingthings.ttf -annotate +60+90 'Quão vão é sentar-se para escrever\nquando não se levantou para viver.\n-- Thoreau' \
-	    -stroke none  -fill white    -pointsize 35 -font Kingthings.ttf -annotate +60+90 'Quão vão é sentar-se para escrever\nquando não se levantou para viver.\n-- Thoreau' \
+		-stroke black -strokewidth 4 -pointsize 35 -font Kingthings.ttf -annotate +60+90 'Quão vão é sentar-se para escrever\nquando você não se levantou para viver.\n-- Thoreau' \
+	    -stroke none  -fill white    -pointsize 35 -font Kingthings.ttf -annotate +60+90 'Quão vão é sentar-se para escrever\nquando você não se levantou para viver.\n-- Thoreau' \
 		vainwrite.pt.jpg
 
 house.en.jpg: _house.jpg
