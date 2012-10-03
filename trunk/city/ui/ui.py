@@ -31,6 +31,6 @@ class UI:
 
 
     def load_images(self):
-        c = Cube(1, 1).surface()
-        self.sf.blit(c, (0, 0))
+        c = Cube(3, 3)
+        self.sf.blit(c.surface(), (0, 0))
         pygame.display.update()
