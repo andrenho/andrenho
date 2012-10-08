@@ -1,17 +1,17 @@
-CC=gcc
+CC=g++
 CFLAGS=-c -Wall -I. -g 
 LDFLAGS=
 
-SOURCES=main.c ui.c world.c port.c travel.c
-OBJECTS=$(SOURCES:.c=.o)
-EXECUTABLE=seatrader
+SOURCES=main.cc
+OBJECTS=$(SOURCES:.cc=.o)
+EXECUTABLE=newhope
 
 all: $(SOURCES) $(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(OBJECTS) -o $@ $(LDFLAGS)
 
-.c.o:
+.cc.o:
 	$(CC) $(CFLAGS) $< -o $@
 
 clean:
