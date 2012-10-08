@@ -2,7 +2,7 @@ CC=g++
 CFLAGS=-c -Wall -I. -g 
 LDFLAGS=
 
-SOURCES=main.cc
+SOURCES=main.cc world.cc city.cc
 OBJECTS=$(SOURCES:.cc=.o)
 EXECUTABLE=newhope
 
