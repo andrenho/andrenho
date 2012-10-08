@@ -1,7 +1,5 @@
 PRATOS PRINCIPAIS
 
- - Adobo de galinha
-     <http://www.macheesmo.com/2012/02/chicken-adobo/>
  - Alho-poró assado cremoso 
      <livro:Revolução na Cozinha - Jamie Oliver>
  - Arroz carreteiro
