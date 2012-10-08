@@ -68,12 +68,16 @@ SOBREMESAS/DOCES
      <http://allrecipes.com/recipe/loukoumades/>
  - Massa folhada dinamarquesa
      <http://www.joepastry.com/category/pastry/danish-pastry/>
+ - Macarons
+     <http://www.joepastry.com/category/miscellaneous-desserts-and-cookies/macarons/>
  - Pastel de forno de pêssegos
      <http://www.macheesmo.com/2010/07/portable-peach-pies/>
  - Rolinhos de canela e tâmaras
      <http://www.macheesmo.com/2012/07/date-cinnamon-rolls/>
  - Shortbread
      <http://www.joepastry.com/category/miscellaneous-desserts-and-cookies/shortbread/>
+ - Tarte
+     <http://www.joepastry.com/category/pastry/tarte-tatin/apple-tarte-tatin/>
  - Torta de pêssego
      <http://smittenkitchen.com/2012/07/peach-pie/>
  - Torta de xarope de Revani
