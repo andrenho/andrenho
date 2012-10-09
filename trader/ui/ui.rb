@@ -1,4 +1,5 @@
 require 'gosu'
+require 'texplay'
 
 require 'ui/market'
 
@@ -8,9 +9,11 @@ class UI < Gosu::Window
 
   # create window
   def initialize
-    super 640, 480, false
+    super 800, 600, false
     self.caption = 'New Hope'
-    @font = Gosu::Font.new(self, Gosu::default_font_name, 20)
+    @font_big = Gosu::Font.new(self, 'data/edosz.ttf', 36)
+    @font = Gosu::Font.new(self, 'data/edosz.ttf', 24)
+    @font_tiny = Gosu::Font.new(self, 'data/edosz.ttf', 12)
     @image = load_images
     redefine!
   end
@@ -47,9 +50,20 @@ private
 
   def load_images
     image = {}
-    Dir.entries('data').select { |f| f.end_with? '.png' }.each do |filename|
-      image[filename.rpartition('.png')[0].to_sym] = Gosu::Image.new(self, 'data/' + filename, true)
+    Dir.entries('data').select { |f| f.end_with? '.png' or f.end_with? '.jpg' }.each do |filename|
+      image[filename[0..-5].to_sym] = Gosu::Image.new(self, 'data/' + filename, true)
     end
+
+    # setup goods images
+    ['iron'].each do |good|
+      (1..9).each do |n|
+        original = image[good.to_sym]
+        sym = "#{good}_#{n}".to_sym
+        image[sym] = TexPlay.create_image(self, (original.width / 10.0 * n).to_i, original.height)
+        image[sym].splice(original, 0, 0)
+      end
+    end
+
     return image
   end
 

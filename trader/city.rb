@@ -6,10 +6,11 @@ end
 
 class City
 
-  attr_reader :connections, :goods
+  attr_reader :connections, :goods, :name
 
 
-  def initialize
+  def initialize(name)
+    @name = name
     @connections = []
     @buildings = [:market]
     @goods = create_stocks
@@ -28,7 +29,7 @@ private
 
   def create_stocks
     g = {}
-    g[:iron] = 50
+    g[:iron] = 75
     return g
   end
 
