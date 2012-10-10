@@ -11,10 +11,11 @@ class UI < Gosu::Window
   def initialize
     super 800, 600, false
     self.caption = 'New Hope'
-    @font_big = Gosu::Font.new(self, 'data/edosz.ttf', 36)
-    @font = Gosu::Font.new(self, 'data/edosz.ttf', 24)
-    @font_tiny = Gosu::Font.new(self, 'data/edosz.ttf', 12)
+    @font_big = Gosu::Font.new(self, 'data/FromWhereYouAre.ttf', 42)
+    @font = Gosu::Font.new(self, 'data/FromWhereYouAre.ttf', 36)
+    @font_tiny = Gosu::Font.new(self, 'data/FromWhereYouAre.ttf', 18)
     @image = load_images
+    @player = $w.player
     redefine!
   end
 

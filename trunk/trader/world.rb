@@ -1,3 +1,4 @@
+require 'truck'
 require 'player'
 require 'city'
 
