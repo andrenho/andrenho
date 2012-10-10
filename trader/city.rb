@@ -24,6 +24,16 @@ class City
   end
 
 
+  def buy_price(good)
+    return 20
+  end
+
+
+  def sell_price(good)
+    return 15
+  end
+
+
 private
 
 
