@@ -4,7 +4,7 @@ module Market
 private
 
   GoodPosition = Struct.new(:type, :good, :pos)
-  Moving = Struct.new(:type, :good, :amt)
+  Moving = Struct.new(:type, :good, :parcial)
 
 
   def setup
@@ -23,23 +23,24 @@ private
 
 
   def button_down(id)
-    if id == Gosu::MsLeft
+    if id == Gosu::MsLeft or id == Gosu::MsRight
       # grab thing
       goods = @goods_position.select { |n| n.pos.inside? mouse_x, mouse_y }
       if not goods.empty?
-        @moving = Moving.new(goods[0].type, goods[0].good, 10)
+        @moving = Moving.new(goods[0].type, goods[0].good, id == Gosu::MsRight)
       end
     end
   end
 
 
   def button_up(id)
-    if id == Gosu::MsLeft and @moving
+    if (id == Gosu::MsLeft or id == Gosu::MsRight) and @moving
       # drop thing
+      amt = 10
       if @moving.type == :buy and @sell_pos.inside? mouse_x, mouse_y
-        @player.buy(@moving.good, @moving.amt)
+        @player.buy(@moving.good, amt)
       elsif @moving.type == :sell and @buy_pos.inside? mouse_x, mouse_y
-        @player.sell(@moving.good, @moving.amt)
+        @player.sell(@moving.good, amt)
       end
       @moving = nil
     end
