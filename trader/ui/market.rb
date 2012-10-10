@@ -3,13 +3,18 @@ module Market
 
 private
 
-  GoodPosition = Struct.new(:type, :good, :x, :y, :w, :h)
+  GoodPosition = Struct.new(:type, :good, :pos)
+  Moving = Struct.new(:type, :good, :amt)
 
 
   def setup
     fail 'Location != City' unless @player.location.is_a? City
     @city = @player.location
     @moving = nil
+    @buy_pos = Position.new(50, 60, 
+                            @image[:market_border].width, 
+                            @image[:market_border].height)
+    @sell_pos = Position.new(420, 60, @buy_pos.w, @buy_pos.h)
   end
 
 
@@ -20,13 +25,9 @@ private
   def button_down(id)
     if id == Gosu::MsLeft
       # grab thing
-      goods = @goods_position.select do |n| 
-                n.x <= mouse_x and n.y <= mouse_y and
-                (n.x + n.w) > mouse_x and (n.y + n.h) > mouse_y
-              end
+      goods = @goods_position.select { |n| n.pos.inside? mouse_x, mouse_y }
       if not goods.empty?
-        @moving = [goods[0].type, goods[0].good]
-        p @moving
+        @moving = Moving.new(goods[0].type, goods[0].good, 10)
       end
     end
   end
@@ -35,6 +36,12 @@ private
   def button_up(id)
     if id == Gosu::MsLeft and @moving
       # drop thing
+      if @moving.type == :buy and @sell_pos.inside? mouse_x, mouse_y
+        @player.buy(@moving.good, @moving.amt)
+      elsif @moving.type == :sell and @buy_pos.inside? mouse_x, mouse_y
+        @player.sell(@moving.good, @moving.amt)
+      end
+      @moving = nil
     end
   end
 
@@ -56,8 +63,8 @@ private
 
   def draw_background
     @image[:market_bg].draw(0, 0, 0)
-    @image[:market_border].draw(50, 60, 1)
-    @image[:market_border].draw(420, 60, 1)
+    @image[:market_border].draw(@buy_pos.x, @buy_pos.y, 1)
+    @image[:market_border].draw(@sell_pos.x, @sell_pos.y, 1)
   end
 
 
@@ -98,8 +105,9 @@ private
       end
       left -= 10; x += 15
     end
-    @goods_position << GoodPosition.new(type, good, x_bas, y-10, 
-                                        350, @font.height + 30)
+    @goods_position << GoodPosition.new(type, good, 
+                                        Position.new(x_bas, y-10, 
+                                                     350, @font.height + 10))
   end
 
 
@@ -118,7 +126,7 @@ private
 
   def draw_cursor
     if @moving 
-      @image[@moving[1]].draw(mouse_x, mouse_y, 10)
+      @image[@moving.good].draw(mouse_x, mouse_y, 10)
     end
   end
 
