@@ -1,6 +1,7 @@
 require 'gosu'
 require 'texplay'
 
+require 'ui/util'
 require 'ui/market'
 
 

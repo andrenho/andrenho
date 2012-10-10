@@ -1,9 +1,7 @@
 class Truck
 
-  attr_reader :cargo
-
   def initialize
-    @cargo = { :iron => 10 } # TODO
+    @cargo = { :iron => 12 } # TODO
   end
 
   def slots
@@ -16,6 +14,26 @@ class Truck
 
   def slots_occupied
     return slots - slots_free
+  end
+
+  def cargo
+    @cargo.clone
+  end
+
+  def add(good, amt)
+    return 0 if slots_free == 0
+    amt = slots_free if amt > slots_free
+    @cargo[good] = 0 if not @cargo.include? good
+    @cargo[good] += amt
+    return amt
+  end
+
+  def remove(good, amt)
+    return 0 if not @cargo.include? good
+    amt = @cargo[good] if amt > @cargo[good]
+    @cargo[good] -= amt
+    @cargo.delete good if @cargo[good] == 0
+    return amt
   end
 
 end
