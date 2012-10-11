@@ -15,7 +15,7 @@ class UI < Gosu::Window
     @font_huge = Gosu::Font.new(self, 'data/FromWhereYouAre.ttf', 60)
     @font_big = Gosu::Font.new(self, 'data/FromWhereYouAre.ttf', 42)
     @font = Gosu::Font.new(self, 'data/FromWhereYouAre.ttf', 36)
-    @font_tiny = Gosu::Font.new(self, 'data/FromWhereYouAre.ttf', 18)
+    @font_tiny = Gosu::Font.new(self, 'data/FromWhereYouAre.ttf', 20)
     @image = load_images
     @player = $w.player
     redefine!
@@ -58,10 +58,11 @@ private
     end
 
     # setup goods images
-    ['iron'].each do |good|
+    [:grain, :wood, :oil, :iron, :furs, :moonshine, :narcotics, :slaves,
+     :computer, :medicine].each do |good|
       (1..9).each do |n|
-        original = image[good.to_sym]
-        sym = "#{good}_#{n}".to_sym
+        original = image[good]
+        sym = "#{good.to_s}_#{n}".to_sym
         image[sym] = TexPlay.create_image(self, (original.width / 10.0 * n).to_i, original.height)
         image[sym].splice(original, 0, 0)
       end

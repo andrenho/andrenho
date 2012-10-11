@@ -105,6 +105,7 @@ private
                @font.text_width(g.to_s.capitalize) }.max
     @city.goods.each_pair do |good, amt|
       draw_good(good, amt, x, y, text_w, :buy)
+      y += 43
     end
   end
 
@@ -115,6 +116,7 @@ private
                @font.text_width(g.to_s.capitalize) }.max
     @player.truck.cargo.each_pair do |good, amt|
       draw_good(good, amt, x, y, text_w, :sell)
+      y += 43
     end
   end
 
@@ -124,9 +126,9 @@ private
     @font.draw(good.to_s.capitalize, x_bas+5, y - 5, 5, 1.0, 1.0, 
                Gosu::Color::BLACK)
     @font_tiny.draw("#{amt.to_s}/&#{price}", 
-                    @font.text_width(good.to_s.capitalize) + x_bas - 15, 
+                    text_w + x_bas - 25, 
                     @font.height + y - 15, 5, 1.0, 1.0, Gosu::Color::BLACK)
-    x, left = 0, amt
+    x, left = 0, [amt, 100].min
     while left > 0
       if left < 10
         @image["#{good.to_s}_gray".to_sym].draw(text_w + x_bas + 20 + x, y, 5)

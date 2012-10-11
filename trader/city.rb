@@ -39,9 +39,9 @@ private
 
   def create_stocks
     g = {}
-    g[:iron] = 75
+    [:grain, :wood, :oil, :iron, :furs, :moonshine, :narcotics, :slaves,
+             :computer, :medicine].each { |good| g[good] = rand(200) }
     return g
   end
-
 
 end
