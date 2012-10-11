@@ -16,8 +16,13 @@ class Truck
     return slots - slots_free
   end
 
-  def cargo
-    @cargo.clone
+  def cargo(good=nil)
+    if not good
+      return @cargo.clone
+    else
+      return @cargo[good] if @cargo.include? good
+      return 0
+    end
   end
 
   def add(good, amt)
