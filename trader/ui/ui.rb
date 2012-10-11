@@ -12,6 +12,7 @@ class UI < Gosu::Window
   def initialize
     super 800, 600, false
     self.caption = 'New Hope'
+    @font_huge = Gosu::Font.new(self, 'data/FromWhereYouAre.ttf', 60)
     @font_big = Gosu::Font.new(self, 'data/FromWhereYouAre.ttf', 42)
     @font = Gosu::Font.new(self, 'data/FromWhereYouAre.ttf', 36)
     @font_tiny = Gosu::Font.new(self, 'data/FromWhereYouAre.ttf', 18)
