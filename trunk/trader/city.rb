@@ -1,7 +1,4 @@
-class Connection
-  attr_reader :city, :distance
-  def initalize(city, distance); @city, @distance = city, distance; end
-end
+Connection = Struct.new(:city, :distance)
 
 
 class City
