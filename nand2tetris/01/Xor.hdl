@@ -7,11 +7,30 @@
  *  Exclusive-or gate: out = !(a == b).
  */
 
+/*
+ NAND        OR
+a b   c   a b   d
+0 0 | 1   0 0 | 0
+0 1 | 1   0 1 | 1
+1 0 | 1   1 0 | 1
+1 1 | 0   1 1 | 1
+
+  NAND NOT
+c d   e  out
+1 0 | 1 | 0
+1 1 | 0 | 1
+1 1 | 0 | 1
+0 1 | 1 | 1
+*/
+
 CHIP Xor {
 
     IN a, b;
     OUT out;
 
     PARTS:
-    // Put your code here.
+    Nand(a=a, b=b, out=c);
+    Or(a=a, b=b, out=d);
+    Nand(a=c, b=d, out=e);
+    Not(in=e, out=out);
 }

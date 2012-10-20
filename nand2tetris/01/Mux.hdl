@@ -7,10 +7,33 @@
  * Multiplexor. If sel == 1 then out = b else out = a.
  */
 
+/*
+a s !s c=AND(a,!s)
+0 0 1    | 0
+0 1 0    | 0
+1 0 1    | 1
+1 1 0    | 0
+
+b s d=AND
+0 0  | 0  
+0 1  | 0
+1 0  | 0
+1 1  | 1
+
+c d OR e
+0 0 | 0
+0 1 | 1
+1 0 | 1
+1 1 | 0
+*/
+
 CHIP Mux {
     IN a, b, sel;
     OUT out;
 
     PARTS:
-    // Put your code here.
+    Not(in=sel, out=ns);
+    And(a=a, b=ns, out=c);
+    And(a=b, b=sel, out=d);
+    Or(a=c, b=d, out=out);
 }
