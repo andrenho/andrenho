@@ -1,0 +1,137 @@
+\chapter{Avaliação}
+\label{ch:avaliacao}
+
+Levando em consideração a proposta apresentada nos capítulos anteriores, este capítulo discute a proposta para avaliação do modelo, os cenários utilizados e seus resultados.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Metodologia de Avaliação}
+\label{sec:metod_avaliacao}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Cenários}
+\label{sec:cenarios}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Cenário 1 - Educação Ubíqua}
+\label{sec:cenario1}
+
+O primeiro cenário utilizado para validação do modelo é um cenário de educação ubíqua. Educação Ubíqua é um conjunto de processos educacionais que ocorrem em qualquer lugar, a qualquer tempo e em qualquer dispositivo, de forma contínua, contextualizada e integrada ao cotidiano do aprendiz.
+
+Para este cenário, será considerado um grupo de alunos que realiza um curso de Ciência da Computação. O curso é composto por um conjunto de 40 disciplinas, dentre as quais 8 são opcionais (o aluno deve cumprir ao menos 4). Todas as disciplinas possuem outras disciplinas como pré-requisito, exceto pelas disciplinas de início de curso. Cada disciplina possui um docente, um número limitado de vagas para os alunos, e um conjunto de recursos (como salas especiais ou equipamentos).
+
+Desta forma, uma disciplina é uma entidade que possui um perfil, contendo o seguinte conjunto de informações:
+
+\begin{itemize}
+  \item Nome da disciplina;
+  \item Pré-requisitos;
+  \item Docente atual;
+  \item Número de vagas;
+  \item Recursos necessários;
+  \item Informações históricas, como docentes passados, média de notas, número de desistências, entre outros.
+\end{itemize}
+
+O conjunto de disciplinas utilizado para este cenário é mostrado na Tabela~\ref{tab:curso}, onde as disciplinas marcadas com um asterisco são opcionais. Algumas disciplinas requerem um laboratório (com computadores simples, os quais a universidade possui vários), laboratório de redes e laboratório de hardware. As disciplinas sem recursos obrigatórios requerem apenas uma sala de aula.
+
+\begin{table*}\centering\footnotesize
+  \begin{tabular*}{1\textwidth}{@{}lllllll@{}}
+    \toprule
+    Código & Nome & Pré-requisitos & Vagas & Recursos \\
+    \midrule
+    A1 & Algoritmos I           & Nenhum & 60 & Laboratório \\
+    A2 & Matemática elementar   & Nenhum & 60 & -- \\
+    A3 & Geometria analítica    & Nenhum & 40 & -- \\
+    A4 & Português              & Nenhum & 80 & -- \\
+    A5 & Análise de sistemas I  & Nenhum & 40 & -- \\
+    \midrule
+    B1 & Algoritmos II          & A1 & 40 & Laboratório \\
+    B2 & Estrutura de Dados     & A1 & 30 & Laboratório \\
+    B3 & Cálculo I              & A3, A4 & 40 & -- \\
+    B4 & Análise de Sistemas II & A5 & 40 & -- \\
+    B5 & Inglês                 & Nenhum & 50 & -- \\
+    \midrule
+    C1 & Compiladores I         & B1, B2 & 25 & Laboratório \\
+    C2 & Linguagens de Programação & B1, B2 & 40 & Laboratório \\
+    C3 & Arquitetura de Computadores & Nenhum & 10 & Laboratório de HW \\
+    C4 & Engenharia de Software & B4 & 30 & -- \\
+    C5 & Filosofia              & A4 & 30 & -- \\
+    \midrule
+    D1 & Compiladores II        & C1 & 20 & Laboratório \\
+    D2 & Microprocessadores     & C3 & 20 & Laboratório de HW \\
+    D3 & Cálculo II             & B3 & 30 & -- \\
+    D4 & Bancos de Dados        & A5 & 30 & Laboratório \\
+    D5 & Redes                  & Nenhum & 20 & Laboratório de redes \\
+    \midrule
+    E1 & TCC I                  & D1, D2, D3, D4, D5 & 15 & -- \\
+    E2 & Eletrônica Digital*    & D2 & 10 & Laboratório de HW \\
+    E3 & Inteligência Artificial* & C4, D3 & 20 & -- \\
+    E4 & Computação Gráfica*    & C4, D3 & 20 & Laboratório \\
+    E5 & Gerência de TI*        & C4, D4 & 20 & -- \\
+    \midrule
+    F1 & TCC II                 & E1 & 15 & -- \\
+    F2 & Robótica*              & E2 & 10 & Laboratório de HW \\
+    F3 & Sistemas Operacionais* & D1, D2, C4 & 25 & -- \\
+    F4 & Gerência de Projetos*  & E5 & 15 & -- \\
+    F5 & Algoritmos Avançados*  & B1, B2 & 15 & Laboratório \\
+    \bottomrule
+  \end{tabular*}
+  \caption{Curso utilizado para o Cenário 1}
+  \label{tab:curso}
+\end{table*}
+
+Durante a realização do curso, é montada uma trilha de cada estudante, onde são registrados os seguintes eventos:
+
+\begin{itemize}
+  \item Informações básicas (nome, telefone, etc);
+  \item Matrícula inicial do curso;
+  \item Matrícula realizada em cada disciplina;
+  \item Horário de chegada e de saída em cada uma das aulas;
+  \item Notas das provas e dos trabalhos realizados;
+  \item Aprovações/reprovações nas disciplinas;
+  \item Abandono de disciplina.
+\end{itemize}
+
+Assim como os alunos, os professores também terão uma trilha gerada a partir de suas ações. Na trilha dos professores são registrados os seguintes eventos:
+
+\begin{itemize}
+  \item Informações básicas (nome, telefone, etc);
+  \item Disciplinas que o docente está ministrando;
+  \item Avaliações feitas pelos alunos;
+  \item Presença/ausência nas aulas.
+\end{itemize}
+
+Tanto os estudantes quanto os docentes possuem perfis próprios, que são gerados e mantidos atualizados pelo eProfile. A Seção~\ref{sec:cen1_perfis} descreve o processo de geração destes perfis.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Simulação}
+\label{sec:cen1_simulacao}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Geração de Perfis}
+\label{sec:cen1_perfis}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Cenário 2 - Avaliação de Crédito}
+\label{sec:cenario2}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Resultados}
+\label{sec:resultados}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Considerações sobre o capítulo}
