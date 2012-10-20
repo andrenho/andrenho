@@ -24,6 +24,8 @@ O primeiro cenário utilizado para validação do modelo é um cenário de educa
 
 Para este cenário, será considerado um grupo de alunos que realiza um curso de Ciência da Computação. O curso é composto por um conjunto de 40 disciplinas, dentre as quais 8 são opcionais (o aluno deve cumprir ao menos 4). Todas as disciplinas possuem outras disciplinas como pré-requisito, exceto pelas disciplinas de início de curso. Cada disciplina possui um docente, um número limitado de vagas para os alunos, e um conjunto de recursos (como salas especiais ou equipamentos).
 
+Como o curso é realizado por uma universidade privada, os alunos cursam o número de disciplinas que sua capacidade financeira lhes permite.
+
 Desta forma, uma disciplina é uma entidade que possui um perfil, contendo o seguinte conjunto de informações:
 
 \begin{itemize}
@@ -32,10 +34,13 @@ Desta forma, uma disciplina é uma entidade que possui um perfil, contendo o seg
   \item Docente atual;
   \item Número de vagas;
   \item Recursos necessários;
+  \item Trabalhos/provas a serem realizados no decorrer da disciplina;
+  \item Perfil da disciplina, entre 0 e 1, onde um número próximo de 0 representa uma disciplina mais técnica, e um número próximo de 1 representa uma disciplina com foco mais relacional;
   \item Informações históricas, como docentes passados, média de notas, número de desistências, entre outros.
 \end{itemize}
 
-O conjunto de disciplinas utilizado para este cenário é mostrado na Tabela~\ref{tab:curso}, onde as disciplinas marcadas com um asterisco são opcionais. Algumas disciplinas requerem um laboratório (com computadores simples, os quais a universidade possui vários), laboratório de redes e laboratório de hardware. As disciplinas sem recursos obrigatórios requerem apenas uma sala de aula.
+O conjunto de disciplinas utilizado para este cenário é mostrado na Tabela~\ref{tab:curso}, onde as disciplinas marcadas com um asterisco são opcionais. Algumas disciplinas requerem um laboratório (com computadores simples, os quais a universidade possui vários), laboratório de redes e laboratório de hardware. As disciplinas sem recursos obrigatórios requerem 
+apenas uma sala de aula.
 
 \begin{table*}\centering\footnotesize
   \begin{tabular*}{1\textwidth}{@{}lllllll@{}}
@@ -111,6 +116,58 @@ Tanto os estudantes quanto os docentes possuem perfis próprios, que são gerado
 \subsection{Simulação}
 \label{sec:cen1_simulacao}
 
+Para a realização deste cenário, foi escolhida a metodologia de simulação. Esta metodologia permite que o cenário seja executado várias vezes, com diferentes parâmetros, de modo a testar diferentes situações.
+
+A simulação é gerada através de um simulador de trilhas, que entra no modelo do eProfile de acordo com a Figura~\ref{fig:simulador}. Como o simulador não apenas fornece as trilhas ao Gerenciador de Trilhas, mas também lê os perfis gerados pelo eProfile, ele é capaz de se adaptar às informações que foram inferidas.
+
+\begin{figure}
+  \centering\includegraphics[width=0.6\textwidth]{imagens/simulador.png}
+  \caption{Simulador de trilhas para o Cenário 1}
+  \label{fig:simulador}
+\end{figure}
+
+O simulador gera trilhas de três tipos distintos de entidades: (i) disciplinas do curso, (ii) docentes e (iii) estudantes. 
+
+Dos três tipos de entidades, a trilha das disciplinas é a mais simples de todas, uma vez que é gerada a partir de informações pré-determinadas. Desta forma, assim que o simulador é inicializado e se comunica com o eProfile, são enviadas as informações das disciplinas, de acordo com a Tabela~\ref{tab:curso}. Além das informações citadas anteriormente, cada disciplina é gerada contendo um nível de dificuldade pré-determinado, de 0 a 1.
+
+Cada uma das entidades do tipo docente e estudante são criadas no simulador com características determinadas aleatoriamente. O número de docentes e o número de estudantes são ajustáveis, e podem ser modificados a cada iteração de simulação.
+
+O docente é gerado com as seguintes características:
+
+\begin{itemize}
+  \item Nome: um nome escolhido de forma aleatória a partir de um conjunto de nomes;
+  \item Experiência: nível de experiência do professor, de 0 a 1. Considera-se que um professor com maior experiência tem condições de lecionar melhor do que um professor com menos experiência;
+  \item Rigor: nível que define o quão rigoroso o professor é em suas disciplinas, de 0 a 1.
+\end{itemize}
+
+Um estudante é gerado com as seguintes características:
+
+\begin{itemize}
+  \item Nome: um nome escolhido de forma aleatória a partir de um conjunto de nomes;
+  \item Empenho: um número de 0 a 1 que define o quão esforçado um aluno é;
+  \item Inteligência: um número de 0 a 1 que define a capacidade intelectual do aluno;
+  \item Dinheiro: um número de 0 a 1 que define a capacidade financeira do aluno que, neste cenário, demonstra o número de disciplinas que o aluno consegue cursar ao mesmo tempo;
+  \item Perfil: um número de 0 a 1 que demonstra o perfil do aluno. Números próximos de 0 demonstram um perfil mais técnico, enquanto perfis próximos a 1 demonstram um perfil mais relacional.
+\end{itemize}
+
+No caso dos estudantes, a pontuação não é totalmente aleatória -- cada estudante recebe de 2 a 3 pontos, que são distribuídos aleatoriamente entre as características Empenho, Inteligência, Dinheiro e Perfil.
+
+Uma simulação inicia com a criação das entidades de disciplinas, estudantes e docentes. São então criadas as trilhas das discplinas, e os docentes são distribuídos aleatoriamente entre as disciplinas. A partir daí, incia-se um {\em loop} que termina apenas quando todos os alunos tiverem concluído ou abandonado o curso. Cada iteração do {\em loop} representa um semestre do curso contém os seguintes passos:
+
+\begin{enumerate}
+  \item Os alunos escolhem as disciplinas que irão cursar e se matriculam;
+  \item Cada dia da disciplina é simulado, onde os alunos assistem a aula e realizam as provas ou entregam os trabalhos;
+  \item Os alunos realizam uma avaliação do professor;
+  \item A nota final dos alunos é calculada, e os alunos decidem se continuarão ou abandonarão o curso.
+\end{enumerate}
+
+No primeiro passo do semestre, os estudantes escolhem as disciplinas que irão cursar. O número de disciplinas que cada estudante irá cursar é definido pela fórmula $ n = \max(1, |3d + 2e|) $, onde $d$ representa o coeficiente de Dinheiro, e $e$ representa o coeficiente de Empenho do aluno. Uma vez que o estudante tenha definido que disciplinas ele deseja cursar, ele deve escolher as disciplinas. Esta escolha é determinada pelo Perfil do aluno, que dentre as discplinas disponíveis irá escolher sempre as que são mais próximas de seu perfil. Note-se que o aluno ocasionalmente não poderá realizar todas as disciplinas determinadas por $n$, caso os pré-requisitos das disciplinas não disponibilize o número de disciplinas que o mesmo deseja.
+
+A ordem das matrículas é aleatória. Quando os alunos preencherem o número de vagas daquela disciplina, ela não estará mais disponível até o próximo semestre.
+
+A partir deste momento, são simuladas as aulas dos alunos. Cada disciplina tem 14 aulas. Dentro de cada aula, são registrados os horários de chegada dos alunos e as notas dos trabalhos e provas. Os horários de chegada dos alunos são definidos pela fórmula $ f = r + 3e $, $r$ é um número aleatório entre 0 e 1 e $e$ é o coeficiente de empenho do aluno. Se $f$ for menor que 0,5, significa que o aluno não compareceu na aula, um valor entre 0,5 e menor que 1,5 representa um atraso, e se o valor for maior que 1,5 significa que o aluno estava presente.
+
+NOTAS
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
