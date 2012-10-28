@@ -22,7 +22,7 @@ Levando em consideração a proposta apresentada nos capítulos anteriores, este
 
 O primeiro cenário utilizado para validação do modelo é um cenário de aprendizagem ubíqua. Aprendizagem Ubíqua é um conjunto de processos educacionais que ocorrem em qualquer lugar, a qualquer tempo e em qualquer dispositivo, de forma contínua, contextualizada e integrada ao cotidiano do aprendiz \cite{barbosa11}.
 
-Neste cenário, estão presentes dois aplicativos: (i) um aplicativo da universidade denominado Gerenciador de Matrículas, que controla as disciplinas e as matrículas e um aplicativo de aprendizagem ubíqua denominado Tutor Ubíquo. 
+Neste cenário, estão presentes dois aplicativos: (i) um aplicativo da universidade denominado Gerenciador de Matrículas, que controla as disciplinas e as matrículas e (ii) um aplicativo de aprendizagem ubíqua denominado Tutor Ubíquo. 
 
 O Tutor Ubíquo auxilia no gerenciamento do aprendizado dos alunos da Universidade, distribuindo conteúdo de aula e permitindo que os alunos o utilizem para a realização de provas e trabalhos das disciplinas, entre outras atividades. Ele pode ser utilizado tanto em computadores como em {\em smartphones} e, além das provas e dos trabalhos, o aplicativo está integrado com uma rede de localização dentro da universidade, que registra as entradas e saídas dos alunos dos ambientes da universidade, como salas de aula, bibliotecas, laboratórios, entre outros.
 
@@ -157,7 +157,9 @@ Um estudante é gerado com as seguintes características:
 
 No caso dos estudantes, a pontuação não é totalmente aleatória -- cada estudante recebe de 2 a 3 pontos, que são distribuídos aleatoriamente entre as características Empenho, Inteligência, Dinheiro e Perfil.
 
-Uma simulação inicia com a criação das entidades de disciplinas, estudantes e docentes. São então criadas as trilhas das disciplinas, e os docentes são distribuídos aleatoriamente entre as disciplinas. A partir daí, incia-se um {\em loop} que termina apenas quando todos os alunos tiverem concluído ou abandonado o curso. Cada iteração do {\em loop} representa um semestre do curso contém os seguintes passos:
+A simulação utiliza-se de algumas equações, criadas com o objetivo de simular o comportamento das entidades envolvidas na simulação. É utilizado um sistema de pesos: a probabilidade da ocorrência de cada evento é determinado pelas características da entidade, distribuídas de acordo com pesos pré-determinados. Por exemplo, ao simular uma prova realizada por um aluno, são levados em consideração características da disciplina, do docente e do próprio aluno. O empenho, inteligência do aluno, experiência e rigor do professor, afinidade do aluno com a disciplina, número de vezes que o aluno está repetindo a disciplina são todos fatores impactantes na nota do aluno.
+
+Uma simulação inicia com a criação das entidades de disciplinas, estudantes e docentes. São então gerados os perfis iniciais das disciplinas, e os docentes são distribuídos aleatoriamente entre as disciplinas. A partir daí, incia-se um {\em loop} que termina apenas quando todos os alunos tiverem concluído ou abandonado o curso. Cada iteração do {\em loop} representa um semestre do curso contém os seguintes passos:
 
 \begin{enumerate}
   \item Os alunos escolhem as disciplinas que irão cursar e se matriculam;
@@ -166,15 +168,28 @@ Uma simulação inicia com a criação das entidades de disciplinas, estudantes 
   \item A nota final dos alunos é calculada, e os alunos decidem se continuarão ou abandonarão o curso.
 \end{enumerate}
 
-No primeiro passo do semestre, os estudantes escolhem as disciplinas que irão cursar. O número de disciplinas que cada estudante irá cursar é definido pela fórmula $ n = \max(1, |3d + 2e|) $, onde $d$ representa o coeficiente de Dinheiro, e $e$ representa o coeficiente de Empenho do aluno. Uma vez que o estudante tenha definido que disciplinas ele deseja cursar, ele deve escolher as disciplinas. Esta escolha é determinada pelo Perfil do aluno, que dentre as disciplinas disponíveis irá escolher sempre as que são mais próximas de seu perfil. Note-se que o aluno ocasionalmente não poderá realizar todas as disciplinas determinadas por $n$, caso os pré-requisitos das disciplinas não disponibilize o número de disciplinas que o mesmo deseja.
+No início do semestre, os estudantes escolhem as disciplinas que irão cursar. O número de disciplinas que cada estudante irá cursar é definido pela fórmula $ n = \max(1, |3d + 2e|) $, onde $d$ representa o coeficiente de Dinheiro, e $e$ representa o coeficiente de Empenho do aluno. Uma vez que o estudante tenha definido que disciplinas ele deseja cursar, ele deve escolher as disciplinas. Esta escolha é determinada pelo Perfil do aluno, que dentre as disciplinas disponíveis irá escolher sempre as que são mais próximas de seu perfil. Note-se que o aluno ocasionalmente não poderá realizar todas as disciplinas determinadas por $n$, caso os pré-requisitos das disciplinas não disponibilize o número de disciplinas que o mesmo deseja.
 
 A ordem das matrículas é aleatória. Quando os alunos preencherem o número de vagas daquela disciplina, ela não estará mais disponível até o próximo semestre.
 
 A partir deste momento, são simuladas as aulas dos alunos. Cada disciplina tem 14 aulas. Dentro de cada aula, são registrados os horários de chegada dos alunos e as notas dos trabalhos e provas. Os horários de chegada dos alunos são definidos pela fórmula $ f = r + 3e $, $r$ é um número aleatório entre 0 e 1 e $e$ é o coeficiente de empenho do aluno. Se $f$ for menor que 0,5, significa que o aluno não compareceu na aula, um valor entre 0,5 e menor que 1,5 representa um atraso, e se o valor for maior que 1,5 significa que o aluno estava presente.
 
-Os dias em que ocorrem os trabalhos e provas estão definidos no perfil da disciplina. O resultado da prova ou trabalho é definido pela fórmula $ s = e + 3i + x + 2(1 - p_{d} - p_{e}) - g + v + 3r $, onde $e$ é o coeficiente de Empenho do aluno, $i$ é a Inteligência do aluno, $x$ a experiência do professor, $p_{d}$ o perfil da disciplina e $p_{e}$ o perfil do aluno (de forma que um aluno que tem o mesmo perfil da disciplina tem a tendência de ter uma nota melhor), $g$ é o rigor do docente, $v$ é o número de vezes que o aluno está repetindo esta disciplina, e $r$ é um número aleatório entre 0 e 1. Desta forma, o aluno terá sempre uma nota entre 0 e 10, considerando que a nota mínima para aprovação é 7.
+Os dias em que ocorrem os trabalhos e provas estão definidos no perfil da disciplina. O resultado da prova ou trabalho é definido pela fórmula $ s = e + 3i + x + 2(1 - p_{d} - p_{e}) - g + v + 3r $, onde :
 
-Ao fim do semestre, o docente é avaliado pelos alunos, onde cada aluno distribui uma nota para cada professor baseado na fórmula $ p = x - \frac{g}{5} + \frac{r}{5}$, onde $x$ representa a experiência do professor e $g$ representa o rigor do professor, e $r$ é um número aleatório entre 0 e 1.
+\begin{itemize}
+  \item $e$ é o coeficiente de Empenho do aluno; 
+  \item $i$ é a Inteligência do aluno;
+  \item $x$ a experiência do professor; 
+  \item $p_{d}$ o perfil da disciplina; 
+  \item $p_{e}$ o perfil do aluno (de forma que um aluno que tem o mesmo perfil da disciplina tem a tendência de ter uma nota melhor);
+  \item $g$ é o rigor do docente; 
+  \item $v$ é o número de vezes que o aluno está repetindo esta disciplina; 
+  \item $r$ é um número aleatório entre 0 e 1. 
+\end{itemize}
+
+Desta forma, o aluno terá sempre uma nota entre 0 e 10, considerando que a nota mínima para aprovação é 7.
+
+Ao fim do semestre, o docente é avaliado pelos alunos, onde cada aluno distribui uma nota para cada professor baseado na fórmula $ p = x - 0.2g + 0.2r$, onde $x$ representa a experiência do professor e $g$ representa o rigor do professor, e $r$ é um número aleatório entre 0 e 1.
 
 Também ao fim do semestre, a nota final do aluno é calculada, sendo uma média entre as provas e os trabalhos. Se o aluno for reprovado na disciplina, ele deve decidir se irá tentar novamente a disciplina ou abandonar o curso, decisão esta que é definida pela fórmula $ c = e + \frac{r}{5} $, onde $c > \frac{1}{3}$ define que o aluno continua no curso.
 

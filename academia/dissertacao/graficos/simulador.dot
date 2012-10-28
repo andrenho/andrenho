@@ -4,10 +4,16 @@ digraph modelo2 {
   sep = 0.4;
   eProfile [width=2,height=1];
 
-  "Simulador" -> "Gerenciador\nde Trilhas";
-  "Simulador" -> eProfile;
-  eProfile -> "Simulador";
-  "Gerenciador\nde Trilhas" -> eProfile;
+  subgraph cluster_0 {
+    label = "Simulador";
+    "Gerenciador\nde Matrículas";
+    "Tutor\nUbíquo";
+  }
+
+  cluster_0 -> "Gerenciador\nde Trilhas"  [label="b"];
+  cluster_0 -> eProfile [label="a"];
+  eProfile -> cluster_0 [label="d"];
+  "Gerenciador\nde Trilhas" -> eProfile [label="c"];
 
   fontsize = 12;
   fontname = "Georgia";
