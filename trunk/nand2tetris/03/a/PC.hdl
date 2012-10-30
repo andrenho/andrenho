@@ -17,9 +17,24 @@ CHIP PC {
     OUT out[16];
 
     PARTS:
-      Add16(a=in, b[0]=true, out=outadd);
-      Mux4Way16(a=in, b=outadd, sel[0]=inc, sel[1]=reset, out=outmux);
-      Or8Way(in[0]=load, in[1]=reset, in[2]=inc, out=outload);
-      Register(in=outmux, load=outload, out=out);
-}
+      // outadd = in + 1
+      Add16(a=outw, b[0]=true, out=outadd);
 
+      /* if !inc && !reset
+           outmux = in
+         elif inc && !reset
+           outmux = in + 1 (outadd)
+         elif reset
+           outmux = 0 */
+      Mux4Way16(a=in, b=outadd, sel[0]=inc, sel[1]=reset, out=outmux);
+
+      // outload = (load || reset || inc)
+      Or8Way(in[0]=load, in[1]=reset, in[2]=inc, out=outload);
+
+      // register
+      Register(in=outmux, load=outload, out=outw);
+
+      // output
+      Not16(in=outw, out=outnw);
+      Not16(in=outnw, out=out);
+}
