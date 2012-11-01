@@ -1,0 +1,10 @@
+- image: 'vainwrite.jpg'
+  font: ['Kingthings.ttf', 35]
+  color: white
+  style: [shadow]
+  author: 'Thoreau'
+  wrap: 40
+  quote:
+    en: 'How vain it is to sit down to write when you have not stood up to live.'
+    pt: "Quão vão é sentar-se para escrever quando você não se levantou para viver."
+  pos: [60, 90]
