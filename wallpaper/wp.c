@@ -8,11 +8,15 @@
 #include "lauxlib.h"
 
 #include <jpeglib.h>
+#include <ft2build.h>
+#include FT_FREETYPE_H
 
 struct Image {
 	int w, h;
 	uint8_t* buffer;
 };
+
+FT_Library lib;
 
 static int load_image(lua_State *L)
 {
@@ -70,7 +74,9 @@ static int load_image(lua_State *L)
 
 static int create_text(lua_State *L)
 {
-	printf("create_text\n");
+	// get LUA parameters
+	
+
 	lua_pushnumber(L, 0);
 	return 1;
 }
@@ -141,5 +147,12 @@ static const luaL_reg wp[] = {
 LUALIB_API int luaopen_wp(lua_State *L)
 {
 	luaL_register(L, "wp", wp);
+
+	if(FT_Init_FreeType(&lib))
+	{
+		fprintf(stderr, "Error intializing FreeType.\n");
+		exit(1);
+	}
+
 	return 1;
 }
