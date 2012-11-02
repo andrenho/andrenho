@@ -22,7 +22,15 @@ Levando em consideração a proposta apresentada nos capítulos anteriores, este
 
 O primeiro cenário utilizado para validação do modelo é um cenário de aprendizagem ubíqua. Aprendizagem Ubíqua é um conjunto de processos educacionais que ocorrem em qualquer lugar, a qualquer tempo e em qualquer dispositivo, de forma contínua, contextualizada e integrada ao cotidiano do aprendiz \cite{barbosa11}.
 
-Neste cenário, estão presentes dois aplicativos: (i) um aplicativo da universidade denominado Gerenciador de Matrículas, que controla as disciplinas e as matrículas e (ii) um aplicativo de aprendizagem ubíqua denominado Tutor Ubíquo. 
+Neste cenário, de acordo com a Figura~\ref{fig:simulador}, estão presentes dois aplicativos simulados: (i) um aplicativo da universidade denominado Gerenciador de Disciplinas e (ii) um aplicativo de aprendizagem ubíqua denominado Tutor Ubíquo. 
+
+\begin{figure}
+  \centering\includegraphics[width=0.6\textwidth]{imagens/simulador.png}
+  \caption{Simulador de trilhas para o Cenário 1}
+  \label{fig:simulador}
+\end{figure}
+
+O Gerenciador de Disciplinas é um aplicativo usado pela universidade para gerenciar as disciplinas e matrículas. Ele pode ser acessado via {\em web}, permitindo que os estudantes realizem suas matrículas através dele. Ele também controla as notas e presenças dos estudantes, bem como organiza as disciplinas e os docentes das disciplinas.
 
 O Tutor Ubíquo auxilia no gerenciamento do aprendizado dos alunos da Universidade, distribuindo conteúdo de aula e permitindo que os alunos o utilizem para a realização de provas e trabalhos das disciplinas, entre outras atividades. Ele pode ser utilizado tanto em computadores como em {\em smartphones} e, além das provas e dos trabalhos, o aplicativo está integrado com uma rede de localização dentro da universidade, que registra as entradas e saídas dos alunos dos ambientes da universidade, como salas de aula, bibliotecas, laboratórios, entre outros.
 
@@ -124,12 +132,6 @@ Para a realização deste cenário, foi escolhida a metodologia de simulação. 
 A simulação é gerada através de um simulador de trilhas. O simulador de trilhas é um programa criado especialmente para simular o cenário descrito nesta Seção, onde são simuladas as ações realizadas pelos alunos e docentes nos programas Tutor Ubíquo e o Gerenciador de Matrículas.
 
 O simulador de trilhas se encaixa no modelo do eProfile de acordo com a Figura~\ref{fig:simulador}. Como o simulador não apenas fornece as trilhas ao Gerenciador de Trilhas, mas também lê os perfis gerados pelo eProfile, ele permite que o comportamento do simulador se adapte de acordo com os perfis gerados ao, por exemplo, simular um desempenho do aluno beaseado em aspectos da disciplina realizada, do docente e de características do próprio aluno.
-
-\begin{figure}
-  \centering\includegraphics[width=0.6\textwidth]{imagens/simulador.png}
-  \caption{Simulador de trilhas para o Cenário 1}
-  \label{fig:simulador}
-\end{figure}
 
 O simulador gera trilhas de três tipos de entidades: (i) disciplinas do curso, (ii) docentes e (iii) estudantes. 
 
