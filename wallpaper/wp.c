@@ -65,7 +65,6 @@ static int load_image(lua_State *L)
 	fclose(f);
 
 	lua_pushlightuserdata(L, image);
-	printf("load_image\n");
 	return 1;
 }
 
