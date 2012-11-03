@@ -6,7 +6,7 @@ digraph modelo2 {
 
   subgraph cluster_0 {
     label = "Simulador";
-    "Gerenciador\nde Matrículas";
+    "Gerenciador\nde Disciplinas";
     "Tutor\nUbíquo";
   }
 

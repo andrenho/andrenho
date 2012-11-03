@@ -1,3 +1,12 @@
+% A FAZER:
+%  - figura do ambiente da universidade (ok)
+%  - figura de dependências de disciplinas (ok)
+%  - metadados das trilhas
+%  - descrever o fluxo das setas (ok)
+%  - descrever melhor o Tutor Ubíquo / adicionar coisas
+
+\linenumbers
+
 \chapter{Avaliação}
 \label{ch:avaliacao}
 
@@ -22,6 +31,22 @@ Levando em consideração a proposta apresentada nos capítulos anteriores, este
 
 O primeiro cenário utilizado para validação do modelo é um cenário de aprendizagem ubíqua. Aprendizagem Ubíqua é um conjunto de processos educacionais que ocorrem em qualquer lugar, a qualquer tempo e em qualquer dispositivo, de forma contínua, contextualizada e integrada ao cotidiano do aprendiz \cite{barbosa11}.
 
+Este cenário simula um grupo de alunos que realiza um curso de Ciência da Computação. O curso é composto por um conjunto de 40 disciplinas, dentre as quais 8 são opcionais (o aluno deve cumprir ao menos 4 dentre estas 8). Todas as disciplinas possuem outras disciplinas como pré-requisito, exceto pelas disciplinas de início de curso (a Figura~\ref{fig:disciplinas} mostra um subconjunto de disciplinas com seus pré-requisitos). Cada disciplina possui um docente, um número limitado de vagas para os alunos, e um conjunto de recursos (como salas especiais ou equipamentos).
+
+\begin{figure}
+  \centering\includegraphics[width=1\textwidth]{imagens/disciplinas.png}
+  \caption{Pré-requisitos de algumas disciplinas}
+  \label{fig:disciplinas}
+\end{figure}
+
+O conjunto de disciplinas utilizado para este cenário é mostrado na Tabela~\ref{tab:curso}, onde as disciplinas marcadas com um asterisco são opcionais. Algumas disciplinas requerem um laboratório (com computadores simples), laboratório de redes e laboratório de hardware. As disciplinas sem recursos obrigatórios requerem apenas uma sala de aula. A Figura~\ref{fig:planta} mostra o ambiente físico simulado.
+
+\begin{figure}
+  \centering\includegraphics[width=0.8\textwidth]{imagens/planta.png}
+  \caption{Ambiente físico da simulação}
+  \label{fig:planta}
+\end{figure}
+
 Neste cenário, de acordo com a Figura~\ref{fig:simulador}, estão presentes dois aplicativos simulados: (i) um aplicativo da universidade denominado Gerenciador de Disciplinas e (ii) um aplicativo de aprendizagem ubíqua denominado Tutor Ubíquo. 
 
 \begin{figure}
@@ -34,7 +59,7 @@ O Gerenciador de Disciplinas é um aplicativo usado pela universidade para geren
 
 O Tutor Ubíquo auxilia no gerenciamento do aprendizado dos alunos da Universidade, distribuindo conteúdo de aula e permitindo que os alunos o utilizem para a realização de provas e trabalhos das disciplinas, entre outras atividades. Ele pode ser utilizado tanto em computadores como em {\em smartphones} e, além das provas e dos trabalhos, o aplicativo está integrado com uma rede de localização dentro da universidade, que registra as entradas e saídas dos alunos dos ambientes da universidade, como salas de aula, bibliotecas, laboratórios, entre outros.
 
-Para este cenário, será considerado um grupo de alunos que realiza um curso de Ciência da Computação. O curso é composto por um conjunto de 40 disciplinas, dentre as quais 8 são opcionais (o aluno deve cumprir ao menos 4). Todas as disciplinas possuem outras disciplinas como pré-requisito, exceto pelas disciplinas de início de curso. Cada disciplina possui um docente, um número limitado de vagas para os alunos, e um conjunto de recursos (como salas especiais ou equipamentos).
+O Gerenciador de Trilhas é responsável pela montagem das trilhas baseado no eventos enviados pelos aplicativos. A Figura~\ref{fig:simulador} indica o fluxo dos dados, onde a seta ``a'' representa a definição dos modelos de entidades e das regras que são enviadas das aplicações para o eProfile. A seta ``b'' representa os eventos que são registrados pelas aplicações no Gerenciador de Trilhas, que é responsável por montar a trilha e enviá-la ao eProfile (seta ``c''). Uma vez que os perfis tenham sido inferidos, eles são disponibilizados às aplicações (seta ``d''). 
 
 Como o curso é realizado por uma universidade privada, os alunos cursam o número de disciplinas que sua capacidade financeira lhes permite.
 
@@ -52,8 +77,6 @@ Desta forma, uma disciplina é uma entidade que possui um perfil, contendo o seg
   \item Informações históricas, como docentes passados, média de notas, número de desistências, entre outros.
 \end{itemize}
 
-O conjunto de disciplinas utilizado para este cenário é mostrado na Tabela~\ref{tab:curso}, onde as disciplinas marcadas com um asterisco são opcionais. Algumas disciplinas requerem um laboratório (com computadores simples, os quais a universidade possui vários), laboratório de redes e laboratório de hardware. As disciplinas sem recursos obrigatórios requerem 
-apenas uma sala de aula.
 
 \begin{table*}\centering\footnotesize
   \begin{tabular*}{1\textwidth}{@{}lllllll@{}}
@@ -68,7 +91,7 @@ apenas uma sala de aula.
     \midrule
     B1 & Algoritmos II          & A1 & 40 & Laboratório \\
     B2 & Estrutura de Dados     & A1 & 30 & Laboratório \\
-    B3 & Cálculo I              & A3, A4 & 40 & -- \\
+    B3 & Cálculo I              & A2, A3 & 40 & -- \\
     B4 & Análise de Sistemas II & A5 & 40 & -- \\
     B5 & Inglês                 & Nenhum & 50 & -- \\
     \midrule

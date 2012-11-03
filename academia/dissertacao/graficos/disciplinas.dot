@@ -1,0 +1,13 @@
+digraph G {
+
+	"Algoritmos I" -> "Algoritmos II";
+  "Algoritmos I" -> "Estrutura de Dados";
+  "Geometria Analítica" -> "Cálculo I";
+  "Matemática Elementar" -> "Cálculo I";
+  "Algoritmos II" -> "Compiladores I";
+  "Estrutura de Dados" -> "Compiladores I";
+  "Algoritmos II" -> "Linguagens de Programação";
+  "Estrutura de Dados" -> "Linguagens de Programação";
+  "Compiladores I" -> "Compiladores II";
+  "Cálculo I" -> "Cálculo II";
+}
