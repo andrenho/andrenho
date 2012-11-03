@@ -13,8 +13,16 @@
 
 struct Image {
 	int w, h;
+	int has_alpha;
 	uint8_t* buffer;
 };
+
+struct Style {
+	uint32_t color;
+	const char* font;
+	int point_size;
+};
+
 
 FT_Library lib;
 
@@ -50,6 +58,7 @@ static int load_image(lua_State *L)
 	struct Image* image = (struct Image*) malloc(sizeof(struct Image));
 	image->w = row_stride/3;
 	image->h = cinfo.output_height;
+	image->has_alpha = 0;
 	image->buffer = malloc(image->w * 3 * image->h);
 
 	// load image
@@ -72,9 +81,89 @@ static int load_image(lua_State *L)
 	return 1;
 }
 
+static void check_styles(lua_State *L, int idx, struct Style* style)
+{
+	lua_pushnil(L);
+	while(lua_next(L, 3))
+	{
+		const char* key = luaL_checkstring(L, -2);
+		if(!strcmp(key, "color"))
+			style->color = luaL_checkinteger(L, -1);
+		else if(!strcmp(key, "font"))
+			style->font = luaL_checkstring(L, -1);
+		else if(!strcmp(key, "pointsize"))
+			style->point_size = luaL_checkinteger(L, -1);
+		else
+			luaL_error(L, "invalid style %s", key);
+
+		lua_pop(L, 1);
+	}
+}
+
+static void wrap_text(FT_Face face, const char* text, int w, 
+		      int* new_w, int* new_h)
+{
+	FT_GlyphSlot slot = face->glyph;
+	int i = -1;
+
+	(*new_w) = (*new_h) = 0;
+	while(text[++i])
+	{
+		if(FT_Load_Char(face, text[i], FT_LOAD_RENDER))
+			continue;
+		(*new_w) += slot->advance.x >> 6;
+		if((*new_h) < slot->metrics.height >> 6)
+			(*new_h) = slot->metrics.height >> 6;
+	}
+}
+
 static int create_text(lua_State *L)
 {
 	// get LUA parameters
+	const char* text = luaL_checkstring(L, 1);
+	int w = luaL_checkinteger(L, 2);
+	if(!lua_istable(L, 3))
+		return luaL_argerror(L, 3, "a table is required");
+
+	// check styles
+	struct Style style = {
+		.font = "Arial",
+		.point_size = 36,
+		.color = 0x0
+	};
+	check_styles(L, 3, &style);
+
+	// load font
+	FT_Face face;
+	if(FT_New_Face(lib, style.font, 0, &face))
+		return luaL_error(L, "error loading font");
+	if(FT_Set_Char_Size(face, 0, style.point_size * 64, 0, 0))
+		return luaL_error(L, "error setting font size");
+
+	// create image
+	int new_w, new_h, i;
+	wrap_text(face, text, w, &new_w, &new_h);
+	struct Image* image = malloc(sizeof(struct Image));
+	image->w = new_w;
+	image->h = new_h;
+	image->has_alpha = 1;
+	image->buffer = malloc(new_w * new_h * 4);
+	for(i=0; i<(new_w * new_h * 4); i += 4)
+	{
+		image->buffer[i] = image->buffer[i+1] = image->buffer[i+2] = 0;
+		image->buffer[i+3] = 0xff;
+	}
+
+	// draw text
+	FT_GlyphSlot slot = face->glyph;
+	int pen_x = 0, pen_y = 0;
+	while(text[++i])
+	{
+		if(FT_Load_Char(face, text[i], FT_LOAD_RENDER))
+			continue;
+		// ...
+		pen_x += slot->advance.x >> 6;
+	}
 	
 
 	lua_pushnumber(L, 0);
@@ -136,7 +225,8 @@ static int save_image(lua_State *L)
 	return 0;
 }
 
-static const luaL_reg wp[] = {
+static const luaL_reg wp[] = 
+{
 	{ "load_image",  load_image  },
 	{ "create_text", create_text },
 	{ "paste",       paste       },
