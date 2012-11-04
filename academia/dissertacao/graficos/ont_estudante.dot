@@ -1,0 +1,19 @@
+digraph G {
+
+	node [shape=record];
+	evento [label="Evento|{Atividade|Local|Identidade|Tempo|Participantes}"];
+  matricula [label="Matrícula|{Tempo|Identidade}"];
+  disciplina [label="MatriculaDisciplina|{Tempo|Identidade|Participantes}"];
+  entrada [label="TrocaLocal|{Atividade|Tempo|Local|Identidade}"];
+  prova [label="ProvaTrabalho|{Atividade|Tempo|Local|Identidade}"];
+  fimsemestre [label="FimSemestre|{Atividade|Tempo|Identidade|Participantes}"];
+  abandono [label="Termino|{Atividade|Tempo|Identidade}"];
+
+	evento -> matricula;
+  evento -> disciplina;
+  evento -> entrada;
+	evento -> prova;
+  evento -> fimsemestre;
+  evento -> abandono;
+
+}
