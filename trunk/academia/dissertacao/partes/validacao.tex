@@ -57,26 +57,9 @@ Neste cenário, de acordo com a Figura~\ref{fig:simulador}, estão presentes doi
 
 O Gerenciador de Disciplinas é um aplicativo usado pela universidade para gerenciar as disciplinas e matrículas. Ele pode ser acessado via {\em web}, permitindo que os estudantes realizem suas matrículas através dele. Ele também controla as notas e presenças dos estudantes, bem como organiza as disciplinas e os docentes das disciplinas.
 
-O Tutor Ubíquo auxilia no gerenciamento do aprendizado dos alunos da Universidade, distribuindo conteúdo de aula e permitindo que os alunos o utilizem para a realização de provas e trabalhos das disciplinas, entre outras atividades. Ele pode ser utilizado tanto em computadores como em {\em smartphones} e, além das provas e dos trabalhos, o aplicativo está integrado com uma rede de localização dentro da universidade, que registra as entradas e saídas dos alunos dos ambientes da universidade, como salas de aula, bibliotecas, laboratórios, entre outros.
+O Tutor Ubíquo auxilia no gerenciamento do aprendizado dos alunos da Universidade, permitindo que os alunos o utilizem para a realização de provas e trabalhos das disciplinas, entre outras atividades. Ele pode ser utilizado tanto em computadores como em {\em smartphones} e, além das provas e dos trabalhos, o aplicativo está integrado com uma rede de localização dentro da universidade, que registra as entradas e saídas dos alunos dos ambientes da universidade, como salas de aula, bibliotecas, laboratórios, entre outros.
 
 O Gerenciador de Trilhas é responsável pela montagem das trilhas baseado no eventos enviados pelos aplicativos. A Figura~\ref{fig:simulador} indica o fluxo dos dados, onde a seta ``a'' representa a definição dos modelos de entidades e das regras que são enviadas das aplicações para o eProfile. A seta ``b'' representa os eventos que são registrados pelas aplicações no Gerenciador de Trilhas, que é responsável por montar a trilha e enviá-la ao eProfile (seta ``c''). Uma vez que os perfis tenham sido inferidos, eles são disponibilizados às aplicações (seta ``d''). 
-
-Como o curso é realizado por uma universidade privada, os alunos cursam o número de disciplinas que sua capacidade financeira lhes permite.
-
-Desta forma, uma disciplina é uma entidade que possui um perfil, contendo o seguinte conjunto de informações:
-
-\begin{itemize}
-  \item Nome da disciplina;
-  \item Pré-requisitos;
-  \item Docente atual;
-  \item Número de vagas;
-  \item Recursos necessários;
-  \item Trabalhos/provas a serem realizados no decorrer da disciplina;
-  \item Característica da disciplina, isto é, um conjunto de variáveis que representam características da disciplina, cuja soma resulta em 1. As variáveis são Teórico, Prático e Gerencial (por exemplo, uma disciplina 30\% teórica, 60\% prática e 10\% gerencial teria o conjunto de valores $ D = \{ 0.3, 0.6, 0.1 \} $;
-  \item Nível de dificuldade da disciplina, entre 0 e 1;
-  \item Informações históricas, como docentes passados, média de notas, número de desistências, entre outros.
-\end{itemize}
-
 
 \begin{table*}\centering\footnotesize
   \begin{tabular*}{1\textwidth}{@{}lllllll@{}}
@@ -124,6 +107,26 @@ Desta forma, uma disciplina é uma entidade que possui um perfil, contendo o seg
   \label{tab:curso}
 \end{table*}
 
+
+\begin{comment}
+Como o curso é realizado por uma universidade privada, os alunos cursam o número de disciplinas que sua capacidade financeira lhes permite.
+
+Desta forma, uma disciplina é uma entidade que possui um perfil, contendo o seguinte conjunto de informações:
+
+\begin{itemize}
+  \item Nome da disciplina;
+  \item Pré-requisitos;
+  \item Docente atual;
+  \item Número de vagas;
+  \item Recursos necessários;
+  \item Trabalhos/provas a serem realizados no decorrer da disciplina;
+  \item Característica da disciplina, isto é, um conjunto de variáveis que representam características da disciplina, cuja soma resulta em 1. As variáveis são Teórico, Prático e Gerencial (por exemplo, uma disciplina 30\% teórica, 60\% prática e 10\% gerencial teria o conjunto de valores $ D = \{ 0.3, 0.6, 0.1 \} $;
+  \item Nível de dificuldade da disciplina, entre 0 e 1;
+  \item Informações históricas, como docentes passados, média de notas, número de desistências, entre outros.
+\end{itemize}
+
+
+
 Durante a realização do curso, é montada uma trilha de cada estudante. Na trilha são registrados todos os eventos realizados pelos estudantes dentro de determinados contextos educacionais, tais como aulas e grupos de trabalho. Dos eventos registrados, os seguintes são de interesse para a simulação:
 
 \begin{itemize}
@@ -144,6 +147,14 @@ Assim como os alunos, os professores também terão uma trilha gerada a partir d
 \end{itemize}
 
 Tanto os estudantes quanto os docentes possuem perfis próprios, que são gerados e mantidos atualizados pelo eProfile. A Seção~\ref{sec:cen1_perfis} descreve o processo de geração destes perfis.
+\end{comment}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Entidades e Trilhas}
+\label{sec:cen1_trilhas}
+
+% TODO - contexto
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
