@@ -17,8 +17,6 @@ Levando em consideração a proposta apresentada nos capítulos anteriores, este
 \section{Metodologia de Avaliação}
 \label{sec:metod_avaliacao}
 
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Cenários}
@@ -154,7 +152,27 @@ Tanto os estudantes quanto os docentes possuem perfis próprios, que são gerado
 \subsection{Entidades e Trilhas}
 \label{sec:cen1_trilhas}
 
-% TODO - contexto
+O cenário é composto por três entidades: (i) estudantes, (ii) docentes e (iii) disciplinas. As entidades estudante e docente representam, respectivamente, cada um dos alunos e professores envolvidos no curso. A disciplina, que refere-se a cada uma das disciplinas do curso, poderia, em teoria, ser representada como uma entidade ou um simples recurso. Neste cenário, foi decidido que ela seria representada como uma entidade, pois desta forma é possível permitir que ela crie uma trilha, da qual pode ser obtido um perfil. Desta forma, o perfil da disciplina pode conter campos que são atualizados repetidamente, tal como a nota média da disciplina.
+
+O cenário proposto leva em consideração o contexto em que as entidades estão presentes. Segundo proposto na Seção~\ref{sec:contexto}, o contexto é qualquer informação que possa ser utilizada para caracterizar a situação de uma entidade. Desta forma, são levados em consideração neste cenário (i) a data, (ii) a hora e (iii) a localização dos eventos. Assim, por exemplo, um aluno só é considerado presente em uma aula se ele estiver em uma determinada localização dentro de uma data e hora definidos.
+
+A ontologia da trilha dos estudantes está representada na Figura~\ref{fig:ont_estudante}. A ontologia da trilha deriva da ontologia eOntoTrail apresentada na Figura~\ref{fig:ont_trilha}. Segundo citado anteriormente, aplicações sensíveis a contexto estão interessadas em saber {\bf quem}, {\bf onde}, {\bf quando} e {\bf o quê} (isto é, o que o usuário está fazendo), de forma a poderem descobrir por que a situação está ocorrendo \citetexto{abowd99}. Estas questões são respondidas, respectivamente, pelos atributos Identidade e Participantes, Local, Tempo e Atividade.
+
+\begin{figure}
+  \centering\includegraphics[width=1.05\textwidth]{imagens/ont_estudante.png}
+  \caption{Trilha dos Estudantes}
+  \label{fig:ont_estudante}
+\end{figure}
+
+Os seis tipos de evento que são registrados na trilha do estudante são mostrados na Figura~\ref{fig:ont_estudante}: (i) matrícula no curso, (ii) matrícula na disciplina, (iii) troca de localização, (iv) prova ou trabalho, (v) fim de semestre e (vi) abandono.
+
+O evento de matrícula no curso ocorre no momento em que o estudante se matricula e passa a fazer parte do curso. Neste evento são registrados sua identidade e o momento em que a matrícula ocorreu. O evento de abandono faz o contraponto: é a fim da participação do aluno no curso. Este evento possui ainda o atributo de identidade, que indica se o aluno está se formando no curso ou abandonando-o prematuramente.
+
+O evento de matrícula em uma disciplina marca o início da participação do aluno em uma disciplina pelo período de um semestre. São registrados a identidade do aluno, o momento em que a matrícula ocorreu e, no atributo Participantes, a disciplina selecionada. O atributo Participantes sempre indica outras entidades relacionadas a este evento, e a disciplina é uma entidade. O evento de fim de semestre marca o término da participação do estudante, onde é registrado no atributo Atividade se o estudante foi aprovado ou reprovado, e com que nota.
+
+O evento de troca de localização ocorre cada vez que um estudante entra ou sai de algum local da universidade. São registrados a identidade do estudate, o momento em que o evento ocorreu, a localização e, no atributo Atividade, se o estudante entrou ou saiu da localização. Este evento auxilia na identificação do contexto correto em que os eventos ocorreram.
+
+O evento de prova e trabalho ocorre toda vez que o estudante realiza uma prova ou entrega um trabalho. São registrados o tempo, local e identidade do estudante. Além disso, no atributo Atividade, ficam armazenadas as respostas do estudante ou o trabalho entregue, para posterior avaliação pelo docente.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
