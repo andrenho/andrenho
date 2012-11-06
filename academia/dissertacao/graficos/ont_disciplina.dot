@@ -1,0 +1,10 @@
+digraph G {
+
+	node [shape=record];
+	evento [label="Evento|{Atividade|Local|Identidade|Tempo|Participantes}"];
+  inicio [label="Inicializacao|{Atividade|Indentidade|Tempo}"];
+  semestre [label="Semestre|{Atividade|Identidade|Tempo|Participantes}"];
+
+  evento -> inicio; 
+  evento -> semestre;
+}
