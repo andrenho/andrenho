@@ -174,7 +174,13 @@ O evento de troca de localização ocorre cada vez que um estudante entra ou sai
 
 O evento de prova e trabalho ocorre toda vez que o estudante realiza uma prova ou entrega um trabalho. São registrados o tempo, local e identidade do estudante. Além disso, no atributo Atividade, ficam armazenadas as respostas do estudante ou o trabalho entregue, para posterior avaliação pelo docente.
 
-A {\bf ontologia da trilha} do docente está representada na Figura~\ref{fig:ont_docente}. Os seguintes eventos são registrados na trilha do docente: (i) início e fim de semestre, (ii) entrada e saída de ambiente, (iii) avaliação de prova ou trabalho e (iv) avaliação recebida dos alunos.
+A {\bf ontologia da trilha do docente} está representada na Figura~\ref{fig:ont_docente}. Os seguintes eventos são registrados na trilha do docente: (i) início e fim de semestre, (ii) entrada e saída de ambiente, (iii) avaliação de prova ou trabalho e (iv) avaliação recebida dos alunos.
+
+\begin{figure}
+  \centering\includegraphics[width=0.8\textwidth]{imagens/ont_docente.png}
+  \caption{Trilha dos Docentes}
+  \label{fig:ont_docente}
+\end{figure}
 
 O evento de início e fim de semestre contém, além dos atributos de Identidade (que identifica o docente) e o tempo, o atributo de Atividade que indica se é o início ou fim do semestre, e os Participantes, que são as disciplinas nas quais o docente irá ensinar.
 
@@ -185,6 +191,12 @@ A avaliação de prova ou trabalho ocorre no momento em que o docente avalia um 
 O docente recebe também uma avaliação, feita pelos alunos. Esta avaliação é registrada e, embora não fique registrado quais alunos fizeram cada avaliação (pois esta informação é confidencial), o Atributo participantes vincula a avaliação do docente à disciplina que ele está lecionando.
 
 A {\bf ontologia da trilha da disciplina} está representada na Figura~\ref{fig:ont_disciplina}. Segundo definido anteriormente, neste cenário a disciplina está representada como uma entidade. Isto permite que uma disciplina gere uma trilha e tenha um perfil contruído automaticamente pelo eProfile. Existem dois tipos de eventos que podem ser gerados em uma trilha de disciplina: (i) inicialização e (ii) início ou fim de semestre.
+
+\begin{figure}
+  \centering\includegraphics[width=0.8\textwidth]{imagens/ont_disciplina.png}
+  \caption{Trilha das Disciplinas}
+  \label{fig:ont_disciplina}
+\end{figure}
 
 O evento de inicialização ocorre quanto uma nova disciplina é registrada no curso. Neste caso, 
 
