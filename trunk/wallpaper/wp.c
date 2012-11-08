@@ -101,21 +101,47 @@ static void check_styles(lua_State *L, int idx, struct Style* style)
 }
 
 static void wrap_text(FT_Face face, const char* text, int w, 
-		      int* new_w, int* new_h)
+		      int* new_w, int* new_h, int* origin)
 {
 	FT_GlyphSlot slot = face->glyph;
 	int i = -1;
 
-	(*new_w) = (*new_h) = 0;
+	(*new_w) = (*new_h) = (*origin) = 0;
+	int down = 0;
 	while(text[++i])
 	{
 		if(FT_Load_Char(face, text[i], FT_LOAD_RENDER))
 			continue;
 		(*new_w) += slot->advance.x >> 6;
-		if((*new_h) < slot->metrics.height >> 6)
-			(*new_h) = slot->metrics.height >> 6;
+		if((*origin) < slot->metrics.horiBearingY >> 6)
+			(*origin) = slot->metrics.horiBearingY >> 6;
+		if(down < (slot->metrics.height - slot->metrics.horiBearingY) >> 6)
+			down = (slot->metrics.height - slot->metrics.horiBearingY) >> 6;
 	}
+	//printf("%d %d\n", *origin, down);
+	(*new_h) = (*origin) + down;
 }
+
+
+static inline void draw_letter(struct Image* image, struct Style style, 
+		FT_Bitmap* bitmap, int pos_x, int pos_y)
+{
+	int x, y, i=0;
+	for(y=0; y<bitmap->rows; y++)
+		for(x=0; x<bitmap->width; x++)
+		{
+			int px = pos_x + x, py = pos_y + y;
+			if(px >= 0 && py >= 0 && px < image->w && py < image->h)
+			{
+				int p = ((py * image->w) + px) * 4;
+				image->buffer[p] = (style.color >> 16) & 0xff;
+				image->buffer[p+1] = (style.color >> 8) & 0xff;
+				image->buffer[p+2] = style.color & 0xff;
+				image->buffer[p+3] = bitmap->buffer[i++];
+			}
+		}
+}
+
 
 static int create_text(lua_State *L)
 {
@@ -141,9 +167,10 @@ static int create_text(lua_State *L)
 		return luaL_error(L, "error setting font size");
 
 	// create image
-	int new_w, new_h, i;
-	wrap_text(face, text, w, &new_w, &new_h);
+	int new_w, new_h, origin, i;
+	wrap_text(face, text, w, &new_w, &new_h, &origin);
 	struct Image* image = malloc(sizeof(struct Image));
+	//printf("%d %d\n", new_w, new_h);
 	image->w = new_w;
 	image->h = new_h;
 	image->has_alpha = 1;
@@ -151,30 +178,71 @@ static int create_text(lua_State *L)
 	for(i=0; i<(new_w * new_h * 4); i += 4)
 	{
 		image->buffer[i] = image->buffer[i+1] = image->buffer[i+2] = 0;
-		image->buffer[i+3] = 0xff;
+		image->buffer[i+3] = 0x0;
 	}
 
 	// draw text
 	FT_GlyphSlot slot = face->glyph;
-	int pen_x = 0, pen_y = 0;
+	int pen_x = 0, 
+	    pen_y = origin;
+	i = -1;
 	while(text[++i])
 	{
 		if(FT_Load_Char(face, text[i], FT_LOAD_RENDER))
 			continue;
-		// ...
+
+		// draw letter
+		draw_letter(image, style, &slot->bitmap, 
+				pen_x + slot->bitmap_left,
+				pen_y - slot->bitmap_top);
+		
 		pen_x += slot->advance.x >> 6;
 	}
 	
-
-	lua_pushnumber(L, 0);
+	// return value
+	lua_pushlightuserdata(L, image);
 	return 1;
+}
+
+static inline void paste_pixel(struct Image* from, struct Image* to, 
+		int x, int y, int pos_x, int pos_y)
+{	
+	if(pos_x+x < 0 || pos_x+x >= to->w || pos_y+y < 0 || pos_y+y >= to->h)
+		return;
+
+	double alpha = (double)from->buffer[((y * from->w) + x) * 4 + 3] / 255;
+	if(alpha == 0)
+		return;
+
+	int pt = (((pos_y+y) * to->w) + (pos_x+x)) * 3;
+	int pf = ((y * from->w) + x) * 4;
+
+	int i;
+	for(i=0; i<3; i++)
+	{
+		int diff = (from->buffer[pf+i] - to->buffer[pt+i]) * alpha;
+		to->buffer[pt+i] += diff;
+	}
 }
 
 static int paste(lua_State *L)
 {
-	printf("paste\n");
-	lua_pushnumber(L, 0);
-	return 1;
+	// get LUA params
+	struct Image* from = lua_touserdata(L, 2);
+	struct Image* to = lua_touserdata(L, 1);
+	int pos_x = luaL_checkinteger(L, 3),
+	    pos_y = luaL_checkinteger(L, 4);
+
+	if(!from->has_alpha || to->has_alpha)
+		luaL_error(L, "not implemented: from must not be alpha and to "
+				"must be alpha");
+
+	// paste
+	int x, y;
+	for(x=0; x<(from->w); x++)
+		for(y=0; y<(from->h); y++)
+			paste_pixel(from, to, x, y, pos_x, pos_y);
+	return 0;
 }
 
 static int save_image(lua_State *L)
