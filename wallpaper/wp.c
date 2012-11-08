@@ -118,8 +118,9 @@ static void wrap_text(FT_Face face, const char* text, int w,
 		if(down < (slot->metrics.height - slot->metrics.horiBearingY) >> 6)
 			down = (slot->metrics.height - slot->metrics.horiBearingY) >> 6;
 	}
-	//printf("%d %d\n", *origin, down);
-	(*new_h) = (*origin) + down;
+	(*origin) = face->ascender >> 6;
+	(*new_h) = face->height >> 6;
+	printf("%d %d\n", *origin, *new_h);
 }
 
 
