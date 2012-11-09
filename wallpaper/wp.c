@@ -11,21 +11,32 @@
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
+FT_Library lib;
+
+// Internal structure of a image
 struct Image {
 	int w, h;
 	int has_alpha;
+	struct Shadow {
+		int n;
+		struct Image* image;
+	} shadow;
 	uint8_t* buffer;
 };
 
+// Used for define character style
 struct Style {
 	uint32_t color;
 	const char* font;
 	int point_size;
+	double opacity;
+	int shadow;
 };
 
 
-FT_Library lib;
-
+/* wp.load_image(image_name)
+ *
+ * Load a JPEG image. */
 static int load_image(lua_State *L)
 {
 	struct jpeg_decompress_struct cinfo;
@@ -81,10 +92,12 @@ static int load_image(lua_State *L)
 	return 1;
 }
 
+
+/* Interpret the style table from LUA. */
 static void check_styles(lua_State *L, int idx, struct Style* style)
 {
 	lua_pushnil(L);
-	while(lua_next(L, 3))
+	while(lua_next(L, idx))
 	{
 		const char* key = luaL_checkstring(L, -2);
 		if(!strcmp(key, "color"))
@@ -93,6 +106,10 @@ static void check_styles(lua_State *L, int idx, struct Style* style)
 			style->font = luaL_checkstring(L, -1);
 		else if(!strcmp(key, "pointsize"))
 			style->point_size = luaL_checkinteger(L, -1);
+		else if(!strcmp(key, "opacity"))
+			style->opacity = luaL_checknumber(L, -1);
+		else if(!strcmp(key, "shadow"))
+			style->shadow = luaL_checkinteger(L, -1);
 		else
 			luaL_error(L, "invalid style %s", key);
 
@@ -100,33 +117,56 @@ static void check_styles(lua_State *L, int idx, struct Style* style)
 	}
 }
 
-static void wrap_text(FT_Face face, const char* text, int w, 
+
+/* Wrap the text and return the image size for it. */
+static void wrap_text(FT_Face face, unsigned char* text, int max_w, 
 		      int* new_w, int* new_h, int* origin)
 {
 	FT_GlyphSlot slot = face->glyph;
 	int i = -1;
+	int lines = 1;
+	int cur_w = 0;
+	int last_space = 0;
 
 	(*new_w) = (*new_h) = (*origin) = 0;
-	int down = 0;
 	while(text[++i])
 	{
+		// check for wrap
+		if(text[i] == ' ')
+			last_space = i;
+		if(cur_w > max_w)
+		{
+			/*int tmp = i;
+			i = last_space;
+			last_space = tmp;*/
+			i = last_space;
+			text[i] = '\n';
+		}
+
+		// check for enter
+		if(text[i] == '\n')
+		{
+			lines += 1;
+			cur_w = 0;
+		}
+
+		// calculate letter size
 		if(FT_Load_Char(face, text[i], FT_LOAD_RENDER))
 			continue;
-		(*new_w) += slot->advance.x >> 6;
-		if((*origin) < slot->metrics.horiBearingY >> 6)
-			(*origin) = slot->metrics.horiBearingY >> 6;
-		if(down < (slot->metrics.height - slot->metrics.horiBearingY) >> 6)
-			down = (slot->metrics.height - slot->metrics.horiBearingY) >> 6;
+		cur_w += slot->advance.x >> 6;
+		if(cur_w > (*new_w))
+			(*new_w) = cur_w;
 	}
-	(*origin) = face->ascender >> 6;
-	(*new_h) = face->height >> 6;
-	printf("%d %d\n", *origin, *new_h);
+	(*origin) = face->size->metrics.ascender >> 6;
+	(*new_h) = (face->size->metrics.height >> 6) * lines;
 }
 
 
+/* Draw a single letter using the defined style. */
 static inline void draw_letter(struct Image* image, struct Style style, 
 		FT_Bitmap* bitmap, int pos_x, int pos_y)
 {
+	// draw letter
 	int x, y, i=0;
 	for(y=0; y<bitmap->rows; y++)
 		for(x=0; x<bitmap->width; x++)
@@ -138,16 +178,51 @@ static inline void draw_letter(struct Image* image, struct Style style,
 				image->buffer[p] = (style.color >> 16) & 0xff;
 				image->buffer[p+1] = (style.color >> 8) & 0xff;
 				image->buffer[p+2] = style.color & 0xff;
-				image->buffer[p+3] = bitmap->buffer[i++];
+				image->buffer[p+3] = bitmap->buffer[i++] * style.opacity;
 			}
 		}
 }
 
 
+void draw_text(struct Image* image, unsigned char* text, struct Style style, 
+		FT_Face face, int origin)
+{
+	// draw text
+	FT_GlyphSlot slot = face->glyph;
+	int pen_x = 0, 
+	    pen_y = origin;
+	int i = -1;
+	while(text[++i])
+	{
+		// check for ENTER
+		if(text[i] == '\n')
+		{
+			pen_x = 0;
+			pen_y += (face->size->metrics.height >> 6);
+			continue;
+		}
+
+		// draw letter
+		if(FT_Load_Char(face, text[i], FT_LOAD_RENDER))
+			continue;
+		draw_letter(image, style, &slot->bitmap, 
+				pen_x + slot->bitmap_left,
+				pen_y - slot->bitmap_top);
+
+		// advance pen		
+		pen_x += slot->advance.x >> 6;
+	}
+}
+
+
+/* wp.create_text(text, max_w, style)
+ *
+ * Create a text image, with the defined style and having max_w maximum width. 
+ */
 static int create_text(lua_State *L)
 {
 	// get LUA parameters
-	const char* text = luaL_checkstring(L, 1);
+	unsigned char* text = strdup(luaL_checkstring(L, 1));
 	int w = luaL_checkinteger(L, 2);
 	if(!lua_istable(L, 3))
 		return luaL_argerror(L, 3, "a table is required");
@@ -156,7 +231,9 @@ static int create_text(lua_State *L)
 	struct Style style = {
 		.font = "Arial",
 		.point_size = 36,
-		.color = 0x0
+		.color = 0x0,
+		.opacity = 1,
+		.shadow = 0,
 	};
 	check_styles(L, 3, &style);
 
@@ -167,14 +244,16 @@ static int create_text(lua_State *L)
 	if(FT_Set_Char_Size(face, 0, style.point_size * 64, 0, 0))
 		return luaL_error(L, "error setting font size");
 
-	// create image
+	// wrap text
 	int new_w, new_h, origin, i;
 	wrap_text(face, text, w, &new_w, &new_h, &origin);
+
+	// create image
 	struct Image* image = malloc(sizeof(struct Image));
-	//printf("%d %d\n", new_w, new_h);
 	image->w = new_w;
 	image->h = new_h;
 	image->has_alpha = 1;
+	image->shadow.n = style.shadow;
 	image->buffer = malloc(new_w * new_h * 4);
 	for(i=0; i<(new_w * new_h * 4); i += 4)
 	{
@@ -182,29 +261,33 @@ static int create_text(lua_State *L)
 		image->buffer[i+3] = 0x0;
 	}
 
-	// draw text
-	FT_GlyphSlot slot = face->glyph;
-	int pen_x = 0, 
-	    pen_y = origin;
-	i = -1;
-	while(text[++i])
+	// draw shadow
+	if(style.shadow)
 	{
-		if(FT_Load_Char(face, text[i], FT_LOAD_RENDER))
-			continue;
-
-		// draw letter
-		draw_letter(image, style, &slot->bitmap, 
-				pen_x + slot->bitmap_left,
-				pen_y - slot->bitmap_top);
-		
-		pen_x += slot->advance.x >> 6;
+		struct Image* shadow_img = malloc(sizeof(struct Image));
+		memcpy(shadow_img, image, sizeof(struct Image));
+		shadow_img->buffer = malloc(new_w * new_h * 4);
+		memcpy(shadow_img->buffer, image->buffer, new_w * new_h * 4);
+		shadow_img->shadow.n = 0;
+		struct Style style_shadow = style;
+		style_shadow.shadow = 0;
+		style_shadow.color = 0x0;
+		style_shadow.opacity = .8;
+		draw_text(shadow_img, text, style_shadow, face, origin);
+		image->shadow.image = shadow_img;
 	}
 	
+	// draw text
+	draw_text(image, text, style, face, origin);
+
 	// return value
+	free(text);
 	lua_pushlightuserdata(L, image);
 	return 1;
 }
 
+
+/* Paste a single pixel from one image into the other. */
 static inline void paste_pixel(struct Image* from, struct Image* to, 
 		int x, int y, int pos_x, int pos_y)
 {	
@@ -226,6 +309,10 @@ static inline void paste_pixel(struct Image* from, struct Image* to,
 	}
 }
 
+
+/* wp.paste(img_dest, img_src, x, y)
+ *
+ * Paste img_src into img_dest using alpha, in the x,y position. */
 static int paste(lua_State *L)
 {
 	// get LUA params
@@ -238,14 +325,29 @@ static int paste(lua_State *L)
 		luaL_error(L, "not implemented: from must not be alpha and to "
 				"must be alpha");
 
-	// paste
+	// paste shadow
 	int x, y;
+	if(from->shadow.n)
+		for(x=0; x<(from->w); x++)
+			for(y=0; y<(from->h); y++)
+				paste_pixel(from->shadow.image, to, x, y, 
+						pos_x + from->shadow.n, 
+						pos_y + from->shadow.n);
+
+
+
+	// paste
 	for(x=0; x<(from->w); x++)
 		for(y=0; y<(from->h); y++)
 			paste_pixel(from, to, x, y, pos_x, pos_y);
+
 	return 0;
 }
 
+
+/* save_image(image, filename)
+ *
+ * Save a JPEG image using 95% quality. */
 static int save_image(lua_State *L)
 {
 	// get LUA arguments
@@ -294,6 +396,8 @@ static int save_image(lua_State *L)
 	return 0;
 }
 
+
+/* Functions visible from LUA. */
 static const luaL_reg wp[] = 
 {
 	{ "load_image",  load_image  },
@@ -303,6 +407,8 @@ static const luaL_reg wp[] =
 	{ NULL, NULL }
 };
 
+
+/* Library initialization. */
 LUALIB_API int luaopen_wp(lua_State *L)
 {
 	luaL_register(L, "wp", wp);
