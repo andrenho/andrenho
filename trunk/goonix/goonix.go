@@ -1,7 +1,14 @@
 package main
 
-var syscallServer = new(SyscallServer)
+var ss *SyscallServer
 
 func main() {
-	syscallServer.Init()
+	// initialization
+	ss = NewSyscallServer()
+
+	// run servers
+	go ss.Run()
+
+	// wait finish
+	ss.Wait()
 }
