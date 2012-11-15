@@ -12,15 +12,18 @@ Somente é possível avaliar as funcionalidades de uma proposta de infraestrutur
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Cenário 1 - Integração eProfile/LOCAL}
+\section{Cenário 1 - Aprendizagem Ubíqua}
 \label{sec:cenario1}
 
 O experimento apresentado é baseado na geração simulada de trilhas de estudantes dentro de um contexto de Aprendizagem Ubíqua. Aprendizagem Ubíqua pode ser compreendida como um conjunto de processos educacionais que ocorrem em qualquer lugar, a qualquer tempo e com qualquer dispositivo, de forma contínua, contextualizada e integrada ao cotidiano do aprendiz \cite{barbosa11}.
 
+\subsection{Integração eProfile/LOCAL}
+\label{sec:eprofile_local}
+
 Este cenário integra o eProfile a um sistema de educação ubíqua denominado LOCAL ({\em Location and Context-Aware Learning}). O LOCAL usa informações de localização e de contexto como auxílio ao processo de ensino e de aprendizagem. Um sistema de localização acompanha a mobilidade dos aprendizes e, baseado nas suas posições físicas, explora oportunidades
 educacionais \cite{barbosa11}. 
 
-O LOCAL, cuja arquitetura é mostrada na Figura~\ref{fig:arq_local} é formado por seis componentes: (i) um sistema de perfis de usuário, que armazena dados relevantes ao processo de ensino e aprendizagem, (ii) um sistema de localização, (iii) um Assistente Pessoal (AP), que acompanha o usuário em seu dispositivo móvel, (iv) um repositório de objetos de aprendizagem, (v) um sistema de envio de mensagens contextualizadas e (vi) o tutor, um motor de analise que realiza inferências usando dados fornecidos pelos sistemas de perfis e localização.
+O LOCAL, cuja arquitetura é mostrada na Figura~\ref{fig:arq_local} é formado por sete componentes: (i) um sistema de perfis de usuário, que armazena dados relevantes ao processo de ensino e aprendizagem, (ii) um sistema de localização, (iii) um Assistente Pessoal (AP), que acompanha o usuário em seu dispositivo móvel, (iv) um repositório de objetos de aprendizagem, (v) um sistema de envio de mensagens contextualizadas, (vi) um sistema de eventos, que agenda tarefas e (vii) o tutor, um motor de analise que realiza inferências usando dados fornecidos pelos sistemas de perfis e localização.
 
 \begin{figure}
   \centering\includegraphics[width=0.7\textwidth]{imagens/arq_local.png}
@@ -28,13 +31,83 @@ O LOCAL, cuja arquitetura é mostrada na Figura~\ref{fig:arq_local} é formado p
   \label{fig:arq_local}
 \end{figure}
 
-A coleta de informações do sistema de perfis do LOCAL é explícito. Isto significa que os dados pertinentes aos usuários (aprendizes) necessitam ser previamente cadastrados no sistema. Além disso, o sitema de perfis do LOCAL é estático, o que significa que os dados não são atualizados automaticamente em resposta às ações realizadas pelos aprendizes ou a eventos externos. Como o eProfile é um modelo de perfis dinâmico, com coleta de informações implícitas, a integração destes dois modelos resultaria na potencialização das capacidades do LOCAL.
+A coleta de informações do sistema de perfis do LOCAL é explícito. Isto significa que os dados pertinentes aos usuários (aprendizes) necessitam ser previamente cadastrados no sistema. Além disso, o sitema de perfis do LOCAL é estático, o que significa que os dados não são atualizados automaticamente em resposta às ações realizadas pelos aprendizes ou a eventos externos. Como o eProfile é um modelo de perfis dinâmico, com coleta de informações implícitas, a integração destes dois modelos resulta na potencialização das capacidades do LOCAL.
 
-O LOCAL se encaixa no modelo do eProfile de acordo com a Figura~\ref{fig:eprofile_local}.
+O LOCAL se encaixa no modelo do eProfile de acordo com a Figura~\ref{fig:eprofile_local}. Além do LOCAL e do eProfile, a Figura apresenta um aplicativo denominado Gerenciador de Trilhas. O Gerenciador de Trilhas é um programa externo que armazena as trilhas, processa-as e encaminha-as ao eProfile, segundo descrito na Seção~\ref{sec:modelo}. Para este cenário, foi criado um Gerenciador de Trilhas simples, que apenas recebe as trilhas, armazena-as e reencaminha-as ao eProfile quando solicitado.
+
+A integração eProfile/LOCAL foi baseada nas seguintes alterações feitas no LOCAL: (i) foi incluída uma interface de conexão com o eProfile, capaz de gerar modelos de perfis de aprendizes e regras de processamento de perfis; (ii) foi incluída uma interface de conexão com o Gerenciador de Trilhas, de modo que os eventos de Localização e as ações realizadas no Assistente Pessoal fossem encaminhadas ao Gerenciador de Trilhas e (iii) foi incluída uma interface de comunicação com o eProfile, onde o módulo de Perfis de Usuário do LOCAL é alimentado pelos perfis gerados pelo eProfile.
+
+O primeiro passo da integração se dá quando o LOCAL se comunica pela primeira vez com o eProfile. Neste momento, o LOCAL indica para o eProfile qual será o modelo de perfil esperado, e as regras para a geração deste perfil. Este conjunto de informações é registrado no eProfile através do agente Configurador (seta ``a''), que organiza estas informações e registra-as nos bancos de dados de Modelos e Regras.
 
 \begin{figure}
-  \centering\includegraphics[width=1\textwidth]{imagens/eprofiel_local.png}
+  \centering\includegraphics[width=1\textwidth]{imagens/eprofile_local.png}
   \caption{Integração eProfile/LOCAL}
   \label{fig:eprofile_local}
 \end{figure}
+
+À medida que os aprendizes utilizam o LOCAL, as movimentações deles vão sendo identificadas pelo módulo Sistema de Localização, e as ações deles são executadas no Assistente Pessoal. Estes módulos registram os eventos no Gerenciador de Trilhas (setas ``b'' e ``c'') que, por sua vez, envia-os ao agente Converor do eProfile (seta ``d''). As trilhas enviadas são armazenadas no banco de dados de Trilhas. Estas trilhas são periodicamente processadas, de acordo com os modelos e as regras definidos incialmente, e um processo de inferência baseado nestas informações gera os perfis, que são encaminhados ao módulo de Perfis de Usuário do LOCAL (seta ``e''). Estes perfis servem como base para que o LOCAL conheça seus usuários (aprendizes), de forma a distribuir seu conteúdo da forma mais contextualizada possível.
+
+% TODO - formação de perfil do LOCAL
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Descrição do Cenário}
+\label{sec:desc_cenario1}
+
+Este cenário é composto por um grupo de alunos que realiza um curso de Ciência da Computação. O curso é composto por um conjunto de 40 disciplinas, dentre as quais 8 são opcionais (o aluno deve cumprir ao menos 4 dentre estas 8). Todas as disciplinas possuem outras disciplinas como pré-requisito, exceto pelas disciplinas de início de curso (a Figura~\ref{fig:disciplinas} exemplifica um subconjunto de disciplinas com seus pré-requisitos). Cada disciplina possui um docente, um número limitado de vagas para os alunos, e um conjunto de recursos (como salas especiais ou equipamentos).
+
+\begin{figure}
+  \centering\includegraphics[width=1\textwidth]{imagens/disciplinas.png}
+  \caption{Pré-requisitos de algumas disciplinas}
+  \label{fig:disciplinas}
+\end{figure}
+
+O conjunto de disciplinas utilizado para este cenário é mostrado na Tabela~\ref{tab:curso}, onde as disciplinas marcadas com um asterisco são opcionais. Algumas disciplinas requerem um laboratório (com computadores simples), laboratório de redes e laboratório de hardware. As disciplinas sem recursos obrigatórios requerem apenas uma sala de aula.
+
+\begin{table*}\centering\footnotesize
+  \begin{tabular*}{1\textwidth}{@{}lllllll@{}}
+    \toprule
+    Código & Nome & Pré-requisitos & Vagas & Recursos \\
+    \midrule
+    A1 & Algoritmos I           & Nenhum & 60 & Laboratório \\
+    A2 & Matemática elementar   & Nenhum & 60 & -- \\
+    A3 & Geometria analítica    & Nenhum & 40 & -- \\
+    A4 & Português              & Nenhum & 80 & -- \\
+    A5 & Análise de sistemas I  & Nenhum & 40 & -- \\
+    \midrule
+    B1 & Algoritmos II          & A1 & 40 & Laboratório \\
+    B2 & Estrutura de Dados     & A1 & 30 & Laboratório \\
+    B3 & Cálculo I              & A2, A3 & 40 & -- \\
+    B4 & Análise de Sistemas II & A5 & 40 & -- \\
+    B5 & Inglês                 & Nenhum & 50 & -- \\
+    \midrule
+    C1 & Compiladores I         & B1, B2 & 25 & Laboratório \\
+    C2 & Linguagens de Programação & B1, B2 & 40 & Laboratório \\
+    C3 & Arquitetura de Computadores & Nenhum & 10 & Laboratório de HW \\
+    C4 & Engenharia de Software & B4 & 30 & -- \\
+    C5 & Filosofia              & A4 & 30 & -- \\
+    \midrule
+    D1 & Compiladores II        & C1 & 20 & Laboratório \\
+    D2 & Microprocessadores     & C3 & 20 & Laboratório de HW \\
+    D3 & Cálculo II             & B3 & 30 & -- \\
+    D4 & Bancos de Dados        & A5 & 30 & Laboratório \\
+    D5 & Redes                  & Nenhum & 20 & Laboratório de redes \\
+    \midrule
+    E1 & TCC I                  & D1, D2, D3, D4, D5 & 15 & -- \\
+    E2 & Eletrônica Digital*    & D2 & 10 & Laboratório de HW \\
+    E3 & Inteligência Artificial* & C4, D3 & 20 & -- \\
+    E4 & Computação Gráfica*    & C4, D3 & 20 & Laboratório \\
+    E5 & Gerência de TI*        & C4, D4 & 20 & -- \\
+    \midrule
+    F1 & TCC II                 & E1 & 15 & -- \\
+    F2 & Robótica*              & E2 & 10 & Laboratório de HW \\
+    F3 & Sistemas Operacionais* & D1, D2, C4 & 25 & -- \\
+    F4 & Gerência de Projetos*  & E5 & 15 & -- \\
+    F5 & Algoritmos Avançados*  & B1, B2 & 15 & Laboratório \\
+    \bottomrule
+  \end{tabular*}
+  \caption{Curso utilizado para o Cenário 1}
+  \label{tab:curso}
+\end{table*}
+
 
