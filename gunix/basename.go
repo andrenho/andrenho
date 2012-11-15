@@ -8,6 +8,7 @@ import (
 )
 
 func main() {
+
 	// check flags
 	flag.Parse()
 	n_args := len(flag.Args())
@@ -23,10 +24,16 @@ func main() {
 	}
 
 	// case 3
-	if strings.HasSuffix(str, "/") { str = str[0:(len(str)-1)] }
+	if strings.HasSuffix(str, "/") { 
+		str = str[0:(len(str)-1)]
+	} 
 
 	// case 4
 	lastSlashPos := strings.LastIndex(str, "/")
+	if lastSlashPos == -1 { 
+		fmt.Println(str)
+		return
+	}
 	str = str[0:lastSlashPos]
 
 	// case 5
