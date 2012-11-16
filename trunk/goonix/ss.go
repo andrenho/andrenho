@@ -9,6 +9,7 @@ type SyscallServer struct {
 }
 
 func NewSyscallServer() *SyscallServer {
+	log.Printf("Syscall server initialized.\n");
 	return &SyscallServer { wait: make(chan int) }
 }
 
