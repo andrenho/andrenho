@@ -87,7 +87,19 @@ As seções do bloco persistente do perfil são (i) contato, que armazena dados 
 \subsection{Integração eProfile/UniManager}
 \label{sec:eprofile_local}
 
-O UniManager é um {\em software} administrativo utilizado pela universidade para gerenciamento dos estudantes, docentes e disciplinas.
+O UniManager é um {\em software} administrativo utilizado pela universidade para cadastramento e gerenciamento dos estudantes, docentes e disciplinas. O modelo desta aplicação é exibido na Figura~\ref{fig:unimanager}.
+
+\begin{figure}
+  \centering\includegraphics[width=0.7\textwidth]{imagens/unimanager.png}
+  \caption{Modelo do UniManager}
+  \label{fig:unimanager}
+\end{figure}
+
+O UniManager possui duas {\em interfaces}: administrativa e de usuário. A interface administrativa é utilizada pela administração da universidades para cadastrar disciplinas, docentes e estudantes. Ela é utilizada também pelos estudantes para realizar a sua matrícula para o próximo semestre. Esta interface conecta-se a um gerenciador de disciplinas, que gerencia as matrículas e os pré-requisitos entre as disciplinas.
+
+A {\em interface} de usuário é utilizada nos dispositivos móveis dos professores e dos estudantes, e está conectada a um sistema de localização da Universidade. Desta forma, todos os registros realizados no UniManager a partir desta {\em interface} contém a localização do aluno dentro da Universidade, isto é, a sala onde o aluno está. O sistema de localização integrado à {\em interface} de usuário permite verificar se o aluno ou o docente estão presentes na aula. Através desta {\em interface} o aluno realiza as provas e entrega os trabalhos, e o docente avalia as provas e trabalhos dos alunos.
+
+O UniManager possui também um banco de dados de perfis. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
