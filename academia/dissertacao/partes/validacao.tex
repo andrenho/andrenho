@@ -15,7 +15,19 @@ Somente é possível avaliar as funcionalidades de uma proposta de infraestrutur
 \section{Cenário 1 - Aprendizagem Ubíqua}
 \label{sec:cenario1}
 
-O experimento apresentado é baseado na geração simulada de trilhas de estudantes dentro de um contexto de Aprendizagem Ubíqua. Aprendizagem Ubíqua pode ser compreendida como um conjunto de processos educacionais que ocorrem em qualquer lugar, a qualquer tempo e com qualquer dispositivo, de forma contínua, contextualizada e integrada ao cotidiano do aprendiz \cite{barbosa11}.
+O experimento apresentado é baseado na geração simulada de trilhas de estudantes de graduação dentro de um contexto de Aprendizagem Ubíqua. Aprendizagem Ubíqua pode ser compreendida como um conjunto de processos educacionais que ocorrem em qualquer lugar, a qualquer tempo e com qualquer dispositivo, de forma contínua, contextualizada e integrada ao cotidiano do aprendiz \cite{barbosa11}.
+
+O cenário é composto por quatro aplicações que interagem entre si, de acordo com a Figura~\ref{fig:modelo_cenario1}. O LOCAL é um sistema de educação ubíqua utilizado para encontrar oportunidades de aprendizagem e colocar estudantes em contato, e o UniManager é um aplicativo utilizado pela coordenação da Universidade para gerencias notas e disciplinas dos alunos. Ambos os softwares possuem um módulo de perfis, onde as informações de perfil são utilizadas para tomada de decisões. Como em ambos os casos o módulo de perfis é estático e depende de uma coleta de informações explícita, o eProfile é conectado a estes softwares, potencializando a criação dinâmica de perfis e a coleta implícita de informações. Além disso, o eProfile permite a interoperabilidade entre estes sistemas, permitindo que as informações de ambos sejam utilizadas na geração de um mesmo perfil.
+
+O cenário inclui também um gerenciador de trilhas, que gerencia as trilhas das entidades. O detalhamento destas aplicações, bem como a integração entre elas, é discutida nas próximas seções.
+
+\begin{figure}
+  \centering\includegraphics[width=0.7\textwidth]{imagens/modelo_cenario1.png}
+  \caption{Modelo do Cenário 1}
+  \label{fig:arq_local}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Integração eProfile/LOCAL}
 \label{sec:eprofile_local}
@@ -57,6 +69,15 @@ O modelo de perfil utilizado pelo módulo de Perfis de Usuários do LOCAL é mos
 
 As seções do bloco persistente do perfil são (i) contato, que armazena dados básicos do usuário, tais como nome, telefone, entre outros, (ii) preferências, que guarda o tipo de mídia preferida pelo usuário e (iii) interesses, que identifica tópicos de interesse dos alunos. A seção de interesses está categorizada de acordo com o sistema de classificação computacional da ACM \cite{acm10}. As seções do bloco contextual são (i) relações, que identifica os relacionamentos com outros usuários dentro do mesmo contexto, (ii) performance, que diz respeito a objetivos que devem ser atingidos pelos estudantes e (iii) segurança, que armazena credenciais necessárias para acessar diferentes níveis em contextos específicos.
 
+% - Contato: seria gerado a partir das informações básicas dos alunos.
+%Por exemplo, o aluno registra seu nome, esta informação entra na
+%trilha e daí vai para o perfil.
+% - Preferências: ?
+% - Interesses: gerado a partir das escolhas do aluno, que descrevi no ponto 3;
+% - Relacionamentos: gerado principalmente a partir as informações do
+%Gerenciador de Disciplinas;
+% - Desempenho: gerado a partir das notas dos alunos;
+% - Segurança: acredito que não seja relevante para o cenário.
 
 
 % TODO - formação de perfil do LOCAL

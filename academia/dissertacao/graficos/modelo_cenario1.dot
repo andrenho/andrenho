@@ -1,0 +1,25 @@
+digraph modelo2 {
+
+  layout = fdp;
+  sep = 0.4;
+  node [shape=rectangle];
+
+  eProfile;
+  UniManager;
+  LOCAL;
+  trail [label="Gerenciador\nde Trilhas"];
+
+  LOCAL -> trail;
+  UniManager -> trail;
+  LOCAL -> eProfile;
+  eProfile -> LOCAL;
+  UniManager -> eProfile;
+  eProfile -> UniManager;
+  trail -> eProfile;
+
+  fontsize = 12;
+  fontname = "Georgia";
+
+  rankdir = LR;
+
+}
