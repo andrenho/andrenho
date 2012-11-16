@@ -16,7 +16,7 @@ func main() {
 	go ss.Run()
 
 	// run init
-	ss.Execve(0, "/sbin/init", []string{}, []string{})
+	ss.Exec(0, "/sbin/init", []string{}, []string{})
 
 	// wait finish
 	ss.Wait()

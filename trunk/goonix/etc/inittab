@@ -1,0 +1,3 @@
+id:1:initdefault:
+1:1:respawn:/sbin/getty 9600 tty1
+2:1:respawn:/sbin/getty 9600 tty2

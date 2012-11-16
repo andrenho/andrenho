@@ -19,10 +19,14 @@ func (ss *SyscallServer) Run() {
 	
 }
 
-func (ss *SyscallServer) Execve(pid int, path string, argv []string, 
+func (ss *SyscallServer) Exec(pid int, path string, argv []string, 
 				envp []string) error {
-	log.Printf("execve PID %d\n", pid)
-	go pm.RunProgram(pid, path, argv, envp)
+	log.Printf("%d execve\n", pid)
+	if pid == 0 {
+		pm.RunProgram(pid, path, argv, envp)
+	} else {
+		go pm.RunProgram(pid, path, argv, envp)
+	}
 	return nil
 }
 

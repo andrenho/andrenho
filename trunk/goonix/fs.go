@@ -1,39 +1,75 @@
 package main
 
 import (
-	"log"
+	"io"
+	"fmt"
+	"os"
 )
 
-type NonVirtualError float64
-func (v NonVirtualError) Error() string { return "not a virtual file" }
+//
+// init
+//
+type Init struct {}
+func (init Init) Run(args []string, envp []string) int { return 0 }
+type VirtualExecutable interface { Run(args []string, envp []string) int }
 
-type Program interface {
-	Run(args []string, envp []string) int
+//
+// virtual HD
+//
+type FilePointer struct {
+	data []byte
+	exec VirtualExecutable
 }
 
-type VirtualFile struct {
+type VirtualHDFile struct {
 	path string
-	program Program
+	pointer FilePointer
 }
 
-type FSServer struct {
-	virtualFiles []VirtualFile
+var virtualHD = []VirtualHDFile {
+	{ "/etc/inittab", FilePointer{ data: []byte { 1, 2, 3 } } },
+	{ "/sbin/init", FilePointer{ exec: Init{} } },
 }
 
-func NewFSServer() *FSServer {
-	log.Printf("Filesystem server initialized.\n")
-	fs := &FSServer{}
-	fs.virtualFiles = []VirtualFile{
-		{ "/sbin/init", Init{} },
-	}
-	return fs
+//
+// virtual FS
+//
+type VirtualFile struct {
+	hdFile VirtualHDFile
+	pos int
 }
 
-func (fs *FSServer) VirtualFile(path string) (Program, error) {
-	for _, vf := range fs.virtualFiles {
-		if vf.path == path {
-			return vf.program, nil
+type File interface {
+	Read(b []byte) (n int, err error)
+}
+
+func Open(name string) (file File, err error) {
+	// TODO - path
+	for _, hdFile := range virtualHD {
+		if hdFile.path == name {
+			return &VirtualFile { hdFile: hdFile, pos: 0 }, nil
 		}
 	}
-	return nil, NonVirtualError(0)
+	f, err := os.Open(name)
+	return f, err
+}
+
+func (f *VirtualFile) Read(b []byte) (n int, err error) {
+	if f.pos >= len(f.hdFile.pointer.data) {
+		return 0, io.EOF
+	}
+	n := (f.pos+len(b))
+	b = f.hdFile.pointer.data[f.pos:n]
+	i := len(b)
+	f.pos += i
+	return i, nil
+}
+
+func main() {
+	f, err := Open("/etc/inittab")
+	fmt.Println(f, err)
+
+	b := make([]byte, 10)
+	n, err := f.Read(b)
+	fmt.Println(n, err, b)
 }
