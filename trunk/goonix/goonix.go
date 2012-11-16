@@ -1,10 +1,5 @@
 package main
 
-import (
-	"bufio"
-	"fmt"
-)
-
 var ss *SyscallServer
 var fs *FSServer
 var pm *ProcessManager
@@ -17,12 +12,11 @@ func main() {
 	pm = NewProcessManager()
 	dm = NewDeviceManager()
 
-	r := bufio.NewReader(fs)
-	b, err := r.ReadByte()
-	fmt.Println(b, err)
-
 	// run servers
 	go ss.Run()
+
+	// run init
+	ss.Execve(0, "/sbin/init", []string{}, []string{})
 
 	// wait finish
 	ss.Wait()

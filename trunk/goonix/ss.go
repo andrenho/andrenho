@@ -19,6 +19,14 @@ func (ss *SyscallServer) Run() {
 	
 }
 
+func (ss *SyscallServer) Execve(pid int, path string, argv []string, 
+				envp []string) error {
+	log.Printf("execve PID %d\n", pid)
+	go pm.RunProgram(pid, path, argv, envp)
+	return nil
+}
+
 func (ss *SyscallServer) Wait() {
 	<-ss.wait
+	log.Printf("Syscall server finished.\n")
 }
