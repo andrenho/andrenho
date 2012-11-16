@@ -47,6 +47,18 @@ O primeiro passo da integração se dá quando o LOCAL se comunica pela primeira
 
 À medida que os aprendizes utilizam o LOCAL, as movimentações deles vão sendo identificadas pelo módulo Sistema de Localização, e as ações deles são executadas no Assistente Pessoal. Estes módulos registram os eventos no Gerenciador de Trilhas (setas ``b'' e ``c'') que, por sua vez, envia-os ao agente Converor do eProfile (seta ``d''). As trilhas enviadas são armazenadas no banco de dados de Trilhas. Estas trilhas são periodicamente processadas, de acordo com os modelos e as regras definidos incialmente, e um processo de inferência baseado nestas informações gera os perfis, que são encaminhados ao módulo de Perfis de Usuário do LOCAL (seta ``e''). Estes perfis servem como base para que o LOCAL conheça seus usuários (aprendizes), de forma a distribuir seu conteúdo da forma mais contextualizada possível.
 
+O modelo de perfil utilizado pelo módulo de Perfis de Usuários do LOCAL é mostrado na Figura~\ref{fig:perfil_local}. Os perfis dos aprendizes apresentam dois tipos de dados: (i) persistentes, relacionados ao aprendiz em todas as situações que ele se encontre e (ii) contextuais, associado com os contextos com as quais o aprendiz interage.
+
+\begin{figure}
+  \centering\includegraphics[width=0.7\textwidth]{imagens/perfil_local.png}
+  \caption{Modelo de perfis do LOCAL}
+  \label{fig:perfil_local}
+\end{figure}
+
+As seções do bloco persistente do perfil são (i) contato, que armazena dados básicos do usuário, tais como nome, telefone, entre outros, (ii) preferências, que guarda o tipo de mídia preferida pelo usuário e (iii) interesses, que identifica tópicos de interesse dos alunos. A seção de interesses está categorizada de acordo com o sistema de classificação computacional da ACM \cite{acm10}. As seções do bloco contextual são (i) relações, que identifica os relacionamentos com outros usuários dentro do mesmo contexto, (ii) performance, que diz respeito a objetivos que devem ser atingidos pelos estudantes e (iii) segurança, que armazena credenciais necessárias para acessar diferentes níveis em contextos específicos.
+
+
+
 % TODO - formação de perfil do LOCAL
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
