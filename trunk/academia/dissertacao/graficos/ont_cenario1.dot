@@ -1,0 +1,13 @@
+digraph G {
+
+Thing -> Entidade;
+Entidade -> Estudante;
+Entidade -> Docente;
+Entidade -> Disciplina;
+Thing -> "Localização";
+"Localização" -> Sala;
+"Localização" -> "Laboratório";
+"Laboratório" -> "Laboratório\nde redes";
+"Laboratório" -> "Laboratório\nde hardware";
+
+}

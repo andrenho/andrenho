@@ -17,15 +17,16 @@ Somente é possível avaliar as funcionalidades de uma proposta de infraestrutur
 
 O experimento apresentado é baseado na geração simulada de trilhas de estudantes de graduação dentro de um contexto de Aprendizagem Ubíqua. Aprendizagem Ubíqua pode ser compreendida como um conjunto de processos educacionais que ocorrem em qualquer lugar, a qualquer tempo e com qualquer dispositivo, de forma contínua, contextualizada e integrada ao cotidiano do aprendiz \cite{barbosa11}.
 
+\begin{figure}
+  \centering\includegraphics[width=0.5\textwidth]{imagens/modelo_cenario1.png}
+  \caption{Modelo do Cenário 1}
+  \label{fig:modelo_cenario1}
+\end{figure}
+
 O cenário é composto por quatro aplicações que interagem entre si, de acordo com a Figura~\ref{fig:modelo_cenario1}. O LOCAL é um sistema de educação ubíqua utilizado para encontrar oportunidades de aprendizagem e colocar estudantes em contato, e o UniManager é um aplicativo utilizado pela coordenação da Universidade para gerencias notas e disciplinas dos alunos. Ambos os softwares possuem um módulo de perfis, onde as informações de perfil são utilizadas para tomada de decisões. Como em ambos os casos o módulo de perfis é estático e depende de uma coleta de informações explícita, o eProfile é conectado a estes softwares, potencializando a criação dinâmica de perfis e a coleta implícita de informações. Além disso, o eProfile permite a interoperabilidade entre estes sistemas, permitindo que as informações de ambos sejam utilizadas na geração de um mesmo perfil.
 
 O cenário inclui também um gerenciador de trilhas, que gerencia as trilhas das entidades. O detalhamento destas aplicações, bem como a integração entre elas, é discutida nas próximas seções.
 
-\begin{figure}
-  \centering\includegraphics[width=0.7\textwidth]{imagens/modelo_cenario1.png}
-  \caption{Modelo do Cenário 1}
-  \label{fig:arq_local}
-\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -90,16 +91,26 @@ As seções do bloco persistente do perfil são (i) contato, que armazena dados 
 O UniManager é um {\em software} administrativo utilizado pela universidade para cadastramento e gerenciamento dos estudantes, docentes e disciplinas. O modelo desta aplicação é exibido na Figura~\ref{fig:unimanager}.
 
 \begin{figure}
-  \centering\includegraphics[width=0.7\textwidth]{imagens/unimanager.png}
-  \caption{Modelo do UniManager}
+  \centering\includegraphics[width=0.9\textwidth]{imagens/unimanager.png}
+  \caption{modelo do unimanager}
   \label{fig:unimanager}
 \end{figure}
 
-O UniManager possui duas {\em interfaces}: administrativa e de usuário. A interface administrativa é utilizada pela administração da universidades para cadastrar disciplinas, docentes e estudantes. Ela é utilizada também pelos estudantes para realizar a sua matrícula para o próximo semestre. Esta interface conecta-se a um gerenciador de disciplinas, que gerencia as matrículas e os pré-requisitos entre as disciplinas.
+o UniManager possui duas {\em interfaces}: administrativa e de usuário. A interface administrativa é utilizada pela administração da universidades para cadastrar disciplinas, docentes e estudantes. Ela é utilizada também pelos estudantes para realizar a sua matrícula para o próximo semestre. Esta interface conecta-se a um gerenciador de disciplinas, que gerencia as matrículas e os pré-requisitos entre as disciplinas.
 
 A {\em interface} de usuário é utilizada nos dispositivos móveis dos professores e dos estudantes, e está conectada a um sistema de localização da Universidade. Desta forma, todos os registros realizados no UniManager a partir desta {\em interface} contém a localização do aluno dentro da Universidade, isto é, a sala onde o aluno está. O sistema de localização integrado à {\em interface} de usuário permite verificar se o aluno ou o docente estão presentes na aula. Através desta {\em interface} o aluno realiza as provas e entrega os trabalhos, e o docente avalia as provas e trabalhos dos alunos.
 
-O UniManager possui também um banco de dados de perfis. Neste banco de dados são armazenadas, além das informações cadastrais das disciplinas, alunos e professores, informações a respeito das notas e presenças dos alunos, necessárias para permitir 
+O UniManager possui também um banco de dados de perfis. Neste banco de dados são armazenadas: (i) informações cadastrais das disciplinas, (ii) presenças e ausências dos professores e alunos e (iii) as provas e disciplinas dos alunos, juntamente com a avaliação feita pelo professor. 
+
+A base de perfis é dinâmica, uma vez que ela é atualizada com os eventos registrados, mas está limitada aos dados registrados no próprio UniManager. A integração do UniManager ao eProfile potencializa a geração de perfis mais avançados, utilizando as informações registradas inferidas a partir dos dados gerados pelo LOCAL. Utilizando-se destes dados, é possível registrar na base de perfis do UniManager os interesses do estudante, de modo a poder sugerir a ele disciplinas opcionais que sejam do seu interesse. Além disso, a utilização de trilhas permite que os perfis sejam gerados com base em informações históricas, obtendo informações de perfis que podem ser úteis em análises administrativas (por exemplo, qual combinação de disciplina e professor resultou na maior nota para os alunos em cada disciplina).
+
+\begin{figure}
+  \centering\includegraphics[width=1\textwidth]{imagens/unimanager_eprofile.png}
+  \caption{Integração UniManager/eProfile}
+  \label{fig:unimanager_eprofile}
+\end{figure}
+
+O UniManager se integra ao eProfile de acordo com a Figura~\ref{fig:unimanager_eprofile}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
