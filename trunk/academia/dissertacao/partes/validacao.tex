@@ -86,7 +86,7 @@ As seções do bloco persistente do perfil são (i) contato, que armazena dados 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Integração eProfile/UniManager}
-\label{sec:eprofile_local}
+\label{sec:eprofile_unimanager}
 
 O UniManager é um {\em software} administrativo utilizado pela universidade para cadastramento e gerenciamento dos estudantes, docentes e disciplinas. O modelo desta aplicação é exibido na Figura~\ref{fig:unimanager}.
 
@@ -110,14 +110,14 @@ A base de perfis é dinâmica, uma vez que ela é atualizada com os eventos regi
   \label{fig:unimanager_eprofile}
 \end{figure}
 
-O UniManager se integra ao eProfile de acordo com a Figura~\ref{fig:unimanager_eprofile}.
+O UniManager se integra ao eProfile de acordo com a Figura~\ref{fig:unimanager_eprofile}. No momento da primeira comunicação entre UbiManager e eProfile, o UbiManager envia um conjunto de mensagens ao eProfile indicando qual serão os modelos de perfil esperados e as regras utilizadas para a geração dos perfis (seta ``a''). O registro destas informações é feito no agente configurador, responsável por validar e armazenar as regras os modelos em seus respectivos bancos de dados. À medida que os usuários fazem uso das interfaces do UniManager, os dados são processados e registrados pelos módulos gerenciadores de Displinas, Docentes e Estudante, que registram no Gerenciador de Trilhas os eventos ocorridos, juntamente com sua localização (setas ``b'', ``c'' e ``d''). Estas trilhas são organizadas e armazenadas no Gerenciador de Trilhas que, periodicamente, envia as trilhas ao agente Conversor do eProfile (seta ``e''). O agente conversor converte as trilhas para o formato do eProfile e armazena-as no banco de dados de trilhas. Uma vez de posse das trilhas, dos modelos e das regras, o agente raciocinador processa as informações, gerando os perfis que são enviados ao UniManager através do agente comunicador (seta ``f'').
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Descrição do Cenário}
+\subsection{Ambiente}
 \label{sec:desc_cenario1}
 
-Este cenário é composto por um grupo de alunos que realiza um curso de Ciência da Computação. O curso é composto por um conjunto de 40 disciplinas, dentre as quais 8 são opcionais (o aluno deve cumprir ao menos 4 dentre estas 8). Todas as disciplinas possuem outras disciplinas como pré-requisito, exceto pelas disciplinas de início de curso (a Figura~\ref{fig:disciplinas} exemplifica um subconjunto de disciplinas com seus pré-requisitos). Cada disciplina possui um docente, um número limitado de vagas para os alunos, e um conjunto de recursos (como salas especiais ou equipamentos).
+O cenário é composto por um conjunto de alunos que realiza um curso de Ciência da Computação. O curso é composto por um conjunto de 40 disciplinas, dentre as quais 12 são opcionais (o aluno deve cumprir ao menos 8 dentre estas 12). Todas as disciplinas possuem outras disciplinas como pré-requisito, exceto pelas disciplinas de início de curso (a Figura~\ref{fig:disciplinas} exemplifica um subconjunto de disciplinas com seus pré-requisitos). Cada disciplina possui um docente, um número limitado de vagas para os alunos, e um conjunto de recursos (como salas especiais ou equipamentos).
 
 \begin{figure}
   \centering\includegraphics[width=1\textwidth]{imagens/disciplinas.png}
@@ -150,11 +150,11 @@ O conjunto de disciplinas utilizado para este cenário é mostrado na Tabela~\re
     C4 & Engenharia de Software & B4 & 30 & -- \\
     C5 & Filosofia              & A4 & 30 & -- \\
     \midrule
-    D1 & Compiladores II        & C1 & 20 & Laboratório \\
-    D2 & Microprocessadores     & C3 & 20 & Laboratório de HW \\
-    D3 & Cálculo II             & B3 & 30 & -- \\
+    D1 & Compiladores II*       & C1 & 20 & Laboratório \\
+    D2 & Microprocessadores*    & C3 & 20 & Laboratório de HW \\
+    D3 & Cálculo II*            & B3 & 30 & -- \\
     D4 & Bancos de Dados        & A5 & 30 & Laboratório \\
-    D5 & Redes                  & Nenhum & 20 & Laboratório de redes \\
+    D5 & Redes*                 & Nenhum & 20 & Laboratório de redes \\
     \midrule
     E1 & TCC I                  & D1, D2, D3, D4, D5 & 15 & -- \\
     E2 & Eletrônica Digital*    & D2 & 10 & Laboratório de HW \\
@@ -173,4 +173,42 @@ O conjunto de disciplinas utilizado para este cenário é mostrado na Tabela~\re
   \label{tab:curso}
 \end{table*}
 
+Os alunos e docentes utilizam dispositivos móveis ({\em laptopts} ou {\em smartphones}), onde estão instalados aplicativos utilizados para a administração de sua vida acadêmica. Em especial, estão instalados o UniManager e o LOCAL.
+
+O UniManager é o sistema utilizado pela universidade para administração das disciplinas, descrito na Seção~\ref{sec:eprofile_unimanager}. Ele é usado pela administração da universidade, pelos professores e estudantes. A administração utiliza-o para cadastrar disciplinas, alunos e docentes,  vincular os alunos e docentes às disciplinas e emitir relatórios gerenciais, como lista de presenças e aprovação/reprovação de alunos, bem como faltas e avaliações de professores. Os docentes utilizam o sistema para realizar as avaliações dos alunos. Os estudantes o utilizam para realizar suas provas e trabalhos, para fazer sua matrícula nas disciplinas e para verificar suas notas e faltas.
+
+Além disso, os docentes e os alunos também utilizam o LOCAL em seus dispositivos móveis. O LOCAL combina as informações dos perfis com sua localização, de modo a poder assisti-los, facilitando a interação entre os aprendizes e permitindo a entrega de material pedagógico contextualizado. Os docentes utilizam o LOCAL para cadastrar o material pedagógico que será distribuído aos alunos. O LOCAL se comunica com os estudantes de modo a distribuir o material pedagógico previamente cadastrado e colocar estudantes com interesses similares em contato durante a realização de atividades pedagógicas. Caso, durante estas atividades, o estudante não tenha nenhum interesse cadastrado que corresponda àqueles requeridos pela atividade, ele tem a opção de fazer a escolha utilizando o Assistente Pessoal. 
+
+\todo[inline]{Jorge, sei que essa última característica não fazia parte do design original do LOCAL, mas você acha que é possível acrescentar essa funcionalidade?}
+
+A Tabela~\ref{tab:aula} exemplifica uma aula de duas horas e meia envolvendo 10 alunos, na qual foi realizado um debate a respeito de Bancos de Dados. Após o debate, os alunos realizaram um trabalho individual a respeito dos assuntos discutidos no debate.
+
+\begin{table*}\centering\footnotesize
+    \begin{tabular*}{1\textwidth}{@{}ccp{12cm}@{}}
+    \toprule
+    Horário & Ator & Ação \\
+    \midrule
+    - & Professor & Insere no LOCAL o material pedagógico a respeito de banco de dados, que será utilizado na aula, e requisita a entrega de um trabalho através do UniManager. \\
+    7:30 & Alunos & Nove alunos entram na sala. \\
+    7:30 & LOCAL & LOCAL identifica a entrada dos alunos na sala. \\
+    7:30 & UniManager & UniManager identifica a entrada dos alunos na sala. \\
+    7:30 & LOCAL & LOCAL envia o conteúdo pedagógico da aula aos alunos. \\
+    8:00 & Professor & Professor pede a criação de grupos para o debate. \\
+    8:00 & LOCAL & O LOCAL forma três grupos baseado nas preferências dos estudantes: {\em Oracle} (3 alunos), {\em PostgreSQL} (3 alunos) e {\em SQLite} (1 aluno). Dois alunos não tem uma preferência cadastrada que permita que o LOCAL os encaixe em algum grupo. \\
+    8:00 & LOCAL & LOCAL solicita aos dois estudantes que escolham algum grupo. \\
+    8:10 & Alunos & Os alunos indicam sua preferência através do Assistente Pessoal do LOCAL. \\
+    8:10 & LOCAL & O LOCAL encaixa os dois alunos nos grupos de sua preferência, um em {\em PostgreSQL} e o outro em {\em SQLite}. \\
+    8:10 & Alunos & O debate inicia. \\
+    8:40 & Alunos & Um aluno entra na aula, atrasado. O UniManager e o LOCAL registram sua entrada, mas o LOCAL não o encaixa no debate, que já está no final. \\
+    8:50 & Alunos & O debate se encerra. \\
+    8:50 & Professor & O professor pede que os alunos façam um trabalho em aula sobre o debate realizado. \\
+    10:00 & Alunos & Os alunos entregam o trabalho através do UniManager e saem da sala. \\
+    10:00 & UniManager & Recebe os trabalhos entregues e registra a saída dos alunos. \\
+    10:00 & LOCAL & Registra a saída dos alunos. \\
+        - & Professor & O professor, posteriormente, avalia o trabalho dos alunos e registra a nota no UniManager. \\
+    \bottomrule
+  \end{tabular*}
+  \caption{Exemplo de uma aula}
+  \label{tab:aula}
+\end{table*}
 
