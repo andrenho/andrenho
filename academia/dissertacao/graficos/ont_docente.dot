@@ -1,14 +1,14 @@
 digraph G {
 
+  rankdir = LR;
 	node [shape=record];
-	evento [label="Evento|{Atividade|Local|Identidade|Tempo|Participantes}"];
-  semestre [label="Semestre|{Atividade|Identidade|Tempo|Participantes}"];
-  entrada [label="TrocaLocal|{Atividade|Tempo|Local|Identidade}"];
-  correcao [label="Correcao|{Atividade|Tempo|Identidade|Participantes}"];
-  avaliacao [label="Avaliacao|{Atividade|Tempo|Identidade|Participantes}"];
+  UniManager;
+  trail [label="Gerenciador\nde trilhas"];
+  cadastro [label="Cadastro|{Time|Data do evento}|{Indentity|Docente}"];
+  trocalocal [label="TrocaLocal|{Activity|Entrada ou saida}|{Time|Hora do evento}|{Location|Localização}|{Indentity|Docente}"];
+  avaliacao [label="Avaliacao|{Activity|Avaliação}|{Time|Hora do evento}|{Location|Localização}|{Identity|Docente}"];
 
-  evento -> semestre;
-  evento -> entrada;
-  evento -> correcao;
-  evento -> avaliacao;
+  UniManager -> trocalocal -> trail;
+  UniManager -> cadastro -> trail;
+  UniManager -> avaliacao -> trail;
 }
