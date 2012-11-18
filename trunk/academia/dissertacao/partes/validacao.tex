@@ -18,14 +18,16 @@ Somente é possível avaliar as funcionalidades de uma proposta de infraestrutur
 O experimento apresentado é baseado na geração simulada de trilhas de estudantes de graduação dentro de um contexto de Aprendizagem Ubíqua. Aprendizagem Ubíqua pode ser compreendida como um conjunto de processos educacionais que ocorrem em qualquer lugar, a qualquer tempo e com qualquer dispositivo, de forma contínua, contextualizada e integrada ao cotidiano do aprendiz \cite{barbosa11}.
 
 \begin{figure}
-  \centering\includegraphics[width=0.5\textwidth]{imagens/modelo_cenario1.png}
+  \centering\includegraphics[width=0.6\textwidth]{imagens/modelo_cenario1.png}
   \caption{Modelo do Cenário 1}
   \label{fig:modelo_cenario1}
 \end{figure}
 
-O cenário é composto por quatro aplicações que interagem entre si, de acordo com a Figura~\ref{fig:modelo_cenario1}. O LOCAL é um sistema de educação ubíqua utilizado para encontrar oportunidades de aprendizagem e colocar estudantes em contato, e o UniManager é um aplicativo utilizado pela coordenação da Universidade para gerencias notas e disciplinas dos alunos. Ambos os softwares possuem um módulo de perfis, onde as informações de perfil são utilizadas para tomada de decisões. Como em ambos os casos o módulo de perfis é estático e depende de uma coleta de informações explícita, o eProfile é conectado a estes softwares, potencializando a criação dinâmica de perfis e a coleta implícita de informações. Além disso, o eProfile permite a interoperabilidade entre estes sistemas, permitindo que as informações de ambos sejam utilizadas na geração de um mesmo perfil.
+O cenário é composto por quatro aplicações que interagem entre si, de acordo com a Figura~\ref{fig:modelo_cenario1}. O LOCAL é um sistema de educação ubíqua utilizado para encontrar oportunidades de aprendizagem e colocar estudantes em contato, e o UniManager é um aplicativo utilizado pela coordenação da Universidade para gerencias notas e disciplinas dos alunos. Ambos os softwares possuem um módulo de perfis, onde as informações de perfil são utilizadas para tomada de decisões. Como em ambos os casos o módulo de perfis é estático e depende de uma coleta de informações explícita, o eProfile é conectado a estes softwares, potencializando a criação dinâmica de perfis e a coleta implícita de informações. Além disso, o eProfile permite a interoperabilidade entre estes sistemas, permitindo que as informações de ambos sejam utilizadas na geração de um mesmo perfil. O cenário inclui também um gerenciador de trilhas, que gerencia as trilhas das entidades. 
 
-O cenário inclui também um gerenciador de trilhas, que gerencia as trilhas das entidades. O detalhamento destas aplicações, bem como a integração entre elas, é discutida nas próximas seções.
+A comuncação incial ocorre entre as aplicações e o eProfile, (setas ``a'' e ``b''), onde quando as aplicações definem seus modelos de perfil e as regras. Essa comunicação pode ocorrer quantas vezes forem necessárias, pois as aplicações podem atualizar suas regras e seus modelos de perfis. Durante a execução das aplicações, as mesmas registram as regras no Gerenciador de Trilhas (setas ``c'' e ``d''). Isto significa que as aplicações podem trabalhar desconectadas do eProfile, e conectar-se apenas no momento de atualizar alguma regra ou descarregar os dados de perfil. O eProfile busca periodicamente as trilhas no gerenciador de trilhas (seta ``e''). A partir do momento que o eProfile esteja de posse das trilhas, regras e modelos de perfil, ele passa a processar estas informações, inferindo novos dados de perfil. Estes dados de perfil são então descarregados pelas aplicações (setas ``f'' e ``g'').
+
+O detalhamento destas aplicações, bem como a integração entre elas, é discutida nas próximas seções.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -181,7 +183,9 @@ Além disso, os docentes e os alunos também utilizam o LOCAL em seus dispositiv
 
 \todo[inline]{Jorge, sei que essa última característica não fazia parte do design original do LOCAL, mas você acha que é possível acrescentar essa funcionalidade?}
 
-A Tabela~\ref{tab:aula} exemplifica uma aula de duas horas e meia envolvendo 10 alunos, na qual foi realizado um debate a respeito de Bancos de Dados. Após o debate, os alunos realizaram um trabalho individual a respeito dos assuntos discutidos no debate.
+A Tabela~\ref{tab:aula} exemplifica uma aula de duas horas e meia envolvendo 10 alunos, na qual foi realizado um debate a respeito de Bancos de Dados. Após o debate, os alunos realizaram um trabalho individual a respeito dos assuntos discutidos no debate. Neste exemplo, foram registrados no UniManager a presença dos alunos, a entrega do seu trabalho e a nota obtida e, no LOCAL, o conteúdo pedagógico da aula.
+
+Além disso, o LOCAL registrou a preferência pessoal de dois alunos, a respeito de sistemas de banco de dados. Caso o LOCAL e o UniManager estivessem sendo usados em isolamento, esta informação teria sido apenas relevante para a tarefa imediata da aula. No entanto, com a integração destes sistemas com o eProfile, esta informação é utilizada na atualização do perfil dos alunos, e pode ser utilizada futuramente para facilitar a interação entre alunos e personalizar a entrega de conteúdo pedagógico (pelo LOCAL) e auxiliar o aluno na sugestão de disciplinas facultativas (pelo UniManager).
 
 \begin{table*}\centering\footnotesize
     \begin{tabular*}{1\textwidth}{@{}ccp{12cm}@{}}
@@ -211,4 +215,35 @@ A Tabela~\ref{tab:aula} exemplifica uma aula de duas horas e meia envolvendo 10 
   \caption{Exemplo de uma aula}
   \label{tab:aula}
 \end{table*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Trilhas, Regras e Perfis}
+\label{sec:cen1_trilhas}
+
+Segundo descrito nas Seções~\ref{sec:eprofile_local} e \ref{sec:eprofile_unimanager}, os aplicativos LOCAL e UniManager sofreram três alterações significativas: (i) foram incluídas {\em interfaces} de comunicação com o eProfile, para que os aplicativos fornecessem os modelos de perfil e as regras, (ii) foram incluídas {\em interfaces} de comunicação com o Gerenciador de Trilhas, de modo que os aplicativos pudessem informar os eventos ocorridos e (iii) o módulo de perfis de ambas as aplicações foi modificado de modo a solicitar as atualizações de perfil a partir do eProfile.
+
+O cenário é composto por três entidades: (i) estudantes, (ii) docentes e (iii) disciplinas. As entidades estudante e docente representam, respectivamente, cada um dos alunos e professores envolvidos no curso. A disciplina, que refere-se a cada uma das disciplinas do curso, poderia, em teoria, ser representada como uma entidade ou um simples recurso. Neste cenário, foi decidido que ela seria representada como uma entidade, pois desta forma é possível permitir que ela crie uma trilha, da qual pode ser obtido um perfil. Desta forma, o perfil da disciplina pode conter campos que são atualizados repetidamente, tal como a nota média da disciplina.
+
+Segundo descrito na Seção~\ref{sec:eontotrail}, aplicações sensíveis a contexto estão interessadas em saber {\bf quem}, {\bf onde}, {\bf quando} e {\bf o quê} (isto é, o que o usuário está fazendo), de forma a poderem descobrir por que a situação está ocorrendo. A ontologia de trilha do eProfile, mostrada na Figura~\ref{fig:ont_trilha}, define que estas questões são respondidas, respectivamente, pelas classes {\em Identity}, {\em Location}, {\em Time} e {\em Activity}. Além disso, a classe {\em Participants} descreve as outras entidades envolvidas neste evento. Quando uma trilha é armazenada no eProfile, a informação referente ao evento deve ser herdada destas classes, utilizando tantas quantos forem relevantes para que a informação esteja completa.
+
+A trilha dos estudantes contém os seguintes eventos: cadastro, matrícula em disciplina, entrada e saída em aula, realização de provas e trabalhos, escolha de preferências e abandono de curso. O formato da trilha está detalhado na Figura~\ref{fig:ont_estudante}. Na trilha dos docentes são registrados os seguintes eventos: cadastro, entrada e saída em aula e avaliação das provas e trabalhos dos alunos, segundo detalhando na Figura~\ref{fig:ont_docente}. A trilha da disciplina recebe os seguintes eventos: cadastro e início e fim de semestre, de acordo com a Figura~\ref{fig:ont_disciplina}.
+
+\begin{figure}
+  \centering\includegraphics[width=0.6\textwidth]{imagens/ont_estudante.png}
+  \caption{Ontologia de trilha do estudante}
+  \label{fig:ont_estudante}
+\end{figure}
+
+\begin{figure}
+  \centering\includegraphics[width=0.6\textwidth]{imagens/ont_docente.png}
+  \caption{Ontologia de trilha do docente}
+  \label{fig:ont_docente}
+\end{figure}
+
+\begin{figure}
+  \centering\includegraphics[width=0.6\textwidth]{imagens/ont_disciplina.png}
+  \caption{Ontologia de disciplina}
+  \label{fig:ont_disciplina}
+\end{figure}
 

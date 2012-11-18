@@ -1,19 +1,23 @@
 digraph G {
 
+  rankdir = LR;
 	node [shape=record];
-	evento [label="Evento|{Atividade|Local|Identidade|Tempo|Participantes}"];
-  matricula [label="Matrícula|{Tempo|Identidade}"];
-  disciplina [label="MatriculaDisciplina|{Tempo|Identidade|Participantes}"];
-  entrada [label="TrocaLocal|{Atividade|Tempo|Local|Identidade}"];
-  prova [label="ProvaTrabalho|{Atividade|Tempo|Local|Identidade}"];
-  fimsemestre [label="FimSemestre|{Atividade|Tempo|Identidade|Participantes}"];
-  abandono [label="Termino|{Atividade|Tempo|Identidade}"];
+  LOCAL;
+  UniManager;
+  trail [label="Gerenciador\nde trilhas"];
+  cadastro [label="Cadastro|{Time|Data do evento}|{Indentity|Estudante}"];
+  matricula [label="Matrícula|{Time|Data do evento}|{Indentity|Estudante}"];
+  trocalocal [label="TrocaLocal|{Activity|Entrada ou saida}|{Time|Hora do evento}|{Location|Localização}|{Indentity|Estudante}"];
+  prova [label="ProvaTrabalho|{Activity|Trabalho entregue}|{Time|Hora do evento}|{Location|Localização}|{Indentity|Estudante}|{Participantes|Grupo de trabalho}"];
+  preferencia [label="Preferência|{Activity|Preferência}|{Time|Hora do Evento}|{Indentity|Estudante}"];
+  abandono [label="Abandono|{Time|Data do evento}|{Indentity|Estudante}"];
 
-	evento -> matricula;
-  evento -> disciplina;
-  evento -> entrada;
-	evento -> prova;
-  evento -> fimsemestre;
-  evento -> abandono;
+  UniManager -> cadastro -> trail;
+  UniManager -> matricula -> trail;
+  UniManager -> trocalocal -> trail;
+  UniManager -> prova -> trail;
+  UniManager -> abandono -> trail;
+  LOCAL -> trocalocal;
+  LOCAL -> preferencia -> trail;
 
 }
