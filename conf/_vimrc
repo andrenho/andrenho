@@ -1,0 +1,68 @@
+set nocompatible
+
+" appearance
+let g:solarized_italic = 0              " for colorized colorscheme
+let g:solarized_bold = 0
+let g:solarized_termcolors=256
+set background=light
+set guioptions=emgrt                    " GUI only screen resources
+set hlsearch                            " incremental highlight search
+set incsearch
+set foldnestmax=1                       " max nesting
+set lines=50
+set synmaxcol=2048
+filetype plugin indent on               " auto-load ident/syntax file
+syntax on
+
+" behaviour
+set nobackup				" don't do backups
+set nowrap                              " don't wrap
+set encoding=utf-8                      " default encoding
+set backspace=indent,eol,start          " backspace
+if has('mouse')                         " activate mouse
+  set mouse=a
+endif
+set autoindent                          " indent mode
+autocmd FileType text setlocal textwidth=78 " 78 colums for text files
+autocmd BufReadPost * 
+  \ if line("'\"") > 1 && line("'\"") <= line("$") |
+  \   exe "normal! g`\"" |
+  \ endif  " jump to last know position
+
+" windows specific options
+if has("gui_win32")                     " set font
+  set guifont=Ubuntu_Mono:h10:cANSI    
+  set clipboard=unnamed 
+endif
+
+" disable arrow keys
+map <up> <nop>
+map <down> <nop>
+map <left> <nop>
+map <right> <nop>
+imap <up> <nop>
+imap <down> <nop>
+imap <left> <nop>
+imap <right> <nop>
+
+" status line
+set ruler				" show position in file
+set showcmd				" show command line
+set history=100				" command line history
+
+" language specific options
+let c_hi_identifiers	= 'all'
+let c_hi_libs	 = ['*'] 
+let go_highlight_space_tab_error = 0
+let go_highlight_trailing_whitespace_error = 0
+set rtp+=C:/andre/desenv/go/misc/vim
+
+" fullscreen
+nmap <silent> <M-f> :call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<CR>
+
+" testing
+set guioptions=acg		" like text-mode
+set laststatus=2		" status line black
+set scrolloff=8			" start to scroll 8 lines away from to or bottom
+set wildmenu			" better autocompletion
+set fillchars="" 		" silly fillchars
