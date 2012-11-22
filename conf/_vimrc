@@ -9,7 +9,6 @@ set guioptions=emgrt                    " GUI only screen resources
 set hlsearch                            " incremental highlight search
 set incsearch
 set foldnestmax=1                       " max nesting
-set lines=50
 set synmaxcol=2048
 filetype plugin indent on               " auto-load ident/syntax file
 syntax on
@@ -33,6 +32,7 @@ autocmd BufReadPost *
 if has("gui_win32")                     " set font
   set guifont=Ubuntu_Mono:h10:cANSI    
   set clipboard=unnamed 
+  set lines=50
 endif
 
 " disable arrow keys
