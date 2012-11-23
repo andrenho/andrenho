@@ -34,16 +34,7 @@ if has("gui_win32")                     " set font
   set clipboard=unnamed 
   set lines=50
 endif
-
-" disable arrow keys
-map <up> <nop>
-map <down> <nop>
-map <left> <nop>
-map <right> <nop>
-imap <up> <nop>
-imap <down> <nop>
-imap <left> <nop>
-imap <right> <nop>
+set keymodel=startsel,stopsel		" select with SHIFT
 
 " status line
 set ruler				" show position in file
