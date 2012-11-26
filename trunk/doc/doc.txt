@@ -2,13 +2,21 @@
 
 PERSONAL WIKI~
 
-PROJECTS:
-|proj-arduino-ideas|    Arduino ideas
+PROJETOS:
+|my-projects|           Meus projetos
+|proj-arduino-ideas|    Idéias para o Arduino
 
-PROGRAMMING:
+PROGRAMAÇÃO:
 
-SIMPLICITY:
-|simplicity-quotes|     Quotes
+SIMPLICIDADE:
+|simplicity-quotes|     Citações
+
+|things.txt|            Coisas
+
+========================================================================
+*my-projects*     My projects
+
+- 
 
 ========================================================================
 *arduino-ideas*   Arduino ideas
