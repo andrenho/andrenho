@@ -7,6 +7,7 @@ PROJETOS:
 |proj-arduino-ideas|    Idéias para o Arduino
 
 PROGRAMAÇÃO:
+|c-lib|                 C Library
 
 SIMPLICIDADE:
 |simplicity-quotes|     Citações
@@ -55,6 +56,50 @@ Não usáveis:
 - Ambient Orb
 - Pong gigante
 - Jogo com motor rotatório de leds
+
+========================================================================
+*c-lib*         C Library
+
+IMPORTANT~
+
+<math.h>
+<stdarg.h>
+  va_start, va_copy, va_arg, va_end
+<stdio.h>
+<stdlib.h>
+<string.h>
+<time.h>
+
+NOT SO IMPORTANT~
+<assert.h>
+  assert()
+<errno.h>
+  errno
+<ctype.h>
+<float.h>
+<limits.h>
+<locale.h>
+<iso646.h>
+<setjmp.h>
+<signal.h>
+<stddef.h>
+<wchar.h>
+<wctype.h>
+
+C99~
+<complex.h>
+<fenv.h>
+<inttypes.h>
+<stdbool.h>
+<stdint.h>
+<tgmath.h>
+
+C11~
+<stdalign.h>
+<stdnoreturn.h>
+<threads.h>
+<uchar.h>
+
 
 ========================================================================
 *simplicity-quotes*   Simplicity quotes
