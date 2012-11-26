@@ -2,7 +2,34 @@
 
 PERSONAL WIKI~
 
-- Simplicity                                              |simplicity.txt|
+PROJECTS:
+|proj-arduino-ideas|    Arduino ideas
+
+PROGRAMMING:
+
+SIMPLICITY:
+|simplicity-quotes|     Quotes
+
+========================================================================
+*arduino-ideas*   Arduino ideas
+
+- Timer de cozinha
+- Abridor de portas com senha de batidas
+- Pong com leds
+- Interface USB/floppy MSX
+- Interface USB/cartuchos Atari
+- Processador de textos com LCD
+- Placa de vídeo modo texto para TV ou RGB (?)
+- Rádio-relógio com previsão do tempo
+- Ambient Orb
+- Pong gigante
+- Jogo com motor rotatório de leds
+
+========================================================================
+*simplicity-quotes*   Simplicity quotes
+
+"Men have become the tools of their tools."
+~Henry D. Thoreau~
 
 ========================================================================
 vim:tw=78:fo=tcq2:isk=!-~,^*,^\|,^\":ts=8:ft=help:norl:
