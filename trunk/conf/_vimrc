@@ -57,3 +57,4 @@ set laststatus=2		" status line black
 set scrolloff=8			" start to scroll 8 lines away from to or bottom
 set wildmenu			" better autocompletion
 set fillchars="" 		" silly fillchars
+nnoremap t <C-]>		" navigate on help on ABNT keyboard
