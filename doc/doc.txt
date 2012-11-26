@@ -1,0 +1,8 @@
+*doc.txt*                                                    Personal wiki
+
+PERSONAL WIKI~
+
+- Simplicity                                              |simplicity.txt|
+
+========================================================================
+vim:tw=78:fo=tcq2:isk=!-~,^*,^\|,^\":ts=8:ft=help:norl:
