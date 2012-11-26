@@ -11,15 +11,38 @@ PROGRAMAÇÃO:
 SIMPLICIDADE:
 |simplicity-quotes|     Citações
 
+CITAÇÕES
+|simplicity-quotes|     Simplicidade
+|life-quotes|           Vida e luta
+|travel-quotes|         Viagens
+|character-quotes|      Caráter
+|nature-quotes|         Natureza
+|peace-quotes|          Paz
+|christianity-quotes|   Cristianismo
+|contentament-quotes|   Contentamento
+|other-quotes|          Outras citações
+
 |things.txt|            Coisas
 
 ========================================================================
+========================================================================
 *my-projects*     My projects
 
-- 
+Usáveis:
+  - Wiki on a Stick
+  - xsw
+  - bibliomori
+  - xdock
+  - libemu
+  - vinterm
+
+Não usáveis:
+  - fcca/cociv
+  - gladius
+  - bookwrite
 
 ========================================================================
-*arduino-ideas*   Arduino ideas
+*proj-arduino-ideas*   Arduino ideas
 
 - Timer de cozinha
 - Abridor de portas com senha de batidas
@@ -38,6 +61,386 @@ SIMPLICIDADE:
 
 "Men have become the tools of their tools."
 ~Henry D. Thoreau~
+
+"That man is richest whose pleasures are the cheapest."
+~Henry D. Thoreau~
+
+"We do not ride on the railroad; it rides upon us."
+~Henry D. Thoreau~
+
+"The mass of men lead lives of quiet desperation. What is called resignation 
+is confirmed desperation."
+~Henry D. Thoreau~
+
+"Money is not required to buy one necessity of the soul."
+~Henry D. Thoreau~
+
+"Most of the luxuries, and many of the so-called comforts of life, are not 
+only not indispensable, but positive hindrances to the elevation of mankind."
+~Henry D. Thoreau~
+
+"If a man walk in the woods for love of them half of each day, he is in 
+danger of being regarded as a loafer; but if he spends his whole day as a 
+speculator, shearing off those woods and making earth bald before her time, 
+he is esteemed an industrious and enterprising citizen. As if a town had no 
+interest in its forests but to cut them down!"
+~Henry D. Thoreau~
+
+"Most men would feel insulted, if it were proposed to employ them in throwing 
+stones over a wall, and then in throwing them back, merely that they might 
+earn their wages. But many are no more worthily employed now."
+~Henry D. Thoreau~
+
+"I wish to suggest that a man may be very industrious, and yet not spend his 
+time well. There is no more fatal blunderer than he who consumes the greater 
+part of his life getting his living."
+~Henry D. Thoreau~
+
+"I did not know that mankind were suffering for want of gold. I have seen a 
+little of it. I know that it is very malleable, but not so malleable as wit. 
+A grain of gold will gild a great surface, but not so much as a grain of 
+wisdom."
+~Henry D. Thoreau~
+
+"Just so hollow and ineffectual, for the most part, is our ordinary 
+conversation. Surface meets surface. When our life ceases to be inward and 
+private, conversation degenerates into mere gossip. We rarely meet a man who 
+can tell us any news which he has not read in a newspaper, or been told by 
+his neighbor; and, for the most part, the only difference between us and our 
+fellow is that he has seen the newspaper, or been out to tea, and we have not."
+~Henry D. Thoreau~
+
+"Every man I meet is in some way my superior; and in that I can learn of him."
+~Ralph Waldo Emerson~
+
+"The horseman serves the horse,
+ The neatherd serves the neat,
+ The merchant serves the purse,
+ The eater serves his meat;
+ 'T is the day of the chattel,
+ Web to weave, and corn to grind;
+ Things are in the saddle,
+ And ride mankind."
+~Ralph Waldo Emerson~
+
+"People seem not to see that their opinion of the world is also a confession 
+of character."
+~Ralph Waldo Emerson~
+
+"Society everywhere is in conspiracy against the manhood of every one of its 
+members. Society is a joint-stock company, in which the members agree, for 
+the better securing of his bread to each shareholder, to surrender the 
+liberty and culture of the eater. The virtue in most request is conformity. 
+Self-reliance is its aversion. It loves not realities and creators, but names 
+and customs."
+~Ralph Waldo Emerson~
+
+"The ornament of a house is the friends who frequent it."
+~Ralph Waldo Emerson~
+
+"A man builds a fine house; and now he has a master, and a task for life: 
+he is to furnish, watch, show it, and keep it in repair, the rest of his days."
+~Ralph Waldo Emerson~
+
+"Can anybody remember when the times were not hard and money not scarce? (...) 
+Write it on your heart that every day is the best day in the year."
+~Ralph Waldo Emerson~
+
+"It is not the length of life, but the depth."
+~Ralph Waldo Emerson~
+
+"Guard well your spare moments. They are like uncut diamonds. Discard them 
+and their value will never be known. Improve them and they will become the 
+brightest gems in a useful life."
+~Ralph Waldo Emerson~
+
+"Beware what you set your heart upon. For it surely shall be yours."
+~Ralph Waldo Emerson~
+
+"Thoreau chose to be rich by making his wants few, and supplying them
+himself."
+~Ralph Waldo Emerson~
+
+"I have never seen the Philosopher's Stone that turns lead
+into Gold, but I have known the pursuit of it turn a Man's
+Gold into Lead."
+~Benjamin Franklin~
+
+"If you'd be wealthy, think of saving, more than of getting:
+The Indies have not made Spain rich, because her Outgoes equal her Incomes."
+~Benjamin Franklin~
+
+"Dost thou love life? Then do not squander time, for that is the stuff life 
+is made of."
+~Benjamin Franklin~
+
+"On him does death lie heavily, who, but too well known to all, dies to 
+himself unknown."
+~Seneca~
+
+"It is not the man who has too little, but the man who craves more, that 
+is poor."
+~Seneca~
+
+"A great step towards independence is a good-humored stomach, one that is 
+willing to endure rough treatment."
+~Seneca~
+
+"We are all chained to fortune: the chain of one is made of gold, and wide, 
+while that of another is short and rusty. But what difference does it make? 
+The same prison surrounds all of us, and even those who have bound others are 
+bound themselves; unless perchance you think that a chain on the left side is 
+lighter. Honors bind one man, wealth another; nobility oppresses some, 
+humility others; some are held in subjection by an external power, while 
+others obey the tyrant within; banishments keep some in one place, the 
+priesthood others. All life is slavery. Therefore each one must accustom 
+himself to his own condition and complain about it as little as possible, 
+and lay hold of whatever good is to be found near him. Nothing is so bitter 
+that a calm mind cannot find comfort in it. Small tablets, because of the 
+writer's skill, have often served for many purposes, and a clever arrangement 
+has often made a very narrow piece of land habitable. Apply reason to 
+difficulties; harsh circumstances can be softened, narrow limits can be 
+widened, and burdensome things can be made to press less severely on those
+who bear them cleverly."
+~Seneca~
+
+"Our minds must have relaxation: rested, they will rise up better and keener. 
+Just as we must not force fertile fields (for uninterrupted production will 
+quickly exhaust them), so continual labor will break the power of our minds. 
+They will recover their strength, however, after they have had a little 
+freedom and relaxation."
+~Seneca~
+
+
+========================================================================
+*life-quotes*    Vida e Luta
+
+"How vain it is to sit down to write when you have not stood up to live."
+~Henry D. Thoreau~
+
+"I went to the woods because I wished to live deliberately, to front only the 
+essential facts of life, and see if I could not learn what it had to teach, 
+and not, when I came to die, discover that I had not lived. I did not wish to 
+live what was not life, living is so dear; nor did I wish to practise 
+resignation, unless it was quite necessary. I wanted to live deep and suck out 
+all the marrow of life, to live so sturdily and Spartan- like as to put to 
+rout all that was not life, to cut a broad swath and shave close, to drive 
+life into a corner, and reduce it to its lowest terms, and, if it proved to 
+be mean, why then to get the whole and genuine meanness of it, and publish 
+its meanness to the world; or if it were sublime, to know it by experience, 
+and be able to give a true account of it in my next excursion."
+~Henry D. Thoreau~
+
+"We are always getting ready to live, but never living."
+~Ralph Waldo Emerson~
+
+"Let us rather run the risk of wearing out than rusting out."
+~Theodore Roosevelt~
+
+"It is not the critic who counts, not the man who points out how the strong 
+man stumbled, or where the doer of deeds could have done better. The credit
+belongs to the man who is actually in the arena; whose face is marred by the 
+dust and sweat and blood; who strives valiantly; who errs and comes short 
+again and again, because there is no effort without error or shortcoming; 
+who knows the great enthusiasms, the great devotions and spends himself in 
+a worthy cause; who at the best, knows in the end the triumph of high 
+achievement, and who, at worst, if he fails, at least fails while daring 
+greatly; so that his place shall never be with those cold and timid souls 
+who know neither victory or defeat."
+~Theodore Roosevelt~
+
+"We must, indeed, all hang together, or assuredly we shall all hang 
+separately."
+~Benjamin Franklin~
+
+"If a man does not keep pace with his companions, perhaps it is because he 
+hears a different drummer. Let him step to the music which he hears, however 
+measured or far away."
+~Henry D. Thoreau~
+
+
+========================================================================
+*travel-quotes*    Viagens
+
+"He that does not fill a place at home, cannot abroad. He only goes there to 
+hide his insignificance in a larger crowd. You do not think you will find 
+anything there which you have not seen at home? The stuff of all countries 
+is just the same. Do you suppose there is any country where they do not scald 
+milk-pans, and swaddle the infants, and burn the brushwood, and broil the 
+fish? What is true anywhere is true everywhere. And let him go where he will, 
+he can only find so much beauty or worth as he carries."
+~Ralph Waldo Emerson~
+
+"Travelling is a fool's paradise. Our first journeys discover to us the 
+indifference of places. At home I dream that at Naples, at Rome, I can be 
+intoxicated with beauty, and lose my sadness. I pack my trunk, embrace my 
+friends, embark on the sea, and at last wake up in Naples, and there beside
+me is the stern fact, the sad self, unrelenting, identical, that I fled from. 
+I seek the Vatican, and the palaces. I affect to be intoxicated with sights
+and suggestions, but I am not intoxicated. My giant goes with me wherever I 
+go."
+~Ralph Waldo Emerson~
+
+"Everywhere means nowhere. When a person spends all his time in foreign 
+travel, he ends by having many acquaintances, but no friends."
+~Seneca~
+
+========================================================================
+*character-quotes*    Caráter
+
+"The fate of the country does not depend on how you vote at the polls - the 
+worst man is as strong as the best at that game; it does not depend on what 
+kind of paper you drop into the ballot-box once a year, but on what kind of 
+man you drop from your chamber into the street every morning."
+~Henry D. Thoreau~
+
+"Men and boys are learning all kinds of trades but how to make men of 
+themselves. They learn to make houses; but they are not so well housed, they 
+are not so contented in their houses, as the woodchucks in their holes. What 
+is the use of a house if you haven't got a tolerable planet to put it on? - 
+If you cannot tolerate the planet that it is on? Grade the ground first. If a 
+man believes and expects great things of himself, it makes no odds where you 
+put him, or what you show him ... he will be surrounded by grandeur. He is in 
+the condition of a healthy and hungry man, who says to himself, - How sweet 
+this crust is!"
+~Henry D. Thoreau~
+
+"Must the citizen ever for a moment, or in the least degree, resign his 
+conscience to the legislator? Why has every man a conscience, then? I think 
+that we should be men first, and subjects afterward. It is not desirable to 
+cultivate a respect for the law, so much as for the right. The only 
+obligation which I have a right to assume is to do at any time what I think 
+right."
+~Henry D. Thoreau~
+
+"Do we call this the land of the free? What is it to be free from King 
+George and continue the slaves of King Prejudice? What is it to be born 
+free and not to live free? What is the value of any political freedom, 
+but as a means to moral freedom? Is it a freedom to be slaves, or a freedom 
+to be free, of which we boast? We are a nation of politicians, concerned 
+about the outmost defences only of freedom."
+~Henry D. Thoreau~
+
+"Every man I meet is in some way my superior; and in that I can learn of him."
+~Ralph Waldo Emerson~
+
+========================================================================
+*nature-quotes*      Natureza
+
+"A gun gives you the body, not the bird."
+~Henry D. Thoreau~
+
+"An early morning walk is a blessing for the whole day."
+~Henry D. Thoreau~
+
+"It is in vain to dream of a wildness distant from ourselves."
+~Henry D. Thoreau~
+
+"In wildness is the preservation of the world."
+~Henry D. Thoreau~
+
+========================================================================
+*peace-quotes*       Paz
+
+"When a sixth of the population of a nation which has undertaken to be the 
+refuge of liberty are slaves, and a whole country is unjustly overrun and 
+conquered by a foreign army, and subjected to military law, I think that it 
+is not too soon for honest men to rebel and revolutionize. What makes this 
+duty the more urgent is the fact that the country so overrun is not our 
+own, but ours is the invading army."
+~Henry D. Thoreau~
+
+"Under a government which imprisons any unjustly, the true place for a just 
+man is also a prison... the only house in a slave State in which a free man 
+can abide with honor."
+~Henry D. Thoreau~
+
+"When a whole nation is roaring Patriotism at the top of its voice, I am 
+fain to explore the cleanness of its hands and purity of its heart."
+~Ralph Waldo Emerson~
+
+========================================================================
+*contentament-quotes*     Contentamento
+
+"People seem not to see that their opinion of the world is also a confession
+of character."
+~Ralph Waldo Emerson~
+
+"To different minds, the same world is a hell, and a heaven."
+~Ralph Waldo Emerson~
+
+========================================================================
+*christianity-quotes*     Cristianismo
+
+"It seems to me that the god that is commonly worshipped in civilized 
+countries is not at all divine, though he bears a divine name, but is the 
+overwhelming authority and respectability of mankind combined. Men reverence 
+one another, not yet God."
+~Henry D. Thoreau~
+
+"It is remarkable that, notwithstanding the universal favor with which the 
+New Testament is outwardly received, and even the bigotry with which it is 
+defended, there is no hospitality shown to, there is no appreciation of, the 
+order of truth with which it deals."
+~Henry D. Thoreau~
+
+"The Religion that is afraid of science dishonours God and commits suicide. 
+It acknowledges that it is not equal to the whole of truth, that it 
+legislates, tyrannizes over a village of God's empires but is not the 
+immutable universal law. Every influx of atheism, of skepticism is thus made 
+useful as a mercury pill assaulting and removing a diseased religion and 
+making way for truth."
+~Ralph Waldo Emerson~
+
+"The blazing evidence of immortality is our dissatisfaction with any other 
+solution."
+~Ralph Waldo Emerson~
+
+"Every natural fact is a symbol of some spiritual fact."
+~Ralph Waldo Emerson~
+
+"We are, like Nebuchadnezzar, dethroned, bereft of reason, and eating grass 
+like an ox."
+~Ralph Waldo Emerson~
+
+========================================================================
+*other-quotes*      Outras citações
+
+"He who gives himself entirely to his fellow-men appears to them useless 
+and selfish; but he who gives himself partially to them is pronounced a 
+benefactor and philanthropist."
+~Henry D. Thoreau~
+
+"The rich man... is always sold to the institution which makes him rich."
+~Henry D. Thoreau~
+
+"It takes two to speak the truth, — one to speak, and another to hear."
+~Henry D. Thoreau~
+
+"The greatest compliment that was ever paid me was when one asked me what 
+I thought, and attended to my answer. I am surprised, as well as delighted, 
+when this happens, it is such a rare use he would make of me, as if he 
+were acquainted with the tool."
+~Henry D. Thoreau~
+
+"What is a weed? A plant whose virtues have yet to be discovered."
+~Ralph Waldo Emerson~
+
+"Sometimes a scream is better than a thesis."
+~Ralph Waldo Emerson~
+
+"A sect or party is an elegant incognito devised to save a man from the 
+vexation of thinking."
+~Ralph Waldo Emerson~
+
+"Let me never fall into the vulgar mistake of dreaming that I am persecuted 
+whenever I am contradicted."
+~Ralph Waldo Emerson~
+
+"It is easy in the world to live after the world's opinion; it is easy in 
+solitude after our own; but the great man is he who in the midst of the 
+crowd keeps with perfect sweetness the independence of solitude."
+~Ralph Waldo Emerson~
 
 ========================================================================
 vim:tw=78:fo=tcq2:isk=!-~,^*,^\|,^\":ts=8:ft=help:norl:
