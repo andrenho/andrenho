@@ -48,6 +48,7 @@ Software
 Software:
   - rewrite of xsw
   - rewrite of xdock
+  - continue development of vinterm
   - fcca/cociv
   - city simulator
   - filesystem Unix

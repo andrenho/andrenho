@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
     <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
-        <uri id="Automatically generated entry, Timestamp=1343607370006" name="http://www.eprofile.com/events/" uri="events.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1343607370006" name="duplicate:http://www.eprofile.com/things/" uri="temp.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1343607370006" name="duplicate:http://www.eprofile.com/things/" uri="things.xml"/>
+        <uri id="Automatically generated entry, Timestamp=1353970542673" name="http://cohse.semanticweb.org/ontologies/people" uri="pellet-2.3.0/examples/data/people+pets.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1353970542673" name="http://www.co-ode.org/ontologies/galen" uri="pellet-2.3.0/examples/data/simple-galen.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1353970542673" name="http://www.eprofile.com/events/" uri="events.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1353970542673" name="duplicate:http://www.eprofile.com/things/" uri="temp.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1353970542673" name="duplicate:http://www.eprofile.com/things/" uri="things.xml"/>
+        <uri id="Automatically generated entry, Timestamp=1353970542673" name="http://www.example.org/ontology3e84710c:1139cb9e449:-8000" uri="pellet-2.3.0/examples/data/wine.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1353970542673" name="http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl" uri="pellet-2.3.0/examples/data/univ-bench.owl"/>
     </group>
 </catalog>
