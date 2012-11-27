@@ -4,43 +4,53 @@ PERSONAL WIKI~
 
 PROJETOS:
 |my-projects|           Meus projetos
+|proj-ideas|            Idéias para projetos
 |proj-arduino-ideas|    Idéias para o Arduino
+|trip-europe|           Viagem para a Europa
 
 PROGRAMAÇÃO:
 |c-lib|                 C Library
 
-SIMPLICIDADE:
-|simplicity-quotes|     Citações
-
 CITAÇÕES
+|friends-quotes|        Amigos
+|beauty-quotes|         Beleza
+|character-quotes|      Caráter
+|contentament-quotes|   Contentamento
+|christianity-quotes|   Cristianismo
+|nature-quotes|         Natureza
+|peace-quotes|          Paz
 |simplicity-quotes|     Simplicidade
 |life-quotes|           Vida e luta
 |travel-quotes|         Viagens
-|character-quotes|      Caráter
-|nature-quotes|         Natureza
-|peace-quotes|          Paz
-|christianity-quotes|   Cristianismo
-|contentament-quotes|   Contentamento
 |other-quotes|          Outras citações
 
 |things.txt|            Coisas
 
 ========================================================================
-========================================================================
 *my-projects*     My projects
 
-Usáveis:
-  - Wiki on a Stick
-  - xsw
-  - bibliomori
-  - xdock
-  - libemu
-  - vinterm
+Software
+  Usáveis:
+    - Wiki on a Stick
+    - xsw
+    - bibliomori
+    - xdock
+    - libemu
+    - vinterm
+  Não usáveis:
+    - fcca/cociv
+    - gladius
+    - bookwrite
 
-Não usáveis:
+========================================================================
+*proj-ideas*          Idéias para projetos
+
+Software:
+  - rewrite of xsw
+  - rewrite of xdock
   - fcca/cociv
-  - gladius
-  - bookwrite
+  - city simulator
+  - filesystem Unix
 
 ========================================================================
 *proj-arduino-ideas*   Arduino ideas
@@ -56,6 +66,13 @@ Não usáveis:
 - Ambient Orb
 - Pong gigante
 - Jogo com motor rotatório de leds
+
+========================================================================
+*trip-europe*     Viagem para a Europa
+
+Endereços
+Paris: Rue de Bac
+Roma: Via Baccina
 
 ========================================================================
 *c-lib*         C Library
@@ -256,6 +273,22 @@ They will recover their strength, however, after they have had a little
 freedom and relaxation."
 ~Seneca~
 
+"For every thing you have missed, you have gained something else; and for 
+every thing you gain, you lose something."
+~Ralph Waldo Emerson~
+
+"It is a bad thing for a nation to raise and to admire a false standard of 
+success; and their can be no falser standard than that set by the deification 
+of material well-being in and for itself."
+~Theodore Roosevelt~
+
+"The poor have little, beggars none, the rich too much,
+enough not one."
+~Benjamin Franklin~
+
+"If Man could have Half his Wishes,
+ he would double his Troubles."
+~Benjamin Franklin~
 
 ========================================================================
 *life-quotes*    Vida e Luta
@@ -303,6 +336,62 @@ hears a different drummer. Let him step to the music which he hears, however
 measured or far away."
 ~Henry D. Thoreau~
 
+"A foolish consistency is the hobgoblin of little minds, adored by little 
+statesmen and philosophers and divines. With consistency a great soul has 
+simply nothing to do. He may as well concern himself with his shadow on the 
+wall. Speak what you think now in hard words, and to-morrow speak what 
+to-morrow thinks in hard words again, though it contradict every thing you 
+said to-day. — 'Ah, so you shall be sure to be misunderstood.' — Is it so 
+bad, then, to be misunderstood? Pythagoras was misunderstood, and Socrates, 
+and Jesus, and Luther, and Copernicus, and Galileo, and Newton, and every 
+pure and wise spirit that ever took flesh. To be great is to be 
+misunderstood."
+~Ralph Waldo Emerson~
+
+"All the great speakers were bad speakers at first."
+~Ralph Waldo Emerson~
+
+"It is not the length of life, but the depth."
+~Ralph Waldo Emerson~
+
+"Do not go where the path may lead, go instead where there is no path and 
+leave a trail."
+~Ralph Waldo Emerson~
+
+"Whatever course you decide upon, there is always someone to tell you that 
+you are wrong."
+~Ralph Waldo Emerson~
+
+"Be yourself; no base imitator of another, but your best self. There is 
+something which you can do better than another. Listen to the inward voice 
+and bravely obey that. Do the things at which you are great, not what you 
+were never made for."
+~Ralph Waldo Emerson~
+
+"Unless you try to do something beyond what you have already mastered, you 
+will never grow."
+~Ralph Waldo Emerson~
+
+"It is wrong to urge an individual to cease his efforts to gain his basic 
+constitutional rights because the quest may precipitate violence."
+~Martin Luther King~
+
+"In the process of gaining our rightful place we must not be guilty of 
+wrongful deeds. Let us not seek to satisfy our thirst for freedom by 
+drinking from the cup of bitterness and hatred."
+~Martin Luther King~
+
+"If you wou'd not be forgotten
+ As soon as you are dead and rotten,
+ Either write things worth reading,
+ Or do things worth the writing."
+~Benjamin Franklin~
+
+"Things that were hard to bear are sweet to remember."
+~Seneca~
+
+"Fire tries gold, misfortune tries brave men."
+~Seneca~
 
 ========================================================================
 *travel-quotes*    Viagens
@@ -329,6 +418,11 @@ go."
 "Everywhere means nowhere. When a person spends all his time in foreign 
 travel, he ends by having many acquaintances, but no friends."
 ~Seneca~
+
+"I pack my trunk, embrace my friends, embark on the sea and at last wake up 
+in Naples, and there beside me is the stern fact, the sad self, unrelenting, 
+identical, that I fled from."
+~Ralph Waldo Emerson~
 
 ========================================================================
 *character-quotes*    Caráter
@@ -369,6 +463,34 @@ about the outmost defences only of freedom."
 "Every man I meet is in some way my superior; and in that I can learn of him."
 ~Ralph Waldo Emerson~
 
+"Don't say things. What you are stands over you the while, and thunders so 
+that I cannot hear what you say to the contrary."
+~Ralph Waldo Emerson~
+
+"You become what you think about all day long."
+~Ralph Waldo Emerson~
+
+"If we lose the virile, manly qualities, and sink into a nation of mere 
+hucksters, putting gain over national honor, and subordinating everything to 
+mere ease of life, then we shall indeed reach a condition worse than that of 
+the ancient civilizations in the years of their decay."
+~Theodore Roosevelt~
+
+"He that sows thorns, should not go barefoot."
+~Benjamin Franklin~
+
+"Glass, China, and Reputation, are easily crack'd,
+ and never well mended."
+~Benjamin Franklin~
+
+"Men do not care how nobly they live, but only how long, although it is 
+within the reach of every man to live nobly, but within no man's power to 
+live long."
+~Seneca~
+
+"Treat your inferiors as you would be treated by your betters."
+~Seneca~
+
 ========================================================================
 *nature-quotes*      Natureza
 
@@ -383,6 +505,18 @@ about the outmost defences only of freedom."
 
 "In wildness is the preservation of the world."
 ~Henry D. Thoreau~
+
+"If the stars should appear one night in a thousand years, how would men 
+believe and adore; and preserve for many generations the remembrance of the 
+city of God which had been shown! But every night come out these envoys of 
+beauty, and light the universe with their admonishing smile."
+~Ralph Waldo Emerson~
+
+"To waste, to destroy, our natural resources, to skin and exhaust the land 
+instead of using it so as to increase its usefulness, will result in 
+undermining in the days of our children the very prosperity which we ought 
+by right to hand down to them amplified and developed."
+~Theodore Roosevelt~
 
 ========================================================================
 *peace-quotes*       Paz
@@ -404,6 +538,59 @@ can abide with honor."
 fain to explore the cleanness of its hands and purity of its heart."
 ~Ralph Waldo Emerson~
 
+"True peace is not merely the absence of tension: it is the presence of 
+justice." (In a 1955 response to an accusation that he was 'disturbing the 
+peace' by his activism)
+~Martin Luther King~
+
+"The ultimate weakness of violence is that it is a descending spiral, 
+begetting the very thing it seeks to destroy. Instead of diminishing evil, 
+it multiplies it. Through violence you may murder the liar, but you cannot 
+murder the lie, nor establish the truth. Through violence you may murder 
+the hater, but you do not murder hate. In fact, violence merely increases 
+hate. So it goes. ... Returning hate for hate multiplies hate, adding deeper 
+darkness to a night already devoid of stars. Darkness cannot drive out 
+darkness: only light can do that. Hate cannot drive out hate: only love can 
+do that."
+~Martin Luther King~
+
+"Injustice anywhere is a threat to justice everywhere."
+~Martin Luther King~
+
+"They who can give up essential liberty to obtain a little temporary safety, 
+deserve neither liberty nor safety."
+~Benjamin Franklin~
+
+"All Wars are Follies, very expensive, and very mischievous ones. When 
+will Mankind be convinced of this, and agree to settle their Differences 
+by Arbitration? Were they to do it, even by the Cast of a Dye, it would be 
+better than by Fighting and destroying each other.
+~Benjamin Franklin~
+
+"Of war men ask the outcome, not the cause."
+~Seneca~
+
+"Arms observe no bounds; nor can the wrath of the sword, once drawn, 
+be easily checked or stayed; war delights in blood."
+~Seneca~
+
+"We are mad, not only individually, but nationally. We check manslaughter 
+and isolated murders; but what of war and the much-vaunted crime of 
+slaughtering whole peoples? There are no limits to our greed, none to our 
+cruelty. And as long as such crimes are committed by stealth and by 
+individuals, they are less harmful and less portentous; but cruelties are 
+practised in accordance with acts of senate and popular assembly, and the 
+public is bidden to do that which is forbidden to the individual. Deeds 
+that would be punished by loss of life when committed in secret, are praised 
+by us because uniformed generals have carried them out. Man, naturally the 
+gentlest class of being, is not ashamed to revel in the blood of others, 
+to wage war, and to entrust the waging of war to his sons, when even dumb 
+beasts and wild beasts keep the peace with one another. Against this 
+overmastering and widespread madness philosophy has become a matter of 
+greater effort, and has taken on strength in proportion to the strength 
+which is gained by the opposition forces."
+~Seneca~
+
 ========================================================================
 *contentament-quotes*     Contentamento
 
@@ -413,6 +600,12 @@ of character."
 
 "To different minds, the same world is a hell, and a heaven."
 ~Ralph Waldo Emerson~
+
+"Content is the Philosopher's Stone, that turns all it touches into Gold."
+~Bejnamin Franklin~
+
+"He that's content, hath enough; He that complains, has too much."
+~Bejnamin Franklin~
 
 ========================================================================
 *christianity-quotes*     Cristianismo
@@ -447,6 +640,57 @@ solution."
 "We are, like Nebuchadnezzar, dethroned, bereft of reason, and eating grass 
 like an ox."
 ~Ralph Waldo Emerson~
+
+"If the stars should appear one night in a thousand years, how would men 
+believe and adore; and preserve for many generations the remembrance of the 
+city of God which had been shown! But every night come out these envoys of 
+beauty, and light the universe with their admonishing smile."
+~Ralph Waldo Emerson~
+
+"The worship of God is a Duty; the hearing and reading of Sermons may be 
+useful; but, if Men rest in Hearing and Praying, as too many do, it is as 
+if a Tree should Value itself on being water’d and putting forth Leaves, 
+tho’ it never produc’d any Fruit."
+~Benjamin Franklin~
+
+"We hear of the conversion of water into wine at the marriage in Cana as 
+of a miracle. But this conversion is, through the goodness of God, made 
+every day before our eyes. Behold the rain which descends from heaven upon 
+our vineyards; there it enters the roots of the vines, to be changed into 
+wine; a constant proof that God loves us, and loves to see us happy. The
+miracle in question was only performed to hasten the operation, under 
+circumstances of present necessity, which required it."
+~Benjamin Franklin~
+
+"If you are really a product of a materialistic universe, how is it that you 
+don't feel at home there?"
+~C. S. Lewis~
+
+========================================================================
+*beauty-quotes*    Beleza
+
+"If I could put my hand on the north star, would it be as beautiful? The 
+sea is lovely, but when we bathe in it, the beauty forsakes all the near 
+water. For the imagination and senses cannot be gratified at the same time."
+~Ralph Waldo Emerson~
+
+"Though we travel the world over to find the beautiful, we must carry it 
+with us or we find it not."
+~Ralph Waldo Emerson~
+
+========================================================================
+*friends-quotes*     Amigos
+
+"The only way to have a friend is to be one."
+~Ralph Waldo Emerson~
+
+"The ornament of a house is the friends who frequent it."
+~Ralph Waldo Emerson~
+
+"Withdraw into yourself, as far as you can. Associate with those who will 
+make a better man of you. Welcome those whom you yourself can improve. 
+The process is mutual; for men learn while they teach."
+~Seneca~
 
 ========================================================================
 *other-quotes*      Outras citações
@@ -486,6 +730,82 @@ whenever I am contradicted."
 solitude after our own; but the great man is he who in the midst of the 
 crowd keeps with perfect sweetness the independence of solitude."
 ~Ralph Waldo Emerson~
+
+"Every sweet hath its sour; every evil its good."
+~Ralph Waldo Emerson~
+
+"There is no den in the wide world to hide a rogue. Commit a crime, and the 
+earth is made of glass. Commit a crime, and it seems as if a coat of snow 
+fell on the ground, such as reveals in the woods the track of every 
+partridge and fox and squirrel and mole."
+~Ralph Waldo Emerson~
+
+"In skating over thin ice our safety is in our speed."
+~Ralph Waldo Emerson~
+
+"We do what we must, and call it by the best names we can."
+~Ralph Waldo Emerson~
+
+"I cannot remember the books I've read any more than the meals I have eaten; 
+even so, they have made me."
+~Ralph Waldo Emerson~
+
+"It is one of the beautiful compensations of life that no man can sincerely 
+try to help another without helping himself."
+~Ralph Waldo Emerson~
+
+"We are students of words: we are shut up in schools, and colleges, and 
+recitation rooms, for ten or fifteen years, and come out at last with a 
+bag of wind, a memory of words, and do not know a thing."
+~Ralph Waldo Emerson~
+
+"If the minority is as powerful as the majority there is no use of having 
+political contests at all, for there is no use in having a majority."
+~Theodore Roosevelt~
+
+"Would you persuade, speak of Interest, not of Reason."
+~Benjamin Franklin~
+
+"The greatest monarch on the proudest throne, is oblig'd to sit upon his 
+own arse."
+~Benjamin Franklin~
+
+"He that idly loses 5s. worth of time, loses 5s. and might as prudently 
+throw 5s. in the River."
+~Benjamin Franklin~
+
+"To whom thy secret thou dost tell,
+ to him thy freedom thou dost sell."
+~Benjamin Franklin~
+
+"Sell not virtue to purchase wealth, nor Liberty
+to purchase power."
+~Benjamin Franklin~
+
+"Sloth (like Rust) consumes faster than Labour wears:
+ the used Key is always bright."
+~Benjamin Franklin~
+
+"Genius without education is like silver in the mine."
+~Benjamin Franklin~
+
+"Haste makes Waste."
+~Benjamin Franklin~
+
+"Early to bed and early to rise,
+ Makes a man healthy, wealthy, and wise."
+~Benjamin Franklin~
+
+"Who profits by a sin has done the sin. / He who profits by crime commits it."
+~Seneca~
+
+"When a man does not know what harbour he is making for, no wind is the 
+right wind."
+~Seneca~
+
+"We often want one thing and pray for another, not telling the truth even 
+to the gods."
+~Seneca~
 
 ========================================================================
 vim:tw=78:fo=tcq2:isk=!-~,^*,^\|,^\":ts=8:ft=help:norl:
