@@ -24,7 +24,7 @@ CITAÇÕES
 |travel-quotes|         Viagens
 |other-quotes|          Outras citações
 
-|things.txt|            Coisas
+|tasks|                 Tarefas
 
 ========================================================================
 *my-projects*     My projects
@@ -51,6 +51,17 @@ Software:
   - fcca/cociv
   - city simulator
   - filesystem Unix
+     - a better filesystem
+     - a better libc
+
+Marcenaria:
+  - mesa
+  - bancada
+
+Eletrônica:
+  - relógio
+  - timer de cozinha
+  - termômetro de forno
 
 ========================================================================
 *proj-arduino-ideas*   Arduino ideas
@@ -81,11 +92,38 @@ IMPORTANT~
 
 <math.h>
 <stdarg.h>
-  va_start, va_copy, va_arg, va_end
+  Types:     va_list
+  Functions: va_start, va_arg, va_end, va_copy(c99)
 <stdio.h>
+  File access:     fopen, freopen, fflush, fclose, setbuf, setvbuf, fwide
+  Direct I/O:      fread, fwrite
+  Unformated I/O:  [f][get/put][w][c/s], [get/put]char, unget[w]c
+  Formatted I/O:   [v][f/s][w]scanf, [v][f/s][n][w]printf
+  File position:   ftell, f[get/set]pos, fseek, rewind
+  Error handling:  clearerr, feof, ferror, perror
+  File operation:  remove, rename, tmpfile, tmpnam
+  Standard stream: stdin, stdout, stderr
+  Data types:      FILE, fpos_t, size_t
+  Constants:       EOF, BUFSIZ, SEEK_CUR, SEEK_END, SEEK_SET
 <stdlib.h>
+  Numeric conversion:  ato[i/f/l/ll], strto[u][i/f/l/ll/ld]
+  Random number:       rand, srand
+  Memory allocation:   malloc, free
+  Program termination: abort, exit, _Exit, atexit
+  Environment:         getenv, setenv, system
+  Constants:           NULL, EXIT_FAILURE, EXIT_SUCCESS, NULL, RAND_MAX
 <string.h>
+  String manipulation: str[n]cpy, str[n]cat, strxfrm, strdup
+  String examination:  strlen, str[n]cmp, strcoll, strchr, str[c]spn, strpbrk
+                       strstr, strtok[_r]
+  Errors:              strerror
+  Memory:              memset, memcpy, memmove, memcmp, memchr
 <time.h>
+  Time manipulation:  difftime, time, clock
+  Format conversions: asctime, ctime, strftime, gmtime, localtime, mktime
+  Types:              tm, time_t, clock_t
+    tm: (tm_year, tm_mon, tm_mday, tm_hour, tm_min, tm_sec | tm_yday, tm_isdst)
+    timespec: (tv_sec, tv_nsec)
 
 NOT SO IMPORTANT~
 <assert.h>
@@ -806,6 +844,19 @@ right wind."
 "We often want one thing and pray for another, not telling the truth even 
 to the gods."
 ~Seneca~
+
+========================================================================
+*tasks*     Tarefas
+
+Instalar arch:
+  - <https://wiki.archlinux.org/index.php/General_Recommendations>
+  - rtorrent
+  - xarchiver
+  - mc
+  - xchm
+  - adobe
+  - genesis emulator, emulators, quake
+  - pdnsd
 
 ========================================================================
 vim:tw=78:fo=tcq2:isk=!-~,^*,^\|,^\":ts=8:ft=help:norl:
