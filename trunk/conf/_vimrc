@@ -58,3 +58,7 @@ set scrolloff=8			" start to scroll 8 lines away from to or bottom
 set wildmenu			" better autocompletion
 set fillchars="" 		" silly fillchars
 nnoremap t <C-]>		" navigate on help on ABNT keyboard
+
+noremap <expr> <silent> <Home> col('.') == match(getline('.'),'\S')+1 ? '0' : '^'
+imap <silent> <Home> <C-O><Home>
+

@@ -54,6 +54,7 @@ Software:
   - filesystem Unix
      - a better filesystem
      - a better libc
+  - a virtual machine
 
 Marcenaria:
   - mesa
@@ -91,21 +92,24 @@ Roma: Via Baccina
 
 IMPORTANT~
 
-<math.h>
+<assert.h>
+  assert()
+<errno.h>
+  errno
 <stdarg.h>
-  Types:     va_list
-  Functions: va_start, va_arg, va_end, va_copy(c99)
+  Types:       va_list
+  Functions:   va_start, va_arg, va_end, va_copy(c99)
 <stdio.h>
-  File access:     fopen, freopen, fflush, fclose, setbuf, setvbuf, fwide
-  Direct I/O:      fread, fwrite
-  Unformated I/O:  [f][get/put][w][c/s], [get/put]char, unget[w]c
-  Formatted I/O:   [v][f/s][w]scanf, [v][f/s][n][w]printf
-  File position:   ftell, f[get/set]pos, fseek, rewind
-  Error handling:  clearerr, feof, ferror, perror
-  File operation:  remove, rename, tmpfile, tmpnam
-  Standard stream: stdin, stdout, stderr
-  Data types:      FILE, fpos_t, size_t
-  Constants:       EOF, BUFSIZ, SEEK_CUR, SEEK_END, SEEK_SET
+  File access:       fopen, freopen, fflush, fclose, setbuf, setvbuf, fwide
+  Direct I/O:        fread, fwrite
+  Unformated I/O:    [f][get/put][w][c/s], [get/put]char, unget[w]c
+  Formatted I/O:     [v][f/s][w]scanf, [v][f/s][n][w]printf
+  File position:     ftell, f[get/set]pos, fseek, rewind
+  Error handling:    clearerr, feof, ferror, perror
+  File operation:    remove, rename, tmpfile, tmpnam
+  Standard stream:   stdin, stdout, stderr
+  Data types:        FILE, fpos_t, size_t
+  Constants:         EOF, BUFSIZ, SEEK_CUR, SEEK_END, SEEK_SET
 <stdlib.h>
   Numeric conversion:  ato[i/f/l/ll], strto[u][i/f/l/ll/ld]
   Random number:       rand, srand
@@ -119,26 +123,23 @@ IMPORTANT~
                        strstr, strtok[_r]
   Errors:              strerror
   Memory:              memset, memcpy, memmove, memcmp, memchr
+
+NOT SO IMPORTANT~
+<ctype.h>
+<float.h>
+<limits.h>
+<locale.h>
+<iso646.h>
+<math.h>
+<setjmp.h>
+<signal.h>
+<stddef.h>
 <time.h>
   Time manipulation:  difftime, time, clock
   Format conversions: asctime, ctime, strftime, gmtime, localtime, mktime
   Types:              tm, time_t, clock_t
     tm: (tm_year, tm_mon, tm_mday, tm_hour, tm_min, tm_sec | tm_yday, tm_isdst)
     timespec: (tv_sec, tv_nsec)
-
-NOT SO IMPORTANT~
-<assert.h>
-  assert()
-<errno.h>
-  errno
-<ctype.h>
-<float.h>
-<limits.h>
-<locale.h>
-<iso646.h>
-<setjmp.h>
-<signal.h>
-<stddef.h>
 <wchar.h>
 <wctype.h>
 
