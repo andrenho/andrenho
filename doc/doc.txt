@@ -31,16 +31,16 @@ CITAÇÕES
 
 Software
   Usáveis:
-    - Wiki on a Stick
-    - xsw
-    - bibliomori
-    - xdock
-    - libemu
-    - vinterm
+    - Wiki on a Stick     http://stickwiki.sf.net
+    - xsw                 http://code.google.com/p/xsw/ 
+    - bibliomori          http://code.google.com/p/bibliomori/
+    - xdock               http://xdock.sourceforge.net/ 
+    - libemu              http://code.google.com/p/libemu/
+    - vinterm             http://code.google.com/p/vinterm/
   Não usáveis:
-    - fcca/cociv
-    - gladius
-    - bookwrite
+    - fcca/cociv          http://fcca.sourceforge.net/
+    - gladius             http://code.google.com/p/gladius/
+    - bookwrite           http://code.google.com/p/bookwrite/
 
 ========================================================================
 *proj-ideas*          Idéias para projetos
@@ -909,14 +909,14 @@ to the gods."
 *tasks*     Tarefas
 
 Instalar arch:
-  - <https://wiki.archlinux.org/index.php/General_Recommendations>
+  - <https://wiki.archlinux.org/index.php/General_Recommendations> (ok)
   - rtorrent
   - xarchiver
   - mc
   - xchm
   - adobe
   - genesis emulator, emulators, quake
-  - pdnsd
+  - pdnsd (ok)
 
 ========================================================================
 vim:tw=78:fo=tcq2:isk=!-~,^*,^\|,^\":ts=8:ft=help:norl:
