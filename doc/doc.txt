@@ -51,7 +51,7 @@ Software:
   - continue development of vinterm
   - fcca/cociv
   - city simulator
-  - filesystem Unix
+  - filesystem Unix (|goonix|)
      - a better filesystem
      - a better libc
   - a virtual machine
@@ -157,6 +157,64 @@ C11~
 <threads.h>
 <uchar.h>
 
+========================================================================
+*goonix*          Goonix
+
+Goonix is a better Unix. Almost all of its operations are based on
+filesystems. The system calls are very simple, and the C library is very
+simple.
+
+A new filetype is included, the FILTER. A is a application that can be opened
+by any program and can be used as a filter.
+
+FILESYSTEMS (DIR)~
+
+hostdir         A directory in the host
+process         Process information. Can be used for sending signals.
+net             Networking (?)
+terminal        Virtual terminal
+
+FILESYSTEMS (FILE)~
+
+rand            Return a random number
+
+FILTERS~
+
+conv            Convert between various formats
+case            Check case
+chktype         Check the type of a byte
+math            Mathematical calculations
+
+A SIMLPER C~
+
+ - multiple return values
+ - multiple arguments
+ - default parameters
+ - boolean values
+ - types with predefined sizes
+ - threads? channels?
+
+C LIBRARY~
+
+The C library is divided in two parts: OS dependent functions, and OS
+independent functions.
+
+OS dependent:
+  malloc, free
+  signals
+  I/O
+  threads
+
+OS independent
+  int filter(char* filter_type, char* input, char* output, error* err);
+  assert
+  <math.h>
+  <stdarg.h>
+  advanced string handling (UTF-8)
+  lists, variable arrays, etc...
+  date/time
+
+OPERATING SYSTEM CALLS~
 
 ========================================================================
 *simplicity-quotes*   Simplicity quotes
