@@ -56,6 +56,9 @@ Software:
      - a better libc
   - a virtual machine
 
+Imagens:
+  - ViM cheat sheet
+
 Marcenaria:
   - mesa
   - bancada
