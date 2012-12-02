@@ -6,7 +6,9 @@ digraph G {
   trail [label="Gerenciador\nde trilhas"];
   cadastro [label="Cadastro|{Time|Data do evento}|{Indentity|Disciplina}"];
   semestre [label="Semestre|{Activity|Início ou fim}|{Identity|Disciplina}|{Time|Data}|{Participantes|Docentes e estudantes}"];
+  trabalho [label="TrabalhoEmGrupo|{Activity|Assuntos}|{Identity|Disciplina}|{Time|Data}|{Participants|Estudantes}"];
 
-	UniManager -> cadastro -> trail;
-	UniManager -> semestre -> trail;
+  UniManager -> cadastro -> trail;
+  UniManager -> semestre -> trail;
+  UniManager -> trabalho -> trail;
 }

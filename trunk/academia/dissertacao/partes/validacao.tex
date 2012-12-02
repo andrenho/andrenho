@@ -39,7 +39,7 @@ educacionais \cite{barbosa11}.
 
 O LOCAL, cuja arquitetura é mostrada na Figura~\ref{fig:arq_local}, é formado por sete componentes: (i) um sistema de perfis de usuário, que armazena dados relevantes ao processo de ensino e aprendizagem, (ii) um sistema de localização, (iii) um Assistente Pessoal (AP), que acompanha o usuário em seu dispositivo móvel, (iv) um repositório de objetos de aprendizagem, (v) um sistema de envio de mensagens contextualizadas, (vi) um sistema de eventos, que agenda tarefas e (vii) o tutor, um motor de análise que realiza inferências usando dados fornecidos pelos sistemas de perfis e localização.
 
-\begin{figure}
+\begin{figure}[!t]
   \centering\includegraphics[width=0.7\textwidth]{imagens/arq_local.png}
   \caption{Arquitetura do LOCAL}
   \label{fig:arq_local}
@@ -53,7 +53,7 @@ A integração eProfile/LOCAL foi baseada nas seguintes alterações feitas no L
 
 O primeiro passo da integração se dá quando o LOCAL se comunica pela primeira vez com o eProfile. Neste momento, o LOCAL indica para o eProfile qual será o modelo de entidade esperado, e as regras para a geração deste perfil. Este conjunto de informações é registrado no eProfile através do agente Configurador (seta ``a''), que organiza estas informações e registra-as nos bancos de dados de Modelos e Regras.
 
-\begin{figure}
+\begin{figure}[!t]
   \centering\includegraphics[width=1\textwidth]{imagens/eprofile_local.png}
   \caption{Integração eProfile/LOCAL}
   \label{fig:eprofile_local}
@@ -82,7 +82,7 @@ O primeiro passo da integração se dá quando o LOCAL se comunica pela primeira
 
 O UniManager é um {\em software} administrativo utilizado pela universidade para cadastramento e gerenciamento dos estudantes, docentes e disciplinas. O modelo desta aplicação é exibido na Figura~\ref{fig:unimanager}.
 
-\begin{figure}
+\begin{figure}[!t]
   \centering\includegraphics[width=0.9\textwidth]{imagens/unimanager.png}
   \caption{Modelo do UniManager}
   \label{fig:unimanager}
@@ -96,7 +96,7 @@ O UniManager possui também um banco de dados de perfis. Neste banco de dados s�
 
 A base de perfis é dinâmica, atualizada com base nos eventos registrados, mas está limitada aos dados registrados no próprio UniManager. A integração do UniManager ao eProfile potencializa a geração de perfis mais avançados, utilizando as informações registradas inferidas a partir dos dados gerados pelo LOCAL. Utilizando-se destes dados, é possível registrar na base de perfis do UniManager os interesses do estudante, de modo a poder sugerir a ele disciplinas opcionais que sejam do seu interesse. Além disso, a utilização de trilhas permite que os perfis sejam gerados com base em informações históricas, obtendo informações de perfis que podem ser úteis em análises administrativas (por exemplo, qual combinação de disciplina e professor resultou historicamente na maior nota para os alunos em cada disciplina).
 
-\begin{figure}
+\begin{figure}[!t]
   \centering\includegraphics[width=1\textwidth]{imagens/unimanager_eprofile.png}
   \caption{Integração UniManager/eProfile}
   \label{fig:unimanager_eprofile}
@@ -111,7 +111,7 @@ O UniManager se integra ao eProfile de acordo com a Figura~\ref{fig:unimanager_e
 
 O cenário é composto por um conjunto de alunos que realiza um curso de Ciência da Computação. O curso é composto por um conjunto de 40 disciplinas, dentre as quais 12 são opcionais (o aluno deve cumprir ao menos 8 dentre estas 12). Todas as disciplinas possuem outras disciplinas como pré-requisito, exceto pelas disciplinas de início de curso (a Figura~\ref{fig:disciplinas} exemplifica um subconjunto de disciplinas com seus pré-requisitos). Cada disciplina possui um docente, um número limitado de vagas para os alunos, e um conjunto de recursos (como salas especiais ou equipamentos).
 
-\begin{figure}
+\begin{figure}[!t]
   \centering\includegraphics[width=1\textwidth]{imagens/disciplinas.png}
   \caption{Pré-requisitos de algumas disciplinas}
   \label{fig:disciplinas}
@@ -219,19 +219,19 @@ Segundo descrito na Seção~\ref{sec:eontotrail}, aplicações sensíveis a cont
 
 A trilha dos estudantes contém os seguintes eventos: cadastro, matrícula em disciplina, entrada e saída em aula, realização de provas e trabalhos, escolha de preferências e abandono de curso. O formato da trilha está detalhado na Figura~\ref{fig:ont_estudante}. Na trilha dos docentes são registrados os seguintes eventos: cadastro, entrada e saída em aula e avaliação das provas e trabalhos dos alunos, segundo detalhando na Figura~\ref{fig:ont_docente}. A trilha da disciplina recebe os seguintes eventos: cadastro e início e fim de semestre, de acordo com a Figura~\ref{fig:ont_disciplina}.
 
-\begin{figure}
+\begin{figure}[!t]
   \centering\includegraphics[width=0.6\textwidth]{imagens/ont_estudante.png}
   \caption{Ontologia de trilha do estudante}
   \label{fig:ont_estudante}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[!t]
   \centering\includegraphics[width=0.6\textwidth]{imagens/ont_docente.png}
   \caption{Ontologia de trilha do docente}
   \label{fig:ont_docente}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[!t]
   \centering\includegraphics[width=0.6\textwidth]{imagens/ont_disciplina.png}
   \caption{Ontologia de disciplina}
   \label{fig:ont_disciplina}
@@ -241,7 +241,7 @@ O objetivo final da geração das trilhas é a geração dos perfis. Para que o 
 
 Os modelos de entidades são a estrutura de dados utilizada para armazenar o perfil de uma entidade. O modelo de entidade utilizado pelo módulo de Perfis de Usuários do LOCAL é mostrado na Figura~\ref{fig:perfil_local}. Os perfis dos aprendizes apresentam dois tipos de dados: (i) persistentes, relacionados ao aprendiz em todas as situações que ele se encontre e (ii) contextuais, associado com os contextos com as quais o aprendiz interage.
 
-\begin{figure}
+\begin{figure}[!t]
   \centering\includegraphics[width=0.7\textwidth]{imagens/perfil_local.png}
   \caption{Modelo de perfis do LOCAL}
   \label{fig:perfil_local}
@@ -251,7 +251,7 @@ As seções do bloco persistente do perfil são (i) contato, que armazena dados 
 
 O UniManager armazena perfis de disciplinas, docentes e estudantes, e tem seu modelo de entidade ilustrado na Figura~\ref{fig:perfil_unimanager}. As informações básicas, disciplinas matriculadas e notas/faltas do perfil do estudante são utilizadas para atividades gerenciais da Universidade, como verificar se o aluno pode cursar uma determinada disciplina, assim como as informações de disciplinas do docente. As informações de desempenho do docente e de médias históricas das disciplinas são utilizadas para ajustar o docente com a disciplina que tenha maior afinidade ou desempenho. As informações de interesse dos alunos são utilizadas para sugerir disciplinas opcionais aos alunos.
 
-\begin{figure}
+\begin{figure}[!t]
   \centering\includegraphics[width=0.65\textwidth]{imagens/unimanager_perfil.png}
   \caption{Modelo de perfis do UniManager}
   \label{fig:perfil_unimanager}
@@ -265,7 +265,7 @@ O LOCAL, então, tenta identificar os alunos que possuam iteresses iguais aos do
 
 A partir desta regra, é possível buscar os estudantes (linha 15) cujos interesses se intersectam com os interesses encontrados na classe {\em RelatedSubjects} (linha 18). Estes estudantes, na ontologia, passam a ser subclasses da classe {\em StudentsSelected} (linha 13).
 
-\begin{figure}
+\begin{figure}[!t]
 \begin{verbatim}
  1  <EquivalentClasses>
  2    <Class IRI="RelatedSubjects"/>
@@ -295,9 +295,9 @@ A partir desta regra, é possível buscar os estudantes (linha 15) cujos interes
 
 O evento 7 da Tabela~\ref{tab:aula} descreve que dois alunos não se encaixaram em nenhum dos grupos pois não tinham nenhum interesse cadastrado relacionado aos assuntos do debate, e o LOCAL questionou-os em qual assunto eles gostariam de se encaixar (eventos 8 e 9), gerando assim um evento de trilha para estes dois estudantes. Uma vez que o registro tenha sido feito, o perfil dos estudantes é reprocessado de acordo com as regras definidas pelo LOCAL. 
 
-O cabeçalho da regra que atualiza o campo de interesses de um aluno é mostrado na Figura~\ref{fig:regra3}. Este cabeçalho define que o campo {\em Interest} (linha 2) dos perfis dos estudantes (linha 1) serão atualizados com as subclasses da classe {\em StudentInterest}, cuja regra OWL é mostrada na Figura~\ref{fig:regra2}. Também é definido que um novo interesse é somado ao interesses que já existem (linha 4), que esta regra é atualizada toda vez que é registrado um evento de trilha na qual um assunto é escolhido (linha 5). A regra OWL da Figura~\ref{
+O cabeçalho da regra que atualiza o campo de interesses de um aluno é mostrado na Figura~\ref{fig:regra3}. Este cabeçalho define que o campo {\em Interest} (linha 2) dos perfis dos estudantes (linha 1) serão atualizados com as subclasses da classe {\em StudentInterest}, cuja regra OWL é mostrada na Figura~\ref{fig:regra2}. Também é definido que um novo interesse é somado ao interesses que já existem (linha 4), que esta regra é atualizada toda vez que é registrado um evento de trilha na qual um assunto é escolhido (linha 5). A regra OWL da Figura~\ref{fig:regra2} define que a classe {\em StudentInterest} é formada dos assuntos escolhidos (linha 6) pelos estudantes que fazem parte deste contexto (linha 10 e 11) e que tenham escolhido um determinado assunto (linhas 6 e 7).
 
-\begin{figure}
+\begin{figure}[!t]
 \begin{verbatim}
 1  Profile:   Student
 2  Field:     Interest
@@ -310,7 +310,7 @@ O cabeçalho da regra que atualiza o campo de interesses de um aluno é mostrado
   \label{fig:regra3}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[!t]
 \begin{verbatim}
  1  <EquivalentClasses>
  2    <Class IRI="StudentInterest"/>
@@ -322,7 +322,7 @@ O cabeçalho da regra que atualiza o campo de interesses de um aluno é mostrado
  8      </ObjectSomeValuesFrom>
  9      <ObjectSomeValuesFrom>
 10        <ObjectProperty IRI="hasStudent"/>
-11        <Class IRI="Student"/>
+11        <Class IRI="?student"/>
 12      </ObjectSomeValuesFrom>
 13    </ObjectIntersectionOf>
 14  </EquivalentClasses>
@@ -330,6 +330,8 @@ O cabeçalho da regra que atualiza o campo de interesses de um aluno é mostrado
   \caption{Regra OWL para processamento de perfil de estudante}
   \label{fig:regra2}
 \end{figure}
+
+Após a aplicação da regra mostrada nas Figuras~\ref{fig:regra3} e~\ref{fig:regra2}, a regra da Figura~\ref{fig:regra1} é executada novamente, desta vez identificando os alunos que fizeram sua escolha (evento 10 da Tabela~\ref{tab:aula}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
