@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
     <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
-        <uri id="Automatically generated entry, Timestamp=1341680568362" name="http://code.google.com/p/andrenho/trilha.owl" uri="ingredientes.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1341680568362" name="http://www.semanticweb.org/aw98156/ontologies/2012/5/untitled-ontology-6" uri="raciocinio.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1354390033594" name="http://code.google.com/p/andrenho/trilha.owl" uri="ingredientes.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1354390033594" name="http://www.eprofile.com/events/" uri="2/events.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1354390033594" name="http://www.eprofile.com/reason/" uri="2/reason.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1354390033594" name="http://www.eprofile.com/things/" uri="2/things.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1354390033594" name="http://www.semanticweb.org/aw98156/ontologies/2012/5/untitled-ontology-6" uri="raciocinio.owl"/>
     </group>
 </catalog>
