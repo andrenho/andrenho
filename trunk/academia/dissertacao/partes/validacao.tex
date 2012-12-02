@@ -173,33 +173,33 @@ Além disso, os docentes e os alunos também utilizam o LOCAL em seus dispositiv
 
 \todo[inline]{Jorge, sei que essa última característica não fazia parte do design original do LOCAL, mas você acha que é possível acrescentarmos essa funcionalidade?}
 
-A Tabela~\ref{tab:aula} exemplifica uma aula de duas horas e meia envolvendo 10 alunos, na qual foi realizado um debate a respeito de Bancos de Dados. Após o debate, os alunos realizaram um trabalho individual a respeito dos assuntos discutidos no debate. Neste exemplo, foram registrados no UniManager a presença dos alunos, a entrega do seu trabalho e a nota obtida e, no LOCAL, o conteúdo pedagógico da aula.
+A Tabela~\ref{tab:aula} exemplifica uma aula de duas horas e meia envolvendo 10 alunos, na qual foi realizado um debate a respeito de Técnicas de Programação. Após o debate, os alunos realizaram um trabalho individual a respeito dos assuntos discutidos no debate. Neste exemplo, foram registrados no UniManager a presença dos alunos, a entrega do seu trabalho e a nota obtida e, no LOCAL, o conteúdo pedagógico da aula.
 
 Além disso, o LOCAL registrou a preferência pessoal de dois alunos, a respeito de sistemas de banco de dados. Caso o LOCAL e o UniManager estivessem sendo usados isoladamente, esta informação teria sido apenas relevante para a tarefa imediata da aula. No entanto, com a integração destes sistemas com o eProfile, esta informação é utilizada na atualização do perfil dos alunos, e pode ser utilizada futuramente para facilitar a interação entre alunos e personalizar a entrega de conteúdo pedagógico (pelo LOCAL) e auxiliar o aluno na sugestão de disciplinas facultativas (pelo UniManager).
 
 \begin{table*}\centering\footnotesize
-    \begin{tabular*}{1\textwidth}{@{}ccp{12cm}@{}}
+    \begin{tabular*}{1\textwidth}{@{}cccp{11cm}@{}}
     \toprule
-    Horário & Ator & Ação \\
+    Evento & Horário & Ator & Ação \\
     \midrule
-    - & Professor & Insere no LOCAL o material pedagógico a respeito de banco de dados, que será utilizado na aula, e requisita a entrega de um trabalho através do UniManager. \\
-    7:30 & Alunos & Nove alunos entram na sala. \\
-    7:30 & LOCAL & LOCAL identifica a entrada dos alunos na sala. \\
-    7:30 & UniManager & UniManager identifica a entrada dos alunos na sala. \\
-    7:30 & LOCAL & LOCAL envia o conteúdo pedagógico da aula aos alunos. \\
-    8:00 & Professor & Professor pede a criação de grupos para o debate. \\
-    8:00 & LOCAL & O LOCAL forma três grupos baseado nas preferências dos estudantes: {\em Oracle} (3 alunos), {\em PostgreSQL} (3 alunos) e {\em SQLite} (1 aluno). Dois alunos não tem uma preferência cadastrada que permita que o LOCAL os encaixe em algum grupo. \\
-    8:00 & LOCAL & LOCAL solicita aos dois estudantes que escolham algum grupo. \\
-    8:10 & Alunos & Os alunos indicam sua preferência através do Assistente Pessoal do LOCAL. \\
-    8:10 & LOCAL & O LOCAL encaixa os dois alunos nos grupos de sua preferência, um em {\em PostgreSQL} e o outro em {\em SQLite}. \\
-    8:10 & Alunos & O debate inicia. \\
-    8:40 & Alunos & Um aluno entra na aula, atrasado. O UniManager e o LOCAL registram sua entrada, mas o LOCAL não o encaixa no debate, que já está no final. \\
-    8:50 & Alunos & O debate se encerra. \\
-    8:50 & Professor & O professor pede que os alunos façam um trabalho em aula sobre o debate realizado. \\
-    10:00 & Alunos & Os alunos entregam o trabalho através do UniManager e saem da sala. \\
-    10:00 & UniManager & Recebe os trabalhos entregues e registra a saída dos alunos. \\
-    10:00 & LOCAL & Registra a saída dos alunos. \\
-        - & Professor & O professor, posteriormente, avalia o trabalho dos alunos e registra a nota no UniManager. \\
+    1 & - & Professor & Insere no LOCAL o material pedagógico a respeito de banco de dados, que será utilizado na aula, e requisita a entrega de um trabalho através do UniManager. \\
+    2 & 7:30 & Alunos & Nove alunos entram na sala. \\
+    3 & 7:30 & LOCAL & LOCAL identifica a entrada dos alunos na sala. \\
+    4 & 7:30 & UniManager & UniManager identifica a entrada dos alunos na sala. \\
+    5 & 7:30 & LOCAL & LOCAL envia o conteúdo pedagógico da aula aos alunos. \\
+    6 & 8:00 & Professor & Professor pede a criação de grupos para o debate. \\
+    7 & 8:00 & LOCAL & O LOCAL forma três grupos baseado nas preferências dos estudantes: {\em Algoritmos Distribuídos} (3 alunos), {\em Algoritmos de Escalonamento} (3 alunos) e {\em Algoritmos Matemáricos} (1 aluno). Dois alunos não tem uma preferência cadastrada que permita que o LOCAL os encaixe em algum grupo. \\
+    8 & 8:00 & LOCAL & LOCAL solicita aos dois estudantes que escolham algum grupo. \\
+    9 & 8:10 & Alunos & Os alunos indicam sua preferência através do Assistente Pessoal do LOCAL. \\
+    10 & 8:10 & LOCAL & O LOCAL encaixa os dois alunos nos grupos de sua preferência, um em {\em Algoritmos de Escalonamento} e o outro em {\em Algoritmos Matemáticos}. \\
+    11 & 8:10 & Alunos & O debate inicia. \\
+    12 & 8:40 & Alunos & Um aluno entra na aula, atrasado. O UniManager e o LOCAL registram sua entrada, mas o LOCAL não o encaixa no debate, que já está no final. \\
+    13 & 8:50 & Alunos & O debate se encerra. \\
+    14 & 8:50 & Professor & O professor pede que os alunos façam um trabalho em aula sobre o debate realizado. \\
+    15 & 10:00 & Alunos & Os alunos entregam o trabalho através do UniManager e saem da sala. \\
+    16 & 10:00 & UniManager & Recebe os trabalhos entregues e registra a saída dos alunos. \\
+    17 & 10:00 & LOCAL & Registra a saída dos alunos. \\
+    18 & - & Professor & O professor, posteriormente, avalia o trabalho dos alunos e registra a nota no UniManager. \\
     \bottomrule
   \end{tabular*}
   \caption{Exemplo de uma aula}
@@ -257,7 +257,80 @@ O UniManager armazena perfis de disciplinas, docentes e estudantes, e tem seu mo
   \label{fig:perfil_unimanager}
 \end{figure}
 
-\todo[inline]{TODO - Definir regras}
+O UniManager e o LOCAL definem um conjunto de regras para geração dos perfis baseados nas trilhas geradas por ambos os aplicativos. Um aplicativo tem a possibilidade de utilizar a trilha de outro aplicativo para o processamento das regras e consequente geração dos perfis, permitido assim que o perfil da entidade seja enriquecido pelo ambiente que o cerca.
+
+A definição das regras é feita em OWL, através da criação de classes que possam ser processadas por um raciocinador. A Tabela~\ref{tab:aula} mostra o exemplo de uma aula onde o professor cadastra no LOCAL um conjunto de assuntos que serão debatidos em aula (evento 1). Este evento gera uma trilha que é enviada do LOCAL ao Gerenciador de Trilhas e, subsequentemente, ao eProfile.
+
+O LOCAL, então, tenta identificar os alunos que possuam iteresses iguais aos do debate proposto, ou interesses que estejam relacionadas a estes (evento 7). Desta forma, o LOCAL envia as regras OWL descritas na Figura~\ref{fig:regra1} para realizar esta identificação. A primeira regra chama-se {\em RelatedSubjects} (linha 2), onde são inferidos todos os assuntos (classe {\em Subject}, linha 4) que sejam relacionados (linha 6) aos assuntos que serão debatidos em aula (linha 7). A expressão {\tt ?subject} é uma extensão do eProfile, que substitui esta expressão pelos assuntos que estão sendo utilizados, permitindo que a mesma regra possa ser usada em diferentes situações. Esta regra, após inferida, resulta na listagem de todos os assuntos (classes do tipo {\em Subject}) que se relacionam aos assuntos que serão debatidos, colocando estas classes como subclasses da classe {\em RelatedSubjects}.
+
+A partir desta regra, é possível buscar os estudantes (linha 15) cujos interesses se intersectam com os interesses encontrados na classe {\em RelatedSubjects} (linha 18). Estes estudantes, na ontologia, passam a ser subclasses da classe {\em StudentsSelected} (linha 13).
+
+\begin{figure}
+\begin{verbatim}
+ 1  <EquivalentClasses>
+ 2    <Class IRI="RelatedSubjects"/>
+ 3    <ObjectIntersectionOf>
+ 4      <Class IRI="Subject"/>
+ 5      <ObjectSomeValuesFrom>
+ 6        <ObjectProperty IRI="isRelated"/>
+ 7        <Class IRI="?subject"/>
+ 8      </ObjectSomeValuesFrom>
+ 9    </ObjectIntersectionOf>
+10  </EquivalentClasses>
+11
+12  <EquivalentClasses>
+13    <Class IRI="StudentsSelected"/>
+14    <ObjectIntersectionOf>
+15      <Class IRI="Student"/>
+16      <ObjectSomeValuesFrom>
+17        <ObjectProperty IRI="hasInterest"/>
+18        <Class IRI="RelatedSubjects"/>
+19      </ObjectSomeValuesFrom>
+20    </ObjectIntersectionOf>
+21  </EquivalentClasses>
+\end{verbatim}
+  \caption{Regra OWL para identificação de interesses dos alunos}
+  \label{fig:regra1}
+\end{figure}
+
+O evento 7 da Tabela~\ref{tab:aula} descreve que dois alunos não se encaixaram em nenhum dos grupos pois não tinham nenhum interesse cadastrado relacionado aos assuntos do debate, e o LOCAL questionou-os em qual assunto eles gostariam de se encaixar (eventos 8 e 9), gerando assim um evento de trilha para estes dois estudantes. Uma vez que o registro tenha sido feito, o perfil dos estudantes é reprocessado de acordo com as regras definidas pelo LOCAL. 
+
+O cabeçalho da regra que atualiza o campo de interesses de um aluno é mostrado na Figura~\ref{fig:regra3}. Este cabeçalho define que o campo {\em Interest} (linha 2) dos perfis dos estudantes (linha 1) serão atualizados com as subclasses da classe {\em StudentInterest}, cuja regra OWL é mostrada na Figura~\ref{fig:regra2}. Também é definido que um novo interesse é somado ao interesses que já existem (linha 4), que esta regra é atualizada toda vez que é registrado um evento de trilha na qual um assunto é escolhido (linha 5). A regra OWL da Figura~\ref{
+
+\begin{figure}
+\begin{verbatim}
+1  Profile:   Student
+2  Field:     Interest
+3  Rule:      StudentInterest
+4  Update:    addition
+5  Frequence: onTrailEvent(SubjectChosen)
+6  Expires:   never
+\end{verbatim}
+  \caption{Regra para processamento do perfil do estudante}
+  \label{fig:regra3}
+\end{figure}
+
+\begin{figure}
+\begin{verbatim}
+ 1  <EquivalentClasses>
+ 2    <Class IRI="StudentInterest"/>
+ 3    <ObjectIntersectionOf>
+ 4      <Class IRI="SubjectChosen"/>
+ 5      <ObjectSomeValuesFrom>
+ 6        <ObjectProperty IRI="subjectChosen"/>
+ 7        <Class IRI="Subject"/>
+ 8      </ObjectSomeValuesFrom>
+ 9      <ObjectSomeValuesFrom>
+10        <ObjectProperty IRI="hasStudent"/>
+11        <Class IRI="Student"/>
+12      </ObjectSomeValuesFrom>
+13    </ObjectIntersectionOf>
+14  </EquivalentClasses>
+\end{verbatim}
+  \caption{Regra OWL para processamento de perfil de estudante}
+  \label{fig:regra2}
+\end{figure}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
