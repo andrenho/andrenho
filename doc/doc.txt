@@ -58,6 +58,8 @@ Software:
      - a better filesystem
      - a better libc
   - a virtual machine
+  - a Video Controller
+  - a post-apocalyptic game like asciisec
 
 Imagens:
   - ViM cheat sheet
