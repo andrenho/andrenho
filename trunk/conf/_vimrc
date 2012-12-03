@@ -68,5 +68,21 @@ function! Script()
 	set ts=2
 	set sw=2
 	set sts=2
+	set expandtab
+endfunction
+function! Compiled()
+	set ts=8
+	set sw=8
+	set sts=8
 	set noexpandtab
 endfunction
+
+" correct CTRL-PGUP/DOWN in rxvt
+nmap <ESC>[5^ <C-PageUp>
+nmap <ESC>[6^ <C-PageDown>
+nmap <ESC><ESC>[5^ <C-PageUp>
+nmap <ESC><ESC>[6^ <C-PageDown>
+imap <ESC>[5^ <C-PageUp>
+imap <ESC>[6^ <C-PageDown>
+imap <ESC><ESC>[5^ <C-PageUp>
+imap <ESC><ESC>[6^ <C-PageDown>
