@@ -2,13 +2,16 @@
 
 PERSONAL WIKI~
 
-PROJETOS:
+PROJETOS
 |my-projects|           Meus projetos
 |proj-ideas|            Idéias para projetos
 |proj-arduino-ideas|    Idéias para o Arduino
 |trip-europe|           Viagem para a Europa
 
-PROGRAMAÇÃO:
+TEXTOS
+|text-food|             Alimentação Moderna
+
+PROGRAMAÇÃO
 |c-lib|                 C Library
 
 CITAÇÕES
@@ -921,5 +924,14 @@ Instalar arch:
   - genesis emulator, emulators, quake
   - pdnsd (ok)
 
-========================================================================
+=======================================================================
+*text-food*     Alimentação Moderna
+
+ANIMAIS~
+
+VEGETAIS~
+
+RESPOSTAS~
+
+=======================================================================
 vim:tw=78:fo=tcq2:isk=!-~,^*,^\|,^\":ts=8:ft=help:norl:
