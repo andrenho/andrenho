@@ -1,9 +1,15 @@
-class Course:
-	def __init__(self, name, depend, optional=False):
-		self.name = name
-		self.depend = depend
-		self.optional = optional
+import random
 
+class Course:
+  def __init__(self, name, depend, optional=False):
+    self.name = name
+    self.depend = depend
+    self.optional = optional
+    self.debates = []
+
+#
+# incializa cursos
+#
 al1 = Course('Algoritmos I', [])
 mat = Course('Matemática elementar', [])
 geo = Course('Geometria analítica', [])
@@ -34,5 +40,44 @@ rob = Course('Robótica', [ele])
 sos = Course('Sistemas Operacionais', [co2, mic, eng], True)
 gpr = Course('Gerência de Projetos', [ger], True)
 ala = Course('Algoritmos Avançados', [al2, est], True)
-
 courses = (al1, mat, geo, por, an1, al2, est, ca1, an2, ing, co1, lip, arq, eng, fil, co2, mic, ca2, bds, red, tc1, ele, int, gra, ger, tc2, rob, sos, gpr, ala)
+
+#
+# cria assuntos aleatórios
+# 
+n = 0
+for course in courses:
+  for _ in range(random.randint(3,5)):
+    subjects = []
+    for _ in range(random.randint(3,5)):
+      subjects.append(n)
+      n += 1
+    course.debates.append(subjects)
+
+#
+# faz vincluação entre os assuntos
+#
+vinc = {}
+for i in range(n):
+  for _ in range(random.randint(2,5)):
+    x = random.randint(0,n)
+    if x not in vinc:
+      vinc[x] = []
+    if i not in vinc:
+      vinc[i] = []
+    if x != i:
+      vinc[i].append(x)
+      vinc[x].append(i)
+
+#
+# cria alunos
+#
+class Student:
+  pass
+students = [Student()] * 50
+
+
+# testes:
+#  - tempo
+#  - aumento das vinculações
+#  - aumento do número de debates (?)
