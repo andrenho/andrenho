@@ -1,11 +1,18 @@
-import random
+import random, sys
 
 class Course:
+
   def __init__(self, name, depend, optional=False):
     self.name = name
     self.depend = depend
     self.optional = optional
     self.debates = []
+
+  def new_semester(self):
+    self.students = []
+
+  def available(self):
+    return 25 - len(self.students)
 
 #
 # incializa cursos
@@ -73,8 +80,55 @@ for i in range(n):
 # cria alunos
 #
 class Student:
-  pass
-students = [Student()] * 50
+  
+  def __init__(self):
+    self.courses_taken = []
+  
+  def graduated(self):
+    return (len(self.courses_taken) >= 25)
+
+  def courses_available(self):
+    c = []
+    for course in set(courses - self.courses_taken):
+      for taken in self.courses_taken:
+        n = len([x for x in course.depend if x == taken])
+        if len(course.depend) == n:
+          c.append(course)
+    return c
+
+  def next_course(self):
+    c = self.courses_available()
+    if len(c) > 0:
+      return c[0]
+    else:
+      return None
+
+all_students = [Student()] * 1 #50
+
+#
+# semestre
+# 
+while True:
+  students = (s for s in all_students if s.graduated())
+  
+  #
+  # matricula
+  #
+  for c in courses:
+    c.new_semester()
+  for s in students:
+    c = s.next_course()
+    print(c)
+    if c == None:
+      print('Fail.')
+      sys.exit(1)
+    s.courses_taken.append(c)
+    print(c.name)
+    c.students(s)
+
+  #
+  # debates
+  #
 
 
 # testes:
