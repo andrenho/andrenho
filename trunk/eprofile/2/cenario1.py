@@ -14,6 +14,9 @@ class Course:
   def available(self):
     return 25 - len(self.students)
 
+  def __repr__(self):
+    return "<" + self.name + ">"
+
 #
 # incializa cursos
 #
@@ -80,55 +83,71 @@ for i in range(n):
 # cria alunos
 #
 class Student:
-  
-  def __init__(self):
+
+  def __init__(self, n):
     self.courses_taken = []
+    self.n = n
   
   def graduated(self):
     return (len(self.courses_taken) >= 25)
 
   def courses_available(self):
     c = []
-    for course in set(courses - self.courses_taken):
-      for taken in self.courses_taken:
-        n = len([x for x in course.depend if x == taken])
-        if len(course.depend) == n:
-          c.append(course)
+    for course in set(courses) - set(self.courses_taken):
+      n = len([x for x in course.depend if x in self.courses_taken])
+      if len(course.depend) == n:
+        c.append(course)
+    c.extend(set(c for c in courses if c.depend == []) - set(self.courses_taken))
     return c
 
   def next_course(self):
     c = self.courses_available()
-    if len(c) > 0:
-      return c[0]
+    n = len(c)
+    if n > 0:
+      return c[random.randint(0, n-1)]
     else:
       return None
 
-all_students = [Student()] * 1 #50
+all_students = []
+st = 1
+for _ in range(50):
+  all_students.append(Student(st))
+  st += 1
 
 #
 # semestre
 # 
+semester = 1
 while True:
-  students = (s for s in all_students if s.graduated())
-  
+  students = list(s for s in all_students if not s.graduated())
+  if len(students) == 0:
+    break
+
   #
   # matricula
   #
   for c in courses:
     c.new_semester()
   for s in students:
-    c = s.next_course()
-    print(c)
-    if c == None:
-      print('Fail.')
-      sys.exit(1)
-    s.courses_taken.append(c)
-    print(c.name)
-    c.students(s)
+    for _ in range(random.randint(3,5)):
+      c = s.next_course()
+      if c == None:
+        print('Fail.')
+        sys.exit(1)
+      if c.available():
+        s.courses_taken.append(c)
+        c.students.append(s)
 
   #
   # debates
   #
+  print(semester)
+  
+  
+
+  semester += 1
+
+
 
 
 # testes:
