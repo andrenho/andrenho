@@ -4,6 +4,7 @@ PERSONAL WIKI~
 
 PROJETOS
 |my-projects|           Meus projetos
+|proj-bclib|            Better C library
 |proj-ideas|            Idéias para projetos
 |proj-arduino-ideas|    Idéias para o Arduino
 |trip-europe|           Viagem para a Europa
@@ -72,6 +73,24 @@ Eletrônica:
   - relógio
   - timer de cozinha
   - termômetro de forno
+
+========================================================================
+*proj-bclib*     A better C library
+
+TYPES~
+- basic types
+
+MULTIPROCESSING~
+
+- strings
+- threads
+  - thread pools
+  - thread communication
+- dynamic loading (?)
+- file support
+- log/errors
+- character sets
+
 
 ========================================================================
 *proj-arduino-ideas*   Arduino ideas
