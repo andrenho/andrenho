@@ -1,4 +1,5 @@
-import random, sys
+import random, sys, pprint
+pp = pprint.PrettyPrinter(indent=4)
 
 class Course:
 
@@ -53,7 +54,8 @@ rob = Course('Robótica', [ele])
 sos = Course('Sistemas Operacionais', [co2, mic, eng], True)
 gpr = Course('Gerência de Projetos', [ger], True)
 ala = Course('Algoritmos Avançados', [al2, est], True)
-courses = (al1, mat, geo, por, an1, al2, est, ca1, an2, ing, co1, lip, arq, eng, fil, co2, mic, ca2, bds, red, tc1, ele, int, gra, ger, tc2, rob, sos, gpr, ala)
+#courses = (al1, mat, geo, por, an1, al2, est, ca1, an2, ing, co1, lip, arq, eng, fil, co2, mic, ca2, bds, red, tc1, ele, int, gra, ger, tc2, rob, sos, gpr, ala)
+courses = (al1,mat,geo,por,an1)
 
 #
 # cria assuntos aleatórios
@@ -72,7 +74,7 @@ for course in courses:
 #
 vinc = {}
 for i in range(n):
-  for _ in range(random.randint(2,5)):
+  for _ in range(random.randint(5,10)):
     x = random.randint(0,n)
     if x not in vinc:
       vinc[x] = []
@@ -81,6 +83,7 @@ for i in range(n):
     if x != i:
       vinc[i].append(x)
       vinc[x].append(i)
+pp.pprint(vinc)
 
 #
 # cria alunos
@@ -93,7 +96,7 @@ class Student:
     self.preferences = []
   
   def graduated(self):
-    return (len(self.courses_taken) >= 25)
+    return (len(self.courses_taken) >= 1)#25)
 
   def courses_available(self):
     c = []
@@ -114,7 +117,7 @@ class Student:
 
 all_students = []
 st = 1
-for _ in range(50):
+for _ in range(1):
   all_students.append(Student(st))
   st += 1
 
@@ -152,6 +155,7 @@ while True:
     for debate in course.debates:
       n_debates += 1
       for student in course.students:
+        print(debate, student.preferences)
         found = False
         for subject in debate:
           if subject in student.preferences:
@@ -164,10 +168,13 @@ while True:
                 found = True
                 student.preferences.append(subject)
                 automatic += 1
+                break
+              break
         if not found:
           n = debate[random.randint(0, len(debate)-1)]
           student.preferences.append(n)
           choices += 1
+
 
   #
   # relatório
@@ -179,6 +186,7 @@ while True:
   print('Debates:', n_debates)
   print('Escolhas automaticas:', automatic)
   print('Escolhas manuais:', choices)
+  print('% escolhas automáticas:', round(automatic/float(choices+automatic)*100, 2))
   print('--------------------------')
   
   choices = 0
