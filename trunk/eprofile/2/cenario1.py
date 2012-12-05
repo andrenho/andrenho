@@ -14,6 +14,9 @@ class Course:
   def available(self):
     return 25 - len(self.students)
 
+  def happening_this_semester(self):
+    return (len(self.students) > 0)
+
   def __repr__(self):
     return "<" + self.name + ">"
 
@@ -87,6 +90,7 @@ class Student:
   def __init__(self, n):
     self.courses_taken = []
     self.n = n
+    self.preferences = []
   
   def graduated(self):
     return (len(self.courses_taken) >= 25)
@@ -118,6 +122,8 @@ for _ in range(50):
 # semestre
 # 
 semester = 1
+choices = 0
+automatic = 0
 while True:
   students = list(s for s in all_students if not s.graduated())
   if len(students) == 0:
@@ -141,10 +147,42 @@ while True:
   #
   # debates
   #
-  print(semester)
-  
-  
+  n_debates = 0
+  for course in (cr for cr in courses if cr.happening_this_semester()):
+    for debate in course.debates:
+      n_debates += 1
+      for student in course.students:
+        found = False
+        for subject in debate:
+          if subject in student.preferences:
+            automatic += 1
+            found = True
+            break
+          else:
+            for preference in student.preferences:
+              if preference in vinc[subject]:
+                found = True
+                student.preferences.append(subject)
+                automatic += 1
+        if not found:
+          n = debate[random.randint(0, len(debate)-1)]
+          student.preferences.append(n)
+          choices += 1
 
+  #
+  # relatório
+  #
+  print('Semestre:', semester)
+  print('Disciplinas ocorrendo:', len(list((cr for cr in courses if cr.happening_this_semester()))))
+  print('Alunos cursando:', len(list(s for s in all_students if not s.graduated())))
+  print('Alunos graduados:', len(list(s for s in all_students if s.graduated())))
+  print('Debates:', n_debates)
+  print('Escolhas automaticas:', automatic)
+  print('Escolhas manuais:', choices)
+  print('--------------------------')
+  
+  choices = 0
+  automatic = 0
   semester += 1
 
 
