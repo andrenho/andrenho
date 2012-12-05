@@ -61,6 +61,7 @@ Software:
   - a virtual machine
   - a Video Controller
   - a post-apocalyptic game like asciisec
+  - a Oracle interface for VIM
 
 Imagens:
   - ViM cheat sheet

@@ -83,7 +83,6 @@ for i in range(n):
     if x != i:
       vinc[i].append(x)
       vinc[x].append(i)
-pp.pprint(vinc)
 
 #
 # cria alunos
@@ -155,10 +154,10 @@ while True:
     for debate in course.debates:
       n_debates += 1
       for student in course.students:
-        print(debate, student.preferences)
         found = False
         for subject in debate:
           if subject in student.preferences:
+            print(debate, student.preferences, 'auto')
             automatic += 1
             found = True
             break
@@ -166,12 +165,14 @@ while True:
             for preference in student.preferences:
               if preference in vinc[subject]:
                 found = True
+                print(debate, student.preferences, 'related')
                 student.preferences.append(subject)
                 automatic += 1
                 break
               break
         if not found:
           n = debate[random.randint(0, len(debate)-1)]
+          print(debate, student.preferences, 'manual')
           student.preferences.append(n)
           choices += 1
 
