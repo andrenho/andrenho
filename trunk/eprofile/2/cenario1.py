@@ -83,6 +83,7 @@ for i in range(n):
     if x != i:
       vinc[i].append(x)
       vinc[x].append(i) # TODO - verificar se todos os assuntos estão tendo vinculações
+pp.pprint(vinc)
 
 #
 # cria alunos
@@ -137,7 +138,7 @@ while True:
   for c in courses:
     c.new_semester()
   for s in students:
-    for _ in range(random.randint(3,5)):
+    for _ in range(random.randint(1,2)):
       c = s.next_course()
       if c == None:
         print('Fail.')
@@ -157,7 +158,7 @@ while True:
         found = False
         for subject in debate:
           if subject in student.preferences:
-#           print(debate, student.preferences, 'auto')
+            print(debate, sorted(student.preferences), 'auto')
             automatic += 1
             found = True
             break
@@ -165,14 +166,14 @@ while True:
             for preference in student.preferences:
               if preference in vinc[subject]:
                 found = True
-#               print(debate, student.preferences, 'related')
+                print(debate, sorted(student.preferences), 'related')
                 student.preferences.append(subject)
                 automatic += 1
                 break
-              break
+            continue
         if not found:
           n = debate[random.randint(0, len(debate)-1)]
-#         print(debate, student.preferences, 'manual')
+          print(debate, sorted(student.preferences), 'manual')
           student.preferences.append(n)
           choices += 1
 
