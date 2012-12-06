@@ -54,8 +54,8 @@ rob = Course('Robótica', [ele])
 sos = Course('Sistemas Operacionais', [co2, mic, eng], True)
 gpr = Course('Gerência de Projetos', [ger], True)
 ala = Course('Algoritmos Avançados', [al2, est], True)
-#courses = (al1, mat, geo, por, an1, al2, est, ca1, an2, ing, co1, lip, arq, eng, fil, co2, mic, ca2, bds, red, tc1, ele, int, gra, ger, tc2, rob, sos, gpr, ala)
-courses = (al1,mat,geo,por,an1)
+courses = (al1, mat, geo, por, an1, al2, est, ca1, an2, ing, co1, lip, arq, eng, fil, co2, mic, ca2, bds, red, tc1, ele, int, gra, ger, tc2, rob, sos, gpr, ala)
+#courses = (al1,mat,geo,por,an1)
 
 #
 # cria assuntos aleatórios
@@ -82,7 +82,7 @@ for i in range(n):
       vinc[i] = []
     if x != i:
       vinc[i].append(x)
-      vinc[x].append(i)
+      vinc[x].append(i) # TODO - verificar se todos os assuntos estão tendo vinculações
 
 #
 # cria alunos
@@ -95,7 +95,7 @@ class Student:
     self.preferences = []
   
   def graduated(self):
-    return (len(self.courses_taken) >= 1)#25)
+    return (len(self.courses_taken) >= 25)
 
   def courses_available(self):
     c = []
@@ -116,7 +116,7 @@ class Student:
 
 all_students = []
 st = 1
-for _ in range(1):
+for _ in range(1): # XXX
   all_students.append(Student(st))
   st += 1
 
@@ -157,7 +157,7 @@ while True:
         found = False
         for subject in debate:
           if subject in student.preferences:
-            print(debate, student.preferences, 'auto')
+#           print(debate, student.preferences, 'auto')
             automatic += 1
             found = True
             break
@@ -165,14 +165,14 @@ while True:
             for preference in student.preferences:
               if preference in vinc[subject]:
                 found = True
-                print(debate, student.preferences, 'related')
+#               print(debate, student.preferences, 'related')
                 student.preferences.append(subject)
                 automatic += 1
                 break
               break
         if not found:
           n = debate[random.randint(0, len(debate)-1)]
-          print(debate, student.preferences, 'manual')
+#         print(debate, student.preferences, 'manual')
           student.preferences.append(n)
           choices += 1
 
