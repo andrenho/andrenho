@@ -1,0 +1,14 @@
+# Write your default config options here!
+
+vo=gl
+double=yes
+monitoraspect=16:9
+
+ass=true
+ass-border-color=0x00000040
+ass-color=0xFFEF0026
+#nofontconfig=true
+ass-font-scale=2
+ass-force-style="FontName=FreeSans,Default.Bold=1"
+subcp=iso8859-1
+ass-subpos=50
