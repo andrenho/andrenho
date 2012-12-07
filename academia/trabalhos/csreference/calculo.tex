@@ -1,0 +1,161 @@
+%\documentclass[a4paper, twocolumn]{article}
+\documentclass[11pt]{article}
+\pagestyle{empty}
+
+\usepackage[a6paper]{geometry}
+\usepackage[portuguese]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{pstricks}
+\usepackage{pst-plot}
+%\usepackage[pdftex]{graphicx}
+%\usepackage[top=1cm,bottom=1cm,left=1cm,right=1cm]{geometry}
+%\usepackage{multicol}
+
+\usepackage{amssymb,amsmath}
+%\usepackage{extraipa}
+%\usepackage{euler}
+\everymath{\displaystyle}
+
+\DeclareMathOperator{\N}{\mathbb{N}}
+\DeclareMathOperator{\Z}{\mathbb{Z}}
+\DeclareMathOperator{\R}{\mathbb{R}}
+\DeclareMathOperator{\negate}
+    {\negthickspace\negthickspace\negthickspace\diagup\negthickspace}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\im}{im}
+\providecommand{\abs}[1]{\lvert#1\rvert}
+
+\author{André Wagner}
+\title{Cálculo}
+\date{}
+
+\begin{document}
+
+\section{Vetores}
+
+Limites são usados para calcular a qual valor $f(x)$ tende quando $x$ se
+aproxima de um determinado número. Por exemplo, tomando a seguinte função:
+
+\[ f(x) = x^2 \]
+
+À medida que $x$ se aproxima de $2$, $f(x)$ se aproxima de $4$. Isto é
+representado por
+
+\[ \lim _{x \to 2} f(x) = 4 \]
+
+\begin{pspicture}(-3,-1)(1.5,3)
+  \psset{xunit=0.5cm,yunit=0.5cm} 
+  \psaxes{<->}(0,0)(-3,-1.5)(3,5)
+  \psplot[linecolor=blue, linewidth=1.5pt]{-2.2}{2.2}{x dup mul}
+  \psdot[linecolor=blue, linewidth=1.5pt](2,4)
+\end{pspicture}
+
+\newpage
+
+Os limites calculam o quando o valor \textbf{tende a}, e não o valor específico.
+Assim,
+
+\begin{gather*}
+  f(x) = \left\{\begin{array}{l l}
+                   x^2 & \text{se } x \neq 2 \\
+                   3 & \text{se } x = 2
+                 \end{array} \right. \\
+  \lim _{x \to 2} f(x) = 4
+\end{gather*}
+
+\begin{pspicture}(-3,-1)(1.5,3)
+  \psset{xunit=0.5cm,yunit=0.5cm} 
+  \psaxes{<->}(0,0)(-3,-1.5)(3,5)
+  \psplot[linecolor=blue, linewidth=1.5pt]{-2.2}{2.2}{x dup mul}
+  \psdot[linecolor=blue, linewidth=1.5pt, dotstyle=o](2,4)
+  \psdot[linecolor=blue, linewidth=1.5pt](2,3)
+\end{pspicture}
+
+\newpage
+
+Existem casos em que não é possível chegar no ponto específico do qual o limite
+se refere.
+
+\[ \lim _{x \to -1} \frac{2x+2}{x+1} \]
+\[ \frac{2\cdot -1+2}{-1+1} = \frac{0}{0} \]
+
+Neste casos, deve-se tentar simplificar a expressão.
+
+\[ \lim _{x \to -1} \frac{2x+2}{x+1} = \frac{2(x+1)}{(x+1)} = \frac{2}{1} = 2 \]
+
+Pode-se também montar o gráfico, descobrindo o limite intuitivamente.
+
+\begin{pspicture}(-3,-1)(2.5,2)
+  \psset{xunit=0.5cm,yunit=0.5cm} 
+  \psaxes{<->}(0,0)(-3,-1.5)(4,3)
+  \psplot[linecolor=blue, linewidth=1.5pt]{-2.2}{3.2}{2}
+  \psdot[linecolor=blue, linewidth=1.5pt, dotstyle=o](-1,2)
+\end{pspicture}
+
+\newpage
+
+Um exemplo mais complexo:
+
+\[ \lim _{x \to 3} \frac{x^2 - 6x + 9}{x^2 - 9} = \frac{0}{0} \]
+\[ \lim _{x \to 3} \frac{(x-3)(x-3)}{(x+3)(x-3)} = \frac{x-3}{x+3} = \frac{0}{6} = 0 \]
+
+\newpage
+
+Existem alguns casos em que o limite pode ser diferente à direita e à esquerda.
+
+\[ \lim _{x \to 0} = \frac{1}{x} \]
+
+\begin{pspicture}(-3,-1.5)(1.5,1.5)
+  \psset{xunit=0.5cm,yunit=0.5cm} 
+  \psaxes{<->}(0,0)(-3,-3)(3,3)
+  \psplot[linecolor=blue, linewidth=1.5pt]{-3}{-0.3}{1 x div}
+  \psplot[linecolor=blue, linewidth=1.5pt, arrows=->]{0.3}{3}{1 x div}
+\end{pspicture}
+
+Assim,
+
+\[ \lim _{x \to 0^+} \frac{1}{x} = \infty \]
+\[ \lim _{x \to 0^-} \frac{1}{x} = -\infty \]
+
+Nestes casos,
+
+\[ \lim _{x \to 0^-} \frac{1}{x} = \not\exists \]
+
+\newpage
+
+Quando não é possível simplificar, deve-se dividir numerador e denominador pelo
+maior grau de $x$ em ambos:
+
+\[ \lim _{x \to -\infty} \frac{-2x^2+x}{x^2-3x} \]
+\[ \lim _{x \to -\infty} \frac{\left(-2x^2+x\right)\left(\frac{1}{x^2}\right)}{\left(x^2-3x\right)\left(\frac{1}{x^2}\right)} \]
+\[ \lim _{x \to -\infty} \frac{-2+\frac{1}{x}}{1-\frac{3}{x}} = 2 \]
+
+Uma forma mais fácil, quando possível, é considerar os maiores termos:
+
+\[ \lim _{x \to \infty} = \frac{x^2 + 3}{x^3} = \frac{0}{1} = 0 \]
+
+\[ \lim _{x \to \infty} = \frac{3x^2+x}{4x^2-5} = \frac{3}{4} \]
+
+\newpage
+
+Outro exemplo complexo:
+
+\[ \lim _{x \to \infty} \sqrt{x^2 + 4x + 1} - x \]
+\[ \lim _{x \to \infty} \sqrt{x^2 + 4x + 1} - x \cdot \frac{\sqrt{x^2 + 4x + 1} + x}{\sqrt{x^2 + 4x + 1} + x} \]
+\[ \lim _{x \to \infty} \frac{x^2 + 4x + 1 - x^2}{\sqrt{x^2 + 4x + 1} + x} \]
+\[ \lim _{x \to \infty} \frac{4x + 1}{\sqrt{x^2 + 4x + 1} + x} \cdot \frac{\frac{1}{x}}{\frac{1}{x}} \]
+\[ \lim _{x \to \infty} \frac{4 + \frac{1}{x}}{\frac{1}{x}\sqrt{x^2 + 4x + 1} + x \cdot \frac{1}{x}} \]
+\[ \lim _{x \to \infty} \frac{4 + \frac{1}{x}}{\sqrt{\frac{1^2}{x^2}(x^2 + 4x + 1)} + \frac{x}{x}} \]
+\[ \lim _{x \to \infty} \frac{4 + \frac{1}{x}}{\sqrt{1+\frac{4}{x}+\frac{1}{x^2}}+1} \]
+continua\ldots
+
+\newpage
+
+À medida que o valor de $x$ vai ficando maior e maior (ou seja, vai se 
+aproximando de $\infty$), $\frac{1}{x}$ vai tendendo a zero. Assim, substituímos
+$\frac{1}{0}$ por zero.
+
+\[ \lim _{x \to \infty} \frac{4 + \frac{1}{x}}{\sqrt{1+\frac{4}{x}+\frac{1}{x^2}}+1} = \frac{4+0}{\sqrt{1}+0+0+1} = \frac{4}{2} = 2 \]
+
+\end{document}
