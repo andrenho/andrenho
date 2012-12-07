@@ -1,0 +1,184 @@
+#!/usr/bin/ruby
+# encoding: utf-8
+
+#
+# classe do autômato
+#
+class AFD
+
+  #
+  # carrega a máquina, verifica erros e inicializa
+  #
+  def initialize(m)
+    # estados
+    raise if not m[:K].is_a? Array
+    @estados = {}
+    m[:K].each { |e| @estados[e] = Estado.new(e) }
+    
+    # alfabeto
+    raise if not m[:S].is_a? Array or m[:S].empty?
+    @alfabeto = []
+    m[:S].each { |el| @alfabeto << el.to_s }
+
+    # função de transição
+    raise if not m[:d].is_a? Array
+    @transicao = m[:d]
+    @transicao.each do |funcao|
+      raise 'Função de transição em formato incorreto.' if not funcao.is_a? Array or funcao.length != 3
+      if not @estados.include? funcao[0] or not @estados.include? funcao[2]
+        raise 'Estado da função de transição não está na lista de estados.'
+      elsif not @alfabeto.include? funcao[1].to_s
+        raise 'Estado da função de transição não está no alfabeto.'
+      end
+      @estados[funcao[0]].proximo[funcao[1].to_s] = @estados[funcao[2]]
+    end
+
+    # verifica se há passos para todos os estados
+    @estados.each do |e, estado|
+      @alfabeto.each do |elemento|
+        if estado.proximo[elemento] == nil
+          raise "Estado #{e} não possui transição para o elemento #{elemento}."
+        end
+      end
+    end
+
+    # estado inicial
+    raise 'Só pode haver um estado inicial.' if m[:s].is_a? Array
+    raise 'Estado inicial não está na lista de estados.' if not @estados.include? m[:s]
+    @atual = @estados[m[:s]]
+
+    # estados finais
+    raise if not m[:F].is_a? Array
+    @finais = []
+    m[:F].each do |e|
+      raise 'Estado final não está na lista de estados.' if not @estados.include? e
+      @estados[e].final = true
+      @finais << e
+    end      
+  end
+
+  # 
+  # executa a fita na máquina
+  #
+  def executa(fita, n=0)
+    # verifica integridade da fita
+    fita.each_char do |c|
+      raise "Elemento #{c} inválido na fita." if not @alfabeto.include? c
+    end
+    
+    # se a fita terminou, verifica último estado
+    if fita.length == 0
+      print @atual.nome
+      print @atual.final ? '*' : ' '
+      print '   '
+      if @atual.final
+        puts 'A entrada foi aceita.'
+      else
+        puts 'A entrada foi recusada.'
+      end
+
+    # se a fita ainda não terminou, executa o próximo passo
+    else
+      print @atual.nome
+      print @atual.final ? '*' : ' '
+      print '   '
+      print "[#{fita[0]}]#{fita[1,fita.length]}"
+      print '   ' + (' '*n)
+      @atual = @atual.proximo[fita[0]]
+      print @atual.nome
+      puts  @atual.final ? '*' : ' '
+      self.executa(fita[1,fita.length], n+1)
+    end
+  end
+
+  def gera_imagem!
+    File.open('afd.dot', 'w') do |f|
+      f.puts 'digraph g {'
+      f.puts '  rankdir=LR;'
+      f.puts '  size="8,5"'
+      f.puts '  node [shape = doublecircle]; ' + @finais.join(' ') + ';'
+      f.puts '  node [shape = circle];'
+      @estados.keys.each do |estado|
+        @estados.keys.each do |destino|
+          elems = []
+          @alfabeto.each do |el|
+            @transicao.each do |funcao|
+              if funcao[0] == estado and funcao[1].to_s == el and funcao[2] == destino
+                elems << el
+              end
+            end
+          end
+          if elems.length > 0
+            f.puts "  #{estado} -> #{destino} [ label = \"#{elems.uniq.sort.join(',')}\" ];"
+          end
+        end
+      end
+
+      f.puts '  null [shape = plaintext label=""];'
+      f.puts "  null -> #{@atual.nome};"
+      f.puts '}'
+    end
+    `dot afd.dot -Tpng > afd.png`
+  end
+
+end
+
+
+#
+# estados do AFD
+#
+class Estado
+  attr_accessor :proximo, :final
+  attr_reader :nome
+  def initialize(nome)
+    @nome = nome
+    @proximo = {}
+    @final = false
+  end
+end
+
+
+#
+# verifica os parâmetros
+# 
+if ARGV.length != 2 then
+  puts <<EOS
+Uso: afd automato fita
+
+Onde 'automato' é um autômato finito determinístico no seguinte formato:
+
+M = {
+  K: [ 'q1', 'q2', 'q3' ],     # lista de estados
+  S: [ 0, 1 ],                 # alfabeto
+  d: [ [ 'q1', 0, 'q1' ],      # função de transição
+       [ 'q1', 1, 'q2' ],
+       [ 'q2', 0, 'q3' ],
+       [ 'q2', 1, 'q2' ],
+       [ 'q3', 0, 'q2' ],
+       [ 'q3', 1, 'q2' ] ],
+  s: 'q1',                     # estado inicial
+  F: [ 'q2' ]                  # estados finais
+}
+
+E onde 'fita' é uma string para ser testada nesta máquina.
+EOS
+  exit 1
+end
+
+#
+# carrega a máquina
+#
+begin
+  $: << '.'
+  require ARGV[0]
+  raise 'Variável M não está setada.' if not defined? M
+  @afd = AFD.new(M)
+  #
+  # executa a fita
+  # 
+  @afd.executa ARGV[1]
+rescue Exception => e
+  puts "Autômato em formato inválido: #{e.message}"
+  exit 1
+end
+@afd.gera_imagem!
