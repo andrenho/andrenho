@@ -1,0 +1,4 @@
+1. Tentar substituir o x
+2. Pegar o maior termo
+3. Tentar montar a tabela ou o gráfico
+4. Dividir o numerador e o denominador pelo maior termo

@@ -1,0 +1,281 @@
+%\documentclass[a4paper, twocolumn]{article}
+\documentclass[a4paper]{article}
+
+\usepackage[portuguese]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[pdftex]{graphicx}
+%\usepackage[top=1cm,bottom=1cm,left=1cm,right=1cm]{geometry}
+%\usepackage{multicol}
+
+\usepackage{amssymb,amsmath}
+%\usepackage{extraipa}
+%\usepackage{euler}
+%\everymath{\displaystyle}
+
+\DeclareMathOperator{\N}{\mathbb{N}}
+\DeclareMathOperator{\Z}{\mathbb{Z}}
+\DeclareMathOperator{\R}{\mathbb{R}}
+\DeclareMathOperator{\negate}
+    {\negthickspace\negthickspace\negthickspace\diagup\negthickspace}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\im}{im}
+\providecommand{\abs}[1]{\lvert#1\rvert}
+
+\author{André Wagner}
+\title{Ciência da Computação}
+\date{}
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+\section{Matemática Discreta}
+
+\subsection{Coleções}
+
+\subsubsection{Listas}
+\begin{itemize}
+  \item Uma \textbf{lista} é uma seqüência ordenada de objetos. Ex.: $(1, 2, 3)$ ou ]
+        $(1, 2, \Z)$.
+  \item Uma lista pode conter \emph{elementos repetidos}.
+  \item Duas listas são iguais se seus elementos são iguais.
+  \item O número de listas de comprimento $k$, cujos elementos são escolhidos de um 
+        conjunto de $n$ elementos possíveis, é igual a:
+  \begin{itemize}
+    \item $n^k$, caso se permitam repetições;
+    \item $(n)_k$, caso não se permitam repetições, onde 
+          $(n)_k = n(n-1)(n-2)\dotsb(n-k+1)$.
+  \end{itemize}
+  \item Em um torneio estão sendo dados três prêmios de melhor jogador para 100 
+        jogadores. Se o mesmo jogador pode receber mais de um prêmio, então o número de 
+        combinações possíveis é $100^3$. Caso um jogador possa receber apenas um 
+        prêmio, o número de combinações é $(100)_3$ -- ou seja -- 
+        $(100 \cdot 99 \cdot 98)$.
+\end{itemize}
+
+\subsubsection{Teoria dos Conjuntos}
+\begin{itemize}
+  \item Um \textbf{conjunto} é uma seleção de elementos, \emph{sem ordenação} e que
+        \emph{não se repete}.
+  \item O número de subconjuntos de $A$ é $2^{|A|}$.
+  \item O conjunto potência de $A$ se denota por $2^A$ e é o conjunto de todos os 
+        subconjuntos de $A$. Por exemplo: $2^{\{1,2,3\}} = \{\emptyset,\{1\},\{2\},
+        \{3\}, \{1,2\}, \{1,3\}, \{2,3\}, \{1,2,3\}\}$.
+  \item $A \cup B$ é a \emph{união} entre $A$ e $B$ e é o conjunto de todos os 
+        elementos que estão em $A$ e $B$.
+  \begin{itemize}
+    \item Se $A = \{1,2,3,4\}$ e $B = \{3,4,5,6\}$, então $A \cup B = \{1,2,3,4,5,6\}$.
+  \end{itemize}
+  \item $A \cap B$ é a \emph{intersecção} entre $A$ e $B$ e é o conjunto de todos os 
+        elementos que estão tanto em $A$ quanto em $B$.
+  \begin{itemize}
+    \item Se $A = \{1,2,3,4\}$ e $B = \{3,4,5,6\}$, então $A \cap B = \{3,4\}$.
+  \end{itemize}
+  \item Propriedades dos conjuntos:
+  \begin{itemize}
+    \item $A \cup B = B \cup A$ (vale também para $\cap$)
+    \item $A \cup (B \cup C) = (A \cup B) \cup C$ (vale também para $\cap$)
+    \item $A \cup \emptyset = A$ e $A \cap \emptyset = \emptyset$
+    \item $A \cup (B \cap C) = (A \cup B) \cap (A \cup C)$
+    \item $A \cap (B \cup C) = (A \cap B) \cup (A \cap C)$
+  \end{itemize}
+  \item $|A|+|B|=|A\cup B|+|A\cap B|$
+  \item $A$ e $B$ são \emph{disjuntos} se $A \cap B = \emptyset$.
+  \item Se $A_1, A_2, \dotsc, A_n$ são \emph{disjuntos dois a dois} se 
+        $A_i\cap A_j = \emptyset$ para todo $i\neq j$. Isto é, \emph{não há dois deles 
+        que tenham elementos em comum}.
+  \item $A - B$ é a \emph{diferença} entre $A$ e $B$ e é o conjunto de todos os 
+        elementos que estão em $A$ e não estão em $B$.
+  \begin{itemize}
+    \item Se $A = \{1,2,3,4\}$ e $B = \{3,4,5,6\}$, então $A - B = \{1,2\}$.
+  \end{itemize}
+  \item $A \Delta B$ é a \emph{diferença simétrica} entre $A$ e $B$ e é o conjunto de 
+        todos os elementos que estão em $A$ mas não em $B$, ou em $B$ mas não em $A$.
+  \begin{itemize}
+    \item Se $A = \{1,2,3,4\}$ e $B = \{3,4,5,6\}$, então $A \Delta B = \{1,2,5,6\}$.
+  \end{itemize}
+  \item $A \Delta B = (A \cup B) - (A \cap B)$
+  \item $A \times B$ é o \emph{produto cartesiano} de $A$ e $B$ e é o conjunto de
+        todos os pares possíveis com um elemento de $A$ e outro de $B$.
+\end{itemize}
+% TODO - diagramas de venn
+
+\subsubsection{Coeficientes Binomiais}
+\begin{itemize}
+  \item O número de subconjuntos de $k$ elementos possíveis em um conjunto de $n$
+        elementos é denotado por $\binom{n}{k}$.
+  $$\binom{n}{k} = \frac{n!}{k!(n-k)!}$$
+  \item O triângulo de Pascal facilita o cálculo dos coeficientes binomiais.
+\end{itemize}
+
+
+\subsection{Relações}
+\begin{itemize}
+  \item Uma \emph{relação} é um conjunto de pares ordenados.
+  \item $R$ é uma relação sobre os conjuntos $A$ e $B$ se $R \subseteq A \times B$.
+  \item Propriedades das relações:
+  \begin{itemize}
+    \item $R$ é \textbf{reflexiva} se para todo $x \in A$, então $x\;R\;x$. Exemplo: 
+          $\geq$.
+    \item $R$ é \textbf{anti-reflexiva} se para todo $x \in A$, então $x\;R\negate\;x$.
+          Exemplo: $>$.
+    \item $R$ é \textbf{simétrica} se para todo $x,y \in A$, se $x\;R\;y$ então 
+          $y\;R\;x$. Exemplo: ``é casado com'', $=$.
+    \item $R$ é \textbf{anti-simétrica} se para todo $x,y \in A$, se quando $x\;R\;y$
+          e $y\;R\;z$, então $x=y$. Exemplo: $\geq$, pois se $x\geq y$ e $y\geq x$,
+          então $x=y$.
+    \item $R$ é \textbf{transitiva} se para todo $x,y,z \in A$, se $x\;R\;y$ e
+          $y\;R\;z$, então $x\;R\;z$. Exemplo: $>$, pois se $x>y$ e $y>z$, então
+          $x>z$.
+    \begin{itemize}
+      \item Contra-exemplo: maternidade \emph{não} é uma relação transitiva, por se
+            Alice é mãe de Beatriz, e Beatriz é mãe de Clara, então Alice \textbf{não} 
+            é mãe de Clara.
+    \end{itemize}
+  \end{itemize}
+  \item Uma \textbf{relação de equivalência} é aquela que é reflexiva, simétrica e
+        transitiva.
+  \item Uma \textbf{relação inversa} $R^{-1}$ é definida como 
+        $R^{-1}=\{(y,x)|(x,y)\in R\}$. Exemplo: $(\geq)^{-1} = \leq$.
+  \item Uma \textbf{classe de equivalência} ``particiona'' um conjunto em várias partes,
+        onde todos os elementos do conjunto $A$ se relacionam com $[a]$ através da
+        relação $R$ quando $[a] = \{x \in R : x\;R\;a\}$.
+  \begin{itemize}
+    \item O conjunto $\Z$ pode ser divido entre os pares (isto é, entre os
+          elementos $x$ onde $x\equiv 0\pmod 2$) e os ímpares (isto é, entre os
+          elementos $x$ onde $x\equiv 1\pmod 2$). Isto significa que, para esta relação
+          de equivalência ($a\pmod 2$), $[0]$ é o conjunto de todos os números pares,
+          e $[1]$ o conjunto dos números ímpares.
+    \item Assim, $[a]\cap [b] = \emptyset$.
+  \end{itemize}
+\end{itemize}
+
+
+\subsection{Funções}
+\begin{itemize}
+  \item Uma \textbf{função} é uma relação $f$ onde se $(a,b) \in f$ e $(a,c) \in f$,
+        então $b=c$. Caso contrário, a relação não é uma função.
+  \item Isto significa que uma função só pode ter uma saída para cada entrada.
+  \item Num gráfico, uma linha nunca pode cruzar o eixo $y$ mais de uma vez.
+  \item As seguintes fórmulas se referem à mesma função:
+  \begin{itemize}
+    \item $f(x) = x^2$
+    \item $f = \{(x,y): x,y \in \Z, y=x^2\}$
+    \item $f = \{\dotsc, (-2,4), (-1,1), (0,0), (1,1), (2,4),\dotsc\}$
+  \end{itemize}
+  \item Se $f: A \mapsto B$, o conjunto $A$ se chama \textbf{domínio}
+        e o conjunto $B$ se chama \textbf{imagem}.
+  \item As funções podem ser:
+  \begin{itemize}
+    \item \textbf{Um-a-um}, quando cada valor de entrada resulta num valor de saída
+          diferente (sempre que $(x,b),(y,b)\in f$, então $x=y$).
+    \item \textbf{Sobre}, quando em $f: A \mapsto B$, sempre existe um valor em $B$ existe
+          um valor em $A$ correspondente.
+    \item \textbf{Bijeção}, quando a função é ao mesmo tempo um-a-um e sobre.
+  \end{itemize}
+  \item Em $f: A \mapsto B$, se $|A|>|B|$, então $f$ não é um-a-um. Se $|B|>|A|$, então
+        $f$ não é sobre.
+  \item Funções compostas são funções que são aplicadas sobre outras funções. Exemplo:
+        $(g \circ f)(a) = g(f(a))$.
+  \item $h \circ (g \circ f) = (h \circ g) \circ f$
+\end{itemize}
+
+
+\subsection{Grafos}
+
+\subsubsection{Definições}
+\begin{itemize}
+  \item Um \textbf{grafo} é um par $G = (V,E)$, onde $V$ representa o conjunto de
+        \emph{vérices} do grafo, e $E$ é um conjunto de \emph{arestas} (\emph{edges}), 
+        cada uma um par de vértices presentes em $V$.
+  \item Se $u,v \in V$, então $u$ e $v$ são \textbf{adjacentes} se $\{u,v\}\in E$.    
+        Isto pode ser representado como $u \sim v$.
+  \begin{itemize}
+    \item O conjunto de todos os vértices adjacentes (\textbf{vizinhos}) de $v$ é
+          denotado por $N(v)$.
+    \item O \textbf{grau} de um vértice é o número de vizinhos do mesmo, e é denotado
+          por $d_G(v)$ ou $d(v)$.
+    \item A soma dos graus dos vértices é o dobro do número de arestas, ou seja,
+          $\sum_{v\in V}d(v) = 2|E|$.
+  \end{itemize}
+  \item Outras definições a respeito dos grafos:
+    \begin{itemize}
+      \item \textbf{Grau máximo e mínimo} são denotados por $\Delta(G)$ 
+            e $\delta(G)$ respectivamente.
+      \item \textbf{Grafo regular} é um grafo onde todos os vértices tem o mesmo grau.
+      \item O conjunto de vértices e arestas pode ser denotado por $V(G)$ e $E(G)$
+            respectivamente.
+      \item A \textbf{ordem} de $G$ é o número de vértices em $G$ e é denotado por
+            $n$ ou $\nu(G)$.
+      \item O \textbf{tamanho} de $G$ é o número de arestas em $G$ e é denotado por
+            $m$ ou $\epsilon(G)$.
+      \item Um \textbf{grafo completo} é um onde todos os vértices são adjacentes
+            uns aos outros. Um grafo sem vértices é chamado de \textbf{grafo vazio}.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Subgrafos}
+\begin{itemize}
+  \item $G$ é um \textbf{subgrafo} de $H$ se $V(G) \subseteq V(H)$ e 
+        $E(G) \subseteq E(H)$.
+  \item $G$ é um \textbf{grafo gerador} de $H$ se $H$ é um grafo que possui as mesmas 
+        arestas de $G$ (ou seja, $V(G) = V(H)$ e $E(G) \subseteq E(H)$).
+  \item A eliminação de vértices em um grafo implica na eliminação das arestas
+        conectadas aos vértices.
+  \item Um grafo formado através da eliminação de vértices de $G$ é chamado de
+        \textbf{subgrafo induzido} de $G$.
+  \begin{itemize}
+    \item Se o subconjunto de vértices for chamado $A$, então o subgrado induzido
+          é denotado por $G[A]$.
+  \end{itemize}
+  \item Uma \textbf{panela} é um conjunto de vértices de um grafo onde todos estão
+        conectados por arestas.
+  \begin{itemize}
+    \item O \textbf{número de panela} é o tamanho da maior panela e é denotado por
+          $\omega(G)$.
+  \end{itemize}
+  \item Um \textbf{conjunto independente} é um conjunto de vértices de um grafo que
+        não contenham arestas conectando nenhum deles.
+  \item O \textbf{complemento} de $G$ é um grafo obtido removendo-se todas as arestas
+        de $G$ e substituindo por todas arestas possíveis que não estão em $G$. É
+        denotado por $\bar{G}$.
+  \begin{itemize}
+    \item $\omega(G) = \alpha(\bar{G})$ e $\alpha(G) = \omega(\bar{G})$.
+    \item Se $G$ tem ao menos 6 vértices, então $\omega(G)\geq 3$ ou 
+          $\omega(\bar{G})\geq 3$.
+  \end{itemize}
+\end{itemize}
+
+\subsubsection{Conexões}
+\begin{itemize}
+  \item Um \textbf{passeio} é uma seqüência em $G$ onde cada vértice é adjacente ao
+        seguinte. O comprimento do passeio é $l$.
+  \item Uma \textbf{concatenação} é uma união de passeios.
+  \item Um \textbf{caminho} é um passeio em que nenhum vértice é repetido.
+  \item Se $u,v \in V(G)$, então $u$ é \textbf{ligado} a $v$ se existe um 
+        caminho em que o primeiro vértice é $u$ e o último é $v$.
+  \item Um grafo é \textbf{conexo} se cada par de vértices é ligado por um caminho.
+\end{itemize}
+
+\subsubsection{Ciclos}
+\begin{itemize}
+  \item Um \textbf{ciclo} é um passeio de onde $l\leq 3$ em que o primeiro e o último
+        vértices coincidem, mas nenhum outro vértice é repetido.
+  \item Se um grafo não contém ciclos, ele se chama \textbf{acíclico} ou 
+        \textbf{floresta}.
+  \item Uma \textbf{árvore} é um grafo conexo e aciclico.
+  \begin{itemize}
+    \item Se $T$ é uma árvore, e $a,b \in T$, então existe um único caminho entre
+          $a$ e $b$.
+    \item Uma \textbf{folha} é um vértice de grau 1.
+    \item Se $T$ é uma árvore e $v$ é uma folha de $T$, então $T-v$ é uma árvore.
+  \end{itemize}
+  \item Uma \textbf{árvore geradora} de $G$ é um subgrafo gerador de $G$ que é uma
+        árvore.
+  
+\end{itemize}
+
+
+\end{document}
