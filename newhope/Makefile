@@ -3,7 +3,8 @@
 
 include config.mk
 
-SRC = main.c
+SRC = main.c		\
+      ui/ui.c
 OBJ = ${SRC:.c=.o}
 HEADERS = ${SRC:.c=.h}
 DIST = AUTHORS HACKING LICENSE NEWS README INSTALL
@@ -23,7 +24,7 @@ options:
 
 ${OBJ}: config.mk
 
-newhope: depend ${OBJ}
+newhope: ${OBJ} depend
 	@echo CC -o $@
 	@${CC} -o $@ ${OBJ} ${LDFLAGS}
 -include depend
@@ -42,7 +43,7 @@ dist: clean
 
 depend: ${SRC}
 	@echo checking dependencies
-	@${CC} -MM ${CXXFLAGS} ${SRC} >depend
+	@${CC} -MM ${CFLAGS} ${SRC} >depend
 
 install: all
 	@echo installing executable file to ${DESTDIR}${PREFIX}/bin
