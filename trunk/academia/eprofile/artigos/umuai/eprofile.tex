@@ -51,7 +51,7 @@
 
 \begin{abstract}
 Context-aware and ubiquitous systems have the challenge of implicitly collect relevant information about the users, and use this information to understand and predict their behaviour. This allows the applications to adapt themselves to the user, thus avoiding to overflow the user with inquires and information. This article presents a model that allows applications to register users' actions and infer profile information from these actions, using semantic interoperability and thus allowing different applications of different domains to be able to share information and infer a unified profile.
-\keywords{First keyword \and Second keyword \and More}
+\keywords{Profile Management \and Ubiquitous Computing \and Trails \and Profile Inference}
 % \PACS{PACS code1 \and PACS code2 \and more} % TODO
 % \subclass{MSC code1 \and MSC code2 \and more}
 \end{abstract}
@@ -59,35 +59,94 @@ Context-aware and ubiquitous systems have the challenge of implicitly collect re
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Introduction}
-\label{intro}
+\label{ch:introducao}
 %\paragraph{Paragraph headings} Use paragraph headings as needed.
-Your text\cite{chellouche10} comes here.\cite{dey2001}%\cite{pelep}
 
+Atualmente, a maioria dos usuários interage com uma variedade de sistemas computacionais. A tendência atual é o aumento da interconectividade entre estes sistemas, uma vez que a internet está cada vez mais presente e disponível em qualquer lugar. Pesquisas recentes preveem a integração completa destes sistemas em uma federação de sistemas computacionais, que podem ser descritos como Ambientes Inteligentes \cite{heckmann05}.
+
+Uma visão para o conceito de ambientes inteligentes foi discutida por Weiser, onde ele apresentou um cenário em que o computador se tornaria invisível e indistinguível de seu ambiente \cite{weiser91}. Neste cenário, a interação entre humanos e computadores ocorreria não como a usual -- onde o humano dedica sua total atenção ao computador --, mas constituiria-se de pequenas interações rápidas, geralmente em locais e dispositivos distintos, muitas vezes utilizando a ``periferia'' da atenção do usuário \cite{weiser96} ou sem ele se dar conta de estar interagindo com um sistema computacional. Segundo o autor, ``as tecnologias mais profundas são aquelas que desaparecem. Elas se entrelaçam no tecido do dia-a-dia até que se tornem indistinguíveis dele'' \cite{weiser91}. Ele defende que o futuro da computação está em integrar o computador ao mundo real, e chama este novo paradigma de Computação Ubíqua.
+
+No entanto, o aumento dos recursos computacionais disponíveis a qualquer momento e em qualquer lugar oferece o risco da sobrecarga de informações para o usuário. Para resolver este problema, foi criado o conceito de ``tecnologia calma'' \cite{weiser96}. Neste sentido, a transmissão de informações entre o computador e o usuário devem ocorrer na ``periferia'' da atenção do usuário, movendo-se para o ``centro'' da atenção em momentos de urgência. Um exemplo é o motor de um carro. Quando um motorista dirige um carro, sua atenção está focada na estrada, e ele mal percebe o som do motor. No entanto, se houver algum som diferente (o que pode indicar algum problema), a atenção do usuário passa a focar-se no motor.
+
+Para que um sistema seja minimamente intrusivo, é necessário que ele seja capaz de reconhecer a situação do usuário e seus arredores, e adapte seu comportamento de acordo com esta informação. Esta informação é chamada de contexto e sistemas capazes deste tipo de adaptação são chamados sensíveis a contexto \cite{satyanarayanan01,dey2001}. 
+
+Pesquisas nesta área têm indicado que não apenas é interessante conhecer o contexto do usuário no momento em que um determinado serviço está sendo oferecido, mas que o histórico de contextos visitados pode ser uma informação valiosa na adaptação da aplicação ao usuário. Este histórico de contextos recebe o nome de Trilha \cite{silva10}. Embora a trilha geralmente esteja vinculada à localização de um usuário, ela possui um conceito mais amplo, que inclui as atividades realizadas, aplicações usadas, conteúdos acessados -- entre outros -- dentro de um contexto e um período de tempo específico \cite{silva09}.
+
+Para que um aplicativo possa se adaptar a um usuário de forma eficaz, é importante que ele conheça não apenas o histórico de contextos visitados por um usuário, mas possa compreender quem o usuário é, ou seja, quais são suas características. Aplicações deste tipo organizam seu conhecimento a respeito do usuário em Perfis de Usuário. Este conhecimento é armazenado em um formato denominado Modelo de Usuário \cite{viviani10}.
+
+Personalização refere-se à disponibilização de produtos, serviços e informações adaptados individualmente. A tecnologia de personalização geralmente envolve programas que aprendam padrões, hábitos e preferências de um usuário. O objetivo principal dos sistemas de personalização modernos é oferecer aos usuários o que eles querem sem requisitar que eles informem isto de forma explícita \cite{mulvenna00}. Fica claro que este propósito vai ao encontro do foco da computação ubíqua, isto é, o desenvolvimento de uma tecnologia que ``desapareça''.
+
+Para que um sistema tenha sucesso em obter a intenção do usuário, é necessário que ele conheça o usuário, o contexto que o usuário está inserido e as ações que ele tomou anteriormente quando se encontrava no mesmo contexto ou em contextos semelhantes. Embora existam alguns trabalhos que busquem inferir conhecimento a respeito de um usuário a partir de sua trilha, os trabalhos anteriores operam dentro de um contexto específico (como Educação \cite{barbosa11} ou Comércio \cite{franco11}) ou trabalham com o modelo de usuário de forma estática \cite{pelep}.
+
+Um aspecto relevante para ambientes que operam com múltiplos sistemas independentes é a interoperabilidade. Interoperabilidade é a capacidade de dois ou mais sistemas ou componentes trocarem informações e utilizarem as informações que foram trocadas \cite{ieeedict}. No âmbito da personalização, interoperabilidade refere-se à capacidade de acessar e interpretar informação derivada de múltiplas fontes heterogêneas e integrar esta informação em um modelo de usuário comum. A interoperabilidade pode ser (i) sintática, onde as diferenças entre os modelos de usuário são resolvidos em nível de aplicação; ou (ii) semântica, onde as diferenças entre os modelos são resolvidos em nível de conhecimento \cite{carmagnola09}.
+
+Pesquisas indicam que é desejável que os sistemas do futuro se tornem cada vez mais invisíveis aos seus usuários \cite{weiser96}, e que um sistema só pode se tornar invisível se for pró-ativo, e só pode ser pró-ativo se conhecer o usuário \cite{satyanarayanan01}. Para que um sistema possa conhecer um usuário, ele deve conhecer o histórico do usuário, compreender o contexto em que ele está inserido, bem como os dados coletados a respeito dele no mesmo contexto (ou num contexto similar), e ser capaz de processar este conjunto de informações em um perfil de usuário.
+
+Neste contexto está sendo proposto o eProfile, um modelo para a criação automática de perfis através da inferência em trilhas de entidades. Este modelo possibilita a utilização de um perfil único por diversos sistemas independentes, oferecendo a possibilidade de interoperabilidade semântica entre eles.
+
+No modelo apresentado, o conceito de Entidade é usado no lugar do conceito clássico de Usuário. Enquanto geralmente o usuário compreende a pessoa que está utilizando o aplicativo, uma entidade refere-se a qualquer objeto (físico ou não) capaz de controlar um aplicativo. Desta forma, uma entidade pode ser uma pessoa, um objeto móvel (como um carro) ou imóvel (como uma sala), ou até mesmo um sistema.
+
+Este artigo está organizado da seguinte forma. Na Seção~\ref{ch:modelo} é proposto o modelo eProfile. A Seção~\ref{ch:implementacao} discute os aspectos de implementação. A Seção~\ref{ch:cenario} apresenta um experimento validando o modelo. A Seção~\ref{ch:relacionados} descreve trabalhos relacionados, apresentando as contribuições deste modelo. Por fim, a Seção~\ref{sec:conclusao} apresenta as considerações finais.
 
 
 %-----------------------------------------------------------
 \section{eProfile Model}
+\label{ch:modelo}
+
+\begin{figure}
+  \centering\includegraphics[width=0.3\textwidth]{imagens/modelobasico.png}
+  \caption{\textbf{Modelo básico do eProfile}}
+  \label{fig:modelobasico}
+\end{figure}
+
+A Figura~\ref{fig:modelobasico} apresenta a visão geral do eProfile, onde cada círculo representa um componente, e as setas indicam o fluxo dos dados.
+
+O primeiro componente representado é a {\bf aplicação}. A aplicação, dentro deste modelo, é qualquer aplicação que está sendo utilizada diretamente por uma entidade. Para que uma aplicação seja considerada apta a este modelo (isto é, possa utilizar as funcionalidades oferecidas pelo eProfile), ela precisa ser capaz de registrar suas informações em um gerenciador de trilhas suportado pelo eProfile. A aplicação deve também seguir um protocolo de comunicação para se comunicar com o eProfile. Seguidos estes pré-requisitos, a aplicação pode ser de qualquer tipo e operar em qualquer tipo de dispositivo que tenha comunicação com a internet.
+
+O segundo componente representado é um {\bf gerenciador de trilhas}. Um gerenciador de trilhas é capaz de registrar eventos realizados por uma entidade, colocando-os em uma ordem cronológica e registando informações relevantes ao evento (como, por exemplo, o contexto na qual o evento foi realizado). O eProfile suporta qualquer gerenciador de trilhas, desde que o protocolo de comunicação com o gerenciador de trilhas esteja codificado no eProfile.
+
+O terceiro componente da Figura~\ref{fig:modelobasico} representa o eProfile. As setas indicam o fluxo dos dados. A comunicação tem início quando a aplicação registra-se no eProfile, enviando (i) o modelo de entidade utilizado pela aplicação e (ii) as regras para construção deste modelo (seta ``a''). A partir deste momento, a aplicação passa a registrar os eventos no gerenciador de trilhas (seta ``b''). O eProfile periodicamente busca esta informação a partir do gerenciador de trilhas, e constrói ou reconfigura o perfil de entidade (seta ``c''). À medida que a aplicação tem necessidade de um perfil atualizado, ela busca este perfil no eProfile (seta ``d'').
+
+Como o eProfile oferece suporte a várias aplicações, é possível que diferentes aplicações utilizem diferentes gerenciadores de trilhas. Por isso, o eProfile oferece também suporte à comunicação com vários gerenciadores de trilhas, segundo mostrado na Figura~\ref{fig:gerenciadores}.
+
+\begin{figure}
+  \centering\includegraphics[width=0.45\textwidth]{imagens/modelo2.png}
+  \caption{\textbf{eProfile conectado a mais de um gerenciador de trilhas}}
+  \label{fig:gerenciadores}
+\end{figure}
+
+
+
 
 \subsection{Architecture}
+\label{sec:arquitetura}
+
+
 
 \subsection{Ontologies}
+
+
 
 \subsection{Rule Execution}
 
 %-----------------------------------------------------------
 \section{Implementation Aspects}
+\label{ch:implementacao}
 
 
 %-----------------------------------------------------------
 \section{Evaluation Aspects}
+\label{ch:cenario}
 
 
 %-----------------------------------------------------------
 \section{Related Works}
+\label{ch:relacionados}
 
 
 %-----------------------------------------------------------
 \section{Conclusion}
+\label{sec:conclusao}
 
 
 
