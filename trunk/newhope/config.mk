@@ -1,5 +1,5 @@
-# vinterm version
-VERSION = 0.3.1
+# New Hope version
+VERSION = 0.0.1
 
 # system libraries
 SDL = yes
@@ -14,21 +14,21 @@ DUMA = no
 # paths
 PREFIX = /usr/local
 MANPREFIX = ${PREFIX}/share/man
-VINTERMPREFIX = ${PREFIX}/share/vinterm
+NEWHOPEPREFIX = ${PREFIX}/share/newhope
 
 # basic flags
-CXXFLAGS = -DVERSION=\"${VERSION}\" -DDATADIR=\"${VINTERMPREFIX}\" -pedantic -Wall -I. -I/usr/include -std=c++0x
+CFLAGS = -DVERSION=\"${VERSION}\" -DDATADIR=\"${NEWHOPEPREFIX}\" -pedantic -Wall -I. -I/usr/include -std=c99
 LDFLAGS = -L/usr/lib -lutil
 
 # SDL libraries
 ifeq (${SDL},yes)
-  CXXFLAGS += `sdl-config --cflags` -D_SDL
+  CFLAGS += `sdl-config --cflags` -D_SDL
   LDFLAGS += `sdl-config --libs`
 endif
 
 # X11 libraries
 ifeq (${X11},yes)
-  CXXFLAGS += -I/usr/X11R6/include -D_X11
+  CFLAGS += -I/usr/X11R6/include -D_X11
   LDFLAGS += -L/usr/X11R6/lib -lX11 -lutil
 endif
 
@@ -39,13 +39,13 @@ endif
 
 ifeq (${DEBUG},yes)
   # debug flags
-  CXXFLAGS += -g -O0 -DDEBUG
+  CFLAGS += -g -O0 -DDEBUG
   LDFLAGS += -g
 else
   # production flags
-  CXXFLAGS += -Os
+  CFLAGS += -Os
   LDFLAGS += -s
 endif
 
 # compiler and linker
-CC = g++
+CC = gcc
