@@ -1,12 +1,13 @@
 #include "ui.h"
 
 #include <stdlib.h>
-#include <syslog.h>
 #include "SDL.h"
 
+#include "util/log.h"
 
-int ui_init_library(UI* ui);
-int ui_load_resources(UI* ui);
+
+static int ui_init_library(UI* ui);
+static int ui_load_resources(UI* ui);
 
 
 UI* ui_init()
@@ -14,6 +15,8 @@ UI* ui_init()
 	// initialize object
 	UI* ui = malloc(sizeof(UI));
 	ui->sdl_initialized = 0;
+	ui->active = 1;
+	ui->screen = NULL;
 
 	// initialize library
 	if(ui_init_library(ui) != 0)
@@ -21,7 +24,7 @@ UI* ui_init()
 		ui_free(ui);
 		return NULL;
 	}
-	syslog(LOG_ERR, "SDL initialized.");
+	debug("SDL initialized.");
 
 	// load resources
 	if(ui_load_resources(ui) != 0)
@@ -45,25 +48,47 @@ void ui_free(UI* ui)
 }
 
 
-/*
- * PRIVATE
- */
-
-
-int ui_init_library(UI* ui)
+void ui_start_frame(UI* ui)
 {
-	if((SDL_Init(SDL_INIT_VIDEO)) != 0)
-	{
-		syslog(LOG_ERR, "Could not initialize SDL: %s.\n", SDL_GetError());
-		return 0;
-	}
-
-	ui->sdl_initialized = 1;
-	return -1;
+	ui->ticks = SDL_GetTicks() + 1000/60;
 }
 
 
-int ui_load_resources(UI* ui)
+void ui_end_frame(UI* ui)
 {
-	return -1;
+	while(SDL_GetTicks() < ui->ticks)
+		SDL_Delay(1);
+}
+
+
+/*
+ * STATIC
+ */
+
+
+static int ui_init_library(UI* ui)
+{
+	if((SDL_Init(SDL_INIT_VIDEO)) != 0)
+	{
+		warnx("Could not initialize SDL: %s.\n", SDL_GetError());
+		return -1;
+	}
+	ui->sdl_initialized = 1;
+
+	ui->screen = SDL_SetVideoMode(800, 600, 32, 
+			SDL_SWSURFACE|SDL_RESIZABLE);
+	if(!ui->screen)
+	{
+		warnx("Could not initialize screen: %s\n", SDL_GetError());
+		return -1;
+	}
+	SDL_WM_SetCaption("New Hope (version " VERSION ")", "New Hope");
+
+	return 0;
+}
+
+
+static int ui_load_resources(UI* ui)
+{
+	return 0;
 }
