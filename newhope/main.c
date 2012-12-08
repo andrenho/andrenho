@@ -1,14 +1,21 @@
 #include "ui/ui.h"
+#include "ui/event.h"
+#include "util/log.h"
 
-#include <syslog.h>
+#include <stdio.h>
 
 int main()
 {
-	openlog("newhope", LOG_CONS, LOG_USER);
+	log_init(1);
 	UI* ui = ui_init();
 
+	while(ui->active)
+	{
+		ui_start_frame(ui);
+		evt_process(ui, NULL);
+		ui_end_frame(ui);
+	}
 
 	ui_free(ui);
-	closelog();
 	return 0;
 }

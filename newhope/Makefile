@@ -4,7 +4,9 @@
 include config.mk
 
 SRC = main.c		\
-      ui/ui.c
+      ui/ui.c           \
+      ui/event.c        \
+      util/log.c
 OBJ = ${SRC:.c=.o}
 HEADERS = ${SRC:.c=.h}
 DIST = AUTHORS HACKING LICENSE NEWS README INSTALL
