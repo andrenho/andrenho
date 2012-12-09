@@ -127,8 +127,8 @@ Since the eProfile supports multiple applications, it is possible for different 
 \label{sec:arquitetura}
 
 \begin{figure}
-  \centering\includegraphics[width=0.45\textwidth]{imagens/modelo_big.png}
-  \caption{\textbf{Architecture of eProfile}}
+  \centering\includegraphics[width=1\textwidth]{imagens/modelo_big_en.png}
+  \caption{\textbf{eProfile Architecture}}
   \label{fig:modelo}
 \end{figure}
 
@@ -138,24 +138,23 @@ Since the eProfile is a model that infers autonomously information about data st
 
 Each application builds its own entity model. The eProfile needs three pieces of information to be able to process the profiles: (i) the entity trail, (ii) the entity model used by the application and (iii) the inference rules for the profile. This can be seen in Figure~\ref{fig:modelo}, where the agent ``Reasoner'' receives data from these three databases. The trail of the entity is loaded by the eProfile from the trail manager , while the other two informations are sent directly from the application to the eProfile. Thus, the inference rules defined by the application are used to infer the profile of the entity.
 
+The arrows in Figure~\ref{fig:modelo} indicate the direction of the data flow, where it can be noted two entry points and one exit point.
 
-As setas da Figura~\ref{fig:modelo} indicam a direção do fluxo dos dados, onde podem se verificar dois pontos de entrada e um ponto de saída.
-
-O primeiro ponto de entrada (seta ``a'') são as informações enviadas pela aplicação ao eProfile ou, mais especificamente, ao agente {\bf Configurador}. As informações que devem ser enviadas pela aplicação são as seguintes:
+The first entry point (arrow ``a'') are the informations sent from the application to eProfile or, more specifically, to the {\bf Configurator} agent. The following informations must be sent by the application:
 
 \begin{itemize}
 
-\item o modelo de entidade utilizado pela aplicação, ou seja, o formato do perfil da entidade. Uma vez que a trilha da entidade seja processada, as informações inferidas serão armazenadas e disponibilizadas para a aplicação neste formato;
+\item the entity model used by the application, which is the entity profile format. Once the entity trail is processed, the inferred data is stored and made available for application using this format;
 
-\item as regras para inferência do perfil. Estas regras serão executadas em períodos regulares, de modo a atualizar o perfil da entidade. O Configurador tem a função de receber as regras, validá-las e inseri-las na \textbf{base de regras}. Juntamente com as regras, é especificado a criticidade da informação. O sistema utiliza esta informação para determinar com que frequência a inferência desta informação será executada.
+\item rules to infer the profile. These rules will be executed at regular intervals in order to update the entity profile. The Configurator receives the rules, validate them and insert them in \textbf{rule database}. Along with the rules, is specified the criticality of information. The system uses this information to determine how often the information will be inferred.
 
 \end{itemize}
 
-O segundo ponto de entrada (seta ``c'') permite o recebimento das trilhas das entidades, que são buscadas pelo eProfile a partir do gerenciador de trilhas. Como o eProfile pode se conectar a diferentes gerenciadores de trilha (Figura~\ref{fig:gerenciadores}), onde em cada um deles a trilha tem um formato específico, é necessário que seja realizada uma conversão entre o formato original e o formato utilizado pelo eProfile, para que as trilhas sejam armazenadas de forma padronizada. Este trabalho é realizado por um agente intitulado {\bf Conversor}, que é capaz de realizar a conversão para os formatos de trilha suportados pelo eProfile.
+The second entry point (arrow ``c'') allows receiving the entities trails, that are fetched by the eProfile from the trail manager. Since eProfile can connect to different trail managers, (Figure~\ref{fig:gerenciadores}), where each trail has one specific format, a conversion between the original format and the format used by eProfile is needed for the trails to be stored in a standardized manner. This work is performed by an agent named {\bf Converter}, which is able to perform the conversion to the eProfile internal trail format.
 
-A trilha da entidade é então armazenada em uma ontologia de trilha, chamada {\bf eOntoTrail}. Esta ontologia possui as classes básicas para a construção de uma trilha, sendo que a mesma pode ser estendida de acordo com a especificação do gerenciador de trilhas que está sendo utilizado.
+The entity trail is then stored in an trail ontology, called {\bf eOntoTrail}. This ontology has the basic classes supporting the construction of a trail, and they can be extended according to the specification of the trail manager which is being used.
 
-Uma vez de posse das trilhas, do modelo e das regras, o agente \textbf{raciocinador} realiza a inferência na trilha, gerando assim um perfil da entidade, que consiste em uma extensão de uma ontologia de perfil básica denominada {\bf eOntoProfile}. Esta ontologia, da mesma forma que a ontologia de trilha, contém classes básicas a partir das quais as aplicações podem realizar especializações, utilizando-as para armazenar informações próprias. A aplicação pode então conectar-se ao eProfile e buscar o perfil de sua entidade, cujos dados são enviados pelo agente \textbf{Comunicador} (seta ``d'').
+Once in possession of the tracks, the model and rules, the \textbf{Reasoner} agent performs inference of the trail, generating a entity profile, which consists of an extension of a basic profile ontology named {\bf eOntoProfile}. This ontology, just like the trail ontology, contains basic classes from which applications can specialize, using them to store their own information. The application can then connect to the eProfile and get its entity profile, whose data are sent by the \textbf{Communicator} agent (arrow ``d'').
 
 
 
@@ -163,14 +162,56 @@ Uma vez de posse das trilhas, do modelo e das regras, o agente \textbf{raciocina
 
 \subsection{Ontologies}
 
+As mentioned in Section~\ref{sec:arquitetura}, eProfile uses two ontologies: a trail ontology and a profile ontology. These are both basic ontologies, extended by subclasses according to the trail format sent by the trail manager (for the trail ontology) or the needs of the application (for the profile ontology).
+
+The trail ontology (eOntoTrail) data, shown in Figure X, is fed by different supported trail manager, where the Converter agent is responsible for receiving data in the trail manager format and converting them to the eOntoTrail. Thus, the reasoner has a single ontology on which to reason.
+
+\begin{figure}
+  \centering\includegraphics[width=1\textwidth]{imagens/ont_trilha_simples.png}
+  \caption{\textbf{eProfile Trail Ontology}}
+  \label{fig:ont_trilha}
+\end{figure}
+
+Context-aware applications are interested in knowing {\bf who}, {\bf where}, {\bf when} and {\bf what} (that is, what the user is doing), so that they can discover why the situation is occurring \citep{abowd99}. Thus, a trail is represented by a set of events characterized by the following main classes: (i) {\em Entity}, the identity of the entity that is performing the action, which can optionally be linked to a profile, (ii) {\em Location}, the place where the action is taking place, (iii) {\em Time}, the date and time that the event occurred, (iv) {\em Participants}, the entities linked to this action, and (v) {\em Activity}, the action that the entity is performing (or trying to perform). This class is the most comprehensive of the ontology, and that will possibly be the most specialized by the trail managers.
+
+\begin{figure}
+  \centering\includegraphics[width=0.45\textwidth]{imagens/ont_perfil3.png}
+  \caption{\textbf{eProfile Profile Ontology}}
+  \label{fig:ont_perfil}
+\end{figure}
+
+The profile ontology (eOntoProfile), shown in Figure~\ref{fig:ont_perfil}, is the ontology used to store the entity models, as well as the profile information that is inferred from the trail. For the ontology to be feasible within the proposed model, it must be a generic ontology that allows its classes to be extended by applications. In the figure, a relationship between classes is shown by a dotted line, and a specialization of a class is shown by a continuous line. The eOntoProfile is a basic ontology, extended by the applications so that they can assemble their own entity models.
+
+The basic class of the ontology is the {\em Element} class. The class {\em Element} represents anything in the real world. It has the following children classes: (i) {\it Entity}, which represents an entity, that is, an element that has a profile associated with it, and (ii) {\it NonEntity}, which represents an element than doesn't have a profile associated with it. For example, a trail registers a event where a person enters a store, but the store does not have a profile in eProfile. In this case, the store is a {\it NonEntity}. This distinction is important because in the first case, the eProfile has access to a wide range of information about the entity, the entities related to that entity, and so on.
+
+The class {\em Characteristic} represent a aspect of the entity, and is the class that will be extended by applications to refer to any information related to that entity. These characteristics can be simple labels (such as name in the case of a person, or mileage in the case of a car) or more complex information (such as academic knowledge or latest routes traveled).
+
 
 
 \subsection{Rule Execution}
+
+The execution of rules is key to the functioning of eProfile. A inference rule is a instruction issued by an application, that runs on a entity trailset, resulting in a entity profilem according to a entity model previously registered by the application.
+
+For a rule to be executed, the application must have previously registered with eProfile: (i) the rule itself, (ii) in an entity model, which serves as the basis for the entity profile format, and (iii) the trail of the entity on which the inference is performed. From these three pieces of information, the reasoner is able to generate a profile entity, according to Figure~\ref{fig:dados_inferencia}.
+
+\begin{figure}\centering
+  \includegraphics[width=0.9\textwidth]{imagens/dados_inferencia_en.png}
+  \caption{\textbf{Data flow for the entity profile inference}}
+  \label{fig:dados_inferencia}
+\end{figure}
+
+The rules are always defined by the application, and a rule is composed of the following set of information: (i) name, (ii) profile field that will be updated, (iii) the rule, written in OWL language \citep{owl-guide}, (iv) update type (the value can be overwritten or updated according to a formula), (v) update frequency, and (vi) expiration of the rule.
+
 
 %-----------------------------------------------------------
 \section{Implementation Aspects}
 \label{ch:implementacao}
 
+The eProfile prototype was developed in Python \citep{python}. Python is a generic, open source, object-oriented, high-level language, that supports multiple architectures. The databases are implemented using the SQLite3 database \citep{sqlite3}. SQLite3 is an SQL transactional self-contained database, available in the public domain. The SQLite3 was chosen due to its good performance and the fact that it does not require a separate server for deployment.
+
+Figure~\ref{fig:dados_inferencia} shows the data flow for the entity profile inference. At the heart of this operation is the Reasoner agent, which uses an external inference engine to implement the rules. The reasoner used is FACT++, a propositional logic reasoner created as a platform for use of algorithms of semantic {\em tableaux} and optimization techniques \citep{tsarkov06}. This reasoner was chosen due to its good performance and support all functions used by the eProfile.
+
+The knowledge representation language used for the storage and processing of ontologies is OWL\cite {owl-guide}, chosen because it is the most expressive ontology language defined or in definition for the Semantic Web \citep{daconta03}.
 
 %-----------------------------------------------------------
 \section{Evaluation Aspects}

@@ -1,0 +1,21 @@
+digraph modelo2 {
+
+  layout = fdp;
+  sep = 0.25;
+
+  eProfile [shape=box,width=2,height=1];
+
+  "Application 1" -> "Trail Manager A";
+  "Application 2" -> "Trail Manager A";
+  "Application 3" -> "Trail Manager B";
+  "Trail Manager A" -> eProfile;
+  "Trail Manager B" -> eProfile;
+  eProfile -> "Application 1";
+  eProfile -> "Application 2";
+  eProfile -> "Application 3";
+
+  fontsize = 12;
+
+  rankdir = LR;
+
+}
