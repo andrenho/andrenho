@@ -8,6 +8,8 @@ int main()
 {
 	log_init(1);
 	UI* ui = ui_init();
+	if(!ui)
+		return 1;
 
 	while(ui->active)
 	{

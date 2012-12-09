@@ -23,7 +23,7 @@ LDFLAGS = -L/usr/lib -lutil
 # SDL libraries
 ifeq (${SDL},yes)
   CFLAGS += `sdl-config --cflags` -D_SDL
-  LDFLAGS += `sdl-config --libs`
+  LDFLAGS += `sdl-config --libs` -lSDL_image
 endif
 
 # X11 libraries
