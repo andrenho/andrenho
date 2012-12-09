@@ -6,9 +6,11 @@ include config.mk
 SRC = main.c		\
       ui/ui.c           \
       ui/event.c        \
-      util/log.c
+      ui/resource.c     \
+      util/log.c	\
+      util/strings.c
 OBJ = ${SRC:.c=.o}
-HEADERS = ${SRC:.c=.h}
+HEADERS = ${SRC:.c=.h} util/uthash.h
 DIST = AUTHORS HACKING LICENSE NEWS README INSTALL
 DATA =
 

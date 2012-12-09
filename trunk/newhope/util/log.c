@@ -18,7 +18,7 @@ void debug(char* fmt, ...)
 
 	va_list ap;
 	va_start(ap, fmt);
-	printf("debug: ");
+	printf("newhope: debug: ");
 	vprintf(fmt, ap);
 	printf("\n");
 	va_end(ap);
