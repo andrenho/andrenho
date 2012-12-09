@@ -63,31 +63,31 @@ Context-aware and ubiquitous systems have the challenge of implicitly collect re
 \label{ch:introducao}
 %\paragraph{Paragraph headings} Use paragraph headings as needed.
 
-Nowadays, most users interact with a great diversity of computing systems. The interconectivity between these systems is bound to increase, since the internet is becoming more and more present and available everywhere. Recent research predict the full integration between these systems in a federation of computing systems. This federation that can be refered to as Smart Environments \citep{heckmann05}.
+Nowadays, most users interact with a variety of computing systems. The current tendency is the increased interconnectedness between these systems, since the internet is becoming more present and available anywhere. Recent research predict the full integration between these systems in a federation of computing systems. This federation can be described as Smart Environments \citep{heckmann05}.
 
-\citet{weiser91} discussed a vision for the concept of smart envirnoments, where he presented a scenario in which the computer would become invisible and indistinguishable from its environment. In this scenario, the interaction between humans and computers would not occur as usual -- where the human dedicates his full atention to the computer --, but would consist of small and quick interactions, usually in different devices and locations, and in many times using the ``periphery'' of the user's attention \citep{weiser96}, or without the user even realize he is interacting with a computer system. According to the author, ``the most profound technologies are those that disappear. They weave themselves into the fabric of everyday life until they are indistinguishable from it.'' \citep{weiser91}. He asserts that the future of computing lies in integrating the computer to the real world, not the other way around, and he calls this new paradigm Ubiquitous Computing.
+\citet{weiser91} discussed a vision for the concept of smart envirnoments, where he presented a scenario in which the computer would become invisible and indistinguishable from its environment. In this scenario, interaction between humans and computers would not occur as usual -- where the human devotes his full atention to the computer --, but would consist of small and quick interactions, usually in different devices and locations, and in many times using the ``periphery'' of the user's attention \citep{weiser96}, or without the user even realize he is interacting with a computer system. According to the author, ``the most profound technologies are those that disappear. They weave themselves into the fabric of everyday life until they are indistinguishable from it.'' \citep{weiser91}. He asserts that the future of computing lies in integrating the computer to the real world, not the other way around, and he calls this new paradigm Ubiquitous Computing.
 
-However, the increase of the computing resources available everytime and everywhere poses the risk of information overload on the user. To solve this problem, the concept of ``calm technology'' was created \citep{weiser96}. This means the transfer of information between the computer and the user must happen in the ``perifery'' of the user's attention, moving to the ``center'' of his attention in moments of urgency. Taking a car's engine as an example, when a person drives a car, his attention is focused on the road, and he barely notices the engine's sound. However, if the engine emits a strange sound (that might indicate some kind of problem), the driver's attention turns to the engine.
+However, the increase of the computing resources available everytime and everywhere poses the risk of information overload on the user. To solve this problem, the concept of ``calm technology'' was created \citep{weiser96}. This means the transfer of information between the computer and the user must happen in the ``perifery'' of the user's attention, moving to the ``center'' of his attention in moments of urgency. Taking a car's engine as an example, when a person drives a car, his attention is focused on the road, and he barely notices the engine sound. However, if the engine emits a strange SOUND (That might indicate some kind of problem), the driver's attention turns to the engine.
 
-If a system is to be minimally intrusive, it must undestand the situation of the user and his surroundings, and adapt his behaviour according to this information. This information is called context, and systems capable of this kind of adaptation are called context-sensitive \citep{satyanarayanan01,dey2001}. 
+If a system is to be minimally intrusive, it must undestand the situation of the user and his surroundings, and adapt its own behaviour according to this information. This information is called context, and systems capable of this kind of adaptation are called context-sensitive \citep{satyanarayanan01,dey2001}. 
 
-Research in this area shows it is not only useful to know the context of the user when a service is being offered, but that the history of visited contexts can be a valuable information to help the application to adapt itself to the user. This history of visited contexts is called Trail \citep{silva10}. Altough the trail is usually tied to the location of a user, it has a broader concept, that includes activities performed, applications used, content accessed -- among others -- inside a specific context and timeframe \citep{silva09}.
+Research in this area shows that is not only useful to know the context of the user when a service is being offered, but that the history of visited contexts can be a valuable information to help the application to adapt itself to the user. This history of visited contexts is called Trail \citep{silva10}. Altough the trail is usually tied to the location of a user, it has a broader concept, which includes activities performed, applications used, content accessed -- among others -- inside a specific context and timeframe \citep{silva09}.
 
-For an application to adapt itself to a user effectively, it is not only important to know the history of contexts visited by a user, but to understand who the user is -- that is, what are its characteristics. This kind of application organize their knowledge about a user in User Profiles. This information is stored in a format called User Model \citep{viviani10}.
+For an application to adapt itself to a user effectively, it is not only important to know the history of contexts visited by a user, but to understand who the user is -- that is, what are his characteristics. This kind of application organize their knowledge about a user in User Profiles. This information is stored in a format called User Model \citep{viviani10}.
 
-Personalização refere-se à disponibilização de produtos, serviços e informações adaptados individualmente. A tecnologia de personalização geralmente envolve programas que aprendam padrões, hábitos e preferências de um usuário. O objetivo principal dos sistemas de personalização modernos é oferecer aos usuários o que eles querem sem requisitar que eles informem isto de forma explícita \cite{mulvenna00}. Fica claro que este propósito vai ao encontro do foco da computação ubíqua, isto é, o desenvolvimento de uma tecnologia que ``desapareça''.
+Personalization means the individual adaptation of products, services and information. Personalization technology usually involve programs that learn patterns, habits and preferences of a user. The main goal of modern personalization systems is to offer the users what they want, without demanding them to inform it explicitly \citep{mulvenna00}. It is clear that this purpose meets the ubiquitous computing objectivem that is, the development of a technology that ``disappears''.
 
-Para que um sistema tenha sucesso em obter a intenção do usuário, é necessário que ele conheça o usuário, o contexto que o usuário está inserido e as ações que ele tomou anteriormente quando se encontrava no mesmo contexto ou em contextos semelhantes. Embora existam alguns trabalhos que busquem inferir conhecimento a respeito de um usuário a partir de sua trilha, os trabalhos anteriores operam dentro de um contexto específico (como Educação \cite{barbosa11} ou Comércio \cite{franco11}) ou trabalham com o modelo de usuário de forma estática \cite{pelep}.
+For a system to be succeessful in obtaining the user's intent, it must know the user, the context where the user is inserted and the actions he took when he was previously in the same context or in similar contexts. Although there are some studies that seek to infer knowledge about a user from their trail, previous works operate within a specific context (such as Ubiquitous Education \citep{barbosa11} or Ubiquitous Commerce \citep{franco11}) or use a static user model \citep{pelep}.
 
-Um aspecto relevante para ambientes que operam com múltiplos sistemas independentes é a interoperabilidade. Interoperabilidade é a capacidade de dois ou mais sistemas ou componentes trocarem informações e utilizarem as informações que foram trocadas \cite{ieeedict}. No âmbito da personalização, interoperabilidade refere-se à capacidade de acessar e interpretar informação derivada de múltiplas fontes heterogêneas e integrar esta informação em um modelo de usuário comum. A interoperabilidade pode ser (i) sintática, onde as diferenças entre os modelos de usuário são resolvidos em nível de aplicação; ou (ii) semântica, onde as diferenças entre os modelos são resolvidos em nível de conhecimento \cite{carmagnola09}.
+A relevant aspect for environments with multiple independent systems is interoperability. Interoperability is the ability of two or more systems or components to exchange information and use the information that has been exchanged. \citep{ieeedict}. In the context of customization, interoperability refers to the ability to access and interpret information derived from multiple heterogeneous sources and integrate this information into a common user model. Interoperability can be (i) syntactic, where the differences between the models are resolved user-level application, or (ii) semantic, where the differences between the models are resolved at the level of knowledge \citep{carmagnola09}.
 
-Pesquisas indicam que é desejável que os sistemas do futuro se tornem cada vez mais invisíveis aos seus usuários \cite{weiser96}, e que um sistema só pode se tornar invisível se for pró-ativo, e só pode ser pró-ativo se conhecer o usuário \cite{satyanarayanan01}. Para que um sistema possa conhecer um usuário, ele deve conhecer o histórico do usuário, compreender o contexto em que ele está inserido, bem como os dados coletados a respeito dele no mesmo contexto (ou num contexto similar), e ser capaz de processar este conjunto de informações em um perfil de usuário.
+Research indicates that it is desirable that future systems become increasingly invisible to their users \citep{weiser96}, and that a system can only become invisible if it is proactive, and can only be proactive by knowing the user \citep{satyanarayanan01}. For a system to know a user, he must know the user history, understand the context in which he is inserted, as well as data collected concerning him in the same context (or in a similar context), and be able to process this set of informations in a user profile.
 
-Neste contexto está sendo proposto o eProfile, um modelo para a criação automática de perfis através da inferência em trilhas de entidades. Este modelo possibilita a utilização de um perfil único por diversos sistemas independentes, oferecendo a possibilidade de interoperabilidade semântica entre eles.
+In this context we are proposing the eProfile, a model for the automatic creation of profiles by inference of entities trails. This model allows the use of a single profile by several independent systems, offering the possibility of semantic interoperability between them.
 
-No modelo apresentado, o conceito de Entidade é usado no lugar do conceito clássico de Usuário. Enquanto geralmente o usuário compreende a pessoa que está utilizando o aplicativo, uma entidade refere-se a qualquer objeto (físico ou não) capaz de controlar um aplicativo. Desta forma, uma entidade pode ser uma pessoa, um objeto móvel (como um carro) ou imóvel (como uma sala), ou até mesmo um sistema.
+In this model, the concept of entity is used instead of the classic concept of User. While usually the ``user'' means the person who is using the application, an entity refers to any object (physical or not) able to control an application. Thus, an entity can be a person, a moving object (like a car) or property (like a room), or even a system.
 
-Este artigo está organizado da seguinte forma. Na Seção~\ref{ch:modelo} é proposto o modelo eProfile. A Seção~\ref{ch:implementacao} discute os aspectos de implementação. A Seção~\ref{ch:cenario} apresenta um experimento validando o modelo. A Seção~\ref{ch:relacionados} descreve trabalhos relacionados, apresentando as contribuições deste modelo. Por fim, a Seção~\ref{sec:conclusao} apresenta as considerações finais.
+This article is organized as follows. Section~\ref{ch:modelo} proposes the eProfile model. Section~\ref{ch:implementacao} discusses implementação aspects. Section~\ref{ch:cenario} presents and experiment validating the model. Section~\ref{ch:relacionados} describes related work, showing the contributions of this model. Finally, a Section~\ref{sec:conclusao} presents the concluding remarks.
 
 
 %-----------------------------------------------------------
@@ -95,32 +95,69 @@ Este artigo está organizado da seguinte forma. Na Seção~\ref{ch:modelo} é pr
 \label{ch:modelo}
 
 \begin{figure}
-  \centering\includegraphics[width=0.3\textwidth]{imagens/modelobasico.png}
+  \centering\includegraphics[width=0.6\textwidth]{imagens/modelobasico_en.png}
   \caption{\textbf{Modelo básico do eProfile}}
   \label{fig:modelobasico}
 \end{figure}
 
-A Figura~\ref{fig:modelobasico} apresenta a visão geral do eProfile, onde cada círculo representa um componente, e as setas indicam o fluxo dos dados.
+Figure~\ref{fig:modelobasico} shows the overview of eProfile, where each circle represents a component, and the arrows indicate the flow of data.
 
-O primeiro componente representado é a {\bf aplicação}. A aplicação, dentro deste modelo, é qualquer aplicação que está sendo utilizada diretamente por uma entidade. Para que uma aplicação seja considerada apta a este modelo (isto é, possa utilizar as funcionalidades oferecidas pelo eProfile), ela precisa ser capaz de registrar suas informações em um gerenciador de trilhas suportado pelo eProfile. A aplicação deve também seguir um protocolo de comunicação para se comunicar com o eProfile. Seguidos estes pré-requisitos, a aplicação pode ser de qualquer tipo e operar em qualquer tipo de dispositivo que tenha comunicação com a internet.
+The first component depicted is the {\bf application}. The application, in this model, is any application that is being used directly by an entity. For an application to be considered suitable to use this model and able to use the functionality offered by eProfile, it needs to record their information on a trail manager supported by eProfile. The application must also implement a communication protocol to exchange messages with eProfile. If it follows these prerequisites, the application can be of any type and operate in any type of device that has communication with the Internet.
 
-O segundo componente representado é um {\bf gerenciador de trilhas}. Um gerenciador de trilhas é capaz de registrar eventos realizados por uma entidade, colocando-os em uma ordem cronológica e registando informações relevantes ao evento (como, por exemplo, o contexto na qual o evento foi realizado). O eProfile suporta qualquer gerenciador de trilhas, desde que o protocolo de comunicação com o gerenciador de trilhas esteja codificado no eProfile.
+The second component depicted is a {\bf trail manager}. A trail manager is capable of storing events held by an entity, putting them in chronological order and registering information relevant to the event (eg, the context in which the event was held). The eProfile manager supports any trail manager, since the trail manager communication protocol is implemented in eProfile.
 
-O terceiro componente da Figura~\ref{fig:modelobasico} representa o eProfile. As setas indicam o fluxo dos dados. A comunicação tem início quando a aplicação registra-se no eProfile, enviando (i) o modelo de entidade utilizado pela aplicação e (ii) as regras para construção deste modelo (seta ``a''). A partir deste momento, a aplicação passa a registrar os eventos no gerenciador de trilhas (seta ``b''). O eProfile periodicamente busca esta informação a partir do gerenciador de trilhas, e constrói ou reconfigura o perfil de entidade (seta ``c''). À medida que a aplicação tem necessidade de um perfil atualizado, ela busca este perfil no eProfile (seta ``d'').
+The third component of Figure~\ref{fig:modelobasico} represents the {\bf eProfile}. The arrows indicate the flow of data. The communication starts when the application registers itself on eProfile, sending (i) the entity model used by the application and (ii) the rules for construction of this model (arrow ``a''). From this moment on, the application starts recording the events on the trail manager (arrow ``b''). The eProfile periodically retrieves this information from the trail manager and builds or reconfigures the profile entity (arrow ``c''). When the application needs an updated profile, it retrieves this profile from eProfile (arrow ``d'').
 
-Como o eProfile oferece suporte a várias aplicações, é possível que diferentes aplicações utilizem diferentes gerenciadores de trilhas. Por isso, o eProfile oferece também suporte à comunicação com vários gerenciadores de trilhas, segundo mostrado na Figura~\ref{fig:gerenciadores}.
+Since the eProfile supports multiple applications, it is possible for different applications to use different trail managers. Therefore, the eProfile also supports communication with a number of trail managers, as is shown in Figure~\ref{fig:gerenciadores}.
+
 
 \begin{figure}
-  \centering\includegraphics[width=0.45\textwidth]{imagens/modelo2.png}
-  \caption{\textbf{eProfile conectado a mais de um gerenciador de trilhas}}
+  \centering\includegraphics[width=1\textwidth]{imagens/modelo2_en.png}
+  \caption{\textbf{eProfile connected to multiple trail managers}}
   \label{fig:gerenciadores}
 \end{figure}
 
 
 
 
+
+
+
 \subsection{Architecture}
 \label{sec:arquitetura}
+
+\begin{figure}
+  \centering\includegraphics[width=0.45\textwidth]{imagens/modelo_big.png}
+  \caption{\textbf{Architecture of eProfile}}
+  \label{fig:modelo}
+\end{figure}
+
+Figure~\ref{fig:architecture} shows the architecture of eProfile. The components ``Application'' and ``Trail Manager'' are the same as shown in Figure~\ref{fig:modelobasico}, while the ``eProfile'' service was expanded to show its inner workings.
+
+Since the eProfile is a model that infers autonomously information about data stored in an ontology, and is organized into independent parts, it uses the technology of autonomous agents.
+
+Each application builds its own entity model. The eProfile needs three pieces of information to be able to process the profiles: (i) the entity trail, (ii) the entity model used by the application and (iii) the inference rules for the profile. This can be seen in Figure~\ref{fig:modelo}, where the agent ``Reasoner'' receives data from these three databases. The trail of the entity is loaded by the eProfile from the trail manager , while the other two informations are sent directly from the application to the eProfile. Thus, the inference rules defined by the application are used to infer the profile of the entity.
+
+
+As setas da Figura~\ref{fig:modelo} indicam a direção do fluxo dos dados, onde podem se verificar dois pontos de entrada e um ponto de saída.
+
+O primeiro ponto de entrada (seta ``a'') são as informações enviadas pela aplicação ao eProfile ou, mais especificamente, ao agente {\bf Configurador}. As informações que devem ser enviadas pela aplicação são as seguintes:
+
+\begin{itemize}
+
+\item o modelo de entidade utilizado pela aplicação, ou seja, o formato do perfil da entidade. Uma vez que a trilha da entidade seja processada, as informações inferidas serão armazenadas e disponibilizadas para a aplicação neste formato;
+
+\item as regras para inferência do perfil. Estas regras serão executadas em períodos regulares, de modo a atualizar o perfil da entidade. O Configurador tem a função de receber as regras, validá-las e inseri-las na \textbf{base de regras}. Juntamente com as regras, é especificado a criticidade da informação. O sistema utiliza esta informação para determinar com que frequência a inferência desta informação será executada.
+
+\end{itemize}
+
+O segundo ponto de entrada (seta ``c'') permite o recebimento das trilhas das entidades, que são buscadas pelo eProfile a partir do gerenciador de trilhas. Como o eProfile pode se conectar a diferentes gerenciadores de trilha (Figura~\ref{fig:gerenciadores}), onde em cada um deles a trilha tem um formato específico, é necessário que seja realizada uma conversão entre o formato original e o formato utilizado pelo eProfile, para que as trilhas sejam armazenadas de forma padronizada. Este trabalho é realizado por um agente intitulado {\bf Conversor}, que é capaz de realizar a conversão para os formatos de trilha suportados pelo eProfile.
+
+A trilha da entidade é então armazenada em uma ontologia de trilha, chamada {\bf eOntoTrail}. Esta ontologia possui as classes básicas para a construção de uma trilha, sendo que a mesma pode ser estendida de acordo com a especificação do gerenciador de trilhas que está sendo utilizado.
+
+Uma vez de posse das trilhas, do modelo e das regras, o agente \textbf{raciocinador} realiza a inferência na trilha, gerando assim um perfil da entidade, que consiste em uma extensão de uma ontologia de perfil básica denominada {\bf eOntoProfile}. Esta ontologia, da mesma forma que a ontologia de trilha, contém classes básicas a partir das quais as aplicações podem realizar especializações, utilizando-as para armazenar informações próprias. A aplicação pode então conectar-se ao eProfile e buscar o perfil de sua entidade, cujos dados são enviados pelo agente \textbf{Comunicador} (seta ``d'').
+
+
 
 
 
