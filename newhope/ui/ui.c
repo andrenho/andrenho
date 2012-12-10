@@ -33,6 +33,7 @@ UI* ui_init()
 
 	// TODO - remove
 	SDL_BlitSurface(res("grassm"), NULL, ui->screen, NULL);
+	SDL_BlitSurface(res("grassm"), NULL, ui->screen, &(SDL_Rect){50, 50});
 	SDL_Flip(ui->screen);
 
 	return ui;
@@ -94,7 +95,7 @@ static int ui_init_library(UI* ui)
 	debug("SDL initialized.");
 
 	ui->screen = SDL_SetVideoMode(800, 600, 32, 
-			SDL_SWSURFACE|SDL_RESIZABLE);
+			SDL_SWSURFACE|SDL_RESIZABLE);  // TODO - ajust color depth!
 	if(!ui->screen)
 	{
 		warnx("Could not initialize screen: %s.", SDL_GetError());
