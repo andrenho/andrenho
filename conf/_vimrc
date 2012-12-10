@@ -86,3 +86,5 @@ imap <ESC>[5^ <C-PageUp>
 imap <ESC>[6^ <C-PageDown>
 imap <ESC><ESC>[5^ <C-PageUp>
 imap <ESC><ESC>[6^ <C-PageDown>
+
+set t_Co=256
