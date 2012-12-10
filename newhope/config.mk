@@ -18,7 +18,7 @@ NEWHOPEPREFIX = ${PREFIX}/share/newhope
 
 # basic flags
 CFLAGS = -DVERSION=\"${VERSION}\" -DDATADIR=\"${NEWHOPEPREFIX}\" -pedantic -Wall -I. -I/usr/include -std=c99
-LDFLAGS = -L/usr/lib -lutil
+LDFLAGS = -L/usr/lib
 
 # SDL libraries
 ifeq (${SDL},yes)
@@ -29,7 +29,7 @@ endif
 # X11 libraries
 ifeq (${X11},yes)
   CFLAGS += -I/usr/X11R6/include -D_X11
-  LDFLAGS += -L/usr/X11R6/lib -lX11 -lutil
+  LDFLAGS += -L/usr/X11R6/lib -lX11
 endif
 
 # Duma libraries

@@ -4,7 +4,7 @@
 
 #include <stdio.h>
 
-int main()
+int main(int argc, char** argv)
 {
 	log_init(1);
 	UI* ui = ui_init();
