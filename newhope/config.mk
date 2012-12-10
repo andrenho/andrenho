@@ -1,20 +1,27 @@
-# New Hope version
-VERSION = 0.0.1
-
-# system libraries
-SDL = yes
-X11 = no
-
-# add debugging info
-DEBUG = yes
-DUMA = no
-
-# Customize below to fit your system
+#
+# CUSTOMIZABLE SECTION
+# 
 
 # paths
 PREFIX = /usr/local
 MANPREFIX = ${PREFIX}/share/man
 NEWHOPEPREFIX = ${PREFIX}/share/newhope
+
+# add debugging info
+DEBUG = yes
+DUMA = no
+
+#
+# PLEASE AVOID CHANGING THE INFORMATION BELOW
+#
+
+# New Hope version
+VERSION = 0.0.1
+
+# system libraries
+SDL = yes
+PNG = yes
+X11 = no
 
 # basic flags
 CFLAGS = -DVERSION=\"${VERSION}\" -DDATADIR=\"${NEWHOPEPREFIX}\" -pedantic -Wall -I. -I/usr/include -std=c99
@@ -23,7 +30,15 @@ LDFLAGS = -L/usr/lib
 # SDL libraries
 ifeq (${SDL},yes)
   CFLAGS += `sdl-config --cflags` -D_SDL
-  LDFLAGS += `sdl-config --libs` -lSDL_image
+  # if you want the console window on Windows, edit the sdl-config script
+  # and remove the '-mwindows' option
+  LDFLAGS += `sdl-config --libs`
+endif
+
+# PNG library
+ifeq (${PNG},yes)
+  CFLAGS += `pkg-config --cflags libpng zlib`
+  LDFLAGS += `pkg-config --libs libpng zlib`
 endif
 
 # X11 libraries

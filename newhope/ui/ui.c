@@ -2,7 +2,6 @@
 
 #include <stdlib.h>
 #include "SDL.h"
-#include "SDL_image.h"
 
 #include "ui/resource.h"
 #include "util/log.h"
@@ -48,7 +47,6 @@ void ui_free(UI* ui)
 				SDL_FreeSurface(ui->screen);
 				debug("SDL window terminated.");
 			}
-			IMG_Quit();
 			SDL_Quit();
 			debug("SDL terminated.");
 		}
@@ -84,13 +82,6 @@ static int ui_init_library(UI* ui)
 	}
 	ui->sdl_initialized = 1;
 	debug("SDL initialized.");
-
-	if(IMG_Init(IMG_INIT_PNG) != IMG_INIT_PNG)
-	{
-		warnx("Could not initialize SDL_image: %s.", IMG_GetError());
-		return 0;
-	}
-	debug("SDL_image initialized.");
 
 	ui->screen = SDL_SetVideoMode(800, 600, 32, 
 			SDL_SWSURFACE|SDL_RESIZABLE);
