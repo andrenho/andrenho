@@ -15,6 +15,7 @@ int main(int argc, char** argv)
 	{
 		ui_start_frame(ui);
 		evt_process(ui, NULL);
+		ui_draw(ui);
 		ui_end_frame(ui);
 	}
 
