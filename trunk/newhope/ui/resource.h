@@ -1,8 +1,9 @@
-#ifndef HASH_H
-#define HASH_H
+#ifndef RESOURCE_H
+#define RESOURCE_H
 
-#define BLACK 0
-#define WHITE 1
+#define BLACK       0
+#define TRANSPARENT 1
+#define WHITE       2
 
 struct UI;
 struct SDL_Surface;
