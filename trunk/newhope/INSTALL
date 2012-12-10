@@ -3,7 +3,9 @@ LINUX INSTRUCTIONS
 
 To install `New Hope`, follow these steps:
 
-  1. Install SDL library, if not already installed <http://www.libsdl.org>
+  1. Install, if not already installed:
+    a. SDL library <http://www.libsdl.org>
+    b. PNG library <http://www.libpng.org/pub/libpng.html>
   2. Edit config.mk to adapt settings to your system (usually not needed)
   3. Run `make`
   4. Run `make install` with administrator privileges
