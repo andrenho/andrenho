@@ -23,3 +23,32 @@ void debug(char* fmt, ...)
 	printf("\n");
 	va_end(ap);
 }
+
+
+#if __MINGW32__
+#include <stdlib.h>
+
+void warnx(char* fmt, ...)
+{
+	va_list ap;
+	va_start(ap, fmt);
+	printf("newhope: ");
+	vprintf(fmt, ap);
+	printf("\n");
+	va_end(ap);
+}
+
+
+void errx(int errcode, char* fmt, ...)
+{
+	va_list ap;
+	va_start(ap, fmt);
+	printf("newhope: ");
+	vprintf(fmt, ap);
+	printf("\n");
+	va_end(ap);
+	exit(errcode);
+}
+
+#endif
+

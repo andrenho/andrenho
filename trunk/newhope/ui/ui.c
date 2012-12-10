@@ -7,7 +7,6 @@
 #include "ui/resource.h"
 #include "util/log.h"
 
-
 static int ui_init_library(UI* ui);
 
 
