@@ -31,6 +31,10 @@ UI* ui_init()
 		return NULL;
 	}
 
+	// TODO - remove
+	SDL_BlitSurface(res("grassm"), NULL, ui->screen, NULL);
+	SDL_Flip(ui->screen);
+
 	return ui;
 }
 
@@ -52,6 +56,12 @@ void ui_free(UI* ui)
 		}
 		free(ui);
 	}
+}
+
+
+void ui_draw(UI* ui)
+{
+
 }
 
 

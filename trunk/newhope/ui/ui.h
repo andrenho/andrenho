@@ -13,6 +13,7 @@ typedef struct UI {
 UI* ui_init();
 void ui_free(UI* ui);
 
+void ui_draw(UI* ui);
 void ui_start_frame(UI* ui);
 void ui_end_frame(UI* ui);
 

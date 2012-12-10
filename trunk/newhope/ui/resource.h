@@ -1,6 +1,9 @@
 #ifndef HASH_H
 #define HASH_H
 
+#define BLACK 0
+#define WHITE 1
+
 struct UI;
 struct SDL_Surface;
 
