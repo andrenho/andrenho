@@ -50,5 +50,17 @@ void errx(int errcode, char* fmt, ...)
 	exit(errcode);
 }
 
+void err(int errcode, char* fmt, ...)
+{
+	va_list ap;
+	va_start(ap, fmt);
+	printf("newhope: ");
+	vprintf(fmt, ap);
+	printf("\n");
+	perror("");
+	va_end(ap);
+	exit(errcode);
+}
+
 #endif
 

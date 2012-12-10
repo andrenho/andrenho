@@ -22,7 +22,7 @@ options:
 	@echo "LDFLAGS = ${LDFLAGS}"
 	@echo "CC      = ${CC}"
 
-.cc.o:
+.c.o:
 	@echo CC $<
 	@${CC} -c ${CFLAGS} -o $@ $<
 
