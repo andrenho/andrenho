@@ -269,7 +269,8 @@ static SDL_Surface* resource_sf_from_png(int w, int h, png_bytep* row_pointers,
 			// color not found - add to palette
 			if(c_sdl == -1)
 			{
-				colors[n_colors] = (SDL_Color){ c.red, c.green, c.blue };
+				colors[n_colors] = (SDL_Color){ c.red, c.green, 
+					c.blue };
 				++n_colors;
 			}
 	
