@@ -8,6 +8,7 @@
 #include <png.h>
 #include "SDL.h"
 
+#include "options.h"
 #include "ui/ui.h"
 #include "util/log.h"
 #include "util/strings.h"
@@ -26,7 +27,7 @@ static struct {
 	char *name, *filename;
 	int x, y, w, h;
 } reslist[] = {
-	{ "grassm", "grass.png", 96, 32, 32, 32 },
+	{ "grassm", "grass.png", 0, 96, 32, 32 },
 	{ NULL, NULL, 0, 0, 0, 0 }
 };
 
@@ -37,12 +38,12 @@ int n_colors = 0;
 // prototypes
 static char* resource_find_file(char* filename);
 static SDL_Surface* resource_load_png(char* filename, int x, int y, int _w, int _h);
-static SDL_Surface* resource_sf_from_png_8bit(int w, int h, png_bytep* row_pointers,
-		int n_col, png_color* palette, int n_transp, png_bytep trans,
-		int x_width);
-static SDL_Surface* resource_sf_from_png_alpha(int w, int h, png_bytep* row_pointers,
-		int n_col, png_color* palette, int n_transp, png_bytep trans,
-		int x_width);
+static SDL_Surface* resource_sf_from_png_8bit(int x, int y, int w, int h, 
+		png_bytep* row_pointers, int n_col, png_color* palette, 
+		int n_transp, png_bytep trans, int x_width);
+static SDL_Surface* resource_sf_from_png_alpha(int x, int y, int w, int h, 
+		png_bytep* row_pointers, int n_col, png_color* palette, 
+		int n_transp, png_bytep trans, int x_width);
 char *strdup (const char *str);  // silly mingw
 
 
@@ -152,7 +153,8 @@ static char* resource_find_file(char* filename)
 }
 
 
-static SDL_Surface* resource_load_png(char* filename, int _x, int _y, int _w, int _h)
+static SDL_Surface* resource_load_png(char* filename, int _x, int _y, 
+		int _w, int _h)
 {
 	// open file
 	FILE* f = fopen(filename, "rb");
@@ -189,16 +191,13 @@ static SDL_Surface* resource_load_png(char* filename, int _x, int _y, int _w, in
 	// bitdepth = png_get_bit_depth(png_ptr, info_ptr);
 	color_type = png_get_color_type(png_ptr, info_ptr);
 
-	/*
-	if(color_type != PNG_COLOR_TYPE_PALETTE || bitdepth != 8)
-	{
-		debug("%d", color_type);
-		png_destroy_read_struct(&png_ptr, &info_ptr, NULL);
-		errx(1, "%s: only 8-bit paletted images are supported.\n",
-			       	filename);
-	}
-	*/
+	// check bounds
+	if(_x < 0 || _y < 0 || _w < 0 || _h < 0)
+		errx(1, "Image %s bounds < 0", filename);
+	if(_x+_w > w || _y+_h > h)
+		errx(1, "Image %s rectange out of bounds", filename);
 
+	// get palette
 	int num_trans = 0;
 	png_bytep trans_alpha = NULL;
 	int n_col = 0;
@@ -219,10 +218,7 @@ static SDL_Surface* resource_load_png(char* filename, int _x, int _y, int _w, in
 			png_get_tRNS(png_ptr, info_ptr, &trans_alpha, &num_trans, NULL);
 	}
 
-	// TODO - check bounds
-
 	// read image data
-	// TODO - get only the selected part of the image
 	png_bytep* row_pointers = malloc(sizeof(png_bytep) * h);
 	int y;
 	int x_width = png_get_rowbytes(png_ptr, info_ptr) / w;
@@ -231,8 +227,18 @@ static SDL_Surface* resource_load_png(char* filename, int _x, int _y, int _w, in
 	png_read_image(png_ptr, row_pointers);
 
 	// create SDL surface
-	SDL_Surface* sf = resource_sf_from_png_alpha(w, h, row_pointers, n_col, 
-			palette, num_trans, trans_alpha, x_width);
+	SDL_Surface* sf;
+	switch(options->graphics)
+	{
+	case PALETTE:
+		sf = resource_sf_from_png_8bit(_x, _y, _w, _h, row_pointers, 
+			n_col, palette, num_trans, trans_alpha, x_width);
+		break;
+	case ALPHA:
+		sf = resource_sf_from_png_alpha(_x, _y, _w, _h, row_pointers, 
+			n_col, palette, num_trans, trans_alpha, x_width);
+		break;
+	}
 	
 	// free stuff
 	if(png_ptr && info_ptr)
@@ -250,17 +256,17 @@ static SDL_Surface* resource_load_png(char* filename, int _x, int _y, int _w, in
 }
 
 
-static SDL_Surface* resource_sf_from_png_8bit(int w, int h, png_bytep* row_pointers,
-		int n_col, png_color* palette, int n_transp, png_bytep trans,
-		int x_width)
+static SDL_Surface* resource_sf_from_png_8bit(int x, int y, int w, int h, 
+		png_bytep* row_pointers, int n_col, png_color* palette, 
+		int n_transp, png_bytep trans, int x_width)
 {
 	SDL_Surface* sf = SDL_CreateRGBSurface(SDL_SWSURFACE, w, h, 8, 
 			                       0, 0, 0, 0);
 
 	int has_transparency = 0;
-	int x, y, j;
-	for(x=0; x<w; x++)
-		for(y=0; y<h; y++)
+	int _x, _y, j;
+	for(_x=0; _x<w; _x++)
+		for(_y=0; _y<h; _y++)
 		{
 			int c_sdl = -1;
 
@@ -269,7 +275,7 @@ static SDL_Surface* resource_sf_from_png_8bit(int w, int h, png_bytep* row_point
 			if(palette) // palettized PNG
 			{
 				// get pixel color
-				int c_px = row_pointers[y][x];
+				int c_px = row_pointers[_y][_x];
 
 				// check for transparency
 				for(j=0; j<n_transp; j++)
@@ -285,9 +291,9 @@ static SDL_Surface* resource_sf_from_png_8bit(int w, int h, png_bytep* row_point
 			else // RGBA PNG
 			{
 				c = (png_color) { 
-					row_pointers[y][x*x_width],
-					row_pointers[y][x*x_width+1],
-					row_pointers[y][x*x_width+2],
+					row_pointers[_y][_x*x_width],
+					row_pointers[_y][_x*x_width+1],
+					row_pointers[_y][_x*x_width+2],
 				};
 				if(row_pointers[y][x*x_width+3] < 255)
 				{
@@ -300,8 +306,8 @@ static SDL_Surface* resource_sf_from_png_8bit(int w, int h, png_bytep* row_point
 			if(c_sdl != TRANSPARENT)
 				for(j=0; j<n_colors; j++)
 					if(colors[j].r == c.red 
-							&& colors[j].g == c.green
-							&& colors[j].b == c.blue)
+						&& colors[j].g == c.green
+						&& colors[j].b == c.blue)
 					{
 						c_sdl = j;
 						break;
@@ -316,7 +322,7 @@ static SDL_Surface* resource_sf_from_png_8bit(int w, int h, png_bytep* row_point
 			}
 	
 			// draw pixel
-			((char*)sf->pixels)[x + (y*w)] = c_sdl;
+			((char*)sf->pixels)[_x + (_y*w)] = c_sdl;
 		}
 
 	if(has_transparency)
@@ -326,19 +332,21 @@ static SDL_Surface* resource_sf_from_png_8bit(int w, int h, png_bytep* row_point
 }
 
 
-static SDL_Surface* resource_sf_from_png_alpha(int w, int h, png_bytep* row_pointers,
-		int n_col, png_color* palette, int n_transp, png_bytep trans,
-		int x_width)
+static SDL_Surface* resource_sf_from_png_alpha(int x, int y, int w, int h, 
+		png_bytep* row_pointers, int n_col, png_color* palette, 
+		int n_transp, png_bytep trans, int x_width)
 {
 	if(palette)
 		err(1, "Sorry: palettized surfaces on alpha not supported.");
 
-	SDL_Surface* sf = SDL_CreateRGBSurface(SDL_SWSURFACE|SDL_SRCALPHA, w, h, 32, 
+	SDL_Surface* sf = SDL_CreateRGBSurface(SDL_SWSURFACE|SDL_SRCALPHA, 
+			w, h, 32, 
 			0x000000FF, 0x0000FF00, 0x00FF0000, 0xFF000000);
-	int has_transparency = 0;
-	int x, y, j;
-	for(y=0; y<h; y++)
-		memcpy(sf->pixels + (y*w*4), row_pointers[y], w * x_width);
+	int _y;
+	for(_y=0; _y<h; _y++)
+		memcpy(((char*)sf->pixels) + (_y*w*4), 
+				&row_pointers[_y+y][x*x_width], 
+				w * x_width);
 
 	return sf;
 }
