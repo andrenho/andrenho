@@ -4,6 +4,7 @@
 include config.mk
 
 SRC = main.c		\
+      options.c         \
       ui/ui.c           \
       ui/event.c        \
       ui/resource.c     \
