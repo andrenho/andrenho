@@ -6,6 +6,8 @@
 #include "ui/resource.h"
 #include "util/log.h"
 
+const int TILESIZE = 32;
+
 static int ui_init_library(UI* ui);
 
 
@@ -16,6 +18,7 @@ UI* ui_init()
 	ui->sdl_initialized = 0;
 	ui->active = 1;
 	ui->screen = NULL;
+	ui->rx = ui->ry = 0;
 
 	// initialize library
 	if(!ui_init_library(ui))
@@ -30,11 +33,6 @@ UI* ui_init()
 		ui_free(ui);
 		return NULL;
 	}
-
-	// TODO - remove
-	SDL_BlitSurface(res("grassm"), NULL, ui->screen, NULL);
-	SDL_BlitSurface(res("grassm"), NULL, ui->screen, &(SDL_Rect){50, 50});
-	SDL_Flip(ui->screen);
 
 	return ui;
 }
@@ -62,7 +60,22 @@ void ui_free(UI* ui)
 
 void ui_draw(UI* ui)
 {
+	SDL_FillRect(ui->screen, NULL, 0);
 
+	int x = ui->rx / TILESIZE,
+	    y = ui->ry / TILESIZE;
+	int sx = ui->rx % TILESIZE,
+	    sy = ui->ry % TILESIZE;
+	SDL_BlitSurface(res("grassm"), NULL, ui->screen,
+			&(SDL_Rect) { sx, sy });
+	SDL_Flip(ui->screen);
+}
+
+
+void ui_moveview(UI* ui, int horiz, int vert)
+{
+	ui->rx += horiz;
+	ui->ry += vert;
 }
 
 
@@ -95,7 +108,7 @@ static int ui_init_library(UI* ui)
 	debug("SDL initialized.");
 
 	ui->screen = SDL_SetVideoMode(800, 600, 32, 
-			SDL_SWSURFACE|SDL_RESIZABLE);  // TODO - ajust color depth!
+			SDL_SWSURFACE|SDL_RESIZABLE);
 	if(!ui->screen)
 	{
 		warnx("Could not initialize screen: %s.", SDL_GetError());
@@ -103,6 +116,8 @@ static int ui_init_library(UI* ui)
 	}
 	debug("SDL window initialized.");
 	SDL_WM_SetCaption("New Hope (version " VERSION ")", "New Hope");
+	SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY, 
+			SDL_DEFAULT_REPEAT_INTERVAL);
 
 	return 1;
 }
