@@ -27,7 +27,7 @@ static struct {
 	char *name, *filename;
 	int x, y, w, h;
 } reslist[] = {
-	{ "grassm", "grass.png", 0, 96, 32, 32 },
+	{ "grassm", "grass.png", 32, 96, 32, 32 },
 	{ NULL, NULL, 0, 0, 0, 0 }
 };
 
@@ -275,7 +275,7 @@ static SDL_Surface* resource_sf_from_png_8bit(int x, int y, int w, int h,
 			if(palette) // palettized PNG
 			{
 				// get pixel color
-				int c_px = row_pointers[_y][_x];
+				int c_px = row_pointers[_y+y][_x+x];
 
 				// check for transparency
 				for(j=0; j<n_transp; j++)
@@ -291,11 +291,11 @@ static SDL_Surface* resource_sf_from_png_8bit(int x, int y, int w, int h,
 			else // RGBA PNG
 			{
 				c = (png_color) { 
-					row_pointers[_y][_x*x_width],
-					row_pointers[_y][_x*x_width+1],
-					row_pointers[_y][_x*x_width+2],
+					row_pointers[_y+y][(_x+x)*x_width],
+					row_pointers[_y+y][(_x+x)*x_width+1],
+					row_pointers[_y+y][(_x+x)*x_width+2],
 				};
-				if(row_pointers[y][x*x_width+3] < 255)
+				if(row_pointers[_y+y][(x+_x)*x_width+3] < 255)
 				{
 					c_sdl = TRANSPARENT;
 					has_transparency = 1;
