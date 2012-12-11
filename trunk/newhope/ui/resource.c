@@ -16,7 +16,7 @@
 
 // record for the resource hash
 typedef struct SurfaceResource {
-	char name[20];
+	Resource name;
 	SDL_Surface* sf;
 	struct UT_hash_handle hh;
 } SurfaceResource;
@@ -24,11 +24,12 @@ static SurfaceResource* resources = NULL;  // resource hash
 
 // resource files list
 static struct { 
-	char *name, *filename;
+	Resource name;
+	char *filename;
 	int x, y, w, h;
 } reslist[] = {
-	{ "grassm", "grass.png", 0, 160, 32, 32 },
-	{ NULL, NULL, 0, 0, 0, 0 }
+	{ GRASSM, "grass.png", 0, 160, 32, 32 },
+	{ NOTHING, NULL, 0, 0, 0, 0 }
 };
 
 // palette
@@ -59,7 +60,7 @@ int resources_load(UI* ui)
 
 	// load resources
 	i = 0;
-	while(reslist[i].name)
+	while(reslist[i].name != NOTHING)
 	{
 		// find file
 		char* filepath = resource_find_file(reslist[i].filename);
@@ -89,10 +90,9 @@ int resources_load(UI* ui)
 
 		// add to hash
 		SurfaceResource* res = malloc(sizeof(SurfaceResource));
-		strncpy(res->name, reslist[i].name, 20);
-		res->name[19] = 0;
+		res->name = reslist[i].name;
 		res->sf = sf;
-		HASH_ADD_STR(resources, name, res);
+		HASH_ADD_INT(resources, name, res);
 
 		++i;
 	}
@@ -120,12 +120,12 @@ void resources_unload(UI* ui)
 }
 
 
-SDL_Surface* res(const char* name)
+SDL_Surface* res(Resource name)
 {
 	SurfaceResource *rs;
-	HASH_FIND_STR(resources, name, rs);
+	HASH_FIND_INT(resources, &name, rs);
 	if(!rs)
-		errx(1, "Could not find resource %s.", name);
+		errx(1, "Could not find resource %d.", name);
 	return rs->sf;
 }
 
