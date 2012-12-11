@@ -8,9 +8,13 @@
 struct UI;
 struct SDL_Surface;
 
+typedef enum Resource {
+	NOTHING=0, GRASSM,
+} Resource;
+
 int resources_load(struct UI*);
 void resources_unload(struct UI*);
 
-struct SDL_Surface* res(const char* name);
+struct SDL_Surface* res(Resource name);
 
 #endif
