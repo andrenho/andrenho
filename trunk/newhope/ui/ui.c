@@ -14,6 +14,7 @@
 const int TILESIZE = 32;
 
 static int ui_init_library(UI* ui);
+static void ui_draw_tile(UI* ui, int x, int y);
 static SDL_Surface* ui_tile_surface(UI* ui, int x, int y);
 static void ui_image_stack(UI* ui, int x, int y, Resource stack[MAX_STACK]);
 static void ui_stack_to_char(UI* ui, Resource stack[MAX_STACK], 
@@ -26,6 +27,12 @@ typedef struct SurfaceHash {
 	UT_hash_handle hh;
 } SurfaceHash;
 static SurfaceHash* sfhash = NULL;
+
+typedef struct DirtyHash {
+	uint32_t tile;
+	UT_hash_handle hh;
+} DirtyHash;
+DirtyHash* dirty = NULL;
 
 
 UI* ui_init(World* world)
@@ -89,31 +96,33 @@ void ui_free(UI* ui)
 
 void ui_draw(UI* ui)
 {
+	DirtyHash *d, *tmp;
+	HASH_ITER(hh, dirty, d, tmp)
+	{
+		ui_draw_tile(ui, d->tile % ui->world->w, d->tile / ui->world->w);
+		// TODO - delete
+	}
+
 	SDL_Flip(ui->screen);
 }
 
 
 void ui_redraw(UI* ui)
 {
-	SDL_FillRect(ui->screen, NULL, 0);
-
-	int x, y, sx, sy;
-	for(
-			x = -ui->rx / TILESIZE - 1, 
-			sx = ui->rx % TILESIZE - TILESIZE;
-			sx < ui->screen->w; 
-			sx += TILESIZE, ++x)
-		for(
-				y = -ui->ry / TILESIZE - 1, 
-				sy = ui->ry % TILESIZE - TILESIZE;
-				sy < ui->screen->w;
-				sy += TILESIZE, ++y)
+	int x, y;
+	for(x = (ui->rx / TILESIZE); 
+			x < (ui->rx + ui->screen->w) / TILESIZE + 1; 
+			++x)
+		for(y = (ui->ry / TILESIZE); 
+				y < (ui->ry + ui->screen->h) / TILESIZE + 1; 
+				++y)
 		{
-			// important: don't free this surface - it's cached.
-			SDL_Surface *sf = ui_tile_surface(ui, x, y);
-			SDL_BlitSurface(sf, NULL, 
-					ui->screen, &(SDL_Rect) { sx, sy });
+			DirtyHash* d = malloc(sizeof(DirtyHash));
+			d->tile = x + (y * ui->world->w);
+			HASH_ADD_INT(dirty, tile, d);
 		}
+			//ui_draw_tile(ui, x, y);
+
 }
 
 
@@ -172,6 +181,17 @@ static int ui_init_library(UI* ui)
 }
 
 
+static void ui_draw_tile(UI* ui, int x, int y)
+{
+	int sx = (x * TILESIZE) - ui->rx;
+	int sy = (y * TILESIZE) - ui->ry;
+
+	// important: don't free this surface - it's cached.
+	SDL_Surface *sf = ui_tile_surface(ui, x, y);
+	SDL_BlitSurface(sf, NULL, ui->screen, &(SDL_Rect) { sx, sy });
+}
+
+
 static SDL_Surface* ui_tile_surface(UI* ui, int x, int y)
 {
 	SDL_Surface* sf = NULL;
@@ -196,6 +216,7 @@ static SDL_Surface* ui_tile_surface(UI* ui, int x, int y)
 				0x000000FF, 0x0000FF00, 0x00FF0000, 0xFF000000);
 		sf = SDL_DisplayFormat(_sf);
 		SDL_FreeSurface(_sf);
+		SDL_FillRect(sf, NULL, 0);
 		while(stack[i] != NOTHING)
 		{
 			SDL_BlitSurface(res(stack[i]), NULL, sf, NULL);
@@ -218,12 +239,21 @@ static SDL_Surface* ui_tile_surface(UI* ui, int x, int y)
 
 static void ui_image_stack(UI* ui, int x, int y, Resource stack[MAX_STACK])
 {
-	switch(world_terrain(ui->world, x, y))
+	int special = 0;
+
+	switch(world_terrain(ui->world, x, y, &special))
 	{
 	case t_OUT_OF_BOUNDS:
 		break;
 	case t_GRASS:
-		stack[0] = GRASSM;
+		switch(special)
+		{
+		case 0: stack[0] = GRASS0; break;
+		case 1: stack[0] = GRASS1; break;
+		case 2: stack[0] = GRASS2; break;
+		case 3: stack[0] = GRASS3; break;
+		default: abort();
+		}
 		break;
 	default:
 		errx(1, "Invalid terrain type.");

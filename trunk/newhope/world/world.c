@@ -17,8 +17,13 @@ void world_free(World* world)
 }
 
 
-Terrain world_terrain(World* world, int x, int y)
+Terrain world_terrain(World* world, int x, int y, int* special)
 {
+	srand(x + (y * world->w));
+	*special = rand() % 35;
+	if(*special >= 4)
+		*special = 0;
+
 	if(x < 0 || y < 0 || x >= world->w || y >= world->h)
 		return t_OUT_OF_BOUNDS;
 	else
