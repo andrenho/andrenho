@@ -19,9 +19,9 @@ const int SHOWDRAWTIME = 0;
 static int ui_init_library(UI* ui);
 static void ui_draw_tile(UI* ui, int x, int y, SDL_Rect* r);
 static SDL_Surface* ui_tile_surface(UI* ui, int x, int y);
-static void ui_image_stack(UI* ui, int x, int y, Resource stack[MAX_STACK]);
-static void ui_stack_to_char(UI* ui, Resource stack[MAX_STACK], 
-		char ret[MAX_STACK]);
+static void ui_image_stack(UI* ui, int x, int y, SDL_Surface* stack[MAX_STACK]);
+static void ui_stack_to_char(UI* ui, SDL_Surface* stack[MAX_STACK],
+		char ret[MAX_STACK * 8]);
 static inline void ui_set_dirty(UI* ui, int x, int y);
 
 
@@ -251,11 +251,11 @@ static SDL_Surface* ui_tile_surface(UI* ui, int x, int y)
 	SDL_Surface* sf = NULL;
 
 	// build stack
-	Resource stack[MAX_STACK] = { [0 ... (MAX_STACK-1)] = NOTHING };
+	SDL_Surface* stack[MAX_STACK] = { [0 ... (MAX_STACK-1)] = NULL };
 	ui_image_stack(ui, x, y, stack);
 
 	// find hash key
-	char id[MAX_STACK] = { [0 ... (MAX_STACK-1)] = 0 };
+	char id[RES_CHARS * 8] = { [0 ... (MAX_STACK*8-1)] = 0 };
 	ui_stack_to_char(ui, stack, id);
 
 	// find image in hash
@@ -271,7 +271,7 @@ static SDL_Surface* ui_tile_surface(UI* ui, int x, int y)
 		sf = SDL_DisplayFormat(_sf);
 		SDL_FreeSurface(_sf);
 		SDL_FillRect(sf, NULL, 0);
-		while(stack[i] != NOTHING)
+		while(stack[i])
 		{
 			SDL_BlitSurface(res(stack[i]), NULL, sf, NULL);
 			i++;
@@ -291,7 +291,7 @@ static SDL_Surface* ui_tile_surface(UI* ui, int x, int y)
 }
 
 
-static void ui_image_stack(UI* ui, int x, int y, Resource stack[MAX_STACK])
+static void ui_image_stack(UI* ui, int x, int y, SDL_Surface* stack[MAX_STACK])
 {
 	int special = 0;
 
@@ -302,10 +302,10 @@ static void ui_image_stack(UI* ui, int x, int y, Resource stack[MAX_STACK])
 	case t_GRASS:
 		switch(special)
 		{
-		case 0: stack[0] = GRASS_0; break;
-		case 1: stack[0] = GRASS_1; break;
-		case 2: stack[0] = GRASS_2; break;
-		case 3: stack[0] = GRASS_3; break;
+		case 0: stack[0] = res("grass_0"); break;
+		case 1: stack[0] = res("grass_1"); break;
+		case 2: stack[0] = res("grass_2"); break;
+		case 3: stack[0] = res("grass_3"); break;
 		default: abort();
 		}
 		break;
@@ -315,15 +315,10 @@ static void ui_image_stack(UI* ui, int x, int y, Resource stack[MAX_STACK])
 }
 
 
-static void ui_stack_to_char(UI* ui, Resource stack[MAX_STACK], 
-		char ret[MAX_STACK])
+static void ui_stack_to_char(UI* ui, SDL_Surface* stack[MAX_STACK],
+		char ret[MAX_STACK * 8])
 {
-	int i = 0;
-	while(stack[i] != NOTHING && i < 10)
-	{
-		ret[i] = stack[i];
-		++i;
-	}
+	memcpy(ret, stack, MAX_STACK * sizeof(void*));
 }
 
 
