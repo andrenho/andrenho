@@ -2,23 +2,27 @@
 
 #include <assert.h>
 #include <stdlib.h>
+#include <sys/time.h>
 #include "SDL.h"
 
 #include "ui/resource.h"
 #include "util/log.h"
+#include "util/numbers.h"
 #include "util/uthash.h"
 #include "world/world.h"
 
 #define MAX_STACK 10
 
 const int TILESIZE = 32;
+const int SHOWDRAWTIME = 1;
 
 static int ui_init_library(UI* ui);
-static void ui_draw_tile(UI* ui, int x, int y);
+static void ui_draw_tile(UI* ui, int x, int y, SDL_Rect* r);
 static SDL_Surface* ui_tile_surface(UI* ui, int x, int y);
 static void ui_image_stack(UI* ui, int x, int y, Resource stack[MAX_STACK]);
 static void ui_stack_to_char(UI* ui, Resource stack[MAX_STACK], 
 		char ret[MAX_STACK]);
+static inline void ui_set_dirty(UI* ui, int x, int y);
 
 
 typedef struct SurfaceHash {
@@ -32,7 +36,6 @@ typedef struct DirtyHash {
 	uint32_t tile;
 	UT_hash_handle hh;
 } DirtyHash;
-DirtyHash* dirty = NULL;
 
 
 UI* ui_init(World* world)
@@ -44,6 +47,8 @@ UI* ui_init(World* world)
 	ui->screen = NULL;
 	ui->rx = ui->ry = 0;
 	ui->world = world;
+	ui->flip_next_frame = 0;
+	ui->dirty = NULL;
 
 	// initialize library
 	if(!ui_init_library(ui))
@@ -96,14 +101,42 @@ void ui_free(UI* ui)
 
 void ui_draw(UI* ui)
 {
+	// will redraw:
+	//   - tiles contained in `dirty` hash
+	//   - full screen if ui->flip_next_frame
+
+	struct timeval beg, end;
+	if(SHOWDRAWTIME)
+		gettimeofday(&beg, NULL);
+
 	DirtyHash *d, *tmp;
-	HASH_ITER(hh, dirty, d, tmp)
+	int max_rects = ui->screen->w * ui->screen->h / TILESIZE / TILESIZE * 2;
+	SDL_Rect rects[max_rects];
+	int numrects = 0;
+
+	HASH_ITER(hh, ui->dirty, d, tmp)
 	{
-		ui_draw_tile(ui, d->tile % ui->world->w, d->tile / ui->world->w);
-		// TODO - delete
+		SDL_Rect r;
+		ui_draw_tile(ui, 
+				d->tile % ui->world->w, 
+				d->tile / ui->world->w, &r);
+		rects[numrects] = r; // TODO auto-increase
+		++numrects;
+		HASH_DEL(ui->dirty, d);
 	}
 
-	SDL_Flip(ui->screen);
+	if(numrects > ui->screen->w * ui->screen->h / TILESIZE / TILESIZE / 3 ||
+			ui->flip_next_frame)
+		SDL_Flip(ui->screen);
+	else
+		SDL_UpdateRects(ui->screen, numrects-1, rects);
+	ui->flip_next_frame = 0;
+
+	if(SHOWDRAWTIME)
+	{
+		gettimeofday(&end, NULL);
+		debug("%d", end.tv_usec - beg.tv_usec);
+	}
 }
 
 
@@ -116,22 +149,25 @@ void ui_redraw(UI* ui)
 		for(y = (ui->ry / TILESIZE); 
 				y < (ui->ry + ui->screen->h) / TILESIZE + 1; 
 				++y)
-		{
-			DirtyHash* d = malloc(sizeof(DirtyHash));
-			d->tile = x + (y * ui->world->w);
-			HASH_ADD_INT(dirty, tile, d);
-		}
-			//ui_draw_tile(ui, x, y);
-
+			ui_set_dirty(ui, x, y);
 }
 
 
 void ui_moveview(UI* ui, int horiz, int vert)
 {
+	// move center of screen
 	ui->rx += horiz;
 	ui->ry += vert;
-	SDL_BlitSurface(ui->screen, NULL, ui->screen, 
-			&(SDL_Rect){ horiz, vert });
+
+	// redraw new tiles
+//	int newtiles_horiz = abs(horiz) / TILESIZE + 1;
+//	if(horiz 
+	
+	// TODO - draw only the borders! this is slow!!!
+	ui_redraw(ui);
+
+	// request SDL_Flip on next frame
+	ui->flip_next_frame = 1;
 }
 
 
@@ -181,7 +217,7 @@ static int ui_init_library(UI* ui)
 }
 
 
-static void ui_draw_tile(UI* ui, int x, int y)
+static void ui_draw_tile(UI* ui, int x, int y, SDL_Rect *r)
 {
 	int sx = (x * TILESIZE) - ui->rx;
 	int sy = (y * TILESIZE) - ui->ry;
@@ -189,6 +225,22 @@ static void ui_draw_tile(UI* ui, int x, int y)
 	// important: don't free this surface - it's cached.
 	SDL_Surface *sf = ui_tile_surface(ui, x, y);
 	SDL_BlitSurface(sf, NULL, ui->screen, &(SDL_Rect) { sx, sy });
+
+	if(r)
+	{
+		r->x = imax(sx, 0); 
+		r->y = imax(sy, 0);
+		if(r->x + sf->w >= ui->screen->w)
+			r->w = ui->screen->w - r->x;
+		else
+			r->w = sf->w;
+		if(r->y + sf->h >= ui->screen->h)
+			r->h = ui->screen->h - r->y;
+		else
+			r->h = sf->h;
+	}
+	if(r->x > ui->screen->w || r->y > ui->screen->h)
+		r = &(SDL_Rect){ 0, 0, 0, 0 };
 }
 
 
@@ -270,4 +322,12 @@ static void ui_stack_to_char(UI* ui, Resource stack[MAX_STACK],
 		ret[i] = stack[i];
 		++i;
 	}
+}
+
+
+static inline void ui_set_dirty(UI* ui, int x, int y)
+{
+	DirtyHash* d = malloc(sizeof(DirtyHash));
+	d->tile = x + (y * ui->world->w);
+	HASH_ADD_INT(ui->dirty, tile, d);
 }
