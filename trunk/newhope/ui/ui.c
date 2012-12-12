@@ -302,10 +302,10 @@ static void ui_image_stack(UI* ui, int x, int y, Resource stack[MAX_STACK])
 	case t_GRASS:
 		switch(special)
 		{
-		case 0: stack[0] = GRASS0; break;
-		case 1: stack[0] = GRASS1; break;
-		case 2: stack[0] = GRASS2; break;
-		case 3: stack[0] = GRASS3; break;
+		case 0: stack[0] = GRASS_0; break;
+		case 1: stack[0] = GRASS_1; break;
+		case 2: stack[0] = GRASS_2; break;
+		case 3: stack[0] = GRASS_3; break;
 		default: abort();
 		}
 		break;
