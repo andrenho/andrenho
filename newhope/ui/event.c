@@ -31,19 +31,24 @@ void evt_process(UI* ui, World* world)
 
 static void evt_keypress(UI* ui, World* world, SDL_KeyboardEvent k)
 {
-	const int s = 5;
+	int s = 5;
+	
+	Uint8 *ks = SDL_GetKeyState(NULL);
+	if(ks[SDLK_LSHIFT])
+		s = 40;
+
 	switch(k.keysym.sym)
 	{
-	case SDLK_h:
+	case SDLK_LEFT:
 		ui_moveview(ui, -s, 0);
 		break;
-	case SDLK_j:
+	case SDLK_DOWN:
 		ui_moveview(ui, 0, s);
 		break;
-	case SDLK_k:
+	case SDLK_UP:
 		ui_moveview(ui, 0, -s);
 		break;
-	case SDLK_l:
+	case SDLK_RIGHT:
 		ui_moveview(ui, s, 0);
 		break;
 	default:

@@ -120,8 +120,11 @@ void ui_draw(UI* ui)
 		ui_draw_tile(ui, 
 				d->tile % ui->world->w, 
 				d->tile / ui->world->w, &r);
-		rects[numrects] = r; // TODO auto-increase
-		++numrects;
+		if(r.w && numrects < max_rects)
+		{
+			rects[numrects] = r; // TODO auto-increase
+			++numrects;
+		}
 		HASH_DEL(ui->dirty, d);
 	}
 
