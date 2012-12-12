@@ -18,11 +18,18 @@ void evt_process(UI* ui, World* world)
 	{
 		switch(e.type)
 		{
-		case SDL_QUIT:
-			ui->active = 0;
+		case SDL_VIDEORESIZE:
+			debug("resize!");
+			SDL_FreeSurface(ui->screen);
+			ui->screen = SDL_SetVideoMode(e.resize.w, e.resize.h, 32, 
+				SDL_SWSURFACE|SDL_RESIZABLE);
+			ui_redraw(ui);
 			break;
 		case SDL_KEYDOWN:
 			evt_keypress(ui, world, e.key);
+			break;
+		case SDL_QUIT:
+			ui->active = 0;
 			break;
 		}
 	}

@@ -175,7 +175,7 @@ void ui_moveview(UI* ui, int horiz, int vert)
 
 void ui_start_frame(UI* ui)
 {
-	ui->ticks = SDL_GetTicks() + 1000/60;
+	ui->ticks = SDL_GetTicks() + 1000/30;
 }
 
 
@@ -203,7 +203,7 @@ static int ui_init_library(UI* ui)
 	ui->sdl_initialized = 1;
 	debug("SDL initialized.");
 
-	ui->screen = SDL_SetVideoMode(800, 600, 32, 
+	ui->screen = SDL_SetVideoMode(0, 0, 32, 
 			SDL_SWSURFACE|SDL_RESIZABLE);
 	if(!ui->screen)
 	{
