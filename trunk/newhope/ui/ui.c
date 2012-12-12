@@ -14,7 +14,7 @@
 #define MAX_STACK 10
 
 const int TILESIZE = 32;
-const int SHOWDRAWTIME = 1;
+const int SHOWDRAWTIME = 0;
 
 static int ui_init_library(UI* ui);
 static void ui_draw_tile(UI* ui, int x, int y, SDL_Rect* r);
@@ -159,9 +159,8 @@ void ui_moveview(UI* ui, int horiz, int vert)
 	ui->rx += horiz;
 	ui->ry += vert;
 
-	// redraw new tiles
-//	int newtiles_horiz = abs(horiz) / TILESIZE + 1;
-//	if(horiz 
+	//SDL_BlitSurface(ui->screen, NULL, ui->screen,
+	//		&(SDL_Rect){ horiz, vert });
 	
 	// TODO - draw only the borders! this is slow!!!
 	ui_redraw(ui);
@@ -173,7 +172,7 @@ void ui_moveview(UI* ui, int horiz, int vert)
 
 void ui_start_frame(UI* ui)
 {
-	ui->ticks = SDL_GetTicks() + 1000/30;
+	ui->ticks = SDL_GetTicks() + 1000/60;
 }
 
 
