@@ -63,31 +63,31 @@ Context-aware and ubiquitous systems have the challenge of implicitly collect re
 \label{ch:introducao}
 %\paragraph{Paragraph headings} Use paragraph headings as needed.
 
-Nowadays, most users interact with a variety of computing systems. The current tendency is the increased interconnectedness between these systems, since the internet is becoming more present and available anywhere. Recent research predict the full integration between these systems in a federation of computing systems. This federation can be described as Smart Environments \citep{heckmann05}.
+Nowadays, most users interact with a wide variety of computing systems. The current tendency is the increased interconnectedness between these systems, since the internet is becoming every day more present and available. Recent research predicts the full integration between these systems in a federation of computing systems. This federation is referred to as Smart Environment \citep{heckmann05}.
 
-\citet{weiser91} discussed a vision for the concept of smart envirnoments, where he presented a scenario in which the computer would become invisible and indistinguishable from its environment. In this scenario, interaction between humans and computers would not occur as usual -- where the human devotes his full atention to the computer --, but would consist of small and quick interactions, usually in different devices and locations, and in many times using the ``periphery'' of the user's attention \citep{weiser96}, or without the user even realize he is interacting with a computer system. According to the author, ``the most profound technologies are those that disappear. They weave themselves into the fabric of everyday life until they are indistinguishable from it.'' \citep{weiser91}. He asserts that the future of computing lies in integrating the computer to the real world, not the other way around, and he calls this new paradigm Ubiquitous Computing.
+\citet{weiser91} discussed a vision for the concept of smart envirnoments. He presented a scenario in which the computer would become invisible and indistinguishable from its environment. In this scenario, interaction between humans and computers would not occur as usual -- where the humans devote their full atention to the computer --, but would consist of small and quick interactions, usually in different devices and locations, and in many times using the ``periphery'' of the user's attention \citep{weiser96}, or without the user even realizing he is interacting with a computer system. According to the author, ``the most profound technologies are those that disappear. They weave themselves into the fabric of everyday life until they are indistinguishable from it.'' \citep{weiser91}. He asserts that the future of computing lies in integrating the computer to the real world, not the other way around, and he calls this new paradigm Ubiquitous Computing.
 
-However, the increase of the computing resources available everytime and everywhere poses the risk of information overload on the user. To solve this problem, the concept of ``calm technology'' was created \citep{weiser96}. This means the transfer of information between the computer and the user must happen in the ``perifery'' of the user's attention, moving to the ``center'' of his attention in moments of urgency. Taking a car's engine as an example, when a person drives a car, his attention is focused on the road, and he barely notices the engine sound. However, if the engine emits a strange sound (that might indicate some kind of problem), the driver's attention turns to the engine.
+However, the availability of computing resources everytime and everywhere poses the risk of information overload on the user. To solve this problem, the concept of ``calm technology'' was created \citep{weiser96}. This means the transfer of information between the computer and the user must happen in the ``periphery'' of the user's attention, moving to the ``center'' of his attention in moments of urgency. Taking a car's engine as an example: when a person drives a car, his attention is focused on the road, and he barely notices the engine sound. However, if the engine emits a strange sound (that might indicate some kind of problem), the driver's attention turns to the engine.
 
 If a system is to be minimally intrusive, it must undestand the situation of the user and his surroundings, and adapt its own behaviour according to this information. This information is called context, and systems capable of this kind of adaptation are called context-sensitive \citep{satyanarayanan01,dey2001}. 
 
-Research in this area shows that is not only useful to know the context of the user when a service is being offered, but that the history of visited contexts can be a valuable information to help the application to adapt itself to the user. This history of visited contexts is called Trail \citep{silva10}. Altough the trail is usually tied to the location of a user, it has a broader concept, which includes activities performed, applications used, content accessed -- among others -- inside a specific context and timeframe \citep{silva09}.
+Research in this area shows that is not only useful to know the context of the user when a service is being offered, but that the history of visited contexts can be a valuable information to help the application to adapt itself to the user. This history of visited contexts is called Trail \citep{silva10}. Altough the trail is usually tied to the location of a user, the concept of a trail is breader and includes activities performed, applications used, content accessed -- among others -- inside a specific context and timeframe \citep{silva09}.
 
-For an application to adapt itself to a user effectively, it is not only important to know the history of contexts visited by a user, but to understand who the user is -- that is, what are his characteristics. This kind of application organize their knowledge about a user in User Profiles. This information is stored in a format called User Model \citep{viviani10}.
+For an application to adapt itself effectively to a user, it is not only important to know the history of contexts visited by a user, but to understand who the user is -- that is, what are his characteristics. This kind of application organize its knowledge about a user in User Profiles. The profiles are stored in a format called User Model \citep{viviani10}.
 
-Personalization means the individual adaptation of products, services and information. Personalization technology usually involve programs that learn patterns, habits and preferences of a user. The main goal of modern personalization systems is to offer the users what they want, without demanding them to inform it explicitly \citep{mulvenna00}. It is clear that this purpose meets the ubiquitous computing objectivem that is, the development of a technology that ``disappears''.
+Personalization means the individual adaptation of products, services and information. Personalization technology usually involve programs that learn patterns, habits and preferences of a user. The main goal of modern personalization systems is to offer the users what they want, without demanding them to inform it explicitly \citep{mulvenna00}. It is clear that this purpose meets the ubiquitous computing objective that is, the development of a technology that ``disappears''.
 
 For a system to be succeessful in obtaining the user's intent, it must know the user, the context where the user is inserted and the actions he took when he was previously in the same context or in similar contexts. Although there are some studies that seek to infer knowledge about a user from their trail, previous works operate within a specific context (such as Ubiquitous Education \citep{barbosa11} or Ubiquitous Commerce \citep{franco11}) or use a static user model \citep{pelep}.
 
-A relevant aspect for environments with multiple independent systems is interoperability. Interoperability is the ability of two or more systems or components to exchange information and use the information that has been exchanged. \citep{ieeedict}. In the context of customization, interoperability refers to the ability to access and interpret information derived from multiple heterogeneous sources and integrate this information into a common user model. Interoperability can be (i) syntactic, where the differences between the models are resolved user-level application, or (ii) semantic, where the differences between the models are resolved at the level of knowledge \citep{carmagnola09}.
+A relevant aspect for environments with multiple independent systems is the interoperability. Interoperability is the ability of two or more systems or components to exchange information and use the information that has been exchanged. \citep{ieeedict}. In the context of customization, interoperability refers to the ability to access and interpret information derived from multiple heterogeneous sources, and integrate it into a common user model. Interoperability can be (i) syntactic, where the differences between the models are resolved at application level, or (ii) semantic, where the differences between the models are resolved at the level of knowledge \citep{carmagnola09}.
 
-Research indicates that it is desirable that future systems become increasingly invisible to their users \citep{weiser96}, and that a system can only become invisible if it is proactive, and can only be proactive by knowing the user \citep{satyanarayanan01}. For a system to know a user, he must know the user history, understand the context in which he is inserted, as well as data collected concerning him in the same context (or in a similar context), and be able to process this set of informations in a user profile.
+Research indicates that it is desirable that future systems become increasingly invisible to their users \citep{weiser96}, and that a system can only become invisible if it is proactive, and can only be proactive by knowing the user \citep{satyanarayanan01}. For a system to know a user, he must know the user history, understand the context in which he is inserted, as well as data collected concerning him in the same context (or in a similar context), and be able to process this set of information into a user profile.
 
-In this context we are proposing the eProfile, a model for the automatic creation of profiles by inference of entities trails. This model allows the use of a single profile by several independent systems, offering the possibility of semantic interoperability between them.
+In this context we are proposing the eProfile, a model for the automatic creation of profiles by inference of entity trails. This model allows the use of a single profile by several independent systems, offering the possibility of semantic interoperability between them.
 
-In this model, the concept of entity is used instead of the classic concept of User. While usually the ``user'' means the person who is using the application, an entity refers to any object (physical or not) able to control an application. Thus, an entity can be a person, a moving object (like a car) or property (like a room), or even a system.
+In this model, the concept of entity is used instead of the classic concept of User. While usually the ``user'' means the person who is using the application, an entity refers to any object (physical or not) able to control an application. Thus, an entity can be a person, a moving object (like a car) or property (like a room), or even a different system.
 
-This article is organized as follows. Section~\ref{ch:modelo} proposes the eProfile model. Section~\ref{ch:implementacao} discusses implementação aspects. Section~\ref{ch:cenario} presents and experiment validating the model. Section~\ref{ch:relacionados} describes related work, showing the contributions of this model. Finally, a Section~\ref{sec:conclusao} presents the concluding remarks.
+This article is organized as follows. Section~\ref{ch:modelo} proposes the eProfile model. Section~\ref{ch:implementacao} discusses implementation aspects. Section~\ref{ch:cenario} presents an experiment validating the model. Section~\ref{ch:relacionados} describes related work, showing the contributions of this model. Finally, a Section~\ref{sec:conclusao} presents the concluding remarks.
 
 
 %-----------------------------------------------------------
@@ -96,19 +96,19 @@ This article is organized as follows. Section~\ref{ch:modelo} proposes the eProf
 
 \begin{figure}
   \centering\includegraphics[width=0.6\textwidth]{imagens/modelobasico_en.png}
-  \caption{\textbf{Modelo básico do eProfile}}
+  \caption{\textbf{Overview of eProfile}}
   \label{fig:modelobasico}
 \end{figure}
 
 Figure~\ref{fig:modelobasico} shows the overview of eProfile, where each circle represents a component, and the arrows indicate the flow of data.
 
-The first component depicted is the {\bf application}. The application, in this model, is any application that is being used directly by an entity. For an application to be considered suitable to use this model and able to use the functionality offered by eProfile, it needs to record their information on a trail manager supported by eProfile. The application must also implement a communication protocol to exchange messages with eProfile. If it follows these prerequisites, the application can be of any type and operate in any type of device that has communication with the Internet.
+The first component depicted is the {\bf application}. The application, in this model, is any application that is being used directly by an entity. For an application to be considered suitable to use this model and the functionality offered by eProfile, it needs to record their information on a trail manager supported by eProfile. The application must also implement a communication protocol to exchange messages with eProfile. If these prerequisites are followed, the application can be of any type and operate in any type of device that has communication with the Internet.
 
-The second component depicted is a {\bf trail manager}. A trail manager is capable of storing events held by an entity, putting them in chronological order and registering information relevant to the event (eg, the context in which the event was held). The eProfile manager supports any trail manager, since the trail manager communication protocol is implemented in eProfile.
+The second component depicted is a {\bf trail manager}. A trail manager is capable of storing events held by an entity, putting them in chronological order and registering information relevant to the event (eg, the context in which the event was held). The eProfile manager supports any trail manager whose communication protocol is implemented in eProfile.
 
 The third component of Figure~\ref{fig:modelobasico} represents the {\bf eProfile}. The arrows indicate the flow of data. The communication starts when the application registers itself on eProfile, sending (i) the entity model used by the application and (ii) the rules for construction of this model (arrow ``a''). From this moment on, the application starts recording the events on the trail manager (arrow ``b''). The eProfile periodically retrieves this information from the trail manager and builds or reconfigures the profile entity (arrow ``c''). When the application needs an updated profile, it retrieves this profile from eProfile (arrow ``d'').
 
-Since the eProfile supports multiple applications, it is possible for different applications to use different trail managers. Therefore, the eProfile also supports communication with a number of trail managers, as is shown in Figure~\ref{fig:gerenciadores}.
+Since the eProfile supports multiple applications, it is possible for different applications to use different trail managers. Therefore, the eProfile also supports communication with a number of trail managers, as exemplified in Figure~\ref{fig:gerenciadores}.
 
 
 \begin{figure}
@@ -132,29 +132,29 @@ Since the eProfile supports multiple applications, it is possible for different 
   \label{fig:modelo}
 \end{figure}
 
-Figure~\ref{fig:architecture} shows the architecture of eProfile. The components ``Application'' and ``Trail Manager'' are the same as shown in Figure~\ref{fig:modelobasico}, while the ``eProfile'' service was expanded to show its inner workings.
+Figure~\ref{fig:modelo} shows the architecture of eProfile. The components ``Application'' and ``Trail Manager'' are the same as shown in Figure~\ref{fig:modelobasico}, while the ``eProfile'' service was expanded to show its inner workings.
 
-Since the eProfile is a model that infers autonomously information about data stored in an ontology, and is organized into independent parts, it uses the technology of autonomous agents.
+Since the eProfile is a model that infers information about data stored in an ontology autonomously, and is organized into independent parts, it uses the technology of autonomous agents.
 
-Each application builds its own entity model. The eProfile needs three pieces of information to be able to process the profiles: (i) the entity trail, (ii) the entity model used by the application and (iii) the inference rules for the profile. This can be seen in Figure~\ref{fig:modelo}, where the agent ``Reasoner'' receives data from these three databases. The trail of the entity is loaded by the eProfile from the trail manager , while the other two informations are sent directly from the application to the eProfile. Thus, the inference rules defined by the application are used to infer the profile of the entity.
+Each application builds its own entity model. The eProfile needs three pieces of information to be able to process the profiles: (i) the entity trail, (ii) the entity model used by the application and (iii) the inference rules for the profile. This can be seen in Figure~\ref{fig:modelo}, where the agent ``Reasoner'' receives data from these three databases. The trail of the entity is loaded by the eProfile from the trail manager, while the other two information are sent directly from the application to the eProfile. Thus, the inference rules defined by the application are used to infer the profile of the entity.
 
 The arrows in Figure~\ref{fig:modelo} indicate the direction of the data flow, where it can be noted two entry points and one exit point.
 
-The first entry point (arrow ``a'') are the informations sent from the application to eProfile or, more specifically, to the {\bf Configurator} agent. The following informations must be sent by the application:
+The first entry point (arrow ``a'') are the information sent from the application to eProfile or, more specifically, to the {\bf Configurator} agent. The following information must be sent by the application:
 
 \begin{itemize}
 
-\item the entity model used by the application, which is the entity profile format. Once the entity trail is processed, the inferred data is stored and made available for application using this format;
+\item the entity model used by the application, which is the format of the entity profile. Once the entity trail is processed, the inferred data is stored and made available for application using this format;
 
 \item rules to infer the profile. These rules will be executed at regular intervals in order to update the entity profile. The Configurator receives the rules, validate them and insert them in \textbf{rule database}. Along with the rules, is specified the criticality of information. The system uses this information to determine how often the information will be inferred.
 
 \end{itemize}
 
-The second entry point (arrow ``c'') allows receiving the entities trails, that are fetched by the eProfile from the trail manager. Since eProfile can connect to different trail managers, (Figure~\ref{fig:gerenciadores}), where each trail has one specific format, a conversion between the original format and the format used by eProfile is needed for the trails to be stored in a standardized manner. This work is performed by an agent named {\bf Converter}, which is able to perform the conversion to the eProfile internal trail format.
+The second entry point (arrow ``c'') allows receiving the entity trails, which are fetched by the eProfile from the trail manager. Since eProfile can connect to different trail managers, (Figure~\ref{fig:gerenciadores}), and each trail manager might use one specific format, a conversion between the original format and the format used by eProfile is needed for the trails to be stored in a standardized manner. This work is performed by an agent named {\bf Converter}, which is able to perform the conversion to the eProfile internal trail format.
 
-The entity trail is then stored in an trail ontology, called {\bf eOntoTrail}. This ontology has the basic classes supporting the construction of a trail, and they can be extended according to the specification of the trail manager which is being used.
+The entity trail is then stored in a trail ontology called {\bf eOntoTrail}. This ontology contains the basic classes supporting the construction of a trail, and they can be extended according to the specification of the trail manager that is being used.
 
-Once in possession of the tracks, the model and rules, the \textbf{Reasoner} agent performs inference of the trail, generating a entity profile, which consists of an extension of a basic profile ontology named {\bf eOntoProfile}. This ontology, just like the trail ontology, contains basic classes from which applications can specialize, using them to store their own information. The application can then connect to the eProfile and get its entity profile, whose data are sent by the \textbf{Communicator} agent (arrow ``d'').
+Once in possession of the tracks, the model and rules, the \textbf{Reasoner} agent infers from the trail, generating a entity profile that consists of an extension of a basic profile ontology named {\bf eOntoProfile}. This ontology, just like the trail ontology, contains basic classes from which applications can specialize, using them to store their own information. The application can then connect to the eProfile and get its entity profile, whose data are sent by the \textbf{Communicator} agent (arrow ``d'').
 
 
 
@@ -164,7 +164,7 @@ Once in possession of the tracks, the model and rules, the \textbf{Reasoner} age
 
 As mentioned in Section~\ref{sec:arquitetura}, eProfile uses two ontologies: a trail ontology and a profile ontology. These are both basic ontologies, extended by subclasses according to the trail format sent by the trail manager (for the trail ontology) or the needs of the application (for the profile ontology).
 
-The trail ontology (eOntoTrail) data, shown in Figure X, is fed by different supported trail manager, where the Converter agent is responsible for receiving data in the trail manager format and converting them to the eOntoTrail. Thus, the reasoner has a single ontology on which to reason.
+The trail ontology data (eOntoTrail), shown in Figure~\ref{sec:ont_trilha}, is fed by different supported trail managers. The Converter agent is responsible for receiving data in the trail manager format and converting it to the eOntoTrail. This way, the reasoner has a single ontology on which to reason.
 
 \begin{figure}
   \centering\includegraphics[width=1\textwidth]{imagens/ont_trilha_simples.png}
@@ -172,7 +172,7 @@ The trail ontology (eOntoTrail) data, shown in Figure X, is fed by different sup
   \label{fig:ont_trilha}
 \end{figure}
 
-Context-aware applications are interested in knowing {\bf who}, {\bf where}, {\bf when} and {\bf what} (that is, what the user is doing), so that they can discover why the situation is occurring \citep{abowd99}. Thus, a trail is represented by a set of events characterized by the following main classes: (i) {\em Entity}, the identity of the entity that is performing the action, which can optionally be linked to a profile, (ii) {\em Location}, the place where the action is taking place, (iii) {\em Time}, the date and time that the event occurred, (iv) {\em Participants}, the entities linked to this action, and (v) {\em Activity}, the action that the entity is performing (or trying to perform). This class is the most comprehensive of the ontology, and that will possibly be the most specialized by the trail managers.
+Context-aware applications are interested in knowing {\bf who}, {\bf where}, {\bf when} and {\bf what} (that is, what the user is doing), so they can discover why the situation is occurring \citep{abowd99}. Thus, a trail is represented by a set of events characterized by the following main classes: (i) {\em Entity}, the identity of the entity that is performing the action, which can optionally be linked to a profile, (ii) {\em Location}, the place where the action is taking place, (iii) {\em Time}, the date and time the event occurred, (iv) {\em Participants}, the entities linked to this action, and (v) {\em Activity}, the action that the entity is performing (or trying to perform). This class is the most comprehensive of the ontology, and will possibly be the most specialized by the trail managers.
 
 \begin{figure}
   \centering\includegraphics[width=0.45\textwidth]{imagens/ont_perfil3.png}
@@ -180,19 +180,19 @@ Context-aware applications are interested in knowing {\bf who}, {\bf where}, {\b
   \label{fig:ont_perfil}
 \end{figure}
 
-The profile ontology (eOntoProfile), shown in Figure~\ref{fig:ont_perfil}, is the ontology used to store the entity models, as well as the profile information that is inferred from the trail. For the ontology to be feasible within the proposed model, it must be a generic ontology that allows its classes to be extended by applications. In the figure, a relationship between classes is shown by a dotted line, and a specialization of a class is shown by a continuous line. The eOntoProfile is a basic ontology, extended by the applications so that they can assemble their own entity models.
+The profile ontology (eOntoProfile), shown in Figure~\ref{fig:ont_perfil}, is the ontology used to store the entity models, as well as the profile information inferred from the trail. For the ontology to be feasible within the proposed model, it must be a generic ontology that allows its classes to be extended by applications. In the figure, a relationship between classes is shown by a dotted line, and a specialization of a class is shown by a continuous line. The eOntoProfile is a basic ontology, extended by the applications for them to assemble their own entity models.
 
-The basic class of the ontology is the {\em Element} class. The class {\em Element} represents anything in the real world. It has the following children classes: (i) {\it Entity}, which represents an entity, that is, an element that has a profile associated with it, and (ii) {\it NonEntity}, which represents an element than doesn't have a profile associated with it. For example, a trail registers a event where a person enters a store, but the store does not have a profile in eProfile. In this case, the store is a {\it NonEntity}. This distinction is important because in the first case, the eProfile has access to a wide range of information about the entity, the entities related to that entity, and so on.
+The basic class of the ontology is the {\em Element} class. The class {\em Element} represents anything in the real world. It has the following children classes: (i) {\it Entity}, which represents an entity, that is, an element that has a profile associated with it, and (ii) {\it NonEntity}, which represents an element than doesn't have a profile associated with it. For example, a trail registers a event in which a person enters a store, but the store has no profile in registered in eProfile. In this case, the store is a {\it NonEntity}. This distinction is important because in the first case, the eProfile has access to a wide range of information about the entity, entities related to that first entity, and so on.
 
-The class {\em Characteristic} represent a aspect of the entity, and is the class that will be extended by applications to refer to any information related to that entity. These characteristics can be simple labels (such as name in the case of a person, or mileage in the case of a car) or more complex information (such as academic knowledge or latest routes traveled).
+The class {\em Characteristic} represent a aspect of the entity, and is the class that will be extended by applications to refer to any information related to that entity. These characteristics can be simple labels (such as name of a person, or mileage of a car) or more complex information (such as academic knowledge or latest routes traveled).
 
 
 
 \subsection{Rule Execution}
 
-The execution of rules is key to the functioning of eProfile. A inference rule is a instruction issued by an application, that runs on a entity trailset, resulting in a entity profilem according to a entity model previously registered by the application.
+The execution of rules is key to eProfile's operation. A inference rule is a instruction issued by an application, that runs on a entity trailset, resulting in a entity profile according to a entity model previously registered by the application.
 
-For a rule to be executed, the application must have previously registered with eProfile: (i) the rule itself, (ii) in an entity model, which serves as the basis for the entity profile format, and (iii) the trail of the entity on which the inference is performed. From these three pieces of information, the reasoner is able to generate a profile entity, according to Figure~\ref{fig:dados_inferencia}.
+For a rule to be executed, the application must have previously registered within eProfile: (i) the rule itself, (ii) in an entity model, which serves as basis for the entity profile format, and (iii) the trail of the entity on which the inference is performed. From these three pieces of information, the reasoner is able to generate a profile entity, according to Figure~\ref{fig:dados_inferencia}.
 
 \begin{figure}\centering
   \includegraphics[width=0.9\textwidth]{imagens/dados_inferencia_en.png}
@@ -200,7 +200,7 @@ For a rule to be executed, the application must have previously registered with 
   \label{fig:dados_inferencia}
 \end{figure}
 
-The rules are always defined by the application, and a rule is composed of the following set of information: (i) name, (ii) profile field that will be updated, (iii) the rule, written in OWL language \citep{owl-guide}, (iv) update type (the value can be overwritten or updated according to a formula), (v) update frequency, and (vi) expiration of the rule.
+The rules are always defined by the application, and a rule is composed of the following set of information: (i) name, (ii) profile field that will be updated, (iii) the rule, written in OWL language \citep{owl-guide}, (iv) update method (the value can be overwritten or updated according to a formula), (v) update frequency, and (vi) expiration of the rule.
 
 
 %-----------------------------------------------------------
@@ -209,26 +209,30 @@ The rules are always defined by the application, and a rule is composed of the f
 
 The eProfile prototype was developed in Python \citep{python}. Python is a generic, open source, object-oriented, high-level language, that supports multiple architectures. The databases are implemented using the SQLite3 database \citep{sqlite3}. SQLite3 is an SQL transactional self-contained database, available in the public domain. The SQLite3 was chosen due to its good performance and the fact that it does not require a separate server for deployment.
 
-Figure~\ref{fig:dados_inferencia} shows the data flow for the entity profile inference. At the heart of this operation is the Reasoner agent, which uses an external inference engine to implement the rules. The reasoner used is FACT++, a propositional logic reasoner created as a platform for use of algorithms of semantic {\em tableaux} and optimization techniques \citep{tsarkov06}. This reasoner was chosen due to its good performance and support all functions used by the eProfile.
+Figure~\ref{fig:dados_inferencia} shows the data flow for the entity profile inference process. At the heart of this operation is the Reasoner agent, which uses an external inference engine to implement the rules. The reasoner used is FACT++, a propositional logic reasoner created as a platform for use of algorithms of semantic {\em tableaux} and optimization techniques \citep{tsarkov06}. This reasoner was chosen due to its good performance and to support all functions used by the eProfile.
 
-The knowledge representation language used for the storage and processing of ontologies is OWL\cite {owl-guide}, chosen because it is the most expressive ontology language defined or in definition for the Semantic Web \citep{daconta03}.
+The knowledge representation language used for storage and processing of ontologies is OWL\cite {owl-guide}, chosen because for being the most expressive ontology language defined for the Semantic Web \citep{daconta03}.
 
 %-----------------------------------------------------------
 \section{Evaluation Aspects}
 \label{ch:cenario}
 
-It is only possible to evaluate the functionalities of a proposed infrastructure by building applications that utilize it and then evaluate them, in order to obtain an indirect evaluation of the model \citep{edwards03}. The scientific community has been using scenarios to perform this type of indirect evaluation in context sensitive (such as the approach taken by Dey \citet{dey2001b}) and ubiquitous (according Satyanarayanan \citet{satyanarayanan01}) environments. This work follows the same approach -- we created a prototype and a scenario for performing an experiment, in order to evaluate eProfile.
+It is only possible to evaluate the functionalities of a proposed infrastructure by building applications that utilize it and then evaluate them, in order to obtain an indirect evaluation of the model \citep{edwards03}. The scientific community has been using scenarios to perform this type of indirect evaluation in context sensitive (such as the approach taken by \citet{dey2001b}) and ubiquitous (according to \citet{satyanarayanan01}) environments. This work follows the same approach -- we created a prototype and a scenario for performing an experiment, in order to evaluate eProfile.
+
+\ldots
 
 
 %-----------------------------------------------------------
 \section{Related Works}
 \label{ch:relacionados}
 
+\ldots
 
 %-----------------------------------------------------------
 \section{Conclusion}
 \label{sec:conclusao}
 
+\ldots
 
 
 
