@@ -32,7 +32,7 @@ static struct {
 	{ "grass_1", "grass.png", 0, 160, 32, 32 },
 	{ "grass_2", "grass.png", 32, 160, 32, 32 },
 	{ "grass_3", "grass.png", 64, 160, 32, 32 },
-	{ NULL, NULL, 0, 0, 0, 0 }
+	{ "\0", NULL, 0, 0, 0, 0 }
 };
 
 // palette
@@ -128,7 +128,7 @@ SDL_Surface* res(char name[RES_CHARS])
 	SurfaceResource *rs;
 	HASH_FIND_STR(resources, name, rs);
 	if(!rs)
-		errx(1, "Could not find resource %d.", name);
+		errx(1, "Could not find resource %s.", name);
 	return rs->sf;
 }
 
