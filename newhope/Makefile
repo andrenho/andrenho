@@ -9,6 +9,7 @@ SRC = main.c		\
       ui/event.c        \
       ui/resource.c     \
       util/log.c	\
+      util/numbers.c    \
       util/strings.c	\
       world/world.c
 OBJ = ${SRC:.c=.o}

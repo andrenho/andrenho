@@ -5,6 +5,7 @@
 #include "SDL.h"
 
 struct World;
+struct DirtyHash;
 
 typedef struct UI {
 	int sdl_initialized;
@@ -13,6 +14,8 @@ typedef struct UI {
 	Uint32 ticks;
 	int32_t rx, ry;
 	struct World* world;
+	int flip_next_frame;
+	struct DirtyHash* dirty;
 } UI;
 
 UI* ui_init(struct World* world);
