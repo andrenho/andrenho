@@ -1,5 +1,11 @@
 set nocompatible
 
+" movement with wrap
+noremap  <buffer> <silent> k gk
+noremap  <buffer> <silent> j gj
+noremap  <buffer> <silent> 0 g0
+noremap  <buffer> <silent> $ g$
+
 " appearance
 let g:solarized_italic = 0              " for colorized colorscheme
 let g:solarized_bold = 0
