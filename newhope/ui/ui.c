@@ -1,18 +1,32 @@
 #include "ui.h"
 
+#include <assert.h>
 #include <stdlib.h>
 #include "SDL.h"
 
 #include "ui/resource.h"
 #include "util/log.h"
+#include "util/uthash.h"
 #include "world/world.h"
 
+#define MAX_STACK 10
+
 const int TILESIZE = 32;
-const int MAX_STACK = 10;
 
 static int ui_init_library(UI* ui);
 static SDL_Surface* ui_tile_surface(UI* ui, int x, int y);
 static void ui_image_stack(UI* ui, int x, int y, Resource stack[MAX_STACK]);
+static void ui_stack_to_char(UI* ui, Resource stack[MAX_STACK], 
+		char ret[MAX_STACK]);
+
+
+typedef struct SurfaceHash {
+	char id[MAX_STACK];
+	SDL_Surface* sf;
+	UT_hash_handle hh;
+} SurfaceHash;
+static SurfaceHash* sfhash = NULL;
+
 
 UI* ui_init(World* world)
 {
@@ -52,6 +66,14 @@ void ui_free(UI* ui)
 		resources_unload(ui);
 		if(ui->sdl_initialized)
 		{
+			struct SurfaceHash *sh, *tmp;
+			HASH_ITER(hh, sfhash, sh, tmp)
+			{
+				HASH_DEL(sfhash, sh);
+				if(sh->sf)
+					SDL_FreeSurface(sh->sf);
+				free(sh);
+			}
 			if(ui->screen)
 			{
 				SDL_FreeSurface(ui->screen);
@@ -152,22 +174,44 @@ static int ui_init_library(UI* ui)
 
 static SDL_Surface* ui_tile_surface(UI* ui, int x, int y)
 {
-	Resource stack[MAX_STACK];
-	ui_image_stack(ui, x, y, stack);
-	
-	// TODO - make a stack of the drawings
-	int i = 0;
-	SDL_Surface* _sf = SDL_CreateRGBSurface(SDL_SWSURFACE,
-			TILESIZE, TILESIZE, 32, 
-			0x000000FF, 0x0000FF00, 0x00FF0000, 0xFF000000);
-	SDL_Surface* sf = SDL_DisplayFormat(_sf);
-	SDL_FreeSurface(_sf);
-	while(stack[i] != NOTHING)
-	{
-		SDL_BlitSurface(res(stack[i]), NULL, sf, NULL);
-		i++;
-	}
+	SDL_Surface* sf = NULL;
 
+	// build stack
+	Resource stack[MAX_STACK] = { [0 ... (MAX_STACK-1)] = NOTHING };
+	ui_image_stack(ui, x, y, stack);
+
+	// find hash key
+	char id[MAX_STACK] = { [0 ... (MAX_STACK-1)] = 0 };
+	ui_stack_to_char(ui, stack, id);
+
+	// find image in hash
+	SurfaceHash* sh;
+	HASH_FIND_STR(sfhash, id, sh);
+	if(!sh) // image not found, building it
+	{
+		// create image
+		int i = 0;
+		SDL_Surface* _sf = SDL_CreateRGBSurface(SDL_SWSURFACE,
+				TILESIZE, TILESIZE, 32, 
+				0x000000FF, 0x0000FF00, 0x00FF0000, 0xFF000000);
+		sf = SDL_DisplayFormat(_sf);
+		SDL_FreeSurface(_sf);
+		while(stack[i] != NOTHING)
+		{
+			SDL_BlitSurface(res(stack[i]), NULL, sf, NULL);
+			i++;
+		}
+
+		// add to hash
+		sh = malloc(sizeof(SurfaceHash));
+		strcpy(sh->id, id);
+		sh->sf = sf;
+		HASH_ADD_STR(sfhash, id, sh);
+	}
+	else
+		sf = sh->sf;
+
+	assert(sf);
 	return sf;
 }
 
@@ -177,13 +221,23 @@ static void ui_image_stack(UI* ui, int x, int y, Resource stack[MAX_STACK])
 	switch(world_terrain(ui->world, x, y))
 	{
 	case t_OUT_OF_BOUNDS:
-		stack[0] = NOTHING;
 		break;
 	case t_GRASS:
 		stack[0] = GRASSM;
-		stack[1] = NOTHING;
 		break;
 	default:
 		errx(1, "Invalid terrain type.");
+	}
+}
+
+
+static void ui_stack_to_char(UI* ui, Resource stack[MAX_STACK], 
+		char ret[MAX_STACK])
+{
+	int i = 0;
+	while(stack[i] != NOTHING && i < 10)
+	{
+		ret[i] = stack[i];
+		++i;
 	}
 }
