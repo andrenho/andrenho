@@ -9,7 +9,7 @@ struct UI;
 struct SDL_Surface;
 
 typedef enum Resource {
-	NOTHING=0, GRASSM,
+	NOTHING=0, GRASS0, GRASS1, GRASS2, GRASS3,
 } Resource;
 
 int resources_load(struct UI*);

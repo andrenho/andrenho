@@ -28,7 +28,10 @@ static struct {
 	char *filename;
 	int x, y, w, h;
 } reslist[] = {
-	{ GRASSM, "grass.png", 0, 160, 32, 32 },
+	{ GRASS0, "grass.png", 32, 96, 32, 32 },
+	{ GRASS1, "grass.png", 0, 160, 32, 32 },
+	{ GRASS2, "grass.png", 32, 160, 32, 32 },
+	{ GRASS3, "grass.png", 64, 160, 32, 32 },
 	{ NOTHING, NULL, 0, 0, 0, 0 }
 };
 

@@ -13,6 +13,6 @@ typedef struct World {
 World* world_init(int w, int h);
 void world_free(World* world);
 
-Terrain world_terrain(World* world, int x, int y);
+Terrain world_terrain(World* world, int x, int y, int* special);
 
 #endif
