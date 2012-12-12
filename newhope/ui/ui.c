@@ -21,7 +21,7 @@ static void ui_draw_tile(UI* ui, int x, int y, SDL_Rect* r);
 static SDL_Surface* ui_tile_surface(UI* ui, int x, int y);
 static void ui_image_stack(UI* ui, int x, int y, SDL_Surface* stack[MAX_STACK]);
 static void ui_stack_to_char(UI* ui, SDL_Surface* stack[MAX_STACK],
-		char ret[MAX_STACK * 8]);
+		char ret[MAX_STACK * sizeof(SDL_Surface*)]);
 static inline void ui_set_dirty(UI* ui, int x, int y);
 
 
@@ -255,7 +255,7 @@ static SDL_Surface* ui_tile_surface(UI* ui, int x, int y)
 	ui_image_stack(ui, x, y, stack);
 
 	// find hash key
-	char id[RES_CHARS * 8] = { [0 ... (MAX_STACK*8-1)] = 0 };
+	char id[RES_CHARS * sizeof(SDL_Surface*)] = { [0 ... (MAX_STACK* sizeof(SDL_Surface*)-1)] = 0 };
 	ui_stack_to_char(ui, stack, id);
 
 	// find image in hash
@@ -273,7 +273,7 @@ static SDL_Surface* ui_tile_surface(UI* ui, int x, int y)
 		SDL_FillRect(sf, NULL, 0);
 		while(stack[i])
 		{
-			SDL_BlitSurface(res(stack[i]), NULL, sf, NULL);
+			SDL_BlitSurface(stack[i], NULL, sf, NULL);
 			i++;
 		}
 
@@ -316,9 +316,9 @@ static void ui_image_stack(UI* ui, int x, int y, SDL_Surface* stack[MAX_STACK])
 
 
 static void ui_stack_to_char(UI* ui, SDL_Surface* stack[MAX_STACK],
-		char ret[MAX_STACK * 8])
+		char ret[MAX_STACK * sizeof(SDL_Surface*)])
 {
-	memcpy(ret, stack, MAX_STACK * sizeof(void*));
+	memcpy(ret, stack, MAX_STACK * sizeof(SDL_Surface*));
 }
 
 
