@@ -14,6 +14,8 @@
 #include "util/strings.h"
 #include "util/uthash.h"
 
+const int TERRAIN = -1; // used to identify a terrain tile
+
 // record for the resource hash
 typedef struct SurfaceResource {
 	char name[RES_CHARS];
@@ -22,17 +24,24 @@ typedef struct SurfaceResource {
 } SurfaceResource;
 static SurfaceResource* resources = NULL;  // resource hash
 
+// terrain tiles
+SDL_Rect terrain_r[] = {
+	{ 32,  96, 32, 32 },
+	{  0, 160, 32, 32 },
+	{ 32, 160, 32, 32 },
+	{ 64, 160, 32, 32 },
+};
+char* terrain_sfx[] = { "", "_1", "_2", "_3", NULL };
+
 // resource files list
 static struct { 
-	char name[20];
+	char name[RES_CHARS];
 	char *filename;
-	int x, y, w, h;
+	SDL_Rect* r; // list of rectangles
+	char **suffix;
 } reslist[] = {
-	{ "grass_0", "grass.png", 32, 96, 32, 32 },
-	{ "grass_1", "grass.png", 0, 160, 32, 32 },
-	{ "grass_2", "grass.png", 32, 160, 32, 32 },
-	{ "grass_3", "grass.png", 64, 160, 32, 32 },
-	{ "\0", NULL, 0, 0, 0, 0 }
+	{ "grass", "grass.png", terrain_r, terrain_sfx },
+	{ "\0", NULL, NULL, NULL }
 };
 
 // palette
@@ -53,8 +62,9 @@ char *strdup (const char *str);  // silly mingw
 
 int resources_load(UI* ui)
 {
+	int i, j;
+
 	// initialize colors
-	int i;
 	for(i=0; i<256; i++)
 		colors[i] = (SDL_Color){ 0, 0, 0 };
 	colors[TRANSPARENT] = (SDL_Color) { 255, 0, 255 };
@@ -70,32 +80,44 @@ int resources_load(UI* ui)
 		if(!filepath)
 			errx(1, "Could not find file %s.", reslist[i].filename);
 
-		// load image
-		SDL_Surface* sf = NULL;
-		if(endswith(reslist[i].filename, ".png"))
-			sf = resource_load_png(filepath, reslist[i].x, reslist[i].y,
-					                 reslist[i].w, reslist[i].h);
-		else
+		// load images
+		j = 0;
+		while(reslist[i].suffix[j])
 		{
-			errx(1, "Invalid file type %s.", filepath);
-			return 0;
-		}
+			SDL_Surface* sf = NULL;
+			if(endswith(reslist[i].filename, ".png"))
+			{
+				SDL_Rect r = reslist[i].r[j];
+				sf = resource_load_png(filepath, 
+						r.x, r.y, r.w, r.h);
+			}
+			else
+			{
+				errx(1, "Invalid file type %s.", filepath);
+				return 0;
+			}
 
+			// verify
+			if(!sf)
+			{
+				errx(1, "Error loading resource %s.", 
+						reslist[i].filename);
+				return 0;
+			}
+
+			// add to hash
+			SurfaceResource* res = malloc(sizeof(SurfaceResource));
+			if(!reslist[i].suffix[j])
+				errx(-1, "Invalid suffix for %s (%d).",
+						reslist[i].name, j);
+			snprintf(res->name, RES_CHARS-1, "%s%s", 
+					reslist[i].name, reslist[i].suffix[j]);
+			res->sf = sf;
+			HASH_ADD_STR(resources, name, res);
+
+			++j;
+		}
 		free(filepath);
-
-		// verify
-		if(!sf)
-		{
-			errx(1, "Error loading resource %s.", 
-					reslist[i].filename);
-			return 0;
-		}
-
-		// add to hash
-		SurfaceResource* res = malloc(sizeof(SurfaceResource));
-		strncpy(res->name, reslist[i].name, RES_CHARS);
-		res->sf = sf;
-		HASH_ADD_STR(resources, name, res);
 
 		++i;
 	}

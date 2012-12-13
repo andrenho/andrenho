@@ -309,7 +309,7 @@ static void ui_image_stack(UI* ui, int x, int y, SDL_Surface* stack[MAX_STACK])
 	case t_GRASS:
 		switch(special)
 		{
-		case 0: stack[0] = res("grass_0"); break;
+		case 0: stack[0] = res("grass"); break;
 		case 1: stack[0] = res("grass_1"); break;
 		case 2: stack[0] = res("grass_2"); break;
 		case 3: stack[0] = res("grass_3"); break;
