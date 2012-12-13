@@ -1,10 +1,11 @@
 #ifndef WORLD_H
 #define WORLD_H
 
+// the order is the importance
 typedef enum {
-	t_OUT_OF_BOUNDS,
-	t_GRASS,
-	t_WATER,
+	t_OUT_OF_BOUNDS	= 0,
+	t_GRASS		= 1,
+	t_WATER		= 2,
 } Terrain;
 
 typedef struct World {
