@@ -19,7 +19,6 @@ void evt_process(UI* ui, World* world)
 		switch(e.type)
 		{
 		case SDL_VIDEORESIZE:
-			debug("resize!");
 			SDL_FreeSurface(ui->screen);
 			ui->screen = SDL_SetVideoMode(e.resize.w, e.resize.h, 32, 
 				SDL_SWSURFACE|SDL_RESIZABLE);

@@ -5,9 +5,10 @@ include config.mk
 
 SRC = main.c		\
       options.c         \
-      ui/ui.c           \
+      ui/buildtile.c    \
       ui/event.c        \
       ui/resource.c     \
+      ui/ui.c           \
       util/log.c	\
       util/numbers.c    \
       util/strings.c	\

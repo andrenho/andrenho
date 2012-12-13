@@ -5,13 +5,12 @@
 #include <sys/time.h>
 #include "SDL.h"
 
+#include "ui/buildtile.h"
 #include "ui/resource.h"
 #include "util/log.h"
 #include "util/numbers.h"
 #include "util/uthash.h"
 #include "world/world.h"
-
-#define MAX_STACK 10
 
 const int TILESIZE = 32;
 const int SHOWDRAWTIME = 0;
@@ -19,7 +18,6 @@ const int SHOWDRAWTIME = 0;
 static int ui_init_library(UI* ui);
 static void ui_draw_tile(UI* ui, int x, int y, SDL_Rect* r);
 static SDL_Surface* ui_tile_surface(UI* ui, int x, int y);
-static void ui_image_stack(UI* ui, int x, int y, SDL_Surface* stack[MAX_STACK]);
 static void ui_stack_to_char(UI* ui, SDL_Surface* stack[MAX_STACK],
 		char ret[MAX_STACK * sizeof(SDL_Surface*)]);
 static inline void ui_set_dirty(UI* ui, int x, int y);
@@ -259,7 +257,7 @@ static SDL_Surface* ui_tile_surface(UI* ui, int x, int y)
 
 	// build stack
 	SDL_Surface* stack[MAX_STACK] = { [0 ... (MAX_STACK-1)] = NULL };
-	ui_image_stack(ui, x, y, stack);
+	build_tile(ui, x, y, stack);
 
 	// find hash key
 	char id[RES_CHARS * sizeof(SDL_Surface*)] = { [0 ... (MAX_STACK* sizeof(SDL_Surface*)-1)] = 0 };
@@ -295,30 +293,6 @@ static SDL_Surface* ui_tile_surface(UI* ui, int x, int y)
 
 	assert(sf);
 	return sf;
-}
-
-
-static void ui_image_stack(UI* ui, int x, int y, SDL_Surface* stack[MAX_STACK])
-{
-	int special = 0;
-
-	switch(world_terrain(ui->world, x, y, &special))
-	{
-	case t_OUT_OF_BOUNDS:
-		break;
-	case t_GRASS:
-		switch(special)
-		{
-		case 0: stack[0] = res("grass"); break;
-		case 1: stack[0] = res("grass_1"); break;
-		case 2: stack[0] = res("grass_2"); break;
-		case 3: stack[0] = res("grass_3"); break;
-		default: abort();
-		}
-		break;
-	default:
-		errx(1, "Invalid terrain type.");
-	}
 }
 
 
