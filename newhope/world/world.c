@@ -24,6 +24,9 @@ Terrain world_terrain(World* world, int x, int y, int* special)
 	if(*special >= 4)
 		*special = 0;
 
+	if(x == 2 && y == 2)
+		return t_WATER;
+
 	if(x < 0 || y < 0 || x >= world->w || y >= world->h)
 		return t_OUT_OF_BOUNDS;
 	else

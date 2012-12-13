@@ -4,6 +4,7 @@
 typedef enum {
 	t_OUT_OF_BOUNDS,
 	t_GRASS,
+	t_WATER,
 } Terrain;
 
 typedef struct World {
