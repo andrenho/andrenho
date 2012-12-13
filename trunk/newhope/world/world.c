@@ -20,11 +20,14 @@ void world_free(World* world)
 Terrain world_terrain(World* world, int x, int y, int* special)
 {
 	srand(x + (y * world->w));
-	*special = rand() % 35;
-	if(*special >= 4)
-		*special = 0;
+	if(special)
+	{
+		*special = rand() % 35;
+		if(*special >= 4)
+			*special = 0;
+	}
 
-	if(x == 2 && y == 2)
+	if((x == 2 || x == 3) && y == 2)
 		return t_WATER;
 
 	if(x < 0 || y < 0 || x >= world->w || y >= world->h)

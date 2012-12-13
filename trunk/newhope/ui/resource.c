@@ -39,7 +39,7 @@ char* terrain_sfx[] = {
 	"_ic_se", "_ec_nw", "_ec_n", 
 	"_ec_ne", "_ec_w", "", 
 	"_ec_e", "_ec_sw", "_ec_s",
-	"_ec_sw", "_s_1", "_s_2", NULL
+	"_ec_se", "_s_1", "_s_2", NULL
 };
 
 // resource files list
