@@ -94,6 +94,12 @@ void ui_free(UI* ui)
 			SDL_Quit();
 			debug("SDL terminated.");
 		}
+		struct DirtyHash *dh, *tmp;
+		HASH_ITER(hh, ui->dirty, dh, tmp)
+		{
+			HASH_DEL(ui->dirty, dh);
+			free(dh);
+		}
 		free(ui);
 	}
 }
@@ -126,6 +132,7 @@ void ui_draw(UI* ui)
 			++numrects;
 		}
 		HASH_DEL(ui->dirty, d);
+		free(d);
 	}
 
 	if(numrects > ui->screen->w * ui->screen->h / TILESIZE / TILESIZE / 3 ||
