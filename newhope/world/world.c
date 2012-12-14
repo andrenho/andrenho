@@ -17,37 +17,20 @@ void world_free(World* world)
 }
 
 
-Terrain world_terrain(World* world, int x, int y, int* special)
+TerrainSet world_terrain(World* world, int x, int y)
 {
+	TerrainSet ts;
+	ts.topsoil = t_NOTHING;
+
 	srand(x + (y * world->w));
-	if(special)
-	{
-		*special = rand() % 35;
-		if(*special >= 4)
-			*special = 0;
-	}
-
-	if(x == 2 && y == 2)
-		return t_WATER;
-	if((x == 5 || x == 6) && y == 2)
-		return t_WATER;
-	if((x == 2 || x == 3 || x == 4) && y == 5)
-		return t_WATER;
-	if((x == 7 || x == 9) && y == 5)
-		return t_WATER;
-	if((x == 2 && y == 8) || (x == 3 && y == 9))
-		return t_WATER;
-
-	if(x == 6 && y == 8)
-		return t_WATER;
-	if(x == 7 && y == 8)
-		return t_DIRT;
-	if(x == 7 && y == 9)
-		return t_DIRT;
-
+	ts.special = rand() % 35;
+	if(ts.special >= 4)
+		ts.special = 0;
 
 	if(x < 0 || y < 0 || x >= world->w || y >= world->h)
-		return t_OUT_OF_BOUNDS;
+		ts.biome = t_OUT_OF_BOUNDS;
 	else
-		return t_GRASS;
+		ts.biome = t_LAVAROCK;
+
+	return ts;
 }
