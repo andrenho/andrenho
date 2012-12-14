@@ -148,6 +148,8 @@ found:;
 					snprintf(img, 29, "%s%s", 
 							basic[j].image,
 							situation[i].suffix);
+					if(x<ui->world->w && y<ui->world->h)
+						debug("%d %d %s", x, y, img);
 					stack[st] = res(img);
 					++st;
 					break;
