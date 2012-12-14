@@ -9,7 +9,7 @@ int main(int argc, char** argv)
 {
 	// initialization
 	log_init(1);
-	World* world = world_init(12, 12);
+	World* world = world_init(5000, 5000);
 	UI* ui = ui_init(world);
 	if(!ui)
 		return 1;
