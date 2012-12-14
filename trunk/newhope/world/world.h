@@ -5,10 +5,20 @@
 typedef enum {
 	t_INVALID       = -1,
 	t_OUT_OF_BOUNDS	= 0,
+	t_NOTHING       = 1,
 	t_WATER		= 99,
+	t_LAVA          = 98,
 	t_GRASS		= 50,
 	t_DIRT          = 20,
+	t_EARTH         = 21,
+	t_LAVAROCK      = 22,
 } Terrain;
+
+typedef struct {
+	Terrain biome;
+	Terrain topsoil;
+	int special;
+} TerrainSet;
 
 typedef struct World {
 	int w, h;
@@ -17,6 +27,6 @@ typedef struct World {
 World* world_init(int w, int h);
 void world_free(World* world);
 
-Terrain world_terrain(World* world, int x, int y, int* special);
+TerrainSet world_terrain(World* world, int x, int y);
 
 #endif

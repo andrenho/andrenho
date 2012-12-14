@@ -266,7 +266,7 @@ static SDL_Surface* ui_tile_surface(UI* ui, int x, int y)
 	// find image in hash
 	SurfaceHash* sh;
 	HASH_FIND_STR(sfhash, id, sh);
-	if(!sh) // image not found, building it
+	//if(!sh) // image not found, build it
 	{
 		// create image
 		int i = 0;
@@ -288,8 +288,8 @@ static SDL_Surface* ui_tile_surface(UI* ui, int x, int y)
 		sh->sf = sf;
 		HASH_ADD_STR(sfhash, id, sh);
 	}
-	else
-		sf = sh->sf;
+	//else
+	//	sf = sh->sf;
 
 	assert(sf);
 	return sf;
