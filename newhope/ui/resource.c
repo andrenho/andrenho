@@ -172,6 +172,14 @@ SDL_Surface* res(char name[RES_CHARS])
 	return rs->sf;
 }
 
+struct SDL_Surface* res2(char *name1, char* name2)
+{
+	char name[RES_CHARS];
+	snprintf(name, RES_CHARS, "%s%s", name1, name2);
+	return res(name);
+}
+
+
 /*
  * STATIC
  */
