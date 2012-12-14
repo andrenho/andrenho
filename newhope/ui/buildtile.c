@@ -14,6 +14,7 @@ static struct {
 } basic[] = {
 	{ t_GRASS, "grass" },
 	{ t_WATER, "water" },
+	{ t_DIRT,  "dirt"  },
 	{ -1, NULL }
 };
 
@@ -23,35 +24,51 @@ static struct {
 } situation[] = {
 	{ { 0, 0, 0,
 	    0,    0,
-	    0, 0, 1 }, "_ec_nw" },
+	    2, 0, 1 }, "_ec_nw" },
 
-	{ { 0, 0, 0,
+	{ { 2, 2, 2,
 	    0,    0,
 	    2, 1, 2 }, "_ec_n" },
 
 	{ { 0, 0, 0,
 	    0,    0,
-	    1, 0, 0 }, "_ec_ne" },
+	    1, 0, 2 }, "_ec_ne" },
 
-	{ { 0, 0, 2,
-	    0,    1,
-	    0, 0, 2 }, "_ec_w" },
+	{ { 2, 0, 2,
+	    2,    1,
+	    2, 0, 2 }, "_ec_w" },
 
-	{ { 2, 0, 0,
-	    1,    0,
-	    2, 0, 0 }, "_ec_e" },
+	{ { 2, 0, 2,
+	    1,    2,
+	    2, 0, 2 }, "_ec_e" },
 
-	{ { 0, 0, 1,
+	{ { 2, 0, 1,
 	    0,    0,
 	    0, 0, 0 }, "_ec_sw" },
 
 	{ { 2, 1, 2,
 	    0,    0,
-	    0, 0, 0 }, "_ec_s" },
+	    2, 2, 2 }, "_ec_s" },
 
-	{ { 1, 0, 0,
+	{ { 1, 0, 2,
 	    0,    0,
 	    0, 0, 0 }, "_ec_se" },
+
+	{ { 2, 1, 2,
+            1,    2,
+	    2, 2, 2 }, "_ic_nw" },
+
+	{ { 2, 2, 2,
+            2,    1,
+	    2, 1, 2 }, "_ic_se" },
+
+	{ { 2, 2, 2,
+            1,    2,
+	    2, 1, 2 }, "_ic_sw" },
+
+	{ { 2, 1, 2,
+            2,    1,
+	    2, 2, 2 }, "_ic_ne" },
 
 	{ { 0, 0, 0, 0, 0, 0, 0, 0 }, NULL }
 };
@@ -63,25 +80,6 @@ void build_tile(UI* ui, int x, int y, SDL_Surface* stack[MAX_STACK])
 	int st = 0;
 	int special = 0;
 	Terrain terrain = world_terrain(ui->world, x, y, &special);
-	
-	// find the most important tile around this one
-	Terrain important = t_INVALID,
-		around[8] = {
-			world_terrain(ui->world, x-1, y-1, NULL),
-			world_terrain(ui->world, x,   y-1, NULL),
-			world_terrain(ui->world, x+1, y-1, NULL),
-			world_terrain(ui->world, x-1, y,   NULL),
-			world_terrain(ui->world, x+1, y,   NULL),
-			world_terrain(ui->world, x-1, y+1, NULL),
-			world_terrain(ui->world, x,   y+1, NULL),
-			world_terrain(ui->world, x+1, y+1, NULL)
-		};
-	for(i=0; i<8; i++)
-		if(around[i] != terrain)
-		{
-			important = imax(important, around[i]);
-			special = 0;
-		}
 	
 	// get basic image
 	i = 0;
@@ -107,17 +105,34 @@ void build_tile(UI* ui, int x, int y, SDL_Surface* stack[MAX_STACK])
 	if(terrain != t_OUT_OF_BOUNDS) // TODO
 		errx(1, "Invalid terrain type.");
 
-found:
+found:;
 
+	// find the most important tile around this one
+	Terrain important = t_INVALID,
+		around[8] = {
+			world_terrain(ui->world, x-1, y-1, NULL),
+			world_terrain(ui->world, x,   y-1, NULL),
+			world_terrain(ui->world, x+1, y-1, NULL),
+			world_terrain(ui->world, x-1, y,   NULL),
+			world_terrain(ui->world, x+1, y,   NULL),
+			world_terrain(ui->world, x-1, y+1, NULL),
+			world_terrain(ui->world, x,   y+1, NULL),
+			world_terrain(ui->world, x+1, y+1, NULL)
+		};
+	for(i=0; i<8; i++)
+		if(around[i] != terrain)
+			important = imax(important, around[i]);
+	
 	// check the position of the most important tiles around
 	i = 0;
 	while(situation[i].suffix)
 	{
 		int j, match = 1;
 		for(j=0; j<8; j++)
-			if(((around[j] == important && !situation[i].tile[j])
-			 || (around[j] != important && situation[i].tile[j]))
-			&& situation[i].tile[j] != 2)
+			if(!((around[j] < terrain && situation[i].tile[j])
+			  || (around[j] >= terrain && !situation[i].tile[j])
+			  || situation[i].tile[j] == 2))
+
 			{
 				match = 0;
 				break;
@@ -130,13 +145,14 @@ found:
 				if(important == basic[j].terrain)
 				{
 					char img[30];
-					snprintf(img, 29, "%s%s", "water",
+					snprintf(img, 29, "%s%s", 
+							basic[j].image,
 							situation[i].suffix);
 					stack[st] = res(img);
 					++st;
 					break;
 				}
-			break;
+			//break;
 		}
 
 		++i;
