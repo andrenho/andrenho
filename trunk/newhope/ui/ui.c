@@ -299,7 +299,11 @@ static SDL_Surface* ui_tile_surface(UI* ui, int x, int y)
 static void ui_stack_to_char(UI* ui, SDL_Surface* stack[MAX_STACK],
 		char ret[MAX_STACK * sizeof(SDL_Surface*)])
 {
-	memcpy(ret, stack, MAX_STACK * sizeof(SDL_Surface*));
+	//memcpy(ret, stack, MAX_STACK * sizeof(SDL_Surface*));
+	int i = -1;
+	int p = 0;
+	while(stack[++i])
+		p += sprintf(ret, "%p", (void*)stack[i]);
 }
 
 
