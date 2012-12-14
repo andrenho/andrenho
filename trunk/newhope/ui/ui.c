@@ -7,22 +7,15 @@
 
 #include "ui/buildtile.h"
 #include "ui/resource.h"
+#include "ui/terrainsurface.h"
 #include "util/log.h"
 #include "util/numbers.h"
 #include "util/uthash.h"
 #include "world/world.h"
 
-const int TILESIZE = 32;
-const int SHOWDRAWTIME = 0;
-
 static int ui_init_library(UI* ui);
-static void ui_draw_tile(UI* ui, int x, int y, SDL_Rect* r);
-static SDL_Surface* ui_tile_surface(UI* ui, int x, int y);
-static void ui_stack_to_char(UI* ui, SDL_Surface* stack[MAX_STACK],
-		char ret[MAX_STACK * sizeof(SDL_Surface*)]);
-static inline void ui_set_dirty(UI* ui, int x, int y);
 
-
+#if 0
 typedef struct SurfaceHash {
 	char id[MAX_STACK];
 	SDL_Surface* sf;
@@ -34,6 +27,7 @@ typedef struct DirtyHash {
 	uint32_t tile;
 	UT_hash_handle hh;
 } DirtyHash;
+#endif
 
 
 UI* ui_init(World* world)
@@ -46,7 +40,7 @@ UI* ui_init(World* world)
 	ui->rx = ui->ry = 0;
 	ui->world = world;
 	ui->flip_next_frame = 0;
-	ui->dirty = NULL;
+	ui->trsurf = trsurf_init();
 
 	// initialize library
 	if(!ui_init_library(ui))
@@ -63,7 +57,7 @@ UI* ui_init(World* world)
 	}
 
 	// initial drawing
-	ui_redraw(ui);
+	trsurf_resize(ui->trsurf, ui->screen->w, ui->screen->h);
 
 	return ui;
 }
@@ -76,14 +70,6 @@ void ui_free(UI* ui)
 		resources_unload(ui);
 		if(ui->sdl_initialized)
 		{
-			struct SurfaceHash *sh, *tmp;
-			HASH_ITER(hh, sfhash, sh, tmp)
-			{
-				HASH_DEL(sfhash, sh);
-				if(sh->sf)
-					SDL_FreeSurface(sh->sf);
-				free(sh);
-			}
 			if(ui->screen)
 			{
 				SDL_FreeSurface(ui->screen);
@@ -92,12 +78,7 @@ void ui_free(UI* ui)
 			SDL_Quit();
 			debug("SDL terminated.");
 		}
-		struct DirtyHash *dh, *tmp;
-		HASH_ITER(hh, ui->dirty, dh, tmp)
-		{
-			HASH_DEL(ui->dirty, dh);
-			free(dh);
-		}
+		trsurf_free(ui->trsurf);
 		free(ui);
 	}
 }
@@ -105,59 +86,21 @@ void ui_free(UI* ui)
 
 void ui_draw(UI* ui)
 {
-	// will redraw:
-	//   - tiles contained in `dirty` hash
-	//   - full screen if ui->flip_next_frame
+	SDL_Rect* r;
+	int numrects;
+	int flip = trsurf_areas_to_redraw(ui->trsurf, &r, &numrects);
 
-	struct timeval beg, end;
-	if(SHOWDRAWTIME)
-		gettimeofday(&beg, NULL);
-
-	DirtyHash *d, *tmp;
-	int max_rects = ui->screen->w * ui->screen->h / TILESIZE / TILESIZE * 2;
-	SDL_Rect rects[max_rects];
-	int numrects = 0;
-
-	HASH_ITER(hh, ui->dirty, d, tmp)
+	if(flip)
 	{
-		SDL_Rect r;
-		ui_draw_tile(ui, 
-				d->tile % ui->world->w, 
-				d->tile / ui->world->w, &r);
-		if(r.w && numrects < max_rects)
-		{
-			rects[numrects] = r; // TODO auto-increase
-			++numrects;
-		}
-		HASH_DEL(ui->dirty, d);
-		free(d);
-	}
-
-	if(numrects > ui->screen->w * ui->screen->h / TILESIZE / TILESIZE / 3 ||
-			ui->flip_next_frame)
+		SDL_Rect r = { ui->rx % TILESIZE, ui->ry % TILESIZE };
+		SDL_BlitSurface(ui->trsurf->sf, NULL, ui->screen, &r);
 		SDL_Flip(ui->screen);
-	else
-		SDL_UpdateRects(ui->screen, numrects-1, rects);
-	ui->flip_next_frame = 0;
-
-	if(SHOWDRAWTIME)
-	{
-		gettimeofday(&end, NULL);
-		debug("%d", end.tv_usec - beg.tv_usec);
 	}
-}
-
-
-void ui_redraw(UI* ui)
-{
-	int x, y;
-	for(x = (ui->rx / TILESIZE); 
-			x < (ui->rx + ui->screen->w) / TILESIZE + 1; 
-			++x)
-		for(y = (ui->ry / TILESIZE); 
-				y < (ui->ry + ui->screen->h) / TILESIZE + 1; 
-				++y)
-			ui_set_dirty(ui, x, y);
+	else
+	{
+		// TODO
+		abort();
+	}
 }
 
 
@@ -167,20 +110,13 @@ void ui_moveview(UI* ui, int horiz, int vert)
 	ui->rx += horiz;
 	ui->ry += vert;
 
-	//SDL_BlitSurface(ui->screen, NULL, ui->screen,
-	//		&(SDL_Rect){ horiz, vert });
-	
-	// TODO - draw only the borders! this is slow!!!
-	ui_redraw(ui);
-
-	// request SDL_Flip on next frame
-	ui->flip_next_frame = 1;
+	trsurf_set_topleft(ui->trsurf, (ui->rx/TILESIZE), (ui->ry/TILESIZE));
 }
 
 
 void ui_start_frame(UI* ui)
 {
-	ui->ticks = SDL_GetTicks() + 1000/30;
+	ui->ticks = SDL_GetTicks() + 1000/60;
 }
 
 
@@ -224,6 +160,7 @@ static int ui_init_library(UI* ui)
 }
 
 
+#if 0
 static void ui_draw_tile(UI* ui, int x, int y, SDL_Rect *r)
 {
 	int sx = (x * TILESIZE) - ui->rx;
@@ -266,7 +203,7 @@ static SDL_Surface* ui_tile_surface(UI* ui, int x, int y)
 	// find image in hash
 	SurfaceHash* sh;
 	HASH_FIND_STR(sfhash, id, sh);
-	//if(!sh) // image not found, build it
+	if(!sh) // image not found, build it
 	{
 		// create image
 		int i = 0;
@@ -288,8 +225,8 @@ static SDL_Surface* ui_tile_surface(UI* ui, int x, int y)
 		sh->sf = sf;
 		HASH_ADD_STR(sfhash, id, sh);
 	}
-	//else
-	//	sf = sh->sf;
+	else
+		sf = sh->sf;
 
 	assert(sf);
 	return sf;
@@ -313,3 +250,4 @@ static inline void ui_set_dirty(UI* ui, int x, int y)
 	d->tile = x + (y * ui->world->w);
 	HASH_ADD_INT(ui->dirty, tile, d);
 }
+#endif

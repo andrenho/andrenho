@@ -3,15 +3,16 @@
 
 include config.mk
 
-SRC = main.c		\
-      options.c         \
-      ui/buildtile.c    \
-      ui/event.c        \
-      ui/resource.c     \
-      ui/ui.c           \
-      util/log.c	\
-      util/numbers.c    \
-      util/strings.c	\
+SRC = main.c		  \
+      options.c           \
+      ui/buildtile.c      \
+      ui/event.c          \
+      ui/resource.c       \
+      ui/terrainsurface.c \
+      ui/ui.c             \
+      util/log.c	  \
+      util/numbers.c      \
+      util/strings.c	  \
       world/world.c
 OBJ = ${SRC:.c=.o}
 HEADERS = ${SRC:.c=.h} util/uthash.h

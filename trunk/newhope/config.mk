@@ -9,6 +9,7 @@ NEWHOPEPREFIX = ${PREFIX}/share/newhope
 
 # add debugging info
 DEBUG = yes
+PROFILING = no
 DUMA = no
 
 #
@@ -52,6 +53,7 @@ ifeq (${DUMA}, yes)
   LDFLAGS += -lduma
 endif
 
+# debugging information
 ifeq (${DEBUG},yes)
   # debug flags
   CFLAGS += -g -O0 -DDEBUG
@@ -60,6 +62,12 @@ else
   # production flags
   CFLAGS += -Os
   LDFLAGS += -s
+endif
+
+# profiling information
+ifeq (${PROFILING},yes)
+  CFLAGS += -pg
+  LDFLAGS += -pg
 endif
 
 # compiler and linker
