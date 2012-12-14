@@ -21,5 +21,6 @@ int resources_load(struct UI*);
 void resources_unload(struct UI*);
 
 struct SDL_Surface* res(char name[RES_CHARS]);
+struct SDL_Surface* res2(char *name1, char* name2);
 
 #endif
