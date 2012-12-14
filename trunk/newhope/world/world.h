@@ -5,9 +5,9 @@
 typedef enum {
 	t_INVALID       = -1,
 	t_OUT_OF_BOUNDS	= 0,
-	t_WATER		= 1,
-	t_GRASS		= 2,
-	t_DIRT          = 3,
+	t_WATER		= 99,
+	t_GRASS		= 10,
+	t_DIRT          = 9,
 } Terrain;
 
 typedef struct World {
