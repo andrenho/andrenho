@@ -22,6 +22,7 @@ static void trsurf_redraw(TerrainSurface* ts);
 static SDL_Surface* trsurf_tile_sf(TerrainSurface* ts, int x, int y);
 static void stack_to_char(SDL_Surface* stack[MAX_STACK],
 		char ret[MAX_STACK * sizeof(SDL_Surface*)]);
+static void trsurf_draw_tile(TerrainSurface* ts, int x, int y);
 
 
 
@@ -56,8 +57,8 @@ void trsurf_resize(TerrainSurface* ts, int w, int h)
 	if(ts->sf)
 		SDL_FreeSurface(ts->sf);
 	SDL_Surface* sf = SDL_CreateRGBSurface(SDL_SWSURFACE, 
-			w + (TILESIZE - (w % TILESIZE)), 
-			h + (TILESIZE - (h % TILESIZE)), 32,
+			w + (TILESIZE + (w % TILESIZE)), 
+			h + (TILESIZE + (h % TILESIZE)), 32,
 			0x000000FF, 0x0000FF00, 0x00FF0000, 0xFF000000);
 	ts->sf = SDL_DisplayFormat(sf);
 	SDL_FreeSurface(sf);
@@ -66,6 +67,9 @@ void trsurf_resize(TerrainSurface* ts, int w, int h)
 	ts->w = ts->sf->w / TILESIZE;
 	ts->h = ts->sf->h / TILESIZE;
 	trsurf_redraw(ts);
+
+	debug("window resize resquested: %d %d", w, h);
+	debug("trsurf resize: %d %d (%d %d)", ts->sf->w, ts->sf->h, ts->w, ts->h);
 }
 
 
@@ -77,15 +81,47 @@ int trsurf_areas_to_redraw(TerrainSurface* ts, struct SDL_Rect** r, int* nrect)
 
 void trsurf_set_topleft(TerrainSurface* ts, int x, int y)
 {
+	int nx, ny;
+
 	if(ts->x == x && ts->y == y)
 		return;
+
+	// debug("changed topleft to %d %d", x, y);
 
 	SDL_Rect r = { (ts->x - x)*TILESIZE, (ts->y - y)*TILESIZE };
 	SDL_BlitSurface(ts->sf, NULL, ts->sf, &r);
 
+	int tsx = ts->x, 
+	    tsy = ts->y;
+
 	ts->x = x;
 	ts->y = y;
-	//trsurf_redraw(ts);
+
+	if(x > tsx)
+	{
+		for(nx=(ts->w + ts->x - (x - tsx)); nx < (ts->w + ts->x); nx++)
+			for(ny=ts->y; ny < (ts->h + ts->y); ny++)
+				trsurf_draw_tile(ts, nx, ny);
+	}
+	else if(x < tsx)
+	{
+		for(nx=ts->x; nx < (ts->x + tsx - x); nx++)
+			for(ny=ts->y; ny < (ts->h + ts->y); ny++)
+				trsurf_draw_tile(ts, nx, ny);
+	}
+
+	if(y > tsy)
+	{
+		for(ny=(ts->h + ts->y - (y - tsy)); ny < (ts->h + ts->y); ny++)
+			for(nx=ts->x; nx < (ts->w + ts->x); nx++)
+				trsurf_draw_tile(ts, nx, ny);
+	}
+	else if(y < tsy)
+	{
+		for(ny=ts->y; ny < (ts->y + tsy - y); ny++)
+			for(nx=ts->x; nx < (ts->w + ts->x); nx++)
+				trsurf_draw_tile(ts, nx, ny);
+	}
 }
 
 
@@ -96,17 +132,25 @@ static void trsurf_redraw(TerrainSurface* ts)
 {
 	int x, y;
 
-	SDL_FillRect(ts->sf, NULL, 0);
+	// SDL_FillRect(ts->sf, NULL, 0);
 	for(x=ts->x; x<(ts->x + ts->w); x++)
 		for(y=ts->y; y<(ts->y + ts->h); y++)
-		{
-			SDL_Surface* sf = trsurf_tile_sf(ts, x, y);
-			SDL_Rect r = {
-				(x - ts->x) * TILESIZE,
-				(y - ts->y) * TILESIZE
-			};
-			SDL_BlitSurface(sf, NULL, ts->sf, &r);
-		}
+			trsurf_draw_tile(ts, x, y);
+}
+
+
+static void trsurf_draw_tile(TerrainSurface* ts, int x, int y)
+{
+	//debug("drawing tile %d %d", x, y);
+
+	SDL_Rect r = { 
+		(x - ts->x) * TILESIZE, 
+		(y - ts->y) * TILESIZE, 
+		TILESIZE, TILESIZE 
+	};
+	SDL_FillRect(ts->sf, &r, 0); // TODO - ???
+	SDL_BlitSurface(trsurf_tile_sf(ts, x, y), NULL, ts->sf, &r);
+
 }
 
 
