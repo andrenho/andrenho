@@ -77,9 +77,15 @@ int trsurf_areas_to_redraw(TerrainSurface* ts, struct SDL_Rect** r, int* nrect)
 
 void trsurf_set_topleft(TerrainSurface* ts, int x, int y)
 {
+	if(ts->x == x && ts->y == y)
+		return;
+
+	SDL_Rect r = { (ts->x - x)*TILESIZE, (ts->y - y)*TILESIZE };
+	SDL_BlitSurface(ts->sf, NULL, ts->sf, &r);
+
 	ts->x = x;
 	ts->y = y;
-	trsurf_redraw(ts);
+	//trsurf_redraw(ts);
 }
 
 
