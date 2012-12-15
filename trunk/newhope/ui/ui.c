@@ -137,6 +137,7 @@ static int ui_init_library(UI* ui)
 		return 0;
 	}
 	debug("SDL window initialized.");
+
 	SDL_WM_SetCaption("New Hope (version " VERSION ")", "New Hope");
 	SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY, 
 			SDL_DEFAULT_REPEAT_INTERVAL);
