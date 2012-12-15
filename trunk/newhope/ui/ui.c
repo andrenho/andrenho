@@ -92,8 +92,9 @@ void ui_moveview(UI* ui, int horiz, int vert)
 	// move center of screen
 	ui->rx += horiz;
 	ui->ry += vert;
+	debug("%d %d", ui->rx, ui->ry);
 
-	trsurf_set_topleft(ui->trsurf, (ui->rx/TILESIZE), (ui->ry/TILESIZE));
+	trsurf_set_topleft(ui->trsurf, -(ui->rx/TILESIZE), -(ui->ry/TILESIZE));
 }
 
 
