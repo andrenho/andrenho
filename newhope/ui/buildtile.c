@@ -2,7 +2,6 @@
 
 #include "SDL.h"
 
-#include "ui/ui.h"
 #include "ui/resource.h"
 #include "util/log.h"
 #include "util/numbers.h"
@@ -22,11 +21,11 @@ static struct {
 };
 
 
-void build_tile(UI* ui, int x, int y, SDL_Surface* stack[MAX_STACK])
+void build_tile(World* world, int x, int y, SDL_Surface* stack[MAX_STACK])
 {
 	int i;
 	int st = 0;
-	TerrainSet ts = world_terrain(ui->world, x, y);
+	TerrainSet ts = world_terrain(world, x, y);
 	
 	// get basic image
 	Terrain terrain = (ts.topsoil != t_NOTHING) ? ts.topsoil : ts.biome;
@@ -57,14 +56,14 @@ found:;
 
 	// find the most important tile around this one
 	Terrain important = t_INVALID,
-		nw = world_terrain(ui->world, x-1, y-1).topsoil,
-		n  = world_terrain(ui->world, x,   y-1).topsoil,
-		ne = world_terrain(ui->world, x+1, y-1).topsoil,
-		w  = world_terrain(ui->world, x-1, y).topsoil,
-		e  = world_terrain(ui->world, x+1, y).topsoil,
-		sw = world_terrain(ui->world, x-1, y+1).topsoil,
-		s  = world_terrain(ui->world, x,   y+1).topsoil,
-		se = world_terrain(ui->world, x+1, y+1).topsoil,
+		nw = world_terrain(world, x-1, y-1).topsoil,
+		n  = world_terrain(world, x,   y-1).topsoil,
+		ne = world_terrain(world, x+1, y-1).topsoil,
+		w  = world_terrain(world, x-1, y).topsoil,
+		e  = world_terrain(world, x+1, y).topsoil,
+		sw = world_terrain(world, x-1, y+1).topsoil,
+		s  = world_terrain(world, x,   y+1).topsoil,
+		se = world_terrain(world, x+1, y+1).topsoil,
 		around[8] = { nw, n, ne, w, e, sw, s, se };
 	for(i=0; i<8; i++)
 		if(around[i] > ts.topsoil)

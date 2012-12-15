@@ -5,29 +5,12 @@
 #include <sys/time.h>
 #include "SDL.h"
 
-#include "ui/buildtile.h"
 #include "ui/resource.h"
 #include "ui/terrainsurface.h"
 #include "util/log.h"
-#include "util/numbers.h"
-#include "util/uthash.h"
 #include "world/world.h"
 
 static int ui_init_library(UI* ui);
-
-#if 0
-typedef struct SurfaceHash {
-	char id[MAX_STACK];
-	SDL_Surface* sf;
-	UT_hash_handle hh;
-} SurfaceHash;
-static SurfaceHash* sfhash = NULL;
-
-typedef struct DirtyHash {
-	uint32_t tile;
-	UT_hash_handle hh;
-} DirtyHash;
-#endif
 
 
 UI* ui_init(World* world)
@@ -40,7 +23,7 @@ UI* ui_init(World* world)
 	ui->rx = ui->ry = 0;
 	ui->world = world;
 	ui->flip_next_frame = 0;
-	ui->trsurf = trsurf_init();
+	ui->trsurf = trsurf_init(world);
 
 	// initialize library
 	if(!ui_init_library(ui))
@@ -158,96 +141,3 @@ static int ui_init_library(UI* ui)
 
 	return 1;
 }
-
-
-#if 0
-static void ui_draw_tile(UI* ui, int x, int y, SDL_Rect *r)
-{
-	int sx = (x * TILESIZE) - ui->rx;
-	int sy = (y * TILESIZE) - ui->ry;
-
-	// important: don't free this surface - it's cached.
-	SDL_Surface *sf = ui_tile_surface(ui, x, y);
-	SDL_BlitSurface(sf, NULL, ui->screen, &(SDL_Rect) { sx, sy });
-
-	if(r)
-	{
-		r->x = imax(sx, 0); 
-		r->y = imax(sy, 0);
-		if(r->x + sf->w >= ui->screen->w)
-			r->w = ui->screen->w - r->x;
-		else
-			r->w = sf->w;
-		if(r->y + sf->h >= ui->screen->h)
-			r->h = ui->screen->h - r->y;
-		else
-			r->h = sf->h;
-	}
-	if(r->x > ui->screen->w || r->y > ui->screen->h)
-		r = &(SDL_Rect){ 0, 0, 0, 0 };
-}
-
-
-static SDL_Surface* ui_tile_surface(UI* ui, int x, int y)
-{
-	SDL_Surface* sf = NULL;
-
-	// build stack
-	SDL_Surface* stack[MAX_STACK] = { [0 ... (MAX_STACK-1)] = NULL };
-	build_tile(ui, x, y, stack);
-
-	// find hash key
-	char id[RES_CHARS * sizeof(SDL_Surface*)] = { [0 ... (MAX_STACK* sizeof(SDL_Surface*)-1)] = 0 };
-	ui_stack_to_char(ui, stack, id);
-
-	// find image in hash
-	SurfaceHash* sh;
-	HASH_FIND_STR(sfhash, id, sh);
-	if(!sh) // image not found, build it
-	{
-		// create image
-		int i = 0;
-		SDL_Surface* _sf = SDL_CreateRGBSurface(SDL_SWSURFACE,
-				TILESIZE, TILESIZE, 32, 
-				0x000000FF, 0x0000FF00, 0x00FF0000, 0xFF000000);
-		sf = SDL_DisplayFormat(_sf);
-		SDL_FreeSurface(_sf);
-		SDL_FillRect(sf, NULL, 0);
-		while(stack[i])
-		{
-			SDL_BlitSurface(stack[i], NULL, sf, NULL);
-			i++;
-		}
-
-		// add to hash
-		sh = malloc(sizeof(SurfaceHash));
-		strcpy(sh->id, id);
-		sh->sf = sf;
-		HASH_ADD_STR(sfhash, id, sh);
-	}
-	else
-		sf = sh->sf;
-
-	assert(sf);
-	return sf;
-}
-
-
-static void ui_stack_to_char(UI* ui, SDL_Surface* stack[MAX_STACK],
-		char ret[MAX_STACK * sizeof(SDL_Surface*)])
-{
-	//memcpy(ret, stack, MAX_STACK * sizeof(SDL_Surface*));
-	int i = -1;
-	int p = 0;
-	while(stack[++i])
-		p += sprintf(ret, "%p", (void*)stack[i]);
-}
-
-
-static inline void ui_set_dirty(UI* ui, int x, int y)
-{
-	DirtyHash* d = malloc(sizeof(DirtyHash));
-	d->tile = x + (y * ui->world->w);
-	HASH_ADD_INT(ui->dirty, tile, d);
-}
-#endif
