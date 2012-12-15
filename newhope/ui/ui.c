@@ -53,11 +53,13 @@ void ui_free(UI* ui)
 		resources_unload(ui);
 		if(ui->sdl_initialized)
 		{
+			/*
 			if(ui->screen)
 			{
 				SDL_FreeSurface(ui->screen);
 				debug("SDL window terminated.");
 			}
+			*/
 			SDL_Quit();
 			debug("SDL terminated.");
 		}
