@@ -57,6 +57,7 @@ static struct {
 	{ "lavarock",  "lavarock.png",  terrain_r, terrain_sfx },
 	{ "water",     "water.png",     terrain_r, terrain_sfx },
 	{ "watergrass","watergrass.png",terrain_r, terrain_sfx },
+	{ "snow",      "snow.png",      terrain_r, terrain_sfx },
 	{ "\0", NULL, NULL, NULL }
 };
 
