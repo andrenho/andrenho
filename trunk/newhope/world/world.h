@@ -10,8 +10,9 @@ typedef enum {
 	t_LAVA          = 98,
 	t_GRASS		= 50,
 	t_DIRT          = 20,
-	t_EARTH         = 21,
-	t_LAVAROCK      = 22,
+	t_EARTH,
+	t_LAVAROCK,
+	t_SNOW,
 } Terrain;
 
 typedef struct {

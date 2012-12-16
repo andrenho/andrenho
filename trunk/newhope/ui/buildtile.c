@@ -17,6 +17,7 @@ static struct {
 	{ t_EARTH,    "earth" },
 	{ t_LAVAROCK, "lavarock" },
 	{ t_LAVA,     "lava"  },
+	{ t_SNOW,     "snow"  },
 	{ -1, NULL }
 };
 

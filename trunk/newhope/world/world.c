@@ -23,14 +23,14 @@ TerrainSet world_terrain(World* world, int x, int y)
 	ts.topsoil = t_NOTHING;
 
 	srand(x + (y * world->w));
-	ts.special = rand() % 35;
+	ts.special = rand() % 100;
 	if(ts.special >= 4)
 		ts.special = 0;
 
 	if(x < 0 || y < 0 || x >= world->w || y >= world->h)
 		ts.biome = t_OUT_OF_BOUNDS;
 	else
-		ts.biome = t_EARTH;
+		ts.biome = t_SNOW;
 
 	return ts;
 }
