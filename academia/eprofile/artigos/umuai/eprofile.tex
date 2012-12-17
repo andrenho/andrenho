@@ -479,7 +479,7 @@ The rule definition is written in OWL by creating classes that can be processed 
 
 LOCAL then tries to identify students who have the same interests as the ones in the proposed debate, or interests related to these (event 7), by sending the OWL rules described in Figure~\ref{fig:regra1}. The first rule is called {\em RelatedSubjects} (line 2), where the subjects (class {\em Subject} line 4) related (line 6) to what will be discussed in class (line 7) are inferred. The expression {\tt ?Subject} is an eProfile extension to OWL, where this expression is replaced by the subjects that will be discussed, allowing the same rule to be used in different situations. This rule, after the inference process, results in the listing of all subjects (classes of type {\em Subject}) that relate to the subject that will be discussed, putting these classes as subclasses of class {\em RelatedSubjects}.
 
-Using this rule, it is possible to find the students (line 15) whose interests intersect with the interests found in the {\em RelatedSubjects} class (line 18). These students, in this ontology, become subclasses of class {\em StudentsSelected} (line 13).
+Using this rule, it is possible to find out the students (line 15) whose interests intersect with the interests found in the {\em RelatedSubjects} class (line 18). These students, in this ontology, become subclasses of class {\em StudentsSelected} (line 13).
 
 \begin{figure}[!t]
 \begin{verbatim}
@@ -509,13 +509,9 @@ Using this rule, it is possible to find the students (line 15) whose interests i
   \label{fig:regra1}
 \end{figure}
 
-O evento 7 da Tabela~\ref{tab:aula} descreve que dois alunos não se encaixaram em nenhum dos grupos pois não tinham nenhum interesse cadastrado relacionado aos assuntos do debate, e o LOCAL questionou-os em qual assunto eles gostariam de se encaixar (eventos 8 e 9), gerando assim um evento de trilha para estes dois estudantes. Uma vez que o registro tenha sido feito, o perfil dos estudantes é reprocessado de acordo com as regras definidas pelo LOCAL. 
+Table~\ref{tab:aula} event 7 describes that two students did not match either group because they had not registered any interest related to the subjects of debate, and LOCAL asked them on what subject they would like to participate (events 8 and 9), thus generating a trail event for these two students. Once the trail is registered, the student's profile is reprocessed according to the rules defined by LOCAL.
 
-The event 7 of Table ~ \ ref {tab: class} describes two students who did not fit into either group because they had not registered any interest related to the subjects of debate, and LOCAL questioned them on what subject they would like to fit (events 8 and 9), thus generating a track event for these two students. Once the registration has been made, the profile of students is reprocessed according to the rules defined by SITE.
-
-O cabeçalho da regra que atualiza o campo de interesses de um aluno é mostrado na Figura~\ref{fig:regra3}. Este cabeçalho define que o campo {\em Interest} (linha 2) dos perfis dos estudantes (linha 1) serão atualizados com as subclasses da classe {\em StudentInterest}, cuja regra OWL é mostrada na Figura~\ref{fig:regra2}. Também é definido que um novo interesse é somado ao interesses que já existem (linha 4), que esta regra é atualizada toda vez que é registrado um evento de trilha na qual um assunto é escolhido (linha 5). A regra OWL da Figura~\ref{fig:regra2} define que a classe {\em StudentInterest} é formada dos assuntos escolhidos (linha 6) pelos estudantes que fazem parte deste contexto (linha 10 e 11) e que tenham escolhido um determinado assunto (linhas 6 e 7).
-
-O cabeçalho da regra que atualiza o campo de interesses de um aluno é mostrado na Figura~\ref{fig:regra3}. Este cabeçalho define que o campo {\em Interest} (linha 2) dos perfis dos estudantes (linha 1) serão atualizados com as subclasses da classe {\em StudentInterest}, cuja regra OWL é mostrada na Figura~\ref{fig:regra2}. Também é definido que um novo interesse é somado ao interesses que já existem (linha 4), que esta regra é atualizada toda vez que é registrado um evento de trilha na qual um assunto é escolhido (linha 5). A regra OWL da Figura~\ref{fig:regra2} define que a classe {\em StudentInterest} é formada dos assuntos escolhidos (linha 6) pelos estudantes que fazem parte deste contexto (linha 10 e 11) e que tenham escolhido um determinado assunto (linhas 6 e 7).
+The header of the rule that updates the student interest field is shown in Figure~\ref{fig:regra3}. This header defines that the student (line 1) profile {\em Interest} field (line 2) will be updated using the subclasses of class {\em StudentInterest}, whose OWL rule is shown in Figure~\ref{fig:regra2 }. It is also defined that a new interest is added to the interests that already exist (line 4), that this rule is updated every time an event is registered in the trail in which a subject is chosen (line 5). The OWL rule of Figure~\ref{fig:regra2} defines that the {\em StudentInterest} class consists of the subjects chosen (line 6) by the students who are part of this context (line 10 and 11) and that have chosen a particular subject (lines 6 and 7).
 
 \begin{figure}[!t]
 \begin{verbatim}
@@ -526,7 +522,7 @@ O cabeçalho da regra que atualiza o campo de interesses de um aluno é mostrado
 5  Frequence: onTrailEvent(SubjectChosen)
 6  Expires:   never
 \end{verbatim}
-  \caption{Regra para processamento do perfil do estudante}
+  \caption{Student profile rule header}
   \label{fig:regra3}
 \end{figure}
 
@@ -547,13 +543,13 @@ O cabeçalho da regra que atualiza o campo de interesses de um aluno é mostrado
 13    </ObjectIntersectionOf>
 14  </EquivalentClasses>
 \end{verbatim}
-  \caption{Regra OWL para processamento de perfil de estudante}
+  \caption{Student profile OWL rule}
   \label{fig:regra2}
 \end{figure}
 
 Após a aplicação da regra mostrada nas Figuras~\ref{fig:regra3} e~\ref{fig:regra2}, a regra da Figura~\ref{fig:regra1} é executada novamente, desta vez identificando os alunos que fizeram sua escolha (evento 10 da Tabela~\ref{tab:aula}.
 
-After application of the rule shown in Figures ~ \ ref {fig: regra3} and ~ \ ref {fig: Rule2}, the rule of Figure ~ \ ref {fig:} Rule1 runs again, this time identifying students who made ​​their choice (event 10 of Table ~ \ ref {tab:} class.
+After the execution of the rule shown in Figures~\ref{fig:regra3} and~\ref{fig: regra2}, Figure~\ref{fig:regra1} rule runs again, this time identifying students who made ​​their choice (event 10 of Table ~ \ ref {tab:} class.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
