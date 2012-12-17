@@ -1,3 +1,11 @@
+% Termos:
+%   aprendiz = learner
+%   docente = professor ou faculty member
+%   curso (inteiro) = course
+%   disciplina = discipline
+%   assunto = subject
+%   ele (o estudante) = he
+
 \RequirePackage{fix-cm}
 %\documentclass{svjour3}                     % onecolumn (standard format)
 %\documentclass[smallcondensed]{svjour3}     % onecolumn (ditto)
@@ -212,7 +220,7 @@ The eProfile prototype was developed in Python \citep{python}. Python is a gener
 
 Figure~\ref{fig:dados_inferencia} shows the data flow for the entity profile inference process. At the heart of this operation is the Reasoner agent, which uses an external inference engine to implement the rules. The reasoner used is FACT++, a propositional logic reasoner created as a platform for use of algorithms of semantic {\em tableaux} and optimization techniques \citep{tsarkov06}. This reasoner was chosen due to its good performance and to support all functions used by the eProfile.
 
-The knowledge representation language used for storage and processing of ontologies is OWL\cite {owl-guide}, chosen because for being the most expressive ontology language defined for the Semantic Web \citep{daconta03}.
+The knowledge representation language used for storage and processing of ontologies is OWL\citep {owl-guide}, chosen because for being the most expressive ontology language defined for the Semantic Web \citep{daconta03}.
 
 %-----------------------------------------------------------
 \section{Evaluation Aspects}
@@ -220,7 +228,9 @@ The knowledge representation language used for storage and processing of ontolog
 
 It is only possible to evaluate the functionalities of a proposed infrastructure by building applications that utilize it and then evaluate them, in order to obtain an indirect evaluation of the model \citep{edwards03}. The scientific community has been using scenarios to perform this type of indirect evaluation in context sensitive (such as the approach taken by \citet{dey2001b}) and ubiquitous (according to \citet{satyanarayanan01}) environments. This work follows the same approach -- we created a prototype and a scenario for performing an experiment, in order to evaluate eProfile.
 
-The experiment presented is based on the generation of simulated trails of graduate students within the context of Ubiquitous Learning. Ubiquitous Learning can be understood as a set of educational processes that occur anywhere, at any time and with any device, continuously, contextualized and integrated into the daily lives of apprentices \cite{barbosa11}.
+% TODO - descrever o ambiente
+
+The experiment presented is based on the generation of simulated trails of graduate students within the context of Ubiquitous Learning. Ubiquitous Learning can be understood as a set of educational processes that occur anywhere, at any time and with any device, continuously, contextualized and integrated into the daily lives of apprentices \citep{barbosa11}.
 
 \begin{figure}
   \centering\includegraphics[width=0.6\textwidth]{imagens/modelo_cenario1.png}
@@ -228,7 +238,7 @@ The experiment presented is based on the generation of simulated trails of gradu
   \label{fig:modelo_cenario1}
 \end{figure}
 
-The scenario is composed of four applications that interact with among themselves, according to Figure~\ref{fig:modelo_cenario1}. LOCAL is a ubiquitous learning system used to find learning opportunities and put students in touch. UniManager is an application used by the administration of the university to manage student grades and disciplines. Both softwares have profile modules, where the profile information is used for decision making. Since in both cases the profiles module is static and depends on collection of explicit information, the eProfile is connected to these softwares, leveraging the dynamic creation of profiles and collecting information implicitly. Furthermore, the eProfile enables interoperability between these systems by allowing information from both systems to be used to generate single profiles. The scenario also includes a trail managers, that manages the entities trails.
+The scenario is composed of four applications that interact with among themselves, according to Figure~\ref{fig:modelo_cenario1}. LOCAL is a ubiquitous learning system used to find learning opportunities by putting students in touch and recommendind learning content. UniManager is an application used by the administration of the university to manage student grades and disciplines. Both softwares have profile modules, where the profile information is used for decision making. Since in both cases the profiles module is static and depends on collection of explicit information, the eProfile is connected to these softwares, leveraging the dynamic creation of profiles and collecting information implicitly. Furthermore, the eProfile enables interoperability between these systems by allowing information from both systems to be used to generate single profiles. The scenario also includes a trail manager, that manages the entities trails. In this scenario, the entities are disciplines, students and faculty members.
 
 The initial communication occurs between applications and eProfile (arrows ``a'' and ``b''), where applications define their entity models and rules. This communication can occur as often as necessary, because applications can update their rules and their entity models continuously. During the execution of the applications, they record the events in the Trail Manager (arrows ``c'' and ``d''). This means applications can run disconnected from eProfile, and connect only when a rule needs to by updated or when profile data must be downloaded. eProfile retrieves trails periodically from the Trail Manager (arrow ``e''). When eProfile is in possession of the trails, rules and entity models, it starts to process these information, inferring new profile data. These profiles are then downloaded by applications (arrows ``f'' and ``g'').
 
@@ -239,19 +249,21 @@ The following sections describe the integration between eProfile, LOCAL (Section
 \subsection{eProfile/LOCAL Integration}
 \label{sec:eprofile_local}
 
-This scenario incorporates the eProfile to a ubiquitous learning system called LOCAL (Location and Context-Aware Learning). LOCAL uses location information and context as an aid to teaching and learning process. A tracking system monitors the mobility of apprentices and, based on their physical position, explores educational opportunities \cite{barbosa11}.
+This scenario incorporates the eProfile to a ubiquitous learning system called LOCAL (Location and Context-Aware Learning). LOCAL uses location information and context as an aid to teaching and learning process. A tracking system monitors the mobility of apprentices and, based on their physical position, explores educational opportunities \citep{barbosa11}.
 
 LOCAL, whose architecture is shown in Figure~\ref{fig:arq_local}, consists of seven components: (i) a system of user profiles, which stores data relevant to the process of teaching and learning, (ii) a system location, (iii) a Personal Assistant (PA), that follows the user on his mobile device, (iv) a repository of learning objects, (v) a system for sending contextualized messages, (vi) a task scheduling event system and (vii) the tutor, an analysis engine that performs inference using data provided by the profile and tranking systems.
 
 \begin{figure}[!t]
   \centering\includegraphics[width=0.7\textwidth]{imagens/arq_local.png}
-  \caption{LOCAL architecture}
+  \caption{LOCAL architecture \citep{barbosa11}}
   \label{fig:arq_local}
 \end{figure}
 
 LOCAL's profile system information gathering is explicit. This means that users' (learners) relevant data need to be pre-populated in the system. Furthermore, the LOCAL profile system is static, which means that data is not automatically updated in response to actions taken by learners or external events. Since eProfile is a dynamic entity model with implicit information gathering, integrating these two models results in the enhancement of LOCAL capabilities.
 
-LOCAL fits the eProfile model according to Figure~\ref{fig:eprofile_local}. Besides LOCAL and eProfile, \ref{fig:eprofile_local} presents an application called Trail Manager. A trail manager is an external program that stores the tracks, processes them and forwards them to the eProfile, as described in Section~\ref{sec:model}. For this scenario, we created a simple trail manager, which just receives, stores and forwards the trails to the eProfile upon request.
+LOCAL and eProfile integrate according to Figure~\ref{fig:eprofile_local}. Besides LOCAL and eProfile, \ref{fig:eprofile_local} presents an application called Trail Manager. A trail manager is an external program that stores the tracks, processes them and forwards them to the eProfile, as described in Section~\ref{sec:model}. For this scenario, we created a simple trail manager, which just receives, stores and forwards the trails to the eProfile upon request.
+
+% TODO: descrever quem gera os modelos de entidade e as regras
 
 Integration between eProfile and LOCAL was based on the following changes to the LOCAL: (i) we included a connection interface with eProfile, able to generate learners entity models and rules for profile processing, (ii) we included a connection interface with the trail manager, for the tracking events and actions undertaken on the Personnel Assistant were to be sent to the trail manager, and (iii) we included a communication interface with the eProfile, where the LOCAL User Profiles Module is fed by profiles generated by eProfile.
 
@@ -294,7 +306,7 @@ The UniManager is a in administrative software used by the university for regist
 
 The UniManager has two interfaces: administrative and user. The administrative interface is used by the management of universities to enroll subjects, faculty members and students. It is also used by students to carry out their registration for the next semester. This interface connects to a disciplines manager, which manages the enrollment and prerequisites between disciplines.
 
-The user interface is used in the professors' and students' mobile devices, and is connected to the university tracking system. Thus, all events recorded in UniManager from this interface contains the location of the student within the University, that is, the room where the student is. The tracking system integrated to the user interface allows the system to check whether the student or the professor are present in class. The student performs the tests and hands out papers using this interface, and the professor evaluates the student tests and papers.
+The user interface is used in the professors' and students' mobile devices, and is connected to the university tracking system. Thus, all events recorded in UniManager from this interface contains the location of the student within the University, that is, the campus' region where the student is. The tracking system integrated to the user interface allows the system to check whether the student or the professor are present in class. The student performs the tests and hands out papers using this interface, and the professor evaluates the student tests and papers.
 
 UniManager also contains a profile database. On this database are stored: (i) registration information of the disciplines, (ii) presences and absences of professors and students, and (iii) tests and papers hand out by the students, and students evaluations about the professor.
 
@@ -371,52 +383,44 @@ The full set of disciplines used for this scenario is shown in Table~\ref{tab:cu
 
 %---------------------8<--------------------
 
-Os alunos e docentes utilizam dispositivos móveis ({\em laptop} ou {\em smartphones}), onde estão instalados aplicativos utilizados para a administração de sua vida acadêmica. Em especial, estão instalados o UniManager e o LOCAL.
+Students and professors use mobile devices (laptops or smartphones), on which are installed applications used for administration of their academic life. In particular, UniManager and LOCAL are installed.
 
-Students and teachers use mobile devices ({\ in} or {laptop \} on smartphones), which are installed applications used for administration of his academic life. In particular, the UniManager are installed and LOCAL.
+UniManager is the system used for discipline administration, as described in Section~\ref{sec:eprofile_unimanager}. It is used by the university administration, the professors and the students. The administration uses it to register disciplines, students and faculty, to link students and faculty to their disciplines and to issue management reports such as attendance and approval/failing of students as well as absenses and evaluations of professors. Faculty members use the system to conduct student evaluations. Students use it to perform its tests and papers, to make their enrollment in the disciplines and to check their grades and absences.
 
-O UniManager é o sistema utilizado pela universidade para administração das disciplinas, descrito na Seção~\ref{sec:eprofile_unimanager}. Ele é usado pela administração da universidade, pelos professores e estudantes. A administração utiliza-o para cadastrar disciplinas, alunos e docentes,  vincular os alunos e docentes às disciplinas e emitir relatórios gerenciais, como lista de presenças e aprovação/reprovação de alunos, bem como faltas e avaliações de professores. Os docentes utilizam o sistema para realizar as avaliações dos alunos. Os estudantes o utilizam para realizar suas provas e trabalhos, para fazer sua matrícula nas disciplinas e para verificar suas notas e faltas.
+In addition, teachers and students also use LOCAL on their mobile devices. LOCAL combines information from profiles to their location to be able to assist them, facilitating interaction between learners and enabling the delivery of contextualized educational material. Professors use the LOCAL to register material that will be distributed to students. LOCAL communicates with students to distribute educational material previously registered and put students with similar interests in touch during educational activities. If, during these activities, the student has not registered any interest that matches those required by the activity, he has the option to make the choice using the Personal Assistant.
 
-The UniManager is the system used by the university administration to the subjects, described in Section ~ \ ref {sec: eprofile_unimanager}. It is used by the university administration, teachers and students. The administration uses it to register disciplines, students and faculty, students and faculty link to courses and issue management reports such as attendance and approval / disapproval of students as well as shortages of teachers and evaluations. Teachers use the system to conduct student evaluations. Students use it to perform its tests and papers to make their enrollment in the disciplines and to check their grades and absences.
-
-Além disso, os docentes e os alunos também utilizam o LOCAL em seus dispositivos móveis. O LOCAL combina as informações dos perfis com sua localização, de modo a poder assisti-los, facilitando a interação entre os aprendizes e permitindo a entrega de material pedagógico contextualizado. Os docentes utilizam o LOCAL para cadastrar o material pedagógico que será distribuído aos alunos. O LOCAL se comunica com os estudantes de modo a distribuir o material pedagógico previamente cadastrado e colocar estudantes com interesses similares em contato durante a realização de atividades pedagógicas. Caso, durante estas atividades, o estudante não tenha nenhum interesse cadastrado que corresponda àqueles requeridos pela atividade, ele tem a opção de fazer a escolha utilizando o Assistente Pessoal. 
-
-In addition, teachers and students also use the LOCAL on their mobile devices. SPOT combines information from profiles to their location, so you can watch them, facilitating interaction between learners and enabling the delivery of educational material contextualized. Teachers use the LOCAL subscribe to the material that will be distributed to students. SPOT communicates with students to distribute educational material previously registered and place students with similar interests in touch while conducting educational activities. If, during these activities, the student has not registered any interest that matches those required by the activity, he has the option to make the choice using the Personal Assistant.
-
-A Tabela~\ref{tab:aula} exemplifica uma aula de duas horas e meia envolvendo 10 alunos, na qual foi realizado um debate a respeito de Técnicas de Programação. Após o debate, os alunos realizaram um trabalho individual a respeito dos assuntos discutidos no debate. Neste exemplo, foram registrados no UniManager a presença dos alunos, a entrega do seu trabalho e a nota obtida e, no LOCAL, o conteúdo pedagógico da aula.
-
-Table ~ \ ref {tab:} class exemplifies a class of two and a half hours involving 10 students, in which there was a debate about Programming Techniques. After the debate, students undertook a study about the individual topics discussed in the debate. In this example, UniManager were recorded in the presence of students, the delivery of their work and the mark achieved and, in LOCAL, the educational content of the lesson.
+Table~\ref{tab:aula} exemplifies a two and a half hours class involving 10 students, in which there was a debate about Programming Techniques. After the debate, students undertook a study about the individual topics discussed in the debate. In this example, the presence of students, the delivery of their work and the grade achieved were registered in UniManager. The educational content of the lesson was registered in LOCAL.
 
 Além disso, o LOCAL registrou a preferência pessoal de dois alunos, a respeito de sistemas de banco de dados. Caso o LOCAL e o UniManager estivessem sendo usados isoladamente, esta informação teria sido apenas relevante para a tarefa imediata da aula. No entanto, com a integração destes sistemas com o eProfile, esta informação é utilizada na atualização do perfil dos alunos, e pode ser utilizada futuramente para facilitar a interação entre alunos e personalizar a entrega de conteúdo pedagógico (pelo LOCAL) e auxiliar o aluno na sugestão de disciplinas facultativas (pelo UniManager).
 
-Additionally, the PLACE recorded the personal preference of two students, about database systems. If the LOCAL and UniManager were being used alone, this information would have been relevant only to the immediate task of the lesson. However, with the integration of these systems with eProfile, this information is used to update the profile of the students, and can be used in the future to facilitate interaction between students and personalize the delivery of educational content (the site) and to assist the student in suggested optional subjects (at UniManager).
+Additionally, LOCAL registered the personal preferences of two students about programming techniques. If LOCAL and UniManager were being used in isolation, this information would have been relevant only to the immediate lesson assignment. However, the integration of these systems with eProfile allows this information to be used to update the profile of the students, and can be used in the future to facilitate interaction between students and personalize the delivery of educational content (by LOCAL) and to assist the student in the recommendation of optional disciplines (by UniManager).
 
 \begin{table*}\centering\footnotesize
     \begin{tabular*}{1\textwidth}{@{}cccp{11cm}@{}}
     \toprule
-    Evento & Horário & Ator & Ação \\
+    Event & Timeframe & Actor & Action \\
     \midrule
-    1 & - & Professor & Insere no LOCAL o material pedagógico a respeito de banco de dados, que será utilizado na aula, e requisita a entrega de um trabalho através do UniManager. \\
-    2 & 7:30 & Alunos & Nove alunos entram na sala. \\
-    3 & 7:30 & LOCAL & LOCAL identifica a entrada dos alunos na sala. \\
-    4 & 7:30 & UniManager & UniManager identifica a entrada dos alunos na sala. \\
-    5 & 7:30 & LOCAL & LOCAL envia o conteúdo pedagógico da aula aos alunos. \\
-    6 & 8:00 & Professor & Professor pede a criação de grupos para o debate. \\
-    7 & 8:00 & LOCAL & O LOCAL forma três grupos baseado nas preferências dos estudantes: {\em Algoritmos Distribuídos} (3 alunos), {\em Algoritmos de Escalonamento} (3 alunos) e {\em Algoritmos Matemáricos} (1 aluno). Dois alunos não tem uma preferência cadastrada que permita que o LOCAL os encaixe em algum grupo. \\
-    8 & 8:00 & LOCAL & LOCAL solicita aos dois estudantes que escolham algum grupo. \\
-    9 & 8:10 & Alunos & Os alunos indicam sua preferência através do Assistente Pessoal do LOCAL. \\
-    10 & 8:10 & LOCAL & O LOCAL encaixa os dois alunos nos grupos de sua preferência, um em {\em Algoritmos de Escalonamento} e o outro em {\em Algoritmos Matemáticos}. \\
-    11 & 8:10 & Alunos & O debate inicia. \\
-    12 & 8:40 & Alunos & Um aluno entra na aula, atrasado. O UniManager e o LOCAL registram sua entrada, mas o LOCAL não o encaixa no debate, que já está no final. \\
-    13 & 8:50 & Alunos & O debate se encerra. \\
-    14 & 8:50 & Professor & O professor pede que os alunos façam um trabalho em aula sobre o debate realizado. \\
-    15 & 10:00 & Alunos & Os alunos entregam o trabalho através do UniManager e saem da sala. \\
-    16 & 10:00 & UniManager & Recebe os trabalhos entregues e registra a saída dos alunos. \\
-    17 & 10:00 & LOCAL & Registra a saída dos alunos. \\
-    18 & - & Professor & O professor, posteriormente, avalia o trabalho dos alunos e registra a nota no UniManager. \\
+    1 & - & Professor & Registers educational material that'll be used in class into LOCAL, and request the delivery of a paper through UniManager. \\
+    2 & 7:30 & Students & Nine students enter in the classroom. \\
+    3 & 7:30 & LOCAL & LOCAL identifies the entrance of the students into the classroom. \\
+    4 & 7:30 & UniManager & UniManager identifies the entrance of the students into the classroom. \\
+    5 & 7:30 & LOCAL & LOCAL sends the class educational material to the students. \\
+    6 & 8:00 & Professor & Professor requests the formation of groups for the debate. \\
+    7 & 8:00 & LOCAL & O LOCAL forms three groups based on the students' preferences: {\em Distributed Algorithms} (3 students), {\em Scheduling Algorithms} (3 students) and {\em Math Algorithms} (1 student). Two students have no registered preference that allows LOCAL to put them in any group. \\
+    8 & 8:00 & LOCAL & LOCAL request the two students to choose a group. \\
+    9 & 8:10 & Students & Students indicate their preference through LOCAL Personal Assistant. \\
+    10 & 8:10 & LOCAL & LOCAL puts the two students in their chosen groups, one of them in {\em Scheduling Algorithms} and the other one in {\em Math Algoritms}. \\
+    11 & 8:10 & Students & The debate starts. \\
+    12 & 8:40 & Students & One student enters the classroom, late. UniManager and LOCAL register their entrance, but LOCAL doesn't register him in the debate, since it's almost over.\\
+    13 & 8:50 & Students & The debate ends. \\
+    14 & 8:50 & Professor & The professor request the students to write a paper about the debate subject.\\
+    15 & 10:00 & Students & The students deliver their papers through UniManager and leave the classroom.\\
+    16 & 10:00 & UniManager & Receives the papers and registers the students exit.\\
+    17 & 10:00 & LOCAL & Registers the students exit.\\
+    18 & - & Professor & The professor, later, evaluates the students papers and registers their grade on UniManager.\\
     \bottomrule
   \end{tabular*}
-  \caption{Exemplo de uma aula}
+  \caption{Example of a class}
   \label{tab:aula}
 \end{table*}
 
