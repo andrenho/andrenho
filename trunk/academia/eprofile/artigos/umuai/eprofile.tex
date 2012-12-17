@@ -391,8 +391,6 @@ In addition, teachers and students also use LOCAL on their mobile devices. LOCAL
 
 Table~\ref{tab:aula} exemplifies a two and a half hours class involving 10 students, in which there was a debate about Programming Techniques. After the debate, students undertook a study about the individual topics discussed in the debate. In this example, the presence of students, the delivery of their work and the grade achieved were registered in UniManager. The educational content of the lesson was registered in LOCAL.
 
-Além disso, o LOCAL registrou a preferência pessoal de dois alunos, a respeito de sistemas de banco de dados. Caso o LOCAL e o UniManager estivessem sendo usados isoladamente, esta informação teria sido apenas relevante para a tarefa imediata da aula. No entanto, com a integração destes sistemas com o eProfile, esta informação é utilizada na atualização do perfil dos alunos, e pode ser utilizada futuramente para facilitar a interação entre alunos e personalizar a entrega de conteúdo pedagógico (pelo LOCAL) e auxiliar o aluno na sugestão de disciplinas facultativas (pelo UniManager).
-
 Additionally, LOCAL registered the personal preferences of two students about programming techniques. If LOCAL and UniManager were being used in isolation, this information would have been relevant only to the immediate lesson assignment. However, the integration of these systems with eProfile allows this information to be used to update the profile of the students, and can be used in the future to facilitate interaction between students and personalize the delivery of educational content (by LOCAL) and to assist the student in the recommendation of optional disciplines (by UniManager).
 
 \begin{table*}\centering\footnotesize
@@ -426,86 +424,62 @@ Additionally, LOCAL registered the personal preferences of two students about pr
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Trilhas, Regras e Perfis}
+\subsection{Trails, Rules and Profiles}
 \label{sec:trilhas_cen1}
 
-Segundo descrito nas Seções~\ref{sec:eprofile_local} e \ref{sec:eprofile_unimanager}, os aplicativos LOCAL e UniManager sofreram três alterações significativas: (i) foram incluídas {\em interfaces} de comunicação com o eProfile, para que os aplicativos fornecessem os modelos de entidade e as regras, (ii) foram incluídas {\em interfaces} de comunicação com o Gerenciador de Trilhas, de modo que os aplicativos pudessem informar os eventos ocorridos e (iii) o módulo de perfis de ambas as aplicações foi modificado de modo a solicitar as atualizações de perfil a partir do eProfile.
+According to what was described in Sections~\ref{sec:eprofile_local} and \ref{sec:eprofile_unimanager}, LOCAL and UniManager suffered three significant changes: (i) there were included communication interfaces with eProfile, so that applications can provide the entity models and rules, (ii) there were included  communication interfaces with the trail manager, so that applications could inform the events and (iii) the profile modules of both applications were modified to request profile updates from eProfile.
 
-As described in Sections ~ \ ref {sec: eprofile_local} and \ ref {sec: eprofile_unimanager}, applications and LOCAL UniManager suffered three significant changes: (i) were included {\} interfaces in communication with eProfile, so applications provide the entity models and rules, (ii) were included {\} interfaces in communication with the Manager trails, so that applications could inform the events and (iii) the module profiles of both applications was modified to request updates from the profile eProfile.
+The scenario consists of three entities: (i) students, (ii) professors and (iii) disciplines. The ``professor'' and ``student'' entities represent, respectively, each one of the professors and students involved in the course. The ``discipline'' entity refers to each discipline of the course. The disciplines could be represented either as an entity or as a single resource; in this scenario, it was decided that it would be represented as an entity, since this  allows it to create a trail, from which a profile can be obtained. This way, the profile of the discipline can contain fields that are updated repeatedly such as, for example, the average grade of the discipline.
 
-O cenário é composto por três entidades: (i) estudantes, (ii) docentes e (iii) disciplinas. As entidades estudante e docente representam, respectivamente, cada um dos alunos e professores envolvidos no curso. A entidade disciplina, que refere-se a cada uma das disciplinas do curso, poderia ser representada tanto como uma entidade quanto como um simples recurso. Neste cenário, foi decidido que ela seria representada como uma entidade, pois desta forma é possível permitir que ela crie uma trilha, da qual pode ser obtido um perfil. Desta forma, o perfil da disciplina pode conter campos que são atualizados repetidamente, tal como a nota média da disciplina.
+According to what was described in Section~\ref{sec:eontotrail}, context-aware applications are interested in knowing {\bf who}, {\bf where}, {\bf when} and {\bf what} (ie, what the user is doing), so they can understand why the situation is occurring. The eProfile trail ontology, shown in Figure~\ref{fig:ont_trilha} defines that these questions are answered, respectively, by the classes {\em Identity}, {\em Location}, {\em Time} and {\em Activity}. Furthermore, the class {\em Participants} describes the other entities involved in this event. When a trail is stored in eProfile, information regarding the event should be inherited from these classes, using as many classes as there are necessary so that the information in complete.
 
-The scenario consists of three entities: (i) students, (ii) teachers and (iii) disciplines. The faculty and student bodies represent, respectively, each of the students and teachers involved in the course. The entity discipline which concerns each subject course, could be represented either as an entity or as a single resource. In this scenario, it was decided that it would be represented as an entity, because this way you can allow it to create a track, which can be obtained from a profile. Thus, the profile of the discipline can contain fields that are updated repeatedly as the average grade of the discipline.
-
-Segundo descrito na Seção~\ref{sec:eontotrail}, aplicações sensíveis a contexto estão interessadas em saber {\bf quem}, {\bf onde}, {\bf quando} e {\bf o quê} (isto é, o que o usuário está fazendo), de forma a poderem descobrir por que a situação está ocorrendo. A ontologia de trilha do eProfile, mostrada na Figura~\ref{fig:ont_trilha}, define que estas questões são respondidas, respectivamente, pelas classes {\em Identity}, {\em Location}, {\em Time} e {\em Activity}. Além disso, a classe {\em Participants} descreve as outras entidades envolvidas neste evento. Quando uma trilha é armazenada no eProfile, a informação referente ao evento deve ser herdada destas classes, utilizando tantas classes quantas forem relevantes para que a informação esteja completa.
-
-As described in Section ~ \ ref {sec: eontotrail}, context-aware applications are interested in knowing {\ bf who}, {\ bf where}, {\ bf if} and {\ bf what} (ie, what the user is doing), so they can figure out why the situation is occurring. The ontology of track eProfile, shown in Figure ~ \ ref {fig: ont_trilha}, ​​that defines these questions are answered, respectively, by the classes {\ in Identity}, {\ em Location}, {\ em Time} and {\ Activity in}. Furthermore, the class {\ em} Participants describes the entities involved in this event. When a track is stored in eProfile, information regarding the event should be inherited these classes, using as many classes as many are relevant to that information is complete.
-
-A trilha dos estudantes contém os seguintes eventos: cadastro, matrícula em disciplina, entrada e saída em aula, realização de provas e trabalhos, escolha de preferências e abandono de curso. O formato da trilha está detalhado na Figura~\ref{fig:ont_estudante}. Na trilha dos docentes são registrados os seguintes eventos: cadastro, entrada e saída em aula e avaliação das provas e trabalhos dos alunos, segundo detalhando na Figura~\ref{fig:ont_docente}. A trilha da disciplina recebe os seguintes eventos: cadastro e início e fim de semestre, de acordo com a Figura~\ref{fig:ont_disciplina}.
-
-The track students' contains the following events: registration, course enrollment, and out in the classroom, conducting tests and studies, choose preferences and abandonment of course. The track format is detailed in Figure ~ \ ref {fig: ont_estudante}. On the trail of the teachers are recorded the following events: registration, entry and exit in the classroom and evaluating student work and evidence, according detailing in Figure ~ \ ref {fig: ont_docente}. The trail of discipline receives the following events: registration and start and end of the semester, according to Figure ~ \ ref {fig: ont_disciplina}.
+The students' trail contains the following events: registration, discipline enrollment, entry and exit from locations inside the campus, test carrying out and papers delivery, preferences choices and abandonment of the course. The trail format is detailed in Figure~\ref{fig:ont_estudante}. The following events are registered in the professor trail: registration, entry and exit from locations inside the campus and evaluation of students' tests and papers, according to the diagram shown in Figure~\ref{fig:ont_docente}. The discipline trail receives the following events: registration and beginning and end of semester, according to Figure~\ref{fig:ont_disciplina}.
 
 \begin{figure}[!t]
   \centering\includegraphics[width=0.6\textwidth]{imagens/ont_estudante.png}
-  \caption{Ontologia de trilha do estudante}
+  \caption{Student trail ontology}
   \label{fig:ont_estudante}
 \end{figure}
 
 \begin{figure}[!t]
   \centering\includegraphics[width=0.6\textwidth]{imagens/ont_docente.png}
-  \caption{Ontologia de trilha do docente}
+  \caption{Professor trail ontology}
   \label{fig:ont_docente}
 \end{figure}
 
 \begin{figure}[!t]
   \centering\includegraphics[width=0.6\textwidth]{imagens/ont_disciplina.png}
-  \caption{Ontologia de disciplina}
+  \caption{Discipline trail ontology}
   \label{fig:ont_disciplina}
 \end{figure}
 
-O objetivo final da geração das trilhas é a geração dos perfis. Para que o eProfile tenha sucesso em gerar os perfis a partir das trilhas, ele necessita que o aplicativo informe a ele os modelos de entidades e as regras de inferência.
+The ultimate goal of the trail inference is the profile generation. For the eProfile to be successful in generating profiles from the trails, it requires the application to inform the models of entities and inference rules.
 
-The ultimate goal of the trails generation is the generation of profiles. For the eProfile succeed in generating profiles from the trails, it requires the application to tell him the models of entities and rules of inference.
-
-Os modelos de entidades são a estrutura de dados utilizada para armazenar o perfil de uma entidade. O modelo de entidade utilizado pelo módulo de Perfis de Usuários do LOCAL é mostrado na Figura~\ref{fig:perfil_local}. Os perfis dos aprendizes apresentam dois tipos de dados: (i) persistentes, relacionados ao aprendiz em todas as situações que ele se encontre e (ii) contextuais, associado com os contextos com as quais o aprendiz interage.
-
-The models of entities are data structure used to store the outline of a entity. The entity model used by the module User Profiles SITE is shown in Figure ~ \ ref {fig: perfil_local}. The profiles of the learners have two types of data: (i) persistent, related to the learner in all situations which he is, and (ii) contextual, associated with the contexts in which the learner interacts.
+The entities models are the data structure used to store the profile of a entity. The entity model used by the LOCAL User Profile module is shown in Figure~\ref{fig:perfil_local}. The learners' profiles have two types of data: (i) persistent, associated to the learner in any situation, and (ii) contextual, associated with which the contexts in which the learner interacts.
 
 \begin{figure}[!t]
   \centering\includegraphics[width=0.7\textwidth]{imagens/perfil_local.png}
-  \caption{Modelo de perfis do LOCAL}
+  \caption{LOCAL profile model}
   \label{fig:perfil_local}
 \end{figure}
 
-As seções do bloco persistente do perfil são (i) contato, que armazena dados básicos do usuário, tais como nome, telefone, entre outros, (ii) preferências, que guarda o tipo de mídia preferida pelo usuário e (iii) interesses, que identifica tópicos de interesse dos alunos. A seção de interesses está categorizada de acordo com o sistema de classificação computacional da ACM \cite{acm10}. As seções do bloco contextual são (i) relações, que identifica os relacionamentos com outros usuários dentro do mesmo contexto, (ii) performance, que diz respeito a objetivos que devem ser atingidos pelos estudantes e (iii) segurança, que armazena credenciais necessárias para acessar diferentes níveis em contextos específicos.
+The sections of the profile persistent block are (i) contact, which stores basic information of the user, such as name, phone number, among others, (ii) preferences, which stores the media type preferred by the user, and (iii) interests, which identifies the student's topics of interest. The interests section is categorized according to ACM's computational classification system \citep{acm10}. The sections of the contextual block are (i) relations, identifying relationships with other users within the same context, (ii) performance, which refers to the goals to be achieved by students and (iii) security, which stores credentials necessary to access different levels in specific contexts.
 
-The sections of the block are persistent profile (i) contact, which stores basic data of the user, such as name, phone, among others, (ii) preferences, which holds the media type preferred by the user, and (iii) interests, which identifies topics of student interest. The interests section is categorized according to the classification system of computational ACM \ cite {} acm10. The sections of the block are contextual (i) relationships, identifying relationships with other users within the same context, (ii) performance, which concerns the goals to be achieved by students and (iii) security, which stores credentials necessary to access different levels in specific contexts.
-
-O UniManager armazena perfis de disciplinas, docentes e estudantes, e tem seu modelo de entidade ilustrado na Figura~\ref{fig:perfil_unimanager}. As informações básicas, disciplinas matriculadas e notas/faltas do perfil do estudante são utilizadas para atividades gerenciais da Universidade, como verificar se o aluno pode cursar uma determinada disciplina, assim como as informações de disciplinas do docente. As informações de desempenho do docente e de médias históricas das disciplinas são utilizadas para ajustar o docente com a disciplina que tenha maior afinidade ou desempenho. As informações de interesse dos alunos são utilizadas para sugerir disciplinas opcionais aos alunos.
-
-The UniManager stores profiles of disciplines, teachers and students, and has its entity model illustrated in Figure ~ \ ref {fig: perfil_unimanager}. The basic information, subjects enrolled and notes / Profile student absences are used for managerial activities of the University, how to check if the student can attend a particular discipline, as well as information disciplines of teaching. Performance information for the teacher and historical averages of disciplines are used to adjust the teacher with discipline that has higher affinity or performance. The information of interest to students are used to suggest electives students.
+The UniManager stores profiles of disciplines, teachers and students. Its entity model is illustrated in Figure~\ref{fig:perfil_unimanager}. The basic information, subjects enrolled and notes/absences from the student profile, along with the disciplines information, are used for managerial activities of the University, such as checking if the student can attend a particular discipline. Performance information about the professor and historical average grades of disciplines are used to adjust the professor with the discipline he has higher affinity or performance. Information about students interests are used to suggest electives disciplines to them.
 
 \begin{figure}[!t]
   \centering\includegraphics[width=0.65\textwidth]{imagens/unimanager_perfil.png}
-  \caption{Modelo de perfis do UniManager}
+  \caption{UniManager profile model}
   \label{fig:perfil_unimanager}
 \end{figure}
 
-O UniManager e o LOCAL definem um conjunto de regras para geração dos perfis baseados nas trilhas geradas por ambos os aplicativos. Um aplicativo tem a possibilidade de utilizar a trilha de outro aplicativo para o processamento das regras e consequente geração dos perfis, permitido assim que o perfil da entidade seja enriquecido pelo ambiente que o cerca.
+LOCAL and UniManager define a set of rules for profile generation based on the trails registered by both applications. An application has the option of using the trail of another application for processing rules and, consequently, profile generation, thus allowing the entity profile to be enriched by the surrounding environment.
 
-The LOCAL UniManager and define a set of rules for generation of profiles based on the tracks generated by both applications. An application has the option of using the trail of another application for processing rules and consequent generation of profiles, thus enabling the profile of the entity that is enriched by the surrounding environment.
+The rule definition is written in OWL by creating classes that can be processed by a reasoner. Table~\ref{tab:aula} shows an example of a classroom where the professor registers in LOCAL a set of subjects that'll be discussed in class (event 1). This event generates a trail that is sent from LOCAL to the trail manager and, subsequently, to eProfile.
 
-A definição das regras é feita em OWL, através da criação de classes que possam ser processadas por um raciocinador. A Tabela~\ref{tab:aula} mostra o exemplo de uma aula onde o professor cadastra no LOCAL um conjunto de assuntos que serão debatidos em aula (evento 1). Este evento gera uma trilha que é enviada do LOCAL ao Gerenciador de Trilhas e, subsequentemente, ao eProfile.
+LOCAL then tries to identify students who have the same interests as the ones in the proposed debate, or interests related to these (event 7), by sending the OWL rules described in Figure~\ref{fig:regra1}. The first rule is called {\em RelatedSubjects} (line 2), where the subjects (class {\em Subject} line 4) related (line 6) to what will be discussed in class (line 7) are inferred. The expression {\tt ?Subject} is an eProfile extension to OWL, where this expression is replaced by the subjects that will be discussed, allowing the same rule to be used in different situations. This rule, after the inference process, results in the listing of all subjects (classes of type {\em Subject}) that relate to the subject that will be discussed, putting these classes as subclasses of class {\em RelatedSubjects}.
 
-The definition of the rules is done in OWL, by creating classes that can be processed by a reasoner. Table ~ \ ref {tab: class} shows an example of a classroom where the teacher LOCAL register on a set of issues that will be discussed in class (event 1). This event generates a trail that is sent to the LOCAL Manager tracks and subsequently the eProfile.
-
-O LOCAL, então, tenta identificar os alunos que possuam iteresses iguais aos do debate proposto, ou interesses que estejam relacionadas a estes (evento 7). Desta forma, o LOCAL envia as regras OWL descritas na Figura~\ref{fig:regra1} para realizar esta identificação. A primeira regra chama-se {\em RelatedSubjects} (linha 2), onde são inferidos todos os assuntos (classe {\em Subject}, linha 4) que sejam relacionados (linha 6) aos assuntos que serão debatidos em aula (linha 7). A expressão {\tt ?subject} é uma extensão do eProfile, que substitui esta expressão pelos assuntos que estão sendo utilizados, permitindo que a mesma regra possa ser usada em diferentes situações. Esta regra, após inferida, resulta na listagem de todos os assuntos (classes do tipo {\em Subject}) que se relacionam aos assuntos que serão debatidos, colocando estas classes como subclasses da classe {\em RelatedSubjects}.
-
-PLACE then tries to identify students who have iteresses equal to the proposed debate, or interests that are related to these (Event 7). Thus, the LOCAL sends the rules described in Figure OWL ~ \ ref {fig: Rule1} to perform this identification. The first rule is called {\ em RelatedSubjects} (line 2), where all subjects are inferred (class {\} in Subject line 4) that are related (line 6) the matters to be discussed in class (line 7 ). The expression {\ tt?} Subject is an extension of eProfile, replacing this expression for matters that are being used, allowing the same rule can be used in different situations. This rule after inferred, resulting in the listing of all subjects (classes of type {\} in Subject) that relate to the matters to be discussed, putting these classes as subclasses of class {\} in RelatedSubjects.
-
-A partir desta regra, é possível buscar os estudantes (linha 15) cujos interesses se intersectam com os interesses encontrados na classe {\em RelatedSubjects} (linha 18). Estes estudantes, na ontologia, passam a ser subclasses da classe {\em StudentsSelected} (linha 13).
-
-From this rule, you can get the students (line 15) whose interests intersect with the interests found in class {\} in RelatedSubjects (line 18). These students, in ontology, become subclasses of class {\} in StudentsSelected (line 13).
+Using this rule, it is possible to find the students (line 15) whose interests intersect with the interests found in the {\em RelatedSubjects} class (line 18). These students, in this ontology, become subclasses of class {\em StudentsSelected} (line 13).
 
 \begin{figure}[!t]
 \begin{verbatim}
@@ -531,7 +505,7 @@ From this rule, you can get the students (line 15) whose interests intersect wit
 20    </ObjectIntersectionOf>
 21  </EquivalentClasses>
 \end{verbatim}
-  \caption{Regra OWL para identificação de interesses dos alunos}
+  \caption{OWL rule for identification of students interests}
   \label{fig:regra1}
 \end{figure}
 
