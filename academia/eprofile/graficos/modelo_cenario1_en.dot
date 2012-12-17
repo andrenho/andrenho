@@ -1,0 +1,25 @@
+digraph modelo2 {
+
+  //layout = fdp;
+  sep = 0.4;
+  node [shape=rectangle];
+
+  eProfile;
+  UniManager;
+  LOCAL;
+  trail [label="Trail Manager"];
+
+  LOCAL -> eProfile [label="a"];
+  UniManager -> eProfile [label="b"];
+  LOCAL -> trail [label="c"];
+  UniManager -> trail [label="d"];
+  trail -> eProfile [label="e"];
+  eProfile -> LOCAL [label="f"];
+  eProfile -> UniManager [label="g"];
+
+  fontsize = 12;
+  fontname = "Georgia";
+
+  rankdir = LR;
+
+}

@@ -3,10 +3,10 @@ digraph G {
   rankdir = LR;
 	node [shape=record];
   UniManager;
-  trail [label="Gerenciador\nde trilhas"];
-  cadastro [label="Cadastro|{Time|Data do evento}|{Indentity|Docente}"];
-  trocalocal [label="TrocaLocal|{Activity|Entrada ou saida}|{Time|Hora do evento}|{Location|Localização}|{Indentity|Docente}"];
-  avaliacao [label="Avaliacao|{Activity|Avaliação}|{Time|Hora do evento}|{Location|Localização}|{Identity|Docente}"];
+  trail [label="Trail Manager"];
+  cadastro [label="Registration|{Time|Event date}|{Identity|Professor}"];
+  trocalocal [label="ChangeLocation|{Activity|Entry or exit}|{Time|Event time}|{Location|Location}|{Identity|Professor}"];
+  avaliacao [label="Evaluation|{Activity|Evaluation}|{Time|Event time}|{Location|Location}|{Identity|Professor}"];
 
   UniManager -> trocalocal -> trail;
   UniManager -> cadastro -> trail;

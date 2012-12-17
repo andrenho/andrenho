@@ -1,12 +1,12 @@
 digraph G {
 
   rankdir = LR;
-	node [shape=record];
+  node [shape=record];
   UniManager;
-  trail [label="Gerenciador\nde trilhas"];
-  cadastro [label="Cadastro|{Time|Data do evento}|{Indentity|Disciplina}"];
-  semestre [label="Semestre|{Activity|Início ou fim}|{Identity|Disciplina}|{Time|Data}|{Participantes|Docentes e estudantes}"];
-  trabalho [label="TrabalhoEmGrupo|{Activity|Assuntos}|{Identity|Disciplina}|{Time|Data}|{Participants|Estudantes}"];
+  trail [label="Trail Manager"];
+  cadastro [label="Registration|{Time|Event date}|{Identity|Discipline}"];
+  semestre [label="Semester|{Activity|Beginning or end}|{Identity|Discipline}|{Time|Date}|{Participantes|Faculty and students}"];
+  trabalho [label="Workgroup|{Activity|Subjects}|{Identity|Discipline}|{Time|Date}|{Participants|Students}"];
 
   UniManager -> cadastro -> trail;
   UniManager -> semestre -> trail;

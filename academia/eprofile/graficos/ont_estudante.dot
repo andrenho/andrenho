@@ -4,13 +4,13 @@ digraph G {
 	node [shape=record];
   LOCAL;
   UniManager;
-  trail [label="Gerenciador\nde trilhas"];
-  cadastro [label="Cadastro|{Time|Data do evento}|{Indentity|Estudante}"];
-  matricula [label="Matrícula|{Time|Data do evento}|{Indentity|Estudante}"];
-  trocalocal [label="TrocaLocal|{Activity|Entrada ou saida}|{Time|Hora do evento}|{Location|Localização}|{Indentity|Estudante}"];
-  prova [label="ProvaTrabalho|{Activity|Trabalho entregue}|{Time|Hora do evento}|{Location|Localização}|{Indentity|Estudante}|{Participantes|Grupo de trabalho}"];
-  preferencia [label="Preferência|{Activity|Preferência}|{Time|Hora do Evento}|{Indentity|Estudante}"];
-  abandono [label="Abandono|{Time|Data do evento}|{Indentity|Estudante}"];
+  trail [label="Trail Manager"];
+  cadastro [label="Registration|{Time|Event date}|{Identity|Student}"];
+  matricula [label="Enrollment|{Time|Event date}|{Identity|Student}"];
+  trocalocal [label="ChangeLocation|{Activity|Entry or exit}|{Time|Event time}|{Location|Location}|{Identity|Student}"];
+  prova [label="TestPaper|{Activity|Paper delivered}|{Time|Event time}|{Location|Location}|{Identity|Student}|{Participants|Workgroup}"];
+  preferencia [label="Preference|{Activity|Preference}|{Time|Event time}|{Identity|Student}"];
+  abandono [label="Abandonment|{Time|Event date}|{Identity|Student}"];
 
   UniManager -> cadastro -> trail;
   UniManager -> matricula -> trail;
