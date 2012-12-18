@@ -18,6 +18,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[round,]{natbib}
 \usepackage{booktabs}
+\usepackage{todonotes}
 %\usepackage[T1]{fontenc}
 
 % Insert the name of "your journal" with
@@ -105,7 +106,7 @@ This article is organized as follows. Section~\ref{ch:modelo} proposes the eProf
 
 \begin{figure}
   \centering\includegraphics[width=0.6\textwidth]{imagens/modelobasico_en.png}
-  \caption{\textbf{Overview of eProfile}}
+  \caption{Overview of eProfile}
   \label{fig:modelobasico}
 \end{figure}
 
@@ -122,7 +123,7 @@ Since the eProfile supports multiple applications, it is possible for different 
 
 \begin{figure}
   \centering\includegraphics[width=1\textwidth]{imagens/modelo2_en.png}
-  \caption{\textbf{eProfile connected to multiple trail managers}}
+  \caption{eProfile connected to multiple trail managers}
   \label{fig:gerenciadores}
 \end{figure}
 
@@ -137,7 +138,7 @@ Since the eProfile supports multiple applications, it is possible for different 
 
 \begin{figure}
   \centering\includegraphics[width=1\textwidth]{imagens/modelo_big_en.png}
-  \caption{\textbf{eProfile Architecture}}
+  \caption{eProfile Architecture}
   \label{fig:modelo}
 \end{figure}
 
@@ -177,7 +178,7 @@ The trail ontology data (eOntoTrail), shown in Figure~\ref{sec:ont_trilha}, is f
 
 \begin{figure}
   \centering\includegraphics[width=1\textwidth]{imagens/ont_trilha_simples.png}
-  \caption{\textbf{eProfile Trail Ontology}}
+  \caption{eProfile Trail Ontology}
   \label{fig:ont_trilha}
 \end{figure}
 
@@ -185,7 +186,7 @@ Context-aware applications are interested in knowing {\bf who}, {\bf where}, {\b
 
 \begin{figure}
   \centering\includegraphics[width=0.45\textwidth]{imagens/ont_perfil3.png}
-  \caption{\textbf{eProfile Profile Ontology}}
+  \caption{eProfile Profile Ontology}
   \label{fig:ont_perfil}
 \end{figure}
 
@@ -205,7 +206,7 @@ For a rule to be executed, the application must have previously registered withi
 
 \begin{figure}\centering
   \includegraphics[width=0.9\textwidth]{imagens/dados_inferencia_en.png}
-  \caption{\textbf{Data flow for the entity profile inference}}
+  \caption{Data flow for the entity profile inference}
   \label{fig:dados_inferencia}
 \end{figure}
 
@@ -509,7 +510,7 @@ Using this rule, it is possible to find out the students (line 15) whose interes
   \label{fig:regra1}
 \end{figure}
 
-Table~\ref{tab:aula} event 7 describes that two students did not match either group because they had not registered any interest related to the subjects of debate, and LOCAL asked them on what subject they would like to participate (events 8 and 9), thus generating a trail event for these two students. Once the trail is registered, the student's profile is reprocessed according to the rules defined by LOCAL.
+Table~\ref{tab:aula} (event 7) describes that two students did not match either group because they had not registered any interest related to the subjects of debate, and LOCAL asked them on what subject they would like to participate (events 8 and 9), thus generating a trail event for these two students. Once the trail is registered, the student's profile is reprocessed according to the rules defined by LOCAL.
 
 The header of the rule that updates the student interest field is shown in Figure~\ref{fig:regra3}. This header defines that the student (line 1) profile {\em Interest} field (line 2) will be updated using the subclasses of class {\em StudentInterest}, whose OWL rule is shown in Figure~\ref{fig:regra2}. It is also defined that a new interest is added to the interests that already exist (line 4), that this rule is updated every time an event is registered in the trail in which a subject is chosen (line 5). The OWL rule of Figure~\ref{fig:regra2} defines that the {\em StudentInterest} class consists of the subjects chosen (line 6) by the students who are part of this context (line 10 and 11) and that have chosen a particular subject (lines 6 and 7).
 
@@ -549,65 +550,42 @@ The header of the rule that updates the student interest field is shown in Figur
 
 Após a aplicação da regra mostrada nas Figuras~\ref{fig:regra3} e~\ref{fig:regra2}, a regra da Figura~\ref{fig:regra1} é executada novamente, desta vez identificando os alunos que fizeram sua escolha (evento 10 da Tabela~\ref{tab:aula}.
 
-After the execution of the rule shown in Figures~\ref{fig:regra3} and~\ref{fig:regra2}, Figure~\ref{fig:regra1} rule runs again, this time identifying students who made their choice (event 10 of Table ~ \ ref {tab:} class.
+After the execution of the rule shown in Figures~\ref{fig:regra3} and~\ref{fig:regra2}, Figure~\ref{fig:regra1} rule runs again, this time identifying students who made their choice (event 10 of Table~\ref{tab:aula}).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Protótipo e Simulação}
+\subsection{Prototype and Yesulation}
 \label{sec:simulacao_cen1}
 
-O protótipo do eProfile foi desenvolvido na linguagem Python \cite{python}. Ele utiliza o HermiT como motor de inferência \cite{motik09}. A comunicação entre estes dois aplicativos se dá via troca de arquivos: quando é necessário que seja feito o processamento de algum perfil, o eProfile gera um arquivo OWL contendo as regras de processamento e chama o HermiT, que processa a ontologia e salva um novo arquivo com a ontologia gerada. O eProfile lê então este arquivo para dar prosseguimento ao processo.
-
-The prototype was developed in eProfile Python \ cite {} python. He uses the Hermit as inference engine \ cite {} motik09. The communication between these applications is via file exchange: when it must be done the processing of any profile, eProfile generates an OWL file containing processing rules and calls the Hermit, which processes the ontology and save a new file with the ontology generated. The eProfile then reads this file to continue the process.
+The prototype was developed in the Python \citep{python} programming language. It uses Hermit as inference engine \citep{motik09}. The communication between these applications is via file exchange: when a profile need to be processed, eProfile generates an OWL file containing processing rules and calls Hermit, which processes the ontology and save a new file with the ontology generated. The eProfile then reads this file to continue the process.
 
 To simulate the model, we developed two programs:
 
-Para a simulação do modelo, foram desenvolvidos dois programas:
-
-\begin{enumerate}
-  \item Um simulador, que une as funcionalidades do UniManager e do LOCAL gerando trilhas simuladas dos estudantes, dos docentes e das disciplinas;
-  \item Um gerenciador de trilhas simulado, que armazena as trilhas geradas e disponibiliza-as para o eProfile.
-\end{enumerate}
-
 \begin{enumerate}
 \item A simulator, which combines the features of UniManager and LOCAL generating simulated paths of students, faculty and disciplines;
-\item A simulated trails manager, which stores the generated tracks and makes them available to the eProfile.
+\item A trail manager, which stores the generated trails and makes them available to the eProfile.
 \end{enumerate}
 
-Communication between these three applications (both applications and simulated eProfile) is done through {\} in using REST webservices \ cite {} fieldings00.
+Communication between these three applications (both simulated applications eProfile) is done through REST webservices \citep{fieldings00}.
 
-A comunicação entre estes três aplicativos (os dois aplicativos simulados e o eProfile) é feita através de {\em webservices} utilizando REST \cite{fieldings00}.
+To simulate the scenario as faithfully as possible, each entity is created with a set of characteristics that distinguish them from one another, and causes them to have different performances and take different decisions when faced with a choice. Professors are generated with random values of experience and rigor. These characteristics directly influence the quality of student learning, the difficulty of the course and the likelihood of dropout students. Students are generated with varying levels of commitment, intelligence and personal tastes. These characteristics influence student performance, the probability of withdrawal of disciplines and course, and the choices that the student will make.
 
-Para simular o cenário de forma mais fiel possível, cada uma das entidades é criada com um conjunto de características que as distinguem umas das outras, e faz com que tenham desempenhos diferentes e tomem decisões diferentes quando confrontadas com uma escolha. Os docentes são gerados com valores aleatórios de experiência e rigor. Estas características influem diretamente no nível de aprendizado dos estudantes, na dificuldade da disciplina e na probabilidade de desistência dos alunos. Os estudantes são gerados com níveis variados de empenho, inteligência e gostos pessoais. Estas características influenciam o desempenho do aluno, a probabilidade de desistência das disciplinas e do curso, e as escolhas que o aluno irá realizar.
+The scenario simulates a group of 40 students who conducts a course in computer science at a university. The simulation time is open, and it will be executed until all students graduate or drop out of the course.
 
-To simulate the scenario as closely as possible, each entity is created with a set of characteristics that distinguish them from one another, and causes have different performances and take different decisions when faced with a choice. Teachers are generated with random values of experience and rigor. These characteristics directly influence the level of student learning, the difficulty of the course and the likelihood of dropout students. Students are generated with varying levels of commitment, intelligence and personal tastes. These characteristics influence student performance, the probability of withdrawal of disciplines and course, and the choices that the student will perform.
-
-O cenário simula um conjunto de 40 alunos que realiza um curso de ciência da computação em uma Universidade. O tempo da simulação é aberto, sendo que a mesma será executada até que todos os alunos se formem ou tenham desistido do curso.
-
-The scenario simulates a group of 40 students who conducts a course in computer science at a university. The simulation time is open, and it will be executed until all students to graduate or have dropped out of the course.
-
-Uma simulação inicia com a criação das entidades de disciplinas, estudantes e docentes. São então gerados os perfis iniciais das disciplinas, e os docentes são distribuídos aleatoriamente entre as disciplinas. A partir daí, inicia-se um {\em loop} que termina apenas quando todos os alunos tiverem concluído ou abandonado o curso. Cada iteração do {\em loop} representa um semestre do curso contém os seguintes passos:
-
-A simulation starts with the creation of entities disciplines, students and teachers. Are then generated the initial profiles of the subjects, and teachers are randomly distributed among the disciplines. From there begins a {\} loop that ends only when all students have completed or dropped out. Each iteration of {\ loop} is a semester course contains the following steps:
+A simulation starts with the creation of the discipline, students and professor entities. The initial profiles of the disciplines are then generated, and professors are randomly assigned to the disciplines. A loop then start, and it will only end when all students have completed the course or dropped out. Each iteration of the loop is a semester course and contains the following steps:
 
 \begin{enumerate}
-  \item Os alunos escolhem as disciplinas que irão cursar e se matriculam;
-  \item Cada dia da disciplina é simulado, onde os alunos assistem a aula e realizam as provas ou entregam os trabalhos;
-  \item A nota final dos alunos é calculada, e os alunos decidem se continuarão ou abandonarão o curso.
-\end{enumerate}
-
-\begin{enumerate}
-\item Students choose subjects that will attend and enroll;
-\item Each day of the course is simulated, where students attend class and perform the tests or hand work;
-\item The final grade is calculated from students, and the students decide to continue or abandon the course.
+\item Students choose the disciplines they will attend and enroll;
+\item Each day of the course is simulated, where students attend class and perform tests or deliver papers;
+\item The students final grades are calculated, and the students decide if they will continue or abandon the course.
 \end{enumerate}
 
 Cada disciplina é composta por 14 aulas. Existem dois tipos de eventos que podem ocorrer em uma aula: (i) um trabalho ou debate em grupo, e (ii) um trabalho ou prova individual, sendo que uma aula pode ter um dos dois eventos, ambos ou nenhum. A Tabela~\ref{tab:aula} exemplifica uma aula em que os dois tipos de eventos ocorreram.
 
-Each course consists of 14 lessons. There are two types of events that can occur in a class: (i) a work or group discussion, and (ii) a business or individual event, and a class can have one of two events, both or neither. Table ~ \ ref {tab:} exemplifies a classroom lesson in which the two types of events occurred.
+Each course consists of 14 classes. There are two types of events that can occur in a class: (i) a debate or group work, and (ii) a individual paper or test, where a class can have one of two events, both or neither. Table~\ref{tab:aula} exemplifies a class in which the two types of events occurred.
 
 
-\subsection{Resultados}
+\subsection{Results}
 \label{sec:resultados_cen1}
 
 
@@ -615,43 +593,37 @@ Each course consists of 14 lessons. There are two types of events that can occur
 \section{Related Works}
 \label{ch:relacionados}
 
-Não foi encontrado nenhum trabalho que faça uso de inferência em trilhas com o objetivo de personalizar a experiência do usuário dentro de um domínio genérico. Assim, o modelo apresentado neste trabalho busca preencher esta lacuna. 
+\todo{Reescrever essa seção. Está muito ruim.}
 
-Unable to find a job that makes use of inference trails in order to personalize the user experience within a generic domain. Thus, the model presented in this paper seeks to fill this gap.
+We haven't find any studies where trail inference is used in order to personalize the user experience across a generic domain. This, the model presented in this paper seeks to fill this gap.
 
 \begin{table*}\centering\footnotesize
   \begin{tabular*}{0.7\textwidth}{@{}lllllll@{}}
     \toprule
-                                         & Interope-  & Perfis    & Armaze-  & Sensibilidade & Utiliza & \\
-    Trabalho                             & rabilidade & dinâmicos & namento  & a contexto    & trilhas & Domínio \\
+                                         & Interope-  & Dynamic   & Storage & Context-      & Uses     & \\
+    Model                                & rability   & profiles  &         & sensitiveness & trails   & Domain \\
     \midrule
-    PeLeP                                & Não        & Sim       & Servidor & Sim           & Parcial & Educação \\
-    Chellouche et al                     & Sintática  & Sim       & Servidor & Sim           & Não     & Serviços multimídia \\
-    UUCM                                 & Sintática  & Sim       & Cliente  & Sim           & Não     & Genérico \\
-    eProfile                             & Semântica  & Sim       & Servidor & Sim           & Sim     & Genérico \\
+    PeLeP                                & No         & Yes       & Server  & Yes           & Partial & Education \\
+    Chellouche et al                     & Syntatic   & Yes       & Server  & Yes           & No      & Multimedia services \\
+    UUCM                                 & Syntatic   & Yes       & Client  & Yes           & No      & Generic \\
+    eProfile                             & Semantic   & Yes       & Server  & Yes           & Yes     & Generic \\
     \bottomrule
   \end{tabular*}
-  \caption{\textbf{Comparação entre os trabalhos apresentados}}
+  \caption{Comparison between related models}
   \label{tab:comparacao2}
 \end{table*}
 
-% Não encontrou-se nenhum modelo que ofereça suporte a estes pré-requisitos de forma genérica (isto é, para qualquer tipo de contexto) e, assim, este modelo busca suprir esta necessidade.
+% No  encontrou-se nenhum modelo que ofereça suporte a estes pré-requisitos de forma genérica (isto é, para qualquer tipo de contexto) e, assim, este modelo busca suprir esta necessidade.
 
-O PeLeP \cite{pelep} suporta aperfeiçoamento automático do perfil de um aprendiz em ambientes de educação ubíqua, utilizando o histórico dos aprendizes para a atualização dos perfis através de inferências. O eProfile utiliza uma estratégia semelhante. No entanto, as regras de inferência são definidas pela aplicação, e não pelo modelo. Esta alteração é necessária para que a inferência passe de um domínio específico (educação) para um domínio genérico. Além disso, no eProfile as regras são dinâmicas (uma aplicação pode definir ou remover regras dinamicamente), ao invés de estarem pré-definidas no modelo. Isto permite a evolução e refino das regras de inferência.
+PeLeP \citep{pelep} supports automatic improvement of a learner's profile in education ubiquitous environments, using the history of apprentices to update the profiles through inference. eProfile uses a similar strategy. However, since PeLep's inference is made on a single specific domain (education), in the eProfile model the inference rules are defined by the application and not the model, thus allowing eProfile to be applied to a generic domain. Moreover, eProfile's rules are dynamic (an application can define or remove rules dynamically), rather than being pre-defined in the model. This allows the evolution and refining of rules of inference.
 
-The PeLeP \ cite {} pelep supports automatic refinement of a learner's profile in education ubiquitous environments, using the history of apprentices to update the profiles through inferences. The eProfile uses a similar strategy. However, the inference rules are defined by the application, not the model. This amendment is necessary to pass the inference of a specific domain (education) for a generic domain. Moreover, the rules are dynamic eProfile (an application can set or remove rules dynamically), rather than being pre-defined in the model. This allows the development and refining of rules of inference.
+The model presented by \citet{chellouche10}, like eProfile presents a unified profile which can be used for various applications. However, differently from eProfile, the model assumes syntactic interoperability, which means that all applications need to record the events using the same format, which can cause the application to not be able register the event with the richness of detail required . Moreover, as with PeLeP, the model presented by \citet{chellouche10} is limited to a specific domain (multimedia services).
 
-O modelo apresentado por Chellouche et al \cite{chellouche10}, assim como o eProfile, apresenta um perfil unificado que pode ser utilizado por diversas aplicações. No entanto, ao contrário do eProfile, o modelo assume a interoperabilidade sintática, o que significa que todas as aplicações precisam registrar os eventos utilizando o mesmo formato, o que pode fazer com que a aplicação não consiga registrar o evento com a riqueza de detalhes necessária. Além disso, assim como o PeLeP, o modelo de Chellouche et al \cite{chellouche10} está limitado a um domínio específico, que são os serviços multimídia.
-
-The model presented by Chellouche et al \ cite chellouche10 {}, and the eProfile presents a unified profile which can be used for various applications. However, unlike the eProfile, the model assumes syntactic interoperability, which means that all applications need to record the events using the same format, which can cause the application can not register the event with a wealth of detail required . Moreover, as the PeLeP, the model Chellouche et al \ cite {} chellouche10 is limited to a specific domain, which are multimedia services.
-
-O modelo UUCM \cite{niederee04}, ao contrário dos outros modelos, trabalha em um domínio genérico. Ele faz isso através da criação de uma ontologia básica que pode ser estendida pelas aplicações. Ao contrário das outras propostas (e do eProfile), o UUCM armazena os perfis no cliente, ao invés do servidor. Isto traz vantagens e desvantagens. Entre as vantagens pode-se citar a privacidade e acesso desconectado. No entanto, esta abordagem limita a interoperabilidade entre sistemas, uma vez que cada cliente fica com uma versão do próprio perfil, restringindo a utilização de um perfil unificado.
-
-The model UUCM \ cite {} niederee04, unlike other models, works in a generic domain. It does this by creating a basic ontology that can be extended by applications. Unlike other proposals (and eProfile), the UUCM stores the profiles on the client rather than the server. This brings advantages and disadvantages. Among the advantages we can mention the privacy and disconnected access. However, this approach limits the interoperability between systems, since each customer gets a version of the profile itself, restricting the use of a unified profile.
+The UUCM model \citep{niederee04}, unlike other models, works in a generic domain. It does this by creating a basic ontology that can be extended by applications. Unlike other proposals, UUCM stores the profiles on the client rather than the server. This brings advantages and disadvantages. Among the advantages there can be mentioned the privacy and disconnected access. However, this approach limits the interoperability between systems, since each client gets a version of the client's profile, restricting the use of a unified profile.
 
 A Tabela~\ref{tab:comparacao2} exibe um comparativo entre o eProfile e os trabalhos relacionados apresentados. O eProfile baseou-se em alguns elementos dos trabalhos citados, tais como o aperfeiçoamento automático de perfis, a utilização de perfis unificados e o funcionamento em um domínio genérico. A partir dos estudos realizados, o eProfile traz como contribuição a utilização de trilhas para a extração de perfis, o que facilita a inferência com sensibilidade a contexto. Além disso, o eProfile permite que cada aplicação registre sua trilha no formato que considerar mais proveitoso para si, permitindo assim que a riqueza de detalhes registrados por uma aplicação possa se traduzir em um perfil mais exato da entidade.
 
-Table ~ \ ref {tab: comparacao2} shows a comparison between the eProfile and related work presented. The eProfile was based on some elements of the works cited, such as improving automatic profiling, the use of profiles unified and functioning in a generic domain. From the studies, the eProfile brings as contribution the use of trails for extracting profiles, which facilitates the inference with sensitivity to context. Moreover, the eProfile enables each application its track record in the format they find most helpful for you, allowing the richness of details recorded by an application can translate into a more accurate profile of the entity.
+Table~\ref{tab:comparacao2} shows a comparison between eProfile and the related works presented. eProfile was based on some elements of the works cited, such as automatic profile improvement, use of unified profiles and operation in generic domains. Comparing the related models, eProfile main contribution is the use of trails for extracting profiles, which facilitates the inference with context-sensitivity. Moreover, the eProfile allows each application to register its trails in the format they find most helpful for them, allowing the richness of details registered by an application to be translated into a more accurate profile of the entity.
 
 %-----------------------------------------------------------
 \section{Conclusion}
