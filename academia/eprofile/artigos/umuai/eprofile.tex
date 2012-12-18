@@ -65,6 +65,8 @@
 
 \maketitle
 
+\textit{This paper or a similar version is not currently under review by a journal or conference, nor will be submitted to such within the next three months. This paper is void of plagiarism or self-plagiarism as defined in Springer's Policy on Publishing Integrity.}\\[1cm]
+
 \begin{abstract}
 Context-aware and ubiquitous systems have the challenge of implicitly collect relevant information about entities, and use this information to understand and predict their behaviour. This allows the applications to adapt themselves to the the entities, thus avoiding to overflow it with inquires and information. This article presents a model that allows applications to register users' actions and infer profile information from these actions, using semantic interoperability and thus allowing different applications of different domains to be able to share information and infer a unified profile.
 \keywords{Profile Management \and Ubiquitous Computing \and Trails \and Profile Inference}
@@ -74,29 +76,27 @@ Context-aware and ubiquitous systems have the challenge of implicitly collect re
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\textit{This paper or a similar version is not currently under review by a journal or conference, nor will be submitted to such within the next three months. This paper is void of plagiarism or self-plagiarism as defined in Springer's Policy on Publishing Integrity.}
-
 \section{Introduction}
 \label{ch:introducao}
 %\paragraph{Paragraph headings} Use paragraph headings as needed.
 
-\todo{Rever segunda parte do abstract}
+\todo[inline]{Rever segunda parte do abstract}
 
-\todo{Procurar pesquisas mais recentes, preferencialmente no próprio periódico}
+\todo[inline]{Procurar pesquisas mais recentes, preferencialmente no próprio periódico}
 
 Nowadays, most users interact with a wide variety of computing systems. The current tendency is the increased interconnectedness between these systems, since the internet is becoming every day more present and available. Recent research predicts the full integration between these systems in a federation of computing systems. This federation is referred to as Smart Environment \citep{heckmann05}.
 
-\citet{weiser91} discussed a vision for the concept of smart environments. He presented a scenario in which the computer would become invisible and indistinguishable from its environment. In this scenario, interaction between humans and computers would not occur as usual -- where the humans devote their full atention to the computer --, but would consist of small and quick interactions, usually in different devices and locations \citep{weiser96}. According to the author, ``the most profound technologies are those that disappear. They weave themselves into the fabric of everyday life until they are indistinguishable from it.'' \citep{weiser91}. He asserts that the future of computing lies in integrating the computer to the real world, not the other way around, and he calls this new paradigm Ubiquitous Computing.
+\citet{weiser91} discussed a vision for the concept of smart environments. He presented a scenario in which the computer would become invisible and indistinguishable from its environment. In this scenario, interaction between humans and computers would not occur as usual -- where the humans devote their full attention to the computer --, but would consist of small and quick interactions, usually in different devices and locations \citep{weiser96}. According to the author, ``the most profound technologies are those that disappear. They weave themselves into the fabric of everyday life until they are indistinguishable from it.'' \citep{weiser91}. He asserts that the future of computing lies in integrating the computer to the real world, not the other way around, and he calls this new paradigm Ubiquitous Computing.
 
-However, the availability of computing resources everytime and everywhere poses the risk of information overload on the user. To solve this problem, the concept of ``calm technology'' was created \citep{weiser96}. This means the transfer of information between the computer and the user must happen in the ``periphery'' of the user's attention, moving to the ``center'' of his attention in moments of urgency. A car's engine can be taken as an example. When a person drives a car, his attention is focused on the road, and he almost doesn't notice the engine sound. However, if the engine emits a strange sound (that might indicate some kind of problem), the driver's attention turns to the engine.
+However, the availability of computing resources at any time and everywhere poses the risk of information overload on the user. To solve this problem, the concept of ``calm technology'' was created \citep{weiser96}. This means the transfer of information between the computer and the user must happen in the ``periphery'' of the user's attention, moving to the ``center'' of his attention in moments of urgency. A car's engine can be taken as an example. When a person drives a car, his attention is focused on the road, and he almost doesn't notice the engine sound. However, if the engine emits a strange sound (that might indicate some kind of problem), the driver's attention turns to the engine.
 
-If a system is to be minimally intrusive, it must undestand the situation of the user and his surroundings, and adapt its own behaviour according to this information. This information is called context, and systems capable of this kind of adaptation are called context-sensitive \citep{satyanarayanan01,dey2001}. 
+If a system is to be minimally intrusive, it must understand the situation of the user and his surroundings, and adapt its own behaviour according to this information. This information is called context, and systems capable of this kind of adaptation are called context-sensitive \citep{satyanarayanan01,dey2001}. 
 
-\todo{Atualizar referência de trilhas}
+\todo[inline]{Atualizar referência de trilhas}
 
-Research in this area shows that is not only useful to know the context of the user when a service is being offered, but that the history of visited contexts can be a valuable information to help the application to adapt itself to the user. This history of visited contexts is called Trail \citep{silva10}. Altough the trail is usually tied to the location of a user, the concept of a trail is breader and includes activities performed, applications used, content accessed -- among others -- inside a specific context and timeframe \citep{silva09}.
+Research in this area shows that is not only useful to know the context of the user when a service is being offered, but that the history of visited contexts can be a valuable information to help the application to adapt itself to the user. This history of visited contexts is called Trail \citep{silva10}. Although the trail is usually tied to the location of a user, the concept of a trail is broader and includes activities performed, applications used, content accessed -- among others -- inside a specific context and timeframe \citep{silva09}.
 
-\todo{Colocar referência para User Profiles}
+\todo[inline]{Colocar referência para User Profiles}
 
 For an application to adapt itself effectively to a user, it is not only important to know the history of contexts visited by a user, but to understand who the user is -- that is, what are his characteristics. This kind of application organize its knowledge about a user in User Profiles. The profiles are stored in a format called User Model \citep{viviani10}. Although there are some studies that seek to infer knowledge about a user from their trail, previous works operate within a specific context (such as Ubiquitous Education \citep{barbosa11} or Ubiquitous Commerce \citep{franco11}) or use a static user model \citep{pelep}.
 
@@ -108,7 +108,7 @@ Research indicates that it is desirable that future systems become increasingly 
 
 In this paper, the concept of entity is used instead of the classic concept of User. While usually the ``user'' means the person who is using the application, an entity refers to any object (physical or not) able to control an application. Thus, an entity can be a person, a moving object (like a car) or property (like a room), or even a different system.
 
-In this setting we are proposing the eProfile, a model for the automatic creation of profiles by inference of entity trails. This model allows the use of a single profile by several independent systems, offering the possibility of semantic interoperability between them.
+In this setting we are proposing eProfile, a model for the automatic creation of profiles by inference of entity trails. This model allows the use of a single profile by several independent systems, offering the possibility of semantic interoperability between them.
 
 This article is organized as follows. Section~\ref{ch:modelo} proposes the eProfile model. Section~\ref{ch:implementacao} discusses implementation aspects. Section~\ref{ch:cenario} presents an experiment validating the model. Section~\ref{ch:relacionados} describes related work, showing the contributions of this model. Finally, a Section~\ref{sec:conclusao} presents the concluding remarks.
 
@@ -117,7 +117,7 @@ This article is organized as follows. Section~\ref{ch:modelo} proposes the eProf
 \section{eProfile Model}
 \label{ch:modelo}
 
-\todo{Concretizar idéias como agentes, regras, etc. Formalizar como os agentes foram modelados e as regras formadas.}
+\todo[inline]{Concretizar idéias como agentes, regras, etc. Formalizar como os agentes foram modelados e as regras formadas.}
 
 This section presents the eProfile model. Section~\ref{sec:visao_geral} presents a general vision of the model. Section~\ref{sec:arquitetura} explains the model's architecture. Section~\ref{sec:ontologias} demonstrate the ontologies used by the model, and Section~\ref{sec:regras} explains how the rules are executed.
 
@@ -138,11 +138,11 @@ The second component depicted is a {\bf trail manager}. A trail manager is capab
 
 The third component of Figure~\ref{fig:modelobasico} represents the {\bf eProfile}. The arrows indicate the flow of data. The communication starts when the application registers itself on eProfile (arrow ``a''), sending (i) the entity model used by the application and (ii) the rules for construction of this model. From this moment on, the application starts recording the events on the trail manager (arrow ``b''). The eProfile periodically retrieves this information from the trail manager and builds or reconfigures the profile entity (arrow ``c''). When the application needs an updated profile, it retrieves this profile from eProfile (arrow ``d'').
 
-\todo{Melhorar o texto justificando o uso de agentes}
+\todo[inline]{Melhorar o texto justificando o uso de agentes}
 
-Since the eProfile supports multiple applications, it is possible for different applications to use different trail managers. Therefore, the eProfile also supports communication with a number of trail managers, as exemplified in Figure~\ref{fig:gerenciadores}.
+Since eProfile supports multiple applications, it is possible for different applications to use different trail managers. Therefore, eProfile also supports communication with a number of trail managers, as exemplified in Figure~\ref{fig:gerenciadores}.
 
-\todo{Colocar setas duplas na figura}
+\todo[inline]{Colocar setas duplas na figura}
 
 \begin{figure}
   \centering\includegraphics[width=1\textwidth]{imagens/modelo2_en.png}
@@ -165,13 +165,13 @@ Since the eProfile supports multiple applications, it is possible for different 
   \label{fig:modelo}
 \end{figure}
 
-Figure~\ref{fig:modelo} shows the architecture of eProfile. The components ``Application'' and ``Trail Manager'' are the same as shown in Figure~\ref{fig:modelobasico}, while the ``eProfile'' service was expanded to show its inner workings.
+Figure~\ref{fig:modelo} shows the architecture of eProfile. The components ``Application'' and ``trail manager'' are the same as shown in Figure~\ref{fig:modelobasico}, while the ``eProfile'' service was expanded to show its inner workings.
 
-Since the eProfile is a model that infers information about data stored in an ontology autonomously, and is organized into independent parts, it uses the technology of autonomous agents.
+Since eProfile is a model that infers information about data stored in an ontology autonomously, and is organized into independent parts, it uses the technology of autonomous agents.
 
-\todo{Explicar melhor a diferença entre modelos e perfis}
+\todo[inline]{Explicar melhor a diferença entre modelos e perfis}
 
-Each application builds its own entity model. The eProfile needs three pieces of information to be able to process the profiles: (i) the entity trail, (ii) the entity model used by the application and (iii) the inference rules for the profile. This can be seen in Figure~\ref{fig:modelo}, where the agent ``Reasoner'' receives data from these three databases. The trail of the entity is loaded by the eProfile from the trail manager, while the other two information are sent directly from the application to the eProfile. Thus, the inference rules defined by the application are used to infer the profile of the entity.
+Each application builds its own entity model. The eProfile needs three pieces of information to be able to process the profiles: (i) the entity trail, (ii) the entity model used by the application and (iii) the inference rules for the profile. This can be seen in Figure~\ref{fig:modelo}, where the agent ``Reasoner'' receives data from these three databases. The trail of the entity is loaded by eProfile from the trail manager, while the other two information are sent directly from the application to eProfile. Thus, the inference rules defined by the application are used to infer the profile of the entity.
 
 The arrows in Figure~\ref{fig:modelo} indicate the direction of the data flow, where it can be noted two entry points and one exit point.
 
@@ -185,11 +185,11 @@ The first entry point (arrow ``a'') is the information sent from the application
 
 \end{itemize}
 
-The second entry point (arrow ``c'') allows receiving the entity trails, which are fetched by the eProfile from the trail manager. Since eProfile can connect to different trail managers, (see Figure~\ref{fig:gerenciadores}), and each trail manager might use one specific format, a conversion between the original format and the format used by eProfile is needed for the trails to be stored in a standardized manner. This work is performed by an agent named {\bf Converter}, which is able to perform the conversion to the eProfile internal trail format.
+The second entry point (arrow ``c'') allows receiving the entity trails, which are fetched by eProfile from the trail manager. Since eProfile can connect to different trail managers, (see Figure~\ref{fig:gerenciadores}), and each trail manager might use one specific format, a conversion between the original format and the format used by eProfile is needed for the trails to be stored in a standardized manner. This work is performed by an agent named {\bf Converter}, which is able to perform the conversion to the eProfile internal trail format.
 
 The entity trail is then stored in a trail ontology called {\bf eOntoTrail}. This ontology contains the basic classes supporting the construction of a trail, and they can be extended according to the specification of the trail manager that is being used.
 
-Once in possession of the trails, the model and rules, the \textbf{Reasoner} agent infers from the trail, generating a entity profile that consists of an extension of a basic profile ontology named {\bf eOntoProfile}. This ontology, just like the trail ontology, contains basic classes from which applications can specialize, using them to store their own information. The application can then connect to the eProfile and get its entity profile, whose data are sent by the \textbf{Communicator} agent (arrow ``d'').
+Once in possession of the trails, the model and rules, the \textbf{Reasoner} agent infers from the trail, generating a entity profile that consists of an extension of a basic profile ontology named {\bf eOntoProfile}. This ontology, just like the trail ontology, contains basic classes from which applications can specialize, using them to store their own information. The application can then connect to eProfile and get its entity profile, whose data are sent by the \textbf{Communicator} agent (arrow ``d'').
 
 
 
@@ -208,7 +208,7 @@ The trail ontology data (eOntoTrail), shown in Figure~\ref{sec:ont_trilha}, is f
   \label{fig:ont_trilha}
 \end{figure}
 
-\todo{Descrever como são padronizados os nomes das entidades}
+\todo[inline]{Descrever como são padronizados os nomes das entidades}
 
 Context-aware applications are interested in knowing {\bf who}, {\bf where}, {\bf when} and {\bf what} (that is, what the user is doing), so they can discover why the situation is occurring \citep{abowd99}. Thus, a trail is represented by a set of events characterized by the following main classes: (i) {\em Entity}, the identity of the entity that is performing the action, which can optionally be linked to a profile, (ii) {\em Location}, the place where the action is taking place, (iii) {\em Time}, the date and time the event occurred, (iv) {\em Participants}, the entities linked to this action, and (v) {\em Activity}, the action that the entity is performing (or trying to perform). This class is the most comprehensive of the ontology, and will possibly be the most specialized by the trail managers.
 
@@ -220,7 +220,7 @@ Context-aware applications are interested in knowing {\bf who}, {\bf where}, {\b
 
 The profile ontology (eOntoProfile), shown in Figure~\ref{fig:ont_perfil}, is the ontology used the profile information inferred from the trail, according to the entity model defined by the application. For the ontology to be feasible within the proposed model, it must be a generic ontology that allows its classes to be extended by applications. In the figure, a relationship between classes is shown by a dotted line, and a specialization of a class is shown by a continuous line. The eOntoProfile is a basic ontology, extended by the applications for them to assemble their own entity models.
 
-The basic class of the ontology is the {\em Element} class. The class {\em Element} represents anything in the real world. It has the following children classes: (i) {\it Entity}, which represents an entity, that is, an element that has a profile associated with it, and (ii) {\it NonEntity}, which represents an element than doesn't have a profile associated with it. For example, a trail registers a event in which a person enters a store, but the store has no profile registered in eProfile. In this case, the store is a {\it NonEntity}. This distinction is important because in the first case, the eProfile has access to a wide range of information about the entity, entities related to that first entity, and so on.
+The basic class of the ontology is the {\em Element} class. The class {\em Element} represents anything in the real world. It has the following children classes: (i) {\it Entity}, which represents an entity, that is, an element that has a profile associated with it, and (ii) {\it NonEntity}, which represents an element than doesn't have a profile associated with it. For example, a trail registers a event in which a person enters a store, but the store has no profile registered in eProfile. In this case, the store is a {\it NonEntity}. This distinction is important because in the first case, eProfile has access to a wide range of information about the entity, entities related to that first entity, and so on.
 
 The class {\em Characteristic} represent a aspect of the entity, and is the class that will be extended by applications to refer to any information related to that entity. These characteristics can be simple labels (such as name of a person, or mileage of a car) or more complex information (such as academic knowledge or latest routes traveled).
 
@@ -246,11 +246,11 @@ The rules are always defined by the application, and a rule is composed of the f
 \section{Implementation Aspects}
 \label{ch:implementacao}
 
-\todo{Explicar melhor a utilização de SQL}
+\todo[inline]{Explicar melhor a utilização de SQL}
 
-The eProfile prototype was developed in Python \citep{python}. Python is a generic, open source, object-oriented, high-level language, that supports multiple architectures. The databases are implemented using the SQLite3 database \citep{sqlite3}. SQLite3 is an SQL transactional self-contained database, available in the public domain. The SQLite3 was chosen due to its good performance and the fact that it does not require a separate server for deployment.
+eProfile prototype was developed in Python \citep{python}. Python is a generic, open source, object-oriented, high-level language, that supports multiple architectures. The databases are implemented using the SQLite3 database \citep{sqlite3}. SQLite3 is an SQL transactional self-contained database, available in the public domain. The SQLite3 was chosen due to its good performance and the fact that it does not require a separate server for deployment.
 
-Figure~\ref{fig:dados_inferencia} shows the data flow for the entity profile inference process. At the heart of this operation is the Reasoner agent, which uses an external inference engine to implement the rules. The reasoner used is FACT++, a propositional logic reasoner created as a platform for use of algorithms of semantic {\em tableaux} and optimization techniques \citep{tsarkov06}. This reasoner was chosen due to its good performance and to support all functions used by the eProfile.
+Figure~\ref{fig:dados_inferencia} shows the data flow for the entity profile inference process. At the heart of this operation is the Reasoner agent, which uses an external inference engine to implement the rules. The reasoner used is FACT++, a propositional logic reasoner created as a platform for use of algorithms of semantic {\em tableaux} and optimization techniques \citep{tsarkov06}. This reasoner was chosen due to its good performance and to support all functions used by eProfile.
 
 The knowledge representation language used for storage and processing of ontologies is OWL\citep {owl-guide}, chosen because for being the most expressive ontology language defined for the Semantic Web \citep{daconta03}.
 
@@ -260,7 +260,7 @@ The knowledge representation language used for storage and processing of ontolog
 
 It is only possible to evaluate the functionalities of a proposed infrastructure by building applications that utilize it and then evaluate them, in order to obtain an indirect evaluation of the model \citep{edwards03}. The scientific community has been using scenarios to perform this type of indirect evaluation in context sensitive (such as the approach taken by \citet{dey2001b}) and ubiquitous (according to \citet{satyanarayanan01}) environments. This work follows the same approach -- we created a prototype and a scenario for performing an experiment, in order to evaluate eProfile.
 
-% TODO - descrever o ambiente
+\todo[inline]{Descrever melhor o ambiente}
 
 The experiment presented is based on the generation of simulated trails of graduate students within the context of Ubiquitous Learning. Ubiquitous Learning can be understood as a set of educational processes that occur anywhere, at any time and with any device, continuously, contextualized and integrated into the daily lives of apprentices \citep{barbosa11}.
 
@@ -270,20 +270,20 @@ The experiment presented is based on the generation of simulated trails of gradu
   \label{fig:modelo_cenario1}
 \end{figure}
 
-The scenario is composed of four applications that interact with among themselves, according to Figure~\ref{fig:modelo_cenario1}. LOCAL is a ubiquitous learning system used to find learning opportunities by putting students in touch and recommendind learning content. UniManager is an application used by the administration of the university to manage student grades and disciplines. Both softwares have profile modules, where the profile information is used for decision making. Since in both cases the profiles module is static and depends on collection of explicit information, the eProfile is connected to these softwares, leveraging the dynamic creation of profiles and collecting information implicitly. Furthermore, the eProfile enables interoperability between these systems by allowing information from both systems to be used to generate single profiles. The scenario also includes a trail manager, that manages the entities trails. In this scenario, the entities are disciplines, students and faculty members.
+The scenario is composed of four applications that interact with among themselves, according to Figure~\ref{fig:modelo_cenario1}. LOCAL is a ubiquitous learning system used to find learning opportunities by putting students in touch and recommending learning content. UniManager is an application used by the administration of the university to manage student grades and disciplines. Both softwares have profile modules, where the profile information is used for decision making. Since in both cases the profile module is static and depends on collection of explicit information, eProfile is connected to these softwares, leveraging the dynamic creation of profiles and collecting information implicitly. Furthermore, eProfile enables interoperability between these systems by allowing information from both systems to be used to generate single profiles. The scenario also includes a trail manager, that manages the entities trails. In this scenario disciplines, students and faculty members are represented as entities.
 
-The initial communication occurs between applications and eProfile (arrows ``a'' and ``b''), where applications define their entity models and rules. This communication can occur as often as necessary, because applications can update their rules and their entity models continuously. During the execution of the applications, they record the events in the Trail Manager (arrows ``c'' and ``d''). This means applications can run disconnected from eProfile, and connect only when a rule needs to by updated or when profile data must be downloaded. eProfile retrieves trails periodically from the Trail Manager (arrow ``e''). When eProfile is in possession of the trails, rules and entity models, it starts to process these information, inferring new profile data. These profiles are then downloaded by applications (arrows ``f'' and ``g'').
+The initial communication occurs between applications and eProfile (arrows ``a'' and ``b''), where applications define their entity models and rules. This data exchange can occur as often as necessary, because applications can update their rules and their entity models at any time. During the execution of the applications, they record the events in the trail manager (arrows ``c'' and ``d''). This means applications can run disconnected from eProfile, and connect only when a rule needs to by updated or when profile data must be downloaded. eProfile retrieves trails periodically from the trail manager (arrow ``e''). When eProfile is in possession of the trails, rules and entity models, it starts to process these information, inferring new profile data. These profiles are then downloaded by the applications (arrows ``f'' and ``g'').
 
-The following sections describe the integration between eProfile, LOCAL (Section~\ref{sec:eprofile_local}) and UniManager (Section~\ref{sec:eprofile_unimanager}), the simulation environment (Section~\ref{sec:desc_cen1}), trails, rules and generated profiles (Section~\ref{sec:trilhas_cen1}), the simulation parameters (Section~\ref{sec:simulacao_cen1}) and results (Seção~\ref{sec:resultados_cen1}).
+The following sections describe the integration between eProfile, LOCAL (Section~\ref{sec:eprofile_local}) and UniManager (Section~\ref{sec:eprofile_unimanager}), the simulation environment (Section~\ref{sec:desc_cen1}), trails, rules and generated profiles (Section~\ref{sec:trilhas_cen1}), the simulation parameters (Section~\ref{sec:simulacao_cen1}).  Section~\ref{sec:resultados_cen1} presents the results.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{eProfile/LOCAL Integration}
 \label{sec:eprofile_local}
 
-This scenario incorporates the eProfile to a ubiquitous learning system called LOCAL (Location and Context-Aware Learning). LOCAL uses location information and context as an aid to teaching and learning process. A tracking system monitors the mobility of apprentices and, based on their physical position, explores educational opportunities \citep{barbosa11}.
+This scenario integrates eProfile to a ubiquitous learning system called LOCAL (Location and Context-Aware Learning). LOCAL uses location information and context as an aid to teaching and learning process. A tracking system monitors the mobility of apprentices and, based on their physical position, explores educational opportunities \citep{barbosa11}.
 
-LOCAL, whose architecture is shown in Figure~\ref{fig:arq_local}, consists of seven components: (i) a system of user profiles, which stores data relevant to the process of teaching and learning, (ii) a system location, (iii) a Personal Assistant (PA), that follows the user on his mobile device, (iv) a repository of learning objects, (v) a system for sending contextualized messages, (vi) a task scheduling event system and (vii) the tutor, an analysis engine that performs inference using data provided by the profile and tranking systems.
+LOCAL, whose architecture is shown in Figure~\ref{fig:arq_local}, consists of seven components: (i) a system of user profiles, which stores data relevant to the process of teaching and learning, (ii) a location system, (iii) a Personal Assistant (PA) that follows the user on his mobile device, (iv) a repository of learning objects, (v) a system for sending contextualized messages, (vi) a task scheduling event system and (vii) the Tutor, an analysis engine that performs inference using data provided by the profile and tracking systems.
 
 \begin{figure}[!t]
   \centering\includegraphics[width=0.7\textwidth]{imagens/arq_local.png}
@@ -291,15 +291,15 @@ LOCAL, whose architecture is shown in Figure~\ref{fig:arq_local}, consists of se
   \label{fig:arq_local}
 \end{figure}
 
-LOCAL's profile system information gathering is explicit. This means that users' (learners) relevant data need to be pre-populated in the system. Furthermore, the LOCAL profile system is static, which means that data is not automatically updated in response to actions taken by learners or external events. Since eProfile is a dynamic entity model with implicit information gathering, integrating these two models results in the enhancement of LOCAL capabilities.
+The gathering of LOCAL's profile system information is explicit. This means that users' (learners) relevant data need to be pre-populated in the system. Furthermore, the LOCAL profile system is static, which means that data is not automatically updated in response to actions taken by learners or external events. Since eProfile is a dynamic entity model with implicit information collection, integrating these two models result in the enhancement of LOCAL capabilities.
 
-LOCAL and eProfile integrate according to Figure~\ref{fig:eprofile_local}. Besides LOCAL and eProfile, \ref{fig:eprofile_local} presents an application called Trail Manager. A trail manager is an external program that stores the tracks, processes them and forwards them to the eProfile, as described in Section~\ref{sec:model}. For this scenario, we created a simple trail manager, which just receives, stores and forwards the trails to the eProfile upon request.
+LOCAL and eProfile integrate according to Figure~\ref{fig:eprofile_local}. Besides LOCAL and eProfile, Figure~\ref{fig:eprofile_local} presents an application called trail manager. A trail manager is an external program that stores the trails, processes them and forwards them to eProfile, as described in Section~\ref{sec:model}. For this scenario, we created a simple trail manager, which just receives, stores and forwards the trails to eProfile upon request.
 
-% TODO: descrever quem gera os modelos de entidade e as regras
+\todo[inline]{Descrever quem gera os modelos de entidade e as regras}
 
-Integration between eProfile and LOCAL was based on the following changes to the LOCAL: (i) we included a connection interface with eProfile, able to generate learners entity models and rules for profile processing, (ii) we included a connection interface with the trail manager, for the tracking events and actions undertaken on the Personnel Assistant were to be sent to the trail manager, and (iii) we included a communication interface with the eProfile, where the LOCAL User Profiles Module is fed by profiles generated by eProfile.
+Integration between eProfile and LOCAL was based on the following changes to LOCAL: (i) we included a connection interface with eProfile, able to generate learners entity models and rules for profile processing, (ii) we included a connection interface with the trail manager, to allow the tracking events and actions undertaken on the Personnel Assistant to be sent to the trail manager, and (iii) we included a communication interface with eProfile, where the LOCAL User Profile Module is fed by profiles generated by eProfile.
 
-The first step of integration occurs when the LOCAL communicates with eProfile for the first time. In that momento, LOCAL indicates to the eProfile what is the entity model, and the rules for generating the profiles. This set of information is registeren in eProfile trough the Configurator Agent (arrow `` a''), which organizes this information and registers it in the Models and Rules databases.
+The first step of integration occurs when the LOCAL communicates with eProfile for the first time. In that moment, LOCAL sends to eProfile the entity model and the rules for the profile generation. This information set is registered in eProfile through the Configurator Agent (arrow ``a''), which organizes this information and registers it in the Model and Rules databases.
 
 \begin{figure}[!t]
   \centering\includegraphics[width=1\textwidth]{imagens/eprofile_local_en.png}
@@ -307,7 +307,7 @@ The first step of integration occurs when the LOCAL communicates with eProfile f
   \label{fig:eprofile_local}
 \end{figure}
 
-As learners use LOCAL, their location changes are identified by the Location System module, and their actions are done on the Personal Assistant. These modules record events in the Trail Manager (arrows ``b'' and ``c''), which in turn sends them to the Converter eProfile agent (arrow ``d''). Trails sent are stored in the trail database. These trails are periodically processed according to the models and rules defined initially, and a inference process based on this information generates profiles, which are sent to the LOCAL User Profiles module (arrow ``e'') by the communicator agent. These profiles help LOCAL know its users (learners) in order to distribute content in the most contextualized possible way.
+As learners use LOCAL, their location changes are identified by the Location System module, and their actions are done on the Personal Assistant. These modules record events in the trail manager (arrows ``b'' and ``c''), which in turn sends them to the Converter eProfile agent (arrow ``d''). Trails sent are stored in the trail database. These trails are periodically processed according to the models and rules defined initially, and a inference process based on this information generates profiles, which are sent to the LOCAL User Profiles module (arrow ``e'') by the communicator agent. These profiles help LOCAL know its users (learners) in order to distribute content in the most contextualized possible way.
 
 
 % - Contato: seria gerado a partir das informações básicas dos alunos.
@@ -328,7 +328,7 @@ As learners use LOCAL, their location changes are identified by the Location Sys
 \subsection{eProfile/UniManager Integration}
 \label{sec:eprofile_unimanager}
 
-The UniManager is a in administrative software used by the university for registration and management of students, faculty and disciplines. This application model is shown in Figure~\ref{fig:unimanager}.
+UniManager is a in administrative software used by the university for registration and management of students, faculty and disciplines. This application model is shown in Figure~\ref{fig:unimanager}.
 
 \begin{figure}[!t]
   \centering\includegraphics[width=0.9\textwidth]{imagens/unimanager_en.png}
@@ -336,13 +336,13 @@ The UniManager is a in administrative software used by the university for regist
   \label{fig:unimanager}
 \end{figure}
 
-The UniManager has two interfaces: administrative and user. The administrative interface is used by the management of universities to enroll subjects, faculty members and students. It is also used by students to carry out their registration for the next semester. This interface connects to a disciplines manager, which manages the enrollment and prerequisites between disciplines.
+UniManager has two interfaces: administrative and user. The administrative interface is used by the management of the University to enroll subjects, faculty members and students. It is also used by students to carry out their registration for the next semester. This interface connects to a discipline manager, which manages the enrollment and prerequisites between disciplines.
 
 The user interface is used in the professors' and students' mobile devices, and is connected to the university tracking system. Thus, all events recorded in UniManager from this interface contains the location of the student within the University, that is, the campus' region where the student is. The tracking system integrated to the user interface allows the system to check whether the student or the professor are present in class. The student performs the tests and hands out papers using this interface, and the professor evaluates the student tests and papers.
 
-UniManager also contains a profile database. On this database are stored: (i) registration information of the disciplines, (ii) presences and absences of professors and students, and (iii) tests and papers hand out by the students, and students evaluations about the professor.
+UniManager also contains a profile database. On this database are stored: (i) registration information about the disciplines, (ii) presences and absences of professors and students, and (iii) tests and papers handed out by the students, and students evaluations about the professor.
 
-The profile database is dynamically updated based on recorded events, but is limited to data recorded in UniManager itself. Integration between eProfile and UniManager leverages the generation of more advanced profiles, using the information inferred by eProfile from the data generated by LOCAL. Using this data, it is possible to register the interests of the student in UniManager's profile database, in order to suggest him optional subjects that might be of interest. Furthermore, the use of trails allows the profiles to be generated based on historical information, obtaining profile information that can be useful in administrative analysis (eg, what combination of professor and discipline historically resulted in higher grades for students in each discipline).
+The profile database is dynamically updated based on recorded events, but is limited to data recorded in UniManager itself. Integration between eProfile and UniManager leverages the generation of more advanced profiles, using the information inferred by eProfile from the data generated by LOCAL. Using this data, it is possible to register the interests of the student in UniManager's profile database, in order to suggest him optional subjects that might be of his interest. Furthermore, the use of trails allows the profiles to be generated based on historical information, obtaining profile information that can be useful in administrative analysis (eg, what combination of professor and discipline historically resulted in higher grades for students in each discipline).
 
 \begin{figure}[!t]
   \centering\includegraphics[width=1\textwidth]{imagens/unimanager_eprofile_en.png}
@@ -350,14 +350,14 @@ The profile database is dynamically updated based on recorded events, but is lim
   \label{fig:unimanager_eprofile}
 \end{figure}
 
-The UniManager integrates to eProfile according to Figure~\ref{fig:unimanager_eprofile}. In the first communication between UniManager and eProfile,  UniManager sends a set of messages indicating to eProfile which are the entity models and the rules used to generate the profiles (arrow ``a''). The registration of this information is done in the configurator agent, responsible for validating and storing the rules and models in their respective databases. As users make use of the UniManager interfaces, data is processed and stored by the Disciplines, Faculty and Student Manager modules, which store the events in the trail manager, along with its location (arrows ``b'', ``c'' and ``d''). These trails are organized and stored in the trail manager, and it periodically sends the trails to the converter agent in eProfile (arrow ``e''). The converter agent converts the trails to the eProfile format and stores them in the trail database. Once in possession of the trails, models and rules, the reasoner agent processes the information and generates profiles that are sent to UniManager by the communicator agent (arrow ``f'').
+UniManager integrates to eProfile according to Figure~\ref{fig:unimanager_eprofile}. In the first communication between UniManager and eProfile,  UniManager sends a set of messages indicating to eProfile which are the entity models and the rules used to generate the profiles (arrow ``a''). This information is received by the configurator agent, responsible for validating and storing the rules and models in their respective databases. As users make use of the UniManager interfaces, data is processed and stored by the Discipline, Faculty and Student Manager modules in the trail manager, along with its location (arrows ``b'', ``c'' and ``d''). The trail manager periodically sends the trails to the converter agent in eProfile (arrow ``e''). This agent converts the trails to the eProfile format and stores them in the trail database. Once in possession of the trails, models and rules, the reasoner agent processes the information and generates profiles that are sent to UniManager by the communicator agent (arrow ``f'').
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Environment}
 \label{sec:desc_cen1}
 
-The scenario consists of a group of students that carries out a graduation course in Computer Science. The course consists of a total of 40 disciplines, among which 12 are optional (the student must complete at least 8 out of these 12). All disciplines have other disciplines as prerequisites, except for the disciplines of the beginning of the course (Figure~\ref{fig:disciplinas} exemplifies a subset of subjects with their prerequisites). Each discipline has a professor, a limited number of openings for students, and a set of resources (such as special rooms or equipment).
+The scenario consists of a group of students that carries out a graduation course in Computer Science. The course consists of a total of 40 disciplines, of which 12 are optional (the student must complete at least 8 out of these 12). All disciplines have other disciplines as prerequisites, except for the disciplines of the beginning of the course (Figure~\ref{fig:disciplinas} exemplifies a subset of subjects with their prerequisites). Each discipline has a professor, a limited number of openings for students, and a set of necessary resources (such as special rooms or equipment).
 
 \begin{figure}[!t]
   \centering\includegraphics[width=1\textwidth]{imagens/disciplinas_en.png}
@@ -365,7 +365,7 @@ The scenario consists of a group of students that carries out a graduation cours
   \label{fig:disciplinas}
 \end{figure}
 
-The full set of disciplines used for this scenario is shown in Table~\ref{tab:curso}, where the ones marked with an asterisk are optional. Some require a lab (with simple computers), a network lab or hardware lab. The courses without mandatory resources only require a classroom.
+The full set of disciplines used for this scenario is shown in Table~\ref{tab:curso}, where the ones marked with an asterisk are elective. Some require a lab (with simple computers), a network lab or hardware lab. The courses without mandatory resources only require a classroom.
 
 \begin{table*}\centering\footnotesize
   \begin{tabular*}{1\textwidth}{@{}lllllll@{}}
@@ -374,7 +374,7 @@ The full set of disciplines used for this scenario is shown in Table~\ref{tab:cu
     \midrule
     A1 & Algorithms I           & None & 60 & Lab \\
     A2 & Basic Math   & None & 60 & -- \\
-    A3 & Analityc Geometry    & None & 40 & -- \\
+    A3 & Analytic Geometry    & None & 40 & -- \\
     A4 & Portuguese              & None & 80 & -- \\
     A5 & System analysis I  & None & 40 & -- \\
     \midrule
@@ -382,7 +382,7 @@ The full set of disciplines used for this scenario is shown in Table~\ref{tab:cu
     B2 & Data Structures     & A1 & 30 & Lab \\
     B3 & Calculus I              & A2, A3 & 40 & -- \\
     B4 & System Analysis II & A5 & 40 & -- \\
-    B5 & Inglês                 & None & 50 & -- \\
+    B5 & English                 & None & 50 & -- \\
     \midrule
     C1 & Compilers I         & B1, B2 & 25 & Lab \\
     C2 & Programming Languages & B1, B2 & 40 & Lab \\
@@ -398,7 +398,7 @@ The full set of disciplines used for this scenario is shown in Table~\ref{tab:cu
     \midrule
     E1 & Thesis I                  & C1, C2, C3, C4, D4 & 15 & -- \\
     E2 & Digital Electronics*    & D2 & 10 & HW Lab \\
-    E3 & Artificial Inteligence* & C4, D3 & 20 & -- \\
+    E3 & Artificial Intelligence* & C4, D3 & 20 & -- \\
     E4 & Graphic Computing*    & C4, D3 & 20 & Lab \\
     E5 & IT Management*        & C4, D4 & 20 & -- \\
     \midrule
@@ -415,36 +415,36 @@ The full set of disciplines used for this scenario is shown in Table~\ref{tab:cu
 
 %---------------------8<--------------------
 
-Students and professors use mobile devices (laptops or smartphones), on which are installed applications used for administration of their academic life. In particular, UniManager and LOCAL are installed.
+Students and professors use mobile devices (laptops or smartphones), on which are  applications used for administration of their academic life are installed -- in particular, UniManager and LOCAL.
 
-UniManager is the system used for discipline administration, as described in Section~\ref{sec:eprofile_unimanager}. It is used by the university administration, the professors and the students. The administration uses it to register disciplines, students and faculty, to link students and faculty to their disciplines and to issue management reports such as attendance and approval/failing of students as well as absenses and evaluations of professors. Faculty members use the system to conduct student evaluations. Students use it to perform its tests and papers, to make their enrollment in the disciplines and to check their grades and absences.
+UniManager is the system used for discipline administration, as described in Section~\ref{sec:eprofile_unimanager}. It is used by the university administration, the professors and the students. The administration uses it to register disciplines, students and faculty, to link students and faculty to their disciplines and to issue management reports such as attendance and approval/failing of students, as well as absences and evaluations of professors. Faculty members use the system to conduct student evaluations. Students use it to hand out their tests and papers, to make their enrollment in the disciplines and to check their grades and absences.
 
-In addition, teachers and students also use LOCAL on their mobile devices. LOCAL combines information from profiles to their location to be able to assist them, facilitating interaction between learners and enabling the delivery of contextualized educational material. Professors use the LOCAL to register material that will be distributed to students. LOCAL communicates with students to distribute educational material previously registered and put students with similar interests in touch during educational activities. If, during these activities, the student has not registered any interest that matches those required by the activity, he has the option to make the choice using the Personal Assistant.
+In addition, professors and students also use LOCAL on their mobile devices. LOCAL links information from profiles to their location to be able to assist them, facilitating interaction between learners and enabling the delivery of contextualized educational material. Professors use the LOCAL to register material that will be distributed to students. LOCAL communicates with students to distribute educational material previously registered and to put students with similar interests in touch during educational activities. If, during these activities, the student has not registered any interest that matches those required by the activity, he has the option to make the choice using the Personal Assistant.
 
-Table~\ref{tab:aula} exemplifies a two and a half hours class involving 10 students, in which there was a debate about Programming Techniques. After the debate, students undertook a study about the individual topics discussed in the debate. In this example, the presence of students, the delivery of their work and the grade achieved were registered in UniManager. The educational content of the lesson was registered in LOCAL.
+Table~\ref{tab:aula} exemplifies a two and a half hours class involving 10 students, in which there was a debate about Programming Techniques. After the debate, students undertook a study about the individual topics discussed in the debate. In this example, the presence of students, the handing out of their work and the grade achieved were registered in UniManager. The educational content of the lesson was registered in LOCAL.
 
-Additionally, LOCAL registered the personal preferences of two students about programming techniques. If LOCAL and UniManager were being used in isolation, this information would have been relevant only to the immediate lesson assignment. However, the integration of these systems with eProfile allows this information to be used to update the profile of the students, and can be used in the future to facilitate interaction between students and personalize the delivery of educational content (by LOCAL) and to assist the student in the recommendation of optional disciplines (by UniManager).
+Additionally, LOCAL registered the personal preferences of two students about programming techniques. If LOCAL and UniManager were being used in isolation, this information would have been relevant only to the immediate lesson assignment. However, the integration of these systems with eProfile allows this information to be used to update the profile of the students, and can be used in the future to facilitate interaction between students and personalize the delivery of educational content (by LOCAL). Furthermore, since the trails from both application can generate a unique profile per entity, this information can be used to assist the student in the recommendation of elective disciplines (by UniManager).
 
 \begin{table*}\centering\footnotesize
     \begin{tabular*}{1\textwidth}{@{}cccp{6.8cm}@{}}
     \toprule
-    Event & Timeframe & Actor & Action \\
+    Event & Time & Actor & Action \\
     \midrule
-    1 & - & Professor & Registers educational material that'll be used in class into LOCAL, and request the delivery of a paper through UniManager. \\
+    1 & - & Professor & Registers educational material that'll be used in class into LOCAL, and request the handing out of a paper through UniManager. \\
     2 & 7:30 & Students & Nine students enter in the classroom. \\
     3 & 7:30 & LOCAL & LOCAL identifies the entrance of the students into the classroom. \\
     4 & 7:30 & UniManager & UniManager identifies the entrance of the students into the classroom. \\
     5 & 7:30 & LOCAL & LOCAL sends the class educational material to the students. \\
-    6 & 8:00 & Professor & Professor requests the formation of groups for the debate. \\
-    7 & 8:00 & LOCAL & O LOCAL forms three groups based on the students' preferences: {\em Distributed Algorithms} (3 students), {\em Scheduling Algorithms} (3 students) and {\em Math Algorithms} (1 student). Two students have no registered preference that allows LOCAL to put them in any group. \\
+    6 & 8:00 & Professor & The professor requests the formation of groups for the debate. \\
+    7 & 8:00 & LOCAL & LOCAL forms three groups based on the students' preferences: {\em Distributed Algorithms} (3 students), {\em Scheduling Algorithms} (3 students) and {\em Math Algorithms} (1 student). Two students have no registered preference that would allow LOCAL to put them in some group. \\
     8 & 8:00 & LOCAL & LOCAL request the two students to choose a group. \\
     9 & 8:10 & Students & Students indicate their preference through LOCAL Personal Assistant. \\
-    10 & 8:10 & LOCAL & LOCAL puts the two students in their chosen groups, one of them in {\em Scheduling Algorithms} and the other one in {\em Math Algoritms}. \\
+    10 & 8:10 & LOCAL & LOCAL puts the two students in their chosen groups, one of them in {\em Scheduling Algorithms} and the other one in {\em Math Algorithms}. \\
     11 & 8:10 & Students & The debate starts. \\
-    12 & 8:40 & Students & One student enters the classroom, late. UniManager and LOCAL register their entrance, but LOCAL doesn't register him in the debate, since it's almost over.\\
+    12 & 8:40 & Students & One student enters the classroom, late. UniManager and LOCAL register their entrance, but LOCAL doesn't integrate him in the debate, since it's almost over.\\
     13 & 8:50 & Students & The debate ends. \\
     14 & 8:50 & Professor & The professor request the students to write a paper about the debate subject.\\
-    15 & 10:00 & Students & The students deliver their papers through UniManager and leave the classroom.\\
+    15 & 10:00 & Students & The students hand out their papers through UniManager and leave the classroom.\\
     16 & 10:00 & UniManager & Receives the papers and registers the students exit.\\
     17 & 10:00 & LOCAL & Registers the students exit.\\
     18 & - & Professor & The professor, later, evaluates the students papers and registers their grade on UniManager.\\
@@ -459,13 +459,13 @@ Additionally, LOCAL registered the personal preferences of two students about pr
 \subsection{Trails, Rules and Profiles}
 \label{sec:trilhas_cen1}
 
-According to what was described in Sections~\ref{sec:eprofile_local} and \ref{sec:eprofile_unimanager}, LOCAL and UniManager suffered three significant changes: (i) there were included communication interfaces with eProfile, so that applications can provide the entity models and rules, (ii) there were included  communication interfaces with the trail manager, so that applications could inform the events and (iii) the profile modules of both applications were modified to request profile updates from eProfile.
+According to what was described in Sections~\ref{sec:eprofile_local} and \ref{sec:eprofile_unimanager}, LOCAL and UniManager suffered three significant changes: (i) there were included communication interfaces with eProfile, so that applications can provide the entity models and rules, (ii) there were included  communication interfaces with the trail manager, so that applications could register the events and (iii) the profile modules of both applications were modified to request profile updates from eProfile.
 
-The scenario consists of three entities: (i) students, (ii) professors and (iii) disciplines. The ``professor'' and ``student'' entities represent, respectively, each one of the professors and students involved in the course. The ``discipline'' entity refers to each discipline of the course. The disciplines could be represented either as an entity or as a single resource; in this scenario, it was decided that it would be represented as an entity, since this  allows it to create a trail, from which a profile can be obtained. This way, the profile of the discipline can contain fields that are updated repeatedly such as, for example, the average grade of the discipline.
+The scenario consists of three types of entities: (i) students, (ii) professors and (iii) disciplines. The ``professor'' and ``student'' entities represent, respectively, each one of the professors and students involved in the course. The ``discipline'' entity refers to each discipline of the course. The disciplines could be represented either as an entity or as a single resource; in this scenario, we decided that it would be represented as an entity, since this  allows it to create a trail, from which a profile can be obtained. This way, the profile of the discipline can contain fields that are updated automatically such as, for example, the average grade of the discipline.
 
-According to what was described in Section~\ref{sec:eontotrail}, context-aware applications are interested in knowing {\bf who}, {\bf where}, {\bf when} and {\bf what} (ie, what the user is doing), so they can understand why the situation is occurring. The eProfile trail ontology, shown in Figure~\ref{fig:ont_trilha} defines that these questions are answered, respectively, by the classes {\em Identity}, {\em Location}, {\em Time} and {\em Activity}. Furthermore, the class {\em Participants} describes the other entities involved in this event. When a trail is stored in eProfile, information regarding the event should be inherited from these classes, using as many classes as there are necessary so that the information in complete.
+According to what was described in Section~\ref{sec:eontotrail}, context-aware applications are interested in knowing {\bf who}, {\bf where}, {\bf when} and {\bf what} (ie, what the user is doing), so they can understand why the situation is occurring. The eProfile trail ontology, shown in Figure~\ref{fig:ont_trilha}, defines that these questions are answered, respectively, by the classes {\em Identity}, {\em Location}, {\em Time} and {\em Activity}. Furthermore, the class {\em Participants} describes the other entities involved in this event. When a trail is stored in eProfile, information regarding the event should be inherited from these classes, using as many classes as necessary so that the information in complete.
 
-The students' trail contains the following events: registration, discipline enrollment, entry and exit from locations inside the campus, test carrying out and papers delivery, preferences choices and abandonment of the course. The trail format is detailed in Figure~\ref{fig:ont_estudante}. The following events are registered in the professor trail: registration, entry and exit from locations inside the campus and evaluation of students' tests and papers, according to the diagram shown in Figure~\ref{fig:ont_docente}. The discipline trail receives the following events: registration and beginning and end of semester, according to Figure~\ref{fig:ont_disciplina}.
+The students' trail contains the following events: registration, discipline enrollment, entry and exit from locations inside the campus, handing out of test and papers, new preferences and abandonment of the course. The trail format is detailed in Figure~\ref{fig:ont_estudante}. The following events are registered in the professor trail: registration, entry and exit from locations inside the campus and evaluation of students' tests and papers, according to the diagram shown in Figure~\ref{fig:ont_docente}. The discipline trail receives the following events: registration, beginning and end of semester and work group, according to Figure~\ref{fig:ont_disciplina}.
 
 \begin{figure}[!t]
   \centering\includegraphics[width=0.6\textwidth]{imagens/ont_estudante.png}
@@ -485,7 +485,7 @@ The students' trail contains the following events: registration, discipline enro
   \label{fig:ont_disciplina}
 \end{figure}
 
-The ultimate goal of the trail inference is the profile generation. For the eProfile to be successful in generating profiles from the trails, it requires the application to inform the models of entities and inference rules.
+The ultimate goal of trail inference is the profile generation. For eProfile to be successful in generating profiles from trails, it requires the application to inform the entity models and the inference rules.
 
 The entities models are the data structure used to store the profile of a entity. The entity model used by the LOCAL User Profile module is shown in Figure~\ref{fig:perfil_local}. The learners' profiles have two types of data: (i) persistent, associated to the learner in any situation, and (ii) contextual, associated with which the contexts in which the learner interacts.
 
@@ -495,9 +495,9 @@ The entities models are the data structure used to store the profile of a entity
   \label{fig:perfil_local}
 \end{figure}
 
-The sections of the profile persistent block are (i) contact, which stores basic information of the user, such as name, phone number, among others, (ii) preferences, which stores the media type preferred by the user, and (iii) interests, which identifies the student's topics of interest. The interests section is categorized according to ACM's computational classification system \citep{acm10}. The sections of the contextual block are (i) relations, identifying relationships with other users within the same context, (ii) performance, which refers to the goals to be achieved by students and (iii) security, which stores credentials necessary to access different levels in specific contexts.
+Sections of the profile persistent block are (i) contact, which stores basic information of the user (such as name, phone number, among others), (ii) preferences, which stores the media type preferred by the user, and (iii) interests, which identifies the student's topics of interest. The interests section is categorized according to ACM's computational classification system \citep{acm10}. Sections of the contextual block are (i) relations, identifying relationships with other users within the same context, (ii) performance, which refers to the goals to be achieved by students and (iii) security, which stores credentials necessary to access different levels in specific contexts.
 
-The UniManager stores profiles of disciplines, teachers and students. Its entity model is illustrated in Figure~\ref{fig:perfil_unimanager}. The basic information, subjects enrolled and notes/absences from the student profile, along with the disciplines information, are used for managerial activities of the University, such as checking if the student can attend a particular discipline. Performance information about the professor and historical average grades of disciplines are used to adjust the professor with the discipline he has higher affinity or performance. Information about students interests are used to suggest electives disciplines to them.
+UniManager stores profiles of disciplines, professors and students. Its entity model is illustrated in Figure~\ref{fig:perfil_unimanager}. The basic information, subjects enrolled and notes/absences from the student profile, along with the disciplines information, are used for managerial activities of the University, such as checking if the student can attend a particular discipline. Performance information about the professor and historical average grades of disciplines are used to adjust the professor with the discipline he has higher affinity or performance. Information about students interests are used to suggest electives disciplines to them.
 
 \begin{figure}[!t]
   \centering\includegraphics[width=0.65\textwidth]{imagens/unimanager_perfil_en.png}
@@ -509,7 +509,7 @@ LOCAL and UniManager define a set of rules for profile generation based on the t
 
 The rule definition is written in OWL by creating classes that can be processed by a reasoner. Table~\ref{tab:aula} shows an example of a classroom where the professor registers in LOCAL a set of subjects that'll be discussed in class (event 1). This event generates a trail that is sent from LOCAL to the trail manager and, subsequently, to eProfile.
 
-LOCAL then tries to identify students who have the same interests as the ones in the proposed debate, or interests related to these (event 7), by sending the OWL rules described in Figure~\ref{fig:regra1}. The first rule is called {\em RelatedSubjects} (line 2), where the subjects (class {\em Subject} line 4) related (line 6) to what will be discussed in class (line 7) are inferred. The expression {\tt ?Subject} is an eProfile extension to OWL, where this expression is replaced by the subjects that will be discussed, allowing the same rule to be used in different situations. This rule, after the inference process, results in the listing of all subjects (classes of type {\em Subject}) that relate to the subject that will be discussed, putting these classes as subclasses of class {\em RelatedSubjects}.
+LOCAL then tries to identify students who have the same interests as the ones in the proposed debate, or interests related to these (event 7), by sending the OWL rules described in Figure~\ref{fig:regra1}. The first rule is called {\em RelatedSubjects} (line 2), where the subjects (class {\em Subject}, in line 4) related (line 6) to what will be discussed in class (line 7) are inferred. The expression {\tt ?Subject} is an eProfile extension to OWL, where this expression is replaced by the subjects that will be discussed, allowing the same rule to be used in different situations. This rule, after the inference process, results in the listing of all subjects (classes of type {\em Subject}) that relate to the subject that will be discussed, putting these classes as subclasses of class {\em RelatedSubjects}.
 
 Using this rule, it is possible to find out the students (line 15) whose interests intersect with the interests found in the {\em RelatedSubjects} class (line 18). These students, in this ontology, become subclasses of class {\em StudentsSelected} (line 13).
 
@@ -541,9 +541,9 @@ Using this rule, it is possible to find out the students (line 15) whose interes
   \label{fig:regra1}
 \end{figure}
 
-Table~\ref{tab:aula} (event 7) describes that two students did not match either group because they had not registered any interest related to the subjects of debate, and LOCAL asked them on what subject they would like to participate (events 8 and 9), thus generating a trail event for these two students. Once the trail is registered, the student's profile is reprocessed according to the rules defined by LOCAL.
+Event 7 in Table~\ref{tab:aula} describes that two students did not match either group because they had no interest related to the subjects of debate, and LOCAL asked them on what subject they would like to participate (events 8 and 9), thus generating a trail event for these two students. Once the trail is registered, the student's profile is reprocessed according to the rules defined by LOCAL.
 
-The header of the rule that updates the student interest field is shown in Figure~\ref{fig:regra3}. This header defines that the student (line 1) profile {\em Interest} field (line 2) will be updated using the subclasses of class {\em StudentInterest}, whose OWL rule is shown in Figure~\ref{fig:regra2}. It is also defined that a new interest is added to the interests that already exist (line 4), that this rule is updated every time an event is registered in the trail in which a subject is chosen (line 5). The OWL rule of Figure~\ref{fig:regra2} defines that the {\em StudentInterest} class consists of the subjects chosen (line 6) by the students who are part of this context (line 10 and 11) and that have chosen a particular subject (lines 6 and 7).
+The header of the rule that updates the student interest field is shown in Figure~\ref{fig:regra3}. This header defines that the student profile (line 1) {\em Interest} field (line 2) will be updated using the subclasses of class {\em StudentInterest}, whose OWL rule is shown in Figure~\ref{fig:regra2}. It is also defined that a new interest is added to the interests that already exist (line 4), that this rule is updated every time an event is registered in the trail in which a subject is chosen (line 5). The OWL rule of Figure~\ref{fig:regra2} defines that the {\em StudentInterest} class consists of the subjects chosen (line 6) by the students who are part of this context (line 10 and 11) and that have chosen a particular subject (lines 6 and 7).
 
 \begin{figure}[!t]
 \begin{verbatim}
@@ -551,7 +551,7 @@ The header of the rule that updates the student interest field is shown in Figur
 2  Field:     Interest
 3  Rule:      StudentInterest
 4  Update:    addition
-5  Frequence: onTrailEvent(SubjectChosen)
+5  Frequency: onTrailEvent(SubjectChosen)
 6  Expires:   never
 \end{verbatim}
   \caption{Student profile rule header}
@@ -579,39 +579,35 @@ The header of the rule that updates the student interest field is shown in Figur
   \label{fig:regra2}
 \end{figure}
 
-Após a aplicação da regra mostrada nas Figuras~\ref{fig:regra3} e~\ref{fig:regra2}, a regra da Figura~\ref{fig:regra1} é executada novamente, desta vez identificando os alunos que fizeram sua escolha (evento 10 da Tabela~\ref{tab:aula}.
-
-After the execution of the rule shown in Figures~\ref{fig:regra3} and~\ref{fig:regra2}, Figure~\ref{fig:regra1} rule runs again, this time identifying students who made their choice (event 10 of Table~\ref{tab:aula}).
+After the execution of the rule shown in Figures~\ref{fig:regra3} and~\ref{fig:regra2}, the rule in Figure~\ref{fig:regra1} runs again, this time identifying students who made their choice (event 10 of Table~\ref{tab:aula}).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Prototype and Yesulation}
+\subsection{Prototype and Simulation}
 \label{sec:simulacao_cen1}
 
-The prototype was developed in the Python \citep{python} programming language. It uses Hermit as inference engine \citep{motik09}. The communication between these applications is via file exchange: when a profile need to be processed, eProfile generates an OWL file containing processing rules and calls Hermit, which processes the ontology and save a new file with the ontology generated. The eProfile then reads this file to continue the process.
+The prototype was developed in the Python programming language \citep{python}. It uses FACT++ as inference engine \citep{tsarkov06}. The communication between these applications is done via file exchange: when a profile need to be processed, eProfile generates an OWL file containing processing rules and calls FACT++, which processes the ontology and save a new file with the ontology generated. The eProfile then reads this file to continue the process.
 
 To simulate the model, we developed two programs:
 
 \begin{enumerate}
-\item A simulator, which combines the features of UniManager and LOCAL generating simulated paths of students, faculty and disciplines;
-\item A trail manager, which stores the generated trails and makes them available to the eProfile.
+\item A simulator, which combines the features of UniManager and LOCAL generating simulated trails of students, faculty and disciplines;
+\item A trail manager, which stores the generated trails and makes them available to eProfile.
 \end{enumerate}
 
-Communication between these three applications (both simulated applications eProfile) is done through REST webservices \citep{fieldings00}.
+Communication between these three applications (both simulated applications and eProfile) is done through REST web services \citep{fielding00}.
 
 To simulate the scenario as faithfully as possible, each entity is created with a set of characteristics that distinguish them from one another, and causes them to have different performances and take different decisions when faced with a choice. Professors are generated with random values of experience and rigor. These characteristics directly influence the quality of student learning, the difficulty of the course and the likelihood of dropout students. Students are generated with varying levels of commitment, intelligence and personal tastes. These characteristics influence student performance, the probability of withdrawal of disciplines and course, and the choices that the student will make.
 
-The scenario simulates a group of 40 students who conducts a course in computer science at a university. The simulation time is open, and it will be executed until all students graduate or drop out of the course.
+The scenario simulates a group of 40 students who conduct a course in computer science at a university. The simulation time is open, and it will be executed until all students graduate or drop out of the course.
 
-A simulation starts with the creation of the discipline, students and professor entities. The initial profiles of the disciplines are then generated, and professors are randomly assigned to the disciplines. A loop then start, and it will only end when all students have completed the course or dropped out. Each iteration of the loop is a semester course and contains the following steps:
+A simulation starts with the creation of the discipline, student and professor entities. The initial profiles of the disciplines are then generated, and professors are randomly assigned to the disciplines. A loop then start, and it will only end when all students have completed the course or dropped out. Each iteration of the loop is a semester course and contains the following steps:
 
 \begin{enumerate}
 \item Students choose the disciplines they will attend and enroll;
 \item Each day of the course is simulated, where students attend class and perform tests or deliver papers;
-\item The students final grades are calculated, and the students decide if they will continue or abandon the course.
+\item The students final grades are calculated, and the students decide if they will continue on the course or drop out.
 \end{enumerate}
-
-Cada disciplina é composta por 14 aulas. Existem dois tipos de eventos que podem ocorrer em uma aula: (i) um trabalho ou debate em grupo, e (ii) um trabalho ou prova individual, sendo que uma aula pode ter um dos dois eventos, ambos ou nenhum. A Tabela~\ref{tab:aula} exemplifica uma aula em que os dois tipos de eventos ocorreram.
 
 Each course consists of 14 classes. There are two types of events that can occur in a class: (i) a debate or group work, and (ii) a individual paper or test, where a class can have one of two events, both or neither. Table~\ref{tab:aula} exemplifies a class in which the two types of events occurred.
 
@@ -619,24 +615,25 @@ Each course consists of 14 classes. There are two types of events that can occur
 \subsection{Results}
 \label{sec:resultados_cen1}
 
+\todo[inline]{Escrever esta seção.}
 
 %-----------------------------------------------------------
 \section{Related Works}
 \label{ch:relacionados}
 
-\todo{Reescrever essa seção. Está muito ruim.}
+\todo[inline]{Reescrever essa seção. Está muito ruim.}
 
-We haven't find any studies where trail inference is used in order to personalize the user experience across a generic domain. This, the model presented in this paper seeks to fill this gap.
+We haven't find any studies where trail inference is used in order to personalize the user experience across a generic domain. Thus, the model presented in this paper seeks to fill this gap.
 
-\begin{table*}\centering\footnotesize
-  \begin{tabular*}{0.7\textwidth}{@{}lllllll@{}}
+\begin{table*}\footnotesize
+  \begin{tabular*}{1.1\textwidth}{@{}lllllll@{}}
     \toprule
                                          & Interope-  & Dynamic   & Storage & Context-      & Uses     & \\
     Model                                & rability   & profiles  &         & sensitiveness & trails   & Domain \\
     \midrule
     PeLeP                                & No         & Yes       & Server  & Yes           & Partial & Education \\
-    Chellouche et al                     & Syntatic   & Yes       & Server  & Yes           & No      & Multimedia services \\
-    UUCM                                 & Syntatic   & Yes       & Client  & Yes           & No      & Generic \\
+    Chellouche et al                     & Syntactic   & Yes       & Server  & Yes           & No      & Multimedia services \\
+    UUCM                                 & Syntactic   & Yes       & Client  & Yes           & No      & Generic \\
     eProfile                             & Semantic   & Yes       & Server  & Yes           & Yes     & Generic \\
     \bottomrule
   \end{tabular*}
@@ -646,21 +643,19 @@ We haven't find any studies where trail inference is used in order to personaliz
 
 % No  encontrou-se nenhum modelo que ofereça suporte a estes pré-requisitos de forma genérica (isto é, para qualquer tipo de contexto) e, assim, este modelo busca suprir esta necessidade.
 
-PeLeP \citep{pelep} supports automatic improvement of a learner's profile in education ubiquitous environments, using the history of apprentices to update the profiles through inference. eProfile uses a similar strategy. However, since PeLep's inference is made on a single specific domain (education), in the eProfile model the inference rules are defined by the application and not the model, thus allowing eProfile to be applied to a generic domain. Moreover, eProfile's rules are dynamic (an application can define or remove rules dynamically), rather than being pre-defined in the model. This allows the evolution and refining of rules of inference.
+PeLeP \citep{pelep} supports automatic improvement of a learner's profile in education ubiquitous environments, using the history of apprentices to update the profiles through inference. eProfile uses a similar strategy. However, since PeLeP's inference is made on a single specific domain (education), in the eProfile model the inference rules are defined by the application and not the model, thus allowing eProfile to be applied to a generic domain. Moreover, eProfile's rules are dynamic (an application can define or remove rules dynamically), rather than being pre-defined in the model. This allows the evolution and refining of rules of inference.
 
 The model presented by \citet{chellouche10}, like eProfile presents a unified profile which can be used for various applications. However, differently from eProfile, the model assumes syntactic interoperability, which means that all applications need to record the events using the same format, which can cause the application to not be able register the event with the richness of detail required . Moreover, as with PeLeP, the model presented by \citet{chellouche10} is limited to a specific domain (multimedia services).
 
 The UUCM model \citep{niederee04}, unlike other models, works in a generic domain. It does this by creating a basic ontology that can be extended by applications. Unlike other proposals, UUCM stores the profiles on the client rather than the server. This brings advantages and disadvantages. Among the advantages there can be mentioned the privacy and disconnected access. However, this approach limits the interoperability between systems, since each client gets a version of the client's profile, restricting the use of a unified profile.
 
-A Tabela~\ref{tab:comparacao2} exibe um comparativo entre o eProfile e os trabalhos relacionados apresentados. O eProfile baseou-se em alguns elementos dos trabalhos citados, tais como o aperfeiçoamento automático de perfis, a utilização de perfis unificados e o funcionamento em um domínio genérico. A partir dos estudos realizados, o eProfile traz como contribuição a utilização de trilhas para a extração de perfis, o que facilita a inferência com sensibilidade a contexto. Além disso, o eProfile permite que cada aplicação registre sua trilha no formato que considerar mais proveitoso para si, permitindo assim que a riqueza de detalhes registrados por uma aplicação possa se traduzir em um perfil mais exato da entidade.
-
-Table~\ref{tab:comparacao2} shows a comparison between eProfile and the related works presented. eProfile was based on some elements of the works cited, such as automatic profile improvement, use of unified profiles and operation in generic domains. Comparing the related models, eProfile main contribution is the use of trails for extracting profiles, which facilitates the inference with context-sensitivity. Moreover, the eProfile allows each application to register its trails in the format they find most helpful for them, allowing the richness of details registered by an application to be translated into a more accurate profile of the entity.
+Table~\ref{tab:comparacao2} shows a comparison between eProfile and the related works presented. eProfile was based on some elements of the works cited, such as automatic profile improvement, use of unified profiles and operation in generic domains. Comparing the related models, eProfile main contribution is the use of trails for extracting profiles, which facilitates the inference with context-sensitivity. Moreover, eProfile allows each application to register its trails in the format they find most helpful for them, allowing the richness of details registered by an application to be translated into a more accurate profile of the entity.
 
 %-----------------------------------------------------------
 \section{Conclusion}
 \label{sec:conclusao}
 
-\ldots
+\todo[inline]{Escrever esta Seção.}
 
 
 
