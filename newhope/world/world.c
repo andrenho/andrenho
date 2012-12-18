@@ -30,7 +30,7 @@ TerrainSet world_terrain(World* world, int x, int y)
 	if(x < 0 || y < 0 || x >= world->w || y >= world->h)
 		ts.biome = t_OUT_OF_BOUNDS;
 	else
-		ts.biome = t_DIRT;
+		ts.biome = t_SNOW;
 
 	return ts;
 }
