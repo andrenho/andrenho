@@ -62,6 +62,7 @@ Software:
   - a Video Controller
   - a post-apocalyptic game like asciisec
   - a Oracle interface for VIM
+  - a LISP operating system
 
 Imagens:
   - ViM cheat sheet
