@@ -107,3 +107,7 @@ vnoremap <Down> gj
 vnoremap <Up> gk
 inoremap <Down> <C-o>gj
 inoremap <Up> <C-o>gk
+
+" python options
+let python_highlight_all = 1
+let python_highlight_space_errors = 0
