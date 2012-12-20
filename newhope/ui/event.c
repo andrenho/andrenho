@@ -2,8 +2,9 @@
 
 #include "SDL.h"
 
-#include "ui/ui.h"
+#include "ui/minimap.h"
 #include "ui/terrainsurface.h"
+#include "ui/ui.h"
 #include "world/world.h"
 
 
@@ -57,6 +58,9 @@ static void evt_keypress(UI* ui, World* world, SDL_KeyboardEvent k)
 		break;
 	case SDLK_RIGHT:
 		ui_moveview(ui, s, 0);
+		break;
+	case SDLK_TAB:
+		minimap_display(ui->mm, ui);
 		break;
 	default:
 		break;
