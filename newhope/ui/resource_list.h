@@ -21,6 +21,16 @@ char* terrain_sfx[] = {
 	"_ec_se", "_s_1", "_s_2", NULL
 };
 
+// minimap tiles
+SDL_Rect mm_r[] = {
+	{ 353, 128, 60, 67 }, { 413, 128, 66, 67 }, { 479, 128, 63, 67 },
+	{ 353, 195, 60, 59 }, { 413, 195, 66, 59 }, { 479, 195, 63, 59 },
+	{ 353, 254, 60, 65 }, { 413, 254, 66, 65 }, { 479, 254, 63, 65 },
+};
+char* mm_sfx[] = { 
+	"_nw", "_n", "_ne", "_w", "_c", "_e", "_sw", "_s", "_se", NULL 
+};
+
 // resource files list
 static struct { 
 	char name[RES_CHARS];
@@ -28,6 +38,8 @@ static struct {
 	SDL_Rect* r; // list of rectangles
 	char **suffix;
 } reslist[] = {
+
+	// terrains
 	{ "grass",     "grass.png",     terrain_r, terrain_sfx },
 	{ "grassalt",  "grassalt.png",  terrain_r, terrain_sfx },
 	{ "dirt",      "dirt.png",      terrain_r, terrain_sfx },
@@ -37,6 +49,10 @@ static struct {
 	{ "water",     "water.png",     terrain_r, terrain_sfx },
 	{ "watergrass","watergrass.png",terrain_r, terrain_sfx },
 	{ "snow",      "snow.png",      terrain_r, terrain_sfx },
+
+	// map
+	{ "mm", "scrollsandblocks.png", mm_r, mm_sfx },
+
 	{ "\0", NULL, NULL, NULL }
 };
 
