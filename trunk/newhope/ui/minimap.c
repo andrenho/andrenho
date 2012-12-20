@@ -5,6 +5,7 @@
 
 #include "ui/resource.h"
 #include "ui/ui.h"
+#include "util/countset.h"
 #include "util/numbers.h"
 #include "world/world.h"
 
@@ -64,12 +65,27 @@ static void minimap_reset(Minimap* mm, UI* ui)
 			0x000000FF, 0x0000FF00, 0x00FF0000, 0xFF000000);
 	mm->sf = SDL_DisplayFormat(sf);
 	SDL_FreeSurface(sf);
-
-	// draw map
-	SDL_FillRect(mm->sf, NULL, SDL_MapRGB(mm->sf->format, 152, 180, 212));
-
 	mm->screen_w = ui->screen->w;
 	mm->screen_h = ui->screen->h;
+
+	// draw map
+	int x, y, x2, y2;
+	int ps = ui->world->w / sz;
+	for(x=0; x<ui->world->w; x+=ps)
+		for(y=0; y<ui->world->h; y+=ps)
+		{
+			//printf("%d %d\n", x, y);
+			CountSet* cs = countset();
+			for(x2=x; x2<x+ps; x2++)
+				for(y2=y; y2<y+ps; y2++)
+				{
+					TerrainSet ts = world_terrain(
+							ui->world, x, y);
+					cs_add(cs, (ts.topsoil != t_NOTHING) ? 
+							ts.topsoil : ts.biome);
+				}
+			cs_free(cs);
+		}
 }
 
 

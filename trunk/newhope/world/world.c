@@ -22,7 +22,7 @@ TerrainSet world_terrain(World* world, int x, int y)
 	TerrainSet ts;
 	ts.topsoil = t_NOTHING;
 
-	srand(x + (y * world->w));
+	//srand(x + (y * world->w));
 	ts.special = rand() % 100;
 	if(ts.special >= 4)
 		ts.special = 0;
