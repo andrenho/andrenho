@@ -11,6 +11,7 @@ SRC = main.c		  \
       ui/resource.c       \
       ui/terrainsurface.c \
       ui/ui.c             \
+      util/countset.c     \
       util/log.c	  \
       util/numbers.c      \
       util/strings.c	  \
