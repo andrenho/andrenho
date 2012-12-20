@@ -28,7 +28,7 @@ TerrainSet world_terrain(World* world, int x, int y)
 		ts.special = 0;
 
 	if(x < 0 || y < 0 || x >= world->w || y >= world->h)
-		ts.biome = t_OUT_OF_BOUNDS;
+		ts.biome = t_WATER;
 	else
 		ts.biome = t_DIRT;
 
