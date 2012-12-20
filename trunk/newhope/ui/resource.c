@@ -354,7 +354,7 @@ static SDL_Surface* resource_sf_from_png_alpha(int x, int y, int w, int h,
 	if(palette)
 		err(1, "Sorry: palettized surfaces on alpha not supported.");
 
-	SDL_Surface* sf = SDL_CreateRGBSurface(SDL_SWSURFACE|SDL_SRCALPHA, 
+	SDL_Surface* sf = SDL_CreateRGBSurface(SDL_SWSURFACE, 
 			w, h, 32, 
 			0x000000FF, 0x0000FF00, 0x00FF0000, 0xFF000000);
 	int _y;
@@ -362,6 +362,8 @@ static SDL_Surface* resource_sf_from_png_alpha(int x, int y, int w, int h,
 		memcpy(((char*)sf->pixels) + (_y*w*4), 
 				&row_pointers[_y+y][x*x_width], 
 				w * x_width);
+	SDL_Surface* sf2 = SDL_DisplayFormatAlpha(sf);
+	SDL_FreeSurface(sf);
 
-	return sf;
+	return sf2;
 }
