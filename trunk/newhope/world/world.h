@@ -8,11 +8,11 @@ typedef enum {
 	t_NOTHING       = 1,
 	t_WATER		= 99,
 	t_LAVA          = 98,
+	t_SNOW          = 80,
 	t_GRASS		= 50,
 	t_DIRT          = 20,
 	t_EARTH,
 	t_LAVAROCK,
-	t_SNOW,
 } Terrain;
 
 typedef struct {

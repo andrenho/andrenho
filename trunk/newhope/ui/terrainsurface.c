@@ -21,7 +21,7 @@ static SurfaceHash* sfhash = NULL; // TODO - add to structure
 static void trsurf_redraw(TerrainSurface* ts);
 static SDL_Surface* trsurf_tile_sf(TerrainSurface* ts, int x, int y);
 static void stack_to_char(SDL_Surface* stack[MAX_STACK],
-		char ret[MAX_STACK * sizeof(SDL_Surface*)]);
+		char ret[MAX_STACK * 12]);
 static void trsurf_draw_tile(TerrainSurface* ts, int x, int y);
 
 
@@ -163,7 +163,7 @@ static SDL_Surface* trsurf_tile_sf(TerrainSurface* ts, int x, int y)
 	build_tile(ts->world, x, y, stack);
 
 	// find hash key
-	char id[RES_CHARS * sizeof(SDL_Surface*)] = { [0 ... (MAX_STACK* sizeof(SDL_Surface*)-1)] = 0 };
+	char id[RES_CHARS * 12] = { [0 ... (MAX_STACK* 12-1)] = 0 };
 	stack_to_char(stack, id);
 
 	// find image in hash
@@ -200,11 +200,11 @@ static SDL_Surface* trsurf_tile_sf(TerrainSurface* ts, int x, int y)
 
 
 static void stack_to_char(SDL_Surface* stack[MAX_STACK],
-		char ret[MAX_STACK * sizeof(SDL_Surface*)])
+		char ret[MAX_STACK * 12])
 {
-	//memcpy(ret, stack, MAX_STACK * sizeof(SDL_Surface*));
+	//memcpy(ret, stack, MAX_STACK * 12);
 	int i = -1;
 	int p = 0;
 	while(stack[++i])
-		p += sprintf(ret, "%p", (void*)stack[i]);
+		p += sprintf(&ret[p], "%p", (void*)stack[i]);
 }
