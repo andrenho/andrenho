@@ -7,6 +7,7 @@ SRC = main.c		  \
       options.c           \
       ui/buildtile.c      \
       ui/event.c          \
+      ui/minimap.c        \
       ui/resource.c       \
       ui/terrainsurface.c \
       ui/ui.c             \
