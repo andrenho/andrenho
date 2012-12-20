@@ -5,6 +5,7 @@
 #include <sys/time.h>
 #include "SDL.h"
 
+#include "ui/minimap.h"
 #include "ui/resource.h"
 #include "ui/terrainsurface.h"
 #include "util/log.h"
@@ -24,6 +25,7 @@ UI* ui_init(World* world)
 	ui->world = world;
 	ui->flip_next_frame = 0;
 	ui->trsurf = trsurf_init(world);
+	ui->mm = minimap_init(world);
 
 	// initialize library
 	if(!ui_init_library(ui))
@@ -64,6 +66,7 @@ void ui_free(UI* ui)
 			debug("SDL terminated.");
 		}
 		trsurf_free(ui->trsurf);
+		minimap_free(ui->mm);
 		free(ui);
 	}
 }

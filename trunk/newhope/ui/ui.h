@@ -6,6 +6,7 @@
 
 struct World;
 struct TerrainSurface;
+struct Minimap;
 
 typedef struct UI {
 	int sdl_initialized;
@@ -16,6 +17,7 @@ typedef struct UI {
 	struct World* world;
 	int flip_next_frame;
 	struct TerrainSurface* trsurf;
+	struct Minimap* mm;
 } UI;
 
 UI* ui_init(struct World* world);

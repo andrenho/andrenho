@@ -35,9 +35,11 @@ TerrainSet world_terrain(World* world, int x, int y)
 	if(x < 3 || x >= (world->w - 3) || y < 3 || y >= (world->h - 3))
 		ts.topsoil = t_WATER;
 
-	if((x == 5 || x == 6) && y == 6)
+	if(x == 5 && y == 6)
 		ts.topsoil = t_LAVA;
 	else if(x == 6 && y == 7)
+		ts.topsoil = t_LAVA;
+	else if(x == 6 && y == 6)
 		ts.topsoil = t_GRASS;
 
 	return ts;
