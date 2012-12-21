@@ -33,14 +33,18 @@ void minimap_free(Minimap* mm)
 
 void minimap_display(Minimap* mm, UI* ui)
 {
+	int sz = imin(ui->screen->w, ui->screen->h) - 250;
+	SDL_Rect r = {
+		(ui->screen->w/2) - sz/2,
+		(ui->screen->h/2) - sz/2,
+		sz, sz
+	};
+	minimap_draw_paper(mm, ui, r);
+	SDL_Flip(ui->screen);
+
 	if(ui->screen->w != mm->screen_w || ui->screen->h != mm->screen_h)
 		minimap_reset(mm, ui);
 
-	SDL_Rect r = {
-		(ui->screen->w/2) - (mm->sf->w/2),
-		(ui->screen->h/2) - (mm->sf->h/2)
-	};
-	minimap_draw_paper(mm, ui, r);
 	SDL_BlitSurface(mm->sf, NULL, ui->screen, &r);
 	SDL_Flip(ui->screen);
 	SDL_Delay(2000);
@@ -69,12 +73,11 @@ static void minimap_reset(Minimap* mm, UI* ui)
 	mm->screen_h = ui->screen->h;
 
 	// draw map
-	int x, y, x2, y2;
+	int x, y, x2, y2, px, py;
 	int ps = ui->world->w / sz;
-	for(x=0; x<ui->world->w; x+=ps)
-		for(y=0; y<ui->world->h; y+=ps)
+	for(x=px=0; x<ui->world->w; x+=ps, px++)
+		for(y=py=0; y<ui->world->h; y+=ps, py++)
 		{
-			//printf("%d %d\n", x, y);
 			CountSet* cs = countset();
 			for(x2=x; x2<x+ps; x2++)
 				for(y2=y; y2<y+ps; y2++)
@@ -84,6 +87,14 @@ static void minimap_reset(Minimap* mm, UI* ui)
 					cs_add(cs, (ts.topsoil != t_NOTHING) ? 
 							ts.topsoil : ts.biome);
 				}
+			Terrain t = cs_highest(cs);
+			Uint32 *p = (Uint32*)mm->sf->pixels + 
+				py * mm->sf->pitch / 4 + px;
+			if(t == t_WATER)
+			{
+				*((Uint32*)p) = SDL_MapRGB(mm->sf->format,
+						210, 183, 119);
+			}
 			cs_free(cs);
 		}
 }
@@ -91,17 +102,17 @@ static void minimap_reset(Minimap* mm, UI* ui)
 
 static void minimap_draw_paper(Minimap* mm, UI* ui, SDL_Rect r)
 {
-	SDL_Rect r2 = { r.x - 20, r.y - 25, mm->sf->w + 40, mm->sf->h + 50 };
+	SDL_Rect r2 = { r.x - 20, r.y - 25, r.w + 40, r.h + 50 };
 
 	r.x -= 60;
 	r.y -= 85;
-	r.w = mm->sf->w + 120;
-	r.h = mm->sf->h + 170;
+	r.w = r.w + 120;
+	r.h = r.h + 170;
 
 	// laterals
 	int x, y;
 	SDL_Surface *mm_n = res("mm_n"), *mm_w = res("mm_w");
-	for(y=r.y+res("mm_nw")->h; y<r.y+r.h-80; y+=mm_w->h)
+	for(y=r.y+res("mm_nw")->h; y<r.y+r.h-60; y+=mm_w->h)
 	{
 		SDL_BlitSurface(mm_w, NULL, ui->screen, &(SDL_Rect){ r.x, y });
 		SDL_BlitSurface(res("mm_e"), NULL, ui->screen, &(SDL_Rect){ 
