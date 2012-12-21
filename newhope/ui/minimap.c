@@ -9,6 +9,16 @@
 #include "util/numbers.h"
 #include "world/world.h"
 
+struct {
+	Terrain terrain;
+	int r, g, b;
+	Uint32 c;
+} clrs[] = {
+	{ t_WATER, 152, 180, 212, 0 },
+	{ t_DIRT, 0xbe, 0xa3, 0x76, 0 },
+	{ t_INVALID, 0, 0, 0, 0 },
+};
+
 
 static void minimap_reset(Minimap* mm, UI* ui);
 static void minimap_draw_paper(Minimap* mm, UI* ui, SDL_Rect r);
@@ -72,6 +82,12 @@ static void minimap_reset(Minimap* mm, UI* ui)
 	mm->screen_w = ui->screen->w;
 	mm->screen_h = ui->screen->h;
 
+	// setup clrs
+	int i=-1;
+	while(clrs[++i].terrain != t_INVALID)
+		clrs[i].c = SDL_MapRGB(mm->sf->format, clrs[i].r,
+				clrs[i].g, clrs[i].b);
+
 	// draw map
 	int x, y, x2, y2, px, py;
 	int ps = ui->world->w / sz;
@@ -90,11 +106,13 @@ static void minimap_reset(Minimap* mm, UI* ui)
 			Terrain t = cs_highest(cs);
 			Uint32 *p = (Uint32*)mm->sf->pixels + 
 				py * mm->sf->pitch / 4 + px;
-			if(t == t_WATER)
-			{
-				*((Uint32*)p) = SDL_MapRGB(mm->sf->format,
-						210, 183, 119);
-			}
+			i = -1;
+			while(clrs[++i].terrain != t_INVALID)
+				if(t == clrs[i].terrain)
+				{
+					*((Uint32*)p) = clrs[i].c;
+					break;
+				}
 			cs_free(cs);
 		}
 }
