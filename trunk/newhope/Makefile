@@ -16,6 +16,7 @@ SRC = main.c		  \
       util/numbers.c      \
       util/strings.c	  \
       world/world.c
+	
 OBJ = ${SRC:.c=.o}
 HEADERS = ${SRC:.c=.h} util/uthash.h
 DIST = AUTHORS HACKING LICENSE NEWS README INSTALL
