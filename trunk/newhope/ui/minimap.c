@@ -74,6 +74,7 @@ static void minimap_reset(Minimap* mm, UI* ui)
 
 	// create surface
 	int sz = imin(ui->screen->w, ui->screen->h) - 250;
+	printf("%d\n", sz);
 	SDL_Surface* sf = SDL_CreateRGBSurface(SDL_SWSURFACE, 
 			sz, sz, 32,
 			0x000000FF, 0x0000FF00, 0x00FF0000, 0xFF000000);
@@ -91,8 +92,8 @@ static void minimap_reset(Minimap* mm, UI* ui)
 	// draw map
 	int x, y, x2, y2, px, py;
 	int ps = ui->world->w / sz;
-	for(x=px=0; x<ui->world->w; x+=ps, px++)
-		for(y=py=0; y<ui->world->h; y+=ps, py++)
+	for(x=px=0; x<ui->world->w && px < sz; x+=ps, px++)
+		for(y=py=0; y<ui->world->h && py < sz; y+=ps, py++)
 		{
 			CountSet* cs = countset();
 			for(x2=x; x2<x+ps; x2++)
@@ -104,14 +105,16 @@ static void minimap_reset(Minimap* mm, UI* ui)
 							ts.topsoil : ts.biome);
 				}
 			Terrain t = cs_highest(cs);
-			Uint32 *p = (Uint32*)mm->sf->pixels + 
-				py * mm->sf->pitch / 4 + px;
 			i = -1;
 			while(clrs[++i].terrain != t_INVALID)
 				if(t == clrs[i].terrain)
 				{
-					*((Uint32*)p) = clrs[i].c;
-					break;
+					Uint8 *p = (Uint8*)mm->sf->pixels 
+						+ (py * mm->sf->pitch)
+						+ (px * 4);
+					*(Uint32*)p = clrs[i].c;
+					//SDL_Rect r = { px, py, 1, 1 };
+					//SDL_FillRect(mm->sf, &r, clrs[i].c);
 				}
 			cs_free(cs);
 		}
