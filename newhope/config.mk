@@ -38,8 +38,8 @@ endif
 
 # PNG library
 ifeq (${PNG},yes)
-  CFLAGS += `pkg-config --cflags libpng zlib`
-  LDFLAGS += `pkg-config --libs libpng zlib`
+  CFLAGS += `pkg-config --cflags libpng` -lz
+  LDFLAGS += `pkg-config --libs libpng` -lz
 endif
 
 # X11 libraries
