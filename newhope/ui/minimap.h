@@ -10,6 +10,7 @@ typedef struct Minimap {
 	struct SDL_Surface* sf;
 	int screen_w, screen_h;
 	struct SDL_Thread* thread;
+	int killthread;
 } Minimap;
 
 Minimap* minimap_init(struct World* world);
