@@ -1,5 +1,6 @@
 #include "minimap.h"
 
+#include <assert.h>
 #include <stdlib.h>
 #include "SDL.h"
 #include "SDL_thread.h"
@@ -38,6 +39,7 @@ Minimap* minimap_init(World* world)
 
 void minimap_free(Minimap* mm)
 {
+	minimap_kill_thread(mm);
 	if(mm->sf)
 		SDL_FreeSurface(mm->sf);
 	free(mm);
@@ -74,7 +76,15 @@ void minimap_display(Minimap* mm, UI* ui)
 
 void minimap_reset(Minimap* mm, UI* ui)
 {
+	minimap_kill_thread(mm);
 	mm->thread = SDL_CreateThread(&minimap_create, (void*)ui);
+}
+
+
+void minimap_kill_thread(Minimap* mm)
+{
+	if(mm->thread)
+		SDL_KillThread(mm->thread);
 }
 
 
@@ -89,13 +99,14 @@ static int minimap_create(void* vui)
 	UI* ui = (UI*)vui;
 	Minimap* mm = ui->mm;
 
+	assert(ui->screen);
+
 	// free surface
 	if(mm->sf)
 		SDL_FreeSurface(mm->sf);
 
 	// create surface
 	int sz = imin(ui->screen->w, ui->screen->h) - 250;
-	printf("%d\n", sz);
 	SDL_Surface* sf = SDL_CreateRGBSurface(SDL_SWSURFACE, 
 			sz, sz, 32,
 			0x000000FF, 0x0000FF00, 0x00FF0000, 0xFF000000);
@@ -134,8 +145,6 @@ static int minimap_create(void* vui)
 						+ (py * mm->sf->pitch)
 						+ (px * 4);
 					*(Uint32*)p = clrs[i].c;
-					//SDL_Rect r = { px, py, 1, 1 };
-					//SDL_FillRect(mm->sf, &r, clrs[i].c);
 				}
 			cs_free(cs);
 		}
