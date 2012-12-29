@@ -7,6 +7,7 @@
 #include "ui/resource.h"
 #include "ui/ui.h"
 #include "util/countset.h"
+#include "util/log.h"
 #include "util/numbers.h"
 #include "world/world.h"
 
@@ -21,8 +22,7 @@ struct {
 };
 
 
-static void minimap_reset(Minimap* mm, UI* ui);
-static void minimap_create(void* ui);
+static int minimap_create(void* ui);
 static void minimap_draw_paper(Minimap* mm, UI* ui, SDL_Rect r);
 
 
@@ -31,6 +31,7 @@ Minimap* minimap_init(World* world)
 	Minimap* mm = malloc(sizeof(Minimap));
 	mm->sf = NULL;
 	mm->screen_w = mm->screen_h = 0;
+	mm->thread = NULL;
 	return mm;
 }
 
@@ -54,8 +55,16 @@ void minimap_display(Minimap* mm, UI* ui)
 	minimap_draw_paper(mm, ui, r);
 	SDL_Flip(ui->screen);
 
+	/*
 	if(ui->screen->w != mm->screen_w || ui->screen->h != mm->screen_h)
 		minimap_reset(mm, ui);
+	*/
+	// wait for thread to finish
+	if(mm->thread)
+	{
+		int n;
+		SDL_WaitThread(mm->thread, &n);
+	}
 
 	SDL_BlitSurface(mm->sf, NULL, ui->screen, &r);
 	SDL_Flip(ui->screen);
@@ -63,17 +72,23 @@ void minimap_display(Minimap* mm, UI* ui)
 }
 
 
+void minimap_reset(Minimap* mm, UI* ui)
+{
+	mm->thread = SDL_CreateThread(&minimap_create, (void*)ui);
+}
+
+
 /*
  * STATIC
  */
 
-static void minimap_create(void* ui)
+static int minimap_create(void* vui)
 {
-	minimap_reset(((UI*)ui)->mm, (UI*)ui);
-}
+	debug("Redrawing minimap.");
 
-static void minimap_reset(Minimap* mm, UI* ui)
-{
+	UI* ui = (UI*)vui;
+	Minimap* mm = ui->mm;
+
 	// free surface
 	if(mm->sf)
 		SDL_FreeSurface(mm->sf);
@@ -124,6 +139,11 @@ static void minimap_reset(Minimap* mm, UI* ui)
 				}
 			cs_free(cs);
 		}
+
+	debug("Minimap redrawn.");
+
+	mm->thread = NULL;
+	return 0;
 }
 
 

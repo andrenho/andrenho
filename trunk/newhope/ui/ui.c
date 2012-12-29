@@ -44,6 +44,9 @@ UI* ui_init(World* world)
 	// initial drawing
 	trsurf_resize(ui->trsurf, ui->screen->w, ui->screen->h);
 
+	// initialize minimap
+	minimap_reset(ui->mm, ui);
+
 	return ui;
 }
 
