@@ -33,6 +33,7 @@ Minimap* minimap_init(World* world)
 	mm->sf = NULL;
 	mm->screen_w = mm->screen_h = 0;
 	mm->thread = NULL;
+	mm->killthread = 0;
 	return mm;
 }
 
@@ -84,7 +85,13 @@ void minimap_reset(Minimap* mm, UI* ui)
 void minimap_kill_thread(Minimap* mm)
 {
 	if(mm->thread)
-		SDL_KillThread(mm->thread);
+	{
+		int n;
+		mm->killthread = 1;
+		SDL_WaitThread(mm->thread, &n);
+		debug("Minimap thread killed.");
+	}
+	mm->killthread = 0;
 }
 
 
@@ -127,6 +134,8 @@ static int minimap_create(void* vui)
 	for(x=px=0; x<ui->world->w && px < sz; x+=ps, px++)
 		for(y=py=0; y<ui->world->h && py < sz; y+=ps, py++)
 		{
+			if(mm->killthread)
+				return 0;
 			CountSet* cs = countset();
 			for(x2=x; x2<x+ps; x2++)
 				for(y2=y; y2<y+ps; y2++)
