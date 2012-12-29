@@ -2,6 +2,7 @@
 
 #include <stdlib.h>
 #include "SDL.h"
+#include "SDL_thread.h"
 
 #include "ui/resource.h"
 #include "ui/ui.h"
@@ -21,6 +22,7 @@ struct {
 
 
 static void minimap_reset(Minimap* mm, UI* ui);
+static void minimap_create(void* ui);
 static void minimap_draw_paper(Minimap* mm, UI* ui, SDL_Rect r);
 
 
@@ -65,6 +67,10 @@ void minimap_display(Minimap* mm, UI* ui)
  * STATIC
  */
 
+static void minimap_create(void* ui)
+{
+	minimap_reset(((UI*)ui)->mm, (UI*)ui);
+}
 
 static void minimap_reset(Minimap* mm, UI* ui)
 {
