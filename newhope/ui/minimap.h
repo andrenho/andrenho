@@ -16,6 +16,7 @@ Minimap* minimap_init(struct World* world);
 void minimap_free(Minimap* mm);
 
 void minimap_reset(Minimap* mm, struct UI* ui);
+void minimap_kill_thread(Minimap* mm);
 void minimap_display(Minimap* mm, struct UI* ui);
 
 #endif

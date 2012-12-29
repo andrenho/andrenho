@@ -25,6 +25,7 @@ void evt_process(UI* ui, World* world)
 			ui->screen = SDL_SetVideoMode(e.resize.w, e.resize.h, 32, 
 				SDL_SWSURFACE|SDL_RESIZABLE);
 			trsurf_resize(ui->trsurf, ui->screen->w, ui->screen->h);
+			minimap_reset(ui->mm, ui);
 			break;
 		case SDL_KEYDOWN:
 			evt_keypress(ui, world, e.key);
