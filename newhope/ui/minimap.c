@@ -122,7 +122,7 @@ static int minimap_create(void* vui)
 	mm->screen_w = ui->screen->w;
 	mm->screen_h = ui->screen->h;
 
-	// setup clrs
+	// setup colors
 	int i=-1;
 	while(clrs[++i].terrain != t_INVALID)
 		clrs[i].c = SDL_MapRGB(mm->sf->format, clrs[i].r,
@@ -167,12 +167,23 @@ static int minimap_create(void* vui)
 
 static void minimap_draw_paper(Minimap* mm, UI* ui, SDL_Rect r)
 {
-	SDL_Rect r2 = { r.x - 20, r.y - 25, r.w + 40, r.h + 50 };
+	SDL_Rect r2 = { r.x - 20, r.y - 20, r.w + 40, r.h + 40 };
 
 	r.x -= 60;
 	r.y -= 85;
 	r.w = r.w + 120;
 	r.h = r.h + 170;
+
+	// shadow - TODO
+	/*
+	SDL_Surface *shadow2 = SDL_CreateRGBSurface(SDL_SWSURFACE, r.w, r.h, 32,
+			0x000000FF, 0x0000FF00, 0x00FF0000, 0xFF000000);
+	SDL_Surface* shadow = SDL_DisplayFormat(shadow2);
+	SDL_FreeSurface(shadow2);
+	SDL_SetAlpha(shadow, SDL_SRCALPHA|SDL_RLEACCEL, 128);
+	SDL_BlitSurface(shadow, NULL, ui->screen, &(SDL_Rect){ r.x+10, r.y+30 });
+	SDL_FreeSurface(shadow);
+	*/
 
 	// laterals
 	int x, y;
@@ -183,7 +194,7 @@ static void minimap_draw_paper(Minimap* mm, UI* ui, SDL_Rect r)
 		SDL_BlitSurface(res("mm_e"), NULL, ui->screen, &(SDL_Rect){ 
 				r.x + r.w - res("mm_e")->w, y });
 	}
-	for(x=r.x+res("mm_nw")->w; x<r.x+r.w-50; x+=mm_n->w)
+	for(x=r.x+res("mm_nw")->w; x<r.x+r.w-res("mm_ne")->w; x+=mm_n->w)
 	{
 		SDL_BlitSurface(mm_n, NULL, ui->screen, &(SDL_Rect){ x, r.y });
 		SDL_BlitSurface(res("mm_s"), NULL, ui->screen, &(SDL_Rect){ 
