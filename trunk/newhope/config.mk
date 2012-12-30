@@ -22,10 +22,10 @@ VERSION = 0.0.1
 # system libraries
 SDL = yes
 PNG = yes
-X11 = no
 
 # basic flags
 CFLAGS = -DVERSION=\"${VERSION}\" -DDATADIR=\"${NEWHOPEPREFIX}\" -pedantic -Wall -I. -I/usr/include -std=c99
+LINTFLAGS = -DVERSION=\"${VERSION}\" -DDATADIR=\"${NEWHOPEPREFIX}\" -I. -I/usr/include
 LDFLAGS = -L/usr/lib
 
 # SDL libraries
@@ -38,14 +38,8 @@ endif
 
 # PNG library
 ifeq (${PNG},yes)
-  CFLAGS += `pkg-config --cflags libpng` -lz
+  CFLAGS += `pkg-config --cflags libpng`
   LDFLAGS += `pkg-config --libs libpng` -lz
-endif
-
-# X11 libraries
-ifeq (${X11},yes)
-  CFLAGS += -I/usr/X11R6/include -D_X11
-  LDFLAGS += -L/usr/X11R6/lib -lX11
 endif
 
 # Duma libraries
@@ -72,3 +66,4 @@ endif
 
 # compiler and linker
 CC = gcc
+LINT = splint
