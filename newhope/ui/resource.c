@@ -207,6 +207,12 @@ static SDL_Surface* resource_load_png(char* filename, int _x, int _y,
 	// bitdepth = png_get_bit_depth(png_ptr, info_ptr);
 	color_type = png_get_color_type(png_ptr, info_ptr);
 
+	if(_w == 0)
+	{
+		_w = w - _x;
+		_h = h - _y;
+	}
+
 	// check bounds
 	if(_x < 0 || _y < 0 || _w < 0 || _h < 0)
 		errx(1, "Image %s bounds < 0", filename);
