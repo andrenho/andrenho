@@ -50,11 +50,11 @@ void terminal_state(Terminal* term, enum TerminalState state)
 			abort();
 	}
 
-	/*
 	SDL_Surface* screen = SDL_CreateRGBSurfaceFrom(term->ui->screen->pixels,
 			term->ui->screen->w, term->ui->screen->h, 32,
 			term->ui->screen->pitch,
 			0x000000FF, 0x0000FF00, 0x00FF0000, 0xFF000000);
+	/*
 	SDL_Surface* screen = SDL_CreateRGBSurface(SDL_SWSURFACE,
 			term->ui->screen->w, term->ui->screen->h, 32,
 			0x000000FF, 0x0000FF00, 0x00FF0000, 0xFF000000);
@@ -63,8 +63,8 @@ void terminal_state(Terminal* term, enum TerminalState state)
 	SDL_Rect r = { 
 		(term->ui->screen->w / 2) - (term->term_sf->w / 2),
 		term->y,
-//		term->term_sf->w,
-//		term->term_sf->h,
+		term->term_sf->w,
+		term->term_sf->h,
 	};
 	int tst = sgn(goal_y - term->y);
 	while(sgn(goal_y - term->y) == tst)
@@ -72,20 +72,22 @@ void terminal_state(Terminal* term, enum TerminalState state)
 		r.y = term->y;
 
 		// draw screen
-	//	SDL_Rect r2 = { r.x, r.y-STEPS, r.w, r.h+(2*STEPS) };
-	//	debug("%d %d %d %d", r2.x, r2.y, r2.w, r2.h);
-	//	SDL_BlitSurface(screen, &r2, term->ui->screen, &r2);
+		SDL_Rect r2 = { r.x, r.y-STEPS, r.w, r.h+(2*STEPS) };
+		debug("A %d %d %d %d", r2.x, r2.y, r2.w, r2.h);
+		SDL_BlitSurface(screen, &r2, term->ui->screen, &r2);
 
 		// draw terminal
 		Uint32 t = SDL_GetTicks() + 1000/60;
 		SDL_BlitSurface(term->term_sf, NULL, term->ui->screen, &r);
-		SDL_UpdateRect(term->ui->screen, r.x, r.y, r.w, r.h); // TODO
+		debug("B %d %d %d %d", r.x, r.y, r.w, r.h);
+		SDL_UpdateRect(term->ui->screen, r.x, r.y-STEPS, 
+				r.w, r.h); // TODO
 		while(t > SDL_GetTicks())
-			SDL_Delay(1);
+			SDL_Delay(100);
 		term->y += STEPS * sgn(goal_y - term->y);
 	}
 
-	//SDL_FreeSurface(screen);
+	SDL_FreeSurface(screen);
 
 	debug("Terminal state changed.");
 	term->state = state;
