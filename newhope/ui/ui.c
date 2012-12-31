@@ -8,6 +8,7 @@
 #include "ui/minimap.h"
 #include "ui/resource.h"
 #include "ui/terrainsurface.h"
+#include "ui/terminal.h"
 #include "util/log.h"
 #include "world/world.h"
 
@@ -24,8 +25,6 @@ UI* ui_init(World* world)
 	ui->rx = ui->ry = 0;
 	ui->world = world;
 	ui->flip_next_frame = 0;
-	ui->trsurf = trsurf_init(world);
-	ui->mm = minimap_init(world);
 
 	// initialize library
 	if(!ui_init_library(ui))
@@ -41,6 +40,11 @@ UI* ui_init(World* world)
 		return NULL;
 	}
 
+	// initialize structures
+	ui->trsurf = trsurf_init(world);
+	ui->mm = minimap_init(world);
+	ui->terminal = terminal_init(ui);
+
 	// initial drawing
 	trsurf_resize(ui->trsurf, ui->screen->w, ui->screen->h);
 
@@ -55,6 +59,10 @@ void ui_free(UI* ui)
 {
 	if(ui)
 	{
+		trsurf_free(ui->trsurf);
+		minimap_free(ui->mm);
+		terminal_free(ui->terminal);
+
 		resources_unload(ui);
 		if(ui->sdl_initialized)
 		{
@@ -68,8 +76,6 @@ void ui_free(UI* ui)
 			SDL_Quit();
 			debug("SDL terminated.");
 		}
-		trsurf_free(ui->trsurf);
-		minimap_free(ui->mm);
 		free(ui);
 	}
 }
