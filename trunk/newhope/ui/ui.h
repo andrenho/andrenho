@@ -4,9 +4,10 @@
 #include <stdint.h>
 #include "SDL.h"
 
-struct World;
-struct TerrainSurface;
 struct Minimap;
+struct Terminal;
+struct TerrainSurface;
+struct World;
 
 typedef struct UI {
 	int sdl_initialized;
@@ -18,6 +19,7 @@ typedef struct UI {
 	int flip_next_frame;
 	struct TerrainSurface* trsurf;
 	struct Minimap* mm;
+	struct Terminal* terminal;
 } UI;
 
 UI* ui_init(struct World* world);

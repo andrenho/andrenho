@@ -9,6 +9,7 @@ SRC = main.c		  \
       ui/event.c          \
       ui/minimap.c        \
       ui/resource.c       \
+      ui/terminal.c       \
       ui/terrainsurface.c \
       ui/ui.c             \
       util/countset.c     \
