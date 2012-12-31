@@ -3,5 +3,6 @@
 
 int imin(int a, int b);
 int imax(int a, int b);
+int sgn(int a);
 
 #endif
