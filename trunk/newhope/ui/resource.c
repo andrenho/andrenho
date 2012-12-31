@@ -6,6 +6,7 @@
 
 #include <png.h>
 #include "SDL.h"
+#include "SDL_ttf.h"
 
 #include "options.h"
 #include "ui/ui.h"
@@ -21,6 +22,7 @@ const int TERRAIN = -1; // used to identify a terrain tile
 typedef struct SurfaceResource {
 	char name[RES_CHARS];
 	SDL_Surface* sf;
+	enum { PNG, TTF } type;
 	struct UT_hash_handle hh;
 } SurfaceResource;
 static SurfaceResource* resources = NULL;  // resource hash
@@ -31,6 +33,7 @@ int n_colors = 0;
 
 // prototypes
 static char* resource_find_file(char* filename);
+static TTF_Font* resource_load_ttf(char* filename, int size);
 static SDL_Surface* resource_load_png(char* filename, int x, int y, int _w, int _h);
 static SDL_Surface* resource_sf_from_png_8bit(int x, int y, int w, int h, 
 		png_bytep* row_pointers, int n_col, png_color* palette, 
@@ -65,12 +68,20 @@ int resources_load(UI* ui)
 		j = 0;
 		while(reslist[i].suffix[j])
 		{
+			SurfaceResource* res = malloc(sizeof(SurfaceResource));
+
 			SDL_Surface* sf = NULL;
+			SDL_Rect r = reslist[i].r[j];
 			if(endswith(reslist[i].filename, ".png"))
 			{
-				SDL_Rect r = reslist[i].r[j];
 				sf = resource_load_png(filepath, 
 						r.x, r.y, r.w, r.h);
+				res->type = PNG;
+			}
+			else if(endswith(reslist[i].filename, ".ttf"))
+			{
+				sf = (SDL_Surface*)resource_load_ttf(filepath, r.x);
+				res->type = TTF;
 			}
 			else
 			{
@@ -87,7 +98,6 @@ int resources_load(UI* ui)
 			}
 
 			// add to hash
-			SurfaceResource* res = malloc(sizeof(SurfaceResource));
 			if(!reslist[i].suffix[j])
 				errx(-1, "Invalid suffix for %s (%d).",
 						reslist[i].name, j);
@@ -108,7 +118,8 @@ int resources_load(UI* ui)
 	// set palette
 	SurfaceResource *res, *tmp;
 	HASH_ITER(hh, resources, res, tmp)
-		SDL_SetColors(res->sf, colors, 0, n_colors);
+		if(res->type == PNG)
+			SDL_SetColors(res->sf, colors, 0, n_colors);
 	SDL_SetColors(ui->screen, colors, 0, n_colors);
 
 	return 1;
@@ -166,6 +177,15 @@ static char* resource_find_file(char* filename)
 	}
 
 	return NULL;
+}
+
+
+static TTF_Font* resource_load_ttf(char* filename, int size)
+{
+	TTF_Font *font = TTF_OpenFont(filename, size);
+	if(!font)
+		warnx("TTF_OpenFont: %s", TTF_GetError());
+	return font;
 }
 
 

@@ -60,6 +60,10 @@ static struct {
 	// terminal
 	{ "terminal", "terminal.png", single_r, single_sfx },
 
+	// fonts
+	{ "termfont", "Glass_TTY_VT220.ttf", (SDL_Rect[]) { { 13 } }, 
+		(char*[]) { "_16", NULL } },
+
 	{ "\0", NULL, NULL, NULL }
 };
 

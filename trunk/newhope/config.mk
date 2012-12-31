@@ -33,7 +33,7 @@ ifeq (${SDL},yes)
   CFLAGS += `sdl-config --cflags` -D_SDL
   # if you want the console window on Windows, edit the sdl-config script
   # and remove the '-mwindows' option
-  LDFLAGS += `sdl-config --libs`
+  LDFLAGS += `sdl-config --libs` -lSDL_ttf
 endif
 
 # PNG library

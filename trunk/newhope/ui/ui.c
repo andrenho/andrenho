@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <sys/time.h>
 #include "SDL.h"
+#include "SDL_ttf.h"
 
 #include "ui/minimap.h"
 #include "ui/resource.h"
@@ -91,6 +92,7 @@ void ui_draw(UI* ui)
 	{
 		SDL_Rect r = { ui->rx % TILESIZE, ui->ry % TILESIZE };
 		SDL_BlitSurface(ui->trsurf->sf, NULL, ui->screen, &r);
+		terminal_draw(ui->terminal);
 		SDL_Flip(ui->screen);
 	}
 	else
@@ -133,6 +135,7 @@ void ui_end_frame(UI* ui)
 
 static int ui_init_library(UI* ui)
 {
+	// initialize SDL
 	if((SDL_Init(SDL_INIT_VIDEO)) != 0)
 	{
 		warnx("Could not initialize SDL: %s.", SDL_GetError());
@@ -141,6 +144,7 @@ static int ui_init_library(UI* ui)
 	ui->sdl_initialized = 1;
 	debug("SDL initialized.");
 
+	// create window
 	ui->screen = SDL_SetVideoMode(0, 0, 32, 
 			SDL_SWSURFACE|SDL_RESIZABLE);
 	if(!ui->screen)
@@ -150,9 +154,14 @@ static int ui_init_library(UI* ui)
 	}
 	debug("SDL window initialized.");
 
+	// setup window
 	SDL_WM_SetCaption("New Hope (version " VERSION ")", "New Hope");
 	SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY, 
 			SDL_DEFAULT_REPEAT_INTERVAL);
+
+	// intialize SDL_ttf
+	if(TTF_Init() == -1)
+		errx(2, "TTf_Init: %s", TTF_GetError());
 
 	return 1;
 }
