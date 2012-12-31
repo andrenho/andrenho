@@ -133,7 +133,12 @@ void resources_unload(UI* ui)
 	{
 		HASH_DEL(resources, res);
 		if(res->sf)
-			SDL_FreeSurface(res->sf);
+		{
+			if(res->type == PNG)
+				SDL_FreeSurface(res->sf);
+			else if(res->type == TTF)
+				TTF_CloseFont((TTF_Font*)res->sf);
+		}
 		free(res);
 	}
 }

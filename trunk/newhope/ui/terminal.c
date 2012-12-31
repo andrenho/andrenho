@@ -2,14 +2,19 @@
 
 #include <stdlib.h>
 #include "SDL.h"
+#include "SDL_ttf.h"
 
 #include "ui/resource.h"
 #include "ui/ui.h"
 #include "util/log.h"
 #include "util/numbers.h"
 
-#define PARTIAL_H 200
+#define PARTIAL_H 190
 #define STEPS 20
+#define TERMCOLOR ((SDL_Color) { 0, 255, 0 })
+
+
+// terminal = 42x13
 
 
 static void terminal_draw_buffer(Terminal* term, int x, int y);
@@ -47,6 +52,7 @@ void terminal_draw(Terminal* term)
 		term->y
 	};
 	SDL_BlitSurface(term->term_sf, NULL, term->ui->screen, &r);
+	terminal_draw_buffer(term, r.x, r.y);
 }
 
 
@@ -146,4 +152,13 @@ char terminal_getch(Terminal* term)
 
 static void terminal_draw_buffer(Terminal* term, int x, int y)
 {
+	SDL_Surface* sf = TTF_RenderUTF8_Blended(
+			(TTF_Font*)res("termfont_20"), 
+			"0123456789012345678901234567890123456789012", TERMCOLOR);
+	int i = 0;
+	for(i=0; i<14; i++)
+	{
+		SDL_Rect r = { x + 130, y + 128 + i * TTF_FontLineSkip((TTF_Font*)res("termfont_20")) };
+		SDL_BlitSurface(sf, NULL, term->ui->screen, &r);
+	}
 }
