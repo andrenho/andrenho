@@ -3,6 +3,10 @@
 
 #include "SDL.h"
 
+// single images
+SDL_Rect single_r[] = { { 0, 0, 0, 0 } };
+char* single_sfx[] = { "", NULL };
+
 // terrain tiles
 SDL_Rect terrain_r[] = {
 	{  0, 160, 32, 32 }, { 32, 160, 32, 32 }, { 64, 160, 32, 32 },
@@ -52,6 +56,9 @@ static struct {
 
 	// map
 	{ "mm", "scrollsandblocks.png", mm_r, mm_sfx },
+
+	// terminal
+	{ "terminal", "terminal.png", single_r, single_sfx },
 
 	{ "\0", NULL, NULL, NULL }
 };
