@@ -65,8 +65,9 @@ static void evt_keypress(UI* ui, World* world, SDL_KeyboardEvent k)
 		minimap_display(ui->mm, ui);
 		break;
 	case SDLK_t:
-		terminal_state(ui->terminal, OPEN);
-		debug("%d", terminal_getch(ui->terminal));
+		terminal_state(ui->terminal, PARTIAL);
+		break;
+	case SDLK_y:
 		terminal_state(ui->terminal, CLOSED);
 		break;
 	default:
