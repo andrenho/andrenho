@@ -3,6 +3,7 @@
 #include "SDL.h"
 
 #include "ui/minimap.h"
+#include "ui/terminal.h"
 #include "ui/terrainsurface.h"
 #include "ui/ui.h"
 #include "world/world.h"
@@ -62,6 +63,11 @@ static void evt_keypress(UI* ui, World* world, SDL_KeyboardEvent k)
 		break;
 	case SDLK_TAB:
 		minimap_display(ui->mm, ui);
+		break;
+	case SDLK_t:
+		terminal_state(ui->terminal, OPEN);
+		debug("%d", terminal_getch(ui->terminal));
+		terminal_state(ui->terminal, CLOSED);
 		break;
 	default:
 		break;
