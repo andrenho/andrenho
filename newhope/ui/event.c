@@ -6,6 +6,7 @@
 #include "ui/terminal.h"
 #include "ui/terrainsurface.h"
 #include "ui/ui.h"
+#include "util/i18n.h"
 #include "world/world.h"
 
 
@@ -66,7 +67,7 @@ static void evt_keypress(UI* ui, World* world, SDL_KeyboardEvent k)
 		break;
 	case SDLK_t:
 		terminal_state(ui->terminal, PARTIAL);
-		terminal_printf(ui->terminal, "{C}Hello world! ");
+		terminal_printf(ui->terminal, _("{C}Hello world! "));
 		break;
 	case SDLK_y:
 		terminal_state(ui->terminal, CLOSED);

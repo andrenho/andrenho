@@ -1,5 +1,7 @@
 #include "i18n.h"
 
+#include <locale.h>
+
 void i18n_init()
 {
 #ifdef I18N
