@@ -13,6 +13,7 @@ SRC = main.c		  \
       ui/terrainsurface.c \
       ui/ui.c             \
       util/countset.c     \
+      util/i18n.c         \
       util/log.c	  \
       util/numbers.c      \
       util/sdl.c          \

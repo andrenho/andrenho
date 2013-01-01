@@ -1,5 +1,6 @@
 #include "ui/ui.h"
 #include "ui/event.h"
+#include "util/i18n.h"
 #include "util/log.h"
 #include "world/world.h"
 
@@ -8,6 +9,7 @@
 int main(int argc, char** argv)
 {
 	// initialization
+	i18n_init();
 	log_init(1);
 	World* world = world_init(5000, 5000);
 	UI* ui = ui_init(world);
