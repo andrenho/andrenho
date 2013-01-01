@@ -6,10 +6,12 @@
 #include "SDL_thread.h"
 
 #include "ui/resource.h"
+#include "ui/terminal.h"
 #include "ui/ui.h"
 #include "util/countset.h"
 #include "util/log.h"
 #include "util/numbers.h"
+#include "util/sdl.h"
 #include "world/world.h"
 
 struct {
@@ -25,15 +27,20 @@ struct {
 
 static int minimap_create(void* ui);
 static void minimap_draw_paper(Minimap* mm, UI* ui, SDL_Rect r);
+static void minimap_events(Minimap* mm);
+static void minimap_mouse_motion(Minimap* mm, SDL_MouseMotionEvent me);
+static int minimap_mouse_click(Minimap* mm, SDL_MouseButtonEvent me);
 
 
-Minimap* minimap_init(World* world)
+Minimap* minimap_init(World* world, UI* ui)
 {
 	Minimap* mm = malloc(sizeof(Minimap));
 	mm->sf = NULL;
+	mm->ui = ui;
 	mm->screen_w = mm->screen_h = 0;
 	mm->thread = NULL;
 	mm->killthread = 0;
+	mm->sz = 0;
 	return mm;
 }
 
@@ -49,11 +56,11 @@ void minimap_free(Minimap* mm)
 
 void minimap_display(Minimap* mm, UI* ui)
 {
-	int sz = imin(ui->screen->w, ui->screen->h) - 250;
+	mm->sz = imin(ui->screen->w, ui->screen->h) - 250;
 	SDL_Rect r = {
-		(ui->screen->w/2) - sz/2,
-		(ui->screen->h/2) - sz/2,
-		sz, sz
+		(ui->screen->w/2) - mm->sz/2,
+		(ui->screen->h/2) - mm->sz/2,
+		mm->sz, mm->sz
 	};
 	minimap_draw_paper(mm, ui, r);
 	SDL_Flip(ui->screen);
@@ -71,7 +78,8 @@ void minimap_display(Minimap* mm, UI* ui)
 
 	SDL_BlitSurface(mm->sf, NULL, ui->screen, &r);
 	SDL_Flip(ui->screen);
-	SDL_Delay(2000);
+	
+	minimap_events(mm);
 }
 
 
@@ -113,9 +121,9 @@ static int minimap_create(void* vui)
 		SDL_FreeSurface(mm->sf);
 
 	// create surface
-	int sz = imin(ui->screen->w, ui->screen->h) - 250;
+	mm->sz = imin(ui->screen->w, ui->screen->h) - 250;
 	SDL_Surface* sf = SDL_CreateRGBSurface(SDL_SWSURFACE, 
-			sz, sz, 32,
+			mm->sz, mm->sz, 32,
 			0x000000FF, 0x0000FF00, 0x00FF0000, 0xFF000000);
 	mm->sf = SDL_DisplayFormat(sf);
 	SDL_FreeSurface(sf);
@@ -130,9 +138,10 @@ static int minimap_create(void* vui)
 
 	// draw map
 	int x, y, x2, y2, px, py;
-	int ps = ui->world->w / sz;
-	for(x=px=0; x<ui->world->w && px < sz; x+=ps, px++)
-		for(y=py=0; y<ui->world->h && py < sz; y+=ps, py++)
+	int ps = ui->world->w / mm->sz;
+	for(x=px=0; x<ui->world->w && px < mm->sz; x+=ps, px++)
+	{
+		for(y=py=0; y<ui->world->h && py < mm->sz; y+=ps, py++)
 		{
 			if(mm->killthread)
 				return 0;
@@ -157,6 +166,7 @@ static int minimap_create(void* vui)
 				}
 			cs_free(cs);
 		}
+	}
 
 	debug("Minimap redrawn.");
 
@@ -216,4 +226,54 @@ static void minimap_draw_paper(Minimap* mm, UI* ui, SDL_Rect r)
 	// middle
 	SDL_FillRect(ui->screen, &r2, 
 			SDL_MapRGB(ui->screen->format, 210, 183, 119));
+}
+
+
+static void minimap_events(Minimap* mm)
+{
+	SDL_Event e;
+	int active = 1;
+	
+	while(active)
+		while(SDL_PollEvent(&e))
+		{
+			switch(e.type)
+			{
+			case SDL_MOUSEMOTION:
+				minimap_mouse_motion(mm, e.motion);
+				break;
+			case SDL_MOUSEBUTTONDOWN:
+				if(e.button.button == SDL_BUTTON_LEFT)
+					active = minimap_mouse_click(mm, e.button);
+				break;
+			}
+		}
+}
+
+
+static void minimap_mouse_motion(Minimap* mm, SDL_MouseMotionEvent me)
+{
+	SDL_Rect r = {
+		(mm->ui->screen->w/2) - mm->sz/2,
+		(mm->ui->screen->h/2) - mm->sz/2,
+		mm->sz, mm->sz
+	};
+	if(inside(me.x, me.y, r))
+		terminal_state(mm->ui->terminal, PARTIAL);
+	else
+		terminal_state(mm->ui->terminal, CLOSED);
+}
+
+
+static int minimap_mouse_click(Minimap* mm, SDL_MouseButtonEvent me)
+{
+	SDL_Rect r = {
+		(mm->ui->screen->w/2) - mm->sz/2,
+		(mm->ui->screen->h/2) - mm->sz/2,
+		mm->sz, mm->sz
+	};
+	if(!inside(me.x, me.y, r))
+		return 0;
+	else
+		return 1;
 }
