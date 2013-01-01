@@ -43,7 +43,7 @@ UI* ui_init(World* world)
 
 	// initialize structures
 	ui->trsurf = trsurf_init(world);
-	ui->mm = minimap_init(world);
+	ui->mm = minimap_init(world, ui);
 	ui->terminal = terminal_init(ui);
 
 	// initial drawing

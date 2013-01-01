@@ -15,6 +15,7 @@ SRC = main.c		  \
       util/countset.c     \
       util/log.c	  \
       util/numbers.c      \
+      util/sdl.c          \
       util/strings.c	  \
       world/world.c
 	
