@@ -22,6 +22,7 @@ VERSION = 0.0.1
 # system libraries
 SDL = yes
 PNG = yes
+GETTEXT = yes
 
 # basic flags
 CFLAGS = -DVERSION=\"${VERSION}\" -DDATADIR=\"${NEWHOPEPREFIX}\" -pedantic -Wall -I. -I/usr/include -std=c99
@@ -40,6 +41,11 @@ endif
 ifeq (${PNG},yes)
   CFLAGS += `pkg-config --cflags libpng`
   LDFLAGS += `pkg-config --libs libpng` -lz
+endif
+
+# gettext
+ifeq (${GETTEXT},yes)
+  CFLAGS += -DI18N
 endif
 
 # Duma libraries

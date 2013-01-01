@@ -44,6 +44,11 @@ newhope: ${OBJ} depend
 	@${CC} -o $@ ${OBJ} ${LDFLAGS}
 -include depend
 
+po: ${SRC}
+	@echo creating PO file
+	@xgettext -d newhope -s -o po/newhope.po --keyword=_ ${SRC}
+	@msginit -l pt_BR.utf8 -o po/pt_BR.po -i po/newhope.po
+
 clean:
 	@echo cleaning
 	@rm -f newhope ${OBJ} newhope-${VERSION}.tar.gz depend
