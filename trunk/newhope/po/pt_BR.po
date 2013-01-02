@@ -19,4 +19,4 @@ msgstr ""
 
 #: ui/event.c:70
 msgid "{C}Hello world! "
-msgstr ""
+msgstr "{C}Olá Mundo! "
