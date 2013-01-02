@@ -5,6 +5,7 @@
 
 typedef struct MapParameters {
 	int w, h;
+	unsigned int seed;
 } MapParameters;
 
 
