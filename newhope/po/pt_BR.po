@@ -1,11 +1,11 @@
-# Portuguese translations for aw package.
+# Portuguese translations for newhope package.
 # Copyright (C) 2013 THE aw'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the aw package.
+# This file is distributed under the same license as the newhope package.
 #  <andre.nho@gmail.com>, 2013.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: aw 98156\n"
+"Project-Id-Version: 0.0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-01-02 09:05-0200\n"
 "PO-Revision-Date: 2013-01-02 09:05-0200\n"
