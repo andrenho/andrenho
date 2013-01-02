@@ -11,7 +11,7 @@
 #include "util/countset.h"
 #include "util/log.h"
 #include "util/numbers.h"
-#include "util/sdl.h"
+#include "util/sdlu.h"
 #include "world/world.h"
 
 struct {
