@@ -32,7 +32,7 @@ TerrainSet world_terrain(World* world, int x, int y)
 	else
 		ts.biome = t_DIRT;
 
-	if(x < 30 || x >= (world->w - 30) || y < 30 || y >= (world->h - 30))
+	if(x < 3 || x >= (world->w - 3) || y < 3 || y >= (world->h - 3))
 		ts.topsoil = t_WATER;
 
 	return ts;

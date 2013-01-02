@@ -124,10 +124,14 @@ void terminal_state(Terminal* term, enum TerminalState state)
 
 		// draw terminal
 		Uint32 t = SDL_GetTicks() + 1000/60;
+		r.x = (term->ui->screen->w / 2) - (term->term_sf->w / 2);
 		SDL_BlitSurface(term->term_sf, NULL, term->ui->screen, &r);
-		SDL_UpdateRect(term->ui->screen, r.x, r.y-STEPS, 
-			r.w, 
-			imin(r.h + (2*STEPS), term->ui->screen->h - (r.y-STEPS)));
+
+		SDL_Rect upr = {
+			r.x, r.y-STEPS,
+			r.w, imin(r.h + (2*STEPS), term->ui->screen->h - (r.y-STEPS))
+		};
+		SDL_UpdateRect(term->ui->screen, upr.x, upr.y, upr.w, upr.h);
 		while(t > SDL_GetTicks())
 			SDL_Delay(1);
 	}
