@@ -32,7 +32,7 @@ PNG = yes
 CFLAGS = -DVERSION=\"${VERSION}\" -DDATADIR=\"${NEWHOPEPREFIX}\" -pedantic -Wall -I. -I/usr/include -std=c99
 LDFLAGS = -L/usr/lib
 
-UNAME = $(shell uname)
+UNAME = $(shell uname -o)
 
 # SDL libraries
 ifeq (${SDL},yes)
@@ -51,7 +51,7 @@ endif
 # gettext
 ifeq (${GETTEXT},yes)
   CFLAGS += -DI18N -DLOCALEDIR=\"${LOCALEPREFIX}\"
-  ifeq (${UNAME},MingW)
+  ifeq (${UNAME},Msys)
     LDFLAGS += -lintl
   endif
 endif
