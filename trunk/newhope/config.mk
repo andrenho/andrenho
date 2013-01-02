@@ -12,7 +12,7 @@ LOCALEPREFIX = /usr/share/locale
 GETTEXT = yes
 
 # add debugging info
-DEBUG = no
+DEBUG = yes
 PROFILING = no
 DUMA = no
 
