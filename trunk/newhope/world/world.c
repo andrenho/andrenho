@@ -2,8 +2,8 @@
 
 #include <stdlib.h>
 
-#include "mapbuilding/mapbuild.h"
 #include "util/log.h"
+#include "world/mapbuild.h"
 
 World* world_init(int w, int h)
 {

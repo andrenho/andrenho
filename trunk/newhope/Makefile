@@ -3,22 +3,22 @@
 
 include config.mk
 
-SRC = main.c		     \
-      options.c              \
-      mapbuilding/mapbuild.c \
-      ui/buildtile.c         \
-      ui/event.c             \
-      ui/minimap.c           \
-      ui/resource.c          \
-      ui/terminal.c          \
-      ui/terrainsurface.c    \
-      ui/ui.c                \
-      util/countset.c        \
-      util/i18n.c            \
-      util/log.c	     \
-      util/numbers.c         \
-      util/sdlu.c            \
-      util/strings.c	     \
+SRC = main.c		  \
+      options.c           \
+      ui/buildtile.c      \
+      ui/event.c          \
+      ui/minimap.c        \
+      ui/resource.c       \
+      ui/terminal.c       \
+      ui/terrainsurface.c \
+      ui/ui.c             \
+      util/countset.c     \
+      util/i18n.c         \
+      util/log.c	  \
+      util/numbers.c      \
+      util/sdlu.c         \
+      util/strings.c	  \
+      world/mapbuild.c    \
       world/world.c
 TRANSLATIONS = pt_BR
 	
