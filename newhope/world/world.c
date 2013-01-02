@@ -2,11 +2,25 @@
 
 #include <stdlib.h>
 
+#include "mapbuilding/mapbuild.h"
+#include "util/log.h"
+
 World* world_init(int w, int h)
 {
+	// initialize structure
 	World* world = malloc(sizeof(World));
 	world->w = w;
 	world->h = h;
+
+	// build map
+	debug("Building map...");
+	MapParameters pars = {
+		.w = w,
+		.h = h,
+	};
+	world->map = map_init(pars);
+	debug("Map built.");
+
 	return world;
 }
 
