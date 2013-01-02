@@ -53,6 +53,8 @@ po:
 translation:
 ifeq (${GETTEXT},yes)
 	@echo creating translation files
+	@xgettext -d newhope -s -o po/newhope.pot --keyword=_ ${SRC}
+	@$(foreach t,$(TRANSLATIONS),msgmerge -s -U po/$(t).po po/newhope.pot;)
 	@$(foreach t,$(TRANSLATIONS),mkdir -p po/$(t)/LC_MESSAGES; msgfmt -c -v -o po/$(t)/LC_MESSAGES/newhope.mo po/$(t).po;)
 endif
 
