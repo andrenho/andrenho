@@ -17,7 +17,7 @@ SRC = main.c		     \
       util/i18n.c            \
       util/log.c	     \
       util/numbers.c         \
-      util/sdl.c             \
+      util/sdlu.c            \
       util/strings.c	     \
       world/world.c
 TRANSLATIONS = pt_BR

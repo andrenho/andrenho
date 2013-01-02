@@ -49,6 +49,7 @@ endif
 # gettext
 ifeq (${GETTEXT},yes)
   CFLAGS += -DI18N -DLOCALEDIR=\"${LOCALEPREFIX}\"
+  LDFLAGS += -lintl
 endif
 
 # Duma libraries
