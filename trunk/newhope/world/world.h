@@ -1,6 +1,8 @@
 #ifndef WORLD_H
 #define WORLD_H
 
+struct Map;
+
 // the order is the importance
 typedef enum {
 	t_INVALID       = -1,
@@ -23,6 +25,7 @@ typedef struct {
 
 typedef struct World {
 	int w, h;
+	struct Map* map;
 } World;
 
 World* world_init(int w, int h);
