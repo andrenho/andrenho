@@ -18,6 +18,7 @@ World* world_init(int w, int h)
 	MapParameters pars = {
 		.w = w,
 		.h = h,
+		.seed = 1,
 	};
 	world->map = map_init(pars);
 	debug("Map built.");
