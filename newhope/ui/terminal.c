@@ -18,7 +18,7 @@
 
 
 static void terminal_draw_buffer(Terminal* term, int update);
-static void terminal_mvaddch(Terminal* term, int ch, int col, int line);
+static void terminal_mvaddch(Terminal* term, unsigned int ch, int col, int line);
 static void terminal_advance_cursor(Terminal* term);
 static void terminal_reset_fb(Terminal* term);
 
@@ -160,7 +160,14 @@ void terminal_printf(Terminal* term, char* fmt, ...)
 				cmd_mode = 1;
 			else
 			{
-				terminal_mvaddch(term, buf[i], 
+				unsigned int c = (unsigned char)buf[i];
+				if(buf[i] < 0)
+				{
+					c = (unsigned char)buf[i];
+					c <<= 8;
+					c |= (unsigned int)buf[++i] & 0xff;
+				}
+				terminal_mvaddch(term, c, 
 						term->cur_x, term->cur_y);
 				terminal_advance_cursor(term);
 				terminal_mvaddch(term, '_',
@@ -205,21 +212,30 @@ char terminal_getch(Terminal* term)
  */
 
 
-static void terminal_mvaddch(Terminal* term, int ch, int col, int line)
+static void terminal_mvaddch(Terminal* term, unsigned int ch, int col, int line)
 {
 	// clear char
 	SDL_Rect r = { (col * term->font_w), (line * term->font_h), 
 		term->font_w, term->font_h };
 	SDL_Rect r2 = { r.x + TEXT_X, r.y + TEXT_Y, term->font_w, term->font_h };
 	SDL_BlitSurface(term->term_sf, &r2, term->fb_sf, &r);
+
+	// build char
+	char c[3] = { 0, 0, 0 };
+	if(ch <= 255)
+		c[0] = ch;
+	else
+	{
+		c[0] = (ch >> 8) & 0xff;
+		c[1] = ch & 0xff;
+	}
 	
 	// draw char on surface
 	SDL_Surface* sf = TTF_RenderUTF8_Blended(
-			(TTF_Font*)res("termfont_20"), 
-			(const char[]) { ch, '\0' }, TERMCOLOR);
+			(TTF_Font*)res("termfont_20"), c, TERMCOLOR);
 	SDL_BlitSurface(sf, NULL, term->fb_sf, &r);
 	
-	// copy surface to scree
+	// copy surface to screen
 	terminal_draw_buffer(term, 1);
 	
 	// wait
