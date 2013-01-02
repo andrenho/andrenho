@@ -22,6 +22,7 @@ The following software was used when writing this game:
 
  Libraries:
    - libSDL
+   - libSDL_ttf
    - libpng
    - zlib
 
