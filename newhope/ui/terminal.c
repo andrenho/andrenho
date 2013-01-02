@@ -210,7 +210,7 @@ static void terminal_mvaddch(Terminal* term, int ch, int col, int line)
 	SDL_BlitSurface(term->term_sf, &r2, term->fb_sf, &r);
 	
 	// draw char on surface
-	SDL_Surface* sf = TTF_RenderText_Blended(
+	SDL_Surface* sf = TTF_RenderUTF8_Blended(
 			(TTF_Font*)res("termfont_20"), 
 			(const char[]) { ch, '\0' }, TERMCOLOR);
 	SDL_BlitSurface(sf, NULL, term->fb_sf, &r);

@@ -9,8 +9,8 @@
 int main(int argc, char** argv)
 {
 	// initialization
-	i18n_init();
 	log_init(1);
+	i18n_init();
 	World* world = world_init(5000, 5000);
 	UI* ui = ui_init(world);
 	if(!ui)

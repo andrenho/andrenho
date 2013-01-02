@@ -6,14 +6,19 @@
 PREFIX = /usr/local
 MANPREFIX = ${PREFIX}/share/man
 NEWHOPEPREFIX = ${PREFIX}/share/newhope
+LOCALEPREFIX = /usr/share/locale
+
+# parse translations
+GETTEXT = yes
 
 # add debugging info
-DEBUG = yes
+DEBUG = no
 PROFILING = no
 DUMA = no
 
+
 #
-# PLEASE AVOID CHANGING THE INFORMATION BELOW
+# PLEASE AVOID CHANGING THE INFORMATION BELOW, UNLESS NECESSARY
 #
 
 # New Hope version
@@ -22,11 +27,9 @@ VERSION = 0.0.1
 # system libraries
 SDL = yes
 PNG = yes
-GETTEXT = yes
 
 # basic flags
 CFLAGS = -DVERSION=\"${VERSION}\" -DDATADIR=\"${NEWHOPEPREFIX}\" -pedantic -Wall -I. -I/usr/include -std=c99
-LINTFLAGS = -DVERSION=\"${VERSION}\" -DDATADIR=\"${NEWHOPEPREFIX}\" -I. -I/usr/include
 LDFLAGS = -L/usr/lib
 
 # SDL libraries
@@ -45,7 +48,7 @@ endif
 
 # gettext
 ifeq (${GETTEXT},yes)
-  CFLAGS += -DI18N
+  CFLAGS += -DI18N -DLOCALEDIR=\"${LOCALEPREFIX}\"
 endif
 
 # Duma libraries
@@ -72,4 +75,3 @@ endif
 
 # compiler and linker
 CC = gcc
-LINT = splint

@@ -19,13 +19,14 @@ SRC = main.c		  \
       util/sdl.c          \
       util/strings.c	  \
       world/world.c
+TRANSLATIONS = pt_BR
 	
 OBJ = ${SRC:.c=.o}
 HEADERS = ${SRC:.c=.h} util/uthash.h
 DIST = AUTHORS HACKING LICENSE NEWS README INSTALL
-DATA =
+DATA = $(wildcard data/*.png) $(wildcard data/*.ttf)
 
-all: options newhope
+all: options newhope translation
 
 options:
 	@echo New Hope build options:
@@ -44,10 +45,16 @@ newhope: ${OBJ} depend
 	@${CC} -o $@ ${OBJ} ${LDFLAGS}
 -include depend
 
-po: ${SRC}
+po:
 	@echo creating PO file
-	@xgettext -d newhope -s -o po/newhope.po --keyword=_ ${SRC}
-	@msginit -l pt_BR.utf8 -o po/pt_BR.po -i po/newhope.po
+	@xgettext -d newhope -s -o po/newhope.pot --keyword=_ ${SRC}
+	@$(foreach t,$(TRANSLATIONS),msginit -l $(t).utf8 -o po/$(t).po -i po/newhope.pot;)
+
+translation:
+ifeq (${GETTEXT},yes)
+	@echo creating translation files
+	@$(foreach t,$(TRANSLATIONS),mkdir -p po/$(t)/LC_MESSAGES; msgfmt -c -v -o po/$(t)/LC_MESSAGES/newhope.mo po/$(t).po;)
+endif
 
 clean:
 	@echo cleaning
@@ -73,21 +80,26 @@ install: all
 	@echo installing data to ${DESTDIR}${NEWHOPEPREFIX}
 	@mkdir -p ${DESTDIR}${NEWHOPEPREFIX}
 	@cp -f ${DATA} ${DESTDIR}${NEWHOPEPREFIX}
-	@echo installing manual page to ${DESTDIR}${MANPREFIX}/man1
-	@mkdir -p ${DESTDIR}${MANPREFIX}/man1
-	@sed "s/VERSION/${VERSION}/g" < newhope.1 > ${DESTDIR}${MANPREFIX}/man1/newhope.1
-	@chmod 644 ${DESTDIR}${MANPREFIX}/man1/newhope.1
-	@echo compiling terminfo data
-	@tic -s data/newhope.info
+	#@echo installing manual page to ${DESTDIR}${MANPREFIX}/man1
+	#@mkdir -p ${DESTDIR}${MANPREFIX}/man1
+	#@sed "s/VERSION/${VERSION}/g" < newhope.1 > ${DESTDIR}${MANPREFIX}/man1/newhope.1
+	#@chmod 644 ${DESTDIR}${MANPREFIX}/man1/newhope.1
+ifeq (${GETTEXT},yes)
+	@echo installing translations to ${LOCALEPREFIX}
+	@$(foreach t,$(TRANSLATIONS),mkdir -p ${LOCALEPREFIX}/$(t)/LC_MESSAGES;)
+	@$(foreach t,$(TRANSLATIONS),cp -f po/$(t)/LC_MESSAGES/newhope.mo ${LOCALEPREFIX}/$(t)/LC_MESSAGES;)
+endif
 
 # TODO - check data
 uninstall:
 	@echo removing executable file from ${DESTDIR}${PREFIX}/bin
-	@rm -f ${DESTDIR}${PREFIX}/bin/st
+	@rm -f ${DESTDIR}${PREFIX}/bin/newhope
 	@echo removing data from ${DESTDIR}${NEWHOPEPREFIX}
 	@rm -f ${DESTDIR}${NEWHOPEPREFIX}/*
 	@rmdir ${DESTDIR}${NEWHOPEPREFIX}
-	@echo removing manual page from ${DESTDIR}${MANPREFIX}/man1
-	@rm -f ${DESTDIR}${MANPREFIX}/man1/newhope.1
+	#@echo removing manual page from ${DESTDIR}${MANPREFIX}/man1
+	#@rm -f ${DESTDIR}${MANPREFIX}/man1/newhope.1
+	@echo removing translation files, if installed
+	@$(foreach t,$(TRANSLATIONS),rm -f ${LOCALEPREFIX}/$(t)/LC_MESSAGES/newhope.mo;)
 
-.PHONY: all options clean dist install uninstall
+.PHONY: all options clean po dist install uninstall translation
