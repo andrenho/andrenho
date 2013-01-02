@@ -32,6 +32,8 @@ PNG = yes
 CFLAGS = -DVERSION=\"${VERSION}\" -DDATADIR=\"${NEWHOPEPREFIX}\" -pedantic -Wall -I. -I/usr/include -std=c99
 LDFLAGS = -L/usr/lib
 
+UNAME = $(shell uname)
+
 # SDL libraries
 ifeq (${SDL},yes)
   CFLAGS += `sdl-config --cflags` -D_SDL
@@ -49,7 +51,9 @@ endif
 # gettext
 ifeq (${GETTEXT},yes)
   CFLAGS += -DI18N -DLOCALEDIR=\"${LOCALEPREFIX}\"
-  LDFLAGS += -lintl
+  ifeq (${UNAME},MingW)
+    LDFLAGS += -lintl
+  endif
 endif
 
 # Duma libraries
