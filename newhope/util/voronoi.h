@@ -6,10 +6,14 @@ typedef struct Point {
 } Point;
 
 typedef struct Segment {
-	int n_points;
-	Point* points;
+	Point p1, p2;
+} Segment;
+
+typedef struct Polygon {
+	int n_segments;
+	Segment* segments;
 } Polygon;
 
-void fake_voronoi(unsigned int seed, int w, int h, int density);
+int fake_voronoi(unsigned int seed, int w, int h, int density, Polygon** polygons);
 
 #endif
