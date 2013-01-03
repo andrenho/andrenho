@@ -6,19 +6,18 @@
 double site[N_SITES][2];
 unsigned char rgb[N_SITES][3];
  
-int size_x = 640, size_y = 480;
+int size_x = 700, size_y = 700;
  
 inline double sq2(double x, double y)
 {
 	return x * x + y * y;
 }
  
-#define for_k for (k = 0; k < N_SITES; k++)
 int nearest_site(double x, double y)
 {
 	int k, ret = 0;
 	double d, dist = 0;
-	for_k {
+	for (k = 0; k < N_SITES; k++) {
 		d = sq2(x - site[k][0], y - site[k][1]);
 		if (!k || d < dist) {
 			dist = d, ret = k;
@@ -62,8 +61,6 @@ void aa_color(unsigned char *pix, int y, int x)
 	pix[2] = b / (AA_RES * AA_RES);
 }
  
-#define for_i for (i = 0; i < size_y; i++)
-#define for_j for (j = 0; j < size_x; j++)
 void gen_map()
 {
 	int i, j, k;
@@ -71,14 +68,20 @@ void gen_map()
 	unsigned char *ptr, *buf, color;
  
 	ptr = buf = malloc(3 * size_x * size_y);
-	for_i for_j nearest[i * size_x + j] = nearest_site(j, i);
+	for (i = 0; i < size_y; i++)
+		for (j = 0; j < size_x; j++)
+			nearest[i * size_x + j] = nearest_site(j, i);
  
-	for_i for_j {
-		if (!at_edge(nearest, i, j))
-			memcpy(ptr, rgb[nearest[i * size_x + j]], 3);
-		else	/* at edge, do anti-alias rastering */
-			aa_color(ptr, i, j);
-		ptr += 3;
+	for (i = 0; i < size_y; i++)
+	{
+		for (j = 0; j < size_x; j++)
+		{
+			if (!at_edge(nearest, i, j))
+				memcpy(ptr, rgb[nearest[i * size_x + j]], 3);
+			else	/* at edge, do anti-alias rastering */
+				aa_color(ptr, i, j);
+			ptr += 3;
+		}
 	}
  
 	/* draw sites */
@@ -106,7 +109,8 @@ void gen_map()
 int main()
 {
 	int k;
-	for_k {
+	for (k = 0; k < N_SITES; k++)
+ 	{
 		site[k][0] = frand(size_x);
 		site[k][1] = frand(size_y);
 		rgb [k][0] = frand(256);
