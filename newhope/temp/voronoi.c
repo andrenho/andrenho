@@ -2,11 +2,11 @@
 #include <stdlib.h>
 #include <string.h>
  
-#define N_SITES 150
+#define N_SITES 500
 double site[N_SITES][2];
 unsigned char rgb[N_SITES][3];
  
-int size_x = 700, size_y = 700;
+int size_x = 2000, size_y = 2000;
  
 inline double sq2(double x, double y)
 {
@@ -67,11 +67,13 @@ void gen_map()
 	int *nearest = malloc(sizeof(int) * size_y * size_x);
 	unsigned char *ptr, *buf, color;
  
+	fprintf(stderr, "Calculating nearest site.\n");
 	ptr = buf = malloc(3 * size_x * size_y);
 	for (i = 0; i < size_y; i++)
 		for (j = 0; j < size_x; j++)
 			nearest[i * size_x + j] = nearest_site(j, i);
  
+	fprintf(stderr, "Finding edges.\n");
 	for (i = 0; i < size_y; i++)
 	{
 		for (j = 0; j < size_x; j++)
@@ -85,6 +87,7 @@ void gen_map()
 	}
  
 	/* draw sites */
+	fprintf(stderr, "Drawing sites.\n");
 	for (k = 0; k < N_SITES; k++) {
 		color = (rgb[k][0]*.25 + rgb[k][1]*.6 + rgb[k][2]*.15 > 80) ? 0 : 255;
  
