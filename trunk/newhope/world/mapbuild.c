@@ -68,6 +68,18 @@ static void map_polygons(Map *map)
 
 static void map_coastline(Map *map)
 {
+	int qw = map->parameters->w / 4,
+	    qh = map->parameters->h / 4;
+	Point pts[] = { { qw, qh }, { qw, qh*3 }, { qw*3, qh*3 }, { qw, qh*3 } };
+	Polygon* polygon = create_polygon(4, pts);
+	
+	int i;
+	for(i=0; i<map->n_biomes; i++)
+	{
+		Point p = map->biomes[i].polygon->midpoint;
+		if(!point_in_polygon(p, polygon))
+			map->biomes[i].terrain = t_WATER;
+	}
 }
 
 

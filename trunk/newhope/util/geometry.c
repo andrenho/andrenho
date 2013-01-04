@@ -3,29 +3,27 @@
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 
 static void find_polygon_limits(Polygon* polygon);
+static int point_in_polygon_algorithm(int polySides, float* polyX, float* polyY, 
+		float x, float y);
 
 
-int point_in_polygon(int polySides, float* polyX, float* polyY, 
-		float x, float y)
+int point_in_polygon(Point p, Polygon* polygon)
 {
-	int i, j=polySides-1;
-	int oddNodes = 0;
+	int i;
+	int polySides = polygon->n_segments;
+	float polyX[polySides],
+	      polyY[polySides];
 
 	for(i=0; i<polySides; i++)
 	{
-		if((polyY[i] < y && polyY[j] >= y
-		||  polyY[j] < y && polyY[i] >= y)
-		&& (polyX[i] <= x || polyX[j] <= x))
-			oddNodes ^= (polyX[i] + (y - polyY[i]) /
-						(polyY[j] - polyY[i]) *
-						(polyX[j] - polyX[i]) < x);
-		j = i;
+		polyX[i] = polygon->segments[i].p1.x;
+		polyY[i] = polygon->segments[i].p1.y;
 	}
-
-	return oddNodes;
+	return point_in_polygon_algorithm(polySides, polyX, polyY, p.x, p.y);
 }
 
 
@@ -64,29 +62,54 @@ int fake_voronoi(unsigned int seed, int w, int h, int density, Polygon** polygon
 		}
 
 	// generate polygons
-	Polygon* polygon = NULL;
 	int n_polygons = 0;
+	Polygon* ps = NULL;
 	for(x=0; x<(max_x-1); x++)
 		for(y=0; y<(max_y-1); y++)
 		{
-			polygon = realloc(polygon, 
-					sizeof(Polygon) * (n_polygons + 1));
-			polygon[n_polygons].n_segments = 4;
-			polygon[n_polygons].segments = malloc(sizeof(Segment) * 4);
-			polygon[n_polygons].segments[0].p1 = points[x][y];
-			polygon[n_polygons].segments[0].p2 = points[x+1][y];
-			polygon[n_polygons].segments[1].p1 = points[x+1][y];
-			polygon[n_polygons].segments[1].p2 = points[x+1][y+1];
-			polygon[n_polygons].segments[2].p1 = points[x+1][y+1];
-			polygon[n_polygons].segments[2].p2 = points[x][y+1];
-			polygon[n_polygons].segments[3].p1 = points[x][y+1];
-			polygon[n_polygons].segments[3].p2 = points[x][y];
-			find_polygon_limits(&polygon[n_polygons]);
+			Point pts[] = {	points[x][y], points[x+1][y], 
+				points[x+1][y+1], points[x][y+1] };
+			Polygon* polygon = create_polygon(4, pts);
+			
+			ps = realloc(ps, sizeof(Polygon) * (n_polygons + 1));
+			memcpy(&ps[n_polygons], polygon, sizeof(Polygon));
+
 			n_polygons++;
 		}
 	
-	*polygons = polygon;
+	*polygons = ps;
 	return n_polygons;
+}
+
+
+Polygon* create_polygon(int n_points, Point* point)
+{
+	int i;
+	
+	Polygon* polygon = calloc(sizeof(Polygon), 1);
+	polygon->n_segments = n_points;
+	polygon->segments = malloc(sizeof(Segment) * n_points);
+	for(i=0; i<n_points; i++)
+	{
+		polygon->segments[i].p1 = point[i];
+		if(i != (n_points-1))
+			polygon->segments[i].p2 = point[i+1];
+		else
+			polygon->segments[i].p2 = point[0];
+		find_polygon_limits(polygon);
+	}
+	return polygon;
+}
+
+
+Polygon* midline_displacement(Polygon* polygon, int iters)
+{
+	if(iters == 0)
+		return polygon;
+	else
+	{
+		return midline_displacement(polygon, iters-1);
+	}
 }
 
 
@@ -133,4 +156,32 @@ static void find_polygon_limits(Polygon* polygon)
 		if(y > polygon->limit_y2)
 			polygon->limit_y2 = y;
 	}
+
+	polygon->midpoint = (Point) {
+		polygon->limit_x1 + (polygon->limit_x2 - polygon->limit_x1) / 2,
+		polygon->limit_y1 + (polygon->limit_y2 - polygon->limit_y1) / 2
+	};
+
 }
+
+
+static int point_in_polygon_algorithm(int polySides, float* polyX, float* polyY, 
+		float x, float y)
+{
+	int i, j=polySides-1;
+	int oddNodes = 0;
+
+	for(i=0; i<polySides; i++)
+	{
+		if((polyY[i] < y && polyY[j] >= y
+		||  polyY[j] < y && polyY[i] >= y)
+		&& (polyX[i] <= x || polyX[j] <= x))
+			oddNodes ^= (polyX[i] + (y - polyY[i]) /
+						(polyY[j] - polyY[i]) *
+						(polyX[j] - polyX[i]) < x);
+		j = i;
+	}
+
+	return oddNodes;
+}
+
