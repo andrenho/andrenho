@@ -4,7 +4,5 @@
 int imin(int a, int b);
 int imax(int a, int b);
 int sgn(int a);
-int point_in_polygon(int polySides, float* polyX, float* polyY, 
-		float x, float y);
 
 #endif

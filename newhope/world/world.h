@@ -19,7 +19,6 @@ typedef enum {
 
 typedef struct {
 	Terrain biome;
-	Terrain topsoil;
 	int special;
 } TerrainSet;
 

@@ -42,7 +42,7 @@ void build_tile(World* world, int x, int y, SDL_Surface* stack[MAX_STACK])
 	TerrainSet ts = world_terrain(world, x, y);
 	
 	// get basic image
-	Terrain terrain = (ts.topsoil != t_NOTHING) ? ts.topsoil : ts.biome;
+	Terrain terrain = ts.biome;
 	i = 0;
 	while(basic[i].image)
 	{
@@ -74,7 +74,7 @@ found:
 static void build_tile_find_borders(World* world, int x, int y, 
 		SDL_Surface* stack[MAX_STACK], int st, Terrain here)
 {
-	// find other terrains around this one, and order them
+	// find other terrains around this one
 	int _x, _y;
 	Terrain t[8] = { [0 ... 7] = t_INVALID };
 	int i = 0;
@@ -82,7 +82,7 @@ static void build_tile_find_borders(World* world, int x, int y,
 		for(_y=y-1; _y<=y+1; _y++)
 			if(!(_x==x && _y==y))
 			{
-				Terrain tr = world_terrain(world, _x, _y).topsoil;
+				Terrain tr = world_terrain(world, _x, _y).biome;
 				if(tr > here)
 					t[i] = tr;
 				i++;
@@ -105,14 +105,14 @@ static void build_tile_find_borders(World* world, int x, int y,
 
 		// find tiles around
 		Borders b = {
-			world_terrain(world, x-1, y-1).topsoil == t[i] ? t[i] : t_NOTHING,
-			world_terrain(world, x,   y-1).topsoil == t[i] ? t[i] : t_NOTHING,
-			world_terrain(world, x+1, y-1).topsoil == t[i] ? t[i] : t_NOTHING,
-			world_terrain(world, x-1, y  ).topsoil == t[i] ? t[i] : t_NOTHING,
-			world_terrain(world, x+1, y  ).topsoil == t[i] ? t[i] : t_NOTHING,
-			world_terrain(world, x-1, y+1).topsoil == t[i] ? t[i] : t_NOTHING,
-			world_terrain(world, x,   y+1).topsoil == t[i] ? t[i] : t_NOTHING,
-			world_terrain(world, x+1, y+1).topsoil == t[i] ? t[i] : t_NOTHING,
+			world_terrain(world, x-1, y-1).biome == t[i] ? t[i] : t_NOTHING,
+			world_terrain(world, x,   y-1).biome == t[i] ? t[i] : t_NOTHING,
+			world_terrain(world, x+1, y-1).biome == t[i] ? t[i] : t_NOTHING,
+			world_terrain(world, x-1, y  ).biome == t[i] ? t[i] : t_NOTHING,
+			world_terrain(world, x+1, y  ).biome == t[i] ? t[i] : t_NOTHING,
+			world_terrain(world, x-1, y+1).biome == t[i] ? t[i] : t_NOTHING,
+			world_terrain(world, x,   y+1).biome == t[i] ? t[i] : t_NOTHING,
+			world_terrain(world, x+1, y+1).biome == t[i] ? t[i] : t_NOTHING,
 		};
 
 		// find tile image

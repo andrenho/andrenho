@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 static void map_polygons(Map *map);
 static void map_coastline(Map *map);
 static void map_elevation(Map *map);
@@ -41,7 +40,7 @@ void map_free(Map* map)
 {
 	int i;
 	for(i=0; i<map->n_biomes; i++)
-		free(map->biomes[i].polypt);
+		free_polygon(map->biomes[i].polygon);
 	if(map->n_biomes > 0)
 		free(map->biomes);
 	free(map->parameters);
@@ -51,14 +50,19 @@ void map_free(Map* map)
 
 static void map_polygons(Map *map)
 {
-	map->n_biomes = 1;
-	map->biomes = calloc(sizeof(Biome), map->n_biomes);
-	map->biomes[0].n_points = 3;
-	map->biomes[0].polypt = calloc(sizeof(Point), map->biomes[0].n_points);
-	map->biomes[0].polypt[0] = (Point){ 3, 3 };
-	map->biomes[0].polypt[1] = (Point){ 20, 8 };
-	map->biomes[0].polypt[2] = (Point){ 3, 12 };
-	map->biomes[0].terrain = t_GRASS;
+	int i;
+
+	Polygon* polygons = NULL;
+	int n = fake_voronoi(map->parameters->seed, 
+			map->parameters->w, map->parameters->h, 30, &polygons);
+	
+	map->n_biomes = n;
+	map->biomes = calloc(sizeof(Biome), n);
+	for(i=0; i<n; i++)
+	{
+		map->biomes[i].polygon = &polygons[i];
+		map->biomes[i].terrain = rand() % 2 ? t_DIRT : t_GRASS;
+	}
 }
 
 
