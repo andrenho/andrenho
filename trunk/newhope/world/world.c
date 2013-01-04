@@ -36,7 +36,6 @@ void world_free(World* world)
 TerrainSet world_terrain(World* world, int x, int y)
 {
 	TerrainSet ts;
-	ts.topsoil = t_NOTHING;
 
 	//srand(x + (y * world->w));
 	
@@ -46,16 +45,21 @@ TerrainSet world_terrain(World* world, int x, int y)
 		ts.special = 0;
 
 	// basic terrain (no polygon)
-	if(x < 0 || y < 0 || x >= world->w || y >= world->h)
-		ts.biome = t_WATER;
-	else
-		ts.biome = t_DIRT;
+	ts.biome = t_WATER;
 
 	// find biome polygon
 	int bi;
 	for(bi=0; bi<world->map->n_biomes; bi++)
 	{
-		int polySides = world->map->biomes[bi].n_points;
+		// prefilter the polygons
+		if(x < world->map->biomes[bi].polygon->limit_x1
+		|| y < world->map->biomes[bi].polygon->limit_y1
+		|| x > world->map->biomes[bi].polygon->limit_x2
+		|| y > world->map->biomes[bi].polygon->limit_y2)
+			continue;
+
+		// check if point is on the polygon
+		int polySides = world->map->biomes[bi].polygon->n_segments;
 		float _x = x,
 		      _y = y;
 		float polyX[polySides],
@@ -63,11 +67,11 @@ TerrainSet world_terrain(World* world, int x, int y)
 		int pi;
 		for(pi=0; pi<polySides; pi++)
 		{
-			polyX[pi] = world->map->biomes[bi].polypt[pi].x;
-			polyY[pi] = world->map->biomes[bi].polypt[pi].y;
+			polyX[pi] = world->map->biomes[bi].polygon->segments[pi].p1.x;
+			polyY[pi] = world->map->biomes[bi].polygon->segments[pi].p1.y;
 		}
 		if(point_in_polygon(polySides, polyX, polyY, _x, _y))
-			ts.biome = t_GRASS;
+			ts.biome = world->map->biomes[bi].terrain;
 	}
 
 	return ts;

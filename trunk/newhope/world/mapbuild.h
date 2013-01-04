@@ -2,6 +2,7 @@
 #define MAPBUILD_H
 
 #include "world.h"
+#include "util/geometry.h"
 
 typedef struct MapParameters {
 	int w, h;
@@ -9,16 +10,11 @@ typedef struct MapParameters {
 } MapParameters;
 
 
-
-typedef struct Point {
-	int x, y;
-} Point;
-
 typedef struct Biome {
-	int n_points;
-	Point* polypt;
+	Polygon* polygon;
 	Terrain terrain;
 } Biome;
+
 
 typedef struct Map {
 	MapParameters* parameters;

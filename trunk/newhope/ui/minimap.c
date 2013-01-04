@@ -21,6 +21,7 @@ struct {
 } clrs[] = {
 	{ t_WATER, 152, 180, 212, 0 },
 	{ t_DIRT, 0xbe, 0xa3, 0x76, 0 },
+	{ t_GRASS, 59, 122, 87, 0 },
 	{ t_INVALID, 0, 0, 0, 0 },
 };
 
@@ -137,24 +138,15 @@ static int minimap_create(void* vui)
 				clrs[i].g, clrs[i].b);
 
 	// draw map
-	int x, y, x2, y2, px, py;
-	int ps = ui->world->w / mm->sz;
+	int px, py;
+	double x, y, ps = (double)ui->world->w / (double)mm->sz;
 	for(x=px=0; x<ui->world->w && px < mm->sz; x+=ps, px++)
 	{
 		for(y=py=0; y<ui->world->h && py < mm->sz; y+=ps, py++)
 		{
 			if(mm->killthread)
 				return 0;
-			CountSet* cs = countset();
-			for(x2=x; x2<x+ps; x2++)
-				for(y2=y; y2<y+ps; y2++)
-				{
-					TerrainSet ts = world_terrain(
-							ui->world, x, y);
-					cs_add(cs, (ts.topsoil != t_NOTHING) ? 
-							ts.topsoil : ts.biome);
-				}
-			Terrain t = cs_highest(cs);
+			Terrain t = world_terrain(ui->world, x, y).biome;
 			i = -1;
 			while(clrs[++i].terrain != t_INVALID)
 				if(t == clrs[i].terrain)
@@ -164,7 +156,6 @@ static int minimap_create(void* vui)
 						+ (px * 4);
 					*(Uint32*)p = clrs[i].c;
 				}
-			cs_free(cs);
 		}
 	}
 
