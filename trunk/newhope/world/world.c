@@ -18,7 +18,7 @@ World* world_init(int w, int h)
 	MapParameters pars = {
 		.w = w,
 		.h = h,
-		.seed = 1,
+		.seed = 4,
 	};
 	world->map = map_init(pars);
 	debug("Map built.");
@@ -59,20 +59,6 @@ TerrainSet world_terrain(World* world, int x, int y)
 			continue;
 
 		// check if point is on the polygon
-		/*
-		int polySides = world->map->biomes[bi].polygon->n_segments;
-		float _x = x,
-		      _y = y;
-		float polyX[polySides],
-		      polyY[polySides];
-		int pi;
-		for(pi=0; pi<polySides; pi++)
-		{
-			polyX[pi] = world->map->biomes[bi].polygon->segments[pi].p1.x;
-			polyY[pi] = world->map->biomes[bi].polygon->segments[pi].p1.y;
-		}
-		if(point_in_polygon(polySides, polyX, polyY, _x, _y))
-		*/
 		Point p = { x, y };
 		if(point_in_polygon(p, world->map->biomes[bi].polygon))
 			ts.biome = world->map->biomes[bi].terrain;

@@ -105,10 +105,44 @@ Polygon* create_polygon(int n_points, Point* point)
 Polygon* midline_displacement(Polygon* polygon, int iters)
 {
 	if(iters == 0)
+	{
+		find_polygon_limits(polygon);
 		return polygon;
+	}
 	else
 	{
-		return midline_displacement(polygon, iters-1);
+		int pi = 0;
+		int n_segs = polygon->n_segments * 2;
+		Point points[n_segs];
+
+		int i;
+		for(i=0; i<polygon->n_segments; i++)
+		{
+			Point p1 = polygon->segments[i].p1,
+			      p2 = polygon->segments[i].p2;
+
+			Point mid = {
+				p1.x + (p2.x - p1.x) / 2,
+				p1.y + (p2.y - p1.y) / 2
+			};
+
+			int displ = rand() % ((p2.x - p1.x) / 3 + 1);
+			if(i == 0)
+				mid.y -= displ;
+			else if(i == 1)
+				mid.x += displ;
+			else if(i == 2)
+				mid.y += displ;
+			else if(i == 3)
+				mid.x -= displ;
+
+			points[pi++] = p1;
+			points[pi++] = mid;
+		}
+
+		Polygon* new_p = create_polygon(n_segs, points);
+		free_polygon(polygon);
+		return midline_displacement(new_p, iters-1);
 	}
 }
 
