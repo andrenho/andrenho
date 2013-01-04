@@ -68,12 +68,24 @@ static void map_polygons(Map *map)
 
 static void map_coastline(Map *map)
 {
-	int qw = map->parameters->w / 4,
-	    qh = map->parameters->h / 4;
-	Point pts[] = { { qw, qh }, { qw, qh*3 }, { qw*3, qh*3 }, { qw, qh*3 } };
-	Polygon* polygon = create_polygon(4, pts);
-	
 	int i;
+
+	// middle square
+	int qw = map->parameters->w / 6,
+	    qh = map->parameters->h / 6;
+	Point pts[] = { { qw, qh }, { qw*5, qh }, { qw*5, qh*5 }, { qw, qh*5 } };
+
+	// disturb points
+	int max_disturb = qw;
+	for(i=0; i<4; i++)
+	{
+		pts[i].x += (rand() % max_disturb) - max_disturb/2;
+		pts[i].y += (rand() % max_disturb) - max_disturb/2;
+	}
+	
+	// create coastline
+	Polygon* polygon = create_polygon(4, pts);
+	polygon = midline_displacement(polygon, 3);
 	for(i=0; i<map->n_biomes; i++)
 	{
 		Point p = map->biomes[i].polygon->midpoint;
