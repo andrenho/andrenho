@@ -17,7 +17,7 @@ typedef struct Polygon {
 } Polygon;
 
 int point_in_polygon(Point p, Polygon* polygon);
-int fake_voronoi(unsigned int seed, int w, int h, int density, Polygon** polygons);
+int fake_voronoi(unsigned int seed, int w, int h, int density, Polygon*** polygons);
 Polygon* create_polygon(int n_points, Point* point);
 Polygon* midline_displacement(Polygon* polygon, int iters);
 void free_polygon(Polygon* polygon);

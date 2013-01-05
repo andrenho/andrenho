@@ -28,7 +28,7 @@ Terminal* terminal_init(struct UI* ui)
 	// initialize structure
 	Terminal* term = malloc(sizeof(Terminal));
 	term->ui = ui;
-	term->term_sf = res("terminal");
+	term->term_sf = res("terminal");  // do not free!
 	term->state = CLOSED;
 	term->y = term->ui->screen->h;
 	term->last_scr = NULL;
@@ -50,6 +50,8 @@ void terminal_free(Terminal* term)
 {
 	if(term->last_scr)
 		SDL_FreeSurface(term->last_scr);
+	if(term->fb_sf)
+		SDL_FreeSurface(term->fb_sf);
 	free(term);
 }
 

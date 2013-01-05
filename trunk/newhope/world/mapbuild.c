@@ -13,6 +13,8 @@ static void map_noise(Map *map);
 static void map_cities(Map *map);
 static void map_roads(Map *map);
 
+static int distance_from_water(Point p);
+
 
 Map* map_init(MapParameters map_pars)
 {
@@ -39,10 +41,17 @@ Map* map_init(MapParameters map_pars)
 void map_free(Map* map)
 {
 	int i;
-	for(i=0; i<map->n_biomes; i++)
-		free_polygon(map->biomes[i].polygon);
 	if(map->n_biomes > 0)
+	{
+		for(i=0; i<map->n_biomes; i++)
+		{
+			if(map->biomes[i].polygon)
+				free_polygon(map->biomes[i].polygon);
+			if(map->biomes[i].pt_altitudes)
+				free(map->biomes[i].pt_altitudes);
+		}
 		free(map->biomes);
+	}
 	free(map->parameters);
 	free(map);
 }
@@ -52,7 +61,7 @@ static void map_polygons(Map *map)
 {
 	int i;
 
-	Polygon* polygons = NULL;
+	Polygon** polygons = NULL;
 	int n = fake_voronoi(map->parameters->seed, 
 			map->parameters->w, map->parameters->h, 30, &polygons);
 	
@@ -60,9 +69,13 @@ static void map_polygons(Map *map)
 	map->biomes = calloc(sizeof(Biome), n);
 	for(i=0; i<n; i++)
 	{
-		map->biomes[i].polygon = &polygons[i];
+		map->biomes[i].polygon = polygons[i];
 		map->biomes[i].terrain = rand() % 2 ? t_DIRT : t_GRASS;
+		map->biomes[i].pt_altitudes = NULL;
+		map->biomes[i].avg_altitude = 0;
 	}
+	
+	free(polygons);
 }
 
 
@@ -92,11 +105,59 @@ static void map_coastline(Map *map)
 		if(!point_in_polygon(p, polygon))
 			map->biomes[i].terrain = t_WATER;
 	}
+	free_polygon(polygon);
+
+	// add lakes
+	/*
+	int n;
+	for(i=0; i<6; i++)
+	{
+		while(map->biomes[(n = rand() % map->n_biomes)].terrain == t_WATER)
+			;
+		map->biomes[rand() % map->n_biomes].terrain = t_WATER;
+	}
+	*/
 }
 
 
 static void map_elevation(Map *map)
 {
+	// set water elevation
+	int i, j;
+	for(i=0; i<map->n_biomes; i++)
+	{
+		Polygon* poly = map->biomes[i].polygon;
+		if(map->biomes[i].terrain == t_WATER)
+		{
+			map->biomes[i].pt_altitudes = 
+				calloc(sizeof(int), poly->n_segments);
+			for(j=0; j<poly->n_segments; j++)
+				map->biomes[i].pt_altitudes[j] = -1;
+			map->biomes[i].avg_altitude = -1;
+		}
+	}
+
+	// set other tiles elevation
+	for(i=0; i<map->n_biomes; i++)
+	{
+		Polygon* poly = map->biomes[i].polygon;
+		if(map->biomes[i].terrain != t_WATER)
+		{
+			map->biomes[i].pt_altitudes = 
+				calloc(sizeof(int), poly->n_segments);
+			int tot_alt = 0;
+			for(j=0; j<poly->n_segments; j++)
+			{
+				int alt = distance_from_water(
+						poly->segments[j].p1);
+				tot_alt += alt;
+				map->biomes[i].pt_altitudes[j] = alt;
+			}
+			map->biomes[i].avg_altitude = 
+				tot_alt / poly->n_segments;
+		}
+	}			
+	
 }
 
 
@@ -129,3 +190,8 @@ static void map_roads(Map *map)
 {
 }
 
+
+static int distance_from_water(Point p)
+{
+	return 50;
+}

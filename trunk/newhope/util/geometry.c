@@ -27,7 +27,7 @@ int point_in_polygon(Point p, Polygon* polygon)
 }
 
 
-int fake_voronoi(unsigned int seed, int w, int h, int density, Polygon** polygons)
+int fake_voronoi(unsigned int seed, int w, int h, int density, Polygon*** polygons)
 {
 	int x, y;
 	int xx, yy;
@@ -62,22 +62,18 @@ int fake_voronoi(unsigned int seed, int w, int h, int density, Polygon** polygon
 		}
 
 	// generate polygons
-	int n_polygons = 0;
-	Polygon* ps = NULL;
+	int i = 0; 
+	int n_polygons = (max_x-1) * (max_y-1);
+	*polygons = calloc(sizeof(Polygon*), n_polygons);
 	for(x=0; x<(max_x-1); x++)
 		for(y=0; y<(max_y-1); y++)
 		{
 			Point pts[] = {	points[x][y], points[x+1][y], 
 				points[x+1][y+1], points[x][y+1] };
 			Polygon* polygon = create_polygon(4, pts);
-			
-			ps = realloc(ps, sizeof(Polygon) * (n_polygons + 1));
-			memcpy(&ps[n_polygons], polygon, sizeof(Polygon));
-
-			n_polygons++;
+			(*polygons)[i++] = polygon;
 		}
 	
-	*polygons = ps;
 	return n_polygons;
 }
 
@@ -88,7 +84,7 @@ Polygon* create_polygon(int n_points, Point* point)
 	
 	Polygon* polygon = calloc(sizeof(Polygon), 1);
 	polygon->n_segments = n_points;
-	polygon->segments = malloc(sizeof(Segment) * n_points);
+	polygon->segments = calloc(sizeof(Segment), n_points);
 	for(i=0; i<n_points; i++)
 	{
 		polygon->segments[i].p1 = point[i];
@@ -98,7 +94,16 @@ Polygon* create_polygon(int n_points, Point* point)
 			polygon->segments[i].p2 = point[0];
 		find_polygon_limits(polygon);
 	}
+
 	return polygon;
+}
+
+
+void free_polygon(Polygon* polygon)
+{
+	if(polygon->segments)
+		free(polygon->segments);
+	free(polygon);
 }
 
 
@@ -144,13 +149,6 @@ Polygon* midline_displacement(Polygon* polygon, int iters)
 		free_polygon(polygon);
 		return midline_displacement(new_p, iters-1);
 	}
-}
-
-
-void free_polygon(Polygon* polygon)
-{
-	free(polygon->segments);
-	free(polygon);
 }
 
 
