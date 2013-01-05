@@ -226,6 +226,7 @@ static void minimap_events(Minimap* mm)
 	int active = 1;
 	
 	while(active)
+	{
 		while(SDL_PollEvent(&e))
 		{
 			switch(e.type)
@@ -239,6 +240,8 @@ static void minimap_events(Minimap* mm)
 				break;
 			}
 		}
+		SDL_Delay(1000/30);
+	}
 }
 
 

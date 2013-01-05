@@ -74,6 +74,7 @@ void ui_free(UI* ui)
 				debug("SDL window terminated.");
 			}
 			*/
+			TTF_Quit();
 			SDL_Quit();
 			debug("SDL terminated.");
 		}

@@ -29,6 +29,7 @@ World* world_init(int w, int h)
 
 void world_free(World* world)
 {
+	map_free(world->map);
 	free(world);
 }
 

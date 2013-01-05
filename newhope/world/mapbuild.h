@@ -13,6 +13,8 @@ typedef struct MapParameters {
 typedef struct Biome {
 	Polygon* polygon;
 	Terrain terrain;
+	int* pt_altitudes;
+	int avg_altitude;
 } Biome;
 
 
