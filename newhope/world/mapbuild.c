@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "util/log.h"
 #include "util/pointhash.h"
 
 static void map_polygons(Map *map);
@@ -125,15 +126,13 @@ static void map_coastline(Map *map)
 	free_polygon(polygon);
 
 	// add lakes
-	/*
 	int n;
 	for(i=0; i<6; i++)
 	{
 		while(map->biomes[(n = rand() % map->n_biomes)].terrain == t_WATER)
 			;
-		map->biomes[rand() % map->n_biomes].terrain = t_WATER;
+		map->biomes[n].terrain = t_WATER;
 	}
-	*/
 }
 
 
@@ -208,6 +207,7 @@ static void map_rivers(Map *map)
 
 static void map_moisture(Map *map)
 {
+	
 }
 
 
@@ -312,17 +312,34 @@ static void create_river(Map* map, PointList* river_plist, Point p)
 		return alt_a - alt_b;
 	}
 	qsort(plist->points, plist->n, sizeof(Point), cmp);
+
+	// can't repeat point (avoid loops)
+	int n = 0;
+next_point:
+	for(int i=0; i<(*river_plist).n; i++)
+	{
+		Point p1 = (*river_plist).points[i];
+		Point p2 = plist->points[n];
+		if(p1.x == p2.x && p1.y == p2.y)
+		{
+			++n;
+			if(n == plist->n)
+				return;
+			goto next_point;
+		}
+	}
+
 	
 	// add to point list
 	(*river_plist).points = realloc(
 			(*river_plist).points, 
 			sizeof(Point) * ((*river_plist).n + 1));
-	(*river_plist).points[(*river_plist).n] = plist->points[0];
+	(*river_plist).points[(*river_plist).n] = plist->points[n];
 	(*river_plist).n++;
 
 	// find next segment
-	if((int)pointhash_find(map->pt_altitudes, plist->points[0]) != -1)
-		create_river(map, river_plist, plist->points[0]);
+	if((int)pointhash_find(map->pt_altitudes, plist->points[n]) != -1)
+		create_river(map, river_plist, plist->points[n]);
 }
 
 
