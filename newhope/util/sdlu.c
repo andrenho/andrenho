@@ -33,7 +33,7 @@ void intersect_scr(SDL_Rect* r)
 }
 
 
-void draw_line(SDL_Surface* sf, int x0, int y0, int x1, int y1, Uint32 c)
+void draw_line(SDL_Surface* sf, int x0, int y0, int x1, int y1, int w, Uint32 c)
 {
 	int dx = abs(x1-x0), sx = x0<x1 ? 1 : -1;
 	int dy = abs(y1-y0), sy = y0<y1 ? 1 : -1;
@@ -41,11 +41,14 @@ void draw_line(SDL_Surface* sf, int x0, int y0, int x1, int y1, Uint32 c)
 
 	for(;;)
 	{
-		Uint8 *p = (Uint8*)sf->pixels 
-			+ (y0 * sf->pitch)
-			+ (x0 * 4);
-		*(Uint32*)p = c;
-
+		for(int x=0; x<w; x++)
+			for(int y=0; y<w; y++)
+			{
+				Uint8 *p = (Uint8*)sf->pixels 
+						+ ((y0+y) * sf->pitch)
+						+ ((x0+x) * 4);
+				*(Uint32*)p = c;
+			}
 		if(x0 == x1 && y0 == y1)
 			break;
 		e2 = err;

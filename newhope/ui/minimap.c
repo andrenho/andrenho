@@ -175,7 +175,7 @@ static int minimap_create(void* vui)
 			double y0 = (double)p2.x / ps;
 			double y1 = (double)p2.y / ps;
 			printf("%f %f %f %f\n", x0, x1, y0, y1);
-			draw_line(mm->sf, x0, x1, y0, y1, c);
+			draw_line(mm->sf, x0, x1, y0, y1, 3, c);
 		}
 	}
 
