@@ -17,6 +17,7 @@ SRC = main.c		  \
       util/log.c	  \
       util/geometry.c     \
       util/numbers.c      \
+      util/pointhash.c    \
       util/sdlu.c         \
       util/strings.c	  \
       world/mapbuild.c    \
