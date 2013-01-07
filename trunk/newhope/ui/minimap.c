@@ -174,7 +174,6 @@ static int minimap_create(void* vui)
 			double x1 = iminmax((double)p1.y / ps, 0, mm->sf->w-3);;
 			double y0 = iminmax((double)p2.x / ps, 0, mm->sf->h-3);;
 			double y1 = iminmax((double)p2.y / ps, 0, mm->sf->h-3);;
-			printf("%f %f %f %f\n", x0, x1, y0, y1);
 			draw_line(mm->sf, x0, x1, y0, y1, 3, c);
 		}
 	}

@@ -19,7 +19,7 @@ World* world_init(int w, int h)
 		.seed = 1,
 		.w = w,
 		.h = h,
-		.n_rivers = 10,
+		.n_rivers = 15,
 	};
 	world->map = map_init(pars);
 	debug("Map built.");

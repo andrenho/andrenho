@@ -32,7 +32,6 @@ typedef struct Map {
 	Biome* biomes;
 	struct PointHash* pt_altitudes;
 	struct PointHash* neighbours;
-
 	int n_rivers;
 	PointList* rivers;
 } Map;
