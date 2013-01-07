@@ -29,7 +29,7 @@ SDL = yes
 PNG = yes
 
 # basic flags
-CFLAGS = -DVERSION=\"${VERSION}\" -DDATADIR=\"${NEWHOPEPREFIX}\" -pedantic -Wall -I. -I/usr/include -std=c99
+CFLAGS = -DVERSION=\"${VERSION}\" -DDATADIR=\"${NEWHOPEPREFIX}\" -Wall -I. -I/usr/include
 LDFLAGS = -L/usr/lib
 
 UNAME = $(shell uname -o)
@@ -64,7 +64,7 @@ endif
 # debugging information
 ifeq (${DEBUG},yes)
   # debug flags
-  CFLAGS += -g -O0 -DDEBUG
+  CFLAGS += -g -O0 -DDEBUG -pedantic
   LDFLAGS += -g
 else
   # production flags
@@ -79,4 +79,4 @@ ifeq (${PROFILING},yes)
 endif
 
 # compiler and linker
-CC = gcc
+CC = c99

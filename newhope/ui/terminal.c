@@ -236,6 +236,7 @@ static void terminal_mvaddch(Terminal* term, unsigned int ch, int col, int line)
 	SDL_Surface* sf = TTF_RenderUTF8_Blended(
 			(TTF_Font*)res("termfont_20"), c, TERMCOLOR);
 	SDL_BlitSurface(sf, NULL, term->fb_sf, &r);
+	SDL_FreeSurface(sf);
 	
 	// copy surface to screen
 	terminal_draw_buffer(term, 1);
