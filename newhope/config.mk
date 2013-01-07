@@ -30,7 +30,7 @@ PNG = yes
 
 # basic flags
 CFLAGS = -DVERSION=\"${VERSION}\" -DDATADIR=\"${NEWHOPEPREFIX}\" -Wall -I. -I/usr/include
-LDFLAGS = -L/usr/lib
+LDFLAGS = -L/usr/lib -lm
 
 UNAME = $(shell uname -o)
 
@@ -68,7 +68,7 @@ ifeq (${DEBUG},yes)
   LDFLAGS += -g
 else
   # production flags
-  CFLAGS += -Os
+  CFLAGS += -Os -DNDEBUG
   LDFLAGS += -s
 endif
 
