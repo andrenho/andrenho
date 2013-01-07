@@ -158,7 +158,7 @@ static void map_elevation(Map *map)
 			map->biomes[i].avg_altitude = 
 				tot_alt / poly->n_segments;
 		}
-	}			
+	}
 }
 
 
