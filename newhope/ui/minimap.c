@@ -170,10 +170,10 @@ static int minimap_create(void* vui)
 			Point p1 = river->points[j];
 			Point p2 = river->points[j+1];
 			Uint32 c = SDL_MapRGB(mm->sf->format, 152, 180, 212);
-			double x0 = (double)p1.x / ps;
-			double x1 = (double)p1.y / ps;
-			double y0 = (double)p2.x / ps;
-			double y1 = (double)p2.y / ps;
+			double x0 = iminmax((double)p1.x / ps, 0, mm->sf->w-3);
+			double x1 = iminmax((double)p1.y / ps, 0, mm->sf->w-3);;
+			double y0 = iminmax((double)p2.x / ps, 0, mm->sf->h-3);;
+			double y1 = iminmax((double)p2.y / ps, 0, mm->sf->h-3);;
 			printf("%f %f %f %f\n", x0, x1, y0, y1);
 			draw_line(mm->sf, x0, x1, y0, y1, 3, c);
 		}
