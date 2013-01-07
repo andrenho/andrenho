@@ -285,6 +285,8 @@ static SDL_Surface* resource_load_png(char* filename, int _x, int _y,
 		sf = resource_sf_from_png_alpha(_x, _y, _w, _h, row_pointers, 
 			n_col, palette, num_trans, trans_alpha, x_width);
 		break;
+	default:
+		abort();
 	}
 	
 	// free stuff

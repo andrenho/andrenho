@@ -28,6 +28,4 @@ int main(int argc, char** argv)
 	// free everything
 	ui_free(ui);
 	world_free(world);
-
-	return 0;
 }
