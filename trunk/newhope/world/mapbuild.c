@@ -1,5 +1,7 @@
 #include "mapbuild.h"
 
+#include <assert.h>
+#include <limits.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -13,7 +15,7 @@ static void map_noise(Map *map);
 static void map_cities(Map *map);
 static void map_roads(Map *map);
 
-static int distance_from_water(Point p);
+static int distance_from_water(Map* map, Point p);
 
 
 Map* map_init(MapParameters map_pars)
@@ -149,7 +151,7 @@ static void map_elevation(Map *map)
 			for(j=0; j<poly->n_segments; j++)
 			{
 				int alt = distance_from_water(
-						poly->segments[j].p1);
+						map, poly->segments[j].p1);
 				tot_alt += alt;
 				map->biomes[i].pt_altitudes[j] = alt;
 			}
@@ -157,7 +159,6 @@ static void map_elevation(Map *map)
 				tot_alt / poly->n_segments;
 		}
 	}			
-	
 }
 
 
@@ -191,7 +192,19 @@ static void map_roads(Map *map)
 }
 
 
-static int distance_from_water(Point p)
+static int distance_from_water(Map* map, Point p)
 {
-	return 50;
+	int dist = INT_MAX;
+	for(int i=0; i<map->n_biomes; i++)
+		if(map->biomes[i].terrain == t_WATER)
+			for(int j=0; j<map->biomes[j].polygon->n_segments; j++)
+			{
+				Point ps = 
+					map->biomes[j].polygon->segments[j].p1;
+				int new_dist = distance(p, ps);
+				if(new_dist < dist)
+					dist = new_dist;
+			}
+	assert(dist != INT_MAX);
+	return dist;
 }

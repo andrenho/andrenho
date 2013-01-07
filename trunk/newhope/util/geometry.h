@@ -16,6 +16,7 @@ typedef struct Polygon {
 	Point midpoint;
 } Polygon;
 
+int distance(Point p1, Point p2);
 int point_in_polygon(Point p, Polygon* polygon);
 int fake_voronoi(unsigned int seed, int w, int h, int density, Polygon*** polygons);
 Polygon* create_polygon(int n_points, Point* point);

@@ -1,6 +1,7 @@
 #include "geometry.h"
 
 #include <limits.h>
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -9,6 +10,12 @@
 static void find_polygon_limits(Polygon* polygon);
 static int point_in_polygon_algorithm(int polySides, float* polyX, float* polyY, 
 		float x, float y);
+
+
+int distance(Point p1, Point p2)
+{
+	return sqrt(pow(abs(p1.x - p2.x), 2) + (pow(abs(p1.y - p2.y), 2)));
+}
 
 
 int point_in_polygon(Point p, Polygon* polygon)
