@@ -22,3 +22,9 @@ int sgn(int a)
 		return -1;
 	return 0;
 }
+
+
+int iminmax(int a, int min, int max)
+{
+	return imax(imin(a, max), min);
+}
