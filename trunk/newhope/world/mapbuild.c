@@ -164,6 +164,19 @@ static void map_elevation(Map *map)
 
 static void map_rivers(Map *map)
 {
+	int rivers_left = map->parameters->n_rivers;
+	while(rivers_left > 0)
+	{
+		int b = rand() % map->n_biomes;
+		if(map->biomes[b].terrain != t_WATER)
+		{
+	//		int seg = map->biomes[
+	//		int p = map->biomes[b].segments[
+
+			free(conn_pts);
+			--rivers_left;
+		}
+	}
 }
 
 

@@ -5,8 +5,9 @@
 #include "util/geometry.h"
 
 typedef struct MapParameters {
-	int w, h;
 	unsigned int seed;
+	int w, h;
+	int n_rivers;
 } MapParameters;
 
 
