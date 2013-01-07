@@ -12,6 +12,7 @@
 #include "util/log.h"
 #include "util/numbers.h"
 #include "util/sdlu.h"
+#include "world/mapbuild.h"
 #include "world/world.h"
 
 struct {
@@ -156,6 +157,25 @@ static int minimap_create(void* vui)
 						+ (px * 4);
 					*(Uint32*)p = clrs[i].c;
 				}
+		}
+	}
+
+	// draw rivers
+	ps = (double)ui->world->w / (double)mm->sz;
+	for(i=0; i<ui->world->map->n_rivers; i++)
+	{
+		PointList* river = &ui->world->map->rivers[i];
+		for(int j=0; j<river->n-1; j++)
+		{
+			Point p1 = river->points[j];
+			Point p2 = river->points[j+1];
+			Uint32 c = SDL_MapRGB(mm->sf->format, 152, 180, 212);
+			double x0 = (double)p1.x / ps;
+			double x1 = (double)p1.y / ps;
+			double y0 = (double)p2.x / ps;
+			double y1 = (double)p2.y / ps;
+			printf("%f %f %f %f\n", x0, x1, y0, y1);
+			draw_line(mm->sf, x0, x1, y0, y1, c);
 		}
 	}
 
