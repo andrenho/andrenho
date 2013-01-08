@@ -3,31 +3,24 @@
 
 include config.mk
 
-SRC = main.c		  \
-      options.c           \
-      ui/buildtile.c      \
-      ui/event.c          \
-      ui/minimap.c        \
-      ui/resource.c       \
-      ui/terminal.c       \
-      ui/terrainsurface.c \
-      ui/ui.c             \
-      util/array.c        \
-      util/countset.c     \
-      util/i18n.c         \
-      util/log.c	  \
-      util/geometry.c     \
-      util/numbers.c      \
-      util/pointhash.c    \
-      util/sdlu.c         \
-      util/strings.c	  \
-      world/city.c        \
-      world/mapbuild.c    \
-      world/world.c
+SRC = main.cc		   \
+      options.cc           \
+      ui/buildtile.cc      \
+      ui/event.cc          \
+      ui/minimap.cc        \
+      ui/resource.cc       \
+      ui/terminal.cc       \
+      ui/terrainsurface.cc \
+      ui/ui.cc             \
+      util/logger.h        \
+      util/i18n.h          \
+      world/city.cc        \
+      world/mapbuild.cc    \
+      world/world.cc
 TRANSLATIONS = pt_BR
 	
-OBJ = ${SRC:.c=.o}
-HEADERS = $(filter-out main.h,${SRC:.c=.h}) util/uthash.h
+OBJ = ${SRC:.cc=.o}
+HEADERS = $(filter-out main.h,${SRC:.cc=.h})
 DIST = AUTHORS HACKING LICENSE NEWS README INSTALL
 DATA = $(wildcard data/*.png) $(wildcard data/*.ttf)
 
@@ -35,13 +28,13 @@ all: options newhope translation
 
 options:
 	@echo New Hope build options:
-	@echo "CFLAGS  = ${CFLAGS}"
+	@echo "CPPFLAGS  = ${CPPFLAGS}"
 	@echo "LDFLAGS = ${LDFLAGS}"
 	@echo "CC      = ${CC}"
 
-.c.o:
+.cc.o:
 	@echo CC $<
-	@${CC} -c ${CFLAGS} -o $@ $<
+	@${CC} -c ${CPPFLAGS} -o $@ $<
 
 ${OBJ}: config.mk
 
@@ -77,7 +70,7 @@ dist: clean
 
 depend: ${SRC}
 	@echo checking dependencies
-	@${CC} -MM ${CFLAGS} ${SRC} >depend
+	@${CC} -MM ${CPPFLAGS} ${SRC} >depend
 
 install: all
 	@echo installing executable file to ${DESTDIR}${PREFIX}/bin

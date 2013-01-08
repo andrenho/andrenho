@@ -1,0 +1,35 @@
+I am the main programmer of this game, and the creator of the original idea.
+
+- André Wagner <andre.nho@gmail.com>
+
+The game was heavily inspired by Ascii Sector, which was inspired by Wing
+Commander: Privateer, that was inspired by Elite.
+
+The graphic resources used were taken by:
+
+ - Liberated Pixel Cup 
+   - basic assets <http://lpc.opengameart.org/>
+   - Daniel Eddeland contribution
+ - I drew a few tiles myself
+
+The following software was used when writing this game:
+
+ Programming environment:
+   - GNU/Linux (Arch Linux)
+   - Bash
+   - GNU C compiler and GNU make
+   - VIM editor
+
+ Libraries:
+   - libSDL
+   - libSDL_ttf
+   - libpng
+   - zlib
+
+ Graphics:
+   - GIMP
+   - grafx2
+
+The maps are being generated based on this article:
+
+ - http://www-cs-students.stanford.edu/~amitp/game-programming/polygon-map-generation/

@@ -1,0 +1,12 @@
+main.o: main.cc
+options.o: options.cc
+buildtile.o: ui/buildtile.cc
+event.o: ui/event.cc
+minimap.o: ui/minimap.cc
+resource.o: ui/resource.cc
+terminal.o: ui/terminal.cc
+terrainsurface.o: ui/terrainsurface.cc
+ui.o: ui/ui.cc
+city.o: world/city.cc
+mapbuild.o: world/mapbuild.cc
+world.o: world/world.cc
