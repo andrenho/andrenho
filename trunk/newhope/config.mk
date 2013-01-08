@@ -64,7 +64,7 @@ endif
 # debugging information
 ifeq (${DEBUG},yes)
   # debug flags
-  CFLAGS += -g -O0 -DDEBUG -pedantic
+  CFLAGS += -g -O0 -DDEBUG
   LDFLAGS += -g
 else
   # production flags

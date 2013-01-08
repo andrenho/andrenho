@@ -23,6 +23,7 @@ typedef struct Biome {
 	Polygon* polygon;
 	Terrain terrain;
 	int avg_altitude;
+	int moisture;
 } Biome;
 
 
