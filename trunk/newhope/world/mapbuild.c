@@ -25,7 +25,8 @@ static int distance_from_water(Map* map, Point p, int including_rivers);
 static void create_river(Map* map, PointList* plist, Point p);
 static int neighbour_points(Map* map, Point p, Point** points);
 static void free_plist(void *plist);
-int compare_lowest_neighbour(const void* a, const void* b, void* vmap);
+static int compare_lowest_neighbour(const void* a, const void* b, void* vmap);
+static Point closest_neighbour(Point n, Point d);
 
 
 Map* map_init(MapParameters map_pars)
@@ -36,6 +37,7 @@ Map* map_init(MapParameters map_pars)
 	map->parameters = pars;
 	map->biomes = NULL;
 	map->rivers = NULL;
+	map->roads = NULL;
 	map->pt_altitudes = pointhash_init();
 
 	map_polygons(map);
@@ -373,6 +375,42 @@ static void map_cities(Map *map)
 
 static void map_roads(Map *map)
 {
+	debug("Generating roads...");
+
+	int roads_left = map->parameters->n_roads;
+	map->roads = calloc(sizeof(PointList), map->parameters->n_roads);
+	map->n_roads = map->parameters->n_roads;
+
+	int i = 0;
+	while(roads_left > 0)
+	{
+		// choose cities
+		int b, c = rand() % map->n_cities;
+try_again:
+		b = rand() % map->n_cities;
+		if(b == c)
+			goto try_again;
+
+		Point pstart = { map->cities[b]->x, map->cities[b]->y };
+		Point pend   = { map->cities[c]->x, map->cities[c]->y };
+
+		// first point of the road
+		PointList* road = &map->roads[i];
+		road->n = 1;
+		road->points = calloc(sizeof(Point), 1);
+		road->points[0] = pstart;
+
+		while(pstart.x != pend.x && pstart.y != pend.y)
+		{
+			pstart = closest_neighbour(pstart, pend);
+			road->points = realloc(sizeof(Point), road->n+1);
+			road->points[road->n] = pstart;
+			road->n++;
+		}
+
+		--roads_left;
+		i++;
+	}
 }
 
 /*
@@ -499,7 +537,7 @@ static void free_plist(void *plist)
 }
 
 
-int compare_lowest_neighbour(const void* a, const void* b, void* vmap)
+static int compare_lowest_neighbour(const void* a, const void* b, void* vmap)
 {
 	Map* map = vmap;
 	Point pa = *(Point*)a;
@@ -511,3 +549,9 @@ int compare_lowest_neighbour(const void* a, const void* b, void* vmap)
 	return alt_a - alt_b;
 }
 
+
+// returns the neighbour of 'n' closest to 'd'
+static Point closest_neighbour(Point n, Point d)
+{
+	
+}
