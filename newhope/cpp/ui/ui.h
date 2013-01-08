@@ -2,6 +2,8 @@
 #define UI_UI_H
 
 #include "libs/sdl/sdl.h"
+#include "ui/minimap.h"
+
 class World;
 class GraphicLibrary;
 class Resources;
@@ -23,6 +25,7 @@ private:
 	bool active;
 	GraphicLibrary* video;
 	Resources* res;
+	Minimap* minimap;
 };
 
 #endif
