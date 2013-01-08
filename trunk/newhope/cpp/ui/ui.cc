@@ -4,15 +4,15 @@
 #include "util/logger.h"
 
 UI::UI(World const& world)
-	: world(world), active(true) 
+	: world(world), active(true), video(new SDL()), res(new Resources(*video)),
+	  minimap(new Minimap(*video, world))
 { 
-	video = new SDL();
-	res = new Resources(*video);
 }
 
 
 UI::~UI()
 {
+	delete minimap;
 	delete res;
 	delete video;
 }

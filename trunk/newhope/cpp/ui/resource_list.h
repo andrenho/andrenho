@@ -33,6 +33,10 @@ const std::string mm_sfx[] = {
 	"_nw", "_n", "_ne", "_w", "_c", "_e", "_sw", "_s", "_se", ""
 };
 
+// font
+const Rect font_r [] = { Rect(20) };
+const std::string font_sfx[] = { "_20", "" };
+
 // resource file list
 static const struct {
 	const std::string name;
@@ -59,7 +63,7 @@ static const struct {
 	{ "terminal", "terminal.png", 0, 0 },
 
 	// fonts
-	{ "termfont", "Glass_TTY_VT220.ttf", { Rect(20) }, { "_20", "" } }
+	{ "termfont", "Glass_TTY_VT220.ttf", font_r, font_sfx },
 
 	{ "", "", NULL, NULL }
 };
