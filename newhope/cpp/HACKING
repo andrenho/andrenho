@@ -1,0 +1,15 @@
+One of the premisses is that, no matter how big the world is, the game doesn't
+become slow. To do so, the drawing of the terrain works like this:
+
+1. Before the game begins, all images are stored in a hash and can be retrieved
+   using the function `res`.
+2. For each frame, `ui_draw` or `ui_redraw` request that the function 
+   `ui_draw_tile` draw each tile. `ui_redraw` redraws the whole screen, and
+   `ui_draw` draws only the borders.
+3. The function `ui_draw_tile` request that the function `ui_tile_surface` 
+   return a surface to be drawn.
+4. `ui_tile_surface` request that `build_tile` return a stack of images to
+   be draw. This stack is drawn and the image is cached, so that it doesn't need
+   to be drawn again (specially not using ALPHA).
+5. `build_tile` calls `world_terrain`, to know what should the stack should
+   be, and `res` for the images.

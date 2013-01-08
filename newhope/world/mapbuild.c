@@ -49,7 +49,7 @@ Map* map_init(MapParameters map_pars)
 	map_biomes(map);
 	map_noise(map);
 	map_cities(map);
-	map_roads(map);
+	// map_roads(map);
 
 	return map;
 }

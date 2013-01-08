@@ -8,6 +8,7 @@
 
 struct PointHash;
 struct City;
+struct Array;
 
 
 typedef struct PointList {

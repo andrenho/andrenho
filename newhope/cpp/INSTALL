@@ -1,0 +1,15 @@
+LINUX INSTRUCTIONS
+------------------
+
+To install `New Hope`, follow these steps:
+
+  1. Install, if not already installed:
+    a. zlib library <http://www.zlib.net/>
+    b. PNG library <http://www.libpng.org/pub/libpng.html>
+    c. SDL library <http://www.libsdl.org/>
+    d. SDL_ttf library <http://www.libsdl.org/projects/SDL_ttf/>
+  2. Edit config.mk to adapt settings to your system (usually not needed)
+  3. Run `make`
+  4. Run `make install` with administrator privileges
+
+That's it. Now just type `newhope` to run the game.
