@@ -20,6 +20,7 @@ typedef struct MapParameters {
 	int w, h;
 	int n_rivers;
 	int n_cities;
+	int n_roads;
 } MapParameters;
 
 
@@ -42,6 +43,8 @@ typedef struct Map {
 	Point lava[LAVA_POINTS];
 	int n_cities;
 	struct City** cities;
+	int n_roads;
+	PointList* roads;
 } Map;
 
 

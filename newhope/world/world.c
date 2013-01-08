@@ -21,6 +21,7 @@ World* world_init(int w, int h)
 		.h = h,
 		.n_rivers = 15,
 		.n_cities = 25,
+		.n_roads = 10,
 	};
 	world->map = map_init(pars);
 	debug("Map built.");

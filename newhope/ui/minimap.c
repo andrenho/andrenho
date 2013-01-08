@@ -12,6 +12,7 @@
 #include "util/log.h"
 #include "util/numbers.h"
 #include "util/sdlu.h"
+#include "world/city.h"
 #include "world/mapbuild.h"
 #include "world/world.h"
 
@@ -36,6 +37,7 @@ struct {
 static int minimap_create(void* ui);
 static void minimap_draw_map(Minimap* mm, UI* ui);
 static void minimap_draw_rivers(Minimap* mm, UI* ui);
+static void minimap_draw_cities(Minimap* mm, UI* ui);
 static void minimap_draw_paper(Minimap* mm, UI* ui, SDL_Rect r);
 static void minimap_events(Minimap* mm);
 static void minimap_mouse_motion(Minimap* mm, SDL_MouseMotionEvent me);
@@ -148,7 +150,10 @@ static int minimap_create(void* vui)
 
 	minimap_draw_map(mm, ui);
 	if(!mm->killthread)
+	{
 		minimap_draw_rivers(mm, ui);
+		minimap_draw_cities(mm, ui);
+	}
 	return 0;
 }
 
@@ -182,7 +187,7 @@ static void minimap_draw_map(Minimap* mm, UI* ui)
 static void minimap_draw_rivers(Minimap* mm, UI* ui)
 {
 	// draw rivers
-	int ps = (double)ui->world->w / (double)mm->sz;
+	double ps = (double)ui->world->w / (double)mm->sz;
 	for(int i=0; i<ui->world->map->n_rivers; i++)
 	{
 		PointList* river = &ui->world->map->rivers[i];
@@ -215,6 +220,25 @@ static void minimap_draw_rivers(Minimap* mm, UI* ui)
 	debug("Minimap redrawn.");
 
 	mm->thread = NULL;
+}
+
+
+static void minimap_draw_cities(Minimap* mm, UI* ui)
+{
+	Map* map = ui->world->map;
+	double ps = (double)ui->world->w / (double)mm->sz;
+
+	for(int i=0; i<map->n_cities; i++)
+	{
+		SDL_Rect r = {
+			(double)map->cities[i]->x / ps - 5,
+			(double)map->cities[i]->y / ps - 5,
+			10, 10,
+		};
+		SDL_FillRect(mm->sf, &r, SDL_MapRGB(mm->sf->format, 128, 0, 0));
+		r.x += 2; r.y += 2; r.w -= 4; r.h -= 4;
+		SDL_FillRect(mm->sf, &r, SDL_MapRGB(mm->sf->format, 0, 0, 0));
+	}
 }
 
 
