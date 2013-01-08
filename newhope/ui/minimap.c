@@ -28,6 +28,8 @@ struct {
 
 
 static int minimap_create(void* ui);
+static void minimap_draw_map(Minimap* mm, UI* ui);
+static void minimap_draw_rivers(Minimap* mm, UI* ui);
 static void minimap_draw_paper(Minimap* mm, UI* ui, SDL_Rect r);
 static void minimap_events(Minimap* mm);
 static void minimap_mouse_motion(Minimap* mm, SDL_MouseMotionEvent me);
@@ -138,6 +140,15 @@ static int minimap_create(void* vui)
 		clrs[i].c = SDL_MapRGB(mm->sf->format, clrs[i].r,
 				clrs[i].g, clrs[i].b);
 
+	minimap_draw_map(mm, ui);
+	if(!mm->killthread)
+		minimap_draw_rivers(mm, ui);
+	return 0;
+}
+
+
+static void minimap_draw_map(Minimap* mm, UI* ui)
+{
 	// draw map
 	int px, py;
 	double x, y, ps = (double)ui->world->w / (double)mm->sz;
@@ -146,9 +157,9 @@ static int minimap_create(void* vui)
 		for(y=py=0; y<ui->world->h && py < mm->sz; y+=ps, py++)
 		{
 			if(mm->killthread)
-				return 0;
+				return;
 			Terrain t = world_terrain(ui->world, x, y).biome;
-			i = -1;
+			int i = -1;
 			while(clrs[++i].terrain != t_INVALID)
 				if(t == clrs[i].terrain)
 				{
@@ -159,10 +170,14 @@ static int minimap_create(void* vui)
 				}
 		}
 	}
+}
 
+
+static void minimap_draw_rivers(Minimap* mm, UI* ui)
+{
 	// draw rivers
-	ps = (double)ui->world->w / (double)mm->sz;
-	for(i=0; i<ui->world->map->n_rivers; i++)
+	int ps = (double)ui->world->w / (double)mm->sz;
+	for(int i=0; i<ui->world->map->n_rivers; i++)
 	{
 		PointList* river = &ui->world->map->rivers[i];
 		for(int j=0; j<river->n-1; j++)
@@ -181,7 +196,6 @@ static int minimap_create(void* vui)
 	debug("Minimap redrawn.");
 
 	mm->thread = NULL;
-	return 0;
 }
 
 

@@ -19,7 +19,7 @@ static void map_cities(Map *map);
 static void map_roads(Map *map);
 
 static PointHash* map_point_neighbours(Map* map);
-static int distance_from_water(Map* map, Point p);
+static int distance_from_water(Map* map, Point p, int including_rivers);
 static void create_river(Map* map, PointList* plist, Point p);
 static int neighbour_points(Map* map, Point p, Point** points);
 static void free_plist(void *plist);
@@ -165,7 +165,7 @@ static void map_elevation(Map *map)
 			for(j=0; j<poly->n_segments; j++)
 			{
 				int alt = distance_from_water(
-						map, poly->segments[j].p1);
+						map, poly->segments[j].p1, 0);
 				pointhash_add(map->pt_altitudes, 
 						poly->segments[j].p1, 
 						(void*)alt, NULL);
@@ -194,7 +194,7 @@ static void map_rivers(Map *map)
 		{
 			int seg = rand() % map->biomes[b].polygon->n_segments;
 			Point p = map->biomes[b].polygon->segments[seg].p1;
-			if(distance_from_water(map, p) > 400)
+			if(distance_from_water(map, p, 0) > 400)
 			{
 				create_river(map, &map->rivers[i], p);
 				--rivers_left;
@@ -207,7 +207,20 @@ static void map_rivers(Map *map)
 
 static void map_moisture(Map *map)
 {
-	
+	debug("Generating map moisture...");
+
+	for(int i=0; i<map->n_biomes; i++)
+	{
+		Polygon* poly = map->biomes[i].polygon;
+		int tot_moi = 0;
+		for(int j=0; j<poly->n_segments; j++)
+		{
+			int moi = distance_from_water(
+					map, poly->segments[j].p1, 1);
+			tot_moi += moi;
+		}
+		map->biomes[i].moisture = tot_moi / poly->n_segments;
+	}
 }
 
 
@@ -277,9 +290,11 @@ static int neighbour_points(Map* map, Point p, Point** points)
 }
 
 
-static int distance_from_water(Map* map, Point p)
+static int distance_from_water(Map* map, Point p, int including_rivers)
 {
 	int dist = INT_MAX;
+
+	// distance from sea
 	for(int i=0; i<map->n_biomes; i++)
 		if(map->biomes[i].terrain == t_WATER)
 			for(int j=0; j<map->biomes[i].polygon->n_segments; j++)
@@ -290,6 +305,18 @@ static int distance_from_water(Map* map, Point p)
 				if(new_dist < dist)
 					dist = new_dist;
 			}
+
+	// distance from river
+	if(including_rivers)
+		for(int i=0; i<map->n_rivers; i++)
+			for(int j=0; j<map->rivers[i].n; j++)
+			{
+				Point ps = map->rivers[i].points[j];
+				int new_dist = distance(p, ps);
+				if(new_dist < dist)
+					dist = new_dist;
+			}
+
 	assert(dist != INT_MAX);
 	return dist;
 }
