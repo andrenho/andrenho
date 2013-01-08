@@ -1,7 +1,10 @@
 #ifndef UI_UI_H
 #define UI_UI_H
 
+#include "libs/sdl/sdl.h"
 class World;
+class GraphicLibrary;
+class Resources;
 
 class UI {
 public:
@@ -18,6 +21,8 @@ public:
 private:
 	World const& world;
 	bool active;
+	GraphicLibrary* video;
+	Resources* res;
 };
 
 #endif

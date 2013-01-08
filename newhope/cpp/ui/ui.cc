@@ -1,19 +1,27 @@
 #include "ui/ui.h"
 
+#include "ui/resource.h"
+#include "util/logger.h"
+
 UI::UI(World const& world)
-	: world(world), active(true)
-{
+	: world(world), active(true) 
+{ 
+	video = new SDL();
+	res = new Resources(*video);
 }
 
 
 UI::~UI()
 {
+	delete res;
+	delete video;
 }
 
 
 void 
 UI::StartFrame()
 {
+	video->StartCountDown(1000/60);
 }
 
 
@@ -33,4 +41,7 @@ UI::Draw()
 void 
 UI::EndFrame()
 {
+	if(video->ReachedCountDown())
+		logger.Debug("Frame delayed!");
+	video->WaitCountDown();
 }

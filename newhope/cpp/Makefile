@@ -5,6 +5,9 @@ include config.mk
 
 SRC = main.cc		   \
       options.cc           \
+      libs/rect.cc         \
+      libs/sdl/sdl.cc      \
+      libs/sdl/sdlimage.cc \
       ui/buildtile.cc      \
       ui/event.cc          \
       ui/minimap.cc        \
@@ -20,7 +23,7 @@ SRC = main.cc		   \
 TRANSLATIONS = pt_BR
 	
 OBJ = ${SRC:.cc=.o}
-HEADERS = $(filter-out main.h,${SRC:.cc=.h})
+HEADERS = $(filter-out main.h,${SRC:.cc=.h}) libs/graphiclibrary.h
 DIST = AUTHORS HACKING LICENSE NEWS README INSTALL
 DATA = $(wildcard data/*.png) $(wildcard data/*.ttf)
 
