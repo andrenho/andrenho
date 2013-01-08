@@ -1,0 +1,26 @@
+#ifndef LIBS_SDL_SDL_H
+#define LIBS_SDL_SDL_H
+
+#include "SDL.h"
+
+#include "libs/graphiclibrary.h"
+
+struct SDL_Surface;
+
+class SDL : public GraphicLibrary {
+public:
+	SDL();
+	~SDL();
+
+	void StartCountDown(int wait_ms);
+	bool ReachedCountDown();
+	void WaitCountDown();
+	Image& LoadImage(std::string const& filename, Rect const& r) const;
+
+	const struct SDL_Surface* screen;
+
+private:
+	Uint32 countdown;
+};
+
+#endif
