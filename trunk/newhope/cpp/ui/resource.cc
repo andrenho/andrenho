@@ -24,12 +24,16 @@ Resources::Resources(GraphicLibrary const& video)
 						reslist[i].r[j],
 						reslist[i].suffix[j]);
 		}
+		logger.Debug(filepath + " loaded.");
 	}
 }
 
 
 Resources::~Resources()
 {
+	std::map<const std::string, const Resource*>::iterator it;
+	for(it=res.begin(); it != res.end(); it++)
+		delete (*it).second;
 }
 
 
@@ -58,12 +62,9 @@ Resources::LoadFile(std::string const& name, std::string const& path,
 	size_t found = path.find_last_of('.');
 	std::string filesuffix = path.substr(found);
 	if(filesuffix == ".png")
-	{
-		video.LoadImage(path + suffix, r);
-	}
+		res[name+suffix] = &video.LoadImage(path, r);
 	else if(filesuffix == ".ttf")
-	{
-	}
+		res[name+suffix] = &video.LoadFont(path, r.x);
 	else
 		logger.Error(1, "Unsupported file type %s.",
 				filesuffix.c_str());
@@ -75,6 +76,4 @@ Resources::LoadFile(std::string const& name, std::string const& path)
 {
 	LoadFile(name, path, Rect(0, 0, 0, 0), "");
 }
-
-
 

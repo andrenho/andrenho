@@ -7,6 +7,7 @@ SRC = main.cc		   \
       options.cc           \
       libs/rect.cc         \
       libs/sdl/sdl.cc      \
+      libs/sdl/sdlfont.cc  \
       libs/sdl/sdlimage.cc \
       ui/buildtile.cc      \
       ui/event.cc          \

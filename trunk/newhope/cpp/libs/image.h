@@ -4,6 +4,8 @@
 #include "libs/resource.h"
 
 class Image : public Resource {
+public:
+	virtual ~Image() { }
 };
 
 #endif
