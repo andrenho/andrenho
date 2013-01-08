@@ -6,7 +6,8 @@
 UI::UI(World const& world)
 	: world(world), active(true), video(new SDL()), res(new Resources(*video)),
 	  minimap(new Minimap(*video, world))
-{ 
+{
+	minimap->Reset();
 }
 
 
