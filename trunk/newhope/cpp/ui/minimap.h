@@ -7,6 +7,13 @@
 class Minimap {
 public:
 	Minimap(GraphicLibrary& video, World const& world);
+	~Minimap();
+
+	void Reset();
+	void Display();
+
+private:
+	void KillThread();
 };
 
 #endif
