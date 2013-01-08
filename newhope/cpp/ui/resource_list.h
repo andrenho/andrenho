@@ -59,8 +59,7 @@ static const struct {
 	{ "terminal", "terminal.png", 0, 0 },
 
 	// fonts
-//	Rect( "termfont", "Glass_TTY_VT220.ttf", (SDL_Rect[]) { { 20 ) }, 
-//		(std::string[]) Rect( "_20", NULL ) },
+	{ "termfont", "Glass_TTY_VT220.ttf", { Rect(20) }, { "_20", "" } }
 
 	{ "", "", NULL, NULL }
 };

@@ -3,6 +3,7 @@
 #include "SDL_ttf.h"
 
 #include "util/logger.h"
+#include "libs/sdl/sdlfont.h"
 #include "libs/sdl/sdlimage.h"
 
 SDL::SDL()
@@ -67,4 +68,12 @@ SDL::LoadImage(std::string const& filename, Rect const& r) const
 {
 	SDLImage* img = new SDLImage(filename, r);
 	return *img;
+}
+
+
+Font& 
+SDL::LoadFont(std::string const& filename, int size) const
+{
+	SDLFont* font = new SDLFont(filename, size);
+	return *font;
 }

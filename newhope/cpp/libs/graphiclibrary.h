@@ -4,6 +4,7 @@
 #include <string>
 #include "libs/rect.h"
 #include "libs/image.h"
+#include "libs/font.h"
 
 class GraphicLibrary {
 public:
@@ -12,6 +13,7 @@ public:
 	virtual bool ReachedCountDown() = 0;
 	virtual void WaitCountDown() = 0;
 	virtual Image& LoadImage(std::string const& filename, Rect const& r) const = 0;
+	virtual Font& LoadFont(std::string const& filename, int size) const = 0;
 };
 
 #endif

@@ -5,6 +5,8 @@ class Rect {
 public:
 	Rect(int x, int y, int w, int h)
 		: x(x), y(y), w(w), h(h) { }
+	Rect(int n)
+		: x(n), y(0), w(0), h(0) { }
 
 	const int x, y, w, h;
 };
