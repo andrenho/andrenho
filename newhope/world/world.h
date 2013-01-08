@@ -15,6 +15,10 @@ typedef enum {
 	t_DIRT          = 20,
 	t_EARTH,
 	t_LAVAROCK,
+	t_ROCK,   // TODO
+	t_TUNDRA, // TODO
+	t_HOTFOREST,
+	t_COLDFOREST,
 } Terrain;
 
 typedef struct {

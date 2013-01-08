@@ -22,7 +22,13 @@ struct {
 } clrs[] = {
 	{ t_WATER, 152, 180, 212, 0 },
 	{ t_DIRT, 0xbe, 0xa3, 0x76, 0 },
+	{ t_EARTH, 0x9e, 0x83, 0x56, 0 },
 	{ t_GRASS, 59, 122, 87, 0 },
+	{ t_ROCK, 0x90, 0x90, 0x90, 0 },
+	{ t_HOTFOREST, 29, 92, 57, 0 },
+	{ t_LAVAROCK, 0x50, 0x50, 0x50, 0 },
+	{ t_SNOW, 0xe0, 0xe0, 0xff, 0 },
+	{ t_COLDFOREST, 0, 52, 27, 0 },
 	{ t_INVALID, 0, 0, 0, 0 },
 };
 
@@ -189,8 +195,21 @@ static void minimap_draw_rivers(Minimap* mm, UI* ui)
 			double x1 = iminmax((double)p1.y / ps, 0, mm->sf->w-3);;
 			double y0 = iminmax((double)p2.x / ps, 0, mm->sf->h-3);;
 			double y1 = iminmax((double)p2.y / ps, 0, mm->sf->h-3);;
-			draw_line(mm->sf, x0, x1, y0, y1, 3, c);
+			draw_line(mm->sf, x0, x1, y0, y1, 2, c);
 		}
+	}
+
+	// draw lava
+	for(int j=0; j<LAVA_POINTS-1; j++)
+	{
+		Point p1 = ui->world->map->lava[j];
+		Point p2 = ui->world->map->lava[j+1];
+		Uint32 c = SDL_MapRGB(mm->sf->format, 0xcf, 0x10, 0x20);
+		double x0 = iminmax((double)p1.x / ps, 0, mm->sf->w-3);
+		double x1 = iminmax((double)p1.y / ps, 0, mm->sf->w-3);;
+		double y0 = iminmax((double)p2.x / ps, 0, mm->sf->h-3);;
+		double y1 = iminmax((double)p2.y / ps, 0, mm->sf->h-3);;
+		draw_line(mm->sf, x0, x1, y0, y1, 2, c);
 	}
 
 	debug("Minimap redrawn.");

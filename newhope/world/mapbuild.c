@@ -7,12 +7,14 @@
 
 #include "util/log.h"
 #include "util/pointhash.h"
+#include "world/city.h"
 
 static void map_polygons(Map *map);
 static void map_coastline(Map *map);
 static void map_elevation(Map *map);
 static void map_rivers(Map *map);
 static void map_moisture(Map *map);
+static void map_lava(Map* map);
 static void map_biomes(Map *map);
 static void map_noise(Map *map);
 static void map_cities(Map *map);
@@ -23,6 +25,7 @@ static int distance_from_water(Map* map, Point p, int including_rivers);
 static void create_river(Map* map, PointList* plist, Point p);
 static int neighbour_points(Map* map, Point p, Point** points);
 static void free_plist(void *plist);
+int compare_lowest_neighbour(const void* a, const void* b, void* vmap);
 
 
 Map* map_init(MapParameters map_pars)
@@ -40,6 +43,7 @@ Map* map_init(MapParameters map_pars)
 	map_elevation(map);
 	map_rivers(map);
 	map_moisture(map);
+	map_lava(map);
 	map_biomes(map);
 	map_noise(map);
 	map_cities(map);
@@ -64,6 +68,9 @@ void map_free(Map* map)
 	for(i=0; i<map->n_rivers; i++)
 		free(map->rivers[i].points);
 	free(map->rivers);
+	for(i=0; i<map->n_cities; i++)
+		free_city(map->cities[i]);
+	free(map->cities);
 	pointhash_free(map->pt_altitudes, NULL);
 	pointhash_free(map->neighbours, &free_plist);
 	free(map->parameters);
@@ -86,7 +93,7 @@ static void map_polygons(Map *map)
 	for(i=0; i<n; i++)
 	{
 		map->biomes[i].polygon = polygons[i];
-		map->biomes[i].terrain = rand() % 2 ? t_DIRT : t_GRASS;
+		map->biomes[i].terrain = t_DIRT;
 		map->biomes[i].avg_altitude = 0;
 	}
 	map->neighbours = map_point_neighbours(map);
@@ -215,6 +222,51 @@ static void map_rivers(Map *map)
 }
 
 
+static void map_lava(Map* map)
+{
+	debug("Generating lava...");
+
+	// find dryest, highest spot
+	int min = INT_MAX;
+	Point minpt = map->biomes[0].polygon->segments[0].p1;
+	for(int i=0; i<map->n_biomes; i++)
+	{
+		if(map->biomes[i].terrain == t_WATER)
+			continue;
+		int avg = (100 - map->biomes[i].avg_altitude) + 
+			map->biomes[i].moisture;
+		if(min > avg)
+		{
+			min = avg;
+			minpt = map->biomes[i].polygon->segments[0].p1;
+		}
+	}
+
+	// draw lava path
+	Point next = minpt;
+	for(int i=0; i<LAVA_POINTS; i++)
+	{
+		Point* points = NULL;
+		int n = neighbour_points(map, next, &points);
+		qsort_r(points, n, sizeof(Point), compare_lowest_neighbour, map);
+		int k = 0;
+try_again:
+		next = points[k];
+		for(int j=0; j<i; j++)
+			if(next.x == map->lava[j].x && next.y == map->lava[j].y)
+			{
+				++k;
+				if(k >= n)
+					break;
+				goto try_again;
+			}
+		map->lava[i] = next;
+
+		free(points);
+	}
+}
+
+
 static void map_moisture(Map *map)
 {
 	debug("Generating map moisture...");
@@ -247,6 +299,51 @@ static void map_moisture(Map *map)
 
 static void map_biomes(Map *map)
 {
+	/*
+	 * Elev/Moist   0-30       30-60      60-100
+	 *  0-30        DIRT       EARTH      GRASS
+	 * 30-60        ROCK       GRASS      HOTFOREST
+	 * 60-100       LAVAROCK   SNOW       COLDFOREST
+	 */
+	for(int i=0; i<map->n_biomes; i++)
+	{
+		if(map->biomes[i].terrain == t_WATER)
+			continue;
+
+		int alt = map->biomes[i].avg_altitude;
+		int moi = map->biomes[i].moisture;
+		Terrain t = t_DIRT;
+		if(alt < 10)
+			t = t_DIRT;
+		else if(alt < 35)
+		{
+			if(moi < 30)
+				t = t_DIRT;
+			else if(moi < 60)
+				t = t_EARTH;
+			else
+				t = t_GRASS;
+		}
+		else if(alt < 70)
+		{
+			if(moi < 30)
+				t = t_ROCK;
+			else if(moi < 60)
+				t = t_GRASS;
+			else
+				t = t_HOTFOREST;
+		}
+		else
+		{
+			if(moi < 30)
+				t = t_LAVAROCK;
+			else if(moi < 60)
+				t = t_SNOW;
+			else
+				t = t_COLDFOREST;
+		}
+		map->biomes[i].terrain = t;
+	}
 }
 
 
@@ -257,6 +354,20 @@ static void map_noise(Map *map)
 
 static void map_cities(Map *map)
 {
+	map->n_cities = map->parameters->n_cities;
+	map->cities = calloc(sizeof(City*), map->parameters->n_cities);
+
+	for(int i=0; i<map->parameters->n_cities; i++)
+	{
+		int b;
+		do 
+		{
+			b = rand() % map->n_biomes; 
+		} while(map->biomes[b].terrain == t_WATER);
+		Point pos = map->biomes[b].polygon->midpoint;
+		City* city = city_init(NULL, pos.x, pos.y);
+		map->cities[i] = city;
+	}
 }
 
 
@@ -347,19 +458,8 @@ static void create_river(Map* map, PointList* river_plist, Point p)
 {
 	// find neighbours
 	PointList* plist = pointhash_find(map->neighbours, p);
-
-	// find lowest neighbour
-	int cmp(const void* a, const void* b)
-	{
-		Point pa = *(Point*)a;
-		Point pb = *(Point*)b;
-
-		int alt_a = (int)pointhash_find(map->pt_altitudes, pa);
-		int alt_b = (int)pointhash_find(map->pt_altitudes, pb);
-
-		return alt_a - alt_b;
-	}
-	qsort(plist->points, plist->n, sizeof(Point), cmp);
+	qsort_r(plist->points, plist->n, sizeof(Point), 
+			compare_lowest_neighbour, map);
 
 	// can't repeat point (avoid loops)
 	int n = 0;
@@ -397,3 +497,17 @@ static void free_plist(void *plist)
 	free(pl->points); 
 	free(pl);
 }
+
+
+int compare_lowest_neighbour(const void* a, const void* b, void* vmap)
+{
+	Map* map = vmap;
+	Point pa = *(Point*)a;
+	Point pb = *(Point*)b;
+
+	int alt_a = (int)pointhash_find(map->pt_altitudes, pa);
+	int alt_b = (int)pointhash_find(map->pt_altitudes, pb);
+
+	return alt_a - alt_b;
+}
+

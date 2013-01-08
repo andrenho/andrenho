@@ -138,7 +138,8 @@ Polygon* midline_displacement(Polygon* polygon, int iters)
 				p1.y + (p2.y - p1.y) / 2
 			};
 
-			int displ = rand() % ((p2.x - p1.x) / 3 + 1);
+			int displ = ((p2.x - p1.x) / 3 + 1);
+			displ = rand() % (displ == 0 ? 1 : displ);
 			if(i == 0)
 				mid.y -= displ;
 			else if(i == 1)

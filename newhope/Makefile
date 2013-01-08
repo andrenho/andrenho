@@ -20,6 +20,7 @@ SRC = main.c		  \
       util/pointhash.c    \
       util/sdlu.c         \
       util/strings.c	  \
+      world/city.c        \
       world/mapbuild.c    \
       world/world.c
 TRANSLATIONS = pt_BR

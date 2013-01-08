@@ -4,7 +4,10 @@
 #include "world.h"
 #include "util/geometry.h"
 
+#define LAVA_POINTS 5
+
 struct PointHash;
+struct City;
 
 
 typedef struct PointList {
@@ -16,6 +19,7 @@ typedef struct MapParameters {
 	unsigned int seed;
 	int w, h;
 	int n_rivers;
+	int n_cities;
 } MapParameters;
 
 
@@ -35,6 +39,9 @@ typedef struct Map {
 	struct PointHash* neighbours;
 	int n_rivers;
 	PointList* rivers;
+	Point lava[LAVA_POINTS];
+	int n_cities;
+	struct City** cities;
 } Map;
 
 
