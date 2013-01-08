@@ -12,8 +12,8 @@ SRC = main.cc		   \
       ui/terminal.cc       \
       ui/terrainsurface.cc \
       ui/ui.cc             \
-      util/logger.h        \
-      util/i18n.h          \
+      util/logger.cc       \
+      util/i18n.cc         \
       world/city.cc        \
       world/mapbuild.cc    \
       world/world.cc

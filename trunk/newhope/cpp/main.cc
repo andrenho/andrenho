@@ -8,6 +8,7 @@ Logger logger;
 int main(int argc, char** argv)
 {
 	// initialization
+	i18n_init();
 	World world(5000, 5000);
 	UI ui(world);
 
@@ -19,8 +20,4 @@ int main(int argc, char** argv)
 		ui.Draw();
 		ui.EndFrame();
 	}
-
-	// free everything
-	delete ui;
-	delete world;
 }

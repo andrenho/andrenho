@@ -3,16 +3,16 @@
 #include <locale.h>
 #include <sys/stat.h>
 
-#include "util/log.h"
+#include "util/logger.h"
 
 void i18n_init()
 {
 #ifdef I18N
 	char *locale = setlocale(LC_ALL, "");
 	if(locale)
-		debug("Locale set to %s.", locale);
+		logger.Debug("Locale set to %s.", locale);
 	else
-		debug("Could not set locale.");
+		logger.Debug("Could not set locale.");
 
 	// if running from installation, get messages from LOCALEDIR, if not
 	// from local directories
@@ -23,11 +23,11 @@ void i18n_init()
 		dir = bindtextdomain("newhope", LOCALEDIR);
 	else
 		dir = bindtextdomain("newhope", "./po");
-	debug("Locale base directory is %s.", dir);
+	logger.Debug("Locale base directory is %s.", dir);
 
 	char *domain = textdomain("newhope");
-	debug("Domain set to %s.", domain);
+	logger.Debug("Domain set to %s.", domain);
 #else
-	debug("Not using localization.");
+	logger.Debug("Not using localization.");
 #endif
 }

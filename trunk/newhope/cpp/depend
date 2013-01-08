@@ -1,4 +1,4 @@
-main.o: main.cc
+main.o: main.cc ui/ui.h util/i18n.h util/logger.h world/world.h
 options.o: options.cc
 buildtile.o: ui/buildtile.cc
 event.o: ui/event.cc
@@ -6,7 +6,9 @@ minimap.o: ui/minimap.cc
 resource.o: ui/resource.cc
 terminal.o: ui/terminal.cc
 terrainsurface.o: ui/terrainsurface.cc
-ui.o: ui/ui.cc
+ui.o: ui/ui.cc ui/ui.h
+logger.o: util/logger.cc util/logger.h
+i18n.o: util/i18n.cc util/i18n.h util/logger.h
 city.o: world/city.cc
 mapbuild.o: world/mapbuild.cc
-world.o: world/world.cc
+world.o: world/world.cc world/world.h
