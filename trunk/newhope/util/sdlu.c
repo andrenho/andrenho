@@ -41,12 +41,14 @@ void draw_line(SDL_Surface* sf, int x0, int y0, int x1, int y1, int w, Uint32 c)
 
 	for(;;)
 	{
+		int xx = rand() % w;
+		int yy = rand() % w;
 		for(int x=0; x<w; x++)
 			for(int y=0; y<w; y++)
 			{
 				Uint8 *p = (Uint8*)sf->pixels 
-						+ ((y0+y) * sf->pitch)
-						+ ((x0+x) * 4);
+						+ ((y0+y+yy) * sf->pitch)
+						+ ((x0+x+xx) * 4);
 				*(Uint32*)p = c;
 			}
 		if(x0 == x1 && y0 == y1)
