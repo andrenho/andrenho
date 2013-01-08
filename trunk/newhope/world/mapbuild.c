@@ -156,6 +156,7 @@ static void map_elevation(Map *map)
 	}
 
 	// set other tiles elevation
+	int max_alt = 0;
 	for(i=0; i<map->n_biomes; i++)
 	{
 		Polygon* poly = map->biomes[i].polygon;
@@ -169,12 +170,21 @@ static void map_elevation(Map *map)
 				pointhash_add(map->pt_altitudes, 
 						poly->segments[j].p1, 
 						(void*)alt, NULL);
+				if(alt > max_alt)
+					max_alt = alt;
 				tot_alt += alt;
 			}
 			map->biomes[i].avg_altitude = 
 				tot_alt / poly->n_segments;
 		}
 	}
+
+	// normalize elevation
+	for(i=0; i<map->n_biomes; i++)
+		if(map->biomes[i].avg_altitude != -1)
+			map->biomes[i].avg_altitude =  
+				(double)map->biomes[i].avg_altitude /
+				(double)max_alt * 100;
 }
 
 
@@ -209,6 +219,8 @@ static void map_moisture(Map *map)
 {
 	debug("Generating map moisture...");
 
+	// calculate moisture
+	int max_moi = 0;
 	for(int i=0; i<map->n_biomes; i++)
 	{
 		Polygon* poly = map->biomes[i].polygon;
@@ -217,10 +229,19 @@ static void map_moisture(Map *map)
 		{
 			int moi = distance_from_water(
 					map, poly->segments[j].p1, 1);
+			if(moi > max_moi)
+				max_moi = moi;
 			tot_moi += moi;
 		}
 		map->biomes[i].moisture = tot_moi / poly->n_segments;
 	}
+
+	// normalize and adjust moisture
+	for(int i=0; i<map->n_biomes; i++)
+		if(map->biomes[i].moisture != -1)
+			map->biomes[i].moisture = 100 - ( 
+				(double)map->biomes[i].moisture /
+				(double)max_moi * 100);
 }
 
 
