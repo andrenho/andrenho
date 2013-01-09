@@ -13,7 +13,9 @@ public:
 	Resources(GraphicLibrary const& video);
 	~Resources();
 
-	inline const Resource* & operator[](std::string& s) { return res[s]; }
+	// TODO - use find!
+	inline const Resource* & operator[](std::string const& s) { return res[s]; }
+	inline const Image* Img(std::string const& s) const { return dynamic_cast<const Image*>(res[s]); }
 
 private:
 	std::string FindFile(std::string const& filename);

@@ -1,3 +1,19 @@
+main.o: main.cc ui/ui.h libs/sdl/sdl.h /usr/include/SDL/SDL.h \
+ /usr/include/SDL/SDL_main.h /usr/include/SDL/SDL_stdinc.h \
+ /usr/include/SDL/SDL_config.h /usr/include/SDL/SDL_platform.h \
+ /usr/include/SDL/begin_code.h /usr/include/SDL/close_code.h \
+ /usr/include/SDL/SDL_audio.h /usr/include/SDL/SDL_error.h \
+ /usr/include/SDL/SDL_endian.h /usr/include/SDL/SDL_mutex.h \
+ /usr/include/SDL/SDL_thread.h /usr/include/SDL/SDL_rwops.h \
+ /usr/include/SDL/SDL_cdrom.h /usr/include/SDL/SDL_cpuinfo.h \
+ /usr/include/SDL/SDL_events.h /usr/include/SDL/SDL_active.h \
+ /usr/include/SDL/SDL_keyboard.h /usr/include/SDL/SDL_keysym.h \
+ /usr/include/SDL/SDL_mouse.h /usr/include/SDL/SDL_video.h \
+ /usr/include/SDL/SDL_joystick.h /usr/include/SDL/SDL_quit.h \
+ /usr/include/SDL/SDL_loadso.h /usr/include/SDL/SDL_timer.h \
+ /usr/include/SDL/SDL_version.h libs/graphiclibrary.h libs/rect.h \
+ libs/image.h libs/resource.h libs/colors.h libs/font.h ui/minimap.h \
+ ui/resource.h world/world.h util/i18n.h util/logger.h world/world.h
 options.o: options.cc
 rect.o: libs/rect.cc libs/rect.h
 sdl.o: libs/sdl/sdl.cc libs/sdl/sdl.h /usr/include/SDL/SDL.h \
@@ -14,9 +30,9 @@ sdl.o: libs/sdl/sdl.cc libs/sdl/sdl.h /usr/include/SDL/SDL.h \
  /usr/include/SDL/SDL_joystick.h /usr/include/SDL/SDL_quit.h \
  /usr/include/SDL/SDL_loadso.h /usr/include/SDL/SDL_timer.h \
  /usr/include/SDL/SDL_version.h libs/graphiclibrary.h libs/rect.h \
- libs/image.h libs/resource.h libs/font.h /usr/include/SDL/SDL_ttf.h \
- /usr/include/SDL/SDL.h util/logger.h libs/sdl/sdlfont.h \
- libs/sdl/sdlimage.h /usr/include/libpng15/png.h \
+ libs/image.h libs/resource.h libs/colors.h libs/font.h \
+ /usr/include/SDL/SDL_ttf.h /usr/include/SDL/SDL.h util/logger.h \
+ libs/sdl/sdlfont.h libs/sdl/sdlimage.h /usr/include/libpng15/png.h \
  /usr/include/libpng15/pnglibconf.h /usr/include/libpng15/pngconf.h
 sdlfont.o: libs/sdl/sdlfont.cc libs/sdl/sdlfont.h \
  /usr/include/SDL/SDL_ttf.h /usr/include/SDL/SDL.h \
@@ -35,8 +51,26 @@ sdlfont.o: libs/sdl/sdlfont.cc libs/sdl/sdlfont.h \
  /usr/include/SDL/SDL_version.h libs/font.h libs/resource.h util/logger.h
 sdlimage.o: libs/sdl/sdlimage.cc libs/sdl/sdlimage.h \
  /usr/include/libpng15/png.h /usr/include/libpng15/pnglibconf.h \
- /usr/include/libpng15/pngconf.h libs/image.h libs/resource.h libs/rect.h \
- /usr/include/SDL/SDL.h /usr/include/SDL/SDL_main.h \
+ /usr/include/libpng15/pngconf.h libs/image.h libs/resource.h \
+ libs/colors.h libs/rect.h /usr/include/SDL/SDL.h \
+ /usr/include/SDL/SDL_main.h /usr/include/SDL/SDL_stdinc.h \
+ /usr/include/SDL/SDL_config.h /usr/include/SDL/SDL_platform.h \
+ /usr/include/SDL/begin_code.h /usr/include/SDL/close_code.h \
+ /usr/include/SDL/SDL_audio.h /usr/include/SDL/SDL_error.h \
+ /usr/include/SDL/SDL_endian.h /usr/include/SDL/SDL_mutex.h \
+ /usr/include/SDL/SDL_thread.h /usr/include/SDL/SDL_rwops.h \
+ /usr/include/SDL/SDL_cdrom.h /usr/include/SDL/SDL_cpuinfo.h \
+ /usr/include/SDL/SDL_events.h /usr/include/SDL/SDL_active.h \
+ /usr/include/SDL/SDL_keyboard.h /usr/include/SDL/SDL_keysym.h \
+ /usr/include/SDL/SDL_mouse.h /usr/include/SDL/SDL_video.h \
+ /usr/include/SDL/SDL_joystick.h /usr/include/SDL/SDL_quit.h \
+ /usr/include/SDL/SDL_loadso.h /usr/include/SDL/SDL_timer.h \
+ /usr/include/SDL/SDL_version.h util/logger.h
+buildtile.o: ui/buildtile.cc
+event.o: ui/event.cc
+minimap.o: ui/minimap.cc ui/minimap.h libs/graphiclibrary.h libs/rect.h \
+ libs/image.h libs/resource.h libs/colors.h libs/font.h ui/resource.h \
+ world/world.h /usr/include/SDL/SDL.h /usr/include/SDL/SDL_main.h \
  /usr/include/SDL/SDL_stdinc.h /usr/include/SDL/SDL_config.h \
  /usr/include/SDL/SDL_platform.h /usr/include/SDL/begin_code.h \
  /usr/include/SDL/close_code.h /usr/include/SDL/SDL_audio.h \
@@ -50,13 +84,27 @@ sdlimage.o: libs/sdl/sdlimage.cc libs/sdl/sdlimage.h \
  /usr/include/SDL/SDL_quit.h /usr/include/SDL/SDL_loadso.h \
  /usr/include/SDL/SDL_timer.h /usr/include/SDL/SDL_version.h \
  util/logger.h
-buildtile.o: ui/buildtile.cc
-event.o: ui/event.cc
 resource.o: ui/resource.cc ui/resource.h libs/graphiclibrary.h \
- libs/rect.h libs/image.h libs/resource.h libs/font.h ui/resource_list.h \
- util/logger.h
+ libs/rect.h libs/image.h libs/resource.h libs/colors.h libs/font.h \
+ ui/resource_list.h util/logger.h
 terminal.o: ui/terminal.cc
 terrainsurface.o: ui/terrainsurface.cc
+ui.o: ui/ui.cc ui/ui.h libs/sdl/sdl.h /usr/include/SDL/SDL.h \
+ /usr/include/SDL/SDL_main.h /usr/include/SDL/SDL_stdinc.h \
+ /usr/include/SDL/SDL_config.h /usr/include/SDL/SDL_platform.h \
+ /usr/include/SDL/begin_code.h /usr/include/SDL/close_code.h \
+ /usr/include/SDL/SDL_audio.h /usr/include/SDL/SDL_error.h \
+ /usr/include/SDL/SDL_endian.h /usr/include/SDL/SDL_mutex.h \
+ /usr/include/SDL/SDL_thread.h /usr/include/SDL/SDL_rwops.h \
+ /usr/include/SDL/SDL_cdrom.h /usr/include/SDL/SDL_cpuinfo.h \
+ /usr/include/SDL/SDL_events.h /usr/include/SDL/SDL_active.h \
+ /usr/include/SDL/SDL_keyboard.h /usr/include/SDL/SDL_keysym.h \
+ /usr/include/SDL/SDL_mouse.h /usr/include/SDL/SDL_video.h \
+ /usr/include/SDL/SDL_joystick.h /usr/include/SDL/SDL_quit.h \
+ /usr/include/SDL/SDL_loadso.h /usr/include/SDL/SDL_timer.h \
+ /usr/include/SDL/SDL_version.h libs/graphiclibrary.h libs/rect.h \
+ libs/image.h libs/resource.h libs/colors.h libs/font.h ui/minimap.h \
+ ui/resource.h world/world.h util/logger.h
 logger.o: util/logger.cc util/logger.h
 i18n.o: util/i18n.cc util/i18n.h util/logger.h
 city.o: world/city.cc

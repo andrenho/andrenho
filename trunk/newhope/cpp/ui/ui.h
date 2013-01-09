@@ -24,7 +24,7 @@ private:
 	World const& world;
 	bool active;
 	GraphicLibrary* video;
-	Resources* res;
+	const Resources* res;
 	Minimap* minimap;
 };
 

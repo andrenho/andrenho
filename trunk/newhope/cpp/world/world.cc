@@ -21,14 +21,14 @@ World::~World()
 
 
 TerrainType 
-World::Terrain(int x, int y)
+World::Terrain(int x, int y) const
 {
 	return t_WATER;
 }
 
 
 bool 
-World::Special(int x, int y)
+World::Special(int x, int y) const
 {
 	return !(rand() % 100 >= 4);
 }

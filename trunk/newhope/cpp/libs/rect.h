@@ -8,7 +8,9 @@ public:
 	Rect(int n)
 		: x(n), y(0), w(0), h(0) { }
 
-	const int x, y, w, h;
+	void Add(int x, int y, int w, int h);
+
+	int x, y, w, h;
 };
 
 #endif

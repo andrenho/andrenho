@@ -24,8 +24,8 @@ public:
 	World(int w, int h);
 	~World();
 
-	TerrainType Terrain(int x, int y);
-	bool Special(int x, int y);
+	TerrainType Terrain(int x, int y) const;
+	bool Special(int x, int y) const;
 
 	const int w, h;
 };
