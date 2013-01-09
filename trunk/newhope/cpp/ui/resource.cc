@@ -1,5 +1,6 @@
 #include "ui/resource.h"
 
+#include <cstdlib>
 #include <sys/stat.h>
 #include <iostream>
 
@@ -31,13 +32,14 @@ Resources::Resources(GraphicLibrary const& video)
 
 Resources::~Resources()
 {
+	logger.Debug("Freeing resources.");
 	std::map<const std::string, const Resource*>::iterator it;
 	for(it=res.begin(); it != res.end(); it++)
 		delete (*it).second;
 }
 
 
-std::string 
+std::string const 
 Resources::FindFile(std::string const& filename)
 {
 	std::string buf[2];
@@ -76,4 +78,3 @@ Resources::LoadFile(std::string const& name, std::string const& path)
 {
 	LoadFile(name, path, Rect(0, 0, 0, 0), "");
 }
-

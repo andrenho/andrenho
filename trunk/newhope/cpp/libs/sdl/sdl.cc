@@ -51,7 +51,7 @@ SDL::StartCountDown(int wait_ms)
 
 
 bool 
-SDL::ReachedCountDown()
+SDL::ReachedCountDown() const
 {
 	return SDL_GetTicks() >= countdown;
 }

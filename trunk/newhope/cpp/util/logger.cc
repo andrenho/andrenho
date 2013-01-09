@@ -46,5 +46,5 @@ Logger::Error(int status, std::string const& s, ...)
 	vprintf(s.c_str(), ap);
 	printf("\n");
 	va_end(ap);
-	exit(status);
+	abort();
 }

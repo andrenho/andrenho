@@ -13,7 +13,7 @@ public:
 	~SDL();
 
 	void StartCountDown(int wait_ms);
-	bool ReachedCountDown();
+	bool ReachedCountDown() const;
 	void WaitCountDown();
 	Image& CreateImage(int w, int h) const;
 	Image& LoadImage(std::string const& filename, Rect const& r) const;
