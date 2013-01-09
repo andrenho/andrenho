@@ -17,6 +17,7 @@ public:
 	void Display();
 
 private:
+	void Create();
 	void SetupColors();
 	void KillThread();
 	void DrawPaper();
@@ -25,7 +26,7 @@ private:
 	void DrawCities();
 	void HandleEvents();
 
-	static int Create(void*);
+	static int CreationThread(void* self);
 
 	GraphicLibrary& video;
 	World const& world;

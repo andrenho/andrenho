@@ -92,8 +92,9 @@ SDL::LoadFont(std::string const& filename, int size) const
 Event const* 
 SDL::GetEvent() const
 {
-	SDL_Event e;
-	SDL_PollEvent(&e);
+	SDL_Event e = { };
+	if(!SDL_PollEvent(&e))
+		return new Event(Event::NO_EVENT);
 	switch(e.type)
 	{
 		case SDL_QUIT:

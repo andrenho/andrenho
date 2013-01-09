@@ -18,6 +18,8 @@ SRC = main.cc		   \
       ui/ui.cc             \
       util/logger.cc       \
       util/i18n.cc         \
+      util/polygon.cc      \
+      world/biome.cc       \
       world/city.cc        \
       world/mapbuild.cc    \
       world/world.cc

@@ -172,6 +172,14 @@ SDLImage::Blit(Image const& image, Rect const& r) const
 
 
 void 
+SDLImage::FillBox(Color c)
+{
+	Uint32 color = SDL_MapRGB(sf->format, c.r, c.g, c.b);
+	SDL_FillRect(sf, NULL, color);
+}
+
+
+void 
 SDLImage::FillBox(Rect r, Color c)
 {
 	SDL_Rect rect = { (Sint16)r.x, (Sint16)r.y, (Uint16)r.w, (Uint16)r.h };
