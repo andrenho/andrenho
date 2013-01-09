@@ -20,6 +20,7 @@ SDL::SDL()
 	if(!screen)
 		logger.Error(2, "Could not initialize screen: %s.", 
 				SDL_GetError());
+	Window = new SDLImage(screen);
 	logger.Debug("SDL window initialized.");
 
 	// setup window
@@ -35,6 +36,7 @@ SDL::SDL()
 
 SDL::~SDL()
 {
+	delete Window;
 	TTF_Quit();
 	SDL_Quit();
 	logger.Debug("SDL terminated.");
@@ -60,6 +62,14 @@ SDL::WaitCountDown()
 {
 	while(SDL_GetTicks() < countdown)
 		SDL_Delay(1);
+}
+
+
+Image& 
+SDL::CreateImage(int w, int h) const
+{
+	SDLImage* img = new SDLImage(w, h);
+	return *img;
 }
 
 

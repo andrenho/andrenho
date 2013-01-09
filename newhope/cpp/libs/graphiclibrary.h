@@ -13,7 +13,10 @@ public:
 	virtual bool ReachedCountDown() = 0;
 	virtual void WaitCountDown() = 0;
 	virtual Image& LoadImage(std::string const& filename, Rect const& r) const = 0;
+	virtual Image& CreateImage(int w, int h) const = 0;
 	virtual Font& LoadFont(std::string const& filename, int size) const = 0;
+
+	Image* Window;
 };
 
 #endif

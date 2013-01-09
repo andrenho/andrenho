@@ -15,10 +15,11 @@ public:
 	void StartCountDown(int wait_ms);
 	bool ReachedCountDown();
 	void WaitCountDown();
+	Image& CreateImage(int w, int h) const;
 	Image& LoadImage(std::string const& filename, Rect const& r) const;
 	Font& LoadFont(std::string const& filename, int size) const;
 
-	const struct SDL_Surface* screen;
+	struct SDL_Surface* screen;
 
 private:
 	Uint32 countdown;

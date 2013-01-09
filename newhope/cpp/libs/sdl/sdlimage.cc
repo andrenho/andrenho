@@ -7,7 +7,25 @@
 
 #include "util/logger.h"
 
+SDLImage::SDLImage(SDL_Surface* sf)
+	: Image(sf->w, sf->h)
+{
+	this->sf = sf;
+}
+
+
+SDLImage::SDLImage(int w, int h)
+	: Image(w, h)
+{
+	SDL_Surface* sf2 = SDL_CreateRGBSurface(SDL_SWSURFACE, w, h, 32,
+			0x000000FF, 0x0000FF00, 0x00FF0000, 0xFF000000);
+	sf = SDL_DisplayFormat(sf2);
+	SDL_FreeSurface(sf2);
+}
+
+
 SDLImage::SDLImage(std::string const& filename, Rect const& r)
+	: Image(r.w, r.h)
 {
 	int _x = r.x, _y = r.y, _w = r.w, _h = r.h;
 
@@ -131,3 +149,27 @@ SDLImage::SurfaceFromPNGAlpha(Rect const& r, png_bytep* row_pointers,
 	return sf2;
 }
 
+
+inline void 
+SDLImage::SetPixel(int x, int y, Color c)
+{
+	Uint32 f = (0xff+((c.b)<<8)+((c.g)<<16)+((c.r)<<24)); // TODO - ?
+	Uint8 *p = (Uint8*)sf->pixels + (y * sf->pitch) + (x * 4);
+	*(Uint32*)p = f;
+}
+
+
+void 
+SDLImage::Blit(Image const& image, Rect const& r)
+{
+	SDL_Rect rect = { r.x, r.y, r.w, r.h };
+	const SDLImage* dest = (const SDLImage*)&image;
+	SDL_BlitSurface(sf, NULL, dest->sf, &rect);
+}
+
+
+void 
+SDLImage::Update()
+{
+	SDL_Flip(sf);
+}
