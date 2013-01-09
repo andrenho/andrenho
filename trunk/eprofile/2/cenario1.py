@@ -181,7 +181,7 @@ while True:
   #
   # relatório
   #
-  if 0:
+  if 1:
     print('Semestre:', semester)
     print('Disciplinas ocorrendo:', len(list((cr for cr in courses if cr.happening_this_semester()))))
     print('Alunos cursando:', len(list(s for s in all_students if not s.graduated())))
@@ -191,7 +191,8 @@ while True:
     print('Escolhas manuais:', choices)
     print('% escolhas automáticas:', round(automatic/float(choices+automatic)*100, 2))
     print('--------------------------')
-  print(semester, round(automatic/float(choices+automatic)*100, 2))
+  else:
+    print(semester, round(automatic/float(choices+automatic)*100, 2))
 
   choices = 0
   automatic = 0
