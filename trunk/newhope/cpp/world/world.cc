@@ -8,15 +8,22 @@ World::World(int w, int h) :
 	w(w), h(h)
 {
 	logger.Debug("Building map...");
-	
-	// TODO
-	
+	MapParameters pars = {
+		.seed = 1,
+		.w = w,
+		.h = h,
+		.n_rivers = 15,
+		.n_cities = 25,
+		.n_roads = 10,
+	};
+	map = new MapBuild(pars);
 	logger.Debug("Map built.");
 }
 
 
 World::~World()
 {
+	delete map;
 }
 
 

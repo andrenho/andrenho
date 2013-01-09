@@ -1,6 +1,8 @@
 #ifndef WORLD_WORLD_H
 #define WORLD_WORLD_H
 
+#include "world/mapbuild.h"
+
 // the order is the importance
 typedef enum {
 	t_INVALID       = -1,
@@ -28,6 +30,7 @@ public:
 	bool Special(int x, int y) const;
 
 	const int w, h;
+	MapBuild* map;
 };
 
 #endif

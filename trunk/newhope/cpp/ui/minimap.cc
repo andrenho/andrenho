@@ -25,6 +25,16 @@ void
 Minimap::SetupColors()
 {
 	colors[t_WATER] = (Color) { 152, 180, 212 };
+	colors[t_WATER] = (Color) { 152, 180, 212 };
+	colors[t_DIRT] = (Color) { 0xbe, 0xa3, 0x76 };
+	colors[t_EARTH] = (Color) { 0x9e, 0x83, 0x56 };
+	colors[t_GRASS] = (Color) { 59, 122, 87 };
+	colors[t_ROCK] = (Color) { 0x90, 0x90, 0x90 };
+	colors[t_HOTFOREST] = (Color) { 29, 92, 57 };
+	colors[t_LAVAROCK] = (Color) { 0x50, 0x50, 0x50 };
+	colors[t_SNOW] = (Color) { 0xe0, 0xe0, 0xff };
+	colors[t_COLDFOREST] = (Color) { 0, 52, 27 };
+	colors[t_INVALID] = (Color) { 0, 0, 0 };
 }
 
 
@@ -33,7 +43,7 @@ Minimap::Reset()
 {
 	KillThread();
 	thread = (void*)SDL_CreateThread(
-			(int(*)(void*))&Minimap::Create,
+			(int(*)(void*))&Minimap::CreationThread,
 			(void*)this);
 }
 
@@ -66,27 +76,31 @@ Minimap::Display()
 
 
 int
-Minimap::Create(void* minimap)
+Minimap::CreationThread(void* minimap)
 {
-	Minimap* self = (Minimap*)minimap;
+	((Minimap*)minimap)->Create();
+	return 0;
+}
+
+
+void Minimap::Create()
+{
 	logger.Debug("Redrawing minimap...");
 
 	// recreate image
-	if(self->image)
-		delete self->image;
-	self->sz = std::min(self->video.Window->w, self->video.Window->h);
-	self->image = &self->video.CreateImage(self->sz, self->sz);
+	if(image)
+		delete image;
+	sz = std::min(video.Window->w, video.Window->h) - 250;
+	image = &video.CreateImage(sz, sz);
 
 	// draw map
-	self->DrawMap();
-	if(!self->thread_killed)
+	DrawMap();
+	if(!thread_killed)
 	{
-		self->DrawRivers();
-		self->DrawCities();
+		DrawRivers();
+		DrawCities();
 	}
 	logger.Debug("Minimap redrawn.");
-
-	return 0;
 }
 
 
@@ -189,6 +203,8 @@ Minimap::HandleEvents()
 		{
 		case Event::CLICK:
 			map_active = false;
+			break;
+		default:
 			break;
 		}
 		delete event;

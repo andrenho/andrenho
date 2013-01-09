@@ -60,6 +60,8 @@ UI::ProcessEvents()
 void 
 UI::Draw()
 {
+	video->Window->FillBox(Color { 255, 255, 255 });
+	video->Window->Update();
 }
 
 
