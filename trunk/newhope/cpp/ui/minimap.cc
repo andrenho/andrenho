@@ -5,9 +5,10 @@
 
 #include "util/logger.h"
 
-Minimap::Minimap(GraphicLibrary& video, World const& world, Resources const& res)
-	: video(video), world(world), res(res), thread(NULL), image(NULL), sz(0), 
-	  last_w(0), last_h(0), thread_killed(false)
+Minimap::Minimap(GraphicLibrary& video, World const& world, 
+		Resources const& res)
+	: video(video), world(world), res(res), thread(NULL), image(NULL), 
+	  sz(0), thread_killed(false)
 {
 	SetupColors();
 }
@@ -20,7 +21,6 @@ Minimap::~Minimap()
 }
 
 
-#include<iostream>
 void
 Minimap::SetupColors()
 {
@@ -32,47 +32,57 @@ void
 Minimap::Reset()
 {
 	KillThread();
-	//thread = (void*)SDL_CreateThread((int(*)(void*))&Minimap::Create, 0);
-	Create(0);
+	thread = (void*)SDL_CreateThread(
+			(int(*)(void*))&Minimap::Create,
+			(void*)this);
 }
 
 
 void
 Minimap::Display()
 {
+	// draw paper
 	DrawPaper();
 	video.Window->Update();
 
+	// wait for thread to finish
+	if(thread)
+	{
+		int n;
+		SDL_WaitThread((SDL_Thread*)thread, &n);
+		thread = 0;
+	}
+
+	// draw map
 	Rect r( (video.Window->w/2) - (sz/2),
 		(video.Window->h/2) - (sz/2),
 		sz, sz);
 	image->Blit(*video.Window, r);
 	video.Window->Update();
-	SDL_Delay(2000);
+
+	// handle events
+	HandleEvents();
 }
 
 
 int
-Minimap::Create(void* nothing)
+Minimap::Create(void* minimap)
 {
+	Minimap* self = (Minimap*)minimap;
 	logger.Debug("Redrawing minimap...");
 
 	// recreate image
-	if(image)
-		delete image;
-	sz = std::min(video.Window->w, video.Window->h);
-	image = &video.CreateImage(sz, sz);
-
-	// save window size
-	last_w = video.Window->w;
-	last_h = video.Window->h;
+	if(self->image)
+		delete self->image;
+	self->sz = std::min(self->video.Window->w, self->video.Window->h);
+	self->image = &self->video.CreateImage(self->sz, self->sz);
 
 	// draw map
-	DrawMap();
-	if(!thread_killed)
+	self->DrawMap();
+	if(!self->thread_killed)
 	{
-		DrawRivers();
-		DrawCities();
+		self->DrawRivers();
+		self->DrawCities();
 	}
 	logger.Debug("Minimap redrawn.");
 
@@ -83,7 +93,15 @@ Minimap::Create(void* nothing)
 void
 Minimap::KillThread()
 {
-
+	if(thread)
+	{
+		int n;
+		thread_killed = 1;
+		SDL_WaitThread((SDL_Thread*)thread, &n);
+		thread = 0;
+		logger.Debug("Minimap thread killed.");
+	}
+	thread_killed = 0;
 }
 
 
@@ -97,45 +115,36 @@ Minimap::DrawPaper()
 	r.Add(-60, -85, 120, 170);
 
 	// laterals
-	const Image* img = res.Img("mm_n");
-	/*
-	for(int y=r.y + res.Img("mm_n")->h; y < r.y + r.h - 60; 
+	for(int y = r.y + res.Img("mm_nw")->h; y < r.y + r.h - 60; 
 			y += res.Img("mm_w")->h)
-		;*/
-
-	/*
-	// laterals
-	int x, y;
-	SDL_Surface *mm_n = res("mm_n"), *mm_w = res("mm_w");
-	for(y=r.y+res("mm_nw")->h; y<r.y+r.h-60; y+=mm_w->h)
 	{
-		SDL_BlitSurface(mm_w, NULL, ui->screen, &(SDL_Rect){ r.x, y });
-		SDL_BlitSurface(res("mm_e"), NULL, ui->screen, &(SDL_Rect){ 
-				r.x + r.w - res("mm_e")->w, y });
+		res.Img("mm_w")->Blit(*video.Window, Rect(r.x, y));
+		res.Img("mm_e")->Blit(*video.Window, 
+				Rect(r.x + r.w - res.Img("mm_e")->w, y));
 	}
-	for(x=r.x+res("mm_nw")->w; x<r.x+r.w-res("mm_ne")->w; x+=mm_n->w)
+	for(int x = r.x + res.Img("mm_nw")->w; 
+			x < r.x + r.w - res.Img("mm_ne")->w;
+			x += res.Img("mm_n")->w)
 	{
-		SDL_BlitSurface(mm_n, NULL, ui->screen, &(SDL_Rect){ x, r.y });
-		SDL_BlitSurface(res("mm_s"), NULL, ui->screen, &(SDL_Rect){ 
-				x, r.y + r.h - res("mm_s")->h });
+		res.Img("mm_n")->Blit(*video.Window, Rect(x, r.y));
+		res.Img("mm_s")->Blit(*video.Window, 
+				Rect(x, r.y + r.h - res.Img("mm_s")->h));
 	}
 
-	// borders
+	// corners
 	int tr = r.x;
-	int dfw = r.w - res("mm_ne")->w,
-	    dfh = r.h - res("mm_se")->h;
-	SDL_BlitSurface(res("mm_nw"), NULL, ui->screen, &r);
+	int dfw = r.w - res.Img("mm_ne")->w,
+	    dfh = r.h - res.Img("mm_se")->h;
+	res.Img("mm_nw")->Blit(*video.Window, r);
 	r.x += dfw;
-	SDL_BlitSurface(res("mm_ne"), NULL, ui->screen, &r);
+	res.Img("mm_ne")->Blit(*video.Window, r);
 	r.y += dfh;
-	SDL_BlitSurface(res("mm_se"), NULL, ui->screen, &r);
+	res.Img("mm_se")->Blit(*video.Window, r);
 	r.x = tr;
-	SDL_BlitSurface(res("mm_sw"), NULL, ui->screen, &r);
+	res.Img("mm_sw")->Blit(*video.Window, r);
 
 	// middle
-	SDL_FillRect(ui->screen, &r2, 
-			SDL_MapRGB(ui->screen->format, 210, 183, 119));
-			*/
+	video.Window->FillBox(r2, (Color){ 210, 183, 119});
 }
 
 
@@ -148,8 +157,8 @@ Minimap::DrawMap()
 	{
 		for(y=py=0; y<world.h && py < sz; y+=ps, py++)
 		{
-//			if(mm->killthread)
-//				return;
+			if(thread_killed)
+				return;
 			TerrainType t = world.Terrain(x, y);
 			image->SetPixel(px, py, colors[t]);
 		}
@@ -166,4 +175,22 @@ Minimap::DrawRivers()
 void
 Minimap::DrawCities()
 {
+}
+
+
+void
+Minimap::HandleEvents()
+{
+	bool map_active = true;
+	while(map_active)
+	{
+		Event const* event = video.GetEvent();
+		switch(event->type)
+		{
+		case Event::CLICK:
+			map_active = false;
+			break;
+		}
+		delete event;
+	}
 }

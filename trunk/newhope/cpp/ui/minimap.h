@@ -18,19 +18,21 @@ public:
 
 private:
 	void SetupColors();
-	int Create(void*);
 	void KillThread();
 	void DrawPaper();
 	void DrawMap();
 	void DrawRivers();
 	void DrawCities();
+	void HandleEvents();
+
+	static int Create(void*);
 
 	GraphicLibrary& video;
 	World const& world;
 	Resources const& res;
 	void* thread;
 	Image* image;
-	int sz, last_w, last_h;
+	int sz;
 	bool thread_killed;
 	std::map<TerrainType, Color> colors;
 };

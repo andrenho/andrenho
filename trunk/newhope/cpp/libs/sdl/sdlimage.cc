@@ -7,15 +7,15 @@
 
 #include "util/logger.h"
 
-SDLImage::SDLImage(SDL_Surface* sf)
-	: Image(sf->w, sf->h)
+SDLImage::SDLImage(SDL_Surface* sf, bool must_free)
+	: Image(sf->w, sf->h), must_free(must_free)
 {
 	this->sf = sf;
 }
 
 
 SDLImage::SDLImage(int w, int h)
-	: Image(w, h)
+	: Image(w, h), must_free(true)
 {
 	SDL_Surface* sf2 = SDL_CreateRGBSurface(SDL_SWSURFACE, w, h, 32,
 			0x000000FF, 0x0000FF00, 0x00FF0000, 0xFF000000);
@@ -25,7 +25,7 @@ SDLImage::SDLImage(int w, int h)
 
 
 SDLImage::SDLImage(std::string const& filename, Rect const& r)
-	: Image(r.w, r.h)
+	: Image(r.w, r.h), must_free(true)
 {
 	int _x = r.x, _y = r.y, _w = r.w, _h = r.h;
 
@@ -123,7 +123,8 @@ SDLImage::SDLImage(std::string const& filename, Rect const& r)
 
 SDLImage::~SDLImage()
 {
-	SDL_FreeSurface(sf);
+	if(must_free)
+		SDL_FreeSurface(sf);
 }
 
 
@@ -153,18 +154,29 @@ SDLImage::SurfaceFromPNGAlpha(Rect const& r, png_bytep* row_pointers,
 inline void 
 SDLImage::SetPixel(int x, int y, Color c)
 {
-	Uint32 f = (0xff+((c.b)<<8)+((c.g)<<16)+((c.r)<<24)); // TODO - ?
+	// TODO - too slow!
+	Uint32 color = SDL_MapRGB(sf->format, c.r, c.g, c.b);
+
 	Uint8 *p = (Uint8*)sf->pixels + (y * sf->pitch) + (x * 4);
-	*(Uint32*)p = f;
+	*(Uint32*)p = color;
 }
 
 
 void 
-SDLImage::Blit(Image const& image, Rect const& r)
+SDLImage::Blit(Image const& image, Rect const& r) const
 {
 	SDL_Rect rect = { (Sint16)r.x, (Sint16)r.y, (Uint16)r.w, (Uint16)r.h };
 	const SDLImage* dest = (const SDLImage*)&image;
 	SDL_BlitSurface(sf, NULL, dest->sf, &rect);
+}
+
+
+void 
+SDLImage::FillBox(Rect r, Color c)
+{
+	SDL_Rect rect = { (Sint16)r.x, (Sint16)r.y, (Uint16)r.w, (Uint16)r.h };
+	Uint32 color = SDL_MapRGB(sf->format, c.r, c.g, c.b);
+	SDL_FillRect(sf, &rect, color);
 }
 
 
