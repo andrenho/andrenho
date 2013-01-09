@@ -611,6 +611,10 @@ A simulation starts with the creation of the discipline, student and professor e
 
 Each course consists of 14 classes. There are two types of events that can occur in a class: (i) a debate or group work, and (ii) a individual paper or test, where a class can have one of two events, both or neither. Table~\ref{tab:aula} exemplifies a class in which the two types of events occurred.
 
+For this simulation, it was defined that in each discipline there were studied a number of different subjects (from 3 to 5, randomly), and that each subject was related to 1 or 2 other subjects. For example, in the ``Programming Languages'' discipline, the subject of ``C Language'' was studied, among other programming languages. Later, in the discipline of ``Data Structures'', the subject of ``Pointers'' was studied. Since ``C Language'' and ``Pointers'' are related concepts, the subjects were linked, and if a student chose to study ``C Language'', then the subject of ``Pointers'' is recommended to him.
+
+Figure~\ref{fig:result1} shows the results of the simulation. On this simulation, a group of 50 students goes through a complete graduation course. The simulator registers the percentage of the debates and papers where the subject could be suggested by the system, based on previous student choices. In the first semester, the system was able to sugest only 9\% of the time, but as the studentes made more choices, the system was able to sugest more subjects, until the level of recommendation passed 90\% in the 13th semester.
+
 \begin{figure}[!t]
   \centering\includegraphics[width=0.7\textwidth,angle=-90]{imagens/auto.eps}
   \caption{Simulation results: automatic choices by semester}
