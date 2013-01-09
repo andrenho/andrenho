@@ -20,7 +20,7 @@ SDL::SDL()
 	if(!screen)
 		logger.Error(2, "Could not initialize screen: %s.", 
 				SDL_GetError());
-	Window = new SDLImage(screen);
+	Window = new SDLImage(screen, false);
 	logger.Debug("SDL window initialized.");
 
 	// setup window
@@ -86,4 +86,35 @@ SDL::LoadFont(std::string const& filename, int size) const
 {
 	SDLFont* font = new SDLFont(filename, size);
 	return *font;
+}
+
+
+Event const* 
+SDL::GetEvent() const
+{
+	SDL_Event e;
+	SDL_PollEvent(&e);
+	switch(e.type)
+	{
+		case SDL_QUIT:
+			return new Event(Event::QUIT);
+		case SDL_KEYDOWN:
+			return new KeyEvent(e.key.keysym.sym);
+		case SDL_MOUSEBUTTONDOWN:
+		{
+			ClickEvent::MouseButton b = ClickEvent::LEFT;
+			if(e.button.button == SDL_BUTTON_RIGHT)
+				b = ClickEvent::RIGHT;
+			else if(e.button.button == SDL_BUTTON_MIDDLE)
+				b = ClickEvent::MIDDLE;
+			return new ClickEvent(e.button.x, e.button.y, b);
+		}
+		case SDL_VIDEORESIZE:
+			screen = SDL_SetVideoMode(e.resize.w, e.resize.h, 32, 
+				SDL_SWSURFACE|SDL_RESIZABLE);
+			delete Window;
+			Window = new SDLImage(screen, false);
+			return new Event(Event::RESIZE);
+	}
+	return new Event(Event::NO_EVENT);
 }
