@@ -19,11 +19,13 @@ public:
 	MapBuild(struct MapParameters const& pars);
 	~MapBuild();
 
+	std::vector<Biome*> biomes;
 private:
 	void CreatePolygons();
+	void CreateCoastline();
+	void CreateLakes();
 
 	struct MapParameters const& pars;
-	std::vector<Biome*> biomes;
 };
 
 #endif

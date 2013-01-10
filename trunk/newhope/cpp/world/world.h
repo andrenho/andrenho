@@ -30,7 +30,7 @@ public:
 	bool Special(int x, int y) const;
 
 	const int w, h;
-	MapBuild* map;
+	const MapBuild* map;
 };
 
 #endif
