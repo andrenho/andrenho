@@ -13,7 +13,7 @@ public:
 
 	Polygon* polygon;
 	TerrainType terrain;
-	int altitude;
+	int elevation;
 	int moisture;
 };
 
