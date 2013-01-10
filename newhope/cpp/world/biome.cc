@@ -3,7 +3,7 @@
 #include "util/polygon.h"
 
 Biome::Biome(Polygon* polygon)
-	: polygon(polygon), terrain(t_DIRT), altitude(0), moisture(0)
+	: polygon(polygon), terrain(t_DIRT), elevation(0), moisture(0)
 {
 }
 

@@ -2,6 +2,9 @@
 #define MAPBUILD_H
 
 #include <vector>
+#include <map>
+
+#include "util/polygon.h"
 
 class Biome;
 
@@ -20,10 +23,18 @@ public:
 	~MapBuild();
 
 	std::vector<Biome*> biomes;
+	std::vector<Polygon*> rivers;
+
 private:
 	void CreatePolygons();
 	void CreateCoastline();
 	void CreateLakes();
+	void CreateElevation();
+	void CreateRivers();
+
+	void CreateRiver(Point p);
+	int DistanceFromWater(Point const& p, bool include_rivers);
+	void NeighbourPoints(Point p, std::vector<Point>& points);
 
 	struct MapParameters const& pars;
 };

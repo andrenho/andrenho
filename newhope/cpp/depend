@@ -13,8 +13,8 @@ main.o: main.cc ui/ui.h libs/sdl/sdl.h /usr/include/SDL/SDL.h \
  /usr/include/SDL/SDL_loadso.h /usr/include/SDL/SDL_timer.h \
  /usr/include/SDL/SDL_version.h libs/graphiclibrary.h libs/rect.h \
  libs/image.h libs/resource.h libs/colors.h libs/font.h ui/minimap.h \
- ui/resource.h world/world.h world/mapbuild.h util/i18n.h util/logger.h \
- world/world.h
+ ui/resource.h world/world.h world/mapbuild.h util/polygon.h util/i18n.h \
+ util/logger.h world/world.h
 options.o: options.cc
 rect.o: libs/rect.cc libs/rect.h
 sdl.o: libs/sdl/sdl.cc libs/sdl/sdl.h /usr/include/SDL/SDL.h \
@@ -71,7 +71,7 @@ buildtile.o: ui/buildtile.cc
 event.o: ui/event.cc
 minimap.o: ui/minimap.cc ui/minimap.h libs/graphiclibrary.h libs/rect.h \
  libs/image.h libs/resource.h libs/colors.h libs/font.h ui/resource.h \
- world/world.h world/mapbuild.h /usr/include/SDL/SDL.h \
+ world/world.h world/mapbuild.h util/polygon.h /usr/include/SDL/SDL.h \
  /usr/include/SDL/SDL_main.h /usr/include/SDL/SDL_stdinc.h \
  /usr/include/SDL/SDL_config.h /usr/include/SDL/SDL_platform.h \
  /usr/include/SDL/begin_code.h /usr/include/SDL/close_code.h \
@@ -105,14 +105,15 @@ ui.o: ui/ui.cc ui/ui.h libs/sdl/sdl.h /usr/include/SDL/SDL.h \
  /usr/include/SDL/SDL_loadso.h /usr/include/SDL/SDL_timer.h \
  /usr/include/SDL/SDL_version.h libs/graphiclibrary.h libs/rect.h \
  libs/image.h libs/resource.h libs/colors.h libs/font.h ui/minimap.h \
- ui/resource.h world/world.h world/mapbuild.h util/logger.h
+ ui/resource.h world/world.h world/mapbuild.h util/polygon.h \
+ util/logger.h
 logger.o: util/logger.cc util/logger.h
 i18n.o: util/i18n.cc util/i18n.h util/logger.h
 polygon.o: util/polygon.cc util/polygon.h libs/rect.h util/logger.h
 biome.o: world/biome.cc world/biome.h world/world.h world/mapbuild.h \
  util/polygon.h libs/rect.h
 city.o: world/city.cc
-mapbuild.o: world/mapbuild.cc world/mapbuild.h util/logger.h \
- util/polygon.h libs/rect.h world/biome.h world/world.h
-world.o: world/world.cc world/world.h world/mapbuild.h util/logger.h \
- util/polygon.h libs/rect.h world/biome.h
+mapbuild.o: world/mapbuild.cc world/mapbuild.h util/polygon.h libs/rect.h \
+ util/logger.h world/biome.h world/world.h
+world.o: world/world.cc world/world.h world/mapbuild.h util/polygon.h \
+ libs/rect.h util/logger.h world/biome.h

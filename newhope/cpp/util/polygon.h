@@ -11,6 +11,7 @@ template <typename T> int sgn(T val) { return (T(0) < val) - (val < T(0)); }
 
 struct Point {
 	int x, y;
+	mutable int elevation;
 
 	inline int Distance(struct Point p2) const
 	{
@@ -24,6 +25,10 @@ struct Point {
 		int dx = (p2.y-y) / 4;
 		int dy = (x-p2.x) / 4;
 		return { mx+dx, my+dy };
+	}
+
+	inline bool operator==(const Point& p) const {
+		return x == p.x && y == p.y;
 	}
 };
 
