@@ -21,6 +21,12 @@ MapBuild::MapBuild(struct MapParameters const& pars)
 
 MapBuild::~MapBuild()
 {
+	for(std::vector<Biome*>::const_iterator biome = biomes.begin();
+			biome != biomes.end(); biome++)
+		delete (*biome);
+	for(std::vector<Polygon*>::const_iterator river = rivers.begin();
+			river != rivers.end(); river++)
+		delete (*river);
 }
 
 
@@ -61,10 +67,7 @@ MapBuild::CreateCoastline()
 	
 	// create coastline
 	Polygon polygon(pts, 4);
-	polygon.Debug();
-	logger.Debug("-------");
-	polygon.MidlineDisplacement(1);
-	polygon.Debug();
+	polygon.MidlineDisplacement(4);
 	for(std::vector<Biome*>::const_iterator biome = biomes.begin();
 			biome != biomes.end(); biome++)
 	{
@@ -129,6 +132,7 @@ MapBuild::CreateElevation()
 			{
 				(*point).elevation = DistanceFromWater(
 						(*point), false);
+				(*point).elevation += rand() % 200;
 				max_alt = std::max(tot_alt, (*point).elevation);
 				tot_alt += (*point).elevation;
 			}
@@ -205,6 +209,7 @@ MapBuild::CreateRiver(Point p)
 				break;
 			if(n >= neighbours.size())
 				return;
+			logger.Debug("repeat!");
 			++n;
 		}
 	}
