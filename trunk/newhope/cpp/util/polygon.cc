@@ -40,11 +40,10 @@ Polygon::PointInPolygon(Point p) const
 	float polyX[polySides],
 	      polyY[polySides];
 
-	for(std::vector<Point>::const_iterator point = points.begin(); 
-			point != points.end(); point++)
+	for(const auto& point : points)
 	{
-		polyX[i] = (*point).x;
-		polyY[i] = (*point).y;
+		polyX[i] = point.x;
+		polyY[i] = point.y;
 		++i;
 	}
 	
@@ -133,16 +132,15 @@ Polygon::CalculateLimits() const
 	limit_x1 = limit_y1 = INT_MAX;
 	limit_x2 = limit_y2 = 0;
 
-	for(std::vector<Point>::const_iterator point = points.begin(); 
-			point != points.end(); point++)
+	for(const auto& point : points)
 	{
-		int x = (*point).x;
+		int x = point.x;
 		if(x < limit_x1)
 			limit_x1 = x;
 		if(x > limit_x2)
 			limit_x2 = x;
 
-		int y = (*point).y;
+		int y = point.y;
 		if(y < limit_y1)
 			limit_y1 = y;
 		if(y > limit_y2)
@@ -180,10 +178,9 @@ Polygon::MidlineDisplacement(int n)
 void
 Polygon::Debug() const
 {
-	for(std::vector<Point>::const_iterator point = points.begin(); 
-			point != points.end(); point++)
+	for(const auto& point : points)
 	{
-		logger.Debug("%d %d", (*point).x, (*point).y);
+		logger.Debug("%d %d", point.x, point.y);
 	}
 }
 
