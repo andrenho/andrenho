@@ -245,19 +245,5 @@ MapBuild::NeighbourPoints(Point p, std::vector<Point>& neigh_points)
 	for(std::vector<Biome*>::const_iterator biome = biomes.begin();
 			biome != biomes.end(); biome++)
 	{
-		std::vector<Point>& points = (*biome)->polygon->points;
-		if(std::find(points.begin(), points.end(), p) != points.end())
-		{
-			// point in polygon TODO - put in polygon
-			std::vector<Point>::const_iterator point;
-			for(point = points.begin(); point != points.end(); 
-					point++)
-			{
-				if(*(point+1) == p)
-					neigh_points.push_back(p);
-				else if(*(point-1) == p)
-					neigh_points.push_back(p);
-			}
-		}
 	}
 }
