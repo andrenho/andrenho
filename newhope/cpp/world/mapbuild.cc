@@ -16,6 +16,9 @@ MapBuild::MapBuild(struct MapParameters const& pars)
 	CreateLakes();
 	CreateElevation();
 	CreateRivers();
+	CreateMoisture();
+	CreateLava();
+	CreateBiomes();
 }
 
 
@@ -119,7 +122,7 @@ MapBuild::CreateElevation()
 		}
 
 	// set other tiles elevation
-	int max_alt;
+	int max_alt = 0;
 	for(std::vector<Biome*>::const_iterator biome = biomes.begin();
 			biome != biomes.end(); biome++)
 		if((*biome)->terrain != t_WATER)
@@ -133,8 +136,8 @@ MapBuild::CreateElevation()
 				(*point).elevation = DistanceFromWater(
 						(*point), false);
 				(*point).elevation += rand() % 200;
-				max_alt = std::max(tot_alt, (*point).elevation);
 				tot_alt += (*point).elevation;
+				max_alt = std::max(max_alt, (*point).elevation);
 			}
 			(*biome)->elevation = tot_alt / 
 				(*biome)->polygon->points.size();
@@ -145,8 +148,11 @@ MapBuild::CreateElevation()
 			biome != biomes.end(); biome++)
 	{
 		if((*biome)->elevation != -1)
+		{
 			(*biome)->elevation = (double)(*biome)->elevation /
 				              (double)max_alt * (double)100;
+			printf("%d ", (*biome)->elevation);
+		}
 	}
 }
 
@@ -216,6 +222,101 @@ MapBuild::CreateRiver(Point p)
 }
 
 
+void 
+MapBuild::CreateMoisture()
+{
+	logger.Debug("Generating moisture...");
+
+	// generate moisture
+	int max_moi = 0;
+	for(std::vector<Biome*>::const_iterator biome = biomes.begin();
+			biome != biomes.end(); biome++)
+		if((*biome)->terrain == t_WATER)
+			(*biome)->moisture = 0;
+		else
+		{
+			int tot_moi = 0;
+			std::vector<Point>::const_iterator point;
+			for(point = (*biome)->polygon->points.begin(); 
+				point != (*biome)->polygon->points.end(); 
+				point++)
+			{
+				int moi = DistanceFromWater((*point), true);
+				tot_moi += moi;
+				max_moi = std::max(max_moi, moi);
+			}
+			(*biome)->moisture = tot_moi / 
+				(*biome)->polygon->points.size();
+		}
+	
+	// normalize moisture
+	for(std::vector<Biome*>::const_iterator biome = biomes.begin();
+			biome != biomes.end(); biome++)
+	{
+		(*biome)->moisture = 100 - ((double)(*biome)->moisture /
+			              (double)max_moi * (double)100);
+	}
+}
+
+
+void
+MapBuild::CreateLava()
+{
+}
+
+
+void
+MapBuild::CreateBiomes()
+{
+	/*
+	 * Elev/Moist   0-30       30-60      60-100
+	 *  0-30        DIRT       EARTH      GRASS
+	 * 30-60        ROCK       GRASS      HOTFOREST
+	 * 60-100       LAVAROCK   SNOW       COLDFOREST
+	 */
+	for(std::vector<Biome*>::const_iterator biome = biomes.begin();
+			biome != biomes.end(); biome++)
+	{
+		if((*biome)->terrain == t_WATER)
+			continue;
+
+		int alt = (*biome)->elevation;
+		int moi = (*biome)->moisture;
+		TerrainType t = t_DIRT;
+		if(alt < 20)
+			t = t_DIRT;
+		else if(alt < 40)
+		{
+			if(moi < 30)
+				t = t_DIRT;
+			else if(moi < 60)
+				t = t_EARTH;
+			else
+				t = t_GRASS;
+		}
+		else if(alt < 70)
+		{
+			if(moi < 30)
+				t = t_ROCK;
+			else if(moi < 60)
+				t = t_GRASS;
+			else
+				t = t_HOTFOREST;
+		}
+		else
+		{
+			if(moi < 30)
+				t = t_LAVAROCK;
+			else if(moi < 60)
+				t = t_SNOW;
+			else
+				t = t_COLDFOREST;
+		}
+		(*biome)->terrain = t;
+	}
+}
+
+
 int 
 MapBuild::DistanceFromWater(Point const& p, bool include_rivers)
 {
@@ -237,19 +338,18 @@ MapBuild::DistanceFromWater(Point const& p, bool include_rivers)
 			}
 		}
 
-	/*
-	// distance from river
-	if(including_rivers)
-		for(int i=0; i<map->n_rivers; i++)
-			for(int j=0; j<map->rivers[i].n; j++)
+	// distance from a river
+	if(include_rivers)
+		for(std::vector<Polygon*>::const_iterator river = rivers.begin();
+				river != rivers.end(); river++)
+			for(std::vector<Point>::const_iterator point = (*river)->points.begin();
+					point != (*river)->points.end(); point++)
 			{
-				Point ps = map->rivers[i].points[j];
-				int new_dist = distance(p, ps);
+				int new_dist = (*point).Distance(p);
 				if(new_dist < dist)
 					dist = new_dist;
 			}
 
-	*/
 	assert(dist != INT_MAX);
 	return dist;
 }

@@ -31,6 +31,9 @@ private:
 	void CreateLakes();
 	void CreateElevation();
 	void CreateRivers();
+	void CreateMoisture();
+	void CreateLava();
+	void CreateBiomes();
 
 	void CreateRiver(Point p);
 	int DistanceFromWater(Point const& p, bool include_rivers);
