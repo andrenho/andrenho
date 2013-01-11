@@ -112,8 +112,6 @@ logger.o: util/logger.cc util/logger.h
 i18n.o: util/i18n.cc util/i18n.h util/logger.h
 polygon.o: util/polygon.cc util/polygon.h libs/rect.h util/point.h \
  util/logger.h
-biome.o: world/biome.cc world/biome.h world/world.h world/mapbuild.h \
- util/polygon.h libs/rect.h util/point.h
 city.o: world/city.cc
 mapbuild.o: world/mapbuild.cc world/mapbuild.h util/polygon.h libs/rect.h \
  util/point.h util/logger.h world/biome.h world/world.h
