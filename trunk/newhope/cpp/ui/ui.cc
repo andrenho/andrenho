@@ -68,7 +68,7 @@ UI::Draw()
 void 
 UI::EndFrame()
 {
-	if(video->ReachedCountDown())
-		logger.Debug("Frame delayed!");
+//	if(video->ReachedCountDown())
+//		logger.Debug("Frame delayed!");
 	video->WaitCountDown();
 }
