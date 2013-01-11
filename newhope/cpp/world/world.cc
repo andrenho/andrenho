@@ -34,10 +34,9 @@ TerrainType
 World::Terrain(int x, int y) const
 {
 	struct Point p = { x, y };
-	for(std::vector<Biome*>::const_iterator biome = map->biomes.begin();
-			biome != map->biomes.end(); biome++)
-		if((*biome)->polygon->PointInPolygon(p))
-			return (*biome)->terrain;
+	for(auto const& biome : map->biomes)
+		if(biome->polygon->PointInPolygon(p))
+			return biome->terrain;
 	return t_WATER;
 }
 
