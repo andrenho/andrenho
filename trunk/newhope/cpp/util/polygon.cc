@@ -1,6 +1,8 @@
 #include "util/polygon.h"
 
+#include <cassert>
 #include <cstdlib>
+#include <algorithm>
 #include <vector>
 
 #include "util/logger.h"
@@ -24,7 +26,7 @@ Polygon::Polygon(Rect r)
 
 
 bool 
-Polygon::ContainsPoint(Point p) const
+Polygon::PointInPolygon(Point p) const
 {
 	// prefilter
 	if(limit_x1 == INT_MAX)
@@ -183,4 +185,32 @@ Polygon::Debug() const
 	{
 		logger.Debug("%d %d", (*point).x, (*point).y);
 	}
+}
+
+
+bool 
+Polygon::ContainsPoint(Point p) const
+{
+	return std::find(points.begin(), points.end(), p) != points.end();
+}
+
+
+void 
+Polygon::NeighbourPoints(Point p, std::vector<Point>& neigh_points) const
+{
+	assert(points.size() >= 3);
+
+	auto r = std::find(points.begin(), points.end(), p);
+	if(r == points.end())
+		return;
+
+	if(*r == points.back())
+		neigh_points.push_back(points.front());
+	else
+		neigh_points.push_back(*(r+1));
+
+	if(*r == points.front())
+		neigh_points.push_back(points.back());
+	else
+		neigh_points.push_back(*(r-1));
 }

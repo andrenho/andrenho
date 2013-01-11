@@ -14,6 +14,7 @@ MapBuild::MapBuild(struct MapParameters const& pars)
 	CreatePolygons();
 	CreateCoastline();
 	CreateLakes();
+	CreateElevation();
 	CreateRivers();
 }
 
@@ -45,10 +46,10 @@ MapBuild::CreateCoastline()
 	logger.Debug("Generating map coastline...");
 
 	// middle square
-	int qw = pars.w / 6,
-	    qh = pars.h / 6;
-	struct Point pts[] = { { qw, qh }, { qw*5, qh }, 
-		{ qw*5, qh*5 }, { qw, qh*5 } };
+	int qw = pars.w / 8,
+	    qh = pars.h / 8;
+	struct Point pts[] = { { qw*2, qh*2 }, { qw*6, qh*2 }, 
+		{ qw*6, qh*6 }, { qw*2, qh*6 } };
 
 	// disturb points
 	int max_disturb = qw;
@@ -60,12 +61,15 @@ MapBuild::CreateCoastline()
 	
 	// create coastline
 	Polygon polygon(pts, 4);
-	polygon.MidlineDisplacement(3);
+	polygon.Debug();
+	logger.Debug("-------");
+	polygon.MidlineDisplacement(1);
+	polygon.Debug();
 	for(std::vector<Biome*>::const_iterator biome = biomes.begin();
 			biome != biomes.end(); biome++)
 	{
 		Point p = (*biome)->polygon->Midpoint();
-		if(!polygon.ContainsPoint(p))
+		if(!polygon.PointInPolygon(p))
 			(*biome)->terrain = t_WATER;
 	}
 }
@@ -86,7 +90,7 @@ MapBuild::CreateLakes()
 				biome != biomes.end(); biome++)
 		{
 			Point p = (*biome)->polygon->Midpoint();
-			if(lake.ContainsPoint(p))
+			if(lake.PointInPolygon(p))
 				(*biome)->terrain = t_WATER;
 		}
 	}
@@ -138,7 +142,7 @@ MapBuild::CreateElevation()
 	{
 		if((*biome)->elevation != -1)
 			(*biome)->elevation = (double)(*biome)->elevation /
-				              (double)max_alt * 100;
+				              (double)max_alt * (double)100;
 	}
 }
 
@@ -157,7 +161,7 @@ MapBuild::CreateRivers()
 		{
 			int k = rand() % biomes[b]->polygon->points.size();
 			Point p = biomes[b]->polygon->points[k];
-			if(DistanceFromWater(p, true) > 600)
+			if(DistanceFromWater(p, false) > 600)
 			{
 				CreateRiver(p);
 				--rivers_left;
@@ -171,6 +175,7 @@ void
 MapBuild::CreateRiver(Point p)
 {
 	Polygon* river = new Polygon();
+	rivers.push_back(river);
 
 	while(p.elevation != -1)
 	{
@@ -178,19 +183,25 @@ MapBuild::CreateRiver(Point p)
 		
 		// find neighbours
 		std::vector<Point> neighbours;
-		NeighbourPoints(p, neighbours);
+		for(std::vector<Biome*>::const_iterator biome = biomes.begin();
+				biome != biomes.end(); biome++)
+			if((*biome)->polygon->ContainsPoint(p))
+				(*biome)->polygon->NeighbourPoints(p, neighbours);
 		assert(neighbours.size() > 0);
+
+		// order by elevation
 		std::sort(neighbours.begin(), neighbours.end(), 
 				[](Point const& p1, Point const& p2) -> bool
 				{ return p1.elevation < p2.elevation; });
 
-		// avoid repeating points
+		// skip points already added
 		unsigned int n = 0;
 		while(true)
 		{
 			p = neighbours[n];
-			if(std::find(neighbours.begin(), neighbours.end(), p) ==
-					neighbours.end())
+			if(std::find(river->points.begin(), 
+					river->points.end(), p) == 
+					river->points.end())
 				break;
 			if(n >= neighbours.size())
 				return;
@@ -236,14 +247,4 @@ MapBuild::DistanceFromWater(Point const& p, bool include_rivers)
 	*/
 	assert(dist != INT_MAX);
 	return dist;
-}
-
-
-void 
-MapBuild::NeighbourPoints(Point p, std::vector<Point>& neigh_points)
-{
-	for(std::vector<Biome*>::const_iterator biome = biomes.begin();
-			biome != biomes.end(); biome++)
-	{
-	}
 }
