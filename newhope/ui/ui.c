@@ -139,7 +139,7 @@ static int ui_init_library(UI* ui)
 	// initialize SDL
 	if((SDL_Init(SDL_INIT_VIDEO)) != 0)
 	{
-		warnx("Could not initialize SDL: %s.", SDL_GetError());
+		logger.Warning("Could not initialize SDL: %s.", SDL_GetError());
 		return 0;
 	}
 	ui->sdl_initialized = 1;

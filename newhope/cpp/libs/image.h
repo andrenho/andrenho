@@ -4,6 +4,7 @@
 #include "libs/resource.h"
 #include "libs/colors.h"
 #include "libs/rect.h"
+#include "util/point.h"
 
 class Image : public Resource {
 public:
@@ -16,6 +17,7 @@ public:
 	virtual void Update() = 0;
 	virtual void FillBox(Color c) = 0;
 	virtual void FillBox(Rect r, Color c) = 0;
+	virtual void DrawLine(Point p1, Point p2, Color c, int w=1) = 0;
 
 	const int w, h;
 };

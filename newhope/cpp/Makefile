@@ -26,7 +26,7 @@ SRC = main.cc		   \
 TRANSLATIONS = pt_BR
 	
 OBJ = ${SRC:.cc=.o}
-HEADERS = $(filter-out main.h,${SRC:.cc=.h}) libs/graphiclibrary.h
+HEADERS = $(filter-out main.h,${SRC:.cc=.h}) libs/graphiclibrary.h util/point.h
 DIST = AUTHORS HACKING LICENSE NEWS README INSTALL
 DATA = $(wildcard data/*.png) $(wildcard data/*.ttf)
 

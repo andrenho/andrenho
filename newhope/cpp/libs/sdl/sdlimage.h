@@ -21,6 +21,7 @@ public:
 	void Update();
 	void FillBox(Color c);
 	void FillBox(Rect r, Color c);
+	void DrawLine(Point p1, Point p2, Color c, int w=1);
 
 protected:
 	struct SDL_Surface* sf;

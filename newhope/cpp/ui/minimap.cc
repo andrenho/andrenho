@@ -25,7 +25,6 @@ void
 Minimap::SetupColors()
 {
 	colors[t_WATER] = (Color) { 152, 180, 212 };
-	colors[t_WATER] = (Color) { 152, 180, 212 };
 	colors[t_DIRT] = (Color) { 0xbe, 0xa3, 0x76 };
 	colors[t_EARTH] = (Color) { 0x9e, 0x83, 0x56 };
 	colors[t_GRASS] = (Color) { 59, 122, 87 };
@@ -165,6 +164,8 @@ Minimap::DrawPaper()
 void
 Minimap::DrawMap()
 {
+	logger.Debug("Drawing biomes...");
+
 	int px, py;
 	double x, y, ps = (double)world.w / (double)sz;
 	for(x=px=0; x<world.w && px < sz; x+=ps, px++)
@@ -183,6 +184,19 @@ Minimap::DrawMap()
 void
 Minimap::DrawRivers()
 {
+	logger.Debug("Drawing rivers...");
+
+	double ps = (double)world.w / (double)sz;
+	for(std::vector<Polygon*>::const_iterator river = world.map->rivers.begin();
+			river != world.map->rivers.end(); river++)
+		for(unsigned int i=0; i<(*river)->points.size()-1; i++)
+		{
+			Point p1 = (*river)->points[i];
+			Point p2 = (*river)->points[i+1];
+			p1 = { (double)p1.x/ps, (double)p1.y/ps };
+			p2 = { (double)p2.x/ps, (double)p2.y/ps };
+			image->DrawLine(p1, p2, colors[t_WATER], 2);
+		}
 }
 
 

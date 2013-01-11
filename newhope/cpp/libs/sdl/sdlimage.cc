@@ -2,6 +2,7 @@
 
 #include <cstdlib>
 #include <stdint.h>
+#include <algorithm>
 #include <png.h>
 #include "SDL.h"
 
@@ -154,9 +155,10 @@ SDLImage::SurfaceFromPNGAlpha(Rect const& r, png_bytep* row_pointers,
 inline void 
 SDLImage::SetPixel(int x, int y, Color c)
 {
-	// TODO - too slow!
-	Uint32 color = SDL_MapRGB(sf->format, c.r, c.g, c.b);
-
+	SDL_PixelFormat *fmt = sf->format;
+	Uint32 color = (c.r >> fmt->Rloss) << fmt->Rshift
+		| (c.g >> fmt->Gloss) << fmt->Gshift
+		| (c.b >> fmt->Bloss) << fmt->Bshift | fmt->Amask;
 	Uint8 *p = (Uint8*)sf->pixels + (y * sf->pitch) + (x * 4);
 	*(Uint32*)p = color;
 }
@@ -185,6 +187,47 @@ SDLImage::FillBox(Rect r, Color c)
 	SDL_Rect rect = { (Sint16)r.x, (Sint16)r.y, (Uint16)r.w, (Uint16)r.h };
 	Uint32 color = SDL_MapRGB(sf->format, c.r, c.g, c.b);
 	SDL_FillRect(sf, &rect, color);
+}
+
+
+void 
+SDLImage::DrawLine(Point p1, Point p2, Color c, int line_width)
+{
+	int x0 = std::min(std::max(p1.x, 0), this->w - line_width),
+	    y0 = std::min(std::max(p1.y, 0), this->h - line_width),
+	    x1 = std::min(p2.x, this->w - line_width),
+	    y1 = std::min(p2.y, this->h - line_width);
+	Uint32 color = SDL_MapRGB(sf->format, c.r, c.g, c.b);
+	int dx = abs(x1-x0), sx = x0<x1 ? 1 : -1;
+	int dy = abs(y1-y0), sy = y0<y1 ? 1 : -1;
+	int err = (dx>dy ? dx : -dy)/2, e2;
+
+	for(;;)
+	{
+		int xx = 0; //rand() % w;
+		int yy = 0; //rand() % w;
+		for(int x=0; x<line_width; x++)
+			for(int y=0; y<line_width; y++)
+			{
+				Uint8 *p = (Uint8*)sf->pixels 
+						+ ((y0+y+yy) * sf->pitch)
+						+ ((x0+x+xx) * 4);
+				*(Uint32*)p = color;
+			}
+		if(x0 == x1 && y0 == y1)
+			break;
+		e2 = err;
+		if(e2 > -dx)
+		{
+			err -= dy;
+			x0 += sx;
+		}
+		if(e2 < dy)
+		{
+			err += dx;
+			y0 += sy;
+		}
+	}
 }
 
 

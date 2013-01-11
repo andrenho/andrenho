@@ -34,7 +34,6 @@ private:
 
 	void CreateRiver(Point p);
 	int DistanceFromWater(Point const& p, bool include_rivers);
-	void NeighbourPoints(Point p, std::vector<Point>& points);
 
 	struct MapParameters const& pars;
 };

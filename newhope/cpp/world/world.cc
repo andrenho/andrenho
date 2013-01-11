@@ -15,7 +15,7 @@ World::World(int w, int h) :
 		.seed = 4,
 		.w = w,
 		.h = h,
-		.n_rivers = 15,
+		.n_rivers = 12,
 		.n_cities = 25,
 		.n_roads = 10,
 	};
@@ -36,7 +36,7 @@ World::Terrain(int x, int y) const
 	struct Point p = { x, y };
 	for(std::vector<Biome*>::const_iterator biome = map->biomes.begin();
 			biome != map->biomes.end(); biome++)
-		if((*biome)->polygon->ContainsPoint(p))
+		if((*biome)->polygon->PointInPolygon(p))
 			return (*biome)->terrain;
 	return t_WATER;
 }
