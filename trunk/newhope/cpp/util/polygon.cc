@@ -53,8 +53,8 @@ Polygon::PointInPolygon(Point p) const
 
 	for(i=0; i<polySides; i++)
 	{
-		if((polyY[i] < p.y && polyY[j] >= p.y
-		||  polyY[j] < p.y && polyY[i] >= p.y)
+		if(((polyY[i] < p.y && polyY[j] >= p.y)
+		||  (polyY[j] < p.y && polyY[i] >= p.y))
 		&& (polyX[i] <= p.x || polyX[j] <= p.x))
 			oddNodes ^= (polyX[i] + (p.y - polyY[i]) /
 						(polyY[j] - polyY[i]) *
@@ -101,7 +101,7 @@ void Polygon::FakeVoronoi(unsigned int seed, int w, int h, int density,
 			points[x][y].y += (rand() % max_disturb) - max_disturb/2;
 		}
 
-	// generate polygons
+	// connect points
 	for(x=0; x<(max_x-1); x++)
 		for(y=0; y<(max_y-1); y++)
 		{
@@ -210,4 +210,14 @@ Polygon::NeighbourPoints(Point p, std::vector<Point>& neigh_points) const
 		neigh_points.push_back(points.back());
 	else
 		neigh_points.push_back(*(r-1));
+}
+
+
+bool 
+Polygon::IsTouching(Polygon const& poly)
+{
+	for(auto const& p: poly.points)
+		if(std::find(points.begin(), points.end(), p) != points.end())
+			return true;
+	return false;
 }

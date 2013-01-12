@@ -7,6 +7,7 @@
 #include "util/logger.h"
 #include "util/polygon.h"
 #include "world/biome.h"
+#include "world/city.h"
 
 MapBuild::MapBuild(struct MapParameters const& pars)
 	: pars(pars)
@@ -19,15 +20,18 @@ MapBuild::MapBuild(struct MapParameters const& pars)
 	CreateMoisture();
 	CreateLava();
 	CreateBiomes();
+	CreateCities();
 }
 
 
 MapBuild::~MapBuild()
 {
+	for(const auto& city : cities)
+		delete city;
+	for(const auto& river : rivers)
+		delete river;
 	for(const auto& biome : biomes)
 		delete biome;
-	for(const auto& river: rivers)
-		delete river;
 }
 
 
@@ -294,6 +298,34 @@ MapBuild::CreateBiomes()
 }
 
 
+void
+MapBuild::CreateCities()
+{
+	for(int i=0; i<pars.n_cities; i++)
+	{
+		// check if it's not in the sea
+		int b;
+try_again:
+		do 
+		{
+			b = rand() % biomes.size();
+		} while(biomes[b]->terrain == t_WATER);
+
+		// check if neighbours don't have a city already
+		std::vector<Biome const*> neighbours;
+		BiomeNeighbours(*biomes[b], neighbours);
+		for(auto const& neigh: neighbours)
+			if(neigh->has_city)
+				goto try_again;
+
+		// add city
+		Point pos = biomes[b]->polygon->Midpoint();
+		cities.push_back(new City(pos));
+		biomes[b]->has_city = true;
+	}
+}
+
+
 int 
 MapBuild::DistanceFromWater(Point const& p, bool include_rivers)
 {
@@ -323,4 +355,22 @@ MapBuild::DistanceFromWater(Point const& p, bool include_rivers)
 
 	assert(dist != INT_MAX);
 	return dist;
+}
+
+
+bool 
+MapBuild::AreNeighbours(Biome const& b1, Biome const& b2)
+{
+	std::vector<Biome const*> neigh;
+	BiomeNeighbours(b1, neigh);
+	return std::find(neigh.begin(), neigh.end(), &b2) != neigh.end();
+}
+
+
+void 
+MapBuild::BiomeNeighbours(Biome const& biome, std::vector<Biome const*>& biomes)
+{
+	for(auto const& b: this->biomes)
+		if(biome.polygon->IsTouching(*b->polygon) && &biome != b)
+			biomes.push_back(b);
 }

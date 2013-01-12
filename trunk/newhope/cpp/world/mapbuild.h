@@ -7,6 +7,7 @@
 #include "util/polygon.h"
 
 class Biome;
+class City;
 
 struct MapParameters {
 	unsigned int seed;
@@ -24,6 +25,7 @@ public:
 
 	std::vector<Biome*> biomes;
 	std::vector<Polygon*> rivers;
+	std::vector<City*> cities;
 
 private:
 	void CreatePolygons();
@@ -34,9 +36,13 @@ private:
 	void CreateMoisture();
 	void CreateLava();
 	void CreateBiomes();
+	void CreateCities();
 
 	void CreateRiver(Point p);
 	int DistanceFromWater(Point const& p, bool include_rivers);
+	bool AreNeighbours(Biome const& b1, Biome const& b2);
+	void BiomeNeighbours(Biome const& biome, 
+			std::vector<Biome const*>& biomes);
 
 	struct MapParameters const& pars;
 };
