@@ -14,6 +14,36 @@
    <insert_a_suppression_name_here>
    Memcheck:Leak
    fun:malloc
+   fun:_XlcCreateLC
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:_XlcCurrentLC
+   obj:/usr/lib/libSDL-1.2.so.0.11.4
+   fun:SDL_VideoInit
+   fun:SDL_InitSubSystem
+   fun:_ZN2UIC1ERK5World
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:malloc
+   fun:strdup
+   fun:_XlcResolveLocaleName
+   obj:/usr/lib/libX11.so.6.3.0
+   obj:/usr/lib/libX11.so.6.3.0
+   fun:_XlcCreateLC
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:_XlcCurrentLC
+   obj:/usr/lib/libSDL-1.2.so.0.11.4
+   fun:SDL_VideoInit
+   fun:SDL_InitSubSystem
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:malloc
    fun:_XimOpenIM
    fun:XOpenIM
    obj:/usr/lib/libSDL-1.2.so.0.11.4
@@ -27,30 +57,32 @@
    Memcheck:Leak
    fun:malloc
    fun:strdup
-   fun:memcpy
+   obj:*
 }
 {
    <insert_a_suppression_name_here>
    Memcheck:Leak
-   fun:malloc
-   fun:_XlcCreateDefaultCharSet
+   fun:realloc
    obj:/usr/lib/libX11.so.6.3.0
-   obj:*
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:malloc
-   fun:_XlcCreateDefaultCharSet
-   obj:*
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:calloc
+   obj:/usr/lib/libX11.so.6.3.0
    obj:/usr/lib/libX11.so.6.3.0
    fun:_XlcCreateLC
-   fun:_XlcUtf8Loader
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:_XlcCurrentLC
+   obj:/usr/lib/libSDL-1.2.so.0.11.4
+   fun:SDL_VideoInit
+   fun:SDL_InitSubSystem
+   fun:_ZN2UIC1ERK5World
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:malloc
+   obj:/usr/lib/libX11.so.6.3.0
+   obj:/usr/lib/libX11.so.6.3.0
+   fun:_XlcCreateLC
+   fun:_XlcDefaultLoader
    fun:_XOpenLC
    fun:_XlcCurrentLC
    obj:/usr/lib/libSDL-1.2.so.0.11.4
@@ -62,9 +94,10 @@
 {
    <insert_a_suppression_name_here>
    Memcheck:Leak
-   fun:malloc
+   fun:calloc
+   obj:/usr/lib/libX11.so.6.3.0
    fun:_XlcCreateLC
-   fun:_XlcUtf8Loader
+   fun:_XlcDefaultLoader
    fun:_XOpenLC
    fun:_XlcCurrentLC
    obj:/usr/lib/libSDL-1.2.so.0.11.4
@@ -121,7 +154,7 @@
    <insert_a_suppression_name_here>
    Memcheck:Leak
    fun:calloc
-   obj:/usr/lib/libdl-2.16.so
+   obj:/usr/lib/libdl-2.17.so
    obj:*
 }
 {
@@ -132,7 +165,7 @@
    obj:/usr/lib/libX11.so.6.3.0
    obj:/usr/lib/libX11.so.6.3.0
    fun:_XlcCreateLC
-   fun:_XlcUtf8Loader
+   fun:_XlcDefaultLoader
    fun:_XOpenLC
    fun:_XlcCurrentLC
    obj:/usr/lib/libSDL-1.2.so.0.11.4
@@ -148,7 +181,7 @@
    fun:_dl_map_object
    fun:dl_open_worker
    fun:_dl_catch_error
-   obj:/usr/lib/libdl-2.16.so
+   obj:/usr/lib/libdl-2.17.so
    fun:_dl_catch_error
    obj:*
 }
@@ -161,25 +194,9 @@
    fun:_dl_map_object
    fun:dl_open_worker
    fun:_dl_catch_error
-   obj:/usr/lib/libdl-2.16.so
+   obj:/usr/lib/libdl-2.17.so
    fun:_dl_catch_error
    obj:*
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:realloc
-   fun:_XlcResolveLocaleName
-   obj:/usr/lib/libX11.so.6.3.0
-   obj:/usr/lib/libX11.so.6.3.0
-   fun:_XlcCreateLC
-   fun:_XlcUtf8Loader
-   fun:_XOpenLC
-   fun:_XlcCurrentLC
-   obj:/usr/lib/libSDL-1.2.so.0.11.4
-   fun:SDL_VideoInit
-   fun:SDL_InitSubSystem
-   fun:_ZN2UIC1ERK5World
 }
 {
    <insert_a_suppression_name_here>
@@ -197,7 +214,7 @@
    fun:_dl_map_object
    fun:dl_open_worker
    fun:_dl_catch_error
-   obj:/usr/lib/libdl-2.16.so
+   obj:/usr/lib/libdl-2.17.so
    fun:_dl_catch_error
 }
 {
@@ -209,32 +226,8 @@
    fun:_dl_map_object
    fun:dl_open_worker
    fun:_dl_catch_error
-   obj:/usr/lib/libdl-2.16.so
+   obj:/usr/lib/libdl-2.17.so
    fun:_dl_catch_error
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:malloc
-   fun:_XlcCreateDefaultCharSet
-   obj:/usr/lib/libX11.so.6.3.0
-   obj:*
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:malloc
-   fun:_XlcSetConverter
-   fun:_XlcInitCTInfo
-   obj:/usr/lib/libX11.so.6.3.0
-   obj:/usr/lib/libX11.so.6.3.0
-   fun:_XlcCreateLC
-   fun:_XlcUtf8Loader
-   fun:_XOpenLC
-   fun:_XlcCurrentLC
-   obj:/usr/lib/libSDL-1.2.so.0.11.4
-   fun:SDL_VideoInit
-   fun:SDL_InitSubSystem
 }
 {
    <insert_a_suppression_name_here>
@@ -305,372 +298,7 @@
    Memcheck:Leak
    fun:malloc
    fun:_XlcSetConverter
-   fun:_XlcAddUtf8LocaleConverters
-   fun:_XlcUtf8Loader
-   fun:_XOpenLC
-   fun:_XlcCurrentLC
-   obj:/usr/lib/libSDL-1.2.so.0.11.4
-   fun:SDL_VideoInit
-   fun:SDL_InitSubSystem
-   fun:_ZN2UIC1ERK5World
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:malloc
-   fun:_XlcSetConverter
-   fun:_XlcAddUtf8LocaleConverters
-   fun:_XlcUtf8Loader
-   fun:_XOpenLC
-   fun:_XlcCurrentLC
-   obj:/usr/lib/libSDL-1.2.so.0.11.4
-   fun:SDL_VideoInit
-   fun:SDL_InitSubSystem
-   fun:_ZN2UIC1ERK5World
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:malloc
-   fun:_XlcSetConverter
-   fun:_XlcAddUtf8LocaleConverters
-   fun:_XlcUtf8Loader
-   fun:_XOpenLC
-   fun:_XlcCurrentLC
-   obj:/usr/lib/libSDL-1.2.so.0.11.4
-   fun:SDL_VideoInit
-   fun:SDL_InitSubSystem
-   fun:_ZN2UIC1ERK5World
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:malloc
-   fun:_XlcSetConverter
-   fun:_XlcAddUtf8LocaleConverters
-   fun:_XlcUtf8Loader
-   fun:_XOpenLC
-   fun:_XlcCurrentLC
-   obj:/usr/lib/libSDL-1.2.so.0.11.4
-   fun:SDL_VideoInit
-   fun:SDL_InitSubSystem
-   fun:_ZN2UIC1ERK5World
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:malloc
-   fun:_XlcSetConverter
-   fun:_XlcAddUtf8LocaleConverters
-   fun:_XlcUtf8Loader
-   fun:_XOpenLC
-   fun:_XlcCurrentLC
-   obj:/usr/lib/libSDL-1.2.so.0.11.4
-   fun:SDL_VideoInit
-   fun:SDL_InitSubSystem
-   fun:_ZN2UIC1ERK5World
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:malloc
-   fun:_XlcSetConverter
-   fun:_XlcAddUtf8LocaleConverters
-   fun:_XlcUtf8Loader
-   fun:_XOpenLC
-   fun:_XlcCurrentLC
-   obj:/usr/lib/libSDL-1.2.so.0.11.4
-   fun:SDL_VideoInit
-   fun:SDL_InitSubSystem
-   fun:_ZN2UIC1ERK5World
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:malloc
-   fun:_XlcSetConverter
-   fun:_XlcAddUtf8LocaleConverters
-   fun:_XlcUtf8Loader
-   fun:_XOpenLC
-   fun:_XlcCurrentLC
-   obj:/usr/lib/libSDL-1.2.so.0.11.4
-   fun:SDL_VideoInit
-   fun:SDL_InitSubSystem
-   fun:_ZN2UIC1ERK5World
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:malloc
-   fun:_XlcSetConverter
-   fun:_XlcAddUtf8LocaleConverters
-   fun:_XlcUtf8Loader
-   fun:_XOpenLC
-   fun:_XlcCurrentLC
-   obj:/usr/lib/libSDL-1.2.so.0.11.4
-   fun:SDL_VideoInit
-   fun:SDL_InitSubSystem
-   fun:_ZN2UIC1ERK5World
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:malloc
-   fun:_XlcSetConverter
-   fun:_XlcAddUtf8LocaleConverters
-   fun:_XlcUtf8Loader
-   fun:_XOpenLC
-   fun:_XlcCurrentLC
-   obj:/usr/lib/libSDL-1.2.so.0.11.4
-   fun:SDL_VideoInit
-   fun:SDL_InitSubSystem
-   fun:_ZN2UIC1ERK5World
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:malloc
-   fun:_XlcSetConverter
-   fun:_XlcAddUtf8LocaleConverters
-   fun:_XlcUtf8Loader
-   fun:_XOpenLC
-   fun:_XlcCurrentLC
-   obj:/usr/lib/libSDL-1.2.so.0.11.4
-   fun:SDL_VideoInit
-   fun:SDL_InitSubSystem
-   fun:_ZN2UIC1ERK5World
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:malloc
-   fun:_XlcSetConverter
-   fun:_XlcAddUtf8LocaleConverters
-   fun:_XlcUtf8Loader
-   fun:_XOpenLC
-   fun:_XlcCurrentLC
-   obj:/usr/lib/libSDL-1.2.so.0.11.4
-   fun:SDL_VideoInit
-   fun:SDL_InitSubSystem
-   fun:_ZN2UIC1ERK5World
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:malloc
-   fun:_XlcSetConverter
-   fun:_XlcAddUtf8LocaleConverters
-   fun:_XlcUtf8Loader
-   fun:_XOpenLC
-   fun:_XlcCurrentLC
-   obj:/usr/lib/libSDL-1.2.so.0.11.4
-   fun:SDL_VideoInit
-   fun:SDL_InitSubSystem
-   fun:_ZN2UIC1ERK5World
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:malloc
-   fun:_XlcSetConverter
-   fun:_XlcAddUtf8LocaleConverters
-   fun:_XlcUtf8Loader
-   fun:_XOpenLC
-   fun:_XlcCurrentLC
-   obj:/usr/lib/libSDL-1.2.so.0.11.4
-   fun:SDL_VideoInit
-   fun:SDL_InitSubSystem
-   fun:_ZN2UIC1ERK5World
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:malloc
-   fun:_XlcSetConverter
-   fun:_XlcAddUtf8LocaleConverters
-   fun:_XlcUtf8Loader
-   fun:_XOpenLC
-   fun:_XlcCurrentLC
-   obj:/usr/lib/libSDL-1.2.so.0.11.4
-   fun:SDL_VideoInit
-   fun:SDL_InitSubSystem
-   fun:_ZN2UIC1ERK5World
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:malloc
-   fun:_XlcSetConverter
-   fun:_XlcAddUtf8LocaleConverters
-   fun:_XlcUtf8Loader
-   fun:_XOpenLC
-   fun:_XlcCurrentLC
-   obj:/usr/lib/libSDL-1.2.so.0.11.4
-   fun:SDL_VideoInit
-   fun:SDL_InitSubSystem
-   fun:_ZN2UIC1ERK5World
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:malloc
-   fun:_XlcSetConverter
-   fun:_XlcAddUtf8LocaleConverters
-   fun:_XlcUtf8Loader
-   fun:_XOpenLC
-   fun:_XlcCurrentLC
-   obj:/usr/lib/libSDL-1.2.so.0.11.4
-   fun:SDL_VideoInit
-   fun:SDL_InitSubSystem
-   fun:_ZN2UIC1ERK5World
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:malloc
-   fun:_XlcSetConverter
-   fun:_XlcAddUtf8Converters
-   fun:_XlcUtf8Loader
-   fun:_XOpenLC
-   fun:_XlcCurrentLC
-   obj:/usr/lib/libSDL-1.2.so.0.11.4
-   fun:SDL_VideoInit
-   fun:SDL_InitSubSystem
-   fun:_ZN2UIC1ERK5World
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:malloc
-   fun:_XlcSetConverter
-   fun:_XlcAddUtf8Converters
-   fun:_XlcUtf8Loader
-   fun:_XOpenLC
-   fun:_XlcCurrentLC
-   obj:/usr/lib/libSDL-1.2.so.0.11.4
-   fun:SDL_VideoInit
-   fun:SDL_InitSubSystem
-   fun:_ZN2UIC1ERK5World
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:malloc
-   fun:_XlcSetConverter
-   fun:_XlcAddUtf8Converters
-   fun:_XlcUtf8Loader
-   fun:_XOpenLC
-   fun:_XlcCurrentLC
-   obj:/usr/lib/libSDL-1.2.so.0.11.4
-   fun:SDL_VideoInit
-   fun:SDL_InitSubSystem
-   fun:_ZN2UIC1ERK5World
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:malloc
-   fun:_XlcSetConverter
-   fun:_XlcAddUtf8Converters
-   fun:_XlcUtf8Loader
-   fun:_XOpenLC
-   fun:_XlcCurrentLC
-   obj:/usr/lib/libSDL-1.2.so.0.11.4
-   fun:SDL_VideoInit
-   fun:SDL_InitSubSystem
-   fun:_ZN2UIC1ERK5World
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:malloc
-   fun:_XlcSetConverter
-   fun:_XlcAddUtf8Converters
-   fun:_XlcUtf8Loader
-   fun:_XOpenLC
-   fun:_XlcCurrentLC
-   obj:/usr/lib/libSDL-1.2.so.0.11.4
-   fun:SDL_VideoInit
-   fun:SDL_InitSubSystem
-   fun:_ZN2UIC1ERK5World
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:malloc
-   fun:_XlcSetConverter
-   fun:_XlcAddUtf8Converters
-   fun:_XlcUtf8Loader
-   fun:_XOpenLC
-   fun:_XlcCurrentLC
-   obj:/usr/lib/libSDL-1.2.so.0.11.4
-   fun:SDL_VideoInit
-   fun:SDL_InitSubSystem
-   fun:_ZN2UIC1ERK5World
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:malloc
-   fun:_XlcSetConverter
-   fun:_XlcAddUtf8Converters
-   fun:_XlcUtf8Loader
-   fun:_XOpenLC
-   fun:_XlcCurrentLC
-   obj:/usr/lib/libSDL-1.2.so.0.11.4
-   fun:SDL_VideoInit
-   fun:SDL_InitSubSystem
-   fun:_ZN2UIC1ERK5World
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:malloc
-   fun:_XlcCreateDefaultCharSet
-   obj:/usr/lib/libX11.so.6.3.0
-   obj:*
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:malloc
-   fun:_XlcCreateDefaultCharSet
-   obj:*
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:malloc
-   fun:_XlcCreateDefaultCharSet
-   obj:*
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:realloc
+   fun:_XlcInitCTInfo
    obj:/usr/lib/libX11.so.6.3.0
    obj:/usr/lib/libX11.so.6.3.0
    fun:_XlcCreateLC
@@ -680,6 +308,18 @@
    obj:/usr/lib/libSDL-1.2.so.0.11.4
    fun:SDL_VideoInit
    fun:SDL_InitSubSystem
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:_XlcCurrentLC
+   obj:/usr/lib/libSDL-1.2.so.0.11.4
+   fun:SDL_VideoInit
+   fun:SDL_InitSubSystem
    fun:_ZN2UIC1ERK5World
    fun:main
 }
@@ -687,17 +327,246 @@
    <insert_a_suppression_name_here>
    Memcheck:Leak
    fun:malloc
-   fun:_XlcAddCharSet
-   obj:/usr/lib/libX11.so.6.3.0
-   obj:/usr/lib/libX11.so.6.3.0
-   fun:_XlcCreateLC
-   fun:_XlcUtf8Loader
+   fun:_XlcSetConverter
+   fun:_XlcDefaultLoader
    fun:_XOpenLC
    fun:_XlcCurrentLC
    obj:/usr/lib/libSDL-1.2.so.0.11.4
    fun:SDL_VideoInit
    fun:SDL_InitSubSystem
    fun:_ZN2UIC1ERK5World
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:_XlcCurrentLC
+   obj:/usr/lib/libSDL-1.2.so.0.11.4
+   fun:SDL_VideoInit
+   fun:SDL_InitSubSystem
+   fun:_ZN2UIC1ERK5World
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:_XlcCurrentLC
+   obj:/usr/lib/libSDL-1.2.so.0.11.4
+   fun:SDL_VideoInit
+   fun:SDL_InitSubSystem
+   fun:_ZN2UIC1ERK5World
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:_XlcCurrentLC
+   obj:/usr/lib/libSDL-1.2.so.0.11.4
+   fun:SDL_VideoInit
+   fun:SDL_InitSubSystem
+   fun:_ZN2UIC1ERK5World
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:_XlcCurrentLC
+   obj:/usr/lib/libSDL-1.2.so.0.11.4
+   fun:SDL_VideoInit
+   fun:SDL_InitSubSystem
+   fun:_ZN2UIC1ERK5World
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:_XlcCurrentLC
+   obj:/usr/lib/libSDL-1.2.so.0.11.4
+   fun:SDL_VideoInit
+   fun:SDL_InitSubSystem
+   fun:_ZN2UIC1ERK5World
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:_XlcCurrentLC
+   obj:/usr/lib/libSDL-1.2.so.0.11.4
+   fun:SDL_VideoInit
+   fun:SDL_InitSubSystem
+   fun:_ZN2UIC1ERK5World
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:_XlcCurrentLC
+   obj:/usr/lib/libSDL-1.2.so.0.11.4
+   fun:SDL_VideoInit
+   fun:SDL_InitSubSystem
+   fun:_ZN2UIC1ERK5World
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:_XlcCurrentLC
+   obj:/usr/lib/libSDL-1.2.so.0.11.4
+   fun:SDL_VideoInit
+   fun:SDL_InitSubSystem
+   fun:_ZN2UIC1ERK5World
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:_XlcCurrentLC
+   obj:/usr/lib/libSDL-1.2.so.0.11.4
+   fun:SDL_VideoInit
+   fun:SDL_InitSubSystem
+   fun:_ZN2UIC1ERK5World
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcAddUtf8Converters
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:_XlcCurrentLC
+   obj:/usr/lib/libSDL-1.2.so.0.11.4
+   fun:SDL_VideoInit
+   fun:SDL_InitSubSystem
+   fun:_ZN2UIC1ERK5World
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcAddUtf8Converters
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:_XlcCurrentLC
+   obj:/usr/lib/libSDL-1.2.so.0.11.4
+   fun:SDL_VideoInit
+   fun:SDL_InitSubSystem
+   fun:_ZN2UIC1ERK5World
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcAddUtf8Converters
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:_XlcCurrentLC
+   obj:/usr/lib/libSDL-1.2.so.0.11.4
+   fun:SDL_VideoInit
+   fun:SDL_InitSubSystem
+   fun:_ZN2UIC1ERK5World
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcAddUtf8Converters
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:_XlcCurrentLC
+   obj:/usr/lib/libSDL-1.2.so.0.11.4
+   fun:SDL_VideoInit
+   fun:SDL_InitSubSystem
+   fun:_ZN2UIC1ERK5World
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcAddUtf8Converters
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:_XlcCurrentLC
+   obj:/usr/lib/libSDL-1.2.so.0.11.4
+   fun:SDL_VideoInit
+   fun:SDL_InitSubSystem
+   fun:_ZN2UIC1ERK5World
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcAddUtf8Converters
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:_XlcCurrentLC
+   obj:/usr/lib/libSDL-1.2.so.0.11.4
+   fun:SDL_VideoInit
+   fun:SDL_InitSubSystem
+   fun:_ZN2UIC1ERK5World
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:malloc
+   fun:_XlcSetConverter
+   fun:_XlcAddUtf8Converters
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:_XlcCurrentLC
+   obj:/usr/lib/libSDL-1.2.so.0.11.4
+   fun:SDL_VideoInit
+   fun:SDL_InitSubSystem
+   fun:_ZN2UIC1ERK5World
+   fun:main
 }
 {
    <insert_a_suppression_name_here>
@@ -718,20 +587,13 @@
 {
    <insert_a_suppression_name_here>
    Memcheck:Leak
-   fun:calloc
-   fun:_XlcCreateDefaultCharSet
-   obj:*
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
    fun:malloc
    fun:local_strdup
    fun:_dl_map_object
    fun:openaux
    fun:dl_open_worker
    fun:_dl_catch_error
-   obj:/usr/lib/libdl-2.16.so
+   obj:/usr/lib/libdl-2.17.so
    fun:_dl_catch_error
 }
 {
@@ -744,56 +606,8 @@
    fun:openaux
    fun:dl_open_worker
    fun:_dl_catch_error
-   obj:/usr/lib/libdl-2.16.so
+   obj:/usr/lib/libdl-2.17.so
    fun:_dl_catch_error
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:realloc
-   obj:/usr/lib/libX11.so.6.3.0
-   obj:/usr/lib/libX11.so.6.3.0
-   obj:/usr/lib/libX11.so.6.3.0
-   fun:_XlcCreateLocaleDataBase
-   obj:/usr/lib/libX11.so.6.3.0
-   obj:/usr/lib/libX11.so.6.3.0
-   fun:_XlcCreateLC
-   fun:_XlcUtf8Loader
-   fun:_XOpenLC
-   fun:_XlcCurrentLC
-   obj:/usr/lib/libSDL-1.2.so.0.11.4
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:malloc
-   obj:/usr/lib/libX11.so.6.3.0
-   obj:/usr/lib/libX11.so.6.3.0
-   fun:_XlcCreateLC
-   fun:_XlcUtf8Loader
-   fun:_XOpenLC
-   fun:_XlcCurrentLC
-   obj:/usr/lib/libSDL-1.2.so.0.11.4
-   fun:SDL_VideoInit
-   fun:SDL_InitSubSystem
-   fun:_ZN2UIC1ERK5World
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:malloc
-   obj:/usr/lib/libX11.so.6.3.0
-   obj:/usr/lib/libX11.so.6.3.0
-   fun:XrmGetStringDatabase
-   obj:/usr/lib/libX11.so.6.3.0
-   fun:XGetDefault
-   fun:_XcursorGetDisplayInfo
-   fun:XcursorSupportsARGB
-   fun:XcursorNoticeCreateBitmap
-   fun:_XNoticeCreateBitmap
-   fun:XCreatePixmap
-   obj:/usr/lib/libSDL-1.2.so.0.11.4
 }
 {
    <insert_a_suppression_name_here>
@@ -804,7 +618,7 @@
    fun:openaux
    fun:dl_open_worker
    fun:_dl_catch_error
-   obj:/usr/lib/libdl-2.16.so
+   obj:/usr/lib/libdl-2.17.so
    fun:_dl_catch_error
    obj:*
 }
@@ -818,33 +632,17 @@
    fun:openaux
    fun:dl_open_worker
    fun:_dl_catch_error
-   obj:/usr/lib/libdl-2.16.so
+   obj:/usr/lib/libdl-2.17.so
    fun:_dl_catch_error
    obj:*
 }
 {
    <insert_a_suppression_name_here>
    Memcheck:Leak
-   fun:realloc
-   obj:/usr/lib/libX11.so.6.3.0
-   obj:/usr/lib/libX11.so.6.3.0
-   obj:/usr/lib/libX11.so.6.3.0
-   fun:_XlcCreateLC
-   fun:_XlcUtf8Loader
-   fun:_XOpenLC
-   fun:_XlcCurrentLC
-   obj:/usr/lib/libSDL-1.2.so.0.11.4
-   fun:SDL_VideoInit
-   fun:SDL_InitSubSystem
-   fun:_ZN2UIC1ERK5World
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
    fun:malloc
    obj:/usr/lib/libX11.so.6.3.0
    fun:_XlcCreateLC
-   fun:_XlcUtf8Loader
+   fun:_XlcDefaultLoader
    fun:_XOpenLC
    fun:_XlcCurrentLC
    obj:/usr/lib/libSDL-1.2.so.0.11.4
@@ -859,7 +657,7 @@
    fun:calloc
    obj:/usr/lib/libX11.so.6.3.0
    fun:_XlcCreateLC
-   fun:_XlcUtf8Loader
+   fun:_XlcDefaultLoader
    fun:_XOpenLC
    fun:_XlcCurrentLC
    obj:/usr/lib/libSDL-1.2.so.0.11.4
@@ -872,25 +670,17 @@
    <insert_a_suppression_name_here>
    Memcheck:Leak
    fun:calloc
-   fun:_XlcCreateDefaultCharSet
-   obj:*
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:calloc
-   fun:_XlcCreateDefaultCharSet
-   obj:*
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:malloc
-   fun:realloc
-   fun:SDL_CreateThread
-   fun:_ZN7Minimap5ResetEv
+   obj:/usr/lib/libX11.so.6.3.0
+   obj:/usr/lib/libX11.so.6.3.0
+   obj:/usr/lib/libX11.so.6.3.0
+   fun:_XlcCreateLC
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:_XlcCurrentLC
+   obj:/usr/lib/libSDL-1.2.so.0.11.4
+   fun:SDL_VideoInit
+   fun:SDL_InitSubSystem
    fun:_ZN2UIC1ERK5World
-   fun:main
 }
 {
    <insert_a_suppression_name_here>
@@ -898,9 +688,9 @@
    fun:malloc
    fun:_dl_close_worker
    fun:_dl_close
-   obj:/usr/lib/libdl-2.16.so
+   obj:/usr/lib/libdl-2.17.so
    fun:_dl_catch_error
-   obj:/usr/lib/libdl-2.16.so
+   obj:/usr/lib/libdl-2.17.so
    fun:dlclose
    fun:_ZN3SDLD0Ev
    fun:_ZN2UID1Ev
@@ -909,20 +699,7 @@
 {
    <insert_a_suppression_name_here>
    Memcheck:Leak
-   fun:calloc
-   fun:allocate_dtv
-   fun:_dl_allocate_tls
-   fun:pthread_create@@GLIBC_2.1
-   obj:/usr/lib/libSDL-1.2.so.0.11.4
-   fun:SDL_CreateThread
-   fun:_ZN7Minimap5ResetEv
-   fun:_ZN2UIC1ERK5World
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:realloc
+   fun:malloc
    obj:/usr/lib/libX11.so.6.3.0
    obj:/usr/lib/libX11.so.6.3.0
    obj:/usr/lib/libX11.so.6.3.0
@@ -930,7 +707,39 @@
    obj:/usr/lib/libX11.so.6.3.0
    obj:/usr/lib/libX11.so.6.3.0
    fun:_XlcCreateLC
-   fun:_XlcUtf8Loader
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:_XlcCurrentLC
+   obj:/usr/lib/libSDL-1.2.so.0.11.4
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:malloc
+   obj:/usr/lib/libX11.so.6.3.0
+   obj:/usr/lib/libX11.so.6.3.0
+   obj:/usr/lib/libX11.so.6.3.0
+   fun:_XlcCreateLocaleDataBase
+   obj:/usr/lib/libX11.so.6.3.0
+   obj:/usr/lib/libX11.so.6.3.0
+   fun:_XlcCreateLC
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:_XlcCurrentLC
+   obj:/usr/lib/libSDL-1.2.so.0.11.4
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:malloc
+   fun:strdup
+   obj:/usr/lib/libX11.so.6.3.0
+   obj:/usr/lib/libX11.so.6.3.0
+   fun:_XlcCreateLocaleDataBase
+   obj:/usr/lib/libX11.so.6.3.0
+   obj:/usr/lib/libX11.so.6.3.0
+   fun:_XlcCreateLC
+   fun:_XlcDefaultLoader
    fun:_XOpenLC
    fun:_XlcCurrentLC
    obj:/usr/lib/libSDL-1.2.so.0.11.4
@@ -942,8 +751,56 @@
    fun:_dl_check_map_versions
    fun:dl_open_worker
    fun:_dl_catch_error
-   obj:/usr/lib/libdl-2.16.so
+   obj:/usr/lib/libdl-2.17.so
    fun:_dl_catch_error
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:malloc
+   fun:strdup
+   obj:/usr/lib/libX11.so.6.3.0
+   obj:/usr/lib/libX11.so.6.3.0
+   fun:_XlcCreateLocaleDataBase
+   obj:/usr/lib/libX11.so.6.3.0
+   obj:/usr/lib/libX11.so.6.3.0
+   fun:_XlcCreateLC
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:_XlcCurrentLC
+   obj:/usr/lib/libSDL-1.2.so.0.11.4
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:calloc
+   fun:_XlcCreateLocaleDataBase
+   obj:/usr/lib/libX11.so.6.3.0
+   obj:/usr/lib/libX11.so.6.3.0
+   fun:_XlcCreateLC
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:_XlcCurrentLC
+   obj:/usr/lib/libSDL-1.2.so.0.11.4
+   fun:SDL_VideoInit
+   fun:SDL_InitSubSystem
+   fun:_ZN2UIC1ERK5World
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:calloc
+   obj:/usr/lib/libX11.so.6.3.0
+   obj:/usr/lib/libX11.so.6.3.0
+   fun:_XlcCreateLocaleDataBase
+   obj:/usr/lib/libX11.so.6.3.0
+   obj:/usr/lib/libX11.so.6.3.0
+   fun:_XlcCreateLC
+   fun:_XlcDefaultLoader
+   fun:_XOpenLC
+   fun:_XlcCurrentLC
+   obj:/usr/lib/libSDL-1.2.so.0.11.4
+   fun:SDL_VideoInit
 }
 {
    <insert_a_suppression_name_here>
@@ -968,7 +825,7 @@
    fun:_dl_check_map_versions
    fun:dl_open_worker
    fun:_dl_catch_error
-   obj:/usr/lib/libdl-2.16.so
+   obj:/usr/lib/libdl-2.17.so
    fun:_dl_catch_error
    obj:*
 }
@@ -981,7 +838,7 @@
    fun:_dl_map_object
    fun:dl_open_worker
    fun:_dl_catch_error
-   obj:/usr/lib/libdl-2.16.so
+   obj:/usr/lib/libdl-2.17.so
    fun:_dl_catch_error
    obj:*
 }
@@ -994,7 +851,7 @@
    fun:_dl_map_object
    fun:dl_open_worker
    fun:_dl_catch_error
-   obj:/usr/lib/libdl-2.16.so
+   obj:/usr/lib/libdl-2.17.so
    fun:_dl_catch_error
 }
 {
@@ -1017,62 +874,6 @@
    <insert_a_suppression_name_here>
    Memcheck:Leak
    fun:malloc
-   obj:/usr/lib/libX11.so.6.3.0
-   obj:/usr/lib/libX11.so.6.3.0
-   obj:/usr/lib/libX11.so.6.3.0
-   fun:_XlcCreateLocaleDataBase
-   obj:/usr/lib/libX11.so.6.3.0
-   obj:/usr/lib/libX11.so.6.3.0
-   fun:_XlcCreateLC
-   fun:_XlcUtf8Loader
-   fun:_XOpenLC
-   fun:_XlcCurrentLC
-   obj:/usr/lib/libSDL-1.2.so.0.11.4
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:malloc
-   fun:SDL_CreateThread
-   fun:_ZN2UIC1ERK5World
-   fun:main
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:malloc
-   obj:/usr/lib/libX11.so.6.3.0
-   obj:/usr/lib/libX11.so.6.3.0
-   obj:/usr/lib/libX11.so.6.3.0
-   fun:_XlcCreateLocaleDataBase
-   obj:/usr/lib/libX11.so.6.3.0
-   obj:/usr/lib/libX11.so.6.3.0
-   fun:_XlcCreateLC
-   fun:_XlcUtf8Loader
-   fun:_XOpenLC
-   fun:_XlcCurrentLC
-   obj:/usr/lib/libSDL-1.2.so.0.11.4
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:calloc
-   obj:/usr/lib/libX11.so.6.3.0
-   obj:/usr/lib/libX11.so.6.3.0
-   obj:/usr/lib/libX11.so.6.3.0
-   fun:_XlcCreateLC
-   fun:_XlcUtf8Loader
-   fun:_XOpenLC
-   fun:_XlcCurrentLC
-   obj:/usr/lib/libSDL-1.2.so.0.11.4
-   fun:SDL_VideoInit
-   fun:SDL_InitSubSystem
-   fun:_ZN2UIC1ERK5World
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:malloc
    fun:_XlcCreateDefaultCharSet
    fun:_XlcAddCT
    fun:_XlcInitCTInfo
@@ -1088,22 +889,6 @@
 {
    <insert_a_suppression_name_here>
    Memcheck:Leak
-   fun:malloc
-   fun:strdup
-   obj:/usr/lib/libX11.so.6.3.0
-   obj:/usr/lib/libX11.so.6.3.0
-   fun:_XlcCreateLocaleDataBase
-   obj:/usr/lib/libX11.so.6.3.0
-   obj:/usr/lib/libX11.so.6.3.0
-   fun:_XlcCreateLC
-   fun:_XlcUtf8Loader
-   fun:_XOpenLC
-   fun:_XlcCurrentLC
-   obj:/usr/lib/libSDL-1.2.so.0.11.4
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
    fun:calloc
    fun:_dl_new_object
    fun:_dl_map_object_from_fd
@@ -1111,40 +896,8 @@
    fun:openaux
    fun:dl_open_worker
    fun:_dl_catch_error
-   obj:/usr/lib/libdl-2.16.so
+   obj:/usr/lib/libdl-2.17.so
    fun:_dl_catch_error
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:malloc
-   fun:strdup
-   obj:/usr/lib/libX11.so.6.3.0
-   obj:/usr/lib/libX11.so.6.3.0
-   fun:_XlcCreateLocaleDataBase
-   obj:/usr/lib/libX11.so.6.3.0
-   obj:/usr/lib/libX11.so.6.3.0
-   fun:_XlcCreateLC
-   fun:_XlcUtf8Loader
-   fun:_XOpenLC
-   fun:_XlcCurrentLC
-   obj:/usr/lib/libSDL-1.2.so.0.11.4
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:calloc
-   fun:_XlcCreateLocaleDataBase
-   obj:/usr/lib/libX11.so.6.3.0
-   obj:/usr/lib/libX11.so.6.3.0
-   fun:_XlcCreateLC
-   fun:_XlcUtf8Loader
-   fun:_XOpenLC
-   fun:_XlcCurrentLC
-   obj:/usr/lib/libSDL-1.2.so.0.11.4
-   fun:SDL_VideoInit
-   fun:SDL_InitSubSystem
-   fun:_ZN2UIC1ERK5World
 }
 {
    <insert_a_suppression_name_here>
@@ -1166,47 +919,15 @@
    <insert_a_suppression_name_here>
    Memcheck:Leak
    fun:calloc
-   obj:/usr/lib/libX11.so.6.3.0
-   obj:/usr/lib/libX11.so.6.3.0
-   fun:_XlcCreateLocaleDataBase
-   obj:/usr/lib/libX11.so.6.3.0
-   obj:/usr/lib/libX11.so.6.3.0
-   fun:_XlcCreateLC
-   fun:_XlcUtf8Loader
-   fun:_XOpenLC
-   fun:_XlcCurrentLC
-   obj:/usr/lib/libSDL-1.2.so.0.11.4
-   fun:SDL_VideoInit
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:calloc
    fun:_dl_new_object
    fun:_dl_map_object_from_fd
    fun:_dl_map_object
    fun:openaux
    fun:dl_open_worker
    fun:_dl_catch_error
-   obj:/usr/lib/libdl-2.16.so
+   obj:/usr/lib/libdl-2.17.so
    fun:_dl_catch_error
    obj:*
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:malloc
-   fun:_XlcCreateLocaleDataBase
-   obj:/usr/lib/libX11.so.6.3.0
-   obj:/usr/lib/libX11.so.6.3.0
-   fun:_XlcCreateLC
-   fun:_XlcUtf8Loader
-   fun:_XOpenLC
-   fun:_XlcCurrentLC
-   obj:/usr/lib/libSDL-1.2.so.0.11.4
-   fun:SDL_VideoInit
-   fun:SDL_InitSubSystem
-   fun:_ZN2UIC1ERK5World
 }
 {
    <insert_a_suppression_name_here>
@@ -1223,6 +944,22 @@
    fun:_XlcUtf8Loader
    fun:_XOpenLC
    fun:_XlcCurrentLC
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   fun:malloc
+   fun:_XlcCreateLocaleDataBase
+   obj:/usr/lib/libX11.so.6.3.0
+   obj:/usr/lib/libX11.so.6.3.0
+   fun:_XlcCreateLC
+   fun:_XlcUtf8Loader
+   fun:_XOpenLC
+   fun:_XlcCurrentLC
+   obj:/usr/lib/libSDL-1.2.so.0.11.4
+   fun:SDL_VideoInit
+   fun:SDL_InitSubSystem
+   fun:_ZN2UIC1ERK5World
 }
 {
    <insert_a_suppression_name_here>
@@ -1255,20 +992,4 @@
    fun:_XlcCreateLC
    fun:_XlcUtf8Loader
    fun:_XOpenLC
-}
-{
-   <insert_a_suppression_name_here>
-   Memcheck:Leak
-   fun:malloc
-   obj:/usr/lib/libX11.so.6.3.0
-   fun:_XrmInternalStringToQuark
-   fun:XrmStringToQuark
-   fun:XGetDefault
-   fun:_XcursorGetDisplayInfo
-   fun:XcursorSupportsARGB
-   fun:XcursorNoticeCreateBitmap
-   fun:_XNoticeCreateBitmap
-   fun:XCreatePixmap
-   obj:/usr/lib/libSDL-1.2.so.0.11.4
-   obj:/usr/lib/libSDL-1.2.so.0.11.4
 }

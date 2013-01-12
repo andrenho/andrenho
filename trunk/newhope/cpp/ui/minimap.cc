@@ -210,8 +210,9 @@ Minimap::DrawCities()
 	for(auto const& city : world.map->cities)
 	{
 		Point p = city->point;
-		Rect r((p.x/ps)-5, (p.y/ps)-5, 10, 10);
-		image->FillBox(r, Color { 128, 0, 0 });
+		Color c = { 128, 0, 0 };
+		image->HollowBox(Rect((p.x/ps)-6, (p.y/ps)-6, 12, 12), c);
+		image->FillBox(Rect((p.x/ps)-4, (p.y/ps)-4, 8, 8), c);
 	}
 }
 

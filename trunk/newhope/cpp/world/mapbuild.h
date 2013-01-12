@@ -25,6 +25,7 @@ public:
 
 	std::vector<Biome*> biomes;
 	std::vector<Polygon*> rivers;
+	std::vector<Polygon*> lava;
 	std::vector<City*> cities;
 
 private:
@@ -37,8 +38,10 @@ private:
 	void CreateLava();
 	void CreateBiomes();
 	void CreateCities();
+	void CreateRoads();
 
 	void CreateRiver(Point p);
+	Polygon* CreateFlow(Point start, int iterations=INT_MAX);
 	int DistanceFromWater(Point const& p, bool include_rivers);
 	bool AreNeighbours(Biome const& b1, Biome const& b2);
 	void BiomeNeighbours(Biome const& biome, 

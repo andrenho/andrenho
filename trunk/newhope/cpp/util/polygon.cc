@@ -117,12 +117,17 @@ void Polygon::FakeVoronoi(unsigned int seed, int w, int h, int density,
 const struct Point 
 Polygon::Midpoint() const
 {
-	if(limit_x1 == INT_MAX)
-		CalculateLimits();
-	return (const struct Point) {
-		limit_x1 + (limit_x2 - limit_x1) / 2,
-		limit_y1 + (limit_y2 - limit_y1) / 2
-	};
+	static Point invalid = { -1, -1 };
+	if(midpoint == invalid)
+	{
+		if(limit_x1 == INT_MAX)
+			CalculateLimits();
+		midpoint = (const struct Point) {
+			limit_x1 + (limit_x2 - limit_x1) / 2,
+			limit_y1 + (limit_y2 - limit_y1) / 2
+		};
+	}
+	return midpoint;
 }
 
 
