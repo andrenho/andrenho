@@ -16,6 +16,8 @@ main.o: main.cc ui/ui.h libs/sdl/sdl.h /usr/include/SDL/SDL.h \
  ui/minimap.h ui/resource.h world/world.h world/mapbuild.h util/polygon.h \
  util/i18n.h util/logger.h world/world.h
 options.o: options.cc
+image.o: libs/image.cc libs/image.h libs/resource.h libs/colors.h \
+ libs/rect.h util/point.h
 rect.o: libs/rect.cc libs/rect.h
 sdl.o: libs/sdl/sdl.cc libs/sdl/sdl.h /usr/include/SDL/SDL.h \
  /usr/include/SDL/SDL_main.h /usr/include/SDL/SDL_stdinc.h \
@@ -85,7 +87,7 @@ minimap.o: ui/minimap.cc ui/minimap.h libs/graphiclibrary.h libs/rect.h \
  /usr/include/SDL/SDL_video.h /usr/include/SDL/SDL_joystick.h \
  /usr/include/SDL/SDL_quit.h /usr/include/SDL/SDL_loadso.h \
  /usr/include/SDL/SDL_timer.h /usr/include/SDL/SDL_version.h \
- util/logger.h
+ util/logger.h world/city.h
 resource.o: ui/resource.cc ui/resource.h libs/graphiclibrary.h \
  libs/rect.h libs/image.h libs/resource.h libs/colors.h util/point.h \
  libs/font.h ui/resource_list.h util/logger.h
@@ -114,6 +116,6 @@ polygon.o: util/polygon.cc util/polygon.h libs/rect.h util/point.h \
  util/logger.h
 city.o: world/city.cc
 mapbuild.o: world/mapbuild.cc world/mapbuild.h util/polygon.h libs/rect.h \
- util/point.h util/logger.h world/biome.h world/world.h
+ util/point.h util/logger.h world/biome.h world/world.h world/city.h
 world.o: world/world.cc world/world.h world/mapbuild.h util/polygon.h \
  libs/rect.h util/point.h util/logger.h world/biome.h

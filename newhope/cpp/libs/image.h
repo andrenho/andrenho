@@ -17,6 +17,7 @@ public:
 	virtual void Update() = 0;
 	virtual void FillBox(Color c) = 0;
 	virtual void FillBox(Rect r, Color c) = 0;
+	virtual void HollowBox(Rect r, Color c, int width=1);
 	virtual void DrawLine(Point p1, Point p2, Color c, int w=1) = 0;
 
 	const int w, h;

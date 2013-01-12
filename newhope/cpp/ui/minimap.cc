@@ -4,6 +4,7 @@
 #include "SDL.h"
 
 #include "util/logger.h"
+#include "world/city.h"
 
 Minimap::Minimap(GraphicLibrary& video, World const& world, 
 		Resources const& res)
@@ -186,15 +187,17 @@ Minimap::DrawRivers()
 {
 	logger.Debug("Drawing rivers...");
 
-	double ps = (double)world.w / (double)sz;
+	double ps = double(world.w) / double(sz);
 	for(std::vector<Polygon*>::const_iterator river = world.map->rivers.begin();
 			river != world.map->rivers.end(); river++)
 		for(unsigned int i=0; i<(*river)->points.size()-1; i++)
 		{
 			Point p1 = (*river)->points[i];
 			Point p2 = (*river)->points[i+1];
-			p1 = { (double)p1.x/ps, (double)p1.y/ps };
-			p2 = { (double)p2.x/ps, (double)p2.y/ps };
+			p1 = { int(double(p1.x)/ps), 
+			       int(double(p1.y)/ps) };
+			p2 = { int(double(p2.x)/ps), 
+			       int(double(p2.y)/ps) };
 			image->DrawLine(p1, p2, colors[t_WATER], 2);
 		}
 }
@@ -203,6 +206,13 @@ Minimap::DrawRivers()
 void
 Minimap::DrawCities()
 {
+	double ps = (double)world.w / (double)sz;
+	for(auto const& city : world.map->cities)
+	{
+		Point p = city->point;
+		Rect r((p.x/ps)-5, (p.y/ps)-5, 10, 10);
+		image->FillBox(r, Color { 128, 0, 0 });
+	}
 }
 
 
