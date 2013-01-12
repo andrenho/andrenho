@@ -185,21 +185,37 @@ Minimap::DrawMap()
 void
 Minimap::DrawRivers()
 {
-	logger.Debug("Drawing rivers...");
+	logger.Debug("Drawing lava...");
+	for(auto const& lavapath: world.map->lava)
+		DrawPath(lavapath->points, Color { 0xcf, 0x10, 0x20 });
 
+	logger.Debug("Drawing rivers...");
+	for(auto const& river: world.map->rivers)
+		DrawPath(river->points, colors[t_WATER]);
+}
+
+
+void 
+Minimap::DrawPath(std::vector<Point>& points, Color c)
+{
 	double ps = double(world.w) / double(sz);
-	for(std::vector<Polygon*>::const_iterator river = world.map->rivers.begin();
-			river != world.map->rivers.end(); river++)
-		for(unsigned int i=0; i<(*river)->points.size()-1; i++)
+	Point p2 = { -1, -1 };
+	for(auto const& p1: points)
+	{
+		if(p2 == Point { -1, -1 })
 		{
-			Point p1 = (*river)->points[i];
-			Point p2 = (*river)->points[i+1];
-			p1 = { int(double(p1.x)/ps), 
-			       int(double(p1.y)/ps) };
-			p2 = { int(double(p2.x)/ps), 
-			       int(double(p2.y)/ps) };
-			image->DrawLine(p1, p2, colors[t_WATER], 2);
+			p2 = p1;
+			continue;
 		}
+
+		Point pa = { int(double(p1.x)/ps), 
+		       int(double(p1.y)/ps) };
+		Point pb = { int(double(p2.x)/ps), 
+		       int(double(p2.y)/ps) };
+		image->DrawLine(pa, pb, c, 2);
+
+		p2 = p1;
+	}
 }
 
 
