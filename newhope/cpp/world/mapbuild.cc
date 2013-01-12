@@ -3,6 +3,7 @@
 #include <cassert>
 #include <algorithm>
 #include <vector>
+#include <set>
 
 #include "util/logger.h"
 #include "util/polygon.h"
@@ -21,6 +22,7 @@ MapBuild::MapBuild(struct MapParameters const& pars)
 	CreateLava();
 	CreateBiomes();
 	CreateCities();
+	CreateRoads();
 }
 
 
@@ -161,7 +163,7 @@ MapBuild::CreateRivers()
 			Point p = biomes[b]->polygon->points[k];
 			if(DistanceFromWater(p, false) > 600)
 			{
-				CreateRiver(p);
+				rivers.push_back(CreateFlow(p));
 				--rivers_left;
 			}
 		}
@@ -205,7 +207,51 @@ MapBuild::CreateRiver(Point p)
 			logger.Debug("repeat!");
 			++n;
 		}
+
 	}
+}
+
+
+Polygon*
+MapBuild::CreateFlow(Point start, int iterations)
+{
+	Polygon* poly = new Polygon();
+	Point p = start;
+	int iter = 0;
+
+	while(p.elevation != -1 && iter < iterations)
+	{
+		poly->points.push_back(p);
+		
+		// find neighbours
+		std::vector<Point> neighbours;
+		for(const auto& biome : biomes)
+			if(biome->polygon->ContainsPoint(p))
+				biome->polygon->NeighbourPoints(p, neighbours);
+		assert(neighbours.size() > 0);
+
+		// order by elevation
+		std::sort(neighbours.begin(), neighbours.end(), 
+				[](Point const& p1, Point const& p2) -> bool
+				{ return p1.elevation < p2.elevation; });
+
+		// skip points already added
+		unsigned int n = 0;
+		while(true)
+		{
+			p = neighbours[n];
+			if(std::find(poly->points.begin(), 
+					poly->points.end(), p) == 
+					poly->points.end())
+				break;
+			if(n >= neighbours.size())
+				return poly;
+			++n;
+		}
+
+		--iter;
+	}
+	return poly;
 }
 
 
@@ -244,6 +290,18 @@ MapBuild::CreateMoisture()
 void
 MapBuild::CreateLava()
 {
+	// find highest, dryest point
+	std::vector<Biome const*> bs;
+	std::copy(biomes.begin(), biomes.end(), std::back_inserter(bs));
+	std::sort(bs.begin(), bs.end(), 
+	[](Biome const* const& b1, Biome const* const& b2) -> bool
+		{
+			int i1 = (100 - b1->elevation) + b1->moisture;
+			int i2 = (100 - b2->elevation) + b2->moisture;
+			return i1 < i2;
+		});
+
+	// draw lava path
 }
 
 
@@ -303,13 +361,12 @@ MapBuild::CreateCities()
 {
 	for(int i=0; i<pars.n_cities; i++)
 	{
-		// check if it's not in the sea
-		int b;
 try_again:
-		do 
-		{
-			b = rand() % biomes.size();
-		} while(biomes[b]->terrain == t_WATER);
+		int b = rand() % biomes.size();
+		
+		// check if it's not in the sea
+		if(biomes[b]->terrain == t_WATER)
+			goto try_again;
 
 		// check if neighbours don't have a city already
 		std::vector<Biome const*> neighbours;
@@ -323,6 +380,13 @@ try_again:
 		cities.push_back(new City(pos));
 		biomes[b]->has_city = true;
 	}
+}
+
+
+void
+MapBuild::CreateRoads()
+{
+
 }
 
 

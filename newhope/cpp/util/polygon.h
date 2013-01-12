@@ -11,8 +11,10 @@
 class Polygon 
 {
 public:
+
 	Polygon() : 
-		limit_x1(INT_MAX), limit_y1(INT_MAX), limit_x2(0), limit_y2(0)
+		limit_x1(INT_MAX), limit_y1(INT_MAX), limit_x2(0), limit_y2(0),
+		midpoint({ -1, -1})
 	{ }
 	Polygon(struct Point* points, int n_points);
 	Polygon(Rect r);
