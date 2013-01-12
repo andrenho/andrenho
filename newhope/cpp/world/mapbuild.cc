@@ -171,44 +171,145 @@ MapBuild::CreateRivers()
 }
 
 
-void
-MapBuild::CreateRiver(Point p)
+void 
+MapBuild::CreateMoisture()
 {
-	Polygon* river = new Polygon();
-	rivers.push_back(river);
+	logger.Debug("Generating moisture...");
 
-	while(p.elevation != -1)
-	{
-		river->points.push_back(p);
-		
-		// find neighbours
-		std::vector<Point> neighbours;
-		for(const auto& biome : biomes)
-			if(biome->polygon->ContainsPoint(p))
-				biome->polygon->NeighbourPoints(p, neighbours);
-		assert(neighbours.size() > 0);
-
-		// order by elevation
-		std::sort(neighbours.begin(), neighbours.end(), 
-				[](Point const& p1, Point const& p2) -> bool
-				{ return p1.elevation < p2.elevation; });
-
-		// skip points already added
-		unsigned int n = 0;
-		while(true)
+	// generate moisture
+	int max_moi = 0;
+	for(const auto& biome : biomes)
+		if(biome->terrain == t_WATER)
+			biome->moisture = 0;
+		else
 		{
-			p = neighbours[n];
-			if(std::find(river->points.begin(), 
-					river->points.end(), p) == 
-					river->points.end())
-				break;
-			if(n >= neighbours.size())
-				return;
-			logger.Debug("repeat!");
-			++n;
+			int tot_moi = 0;
+			for(const auto& point : biome->polygon->points)
+			{
+				int moi = DistanceFromWater(point, true);
+				tot_moi += moi;
+				max_moi = std::max(max_moi, moi);
+			}
+			biome->moisture = tot_moi / 
+				biome->polygon->points.size();
 		}
-
+	
+	// normalize moisture
+	for(const auto& biome : biomes)
+	{
+		biome->moisture = 100 - ((double)biome->moisture /
+			              (double)max_moi * (double)100);
 	}
+}
+
+
+void
+MapBuild::CreateLava()
+{
+	logger.Debug("Creating lava...");
+
+	// find highest, dryest point
+	std::vector<Biome const*> bs;
+	std::copy(biomes.begin(), biomes.end(), std::back_inserter(bs));
+	std::sort(bs.begin(), bs.end(), 
+	[](Biome const* const& b1, Biome const* const& b2) -> bool
+		{
+			int i1 = (100 - b1->elevation) + b1->moisture;
+			int i2 = (100 - b2->elevation) + b2->moisture;
+			return i1 < i2;
+		});
+
+	// draw lava path
+	for(int i=0; i<3; i++)
+	{
+		auto points = bs[i]->polygon->points;
+		lava.push_back(CreateFlow(points[rand() % points.size()], 4));
+	}
+}
+
+
+void
+MapBuild::CreateBiomes()
+{
+	/*
+	 * Elev/Moist   0-30       30-60      60-100
+	 *  0-30        DIRT       EARTH      GRASS
+	 * 30-60        ROCK       GRASS      HOTFOREST
+	 * 60-100       LAVAROCK   SNOW       COLDFOREST
+	 */
+	for(const auto& biome : biomes)
+	{
+		if(biome->terrain == t_WATER)
+			continue;
+
+		int alt = biome->elevation;
+		int moi = biome->moisture;
+		TerrainType t = t_DIRT;
+		if(alt < 20)
+			t = t_DIRT;
+		else if(alt < 40)
+		{
+			if(moi < 30)
+				t = t_DIRT;
+			else if(moi < 60)
+				t = t_EARTH;
+			else
+				t = t_GRASS;
+		}
+		else if(alt < 70)
+		{
+			if(moi < 30)
+				t = t_ROCK;
+			else if(moi < 60)
+				t = t_GRASS;
+			else
+				t = t_HOTFOREST;
+		}
+		else
+		{
+			if(moi < 50)
+				t = t_LAVAROCK;
+			else if(moi < 75)
+				t = t_SNOW;
+			else
+				t = t_COLDFOREST;
+		}
+		biome->terrain = t;
+	}
+}
+
+
+void
+MapBuild::CreateCities()
+{
+	for(int i=0; i<pars.n_cities; i++)
+	{
+try_again:
+		int b = rand() % biomes.size();
+		
+		// check if it's not in the sea
+		if(biomes[b]->terrain == t_WATER)
+			goto try_again;
+
+		// check if neighbours don't have a city already
+		std::vector<Biome const*> neighbours;
+		BiomeNeighbours(*biomes[b], neighbours);
+		for(auto const& neigh: neighbours)
+			if(neigh->has_city)
+				goto try_again;
+
+		// add city
+		Point pos = biomes[b]->polygon->Midpoint();
+		cities.push_back(new City(pos));
+		biomes[b]->has_city = true;
+	}
+}
+
+
+void
+MapBuild::CreateRoads()
+{
+
 }
 
 
@@ -252,141 +353,6 @@ MapBuild::CreateFlow(Point start, int iterations)
 		--iter;
 	}
 	return poly;
-}
-
-
-void 
-MapBuild::CreateMoisture()
-{
-	logger.Debug("Generating moisture...");
-
-	// generate moisture
-	int max_moi = 0;
-	for(const auto& biome : biomes)
-		if(biome->terrain == t_WATER)
-			biome->moisture = 0;
-		else
-		{
-			int tot_moi = 0;
-			for(const auto& point : biome->polygon->points)
-			{
-				int moi = DistanceFromWater(point, true);
-				tot_moi += moi;
-				max_moi = std::max(max_moi, moi);
-			}
-			biome->moisture = tot_moi / 
-				biome->polygon->points.size();
-		}
-	
-	// normalize moisture
-	for(const auto& biome : biomes)
-	{
-		biome->moisture = 100 - ((double)biome->moisture /
-			              (double)max_moi * (double)100);
-	}
-}
-
-
-void
-MapBuild::CreateLava()
-{
-	// find highest, dryest point
-	std::vector<Biome const*> bs;
-	std::copy(biomes.begin(), biomes.end(), std::back_inserter(bs));
-	std::sort(bs.begin(), bs.end(), 
-	[](Biome const* const& b1, Biome const* const& b2) -> bool
-		{
-			int i1 = (100 - b1->elevation) + b1->moisture;
-			int i2 = (100 - b2->elevation) + b2->moisture;
-			return i1 < i2;
-		});
-
-	// draw lava path
-}
-
-
-void
-MapBuild::CreateBiomes()
-{
-	/*
-	 * Elev/Moist   0-30       30-60      60-100
-	 *  0-30        DIRT       EARTH      GRASS
-	 * 30-60        ROCK       GRASS      HOTFOREST
-	 * 60-100       LAVAROCK   SNOW       COLDFOREST
-	 */
-	for(const auto& biome : biomes)
-	{
-		if(biome->terrain == t_WATER)
-			continue;
-
-		int alt = biome->elevation;
-		int moi = biome->moisture;
-		TerrainType t = t_DIRT;
-		if(alt < 20)
-			t = t_DIRT;
-		else if(alt < 40)
-		{
-			if(moi < 30)
-				t = t_DIRT;
-			else if(moi < 60)
-				t = t_EARTH;
-			else
-				t = t_GRASS;
-		}
-		else if(alt < 70)
-		{
-			if(moi < 30)
-				t = t_ROCK;
-			else if(moi < 60)
-				t = t_GRASS;
-			else
-				t = t_HOTFOREST;
-		}
-		else
-		{
-			if(moi < 30)
-				t = t_LAVAROCK;
-			else if(moi < 60)
-				t = t_SNOW;
-			else
-				t = t_COLDFOREST;
-		}
-		biome->terrain = t;
-	}
-}
-
-
-void
-MapBuild::CreateCities()
-{
-	for(int i=0; i<pars.n_cities; i++)
-	{
-try_again:
-		int b = rand() % biomes.size();
-		
-		// check if it's not in the sea
-		if(biomes[b]->terrain == t_WATER)
-			goto try_again;
-
-		// check if neighbours don't have a city already
-		std::vector<Biome const*> neighbours;
-		BiomeNeighbours(*biomes[b], neighbours);
-		for(auto const& neigh: neighbours)
-			if(neigh->has_city)
-				goto try_again;
-
-		// add city
-		Point pos = biomes[b]->polygon->Midpoint();
-		cities.push_back(new City(pos));
-		biomes[b]->has_city = true;
-	}
-}
-
-
-void
-MapBuild::CreateRoads()
-{
-
 }
 
 

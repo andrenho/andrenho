@@ -25,6 +25,7 @@ private:
 	void DrawRivers();
 	void DrawCities();
 	void HandleEvents();
+	void DrawPath(std::vector<Point>& points, Color c);
 
 	static int CreationThread(void* self);
 

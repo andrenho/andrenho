@@ -40,7 +40,6 @@ private:
 	void CreateCities();
 	void CreateRoads();
 
-	void CreateRiver(Point p);
 	Polygon* CreateFlow(Point start, int iterations=INT_MAX);
 	int DistanceFromWater(Point const& p, bool include_rivers);
 	bool AreNeighbours(Biome const& b1, Biome const& b2);
