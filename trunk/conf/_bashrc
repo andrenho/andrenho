@@ -120,7 +120,7 @@ export LESS=' -R '
 
 export PS1="\w$ "
 export JAVA_HOME="/usr/lib/jvm/jre1.7.0_02"
-export LD_LIBRARY_PATH="/usr/lib/jvm/jre1.7.0_02/lib/amd64"
+#export LD_LIBRARY_PATH="/usr/lib/jvm/jre1.7.0_02/lib/amd64"
 alias ls="ls -F --color"
 alias grep='grep --color=auto'
 export EDITOR=/usr/bin/vim
