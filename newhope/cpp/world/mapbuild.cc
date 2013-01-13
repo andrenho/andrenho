@@ -28,11 +28,15 @@ MapBuild::MapBuild(struct MapParameters const& pars)
 
 MapBuild::~MapBuild()
 {
-	for(const auto& city : cities)
+	for(const auto& city: cities)
 		delete city;
-	for(const auto& river : rivers)
+	for(const auto& river: rivers)
 		delete river;
-	for(const auto& biome : biomes)
+	for(const auto& lavapath: lava)
+		delete lavapath;
+	for(const auto& road: roads)
+		delete road;
+	for(const auto& biome: biomes)
 		delete biome;
 }
 
@@ -282,6 +286,8 @@ MapBuild::CreateBiomes()
 void
 MapBuild::CreateCities()
 {
+	logger.Debug("Creating cities...");
+
 	for(int i=0; i<pars.n_cities; i++)
 	{
 try_again:
@@ -300,7 +306,7 @@ try_again:
 
 		// add city
 		Point pos = biomes[b]->polygon->Midpoint();
-		cities.push_back(new City(pos));
+		cities.push_back(new City(pos, *biomes[b]));
 		biomes[b]->has_city = true;
 	}
 }
@@ -309,7 +315,116 @@ try_again:
 void
 MapBuild::CreateRoads()
 {
+	for(auto const& city: cities)
+	{
+		// find closest city
+		std::vector<City*> cs;
+		std::copy(cities.begin(), cities.end(), std::back_inserter(cs));
+		std::sort(cs.begin(), cs.end(), 
+			[&city](City* const& c1, City* const& c2) -> bool
+			{ 
+				int d1 = c1->pos.Distance(city->pos);
+				int d2 = c2->pos.Distance(city->pos);
+				return d1 < d2;
+			});
 
+		// skip cities already connected
+		int n; // [0] is the city itself
+		for(n=1; ; n++)
+		{
+			if(n >= cs.size())
+				goto next;
+			auto conn = cs[n]->connections;
+			if(std::find(conn.begin(), conn.end(), city) == 
+					conn.end())
+				break;
+		}
+
+		// build road
+		CreateRoad(*city, *cs[n]);
+		
+		// add connections
+		cs[n]->connections.push_back(city);
+		city->connections.push_back(cs[n]);
+
+next: ;
+	}
+}
+
+
+void
+MapBuild::FindNations()
+{
+	std::vector<std::vector<City const*> > nations;
+	for(auto const& city: cities)
+	{
+		bool found = false;
+		for(auto const& nation: nations)
+			if(std::find(nation.begin(), nation.end(), city) !=
+					nation.end())
+			{
+				found = true;
+				break;
+			}
+		if(found)
+			continue;
+
+		auto nation = std::vector<City const*>();
+		FindInterconnectedCities(*city, nation);
+		nations.push_back(nation);
+	}
+}
+
+
+void 
+MapBuild::FindInterconnectedCities(City const& city, 
+		std::vector<City const*>& cs)
+{
+	// TODO
+}
+
+
+void 
+MapBuild::CreateRoad(City const& c1, City const& c2)
+{
+	logger.Debug("Creating roads...");
+
+	Biome const* b = &c1.biome;
+	Polygon* road = new Polygon();
+
+	// create road points
+	while(b != &c2.biome)
+	{
+		road->points.push_back(b->polygon->Midpoint());
+
+		// find neighbour biomes
+		std::vector<Biome const*> biomes;
+		BiomeNeighbours(*b, biomes);
+
+		// find closest biome
+		std::sort(biomes.begin(), biomes.end(), 
+			[&c2](Biome const* const& b1, Biome const* const& b2) -> bool
+			{ 
+				int d1 = b1->polygon->Midpoint().Distance(
+					c2.biome.polygon->Midpoint());
+				int d2 = b2->polygon->Midpoint().Distance(
+					c2.biome.polygon->Midpoint());
+				if(b1->terrain == t_WATER)
+					d1 = INT_MAX;
+				if(b2->terrain == t_WATER)
+					d2 = INT_MAX;
+				return d1 < d2;
+			});
+		
+		// next biome
+		Point p = b->polygon->Midpoint();
+		road->points.push_back(p);
+		b = biomes[0];
+	}
+
+	// add roads
+	road->points.push_back(c2.biome.polygon->Midpoint());
+	roads.push_back(road);
 }
 
 

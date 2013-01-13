@@ -12,11 +12,11 @@ World::World(int w, int h) :
 {
 	logger.Debug("Building map...");
 	MapParameters pars = {
-		.seed = 1,
+		.seed = 5,
 		.w = w,
 		.h = h,
 		.n_rivers = 12,
-		.n_cities = 25,
+		.n_cities = 20,
 		.n_roads = 10,
 	};
 	map = new MapBuild(pars);

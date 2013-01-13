@@ -192,6 +192,10 @@ Minimap::DrawRivers()
 	logger.Debug("Drawing rivers...");
 	for(auto const& river: world.map->rivers)
 		DrawPath(river->points, colors[t_WATER]);
+
+	logger.Debug("Drawing roads...");
+	for(auto const& road: world.map->roads)
+		DrawPath(road->points, Color { 0, 0, 0 });
 }
 
 
@@ -225,7 +229,7 @@ Minimap::DrawCities()
 	double ps = (double)world.w / (double)sz;
 	for(auto const& city : world.map->cities)
 	{
-		Point p = city->point;
+		Point p = city->pos;
 		Color c = { 128, 0, 0 };
 		image->HollowBox(Rect((p.x/ps)-6, (p.y/ps)-6, 12, 12), c);
 		image->FillBox(Rect((p.x/ps)-4, (p.y/ps)-4, 8, 8), c);

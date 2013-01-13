@@ -6,10 +6,12 @@
 class City
 {
 public:
-	City(Point point)
-		: point(point) { }
+	City(Point pos, Biome const& biome)
+		: pos(pos), biome(biome) { }
 
-	const Point point;
+	Point const pos;
+	Biome const& biome;
+	std::vector<City const*> connections;
 };
 
 #endif
