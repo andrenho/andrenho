@@ -7,6 +7,7 @@
 class World;
 class GraphicLibrary;
 class Resources;
+class TerrainSurface;
 
 class UI {
 public:
@@ -21,10 +22,12 @@ public:
 	inline bool Active() { return active; }
 
 private:
-	World const& world;
+	//World const& world;
 	bool active;
+	int rx, ry;
 	GraphicLibrary* video;
 	Resources* res;
+	TerrainSurface* terrain_sf;
 	Minimap* minimap;
 };
 

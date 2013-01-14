@@ -1,13 +1,18 @@
 #include "ui/ui.h"
 
+#include <vector>
+
 #include "ui/resource.h"
+#include "ui/terrainsurface.h"
 #include "util/logger.h"
 
 UI::UI(World const& world)
-	: world(world), active(true), video(new SDL()), 
+	: /*world(world), */ active(true), rx(0), ry(0), video(new SDL()), 
 	  res(new Resources(*video)),
+	  terrain_sf(new TerrainSurface(world)),
 	  minimap(new Minimap(*video, world, *res))
 {
+	terrain_sf->Resize(video->Window->w, video->Window->h);
 	minimap->Reset();
 }
 
@@ -15,6 +20,7 @@ UI::UI(World const& world)
 UI::~UI()
 {
 	delete minimap;
+	delete terrain_sf;
 	delete res;
 	delete video;
 }
@@ -60,8 +66,22 @@ UI::ProcessEvents()
 void 
 UI::Draw()
 {
-	video->Window->FillBox(Color { 255, 255, 255 });
-	video->Window->Update();
+	std::vector<Rect> rects;
+	terrain_sf->AreasToRedraw(rects);
+
+	if(rects.empty())
+	{
+		Rect r(rx % TerrainSurface::TileSize, 
+				ry % TerrainSurface::TileSize);
+		terrain_sf->Img->Blit(*video->Window, r);
+		// terminal->Draw();
+		video->Window->Update();
+	}
+	else
+	{
+		// TODO
+		abort();
+	}
 }
 
 
