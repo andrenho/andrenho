@@ -100,19 +100,26 @@ SDL::GetEvent() const
 		case SDL_QUIT:
 			return new Event(Event::QUIT);
 		case SDL_KEYDOWN:
+		{
+			int key;
 			switch(e.key.keysym.sym)
 			{
 			case SDLK_UP:
-				return new KeyEvent(Key::UP);
+				key = Key::UP; break;
 			case SDLK_DOWN:
-				return new KeyEvent(Key::DOWN);
+				key = Key::DOWN; break;
 			case SDLK_LEFT:
-				return new KeyEvent(Key::LEFT);
+				key = Key::LEFT; break;
 			case SDLK_RIGHT:
-				return new KeyEvent(Key::RIGHT);
+				key = Key::RIGHT; break;
 			default:
-				return new KeyEvent(e.key.keysym.sym);
+				key = e.key.keysym.sym;
 			}
+			bool shift = e.key.keysym.mod & KMOD_SHIFT;
+			bool control = e.key.keysym.mod & KMOD_CTRL;
+			return new KeyEvent(key, shift, control);
+		}
+			break;
 		case SDL_MOUSEBUTTONDOWN:
 		{
 			ClickEvent::MouseButton b = ClickEvent::LEFT;
