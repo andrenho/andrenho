@@ -10,8 +10,6 @@ SRC = main.cc		   \
       libs/sdl/sdl.cc      \
       libs/sdl/sdlfont.cc  \
       libs/sdl/sdlimage.cc \
-      ui/buildtile.cc      \
-      ui/event.cc          \
       ui/minimap.cc        \
       ui/resource.cc       \
       ui/terminal.cc       \
