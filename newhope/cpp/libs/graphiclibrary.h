@@ -18,8 +18,10 @@ typedef enum Key { UP=256, DOWN, LEFT, RIGHT } Key;
 
 class KeyEvent : public Event {
 public:
-	KeyEvent(int key) : Event(KEY), key(key) { }
+	KeyEvent(int key, bool shift, bool control) 
+		: Event(KEY), key(key), Shift(shift), Control(control) { }
 	const int key;
+	const bool Shift, Control;
 };
 
 class ClickEvent : public Event {
