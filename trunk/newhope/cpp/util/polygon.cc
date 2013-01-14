@@ -78,14 +78,19 @@ void Polygon::FakeVoronoi(unsigned int seed, int w, int h, int density,
 	// add points
 	int n_points = 0, max_x = 0,max_y = 0;
 	struct Point points[density][density];
-	for(x=0, xx=0; x<w; x+=(w/density))
+	const int d = (w/density/4);
+	for(x=(w/density*3/2), xx=0; x<w; x+=(w/density*3/2))
 	{
-		for(y=0, yy=0; y<h; y+=(h/density))
-			if(x > 0 && y > 0)
-			{
-				points[xx][yy++] = (struct Point) { x, y };
-				n_points++;
-			}
+		for(y=(h/density), yy=0; y<h; y+=(h/density))
+		{
+			int mx;
+			if(yy % 2 == 0)
+				mx = (xx % 2) ? x-d : x+d;
+			else
+				mx = (xx % 2) ? x+d : x-d;
+			points[xx][yy++] = { mx, y };
+			n_points++;
+		}
 		max_y = yy;
 		if(x > 0)
 			xx++;
@@ -93,7 +98,7 @@ void Polygon::FakeVoronoi(unsigned int seed, int w, int h, int density,
 	max_x = xx;
 
 	// disturb points
-	int max_disturb = (w/density/2);
+	int max_disturb = (w/density);
 	for(x=0; x<max_x; x++)
 		for(y=0; y<max_y; y++)
 		{
@@ -102,13 +107,15 @@ void Polygon::FakeVoronoi(unsigned int seed, int w, int h, int density,
 		}
 
 	// connect points
-	for(x=0; x<(max_x-1); x++)
-		for(y=0; y<(max_y-1); y++)
+	for(y=0; y<(max_y-2); y++)
+		for(x=(y % 2) ? 1 : 0; x<(max_x-1); x+=2)
 		{
 			polygons.push_back(new Polygon());
 			polygons.back()->points.push_back(points[x][y]);
 			polygons.back()->points.push_back(points[x+1][y]);
 			polygons.back()->points.push_back(points[x+1][y+1]);
+			polygons.back()->points.push_back(points[x+1][y+2]);
+			polygons.back()->points.push_back(points[x][y+2]);
 			polygons.back()->points.push_back(points[x][y+1]);
 		}
 }

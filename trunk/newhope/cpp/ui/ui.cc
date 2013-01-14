@@ -1,5 +1,6 @@
 #include "ui/ui.h"
 
+#include <cassert>
 #include <vector>
 
 #include "ui/resource.h"
@@ -9,7 +10,7 @@
 UI::UI(World const& world)
 	: /*world(world), */ active(true), rx(0), ry(0), video(new SDL()), 
 	  res(new Resources(*video)),
-	  terrain_sf(new TerrainSurface(world)),
+	  terrain_sf(new TerrainSurface(world, *video, *res)),
 	  minimap(new Minimap(*video, world, *res))
 {
 	terrain_sf->Resize(video->Window->w, video->Window->h);
@@ -44,16 +45,27 @@ UI::ProcessEvents()
 		break;
 	case Event::KEY:
 	{
+		int s = 1;
 		const KeyEvent* key = (const KeyEvent*)event;
 		switch(key->key)
 		{
 		case '\t':
-			minimap->Display();
-			break;
+			minimap->Display(); break;
+		case SDLK_LEFT:
+			MoveView(-s, 0); break;
+		case SDLK_DOWN:
+			MoveView(0, s);  break;
+		case SDLK_UP:
+			MoveView(0, -s); break;
+		case SDLK_RIGHT:
+			MoveView(s, 0);  break;
+		default:
+			logger.Debug("%c %d", key->key, key->key);
 		}
 	}
 		break;
 	case Event::RESIZE:
+		terrain_sf->Resize(video->Window->w, video->Window->h);
 		minimap->Reset();
 		break;
 	default:
@@ -66,6 +78,8 @@ UI::ProcessEvents()
 void 
 UI::Draw()
 {
+	assert(terrain_sf->Img);
+
 	std::vector<Rect> rects;
 	terrain_sf->AreasToRedraw(rects);
 
@@ -75,6 +89,7 @@ UI::Draw()
 				ry % TerrainSurface::TileSize);
 		terrain_sf->Img->Blit(*video->Window, r);
 		// terminal->Draw();
+		//video->Window->FillBox(Color { 255, 255, 255 });
 		video->Window->Update();
 	}
 	else
@@ -91,4 +106,16 @@ UI::EndFrame()
 //	if(video->ReachedCountDown())
 //		logger.Debug("Frame delayed!");
 	video->WaitCountDown();
+}
+
+
+void 
+UI::MoveView(int horiz, int vert)
+{
+	// move center of screen
+	rx += horiz;
+	ry += vert;
+
+	terrain_sf->SetTopLeft(-(rx/TerrainSurface::TileSize), 
+			-(ry/TerrainSurface::TileSize));
 }

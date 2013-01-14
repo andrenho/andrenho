@@ -64,9 +64,9 @@ Resources::LoadFile(std::string const& name, std::string const& path,
 	size_t found = path.find_last_of('.');
 	std::string filesuffix = path.substr(found);
 	if(filesuffix == ".png")
-		res[name+suffix] = &video.LoadImage(path, r);
+		res[name+suffix] = video.LoadImage(path, r);
 	else if(filesuffix == ".ttf")
-		res[name+suffix] = &video.LoadFont(path, r.x);
+		res[name+suffix] = video.LoadFont(path, r.x);
 	else
 		logger.Error(1, "Unsupported file type %s.",
 				filesuffix.c_str());

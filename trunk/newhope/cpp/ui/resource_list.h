@@ -18,7 +18,7 @@ const std::string terrain_sfx[] = {
 	"_1", "_2", "_3",
 	"_ic_nw", "_ic_ne", "_ic_sw", 
 	"_ic_se", "_ec_nw", "_ec_n", 
-	"_ec_ne", "_ec_w", "", 
+	"_ec_ne", "_ec_w", "_c", 
 	"_ec_e", "_ec_sw", "_ec_s",
 	"_ec_se", "_s_1", "_s_2", ""
 };

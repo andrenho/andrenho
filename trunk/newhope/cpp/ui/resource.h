@@ -19,6 +19,10 @@ public:
 		return dynamic_cast<const Image*>(res.at(s));
 	}
 
+	inline const Image* operator[](std::string const& s) const {
+		return dynamic_cast<const Image*>(res.at(s));
+	}
+
 private:
 	std::string const FindFile(std::string const& filename);
 	void LoadFile(std::string const& name, std::string const& path, 

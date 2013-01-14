@@ -92,7 +92,7 @@ void Minimap::Create()
 	if(image)
 		delete image;
 	sz = std::min(video.Window->w, video.Window->h) - 250;
-	image = &video.CreateImage(sz, sz);
+	image = video.CreateImage(sz, sz);
 
 	// draw map
 	DrawMap();

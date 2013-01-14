@@ -165,6 +165,14 @@ SDLImage::SetPixel(int x, int y, Color c)
 
 
 void 
+SDLImage::Blit(Image const& image) const
+{
+	const SDLImage* dest = (const SDLImage*)&image;
+	SDL_BlitSurface(sf, NULL, dest->sf, NULL);
+}
+
+
+void 
 SDLImage::Blit(Image const& image, Rect const& r) const
 {
 	SDL_Rect rect = { (Sint16)r.x, (Sint16)r.y, (Uint16)r.w, (Uint16)r.h };

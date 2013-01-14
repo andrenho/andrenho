@@ -65,27 +65,27 @@ SDL::WaitCountDown()
 }
 
 
-Image& 
+Image* 
 SDL::CreateImage(int w, int h) const
 {
 	SDLImage* img = new SDLImage(w, h);
-	return *img;
+	return img;
 }
 
 
-Image&
+Image*
 SDL::LoadImage(std::string const& filename, Rect const& r) const
 {
 	SDLImage* img = new SDLImage(filename, r);
-	return *img;
+	return img;
 }
 
 
-Font& 
+Font* 
 SDL::LoadFont(std::string const& filename, int size) const
 {
 	SDLFont* font = new SDLFont(filename, size);
-	return *font;
+	return font;
 }
 
 
@@ -100,7 +100,19 @@ SDL::GetEvent() const
 		case SDL_QUIT:
 			return new Event(Event::QUIT);
 		case SDL_KEYDOWN:
-			return new KeyEvent(e.key.keysym.sym);
+			switch(e.key.keysym.sym)
+			{
+			case SDLK_UP:
+				return new KeyEvent(Key::UP);
+			case SDLK_DOWN:
+				return new KeyEvent(Key::DOWN);
+			case SDLK_LEFT:
+				return new KeyEvent(Key::LEFT);
+			case SDLK_RIGHT:
+				return new KeyEvent(Key::RIGHT);
+			default:
+				return new KeyEvent(e.key.keysym.sym);
+			}
 		case SDL_MOUSEBUTTONDOWN:
 		{
 			ClickEvent::MouseButton b = ClickEvent::LEFT;
