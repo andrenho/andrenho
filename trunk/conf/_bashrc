@@ -126,3 +126,6 @@ export EDITOR=/usr/bin/vim
 export PATH=$PATH:/usr/games
 export PATH="/usr/lib/colorgcc/bin:$PATH"
 alias gcc='colorgcc'
+
+export LANG=pt_BR.utf8
+export LC_ALL=$LANG
