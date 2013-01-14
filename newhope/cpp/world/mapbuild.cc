@@ -315,6 +315,8 @@ try_again:
 void
 MapBuild::CreateRoads()
 {
+	logger.Debug("Creating roads...");
+
 	for(auto const& city: cities)
 	{
 		// find closest city
@@ -355,6 +357,8 @@ next: ;
 void
 MapBuild::FindNations()
 {
+	logger.Debug("Creating nations...");
+
 	std::vector<std::vector<City const*> > nations;
 	for(auto const& city: cities)
 	{
@@ -387,8 +391,6 @@ MapBuild::FindInterconnectedCities(City const& city,
 void 
 MapBuild::CreateRoad(City const& c1, City const& c2)
 {
-	logger.Debug("Creating roads...");
-
 	Biome const* b = &c1.biome;
 	Polygon* road = new Polygon();
 
