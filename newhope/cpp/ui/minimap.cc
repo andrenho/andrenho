@@ -17,6 +17,7 @@ Minimap::Minimap(GraphicLibrary& video, World const& world,
 
 Minimap::~Minimap()
 {
+	KillThread();
 	if(image)
 		delete image;
 }
