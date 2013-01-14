@@ -33,6 +33,9 @@ World::~World()
 TerrainType 
 World::Terrain(int x, int y) const
 {
+	if((x == 2 && y == 2) || (x == 3 && y == 3))
+		return t_GRASS;
+
 	struct Point p = { x, y };
 	for(auto const& biome : map->biomes)
 		if(biome->polygon->PointInPolygon(p))
@@ -41,8 +44,12 @@ World::Terrain(int x, int y) const
 }
 
 
-bool 
+int
 World::Special(int x, int y) const
 {
-	return !(rand() % 100 >= 4);
+	int n = rand() % 100;
+	if(n >= 4)
+		return 0;
+	else
+		return n;
 }

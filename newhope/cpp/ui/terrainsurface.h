@@ -31,6 +31,7 @@ private:
 	void Redraw();
 	void DrawTile(int x, int y);
 	const Image* TileSurface(int x, int y);
+	void BuildTile(int x, int y, std::stack<Image const*>& st);
 	std::map<std::stack<Image const*>, Image const*> imagehash;
 
 	World const& world;

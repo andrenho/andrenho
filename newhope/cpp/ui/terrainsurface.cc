@@ -1,7 +1,10 @@
 #include "ui/terrainsurface.h"
 
+#include <sstream>
+
 #include "libs/image.h"
 #include "util/logger.h"
+#include "world/world.h"
 
 TerrainSurface::~TerrainSurface()
 {
@@ -35,6 +38,36 @@ TerrainSurface::AreasToRedraw(std::vector<Rect>& rects)
 void 
 TerrainSurface::SetTopLeft(int x, int y)
 {
+	int nx, ny;
+
+	if(this->x == x && this->y == y)
+		return;
+
+	Rect r((this->x - x)*TileSize, (this->y - y)*TileSize);
+	Img->Blit(*Img, r);
+
+	int tsx = this->x, 
+	    tsy = this->y;
+
+	this->x = x;
+	this->y = y;
+
+	if(x > tsx)
+		for(nx=(this->w + this->x - (x - tsx)); nx < (this->w + this->x); nx++)
+			for(ny=this->y; ny < (this->h + this->y); ny++)
+				DrawTile(nx, ny);
+	else if(x < tsx)
+		for(nx=this->x; nx < (this->x + tsx - x); nx++)
+			for(ny=this->y; ny < (this->h + this->y); ny++)
+				DrawTile(nx, ny);
+	if(y > tsy)
+		for(ny=(this->h + this->y - (y - tsy)); ny < (this->h + this->y); ny++)
+			for(nx=this->x; nx < (this->w + this->x); nx++)
+				DrawTile(nx, ny);
+	else if(y < tsy)
+		for(ny=this->y; ny < (this->y + tsy - y); ny++)
+			for(nx=this->x; nx < (this->w + this->x); nx++)
+				DrawTile(nx, ny);
 }
 
 
@@ -62,7 +95,7 @@ TerrainSurface::TileSurface(int x, int y)
 {
 	// build stack
 	std::stack<Image const*> st;
-	st.push(res["water_c"]); // TODO
+	BuildTile(x, y, st);
 
 	// lookup in the hash
 	if(imagehash.find(st) == imagehash.end())
@@ -78,4 +111,31 @@ TerrainSurface::TileSurface(int x, int y)
 		return image;
 	}
 	return imagehash[st];
+}
+
+
+void 
+TerrainSurface::BuildTile(int x, int y, std::stack<Image const*>& st)
+{
+	static std::map<TerrainType, std::string> basic {
+		{ t_GRASS,    "grass"    },
+		{ t_WATER,    "water"    },
+		{ t_DIRT,     "dirt"     },
+		{ t_EARTH,    "earth"    },
+		{ t_LAVAROCK, "lavarock" },
+		{ t_LAVA,     "lava"     },
+		{ t_SNOW,     "snow"     },
+	};
+
+	// basic terrain
+	std::string basic_terrain = basic[world.Terrain(x, y)];
+	int special;
+	if((special = world.Special(x, y)) == 0)
+		st.push(res[basic_terrain + "_c"]);
+	else
+	{
+		std::stringstream s;
+		s << basic_terrain << "_" << special;
+		st.push(res[s.str()]);
+	}
 }

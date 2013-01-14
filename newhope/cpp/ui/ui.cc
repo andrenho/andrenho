@@ -3,6 +3,7 @@
 #include <cassert>
 #include <vector>
 
+#include "libs/graphiclibrary.h"
 #include "ui/resource.h"
 #include "ui/terrainsurface.h"
 #include "util/logger.h"
@@ -51,13 +52,13 @@ UI::ProcessEvents()
 		{
 		case '\t':
 			minimap->Display(); break;
-		case SDLK_LEFT:
+		case Key::LEFT:
 			MoveView(-s, 0); break;
-		case SDLK_DOWN:
+		case Key::DOWN:
 			MoveView(0, s);  break;
-		case SDLK_UP:
+		case Key::UP:
 			MoveView(0, -s); break;
-		case SDLK_RIGHT:
+		case Key::RIGHT:
 			MoveView(s, 0);  break;
 		default:
 			logger.Debug("%c %d", key->key, key->key);
@@ -103,8 +104,8 @@ UI::Draw()
 void 
 UI::EndFrame()
 {
-//	if(video->ReachedCountDown())
-//		logger.Debug("Frame delayed!");
+	if(video->ReachedCountDown())
+		logger.Debug("Frame delayed!");
 	video->WaitCountDown();
 }
 

@@ -14,7 +14,7 @@ public:
 	const enum TypeEvent type;
 };
 
-enum Key { UP=256, DOWN, LEFT, RIGHT };
+typedef enum Key { UP=256, DOWN, LEFT, RIGHT } Key;
 
 class KeyEvent : public Event {
 public:
