@@ -27,7 +27,7 @@ public:
 	~World();
 
 	TerrainType Terrain(int x, int y) const;
-	bool Special(int x, int y) const;
+	int Special(int x, int y) const;
 
 	const int w, h;
 	const MapBuild* map;

@@ -69,8 +69,6 @@ sdlimage.o: libs/sdl/sdlimage.cc libs/sdl/sdlimage.h \
  /usr/include/SDL/SDL_joystick.h /usr/include/SDL/SDL_quit.h \
  /usr/include/SDL/SDL_loadso.h /usr/include/SDL/SDL_timer.h \
  /usr/include/SDL/SDL_version.h util/logger.h
-buildtile.o: ui/buildtile.cc
-event.o: ui/event.cc
 minimap.o: ui/minimap.cc ui/minimap.h libs/graphiclibrary.h libs/rect.h \
  libs/image.h libs/resource.h libs/colors.h util/point.h libs/font.h \
  ui/resource.h world/world.h world/mapbuild.h util/polygon.h \
