@@ -40,10 +40,12 @@ private:
 	void CreateBiomes();
 	void CreateCities();
 	void CreateRoads();
-	void FindNations();
+	//void FindNations();
 
-	void FindInterconnectedCities(City const& city, 
-			std::vector<City const*>& cs);
+	void FindUnconnectedCities();
+	void ConnectClusters(std::vector<City const*> const& c1, 
+			std::vector<City const*> const& c2);
+	void FindCityCluster(City const* city, std::vector<City const*>& cs);
 	void CreateRoad(City const& c1, City const& c2);
 	Polygon* CreateFlow(Point start, int iterations=INT_MAX);
 	int DistanceFromWater(Point const& p, bool include_rivers);
