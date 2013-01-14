@@ -48,7 +48,7 @@ MapBuild::CreatePolygons()
 
 	// create layout
 	std::vector<Polygon*> polygons;
-	Polygon::FakeVoronoi(pars.seed, pars.w, pars.h, 30, polygons);
+	Polygon::FakeVoronoi(pars.seed, pars.w, pars.h, 60, polygons);
 
 	// add biomes
 	for(std::vector<Polygon*>::iterator it = polygons.begin(); 
@@ -271,9 +271,9 @@ MapBuild::CreateBiomes()
 		}
 		else
 		{
-			if(moi < 50)
+			if(moi < 60)
 				t = t_LAVAROCK;
-			else if(moi < 75)
+			else if(moi < 80)
 				t = t_SNOW;
 			else
 				t = t_COLDFOREST;
@@ -379,8 +379,8 @@ void MapBuild::FindUnconnectedCities()
 	}
 	
 	// find closest cities and build roads among them
-	for(int i=0; i<clusters.size(); i++)
-		for(int j=i+1; j<clusters.size(); j++)
+	for(unsigned int i=0; i<clusters.size(); i++)
+		for(unsigned int j=i+1; j<clusters.size(); j++)
 			ConnectClusters(clusters[i], clusters[j]);
 }
 
@@ -403,8 +403,8 @@ MapBuild::ConnectClusters(std::vector<City const*> const& c1,
 {
 	int min_dist = INT_MAX;
 	std::pair<City const*, City const*> cities(NULL, NULL);
-	for(int i=0; i<c1.size(); i++)
-		for(int j=i+1; j<c2.size(); j++)
+	for(unsigned int i=0; i<c1.size(); i++)
+		for(unsigned int j=i+1; j<c2.size(); j++)
 			if(c1[i] != c2[j])
 			{
 				int dist = c1[i]->pos.Distance(c2[j]->pos);
@@ -458,7 +458,8 @@ MapBuild::FindInterconnectedCities(City const& city,
 void 
 MapBuild::CreateRoad(City const& c1, City const& c2)
 {
-	assert(&c1 != &c2);
+	if(&c1 == &c2)
+		return;
 
 	Biome const* b = &c1.biome;
 	Polygon* road = new Polygon();
@@ -551,12 +552,9 @@ MapBuild::DistanceFromWater(Point const& p, bool include_rivers)
 	for(const auto& biome : biomes)
 		if(biome->terrain == t_WATER)
 		{
-			for(const auto& point : biome->polygon->points)
-			{
-				int new_dist = p.Distance(point);
-				if(new_dist < dist)
-					dist = new_dist;
-			}
+			int new_dist = p.Distance(biome->polygon->Midpoint());
+			if(new_dist < dist)
+				dist = new_dist;
 		}
 
 	// distance from a river

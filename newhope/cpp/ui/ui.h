@@ -22,6 +22,8 @@ public:
 	inline bool Active() { return active; }
 
 private:
+	void MoveView(int horiz, int vert);
+
 	//World const& world;
 	bool active;
 	int rx, ry;

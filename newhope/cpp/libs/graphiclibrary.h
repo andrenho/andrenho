@@ -14,10 +14,12 @@ public:
 	const enum TypeEvent type;
 };
 
+enum Key { UP=256, DOWN, LEFT, RIGHT };
+
 class KeyEvent : public Event {
 public:
-	KeyEvent(char key) : Event(KEY), key(key) { }
-	const char key;
+	KeyEvent(int key) : Event(KEY), key(key) { }
+	const int key;
 };
 
 class ClickEvent : public Event {
@@ -38,9 +40,9 @@ public:
 	virtual bool ReachedCountDown() const = 0;
 	virtual void WaitCountDown() = 0;
 
-	virtual Image& LoadImage(std::string const& filename, Rect const& r) const = 0;
-	virtual Image& CreateImage(int w, int h) const = 0;
-	virtual Font& LoadFont(std::string const& filename, int size) const = 0;
+	virtual Image* LoadImage(std::string const& filename, Rect const& r) const = 0;
+	virtual Image* CreateImage(int w, int h) const = 0;
+	virtual Font* LoadFont(std::string const& filename, int size) const = 0;
 
 	virtual Event const* GetEvent() const = 0;
 
