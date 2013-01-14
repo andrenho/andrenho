@@ -331,7 +331,7 @@ MapBuild::CreateRoads()
 			});
 
 		// skip cities already connected
-		int n; // [0] is the city itself
+		unsigned int n; // [0] is the city itself
 		for(n=1; ; n++)
 		{
 			if(n >= cs.size())
@@ -351,9 +351,75 @@ MapBuild::CreateRoads()
 
 next: ;
 	}
+
+	FindUnconnectedCities();
 }
 
 
+void MapBuild::FindUnconnectedCities()
+{
+	// find city clusters
+	std::vector<std::vector<City const*> > clusters;
+	for(auto const& city: cities)
+	{
+		bool found = false;
+		for(auto const& cluster: clusters)
+			if(std::find(cluster.begin(), cluster.end(), city) !=
+					cluster.end())
+			{
+				found = true;
+				break;
+			}
+		if(found)
+			continue;
+
+		auto cluster = std::vector<City const*>();
+		FindCityCluster(city, cluster);
+		clusters.push_back(cluster);
+	}
+	
+	// find closest cities and build roads among them
+	for(int i=0; i<clusters.size(); i++)
+		for(int j=i+1; j<clusters.size(); j++)
+			ConnectClusters(clusters[i], clusters[j]);
+}
+
+
+void 
+MapBuild::FindCityCluster(City const* city, std::vector<City const*>& cluster)
+{
+	if(std::find(cluster.begin(), cluster.end(), city) != cluster.end())
+		return;
+
+	cluster.push_back(city);
+	for(auto const& conn: city->connections)
+		FindCityCluster(conn, cluster); // recursive
+}
+
+
+void
+MapBuild::ConnectClusters(std::vector<City const*> const& c1, 
+		std::vector<City const*> const& c2)
+{
+	int min_dist = INT_MAX;
+	std::pair<City const*, City const*> cities(NULL, NULL);
+	for(int i=0; i<c1.size(); i++)
+		for(int j=i+1; j<c2.size(); j++)
+			if(c1[i] != c2[j])
+			{
+				int dist = c1[i]->pos.Distance(c2[j]->pos);
+				if(dist < min_dist)
+				{
+					min_dist = dist;
+					cities = std::make_pair(c1[i], c2[j]);
+				}
+			}
+	if(cities.first)
+		CreateRoad(*cities.first, *cities.second);
+}
+
+
+/*
 void
 MapBuild::FindNations()
 {
@@ -386,11 +452,14 @@ MapBuild::FindInterconnectedCities(City const& city,
 {
 	// TODO
 }
+*/
 
 
 void 
 MapBuild::CreateRoad(City const& c1, City const& c2)
 {
+	assert(&c1 != &c2);
+
 	Biome const* b = &c1.biome;
 	Polygon* road = new Polygon();
 
