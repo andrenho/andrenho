@@ -15,7 +15,9 @@ UI::UI(World const& world)
 	  minimap(new Minimap(*video, world, *res))
 {
 	terrain_sf->Resize(video->Window->w, video->Window->h);
-	minimap->Reset();
+	minimap->Reset(); // TODO
+
+	MoveView(-2400, -96896);
 }
 
 
@@ -31,7 +33,7 @@ UI::~UI()
 void 
 UI::StartFrame()
 {
-	video->StartCountDown(1000/60);
+	video->StartCountDown(1000/30);
 }
 
 
@@ -92,9 +94,8 @@ UI::Draw()
 	{
 		Rect r(rx % TerrainSurface::TileSize, 
 				ry % TerrainSurface::TileSize);
-		terrain_sf->Img->Blit(*video->Window, r);
+		terrain_sf->Img->Blit(*video->Window, r); // TODO - not always
 		// terminal->Draw();
-		//video->Window->FillBox(Color { 255, 255, 255 });
 		video->Window->Update();
 	}
 	else

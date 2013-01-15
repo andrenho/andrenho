@@ -1,6 +1,9 @@
 #include "ui/terrainsurface.h"
 
+#include <algorithm>
+#include <bitset>
 #include <sstream>
+#include <vector>
 
 #include "libs/image.h"
 #include "util/logger.h"
@@ -38,6 +41,15 @@ TerrainSurface::AreasToRedraw(std::vector<Rect>& rects)
 void 
 TerrainSurface::SetTopLeft(int x, int y)
 {
+	if(abs(this->x - x)*TileSize > video.Window->w
+	|| abs(this->y - y)*TileSize > video.Window->h)
+	{
+		this->x = x;
+		this->y = y;
+		Redraw();
+		return;
+	}
+
 	int nx, ny;
 
 	if(this->x == x && this->y == y)
@@ -93,8 +105,8 @@ TerrainSurface::DrawTile(int x, int y)
 const Image* 
 TerrainSurface::TileSurface(int x, int y)
 {
-	// build stack
-	std::stack<Image const*> st;
+	// build queue
+	std::queue<Image const*> st;
 	BuildTile(x, y, st);
 
 	// lookup in the hash
@@ -105,7 +117,7 @@ TerrainSurface::TileSurface(int x, int y)
 		imagehash[st] = image;
 		while(!st.empty())
 		{
-			st.top()->Blit(*image);
+			st.front()->Blit(*image);
 			st.pop();
 		}
 		return image;
@@ -114,21 +126,24 @@ TerrainSurface::TileSurface(int x, int y)
 }
 
 
+static std::map<TerrainType, std::string> basic {
+	{ t_GRASS,    "grass"    },
+	{ t_WATER,    "water"    },
+	{ t_DIRT,     "dirt"     },
+	{ t_EARTH,    "earth"    },
+	{ t_LAVAROCK, "lavarock" },
+	{ t_LAVA,     "lava"     },
+	{ t_SNOW,     "snow"     },
+};
+
+
 void 
-TerrainSurface::BuildTile(int x, int y, std::stack<Image const*>& st)
+TerrainSurface::BuildTile(int x, int y, std::queue<Image const*>& st)
 {
-	static std::map<TerrainType, std::string> basic {
-		{ t_GRASS,    "grass"    },
-		{ t_WATER,    "water"    },
-		{ t_DIRT,     "dirt"     },
-		{ t_EARTH,    "earth"    },
-		{ t_LAVAROCK, "lavarock" },
-		{ t_LAVA,     "lava"     },
-		{ t_SNOW,     "snow"     },
-	};
 
 	// basic terrain
-	std::string basic_terrain = basic[world.Terrain(x, y)];
+	TerrainType terrain = world.Terrain(x, y);
+	std::string basic_terrain = basic[terrain];
 	int special;
 	if((special = world.Special(x, y)) == 0)
 		st.push(res[basic_terrain + "_c"]);
@@ -137,5 +152,92 @@ TerrainSurface::BuildTile(int x, int y, std::stack<Image const*>& st)
 		std::stringstream s;
 		s << basic_terrain << "_" << special;
 		st.push(res[s.str()]);
+	}
+
+	BuildTileBorders(x, y, terrain, st);
+}
+
+
+void
+TerrainSurface::BuildTileBorders(int x, int y, TerrainType t, 
+		std::queue<Image const*>& st)
+{
+	// find terrains around
+	TerrainType around[8] = {
+		world.Terrain(x-1, y-1),
+		world.Terrain(x  , y-1),
+		world.Terrain(x+1, y-1),
+		world.Terrain(x-1, y  ),
+		world.Terrain(x+1, y  ),
+		world.Terrain(x-1, y+1),
+		world.Terrain(x  , y+1),
+		world.Terrain(x+1, y+1)
+	};
+	
+	// compact list and order by importance
+	std::vector<TerrainType> terrains;
+	for(int i=0; i<8; i++)
+	{
+		if(std::find(terrains.begin(), terrains.end(), around[i]) ==
+				terrains.end())
+			terrains.push_back(around[i]);
+	}
+	std::sort(terrains.begin(), terrains.end());
+
+	// find borders
+	for(auto const& terrain: terrains)
+	{
+		if(terrain <= t)
+			continue;
+		uint8_t bs = 0;
+		for(int i=0; i<8; i++)
+			bs |= ((around[i] == terrain) << i);
+		BuildBorder(terrain, bs, st);
+	}
+}
+
+
+void
+TerrainSurface::BuildBorder(TerrainType t, uint8_t bs, 
+		std::queue<Image const*>& st)
+{
+	struct { int nw, n, ne, w, e, sw, s, se; } b = {
+		(bs & 0b00000001), (bs & 0b00000010), (bs & 0b00000100),
+		(bs & 0b00001000), 		      (bs & 0b00010000),
+ 		(bs & 0b00100000), (bs & 0b01000000), (bs & 0b10000000) };
+
+	// find the most t tile around this one
+	if(b.s && b.w)
+		st.push(res[basic[t] + "_ic_sw"]);
+	else if(b.s && b.e)
+		st.push(res[basic[t] + "_ic_se"]);
+	else if(b.n && b.w)
+		st.push(res[basic[t] + "_ic_nw"]);
+	else if(b.n && b.e)
+		st.push(res[basic[t] + "_ic_ne"]);
+	else if(b.n || b.s || b.w || b.e)
+	{
+		if(b.n)
+			st.push(res[basic[t] + "_ec_s"]);
+		if(b.s)
+			st.push(res[basic[t] + "_ec_n"]);
+		if(b.e)
+			st.push(res[basic[t] + "_ec_w"]);
+		if(b.w)
+			st.push(res[basic[t] + "_ec_e"]);
+	}
+	else if(b.se || b.sw)
+	{
+		if(b.se)
+			st.push(res[basic[t] + "_ec_nw"]);
+		if(b.sw)
+			st.push(res[basic[t] + "_ec_ne"]);
+	}
+	else if(b.ne || b.nw)
+	{
+		if(b.ne)
+			st.push(res[basic[t] + "_ec_sw"]);
+		if(b.nw)
+			st.push(res[basic[t] + "_ec_se"]);
 	}
 }

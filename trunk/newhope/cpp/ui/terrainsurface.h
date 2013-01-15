@@ -1,9 +1,10 @@
 #ifndef UI_TERRAINSURFACE_H
 #define UI_TERRAINSURFACE_H
 
+#include <cstdint>
 #include <cstdlib>
 #include <map>
-#include <stack>
+#include <queue>
 #include <vector>
 
 #include "libs/graphiclibrary.h"
@@ -31,8 +32,13 @@ private:
 	void Redraw();
 	void DrawTile(int x, int y);
 	const Image* TileSurface(int x, int y);
-	void BuildTile(int x, int y, std::stack<Image const*>& st);
-	std::map<std::stack<Image const*>, Image const*> imagehash;
+	void BuildTile(int x, int y, std::queue<Image const*>& st);
+	void BuildTileBorders(int x, int y, TerrainType t, 
+			std::queue<Image const*>& st);
+	void BuildBorder(TerrainType t, uint8_t bs, 
+			std::queue<Image const*>& st);
+	
+	std::map<std::queue<Image const*>, Image const*> imagehash;
 
 	World const& world;
 	GraphicLibrary const& video;
