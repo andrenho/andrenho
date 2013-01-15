@@ -16,8 +16,8 @@ int main(int argc, char** argv)
 	while(ui.Active())
 	{
 		ui.StartFrame();
-		ui.ProcessEvents();
 		ui.Draw();
+		ui.ProcessEvents();
 		ui.EndFrame();
 	}
 }

@@ -141,9 +141,6 @@ Polygon::Midpoint() const
 void 
 Polygon::CalculateLimits() const
 {
-	limit_x1 = limit_y1 = INT_MAX;
-	limit_x2 = limit_y2 = 0;
-
 	for(const auto& point : points)
 	{
 		int x = point.x;
