@@ -33,7 +33,7 @@ UI::~UI()
 void 
 UI::StartFrame()
 {
-	video->StartCountDown(1000/30);
+	video->StartCountDown(1000/60);
 }
 
 
@@ -51,9 +51,9 @@ UI::ProcessEvents()
 		int s = 1;
 		const KeyEvent* key = (const KeyEvent*)event;
 		if(key->Shift)
-			s = 10;
+			s = 16;
 		else if(key->Control)
-			s = 40;
+			s = 150;
 		switch(key->key)
 		{
 		case '\t':
