@@ -11,6 +11,8 @@
 
 TerrainSurface::~TerrainSurface()
 {
+	for(auto const& image: imagehash)
+		delete image.second;
 	if(Img)
 		delete Img;
 }
