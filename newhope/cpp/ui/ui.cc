@@ -17,7 +17,7 @@ UI::UI(World const& world)
 	terrain_sf->Resize(video->Window->w, video->Window->h);
 	minimap->Reset();
 
-	GoTo(Point { 75, 3028 });
+	GoTo(world.map->rivers[0]->points[0]);
 }
 
 
