@@ -3,7 +3,7 @@
 
 #include "libs/resource.h"
 #include "libs/colors.h"
-#include "libs/rect.h"
+#include "util/rect.h"
 #include "util/point.h"
 
 class Image : public Resource {

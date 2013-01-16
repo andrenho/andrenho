@@ -2,7 +2,7 @@
 #define RESOURCE_LIST_H
 
 #include <string>
-#include "libs/rect.h"
+#include "util/rect.h"
 
 // single images
 const Rect terrain_r[] = {

@@ -6,7 +6,6 @@ include config.mk
 SRC = main.cc		   \
       options.cc           \
       libs/image.cc        \
-      libs/rect.cc         \
       libs/sdl/sdl.cc      \
       libs/sdl/sdlfont.cc  \
       libs/sdl/sdlimage.cc \
@@ -18,6 +17,7 @@ SRC = main.cc		   \
       util/logger.cc       \
       util/i18n.cc         \
       util/polygon.cc      \
+      util/rect.cc         \
       world/city.cc        \
       world/mapbuild.cc    \
       world/world.cc

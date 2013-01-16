@@ -5,8 +5,8 @@
 #include <map>
 
 #include "libs/graphiclibrary.h"
-#include "libs/rect.h"
 #include "libs/resource.h"
+#include "util/rect.h"
 
 typedef std::map<const std::string, const Resource*> mapR;
 

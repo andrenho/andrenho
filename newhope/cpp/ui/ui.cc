@@ -15,9 +15,9 @@ UI::UI(World const& world)
 	  minimap(new Minimap(*video, world, *res))
 {
 	terrain_sf->Resize(video->Window->w, video->Window->h);
-	minimap->Reset(); // TODO
+	minimap->Reset();
 
-	MoveView(-2400, -96896);
+	GoTo(Point { 75, 3028 });
 }
 
 
@@ -124,4 +124,13 @@ UI::MoveView(int horiz, int vert)
 
 	terrain_sf->SetTopLeft(-(rx/TerrainSurface::TileSize), 
 			-(ry/TerrainSurface::TileSize));
+}
+
+
+void 
+UI::GoTo(Point p)
+{
+	rx = -TerrainSurface::TileSize * p.x;
+	ry = -TerrainSurface::TileSize * p.y;
+	MoveView(0, 0);
 }

@@ -5,7 +5,7 @@
 #include <png.h>
 
 #include "libs/image.h"
-#include "libs/rect.h"
+#include "util/rect.h"
 
 struct SDL_Surface;
 
