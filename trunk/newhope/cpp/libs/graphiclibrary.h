@@ -2,7 +2,7 @@
 #define LIBS_LIBS_H
 
 #include <string>
-#include "libs/rect.h"
+#include "util/rect.h"
 #include "libs/image.h"
 #include "libs/font.h"
 

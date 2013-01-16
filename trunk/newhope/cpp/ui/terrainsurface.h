@@ -8,7 +8,7 @@
 #include <vector>
 
 #include "libs/graphiclibrary.h"
-#include "libs/rect.h"
+#include "util/rect.h"
 #include "libs/image.h"
 #include "ui/resource.h"
 #include "world/world.h"

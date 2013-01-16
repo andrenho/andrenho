@@ -3,6 +3,7 @@
 
 #include "libs/sdl/sdl.h"
 #include "ui/minimap.h"
+#include "util/point.h"
 
 class World;
 class GraphicLibrary;
@@ -22,6 +23,7 @@ public:
 	inline bool Active() { return active; }
 
 private:
+	void GoTo(Point p);
 	void MoveView(int horiz, int vert);
 
 	//World const& world;
