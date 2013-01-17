@@ -14,6 +14,7 @@ SRC = main.cc		   \
       ui/terminal.cc       \
       ui/terrainsurface.cc \
       ui/ui.cc             \
+      util/algorithm.cc    \
       util/logger.cc       \
       util/i18n.cc         \
       util/polygon.cc      \

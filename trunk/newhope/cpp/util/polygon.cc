@@ -235,5 +235,33 @@ Polygon::IsTouching(Polygon const& poly)
 bool
 Polygon::BorderIntersects(Rect const& r)
 {
+	Point prect[4][2] = {
+		{ { r.x,     r.y     }, { r.x+r.w, r.y } },
+		{ { r.x+r.w, r.y     }, { r.x+r.w, r.y+r.h } },
+		{ { r.x+r.w, r.y+r.h }, { r.x,     r.y+r.h } },
+		{ { r.x,     r.y+r.h }, { r.x,     r.y } }
+	};
 
+	for(unsigned int i=0; i<points.size()-1; i++)
+	{
+		Point a = points[i],
+		      b = points[i+1];
+
+		for(int j=0; j<1; j++)
+		{
+			Point c = prect[j][0],
+			      d = prect[j][1];
+			bool abc = (b.x - a.x) * (c.y - a.y) > 
+				   (b.y - a.y) * (c.x - a.x);
+			bool abd = (b.x - a.x) * (d.y - a.y) > 
+				   (b.y - a.y) * (d.x - a.x);
+			bool bcd = (c.x - b.x) * (d.y - b.y) > 
+				   (c.y - b.y) * (d.x - b.x);
+			bool acd = (c.x - a.x) * (d.y - a.y) > 
+				   (c.y - a.y) * (d.x - a.x);
+			if((acd != bcd) && (abc != abd))
+				return true;
+		}
+	}
+	return false;
 }
