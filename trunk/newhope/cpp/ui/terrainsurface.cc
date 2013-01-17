@@ -136,7 +136,11 @@ static std::map<TerrainType, std::string> basic {
 	{ t_LAVAROCK, "lavarock" },
 	{ t_LAVA,     "lava"     },
 	{ t_SNOW,     "snow"     },
+
+	/* TODO */
 	{ t_HOTFOREST, "grass" },
+	{ t_TUNDRA, "earth" },
+	{ t_COLDFOREST, "grass" },
 };
 
 

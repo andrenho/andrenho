@@ -34,6 +34,16 @@ TerrainType
 World::Terrain(int x, int y) const
 {
 	struct Point p = { x, y };
+
+	// look for river
+	Rect r(x-2, y-2, 4, 4);
+	for(auto const& river: map->rivers)
+	{
+		if(river->BorderInstesects(r))
+			return t_WATER;
+	}
+
+	// find biome
 	for(auto const& biome : map->biomes)
 		if(biome->polygon->PointInPolygon(p))
 			return biome->terrain;

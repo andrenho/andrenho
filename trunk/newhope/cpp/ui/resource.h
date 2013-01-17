@@ -1,11 +1,13 @@
 #ifndef UI_RESOURCE_H
 #define UI_RESOURCE_H
 
-#include <string>
 #include <map>
+#include <stdexcept>
+#include <string>
 
 #include "libs/graphiclibrary.h"
 #include "libs/resource.h"
+#include "util/logger.h"
 #include "util/rect.h"
 
 typedef std::map<const std::string, const Resource*> mapR;
@@ -15,12 +17,17 @@ public:
 	Resources(GraphicLibrary const& video);
 	~Resources();
 
-	inline const Image* Img(std::string const& s) const {
-		return dynamic_cast<const Image*>(res.at(s));
-	}
-
 	inline const Image* operator[](std::string const& s) const {
-		return dynamic_cast<const Image*>(res.at(s));
+		try 
+		{
+			return dynamic_cast<const Image*>(res.at(s));
+		} 
+		catch(std::out_of_range& e)
+		{
+			logger.Error(1, "Image resource %s does not exists.", 
+					s.c_str());
+			abort();
+		}
 	}
 
 private:

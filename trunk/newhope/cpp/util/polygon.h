@@ -26,6 +26,7 @@ public:
 	void NeighbourPoints(Point p, std::vector<Point>& neigh_points) const;
 	bool ContainsPoint(Point p) const;
 	bool IsTouching(Polygon const& p);
+	bool BorderIntersects(Rect const& r);
 
 	static void FakeVoronoi(unsigned int seed, int w, int h, int density,
 			std::vector<Polygon*>& polygons);
