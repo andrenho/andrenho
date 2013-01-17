@@ -130,33 +130,33 @@ Minimap::DrawPaper()
 	r.Add(-60, -85, 120, 170);
 
 	// laterals
-	for(int y = r.y + res.Img("mm_nw")->h; y < r.y + r.h - 60; 
-			y += res.Img("mm_w")->h)
+	for(int y = r.y + res["mm_nw"]->h; y < r.y + r.h - 60; 
+			y += res["mm_w"]->h)
 	{
-		res.Img("mm_w")->Blit(*video.Window, Rect(r.x, y));
-		res.Img("mm_e")->Blit(*video.Window, 
-				Rect(r.x + r.w - res.Img("mm_e")->w, y));
+		res["mm_w"]->Blit(*video.Window, Rect(r.x, y));
+		res["mm_e"]->Blit(*video.Window, 
+				Rect(r.x + r.w - res["mm_e"]->w, y));
 	}
-	for(int x = r.x + res.Img("mm_nw")->w; 
-			x < r.x + r.w - res.Img("mm_ne")->w;
-			x += res.Img("mm_n")->w)
+	for(int x = r.x + res["mm_nw"]->w; 
+			x < r.x + r.w - res["mm_ne"]->w;
+			x += res["mm_n"]->w)
 	{
-		res.Img("mm_n")->Blit(*video.Window, Rect(x, r.y));
-		res.Img("mm_s")->Blit(*video.Window, 
-				Rect(x, r.y + r.h - res.Img("mm_s")->h));
+		res["mm_n"]->Blit(*video.Window, Rect(x, r.y));
+		res["mm_s"]->Blit(*video.Window, 
+				Rect(x, r.y + r.h - res["mm_s"]->h));
 	}
 
 	// corners
 	int tr = r.x;
-	int dfw = r.w - res.Img("mm_ne")->w,
-	    dfh = r.h - res.Img("mm_se")->h;
-	res.Img("mm_nw")->Blit(*video.Window, r);
+	int dfw = r.w - res["mm_ne"]->w,
+	    dfh = r.h - res["mm_se"]->h;
+	res["mm_nw"]->Blit(*video.Window, r);
 	r.x += dfw;
-	res.Img("mm_ne")->Blit(*video.Window, r);
+	res["mm_ne"]->Blit(*video.Window, r);
 	r.y += dfh;
-	res.Img("mm_se")->Blit(*video.Window, r);
+	res["mm_se"]->Blit(*video.Window, r);
 	r.x = tr;
-	res.Img("mm_sw")->Blit(*video.Window, r);
+	res["mm_sw"]->Blit(*video.Window, r);
 
 	// middle
 	video.Window->FillBox(r2, (Color){ 210, 183, 119});

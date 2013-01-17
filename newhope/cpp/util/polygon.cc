@@ -230,3 +230,10 @@ Polygon::IsTouching(Polygon const& poly)
 			return true;
 	return false;
 }
+
+
+bool
+Polygon::BorderIntersects(Rect const& r)
+{
+
+}
