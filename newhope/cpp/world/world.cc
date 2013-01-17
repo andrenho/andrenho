@@ -15,7 +15,7 @@ World::World(int w, int h) :
 		.seed = 1,
 		.w = w,
 		.h = h,
-		.n_rivers = 12,
+		.n_rivers = 1,
 		.n_cities = 20,
 		.n_roads = 10,
 	};
@@ -39,7 +39,7 @@ World::Terrain(int x, int y) const
 	Rect r(x-2, y-2, 4, 4);
 	for(auto const& river: map->rivers)
 	{
-		if(river->BorderInstesects(r))
+		if(river->BorderIntersects(r))
 			return t_WATER;
 	}
 
