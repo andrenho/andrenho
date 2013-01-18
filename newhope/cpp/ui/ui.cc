@@ -77,6 +77,7 @@ UI::ProcessEvents()
 	case Event::RESIZE:
 		terrain_sf->Resize(video->Window->w, video->Window->h);
 		minimap->Reset();
+		draw_next_frame = true;
 		break;
 	default:
 		break;
