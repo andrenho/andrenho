@@ -1,5 +1,6 @@
 #include "world/world.h"
 
+#include <algorithm>
 #include <cstdlib>
 #include <vector>
 
@@ -15,12 +16,15 @@ World::World(int w, int h) :
 		.seed = 1,
 		.w = w,
 		.h = h,
-		.n_rivers = 1,
+		.n_rivers = 15,
 		.n_cities = 20,
 		.n_roads = 10,
 	};
 	map = new MapBuild(pars);
 	logger.Debug("Map built.");
+
+	// create vectors with rivers, lava and roads
+	CreatePathsCache();
 }
 
 
@@ -35,13 +39,26 @@ World::Terrain(int x, int y) const
 {
 	struct Point p = { x, y };
 
-	// look for river
+	/*
+	// look for road
 	Rect r(x-2, y-2, 4, 4);
+	for(auto const& road: map->roads)
+		if(road->BorderIntersects(r))
+			return t_LAVAROCK;
+
+	// look for river
 	for(auto const& river: map->rivers)
-	{
 		if(river->BorderIntersects(r))
 			return t_WATER;
-	}
+
+	// look for lava
+	for(auto const& lavapath: map->lava)
+		if(lavapath->BorderIntersects(r))
+			return t_LAVA;
+	*/
+	// find rivers
+	//if(std::binary_search(riverpts.begin(), riverpts.end(), p))
+	//	return t_WATER;
 
 	// find biome
 	for(auto const& biome : map->biomes)
@@ -59,4 +76,72 @@ World::Special(int x, int y) const
 		return 0;
 	else
 		return n;
+}
+
+
+void 
+World::CreatePathsCache()
+{
+	logger.Debug("Drawing polygons...");
+
+	static struct {
+		std::vector<Polygon*> const& mapbuild;
+		std::vector<Point>& points;
+		int width;
+	} polygons[] = {
+		{ map->rivers, riverpts, 4 }
+	};
+
+	for(auto const& polygon: polygons)
+	{
+		// create a set with all the points
+		std::set<Point> points;
+		for(auto const& each: polygon.mapbuild)
+			for(unsigned int i=0; i<each->points.size()-1; i++)
+				AddPoints(each->points[i], each->points[i+1],
+						points, polygon.width);
+
+		// transform the set in a vector and sort it
+		std::copy(points.begin(), points.end(), 
+				std::back_inserter(polygon.points));
+		std::sort(polygon.points.begin(), polygon.points.end());
+		logger.Debug("%d", polygon.points.size());
+	}
+	
+	logger.Debug("Polygons drawn.");
+}
+
+
+void
+World::AddPoints(Point p1, Point p2, std::set<Point>& points, int line_width)
+{
+	int x0 = std::min(std::max(p1.x, 0), this->w - line_width),
+	    y0 = std::min(std::max(p1.y, 0), this->h - line_width),
+	    x1 = std::min(p2.x, this->w - line_width),
+	    y1 = std::min(p2.y, this->h - line_width);
+	int dx = abs(x1-x0), sx = x0<x1 ? 1 : -1;
+	int dy = abs(y1-y0), sy = y0<y1 ? 1 : -1;
+	int err = (dx>dy ? dx : -dy)/2, e2;
+
+	for(;;)
+	{
+		int xx = 0; //rand() % w;
+		int yy = 0; //rand() % w;
+		for(int x=(-line_width/2); x<line_width/2; x++)
+			for(int y=(-line_width/2); y<line_width/2; y++)
+				points.insert(Point { x0+x+xx, y0+y+yy });
+		if(x0 == x1 && y0 == y1)
+			break;
+		e2 = err;
+		if(e2 > -dx)
+		{
+			err -= dy;
+			x0 += sx;
+		}
+		if(e2 < dy)
+		{
+			err += dx;
+			y0 += sy;
+		}
+	}
 }

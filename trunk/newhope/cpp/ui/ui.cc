@@ -15,9 +15,10 @@ UI::UI(World const& world)
 	  minimap(new Minimap(*video, world, *res))
 {
 	terrain_sf->Resize(video->Window->w, video->Window->h);
-	minimap->Reset();
+	//minimap->Reset();
 
-	GoTo(world.map->rivers[0]->points[0]);
+	//GoTo(world.map->rivers[0]->points[0]);
+	//GoTo(world.map->roads[12]->points[0]);
 }
 
 

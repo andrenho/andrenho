@@ -118,5 +118,5 @@ rect.o: util/rect.cc util/rect.h
 city.o: world/city.cc
 mapbuild.o: world/mapbuild.cc world/mapbuild.h util/polygon.h util/rect.h \
  util/point.h util/logger.h world/biome.h world/world.h world/city.h
-world.o: world/world.cc world/world.h world/mapbuild.h util/polygon.h \
- util/rect.h util/point.h util/logger.h world/biome.h
+world.o: world/world.cc world/world.h util/point.h world/mapbuild.h \
+ util/polygon.h util/rect.h util/logger.h world/biome.h

@@ -43,45 +43,46 @@ TerrainSurface::AreasToRedraw(std::vector<Rect>& rects)
 void 
 TerrainSurface::SetTopLeft(int x, int y)
 {
+	if(this->x == x && this->y == y)
+		return;
+
 	if(abs(this->x - x)*TileSize > video.Window->w
 	|| abs(this->y - y)*TileSize > video.Window->h)
 	{
 		this->x = x;
 		this->y = y;
 		Redraw();
-		return;
 	}
+	else
+	{
+		int nx, ny;
 
-	int nx, ny;
+		Rect r((this->x - x)*TileSize, (this->y - y)*TileSize);
+		Img->Blit(*Img, r);
 
-	if(this->x == x && this->y == y)
-		return;
+		int tsx = this->x, 
+		    tsy = this->y;
 
-	Rect r((this->x - x)*TileSize, (this->y - y)*TileSize);
-	Img->Blit(*Img, r);
+		this->x = x;
+		this->y = y;
 
-	int tsx = this->x, 
-	    tsy = this->y;
-
-	this->x = x;
-	this->y = y;
-
-	if(x > tsx)
-		for(nx=(this->w + this->x - (x - tsx)); nx < (this->w + this->x); nx++)
-			for(ny=this->y; ny < (this->h + this->y); ny++)
-				DrawTile(nx, ny);
-	else if(x < tsx)
-		for(nx=this->x; nx < (this->x + tsx - x); nx++)
-			for(ny=this->y; ny < (this->h + this->y); ny++)
-				DrawTile(nx, ny);
-	if(y > tsy)
-		for(ny=(this->h + this->y - (y - tsy)); ny < (this->h + this->y); ny++)
-			for(nx=this->x; nx < (this->w + this->x); nx++)
-				DrawTile(nx, ny);
-	else if(y < tsy)
-		for(ny=this->y; ny < (this->y + tsy - y); ny++)
-			for(nx=this->x; nx < (this->w + this->x); nx++)
-				DrawTile(nx, ny);
+		if(x > tsx)
+			for(nx=(this->w + this->x - (x - tsx)); nx < (this->w + this->x); nx++)
+				for(ny=this->y; ny < (this->h + this->y); ny++)
+					DrawTile(nx, ny);
+		else if(x < tsx)
+			for(nx=this->x; nx < (this->x + tsx - x); nx++)
+				for(ny=this->y; ny < (this->h + this->y); ny++)
+					DrawTile(nx, ny);
+		if(y > tsy)
+			for(ny=(this->h + this->y - (y - tsy)); ny < (this->h + this->y); ny++)
+				for(nx=this->x; nx < (this->w + this->x); nx++)
+					DrawTile(nx, ny);
+		else if(y < tsy)
+			for(ny=this->y; ny < (this->y + tsy - y); ny++)
+				for(nx=this->x; nx < (this->w + this->x); nx++)
+					DrawTile(nx, ny);
+	}
 }
 
 
