@@ -35,35 +35,31 @@ World::~World()
 
 
 TerrainType 
-World::Terrain(int x, int y) const
+World::Terrain(int x, int y, bool ignore_paths) const
 {
 	struct Point p = { x, y };
 
-	/*
-	// look for road
-	Rect r(x-2, y-2, 4, 4);
-	for(auto const& road: map->roads)
-		if(road->BorderIntersects(r))
-			return t_LAVAROCK;
-
-	// look for river
-	for(auto const& river: map->rivers)
-		if(river->BorderIntersects(r))
-			return t_WATER;
-
-	// look for lava
-	for(auto const& lavapath: map->lava)
-		if(lavapath->BorderIntersects(r))
-			return t_LAVA;
-	*/
 	// find rivers
-	//if(std::binary_search(riverpts.begin(), riverpts.end(), p))
-	//	return t_WATER;
+	if(!ignore_paths)
+	{
+		if(std::binary_search(riverpts.begin(), riverpts.end(), p))
+			return t_WATER;
+		if(std::binary_search(roadpts.begin(), roadpts.end(), p))
+		{
+			if(Terrain(x, y, true) != t_LAVAROCK)
+				return t_LAVAROCK;
+			else
+				return t_DIRT;
+		}
+		if(std::binary_search(lavapts.begin(), lavapts.end(), p))
+			return t_LAVA;
+	}
 
 	// find biome
-	for(auto const& biome : map->biomes)
-		if(biome->polygon->PointInPolygon(p))
-			return biome->terrain;
+	unsigned int sz = map->biomes.size();
+	for(unsigned int i=0; i<sz; i++)
+		if(map->biomes[i]->polygon->PointInPolygon(p))
+			return map->biomes[i]->terrain;
 	return t_WATER;
 }
 
@@ -89,7 +85,9 @@ World::CreatePathsCache()
 		std::vector<Point>& points;
 		int width;
 	} polygons[] = {
-		{ map->rivers, riverpts, 4 }
+		{ map->roads, roadpts, 4 },
+		{ map->rivers, riverpts, 5 },
+		{ map->lava, lavapts, 2 },
 	};
 
 	for(auto const& polygon: polygons)

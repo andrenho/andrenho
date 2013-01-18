@@ -204,12 +204,12 @@ void
 Minimap::DrawPath(std::vector<Point>& points, Color c)
 {
 	double ps = double(world.w) / double(sz);
-	Point p2 = { -1, -1 };
+	Point p2 = Point { -1, -1 };
 	for(auto const& p1: points)
 	{
 		if(p2 == Point { -1, -1 })
 		{
-			p2 = p1;
+			p2 = Point{ p1.x, p1.y };
 			continue;
 		}
 

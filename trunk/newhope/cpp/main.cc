@@ -3,7 +3,7 @@
 #include "util/logger.h"
 #include "world/world.h"
 
-Logger logger(true);
+Logger logger(true, false);
 
 int main(int argc, char** argv)
 {
