@@ -12,12 +12,12 @@ UI::UI(World const& world)
 	: /*world(world), */ active(true), rx(0), ry(0), video(new SDL()), 
 	  res(new Resources(*video)),
 	  terrain_sf(new TerrainSurface(world, *video, *res)),
-	  minimap(new Minimap(*video, world, *res))
+	  minimap(new Minimap(*video, world, *res)), draw_next_frame(true)
 {
 	terrain_sf->Resize(video->Window->w, video->Window->h);
-	//minimap->Reset();
+	minimap->Reset();
 
-	//GoTo(world.map->rivers[0]->points[0]);
+	//GoTo(world.map->roads[3]->points[0]);
 	//GoTo(world.map->roads[12]->points[0]);
 }
 
@@ -34,7 +34,7 @@ UI::~UI()
 void 
 UI::StartFrame()
 {
-	video->StartCountDown(1000/60);
+	video->StartCountDown(1000/30);
 }
 
 
@@ -58,7 +58,9 @@ UI::ProcessEvents()
 		switch(key->key)
 		{
 		case '\t':
-			minimap->Display(); break;
+			minimap->Display(); 
+			draw_next_frame = true;
+			break;
 		case Key::LEFT:
 			MoveView(-s, 0); break;
 		case Key::DOWN:
@@ -86,24 +88,32 @@ UI::ProcessEvents()
 void 
 UI::Draw()
 {
-	assert(terrain_sf->Img);
+	if(!draw_next_frame)
+		return;
+
+	Uint32 t = SDL_GetTicks();
 
 	std::vector<Rect> rects;
-	terrain_sf->AreasToRedraw(rects);
+	terrain_sf->RedrawImg(rects);
+	assert(terrain_sf->Img);
 
-	if(rects.empty())
-	{
-		Rect r(rx % TerrainSurface::TileSize, 
-				ry % TerrainSurface::TileSize);
-		terrain_sf->Img->Blit(*video->Window, r); // TODO - not always
-		// terminal->Draw();
-		video->Window->Update();
-	}
-	else
-	{
-		// TODO
-		abort();
-	}
+	logger.DebugFrame("---------------");
+	logger.DebugFrame("New Frame");
+	logger.DebugFrame("---------------");
+	logger.DebugFrame("Tiles redrawn: %d tiles", rects.size());
+	logger.DebugFrame("Terrain redraw: %d ms", SDL_GetTicks()-t);
+
+	t = SDL_GetTicks();
+	Rect r(rx % TerrainSurface::TileSize, 
+			ry % TerrainSurface::TileSize);
+	terrain_sf->Img->Blit(*video->Window, r); // TODO - not always
+	logger.DebugFrame("Terrain blit: %d ms", SDL_GetTicks()-t);
+	
+	t = SDL_GetTicks();
+	video->Window->Update();
+	logger.DebugFrame("Screen flip: %d ms", SDL_GetTicks()-t);
+
+	draw_next_frame = false;
 }
 
 
@@ -119,12 +129,18 @@ UI::EndFrame()
 void 
 UI::MoveView(int horiz, int vert)
 {
+	Uint32 t = SDL_GetTicks();
+
 	// move center of screen
 	rx += horiz;
 	ry += vert;
 
 	terrain_sf->SetTopLeft(-(rx/TerrainSurface::TileSize), 
 			-(ry/TerrainSurface::TileSize));
+
+	draw_next_frame = true;
+
+	logger.DebugFrame("SetTopLeft: %d ms", SDL_GetTicks()-t);
 }
 
 

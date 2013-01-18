@@ -25,47 +25,6 @@ Polygon::Polygon(Rect r)
 }
 
 
-bool 
-Polygon::PointInPolygon(Point p) const
-{
-	// prefilter
-	if(limit_x1 == INT_MAX)
-		CalculateLimits();
-	if(p.x < limit_x1 || p.y < limit_y1 || p.x > limit_x2 || p.y > limit_y2)
-		return false;
-
-	// prepare
-	int i=0;
-	int polySides = points.size();
-	float polyX[polySides],
-	      polyY[polySides];
-
-	for(const auto& point : points)
-	{
-		polyX[i] = point.x;
-		polyY[i] = point.y;
-		++i;
-	}
-	
-	// calculate
-	int j=polySides-1;
-	int oddNodes = 0;
-
-	for(i=0; i<polySides; i++)
-	{
-		if(((polyY[i] < p.y && polyY[j] >= p.y)
-		||  (polyY[j] < p.y && polyY[i] >= p.y))
-		&& (polyX[i] <= p.x || polyX[j] <= p.x))
-			oddNodes ^= (polyX[i] + (p.y - polyY[i]) /
-						(polyY[j] - polyY[i]) *
-						(polyX[j] - polyX[i]) < p.x);
-		j = i;
-	}
-
-	return oddNodes != 0;
-}
-
-
 void Polygon::FakeVoronoi(unsigned int seed, int w, int h, int density, 
 		std::vector<Polygon*>& polygons)
 {
@@ -117,6 +76,7 @@ void Polygon::FakeVoronoi(unsigned int seed, int w, int h, int density,
 			polygons.back()->points.push_back(points[x+1][y+2]);
 			polygons.back()->points.push_back(points[x][y+2]);
 			polygons.back()->points.push_back(points[x][y+1]);
+			polygons.back()->CalculateLimits();
 		}
 }
 

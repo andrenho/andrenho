@@ -10,7 +10,7 @@ struct Point {
 	int x, y;
 	mutable int elevation;
 	//mutable std::map<Point, int> distances;
-
+	
 	inline int Distance(struct Point p2) const
 	{
 		/*

@@ -18,6 +18,18 @@ TerrainSurface::~TerrainSurface()
 }
 
 
+void
+TerrainSurface::RedrawImg(std::vector<Rect>& rects)
+{
+	for(auto const& tile: tiles_to_redraw)
+	{
+		rects.push_back(Rect(tile.x, tile.y, TileSize, TileSize));
+		DrawTile(tile.x, tile.y);
+	}
+	tiles_to_redraw.clear();
+}
+
+
 void 
 TerrainSurface::Resize(int scr_w, int scr_h)
 {
@@ -27,6 +39,8 @@ TerrainSurface::Resize(int scr_w, int scr_h)
 			        scr_h + (TileSize + (scr_h % TileSize)));
 	w = Img->w / TileSize;
 	h = Img->h / TileSize;
+
+	tiles_to_redraw.clear();
 	Redraw();
 
 	logger.Debug("window resize resquested: %d %d", w, h);
@@ -43,6 +57,8 @@ TerrainSurface::AreasToRedraw(std::vector<Rect>& rects)
 void 
 TerrainSurface::SetTopLeft(int x, int y)
 {
+	tiles_to_redraw.clear();
+
 	if(this->x == x && this->y == y)
 		return;
 
@@ -69,19 +85,19 @@ TerrainSurface::SetTopLeft(int x, int y)
 		if(x > tsx)
 			for(nx=(this->w + this->x - (x - tsx)); nx < (this->w + this->x); nx++)
 				for(ny=this->y; ny < (this->h + this->y); ny++)
-					DrawTile(nx, ny);
+					tiles_to_redraw.insert(Point{nx, ny});
 		else if(x < tsx)
 			for(nx=this->x; nx < (this->x + tsx - x); nx++)
 				for(ny=this->y; ny < (this->h + this->y); ny++)
-					DrawTile(nx, ny);
+					tiles_to_redraw.insert(Point{nx, ny});
 		if(y > tsy)
 			for(ny=(this->h + this->y - (y - tsy)); ny < (this->h + this->y); ny++)
 				for(nx=this->x; nx < (this->w + this->x); nx++)
-					DrawTile(nx, ny);
+					tiles_to_redraw.insert(Point{nx, ny});
 		else if(y < tsy)
 			for(ny=this->y; ny < (this->y + tsy - y); ny++)
 				for(nx=this->x; nx < (this->w + this->x); nx++)
-					DrawTile(nx, ny);
+					tiles_to_redraw.insert(Point{nx, ny});
 	}
 }
 
@@ -91,7 +107,7 @@ TerrainSurface::Redraw()
 {
 	for(int x=this->x; x<(this->x + this->w); x++)
 		for(int y=this->y; y<(this->y + this->h); y++)
-			DrawTile(x, y);
+			tiles_to_redraw.insert(Point{x, y});
 }
 
 
@@ -101,7 +117,9 @@ TerrainSurface::DrawTile(int x, int y)
 	Rect r((x - this->x) * TileSize, 
 	       (y - this->y) * TileSize, 
 	       TileSize, TileSize);
-	TileSurface(x, y)->Blit(*Img, r);
+
+	const Image* img = TileSurface(x, y);
+	img->Blit(*Img, r);
 }
 
 

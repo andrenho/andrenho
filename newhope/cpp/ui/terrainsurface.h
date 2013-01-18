@@ -5,9 +5,11 @@
 #include <cstdlib>
 #include <map>
 #include <queue>
+#include <set>
 #include <vector>
 
 #include "libs/graphiclibrary.h"
+#include "util/point.h"
 #include "util/rect.h"
 #include "libs/image.h"
 #include "ui/resource.h"
@@ -21,6 +23,7 @@ public:
 		x(0), y(0), w(0), h(0) { }
 	~TerrainSurface();
 
+	void RedrawImg(std::vector<Rect>& rects);
 	void Resize(int scr_w, int scr_h);
 	void AreasToRedraw(std::vector<Rect>& rects);
 	void SetTopLeft(int x, int y);
@@ -28,6 +31,7 @@ public:
 	Image* Img;
 
 	static const int TileSize = 32;
+
 private:
 	void Redraw();
 	void DrawTile(int x, int y);
@@ -44,6 +48,7 @@ private:
 	GraphicLibrary const& video;
 	Resources const& res;
 	int x, y, w, h;
+	std::set<Point> tiles_to_redraw;
 };
 
 #endif

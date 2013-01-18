@@ -33,6 +33,7 @@ private:
 	Resources* res;
 	TerrainSurface* terrain_sf;
 	Minimap* minimap;
+	bool draw_next_frame;
 };
 
 #endif

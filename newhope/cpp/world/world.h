@@ -14,11 +14,11 @@ typedef enum {
 	t_NOTHING       = 1,
 	t_WATER		= 99,
 	t_LAVA          = 98,
+	t_LAVAROCK      = 95,
 	t_SNOW          = 80,
 	t_GRASS		= 50,
 	t_DIRT          = 20,
 	t_EARTH,
-	t_LAVAROCK,
 	t_ROCK,
 	t_TUNDRA,
 	t_HOTFOREST,
@@ -34,7 +34,7 @@ public:
 	World(int w, int h);
 	~World();
 
-	TerrainType Terrain(int x, int y) const;
+	TerrainType Terrain(int x, int y, bool ignore_paths=false) const;
 	int Special(int x, int y) const;
 
 	const int w, h;
@@ -44,7 +44,7 @@ private:
 	void CreatePathsCache();
 	void AddPoints(Point p1, Point p2, std::set<Point>& points, int w);
 
-	std::vector<Point> riverpts;
+	std::vector<Point> riverpts, roadpts, lavapts;
 };
 
 #endif

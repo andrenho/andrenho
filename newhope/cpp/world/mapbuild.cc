@@ -496,6 +496,7 @@ MapBuild::CreateRoad(City const& c1, City const& c2)
 
 	// add roads
 	road->points.push_back(c2.biome.polygon->Midpoint());
+	road->CalculateLimits();
 	roads.push_back(road);
 }
 
@@ -539,6 +540,7 @@ MapBuild::CreateFlow(Point start, int iterations)
 
 		--iter;
 	}
+	poly->CalculateLimits();
 	return poly;
 }
 
