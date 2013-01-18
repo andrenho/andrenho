@@ -85,9 +85,9 @@ World::CreatePathsCache()
 		std::vector<Point>& points;
 		int width;
 	} polygons[] = {
-		{ map->roads, roadpts, 4 },
+		{ map->roads,  roadpts,  4 },
 		{ map->rivers, riverpts, 5 },
-		{ map->lava, lavapts, 2 },
+		{ map->lava,   lavapts,  2 },
 	};
 
 	for(auto const& polygon: polygons)
