@@ -34,11 +34,9 @@ struct Point {
 		return x == p.x && y == p.y;
 	}
 
-	/*
 	inline bool operator<(const Point& p) const {
-		return (y*10000+x) < (p.y*10000+x);
+		return (y*10000+x) < (p.y*10000+p.x);
 	}
-	*/
 };
 
 #endif

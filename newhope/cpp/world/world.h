@@ -1,6 +1,10 @@
 #ifndef WORLD_WORLD_H
 #define WORLD_WORLD_H
 
+#include <set>
+#include <vector>
+
+#include "util/point.h"
 #include "world/mapbuild.h"
 
 // the order is the importance
@@ -19,6 +23,10 @@ typedef enum {
 	t_TUNDRA,
 	t_HOTFOREST,
 	t_COLDFOREST,
+
+	t_RIVER,
+	t_ROAD,
+
 } TerrainType;
 
 class World {
@@ -31,6 +39,12 @@ public:
 
 	const int w, h;
 	const MapBuild* map;
+
+private:
+	void CreatePathsCache();
+	void AddPoints(Point p1, Point p2, std::set<Point>& points, int w);
+
+	std::vector<Point> riverpts;
 };
 
 #endif

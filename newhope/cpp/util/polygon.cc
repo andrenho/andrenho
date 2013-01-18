@@ -247,7 +247,7 @@ Polygon::BorderIntersects(Rect const& r)
 		Point a = points[i],
 		      b = points[i+1];
 
-		for(int j=0; j<1; j++)
+		for(int j=0; j<4; j++)
 		{
 			Point c = prect[j][0],
 			      d = prect[j][1];
