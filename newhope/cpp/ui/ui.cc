@@ -9,6 +9,8 @@
 #include "util/logger.h"
 #include "world/city.h"
 
+#include "SDL.h"
+
 UI::UI(World const& world)
 	: /*world(world), */ active(true), rx(0), ry(0), video(new SDL()), 
 	  res(new Resources(*video)),

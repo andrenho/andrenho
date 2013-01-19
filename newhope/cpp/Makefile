@@ -4,7 +4,6 @@
 include config.mk
 
 SRC = main.cc		   \
-      options.cc           \
       libs/image.cc        \
       libs/sdl/sdl.cc      \
       libs/sdl/sdlfont.cc  \
