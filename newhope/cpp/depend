@@ -87,7 +87,6 @@ minimap.o: ui/minimap.cc ui/minimap.h libs/graphiclibrary.h util/rect.h \
 resource.o: ui/resource.cc ui/resource.h libs/graphiclibrary.h \
  util/rect.h libs/image.h libs/resource.h libs/colors.h util/point.h \
  libs/font.h util/logger.h ui/resource_list.h
-terminal.o: ui/terminal.cc
 terrainsurface.o: ui/terrainsurface.cc ui/terrainsurface.h \
  libs/graphiclibrary.h util/rect.h libs/image.h libs/resource.h \
  libs/colors.h util/point.h libs/font.h ui/resource.h util/logger.h \
@@ -108,8 +107,7 @@ ui.o: ui/ui.cc ui/ui.h libs/sdl/sdl.h /usr/include/SDL/SDL.h \
  /usr/include/SDL/SDL_version.h libs/graphiclibrary.h util/rect.h \
  libs/image.h libs/resource.h libs/colors.h util/point.h libs/font.h \
  ui/minimap.h ui/resource.h util/logger.h world/world.h world/mapbuild.h \
- util/polygon.h ui/terrainsurface.h
-algorithm.o: util/algorithm.cc
+ util/polygon.h ui/terrainsurface.h world/city.h
 logger.o: util/logger.cc util/logger.h
 i18n.o: util/i18n.cc util/i18n.h util/logger.h
 polygon.o: util/polygon.cc util/polygon.h util/rect.h util/point.h \

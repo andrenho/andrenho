@@ -11,10 +11,8 @@ SRC = main.cc		   \
       libs/sdl/sdlimage.cc \
       ui/minimap.cc        \
       ui/resource.cc       \
-      ui/terminal.cc       \
       ui/terrainsurface.cc \
       ui/ui.cc             \
-      util/algorithm.cc    \
       util/logger.cc       \
       util/i18n.cc         \
       util/polygon.cc      \
@@ -25,7 +23,7 @@ SRC = main.cc		   \
 TRANSLATIONS = pt_BR
 	
 OBJ = ${SRC:.cc=.o}
-HEADERS = $(filter-out main.h,${SRC:.cc=.h}) libs/graphiclibrary.h util/point.h world/biome.h
+HEADERS = $(filter-out main.h,${SRC:.cc=.h}) libs/graphiclibrary.h util/point.h world/biome.h includes.h
 DIST = AUTHORS HACKING LICENSE NEWS README INSTALL
 DATA = $(wildcard data/*.png) $(wildcard data/*.ttf)
 

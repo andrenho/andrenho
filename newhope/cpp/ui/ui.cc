@@ -7,6 +7,7 @@
 #include "ui/resource.h"
 #include "ui/terrainsurface.h"
 #include "util/logger.h"
+#include "world/city.h"
 
 UI::UI(World const& world)
 	: /*world(world), */ active(true), rx(0), ry(0), video(new SDL()), 
@@ -17,8 +18,7 @@ UI::UI(World const& world)
 	terrain_sf->Resize(video->Window->w, video->Window->h);
 	minimap->Reset();
 
-	//GoTo(world.map->roads[3]->points[0]);
-	//GoTo(world.map->roads[12]->points[0]);
+	GoTo(world.map->cities[0]->pos);
 }
 
 
