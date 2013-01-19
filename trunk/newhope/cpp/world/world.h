@@ -6,6 +6,7 @@
 
 #include "util/point.h"
 #include "world/mapbuild.h"
+#include "world/person.h"
 
 // the order is the importance
 typedef enum {
@@ -39,6 +40,8 @@ public:
 
 	const int w, h;
 	const MapBuild* map;
+	std::vector<Person*> People;
+	Person* Hero;
 
 private:
 	void CreatePathsCache();
