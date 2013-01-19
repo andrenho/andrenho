@@ -6,18 +6,24 @@
 #include "libs/graphiclibrary.h"
 #include "ui/resource.h"
 #include "ui/terrainsurface.h"
+#include "ui/charengine.h"
+#include "ui/minimap.h"
 #include "util/logger.h"
 #include "world/city.h"
 
 #include "SDL.h"
 
-UI::UI(World const& world)
-	: /*world(world), */ active(true), rx(0), ry(0), video(new SDL()), 
-	  res(new Resources(*video)),
-	  terrain_sf(new TerrainSurface(world, *video, *res)),
-	  minimap(new Minimap(*video, world, *res)), draw_next_frame(true)
+UI::UI(World const& world, GraphicLibrary const& video)
+	: active(true), rx(0), ry(0), 
+	  video(video), 
+	  res(new Resources(video)),
+	  terrain_sf(new TerrainSurface(world, video, *res)),
+	  minimap(new Minimap(video, world, *res)), 
+	  draw_next_frame(true),
+	  char_engine(CharEngine(world, video, *res)),
+	  frame_timer(nullptr)
 {
-	terrain_sf->Resize(video->Window->w, video->Window->h);
+	terrain_sf->Resize(video.Window->w, video.Window->h);
 	minimap->Reset();
 
 	GoTo(world.map->cities[0]->pos);
@@ -29,21 +35,21 @@ UI::~UI()
 	delete minimap;
 	delete terrain_sf;
 	delete res;
-	delete video;
 }
 
 
 void 
 UI::StartFrame()
 {
-	video->StartCountDown(1000/30);
+	assert(frame_timer == nullptr);
+	frame_timer = video.StartTimer(1000/30);
 }
 
 
 void 
 UI::ProcessEvents()
 {
-	Event const* event = video->GetEvent();
+	Event const* event = video.GetEvent();
 	switch(event->type)
 	{
 	case Event::QUIT:
@@ -77,7 +83,7 @@ UI::ProcessEvents()
 	}
 		break;
 	case Event::RESIZE:
-		terrain_sf->Resize(video->Window->w, video->Window->h);
+		terrain_sf->Resize(video.Window->w, video.Window->h);
 		minimap->Reset();
 		draw_next_frame = true;
 		break;
@@ -109,11 +115,11 @@ UI::Draw()
 	t = SDL_GetTicks();
 	Rect r(rx % TerrainSurface::TileSize, 
 			ry % TerrainSurface::TileSize);
-	terrain_sf->Img->Blit(*video->Window, r); // TODO - not always
+	terrain_sf->Img->Blit(*video.Window, r); // TODO - not always
 	logger.DebugFrame("Terrain blit: %d ms", SDL_GetTicks()-t);
 	
 	t = SDL_GetTicks();
-	video->Window->Update();
+	video.Window->Update();
 	logger.DebugFrame("Screen flip: %d ms", SDL_GetTicks()-t);
 
 	draw_next_frame = false;
@@ -123,9 +129,10 @@ UI::Draw()
 void 
 UI::EndFrame()
 {
-	if(video->ReachedCountDown())
+	if(frame_timer->ReachedCountDown())
 		logger.Debug("Frame delayed!");
-	video->WaitCountDown();
+	frame_timer->WaitCountDown();
+	frame_timer = nullptr;
 }
 
 

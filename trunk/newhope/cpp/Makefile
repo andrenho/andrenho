@@ -8,6 +8,7 @@ SRC = main.cc		   \
       libs/sdl/sdl.cc      \
       libs/sdl/sdlfont.cc  \
       libs/sdl/sdlimage.cc \
+      ui/charengine.cc     \
       ui/minimap.cc        \
       ui/resource.cc       \
       ui/terrainsurface.cc \
@@ -18,6 +19,7 @@ SRC = main.cc		   \
       util/rect.cc         \
       world/city.cc        \
       world/mapbuild.cc    \
+      world/person.cc      \
       world/world.cc
 TRANSLATIONS = pt_BR
 	

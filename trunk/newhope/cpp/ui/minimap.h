@@ -10,7 +10,8 @@
 
 class Minimap {
 public:
-	Minimap(GraphicLibrary& video, World const& world, Resources const& res);
+	Minimap(GraphicLibrary const& video, World const& world, 
+			Resources const& res);
 	~Minimap();
 
 	void Reset();
@@ -29,7 +30,7 @@ private:
 
 	static int CreationThread(void* self);
 
-	GraphicLibrary& video;
+	GraphicLibrary const& video;
 	World const& world;
 	Resources const& res;
 	void* thread;

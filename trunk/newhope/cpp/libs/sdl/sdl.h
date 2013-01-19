@@ -6,14 +6,23 @@
 
 struct SDL_Surface;
 
+class SDLTimer : public Timer {
+public:
+	SDLTimer(int wait_ms);
+	bool ReachedCountDown() const;
+	void WaitCountDown();
+
+private:
+	const uint32_t countdown;
+};
+
+
 class SDL : public GraphicLibrary {
 public:
 	SDL();
 	~SDL();
 
-	void StartCountDown(int wait_ms);
-	bool ReachedCountDown() const;
-	void WaitCountDown();
+	Timer* StartTimer(int wait_ms) const { return new SDLTimer(wait_ms); }
 
 	Image* CreateImage(int w, int h) const;
 	Image* LoadImage(std::string const& filename, Rect const& r) const;
