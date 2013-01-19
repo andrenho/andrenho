@@ -14,7 +14,8 @@ fi
 setxkbmap br
 xrdb .Xresources
 
-exec wmaker
+#exec wmaker
+exec i3
 
 # exec gnome-session
 # exec startkde
