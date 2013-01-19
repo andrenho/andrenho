@@ -13,6 +13,7 @@ fi
 
 setxkbmap br
 xrdb .Xresources
+xmodmap .Xmodmap
 
 #exec wmaker
 exec i3
