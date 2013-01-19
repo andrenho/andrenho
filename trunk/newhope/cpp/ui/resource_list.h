@@ -59,6 +59,9 @@ static const struct {
 	// map
 	{ "mm", "scrollsandblocks.png", mm_r, mm_sfx },
 
+	// characters
+	//{ "male", "male_walkcycle.png", char_rects(0), NULL },
+
 	// terminal
 	{ "terminal", "terminal.png", 0, 0 },
 
