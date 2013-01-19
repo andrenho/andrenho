@@ -1,8 +1,7 @@
 #ifndef LIBS_SDL_SDL_H
 #define LIBS_SDL_SDL_H
 
-#include "SDL.h"
-
+#include <cstdint>
 #include "libs/graphiclibrary.h"
 
 struct SDL_Surface;
@@ -25,7 +24,7 @@ public:
 	mutable struct SDL_Surface* screen;
 
 private:
-	Uint32 countdown;
+	uint32_t countdown;
 };
 
 #endif

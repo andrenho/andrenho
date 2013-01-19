@@ -13,7 +13,7 @@ World::World(int w, int h) :
 {
 	logger.Debug("Building map...");
 	MapParameters pars = {
-		.seed = 1,
+		.seed = 2,
 		.w = w,
 		.h = h,
 		.n_rivers = 15,

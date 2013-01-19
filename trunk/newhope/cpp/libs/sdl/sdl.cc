@@ -1,10 +1,10 @@
 #include "libs/sdl/sdl.h"
 
-#include "SDL_ttf.h"
-
 #include "util/logger.h"
 #include "libs/sdl/sdlfont.h"
 #include "libs/sdl/sdlimage.h"
+
+#include "SDL_ttf.h"
 
 SDL::SDL()
 	: countdown(0)
