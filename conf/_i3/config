@@ -148,3 +148,8 @@ bindsym $mod+r mode "resize"
 bar {
         status_command i3status
 }
+
+
+bindsym XF86AudioRaiseVolume exec amixer -q set Master 2dB+ unmute
+bindsym XF86AudioLowerVolume exec amixer -q set Master 2dB- unmute
+bindsym XF86AudioMute exec amixer -q set Master toggle
