@@ -1,18 +1,20 @@
 #ifndef UI_UI_H
 #define UI_UI_H
 
-#include "libs/sdl/sdl.h"
-#include "ui/minimap.h"
 #include "util/point.h"
 
 class World;
 class GraphicLibrary;
 class Resources;
 class TerrainSurface;
+class CharEngine;
+class GraphicLibrary;
+class Minimap;
+class Timer;
 
 class UI {
 public:
-	UI(World const& world);
+	UI(World const& world, GraphicLibrary const& video);
 	~UI();
 
 	void StartFrame();
@@ -29,11 +31,13 @@ private:
 	//World const& world;
 	bool active;
 	int rx, ry;
-	GraphicLibrary* video;
+	GraphicLibrary const& video;
 	Resources* res;
 	TerrainSurface* terrain_sf;
 	Minimap* minimap;
 	bool draw_next_frame;
+	CharEngine const& char_engine;
+	Timer* frame_timer;
 };
 
 #endif

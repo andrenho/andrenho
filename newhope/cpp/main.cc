@@ -1,3 +1,4 @@
+#include "libs/sdl/sdl.h"
 #include "ui/ui.h"
 #include "util/i18n.h"
 #include "util/logger.h"
@@ -10,7 +11,8 @@ int main(int argc, char** argv)
 	// initialization
 	i18n_init();
 	World world(5000, 5000);
-	UI ui(world);
+	GraphicLibrary* video = new SDL();
+	UI ui(world, *video);
 
 	// main loop
 	while(ui.Active())
@@ -20,4 +22,7 @@ int main(int argc, char** argv)
 		ui.ProcessEvents();
 		ui.EndFrame();
 	}
+
+	// clean up
+	delete video;
 }

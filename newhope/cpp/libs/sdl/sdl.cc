@@ -43,28 +43,6 @@ SDL::~SDL()
 }
 
 
-void 
-SDL::StartCountDown(int wait_ms)
-{
-	countdown = SDL_GetTicks() + wait_ms;
-}
-
-
-bool 
-SDL::ReachedCountDown() const
-{
-	return SDL_GetTicks() >= countdown;
-}
-
-
-void 
-SDL::WaitCountDown()
-{
-	while(SDL_GetTicks() < countdown)
-		SDL_Delay(1);
-}
-
-
 Image* 
 SDL::CreateImage(int w, int h) const
 {
@@ -137,4 +115,23 @@ SDL::GetEvent() const
 			return new Event(Event::RESIZE);
 	}
 	return new Event(Event::NO_EVENT);
+}
+
+
+SDLTimer::SDLTimer(int wait_ms)
+	: Timer(wait_ms), countdown(SDL_GetTicks() + wait_ms) { }
+
+
+bool 
+SDLTimer::ReachedCountDown() const 
+{ 
+	return SDL_GetTicks() >= countdown; 
+}
+
+
+void 
+SDLTimer::WaitCountDown() 
+{ 
+	while(SDL_GetTicks() < countdown) 
+		SDL_Delay(1); 
 }

@@ -34,13 +34,24 @@ public:
 	const enum MouseButton button;
 };
 
+class Timer {
+public:
+	Timer(int wait_ms)
+		: wait_ms(wait_ms) { }
+	virtual ~Timer() { }
+	virtual bool ReachedCountDown() const = 0;
+	virtual void WaitCountDown() = 0;
+
+protected:
+	const int wait_ms;
+};
+
+
 class GraphicLibrary {
 public:
 	virtual ~GraphicLibrary() { }
 
-	virtual void StartCountDown(int wait_ms) = 0;
-	virtual bool ReachedCountDown() const = 0;
-	virtual void WaitCountDown() = 0;
+	virtual Timer* StartTimer(int wait_ms) const = 0;
 
 	virtual Image* LoadImage(std::string const& filename, Rect const& r) const = 0;
 	virtual Image* CreateImage(int w, int h) const = 0;

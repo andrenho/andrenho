@@ -6,7 +6,7 @@
 #include "util/logger.h"
 #include "world/city.h"
 
-Minimap::Minimap(GraphicLibrary& video, World const& world, 
+Minimap::Minimap(GraphicLibrary const& video, World const& world, 
 		Resources const& res)
 	: video(video), world(world), res(res), thread(NULL), image(NULL), 
 	  sz(0), thread_killed(false)
