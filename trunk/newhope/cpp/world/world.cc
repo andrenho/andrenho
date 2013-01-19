@@ -42,8 +42,6 @@ World::Terrain(int x, int y, bool ignore_paths) const
 	// find rivers
 	if(!ignore_paths)
 	{
-		if(std::binary_search(riverpts.begin(), riverpts.end(), p))
-			return t_WATER;
 		if(std::binary_search(roadpts.begin(), roadpts.end(), p))
 		{
 			if(Terrain(x, y, true) != t_LAVAROCK)
@@ -51,6 +49,8 @@ World::Terrain(int x, int y, bool ignore_paths) const
 			else
 				return t_DIRT;
 		}
+		if(std::binary_search(riverpts.begin(), riverpts.end(), p))
+			return t_WATER;
 		if(std::binary_search(lavapts.begin(), lavapts.end(), p))
 			return t_LAVA;
 	}
@@ -85,7 +85,7 @@ World::CreatePathsCache()
 		std::vector<Point>& points;
 		int width;
 	} polygons[] = {
-		{ map->roads,  roadpts,  4 },
+		{ map->roads,  roadpts,  6 },
 		{ map->rivers, riverpts, 5 },
 		{ map->lava,   lavapts,  2 },
 	};

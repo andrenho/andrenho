@@ -10,21 +10,16 @@
 Resources::Resources(GraphicLibrary const& video)
 	: video(video)
 {
-	int i = -1;
-	while(reslist[++i].filename != "")
+	for(auto const& res: reslist)
 	{
-		std::string filepath = FindFile(reslist[i].filename);
+		std::string filepath = FindFile(res.filename);
 
-		if(!reslist[i].suffix)
-			LoadFile(reslist[i].name, filepath);
+		if(res.suffix.empty())
+			LoadFile(res.name, filepath);
 		else
-		{
-			int j = -1;
-			while(reslist[i].suffix[++j] != "")
-				LoadFile(reslist[i].name, filepath, 
-						reslist[i].r[j],
-						reslist[i].suffix[j]);
-		}
+			for(unsigned int i=0; i<res.suffix.size(); i++)
+				LoadFile(res.name, filepath, res.r[i],
+						res.suffix[i]);
 		logger.Debug(filepath + " loaded.");
 	}
 }
