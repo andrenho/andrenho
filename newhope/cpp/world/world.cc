@@ -7,6 +7,7 @@
 #include "util/logger.h"
 #include "util/polygon.h"
 #include "world/biome.h"
+#include "world/city.h"
 
 World::World(int w, int h) :
 	w(w), h(h)
@@ -25,11 +26,17 @@ World::World(int w, int h) :
 
 	// create vectors with rivers, lava and roads
 	CreatePathsCache();
+
+	// add people
+	People.push_back(new Person(*this, map->cities[0]->pos));
+	Hero = People[0];
 }
 
 
 World::~World()
 {
+	for(auto const& person: People)
+		delete person;
 	delete map;
 }
 
