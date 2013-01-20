@@ -13,8 +13,6 @@
 
 #include "SDL.h"
 
-const CharEngine *che = nullptr;
-
 UI::UI(World const& world, GraphicLibrary const& video)
 	: world(world), active(true), rx(0), ry(0), 
 	  video(video), 
@@ -22,19 +20,20 @@ UI::UI(World const& world, GraphicLibrary const& video)
 	  terrain_sf(new TerrainSurface(world, video, *res)),
 	  minimap(new Minimap(video, world, *res)), 
 	  draw_next_frame(true),
-	  char_engine(CharEngine(world, video, *res)),
+	  char_engine(new CharEngine(world, video, *res)),
 	  frame_timer(nullptr)
 {
-	che = &char_engine;
 	terrain_sf->Resize(video.Window->w, video.Window->h);
 	minimap->Reset();
 
-	GoTo(world.map->cities[0]->pos);
+	//GoTo(world.Hero->Pos);
+	CenterHero();
 }
 
 
 UI::~UI()
 {
+	delete char_engine;
 	delete minimap;
 	delete terrain_sf;
 	delete res;
@@ -123,10 +122,10 @@ UI::Draw()
 	logger.DebugFrame("Terrain blit: %d ms", SDL_GetTicks()-t);
 
 	t = SDL_GetTicks();
-	char_engine.Draw(-rx / TerrainSurface::TileSize,
-			 -ry / TerrainSurface::TileSize, 
-			 video.Window->w / TerrainSurface::TileSize,
-			 video.Window->h / TerrainSurface::TileSize);
+	char_engine->Draw(-rx / TerrainSurface::TileSize,
+			  -ry / TerrainSurface::TileSize, 
+			  video.Window->w / TerrainSurface::TileSize,
+			  video.Window->h / TerrainSurface::TileSize);
 	logger.DebugFrame("Characters blit: %d ms", SDL_GetTicks()-t);
 	
 	t = SDL_GetTicks();
@@ -172,4 +171,15 @@ UI::GoTo(Point p)
 	rx = -TerrainSurface::TileSize * p.x;
 	ry = -TerrainSurface::TileSize * p.y;
 	MoveView(0, 0);
+}
+
+
+void
+UI::CenterHero()
+{
+	int cx = world.Hero->Pos.x - 
+		(video.Window->w / TerrainSurface::TileSize / 2);
+	int cy = world.Hero->Pos.y - 
+		(video.Window->h / TerrainSurface::TileSize / 2);
+	GoTo(Point { cx, cy });
 }
