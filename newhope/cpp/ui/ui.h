@@ -25,6 +25,7 @@ public:
 	inline bool Active() { return active; }
 
 private:
+	void CenterHero();
 	void GoTo(Point p);
 	void MoveView(int horiz, int vert);
 
@@ -36,7 +37,7 @@ private:
 	TerrainSurface* terrain_sf;
 	Minimap* minimap;
 	bool draw_next_frame;
-	CharEngine const& char_engine;
+	CharEngine const* char_engine;
 	Timer* frame_timer;
 };
 

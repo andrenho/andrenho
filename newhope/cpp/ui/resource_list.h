@@ -76,6 +76,7 @@ static const struct {
 
 	// characters
 	{ "male", "male_walkcycle.png", char_rects, char_sfx },
+	{ "pants", "male_pants.png", char_rects, char_sfx },
 
 	// terminal
 	{ "terminal", "terminal.png", {}, {} },
