@@ -13,8 +13,10 @@
 
 #include "SDL.h"
 
+const CharEngine *che = nullptr;
+
 UI::UI(World const& world, GraphicLibrary const& video)
-	: active(true), rx(0), ry(0), 
+	: world(world), active(true), rx(0), ry(0), 
 	  video(video), 
 	  res(new Resources(video)),
 	  terrain_sf(new TerrainSurface(world, video, *res)),
@@ -23,6 +25,7 @@ UI::UI(World const& world, GraphicLibrary const& video)
 	  char_engine(CharEngine(world, video, *res)),
 	  frame_timer(nullptr)
 {
+	che = &char_engine;
 	terrain_sf->Resize(video.Window->w, video.Window->h);
 	minimap->Reset();
 
@@ -35,6 +38,7 @@ UI::~UI()
 	delete minimap;
 	delete terrain_sf;
 	delete res;
+	logger.Debug("UI deleted.");
 }
 
 
@@ -42,7 +46,7 @@ void
 UI::StartFrame()
 {
 	assert(frame_timer == nullptr);
-	frame_timer = video.StartTimer(1000/30);
+	frame_timer = video.CreateTimer(1000/30);
 }
 
 
@@ -117,6 +121,13 @@ UI::Draw()
 			ry % TerrainSurface::TileSize);
 	terrain_sf->Img->Blit(*video.Window, r); // TODO - not always
 	logger.DebugFrame("Terrain blit: %d ms", SDL_GetTicks()-t);
+
+	t = SDL_GetTicks();
+	char_engine.Draw(-rx / TerrainSurface::TileSize,
+			 -ry / TerrainSurface::TileSize, 
+			 video.Window->w / TerrainSurface::TileSize,
+			 video.Window->h / TerrainSurface::TileSize);
+	logger.DebugFrame("Characters blit: %d ms", SDL_GetTicks()-t);
 	
 	t = SDL_GetTicks();
 	video.Window->Update();
@@ -132,6 +143,7 @@ UI::EndFrame()
 	if(frame_timer->ReachedCountDown())
 		logger.Debug("Frame delayed!");
 	frame_timer->WaitCountDown();
+	delete frame_timer;
 	frame_timer = nullptr;
 }
 

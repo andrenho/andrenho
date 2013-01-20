@@ -4,6 +4,7 @@
 class World;
 class GraphicLibrary;
 class Resources;
+class Person;
 
 class CharEngine {
 public:
@@ -12,7 +13,11 @@ public:
 		: world(world), video(video), res(res) { }
 	~CharEngine();
 
+	void Draw(int scr_x, int scr_y, int scr_h, int scr_w) const;
+
 private:
+	void DrawPerson(Person const& person, int scr_x, int scr_y) const;
+
 	World const& world;
 	GraphicLibrary const& video;
 	Resources const& res;

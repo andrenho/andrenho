@@ -3,11 +3,11 @@
 #include "util/logger.h"
 #include "libs/sdl/sdlfont.h"
 #include "libs/sdl/sdlimage.h"
+#include "libs/sdl/sdltimer.h"
 
 #include "SDL_ttf.h"
 
 SDL::SDL()
-	: countdown(0)
 {
 	// initialize SDL
 	if((SDL_Init(SDL_INIT_VIDEO)) != 0)
@@ -118,20 +118,9 @@ SDL::GetEvent() const
 }
 
 
-SDLTimer::SDLTimer(int wait_ms)
-	: Timer(wait_ms), countdown(SDL_GetTicks() + wait_ms) { }
-
-
-bool 
-SDLTimer::ReachedCountDown() const 
+Timer* 
+SDL::CreateTimer(int wait_ms) const 
 { 
-	return SDL_GetTicks() >= countdown; 
-}
-
-
-void 
-SDLTimer::WaitCountDown() 
-{ 
-	while(SDL_GetTicks() < countdown) 
-		SDL_Delay(1); 
+	SDLTimer* timer = new SDLTimer(wait_ms);
+	return timer;
 }

@@ -38,6 +38,7 @@ World::~World()
 	for(auto const& person: People)
 		delete person;
 	delete map;
+	logger.Debug("World deleted.");
 }
 
 

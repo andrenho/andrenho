@@ -28,7 +28,7 @@ private:
 	void GoTo(Point p);
 	void MoveView(int horiz, int vert);
 
-	//World const& world;
+	World const& world;
 	bool active;
 	int rx, ry;
 	GraphicLibrary const& video;

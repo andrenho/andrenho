@@ -7,7 +7,7 @@ class World;
 class Person {
 public:
 	Person(World const& world, Point pos)
-		: Pos(pos), Facing('S'), world(world) { }
+		: Pos(pos), Facing('s'), world(world) { }
 	virtual ~Person();
 
 	Point Pos;
