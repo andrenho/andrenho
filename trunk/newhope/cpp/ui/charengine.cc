@@ -40,6 +40,9 @@ CharEngine::DrawPerson(Person const& person, int scr_x, int scr_y) const
 	// step
 	string step("0");
 
+	// find position
+	
+
 	// create image
 	string charimage(body + "_" + direction + "_" + step);
 	res[charimage]->Blit(*video.Window, Rect(0, 0));
