@@ -122,10 +122,7 @@ UI::Draw()
 	logger.DebugFrame("Terrain blit: %d ms", SDL_GetTicks()-t);
 
 	t = SDL_GetTicks();
-	char_engine->Draw(-rx / TerrainSurface::TileSize,
-			  -ry / TerrainSurface::TileSize, 
-			  video.Window->w / TerrainSurface::TileSize,
-			  video.Window->h / TerrainSurface::TileSize);
+	char_engine->Draw(rx, ry, video.Window->w, video.Window->h);
 	logger.DebugFrame("Characters blit: %d ms", SDL_GetTicks()-t);
 	
 	t = SDL_GetTicks();
@@ -182,4 +179,16 @@ UI::CenterHero()
 	int cy = world.Hero->Pos.y - 
 		(video.Window->h / TerrainSurface::TileSize / 2);
 	GoTo(Point { cx, cy });
+}
+
+
+Point 
+UI::ConvertToTile(int scr_x, int scr_y) const
+{
+}
+
+
+Point 
+UI::ConvertToScr(int px, int py) const
+{
 }

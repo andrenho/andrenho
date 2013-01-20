@@ -29,6 +29,9 @@ private:
 	void GoTo(Point p);
 	void MoveView(int horiz, int vert);
 
+	Point ConvertToTile(int scr_x, int scr_y) const;
+	Point ConvertToScr(int px, int py) const;
+
 	World const& world;
 	bool active;
 	int rx, ry;
