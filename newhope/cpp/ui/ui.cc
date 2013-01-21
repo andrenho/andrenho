@@ -162,11 +162,11 @@ UI::MoveView(int horiz, int vert)
 }
 
 
-void 
-UI::GoTo(IPoint p)
+template<class T> void 
+UI::GoToScr(Point<T> p)
 {
-	rx = -TerrainSurface::TileSize * p.x;
-	ry = -TerrainSurface::TileSize * p.y;
+	rx = p.x;
+	ry = p.y;
 	MoveView(0, 0);
 }
 
@@ -174,24 +174,24 @@ UI::GoTo(IPoint p)
 void
 UI::CenterHero()
 {
-	int cx = world.Hero->Pos.x - 
-		(video.Window->w / TerrainSurface::TileSize / 2);
-	int cy = world.Hero->Pos.y - 
-		(video.Window->h / TerrainSurface::TileSize / 2);
-	GoTo(IPoint { cx, cy });
-}
-
-void 
-UI::ConvertToTile(int scr_x, int scr_y, double& tx, double& ty) const
-{
-	tx = (-rx + scr_x) / (double)TerrainSurface::TileSize;
-	ty = (-ry + scr_y) / (double)TerrainSurface::TileSize;
+	IPoint src = ConvertToScr(world.Hero->Pos);
+	src.x += video.Window->w / 2;
+	src.y += video.Window->h / 2;
+	GoToScr(src);
 }
 
 
-void 
-UI::ConvertToScr(double tx, double ty, int& scr_x, int& scr_y) const
+DPoint 
+UI::ConvertToTile(IPoint scr) const
 {
-	scr_x = (-tx * (double)TerrainSurface::TileSize) + rx;
-	scr_y = (-ty * (double)TerrainSurface::TileSize) + ry;
+	return { (-rx + scr.x) / (double)TerrainSurface::TileSize,
+		 (-ry + scr.y) / (double)TerrainSurface::TileSize };
+}
+
+
+IPoint 
+UI::ConvertToScr(DPoint t) const
+{
+	return { (int)((-t.x * (double)TerrainSurface::TileSize) + rx),
+	         (int)((-t.y * (double)TerrainSurface::TileSize) + ry) };
 }
