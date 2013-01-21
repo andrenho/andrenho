@@ -1,7 +1,8 @@
 main.o: main.cc libs/sdl/sdl.h libs/graphiclibrary.h util/rect.h \
  libs/image.h libs/resource.h libs/colors.h util/point.h libs/font.h \
- ui/ui.h util/i18n.h util/logger.h world/world.h world/mapbuild.h \
- util/polygon.h world/person.h
+ ui/ui.h ui/terrainsurface.h ui/resource.h util/logger.h world/world.h \
+ world/mapbuild.h util/polygon.h world/person.h util/i18n.h util/logger.h \
+ world/world.h
 image.o: libs/image.cc libs/image.h libs/resource.h libs/colors.h \
  util/rect.h util/point.h
 sdl.o: libs/sdl/sdl.cc libs/sdl/sdl.h libs/graphiclibrary.h util/rect.h \
@@ -74,7 +75,7 @@ sdltimer.o: libs/sdl/sdltimer.cc libs/sdl/sdltimer.h \
 charengine.o: ui/charengine.cc ui/charengine.h world/world.h util/point.h \
  world/mapbuild.h util/polygon.h util/rect.h world/person.h ui/resource.h \
  libs/graphiclibrary.h libs/image.h libs/resource.h libs/colors.h \
- libs/font.h util/logger.h ui/ui.h
+ libs/font.h util/logger.h ui/ui.h ui/terrainsurface.h
 minimap.o: ui/minimap.cc ui/minimap.h libs/graphiclibrary.h util/rect.h \
  libs/image.h libs/resource.h libs/colors.h util/point.h libs/font.h \
  ui/resource.h util/logger.h world/world.h world/mapbuild.h \
@@ -99,9 +100,9 @@ terrainsurface.o: ui/terrainsurface.cc ui/terrainsurface.h \
  libs/graphiclibrary.h util/rect.h libs/image.h libs/resource.h \
  libs/colors.h util/point.h libs/font.h ui/resource.h util/logger.h \
  world/world.h world/mapbuild.h util/polygon.h world/person.h
-ui.o: ui/ui.cc ui/ui.h util/point.h libs/graphiclibrary.h util/rect.h \
- libs/image.h libs/resource.h libs/colors.h libs/font.h ui/resource.h \
- util/logger.h ui/terrainsurface.h world/world.h world/mapbuild.h \
+ui.o: ui/ui.cc ui/ui.h ui/terrainsurface.h libs/graphiclibrary.h \
+ util/rect.h libs/image.h libs/resource.h libs/colors.h util/point.h \
+ libs/font.h ui/resource.h util/logger.h world/world.h world/mapbuild.h \
  util/polygon.h world/person.h ui/charengine.h ui/minimap.h world/city.h \
  /usr/include/SDL/SDL.h /usr/include/SDL/SDL_main.h \
  /usr/include/SDL/SDL_stdinc.h /usr/include/SDL/SDL_config.h \

@@ -1,6 +1,7 @@
 #ifndef UI_UI_H
 #define UI_UI_H
 
+#include "ui/terrainsurface.h"
 #include "util/point.h"
 
 class World;
@@ -22,8 +23,18 @@ public:
 	void Draw();
 	void EndFrame();
 
-	DPoint ConvertToTile(IPoint scr) const;
-	IPoint ConvertToScr(DPoint t) const;
+	template<typename T> Point<int> TileToScr(Point<T> t) const
+	{
+		return { (int)((t.x * (double)TerrainSurface::TileSize)),
+			 (int)((t.y * (double)TerrainSurface::TileSize)) };
+	}
+
+
+	template<typename T> Point<int> TileToRel(Point<T> t) const
+	{
+		return { (int)((t.x * (double)TerrainSurface::TileSize)) - rx,
+			 (int)((t.y * (double)TerrainSurface::TileSize)) - ry};
+	}
 
 	inline bool Active() { return active; }
 

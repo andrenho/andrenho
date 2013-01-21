@@ -27,8 +27,8 @@ UI::UI(World const& world, GraphicLibrary const& video)
 	minimap->Reset();
 
 	//GoTo(world.Hero->Pos);
-	GoToScr(Point<int>{3000*32, 3000*32});
-	//CenterHero();
+	//GoToScr(Point<int>{3000*32, 3000*32});
+	CenterHero();
 }
 
 
@@ -122,9 +122,9 @@ UI::Draw()
 	terrain_sf->Img->Blit(*video.Window, r); // TODO - not always
 	logger.DebugFrame("Terrain blit: %d ms", SDL_GetTicks()-t);
 
-//	t = SDL_GetTicks();
-//	char_engine->Draw(rx, ry, video.Window->w, video.Window->h);
-//	logger.DebugFrame("Characters blit: %d ms", SDL_GetTicks()-t);
+	t = SDL_GetTicks();
+	char_engine->Draw(video.Window->w, video.Window->h);
+	logger.DebugFrame("Characters blit: %d ms", SDL_GetTicks()-t);
 	
 	t = SDL_GetTicks();
 	video.Window->Update();
@@ -175,24 +175,8 @@ UI::GoToScr(Point<T> p)
 void
 UI::CenterHero()
 {
-	IPoint src = ConvertToScr(world.Hero->Pos);
+	IPoint src = TileToScr(world.Hero->Pos);
 	src.x -= video.Window->w / 2;
 	src.y -= video.Window->h / 2;
 	GoToScr(src);
-}
-
-
-DPoint 
-UI::ConvertToTile(IPoint scr) const
-{
-	return { (-rx + scr.x) / (double)TerrainSurface::TileSize,
-		 (-ry + scr.y) / (double)TerrainSurface::TileSize };
-}
-
-
-IPoint 
-UI::ConvertToScr(DPoint t) const
-{
-	return { (int)((-t.x * (double)TerrainSurface::TileSize) + rx),
-	         (int)((-t.y * (double)TerrainSurface::TileSize) + ry) };
 }
