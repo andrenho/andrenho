@@ -47,8 +47,8 @@ private:
 			std::vector<City const*> const& c2);
 	void FindCityCluster(City const* city, std::vector<City const*>& cs);
 	void CreateRoad(City const& c1, City const& c2);
-	Polygon* CreateFlow(Point start, int iterations=INT_MAX);
-	int DistanceFromWater(Point const& p, bool include_rivers);
+	Polygon* CreateFlow(IPoint start, int iterations=INT_MAX);
+	int DistanceFromWater(IPoint const& p, bool include_rivers);
 	bool AreNeighbours(Biome const& b1, Biome const& b2);
 	void BiomeNeighbours(Biome const& biome, 
 			std::vector<Biome const*>& biomes);

@@ -20,7 +20,7 @@ UI::UI(World const& world, GraphicLibrary const& video)
 	  terrain_sf(new TerrainSurface(world, video, *res)),
 	  minimap(new Minimap(video, world, *res)), 
 	  draw_next_frame(true),
-	  char_engine(new CharEngine(world, video, *res)),
+	  char_engine(new CharEngine(world, video, *res, *this)),
 	  frame_timer(nullptr)
 {
 	terrain_sf->Resize(video.Window->w, video.Window->h);
@@ -163,7 +163,7 @@ UI::MoveView(int horiz, int vert)
 
 
 void 
-UI::GoTo(Point p)
+UI::GoTo(IPoint p)
 {
 	rx = -TerrainSurface::TileSize * p.x;
 	ry = -TerrainSurface::TileSize * p.y;
@@ -178,17 +178,20 @@ UI::CenterHero()
 		(video.Window->w / TerrainSurface::TileSize / 2);
 	int cy = world.Hero->Pos.y - 
 		(video.Window->h / TerrainSurface::TileSize / 2);
-	GoTo(Point { cx, cy });
+	GoTo(IPoint { cx, cy });
+}
+
+void 
+UI::ConvertToTile(int scr_x, int scr_y, double& tx, double& ty) const
+{
+	tx = (-rx + scr_x) / (double)TerrainSurface::TileSize;
+	ty = (-ry + scr_y) / (double)TerrainSurface::TileSize;
 }
 
 
-Point 
-UI::ConvertToTile(int scr_x, int scr_y) const
+void 
+UI::ConvertToScr(double tx, double ty, int& scr_x, int& scr_y) const
 {
-}
-
-
-Point 
-UI::ConvertToScr(int px, int py) const
-{
+	scr_x = (-tx * (double)TerrainSurface::TileSize) + rx;
+	scr_y = (-ty * (double)TerrainSurface::TileSize) + ry;
 }

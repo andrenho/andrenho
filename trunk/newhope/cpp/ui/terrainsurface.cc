@@ -85,19 +85,19 @@ TerrainSurface::SetTopLeft(int x, int y)
 		if(x > tsx)
 			for(nx=(this->w + this->x - (x - tsx)); nx < (this->w + this->x); nx++)
 				for(ny=this->y; ny < (this->h + this->y); ny++)
-					tiles_to_redraw.insert(Point{nx, ny});
+					tiles_to_redraw.insert(IPoint{nx, ny});
 		else if(x < tsx)
 			for(nx=this->x; nx < (this->x + tsx - x); nx++)
 				for(ny=this->y; ny < (this->h + this->y); ny++)
-					tiles_to_redraw.insert(Point{nx, ny});
+					tiles_to_redraw.insert(IPoint{nx, ny});
 		if(y > tsy)
 			for(ny=(this->h + this->y - (y - tsy)); ny < (this->h + this->y); ny++)
 				for(nx=this->x; nx < (this->w + this->x); nx++)
-					tiles_to_redraw.insert(Point{nx, ny});
+					tiles_to_redraw.insert(IPoint{nx, ny});
 		else if(y < tsy)
 			for(ny=this->y; ny < (this->y + tsy - y); ny++)
 				for(nx=this->x; nx < (this->w + this->x); nx++)
-					tiles_to_redraw.insert(Point{nx, ny});
+					tiles_to_redraw.insert(IPoint{nx, ny});
 	}
 }
 
@@ -107,7 +107,7 @@ TerrainSurface::Redraw()
 {
 	for(int x=this->x; x<(this->x + this->w); x++)
 		for(int y=this->y; y<(this->y + this->h); y++)
-			tiles_to_redraw.insert(Point{x, y});
+			tiles_to_redraw.insert(IPoint{x, y});
 }
 
 

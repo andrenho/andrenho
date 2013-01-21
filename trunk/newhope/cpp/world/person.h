@@ -6,11 +6,11 @@ class World;
 
 class Person {
 public:
-	Person(World const& world, Point pos)
+	Person(World const& world, DPoint pos)
 		: Pos(pos), Facing('s'), world(world) { }
 	virtual ~Person();
 
-	Point Pos;
+	DPoint Pos;
 	char Facing;
 
 private:

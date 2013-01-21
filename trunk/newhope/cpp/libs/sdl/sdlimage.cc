@@ -199,7 +199,7 @@ SDLImage::FillBox(Rect r, Color c)
 
 
 void 
-SDLImage::DrawLine(Point p1, Point p2, Color c, int line_width)
+SDLImage::DrawLine(IPoint p1, IPoint p2, Color c, int line_width)
 {
 	int x0 = std::min(std::max(p1.x, 0), this->w - line_width),
 	    y0 = std::min(std::max(p1.y, 0), this->h - line_width),

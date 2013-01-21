@@ -201,21 +201,21 @@ Minimap::DrawRivers()
 
 
 void 
-Minimap::DrawPath(std::vector<Point>& points, Color c)
+Minimap::DrawPath(std::vector<IPoint>& points, Color c)
 {
 	double ps = double(world.w) / double(sz);
-	Point p2 = Point { -1, -1 };
+	IPoint p2 = IPoint { -1, -1 };
 	for(auto const& p1: points)
 	{
-		if(p2 == Point { -1, -1 })
+		if(p2 == IPoint { -1, -1 })
 		{
-			p2 = Point{ p1.x, p1.y };
+			p2 = IPoint{ p1.x, p1.y };
 			continue;
 		}
 
-		Point pa = { int(double(p1.x)/ps), 
+		IPoint pa = { int(double(p1.x)/ps), 
 		       int(double(p1.y)/ps) };
-		Point pb = { int(double(p2.x)/ps), 
+		IPoint pb = { int(double(p2.x)/ps), 
 		       int(double(p2.y)/ps) };
 		image->DrawLine(pa, pb, c, 2);
 
@@ -230,7 +230,7 @@ Minimap::DrawCities()
 	double ps = (double)world.w / (double)sz;
 	for(auto const& city : world.map->cities)
 	{
-		Point p = city->pos;
+		IPoint p = city->pos;
 		Color c = { 128, 0, 0 };
 		image->HollowBox(Rect((p.x/ps)-6, (p.y/ps)-6, 12, 12), c);
 		image->FillBox(Rect((p.x/ps)-4, (p.y/ps)-4, 8, 8), c);
