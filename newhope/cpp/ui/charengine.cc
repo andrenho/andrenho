@@ -43,7 +43,6 @@ CharEngine::DrawPerson(Person const& person, int scr_x, int scr_y) const
 
 	// find position
 	IPoint scr = ui.ConvertToScr(person.Pos);
-	logger.Debug("%d %d", scr.x, scr.y);
 
 	// create image
 	string charimage(body + "_" + direction + "_" + step);

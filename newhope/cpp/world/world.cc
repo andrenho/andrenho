@@ -43,16 +43,14 @@ World::~World()
 
 
 TerrainType 
-World::Terrain(int x, int y, bool ignore_paths) const
+World::Terrain(Point<int> p, bool ignore_paths) const
 {
-	IPoint p = { x, y };
-
 	// find rivers
 	if(!ignore_paths)
 	{
 		if(std::binary_search(roadpts.begin(), roadpts.end(), p))
 		{
-			if(Terrain(x, y, true) != t_LAVAROCK)
+			if(Terrain(p, true) != t_LAVAROCK)
 				return t_LAVAROCK;
 			else
 				return t_DIRT;
@@ -73,7 +71,7 @@ World::Terrain(int x, int y, bool ignore_paths) const
 
 
 int
-World::Special(int x, int y) const
+World::Special(Point<int> p) const
 {
 	int n = rand() % 100;
 	if(n >= 4)

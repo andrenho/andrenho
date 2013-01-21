@@ -27,7 +27,8 @@ UI::UI(World const& world, GraphicLibrary const& video)
 	minimap->Reset();
 
 	//GoTo(world.Hero->Pos);
-	CenterHero();
+	GoToScr(Point<int>{3000*32, 3000*32});
+	//CenterHero();
 }
 
 
@@ -73,13 +74,13 @@ UI::ProcessEvents()
 			draw_next_frame = true;
 			break;
 		case Key::LEFT:
-			MoveView(-s, 0); break;
+			MoveView(s, 0); break;
 		case Key::DOWN:
-			MoveView(0, s);  break;
+			MoveView(0, -s);  break;
 		case Key::UP:
-			MoveView(0, -s); break;
+			MoveView(0, s); break;
 		case Key::RIGHT:
-			MoveView(s, 0);  break;
+			MoveView(-s, 0);  break;
 		default:
 			logger.Debug("%c %d", key->key, key->key);
 		}
@@ -116,14 +117,14 @@ UI::Draw()
 	logger.DebugFrame("Terrain redraw: %d ms", SDL_GetTicks()-t);
 
 	t = SDL_GetTicks();
-	Rect r(rx % TerrainSurface::TileSize, 
-			ry % TerrainSurface::TileSize);
+	Rect r(-rx % TerrainSurface::TileSize, 
+	       -ry % TerrainSurface::TileSize);
 	terrain_sf->Img->Blit(*video.Window, r); // TODO - not always
 	logger.DebugFrame("Terrain blit: %d ms", SDL_GetTicks()-t);
 
-	t = SDL_GetTicks();
-	char_engine->Draw(rx, ry, video.Window->w, video.Window->h);
-	logger.DebugFrame("Characters blit: %d ms", SDL_GetTicks()-t);
+//	t = SDL_GetTicks();
+//	char_engine->Draw(rx, ry, video.Window->w, video.Window->h);
+//	logger.DebugFrame("Characters blit: %d ms", SDL_GetTicks()-t);
 	
 	t = SDL_GetTicks();
 	video.Window->Update();
@@ -150,11 +151,11 @@ UI::MoveView(int horiz, int vert)
 	Uint32 t = SDL_GetTicks();
 
 	// move center of screen
-	rx += horiz;
-	ry += vert;
+	rx -= horiz;
+	ry -= vert;
 
-	terrain_sf->SetTopLeft(-(rx/TerrainSurface::TileSize), 
-			-(ry/TerrainSurface::TileSize));
+	terrain_sf->SetTopLeft(Point<int>((rx/TerrainSurface::TileSize), 
+			                 (ry/TerrainSurface::TileSize)));
 
 	draw_next_frame = true;
 
@@ -175,8 +176,8 @@ void
 UI::CenterHero()
 {
 	IPoint src = ConvertToScr(world.Hero->Pos);
-	src.x += video.Window->w / 2;
-	src.y += video.Window->h / 2;
+	src.x -= video.Window->w / 2;
+	src.y -= video.Window->h / 2;
 	GoToScr(src);
 }
 

@@ -36,7 +36,7 @@ void Polygon::FakeVoronoi(unsigned int seed, int w, int h, int density,
 
 	// add points
 	int n_points = 0, max_x = 0,max_y = 0;
-	IPoint points[density][density];
+	Point<int> points[density][density];
 	const int d = (w/density/4);
 	for(x=(w/density*3/2), xx=0; x<w; x+=(w/density*3/2))
 	{
