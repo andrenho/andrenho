@@ -14,10 +14,10 @@ public:
 		: world(world), video(video), res(res), ui(ui) { }
 	~CharEngine();
 
-	void Draw(int scr_x, int scr_y, int scr_h, int scr_w) const;
+	void Draw(int scr_h, int scr_w) const;
 
 private:
-	void DrawPerson(Person const& person, int scr_x, int scr_y) const;
+	void DrawPerson(Person const& person) const;
 
 	World const& world;
 	GraphicLibrary const& video;

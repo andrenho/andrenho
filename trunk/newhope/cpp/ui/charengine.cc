@@ -14,20 +14,22 @@ CharEngine::~CharEngine()
 
 
 void 
-CharEngine::Draw(int scr_x, int scr_y, int scr_h, int scr_w) const
+CharEngine::Draw(int scr_h, int scr_w) const
 {
 	for(auto const& person: world.People)
 	{
-		/*if(person->Pos.x >= scr_x && person->Pos.y >= scr_y
-		&& person->Pos.x < (scr_x+scr_w) 
-		&& person->Pos.y < (scr_y+scr_h))*/
-			DrawPerson(*person, scr_x, scr_y);
+		Point<int> p = ui.TileToRel(person->Pos);
+		if(p.x >= -TerrainSurface::TileSize 
+		&& p.y >= -TerrainSurface::TileSize 
+		&& p.x < scr_w + TerrainSurface::TileSize
+		&& p.y < scr_h + TerrainSurface::TileSize)
+			DrawPerson(*person);
 	}
 }
 
 
 void 
-CharEngine::DrawPerson(Person const& person, int scr_x, int scr_y) const
+CharEngine::DrawPerson(Person const& person) const
 {
 	// body
 	string body("male");
@@ -42,7 +44,7 @@ CharEngine::DrawPerson(Person const& person, int scr_x, int scr_y) const
 	string step("0");
 
 	// find position
-	IPoint scr = ui.ConvertToScr(person.Pos);
+	Point<int> scr = ui.TileToRel(person.Pos);
 
 	// create image
 	string charimage(body + "_" + direction + "_" + step);

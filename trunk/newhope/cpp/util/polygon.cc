@@ -28,6 +28,9 @@ Polygon::Polygon(Rect r)
 void Polygon::FakeVoronoi(unsigned int seed, int w, int h, int density, 
 		std::vector<Polygon*>& polygons)
 {
+	if(density > 100)
+		logger.Error(1, "Max density 100.");
+
 	int x, y;
 	int xx, yy;
 
@@ -36,7 +39,7 @@ void Polygon::FakeVoronoi(unsigned int seed, int w, int h, int density,
 
 	// add points
 	int n_points = 0, max_x = 0,max_y = 0;
-	Point<int> points[density][density];
+	Point<int> points[100][100];
 	const int d = (w/density/4);
 	for(x=(w/density*3/2), xx=0; x<w; x+=(w/density*3/2))
 	{
