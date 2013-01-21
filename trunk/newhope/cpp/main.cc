@@ -12,17 +12,18 @@ int main(int argc, char** argv)
 	i18n_init();
 	World world(5000, 5000);
 	GraphicLibrary* video = new SDL();
-	UI ui(world, *video);
+	UI* ui = new UI(world, *video);
 
 	// main loop
-	while(ui.Active())
+	while(ui->Active())
 	{
-		ui.StartFrame();
-		ui.Draw();
-		ui.ProcessEvents();
-		ui.EndFrame();
+		ui->StartFrame();
+		ui->Draw();
+		ui->ProcessEvents();
+		ui->EndFrame();
 	}
 
 	// clean up
+	delete ui;
 	delete video;
 }
