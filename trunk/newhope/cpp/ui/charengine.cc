@@ -6,6 +6,7 @@ using namespace std;
 #include "world/world.h"
 #include "ui/resource.h"
 #include "libs/image.h"
+#include "ui/ui.h"
 
 CharEngine::~CharEngine()
 {
@@ -17,9 +18,9 @@ CharEngine::Draw(int scr_x, int scr_y, int scr_h, int scr_w) const
 {
 	for(auto const& person: world.People)
 	{
-		if(person->Pos.x >= scr_x && person->Pos.y >= scr_y
+		/*if(person->Pos.x >= scr_x && person->Pos.y >= scr_y
 		&& person->Pos.x < (scr_x+scr_w) 
-		&& person->Pos.y < (scr_y+scr_h))
+		&& person->Pos.y < (scr_y+scr_h))*/
 			DrawPerson(*person, scr_x, scr_y);
 	}
 }
@@ -41,12 +42,13 @@ CharEngine::DrawPerson(Person const& person, int scr_x, int scr_y) const
 	string step("0");
 
 	// find position
-	
+	IPoint scr = ui.ConvertToScr(person.Pos);
+	logger.Debug("%d %d", scr.x, scr.y);
 
 	// create image
 	string charimage(body + "_" + direction + "_" + step);
-	res[charimage]->Blit(*video.Window, Rect(0, 0));
+	res[charimage]->Blit(*video.Window, Rect(scr.x, scr.y));
 
 	string charclothes(clothes + "_" + direction + "_" + step);
-	res[charclothes]->Blit(*video.Window, Rect(0, 0));
+	res[charclothes]->Blit(*video.Window, Rect(scr.x, scr.y));
 }

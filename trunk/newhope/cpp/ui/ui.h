@@ -22,14 +22,14 @@ public:
 	void Draw();
 	void EndFrame();
 
-	void ConvertToTile(int scr_x, int scr_y, double& tx, double& ty) const;
-	void ConvertToScr(double tx, double ty, int& scr_x, int& scr_y) const;
+	DPoint ConvertToTile(IPoint scr) const;
+	IPoint ConvertToScr(DPoint t) const;
 
 	inline bool Active() { return active; }
 
 private:
 	void CenterHero();
-	void GoTo(IPoint p);
+	template<class T> void GoToScr(Point<T> p);
 	void MoveView(int horiz, int vert);
 
 
