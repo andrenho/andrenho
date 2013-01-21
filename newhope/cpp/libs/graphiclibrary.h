@@ -18,10 +18,14 @@ typedef enum Key { UP=256, DOWN, LEFT, RIGHT } Key;
 
 class KeyEvent : public Event {
 public:
-	KeyEvent(int key, bool shift, bool control) 
-		: Event(KEY), key(key), Shift(shift), Control(control) { }
+	KeyEvent(int key) 
+		: Event(KEY), key(key) { }
 	const int key;
-	const bool Shift, Control;
+};
+
+struct KeyState {
+	bool Shift, Control;
+	bool Left, Right, Up, Down;
 };
 
 class ClickEvent : public Event {
@@ -54,6 +58,7 @@ public:
 	virtual Font* LoadFont(std::string const& filename, int size) const = 0;
 
 	virtual Event const* GetEvent() const = 0;
+	virtual void GetKeyState(KeyState& state) const = 0;
 
 	mutable Image* Window;
 };

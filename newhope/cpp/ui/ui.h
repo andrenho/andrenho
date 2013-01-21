@@ -39,6 +39,8 @@ public:
 	inline bool Active() { return active; }
 
 private:
+	void ProcessMovementKeys();
+
 	void CenterHero();
 	template<class T> void GoToScr(Point<T> p);
 	void MoveView(int horiz, int vert);
@@ -51,7 +53,6 @@ private:
 	Resources* res;
 	TerrainSurface* terrain_sf;
 	Minimap* minimap;
-	bool draw_next_frame;
 	CharEngine const* char_engine;
 	Timer* frame_timer;
 };

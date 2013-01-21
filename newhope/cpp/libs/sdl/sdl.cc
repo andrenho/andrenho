@@ -93,9 +93,7 @@ SDL::GetEvent() const
 			default:
 				key = e.key.keysym.sym;
 			}
-			bool shift = e.key.keysym.mod & KMOD_SHIFT;
-			bool control = e.key.keysym.mod & KMOD_CTRL;
-			return new KeyEvent(key, shift, control);
+			return new KeyEvent(key);
 		}
 			break;
 		case SDL_MOUSEBUTTONDOWN:
@@ -123,4 +121,21 @@ SDL::CreateTimer(int wait_ms) const
 { 
 	SDLTimer* timer = new SDLTimer(wait_ms);
 	return timer;
+}
+
+
+void 
+SDL::GetKeyState(KeyState& state) const
+{
+	SDL_PumpEvents();
+	SDLMod mod = SDL_GetModState();
+	Uint8 *k = SDL_GetKeyState(NULL);
+
+	state.Shift = mod & KMOD_SHIFT;
+	state.Control = mod & KMOD_CTRL;
+
+	state.Left  = k[SDLK_LEFT];
+	state.Right = k[SDLK_RIGHT];
+	state.Up    = k[SDLK_UP];
+	state.Down  = k[SDLK_DOWN];
 }

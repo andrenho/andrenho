@@ -37,7 +37,7 @@ const vector<string> mm_sfx {
 };
 
 // character
-const int dx = 17, dy = 15, dw=44-dx, dh=60-dy;
+const int dx = 17, dy = 15, dw=48-dx, dh=60-dy;
 constexpr Rect cr(int x, int y) { return Rect(64*x+dx, 64*y+dy, dw, dh); }
 const vector<Rect> char_rects {
 	cr(0,0),cr(1,0),cr(2,0),cr(3,0),cr(4,0),cr(5,0),cr(6,0),cr(7,0),cr(8,0), 

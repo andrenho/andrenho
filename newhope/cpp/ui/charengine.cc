@@ -1,6 +1,7 @@
 #include "ui/charengine.h"
 
 #include <string>
+#include <sstream>
 using namespace std;
 
 #include "world/world.h"
@@ -41,7 +42,9 @@ CharEngine::DrawPerson(Person const& person) const
 	string direction(1, person.Facing);
 
 	// step
-	string step("0");
+	std::stringstream s;
+	s << person.Step() % 8;
+	string step(s.str());
 
 	// find position
 	Point<int> scr = ui.TileToRel(person.Pos);

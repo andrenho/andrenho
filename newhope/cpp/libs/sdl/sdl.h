@@ -18,6 +18,7 @@ public:
 	Font* LoadFont(std::string const& filename, int size) const;
 
 	Event const* GetEvent() const;
+	void GetKeyState(KeyState& state) const;
 
 	mutable struct SDL_Surface* screen;
 };

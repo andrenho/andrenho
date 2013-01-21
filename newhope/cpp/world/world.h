@@ -35,6 +35,7 @@ public:
 	World(int w, int h);
 	~World();
 
+	void Process();
 	TerrainType Terrain(Point<int> p, bool ignore_paths=false) const;
 	int Special(Point<int> p) const;
 
