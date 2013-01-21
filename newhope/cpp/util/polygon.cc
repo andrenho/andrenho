@@ -7,7 +7,7 @@
 
 #include "util/logger.h"
 
-Polygon::Polygon(struct Point* points, int n_points)
+Polygon::Polygon(IPoint* points, int n_points)
 	: Polygon()
 {
 	for(int i=0; i<n_points; i++)
@@ -36,7 +36,7 @@ void Polygon::FakeVoronoi(unsigned int seed, int w, int h, int density,
 
 	// add points
 	int n_points = 0, max_x = 0,max_y = 0;
-	struct Point points[density][density];
+	IPoint points[density][density];
 	const int d = (w/density/4);
 	for(x=(w/density*3/2), xx=0; x<w; x+=(w/density*3/2))
 	{
@@ -81,15 +81,15 @@ void Polygon::FakeVoronoi(unsigned int seed, int w, int h, int density,
 }
 
 
-const struct Point 
+const IPoint 
 Polygon::Midpoint() const
 {
-	static Point invalid = { -1, -1 };
+	static IPoint invalid = { -1, -1 };
 	if(midpoint == invalid)
 	{
 		if(limit_x1 == INT_MAX)
 			CalculateLimits();
-		midpoint = (const struct Point) {
+		midpoint = (const IPoint) {
 			limit_x1 + (limit_x2 - limit_x1) / 2,
 			limit_y1 + (limit_y2 - limit_y1) / 2
 		};
@@ -125,15 +125,15 @@ Polygon::MidlineDisplacement(int n)
 		CalculateLimits();
 	else
 	{
-		std::vector<Point> new_points;
-		for(std::vector<Point>::const_iterator point = points.begin(); 
+		std::vector<IPoint> new_points;
+		for(std::vector<IPoint>::const_iterator point = points.begin(); 
 				point != points.end(); point++)
 		{
-			Point p1 = *point;
-			Point p2 = points.front();
+			IPoint p1 = *point;
+			IPoint p2 = points.front();
 			if(point+1 != points.end())
 				p2 = *(point+1);
-			Point p3 = p1.Displace(p2, 6);
+			IPoint p3 = p1.Displace(p2, 6);
 			new_points.push_back(p1);
 			new_points.push_back(p3);
 		}
@@ -155,14 +155,14 @@ Polygon::Debug() const
 
 
 bool 
-Polygon::ContainsPoint(Point p) const
+Polygon::ContainsPoint(IPoint p) const
 {
 	return std::find(points.begin(), points.end(), p) != points.end();
 }
 
 
 void 
-Polygon::NeighbourPoints(Point p, std::vector<Point>& neigh_points) const
+Polygon::NeighbourPoints(IPoint p, std::vector<IPoint>& neigh_points) const
 {
 	assert(points.size() >= 3);
 
@@ -195,7 +195,7 @@ Polygon::IsTouching(Polygon const& poly)
 bool
 Polygon::BorderIntersects(Rect const& r)
 {
-	Point prect[4][2] = {
+	IPoint prect[4][2] = {
 		{ { r.x,     r.y     }, { r.x+r.w, r.y } },
 		{ { r.x+r.w, r.y     }, { r.x+r.w, r.y+r.h } },
 		{ { r.x+r.w, r.y+r.h }, { r.x,     r.y+r.h } },
@@ -204,13 +204,13 @@ Polygon::BorderIntersects(Rect const& r)
 
 	for(unsigned int i=0; i<points.size()-1; i++)
 	{
-		Point a = points[i],
+		IPoint a = points[i],
 		      b = points[i+1];
 
 		for(int j=0; j<4; j++)
 		{
-			Point c = prect[j][0],
-			      d = prect[j][1];
+			IPoint c = prect[j][0],
+			       d = prect[j][1];
 			bool abc = (b.x - a.x) * (c.y - a.y) > 
 				   (b.y - a.y) * (c.x - a.x);
 			bool abd = (b.x - a.x) * (d.y - a.y) > 

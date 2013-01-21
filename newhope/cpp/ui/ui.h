@@ -22,15 +22,16 @@ public:
 	void Draw();
 	void EndFrame();
 
+	void ConvertToTile(int scr_x, int scr_y, double& tx, double& ty) const;
+	void ConvertToScr(double tx, double ty, int& scr_x, int& scr_y) const;
+
 	inline bool Active() { return active; }
 
 private:
 	void CenterHero();
-	void GoTo(Point p);
+	void GoTo(IPoint p);
 	void MoveView(int horiz, int vert);
 
-	Point ConvertToTile(int scr_x, int scr_y) const;
-	Point ConvertToScr(int px, int py) const;
 
 	World const& world;
 	bool active;

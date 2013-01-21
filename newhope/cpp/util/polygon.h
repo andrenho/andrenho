@@ -16,14 +16,14 @@ public:
 		limit_x1(INT_MAX), limit_y1(INT_MAX), limit_x2(0), limit_y2(0),
 		midpoint({ -1, -1})
 	{ }
-	Polygon(struct Point* points, int n_points);
+	Polygon(IPoint* points, int n_points);
 	Polygon(Rect r);
 
-	const struct Point Midpoint() const;
+	const IPoint Midpoint() const;
 	void MidlineDisplacement(int n);
 	void Debug() const;
-	void NeighbourPoints(Point p, std::vector<Point>& neigh_points) const;
-	bool ContainsPoint(Point p) const;
+	void NeighbourPoints(IPoint p, std::vector<IPoint>& neigh_points) const;
+	bool ContainsPoint(IPoint p) const;
 	bool IsTouching(Polygon const& p);
 	bool BorderIntersects(Rect const& r);
 	void CalculateLimits() const;
@@ -31,14 +31,14 @@ public:
 	static void FakeVoronoi(unsigned int seed, int w, int h, int density,
 			std::vector<Polygon*>& polygons);
 
-	std::vector<Point> points;
+	std::vector<IPoint> points;
 
 private:
 	mutable int limit_x1, limit_y1, limit_x2, limit_y2;
-	mutable Point midpoint;
+	mutable IPoint midpoint;
 
 public:
-	inline bool PointInPolygon(Point p) const
+	inline bool PointInPolygon(IPoint p) const
 	{
 		// prefilter
 		if(p.x < limit_x1 || p.y < limit_y1 || p.x > limit_x2 || p.y > limit_y2)

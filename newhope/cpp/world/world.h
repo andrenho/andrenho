@@ -45,9 +45,9 @@ public:
 
 private:
 	void CreatePathsCache();
-	void AddPoints(Point p1, Point p2, std::set<Point>& points, int w);
+	void AddPoints(IPoint p1, IPoint p2, std::set<IPoint>& points, int w);
 
-	std::vector<Point> riverpts, roadpts, lavapts;
+	std::vector<IPoint> riverpts, roadpts, lavapts;
 };
 
 #endif

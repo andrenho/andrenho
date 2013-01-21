@@ -48,7 +48,7 @@ private:
 	GraphicLibrary const& video;
 	Resources const& res;
 	int x, y, w, h;
-	std::set<Point> tiles_to_redraw;
+	std::set<IPoint> tiles_to_redraw;
 };
 
 #endif

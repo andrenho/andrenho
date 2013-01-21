@@ -45,7 +45,7 @@ World::~World()
 TerrainType 
 World::Terrain(int x, int y, bool ignore_paths) const
 {
-	struct Point p = { x, y };
+	IPoint p = { x, y };
 
 	// find rivers
 	if(!ignore_paths)
@@ -90,7 +90,7 @@ World::CreatePathsCache()
 
 	static struct {
 		std::vector<Polygon*> const& mapbuild;
-		std::vector<Point>& points;
+		std::vector<IPoint>& points;
 		int width;
 	} polygons[] = {
 		{ map->roads,  roadpts,  6 },
@@ -101,7 +101,7 @@ World::CreatePathsCache()
 	for(auto const& polygon: polygons)
 	{
 		// create a set with all the points
-		std::set<Point> points;
+		std::set<IPoint> points;
 		for(auto const& each: polygon.mapbuild)
 			for(unsigned int i=0; i<each->points.size()-1; i++)
 				AddPoints(each->points[i], each->points[i+1],
@@ -119,7 +119,7 @@ World::CreatePathsCache()
 
 
 void
-World::AddPoints(Point p1, Point p2, std::set<Point>& points, int line_width)
+World::AddPoints(IPoint p1, IPoint p2, std::set<IPoint>& points, int line_width)
 {
 	int x0 = std::min(std::max(p1.x, 0), this->w - line_width),
 	    y0 = std::min(std::max(p1.y, 0), this->h - line_width),
@@ -135,7 +135,7 @@ World::AddPoints(Point p1, Point p2, std::set<Point>& points, int line_width)
 		int yy = 0; //rand() % w;
 		for(int x=(-line_width/2); x<line_width/2; x++)
 			for(int y=(-line_width/2); y<line_width/2; y++)
-				points.insert(Point { x0+x+xx, y0+y+yy });
+				points.insert(IPoint { x0+x+xx, y0+y+yy });
 		if(x0 == x1 && y0 == y1)
 			break;
 		e2 = err;
