@@ -19,7 +19,6 @@ UI::UI(World const& world, GraphicLibrary const& video)
 	  res(new Resources(video)),
 	  terrain_sf(new TerrainSurface(world, video, *res)),
 	  minimap(new Minimap(video, world, *res)), 
-	  draw_next_frame(true),
 	  char_engine(new CharEngine(world, video, *res, *this)),
 	  frame_timer(nullptr)
 {
@@ -28,7 +27,7 @@ UI::UI(World const& world, GraphicLibrary const& video)
 
 	//GoTo(world.Hero->Pos);
 	//GoToScr(Point<int>{3000*32, 3000*32});
-	CenterHero();
+	//CenterHero();
 }
 
 
@@ -53,57 +52,57 @@ UI::StartFrame()
 void 
 UI::ProcessEvents()
 {
+	ProcessMovementKeys();
+
 	Event const* event = video.GetEvent();
-	switch(event->type)
-	{
-	case Event::QUIT:
+	if(event->type == Event::QUIT)
 		active = false;
-		break;
-	case Event::KEY:
+	else if(event->type == Event::KEY)
 	{
-		int s = 1;
 		const KeyEvent* key = (const KeyEvent*)event;
-		if(key->Shift)
-			s = 16;
-		else if(key->Control)
-			s = 150;
-		switch(key->key)
-		{
-		case '\t':
+		if(key->key == '\t')
 			minimap->Display(); 
-			draw_next_frame = true;
-			break;
-		case Key::LEFT:
-			MoveView(s, 0); break;
-		case Key::DOWN:
-			MoveView(0, -s);  break;
-		case Key::UP:
-			MoveView(0, s); break;
-		case Key::RIGHT:
-			MoveView(-s, 0);  break;
-		default:
-			logger.Debug("%c %d", key->key, key->key);
-		}
 	}
-		break;
-	case Event::RESIZE:
+	else if(event->type == Event::RESIZE)
+	{
 		terrain_sf->Resize(video.Window->w, video.Window->h);
 		minimap->Reset();
-		draw_next_frame = true;
-		break;
-	default:
-		break;
 	}
 	delete event;
 }
 
 
 void 
+UI::ProcessMovementKeys()
+{
+	KeyState state;
+	video.GetKeyState(state);
+	if(state.Left && state.Up)
+		world.Hero->Movement(-1, -1);
+	else if(state.Right && state.Up)
+		world.Hero->Movement(1, -1);
+	else if(state.Up)
+		world.Hero->Movement(0, -1);
+	else if(state.Left && state.Down)
+		world.Hero->Movement(-1, 1);
+	else if(state.Right && state.Down)
+		world.Hero->Movement(1, 1);
+	else if(state.Down)
+		world.Hero->Movement(0, 1);
+	else if(state.Left)
+		world.Hero->Movement(-1, 0);
+	else if(state.Right)
+		world.Hero->Movement(1, 0);
+	else
+		world.Hero->Movement(0, 0);
+}
+
+
+void 
 UI::Draw()
 {
-	if(!draw_next_frame)
-		return;
-
+	CenterHero();
+	
 	Uint32 t = SDL_GetTicks();
 
 	std::vector<Rect> rects;
@@ -129,8 +128,6 @@ UI::Draw()
 	t = SDL_GetTicks();
 	video.Window->Update();
 	logger.DebugFrame("Screen flip: %d ms", SDL_GetTicks()-t);
-
-	draw_next_frame = false;
 }
 
 
@@ -156,8 +153,6 @@ UI::MoveView(int horiz, int vert)
 
 	terrain_sf->SetTopLeft(Point<int>((rx/TerrainSurface::TileSize), 
 			                 (ry/TerrainSurface::TileSize)));
-
-	draw_next_frame = true;
 
 	logger.DebugFrame("SetTopLeft: %d ms", SDL_GetTicks()-t);
 }

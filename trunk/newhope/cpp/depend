@@ -126,7 +126,7 @@ city.o: world/city.cc
 mapbuild.o: world/mapbuild.cc world/mapbuild.h util/polygon.h util/rect.h \
  util/point.h util/logger.h world/biome.h world/world.h world/person.h \
  world/city.h
-person.o: world/person.cc world/person.h util/point.h
+person.o: world/person.cc world/person.h util/point.h util/logger.h
 world.o: world/world.cc world/world.h util/point.h world/mapbuild.h \
  util/polygon.h util/rect.h world/person.h util/logger.h world/biome.h \
  world/city.h

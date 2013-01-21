@@ -42,6 +42,14 @@ World::~World()
 }
 
 
+void
+World::Process()
+{
+	for(auto& person: People) // TODO - only visible
+		person->Process();
+}
+
+
 TerrainType 
 World::Terrain(Point<int> p, bool ignore_paths) const
 {

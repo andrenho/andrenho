@@ -20,6 +20,7 @@ int main(int argc, char** argv)
 		ui->StartFrame();
 		ui->Draw();
 		ui->ProcessEvents();
+		world.Process();
 		ui->EndFrame();
 	}
 
