@@ -10,7 +10,7 @@ Person::~Person()
 void
 Person::Process()
 {
-	//if(mov_x != 0 && mov_y != 0)
+	if(!(mov_x == 0 && mov_y == 0))
 	{
 		Pos.x += mov_x / 4.0;
 		Pos.y += mov_y / 4.0;
