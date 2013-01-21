@@ -24,7 +24,7 @@ TerrainSurface::RedrawImg(std::vector<Rect>& rects)
 	for(auto const& tile: tiles_to_redraw)
 	{
 		rects.push_back(Rect(tile.x, tile.y, TileSize, TileSize));
-		DrawTile(tile.x, tile.y);
+		DrawTile(tile);
 	}
 	tiles_to_redraw.clear();
 }
@@ -55,49 +55,49 @@ TerrainSurface::AreasToRedraw(std::vector<Rect>& rects)
 
 
 void 
-TerrainSurface::SetTopLeft(int x, int y)
+TerrainSurface::SetTopLeft(Point<int> p)
 {
 	tiles_to_redraw.clear();
 
-	if(this->x == x && this->y == y)
+	if(this->x == p.x && this->y == p.y)
 		return;
 
-	if(abs(this->x - x)*TileSize > video.Window->w
-	|| abs(this->y - y)*TileSize > video.Window->h)
+	if(abs(this->x - p.x)*TileSize > video.Window->w
+	|| abs(this->y - p.y)*TileSize > video.Window->h)
 	{
-		this->x = x;
-		this->y = y;
+		this->x = p.x;
+		this->y = p.y;
 		Redraw();
 	}
 	else
 	{
 		int nx, ny;
 
-		Rect r((this->x - x)*TileSize, (this->y - y)*TileSize);
+		Rect r((this->x - p.x)*TileSize, (this->y - p.y)*TileSize);
 		Img->Blit(*Img, r);
 
 		int tsx = this->x, 
 		    tsy = this->y;
 
-		this->x = x;
-		this->y = y;
+		this->x = p.x;
+		this->y = p.y;
 
-		if(x > tsx)
-			for(nx=(this->w + this->x - (x - tsx)); nx < (this->w + this->x); nx++)
+		if(p.x > tsx)
+			for(nx=(this->w + this->x - (p.x - tsx)); nx < (this->w + this->x); nx++)
 				for(ny=this->y; ny < (this->h + this->y); ny++)
-					tiles_to_redraw.insert(IPoint{nx, ny});
-		else if(x < tsx)
-			for(nx=this->x; nx < (this->x + tsx - x); nx++)
+					tiles_to_redraw.insert(Point<int>(nx, ny));
+		else if(p.x < tsx)
+			for(nx=this->x; nx < (this->x + tsx - p.x); nx++)
 				for(ny=this->y; ny < (this->h + this->y); ny++)
-					tiles_to_redraw.insert(IPoint{nx, ny});
-		if(y > tsy)
-			for(ny=(this->h + this->y - (y - tsy)); ny < (this->h + this->y); ny++)
+					tiles_to_redraw.insert(Point<int>(nx, ny));
+		if(p.y > tsy)
+			for(ny=(this->h + this->y - (p.y - tsy)); ny < (this->h + this->y); ny++)
 				for(nx=this->x; nx < (this->w + this->x); nx++)
-					tiles_to_redraw.insert(IPoint{nx, ny});
-		else if(y < tsy)
-			for(ny=this->y; ny < (this->y + tsy - y); ny++)
+					tiles_to_redraw.insert(Point<int>(nx, ny));
+		else if(p.y < tsy)
+			for(ny=this->y; ny < (this->y + tsy - p.y); ny++)
 				for(nx=this->x; nx < (this->w + this->x); nx++)
-					tiles_to_redraw.insert(IPoint{nx, ny});
+					tiles_to_redraw.insert(Point<int>(nx, ny));
 	}
 }
 
@@ -107,28 +107,28 @@ TerrainSurface::Redraw()
 {
 	for(int x=this->x; x<(this->x + this->w); x++)
 		for(int y=this->y; y<(this->y + this->h); y++)
-			tiles_to_redraw.insert(IPoint{x, y});
+			tiles_to_redraw.insert(Point<int>(x, y));
 }
 
 
 void 
-TerrainSurface::DrawTile(int x, int y)
+TerrainSurface::DrawTile(Point<int> p)
 {
-	Rect r((x - this->x) * TileSize, 
-	       (y - this->y) * TileSize, 
+	Rect r((p.x - this->x) * TileSize, 
+	       (p.y - this->y) * TileSize, 
 	       TileSize, TileSize);
 
-	const Image* img = TileSurface(x, y);
+	const Image* img = TileSurface(p);
 	img->Blit(*Img, r);
 }
 
 
 const Image* 
-TerrainSurface::TileSurface(int x, int y)
+TerrainSurface::TileSurface(Point<int> p)
 {
 	// build queue
 	std::queue<Image const*> st;
-	BuildTile(x, y, st);
+	BuildTile(p, st);
 
 	// lookup in the hash
 	if(imagehash.find(st) == imagehash.end())
@@ -164,14 +164,13 @@ static std::map<TerrainType, std::string> basic {
 
 
 void 
-TerrainSurface::BuildTile(int x, int y, std::queue<Image const*>& st)
+TerrainSurface::BuildTile(Point<int> p, std::queue<Image const*>& st)
 {
-
 	// basic terrain
-	TerrainType terrain = world.Terrain(x, y);
+	TerrainType terrain = world.Terrain(p);
 	std::string basic_terrain = basic[terrain];
 	int special;
-	if((special = world.Special(x, y)) == 0)
+	if((special = world.Special(p)) == 0)
 		st.push(res[basic_terrain + "_c"]);
 	else
 	{
@@ -180,24 +179,24 @@ TerrainSurface::BuildTile(int x, int y, std::queue<Image const*>& st)
 		st.push(res[s.str()]);
 	}
 
-	BuildTileBorders(x, y, terrain, st);
+	BuildTileBorders(p, terrain, st);
 }
 
 
 void
-TerrainSurface::BuildTileBorders(int x, int y, TerrainType t, 
+TerrainSurface::BuildTileBorders(Point<int> p, TerrainType t, 
 		std::queue<Image const*>& st)
 {
 	// find terrains around
 	TerrainType around[8] = {
-		world.Terrain(x-1, y-1),
-		world.Terrain(x  , y-1),
-		world.Terrain(x+1, y-1),
-		world.Terrain(x-1, y  ),
-		world.Terrain(x+1, y  ),
-		world.Terrain(x-1, y+1),
-		world.Terrain(x  , y+1),
-		world.Terrain(x+1, y+1)
+		world.Terrain(Point<int>(p.x-1, p.y-1)),
+		world.Terrain(Point<int>(p.x  , p.y-1)),
+		world.Terrain(Point<int>(p.x+1, p.y-1)),
+		world.Terrain(Point<int>(p.x-1, p.y  )),
+		world.Terrain(Point<int>(p.x+1, p.y  )),
+		world.Terrain(Point<int>(p.x-1, p.y+1)),
+		world.Terrain(Point<int>(p.x  , p.y+1)),
+		world.Terrain(Point<int>(p.x+1, p.y+1))
 	};
 	
 	// compact list and order by importance

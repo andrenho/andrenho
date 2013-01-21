@@ -11,6 +11,9 @@ struct Point {
 	mutable int elevation;
 	//mutable std::map<Point, int> distances;
 	
+	inline Point() { }
+	inline Point(T x, T y) : x(x), y(y) { }
+	
 	inline T Distance(struct Point p2) const
 	{
 		/*

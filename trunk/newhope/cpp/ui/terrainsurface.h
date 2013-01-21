@@ -3,6 +3,7 @@
 
 #include <cstdint>
 #include <cstdlib>
+#include <climits>
 #include <map>
 #include <queue>
 #include <set>
@@ -20,13 +21,13 @@ public:
 	TerrainSurface(World const& world, GraphicLibrary const& video,
 			Resources const& res) :
 		Img(NULL), world(world), video(video), res(res), 
-		x(0), y(0), w(0), h(0) { }
+		x(-10000), y(-10000), w(0), h(0) { }
 	~TerrainSurface();
 
 	void RedrawImg(std::vector<Rect>& rects);
 	void Resize(int scr_w, int scr_h);
 	void AreasToRedraw(std::vector<Rect>& rects);
-	void SetTopLeft(int x, int y);
+	void SetTopLeft(Point<int> p);
 
 	Image* Img;
 
@@ -34,10 +35,10 @@ public:
 
 private:
 	void Redraw();
-	void DrawTile(int x, int y);
-	const Image* TileSurface(int x, int y);
-	void BuildTile(int x, int y, std::queue<Image const*>& st);
-	void BuildTileBorders(int x, int y, TerrainType t, 
+	void DrawTile(Point<int> p);
+	const Image* TileSurface(Point<int> p);
+	void BuildTile(Point<int> p, std::queue<Image const*>& st);
+	void BuildTileBorders(Point<int> p, TerrainType t, 
 			std::queue<Image const*>& st);
 	void BuildBorder(TerrainType t, uint8_t bs, 
 			std::queue<Image const*>& st);
@@ -48,7 +49,7 @@ private:
 	GraphicLibrary const& video;
 	Resources const& res;
 	int x, y, w, h;
-	std::set<IPoint> tiles_to_redraw;
+	std::set<Point<int>> tiles_to_redraw;
 };
 
 #endif

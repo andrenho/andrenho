@@ -35,8 +35,8 @@ public:
 	World(int w, int h);
 	~World();
 
-	TerrainType Terrain(int x, int y, bool ignore_paths=false) const;
-	int Special(int x, int y) const;
+	TerrainType Terrain(Point<int> p, bool ignore_paths=false) const;
+	int Special(Point<int> p) const;
 
 	const int w, h;
 	const MapBuild* map;
