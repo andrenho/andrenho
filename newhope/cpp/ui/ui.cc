@@ -1,5 +1,6 @@
 #include "ui/ui.h"
 
+#include <climits>
 #include <cassert>
 #include <vector>
 using namespace std;
@@ -100,17 +101,33 @@ UI::Draw()
 {
 	CenterHero();
 	
+	// redraw terrain
 	vector<Rect> rects;
 	terrain_sf->RedrawImg(rects);
 	assert(terrain_sf->Img);
 
+	// blit terrain
 	Rect r(-rx % TileSize, 
 	       -ry % TileSize);
 	terrain_sf->Img->Blit(*video.Window, r); // TODO - not always
 
-	decor_engine->Draw(video.Window->w, video.Window->h);
-	char_engine->Draw(video.Window->w, video.Window->h);
+	// draw people and scenery, from bottom to top, in order, so that
+	// everything is hidden behind other things correctly
+	decor_engine->PrepareFrame(video.Window->w, video.Window->h);
+	char_engine->PrepareFrame(video.Window->w, video.Window->h);
+	int y(video.Window->h + TileSize);
+	while(y != INT_MIN)
+	{
+		if(decor_engine->Next(y) > char_engine->Next(y)) {
+			decor_engine->Draw(y);
+			y = decor_engine->Next(y);
+		} else {
+			char_engine->Draw(y);
+			y = char_engine->Next(y);
+		}
+	}
 	
+	// update screen
 	video.Window->Update();
 }
 

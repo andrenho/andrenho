@@ -1,5 +1,6 @@
 #include "ui/decorengine.h"
 
+#include <climits>
 #include <string>
 #include <sstream>
 using namespace std;
@@ -17,6 +18,19 @@ DecorEngine::~DecorEngine()
 
 
 void 
-DecorEngine::Draw(int scr_h, int scr_w) const
+DecorEngine::PrepareFrame(int scr_h, int scr_w) const
+{
+}
+
+
+int 
+DecorEngine::Next(int y) const
+{
+	return INT_MIN;
+}
+
+
+void 
+DecorEngine::Draw(int y) const
 {
 }
