@@ -4,10 +4,11 @@
 #include <vector>
 #include <map>
 
-#include "util/polygon.h"
+#include "util/defines.h"
 
 class Biome;
 class City;
+class Polygon;
 
 struct MapParameters {
 	unsigned int seed;
@@ -20,7 +21,7 @@ struct MapParameters {
 
 class MapBuild {
 public:
-	MapBuild(struct MapParameters const& pars);
+	explicit MapBuild(struct MapParameters const& pars);
 	~MapBuild();
 
 	std::vector<Biome*> biomes;
@@ -54,6 +55,8 @@ private:
 			std::vector<Biome const*>& biomes);
 
 	struct MapParameters const& pars;
+
+	DISALLOW_COPY_AND_ASSIGN(MapBuild);
 };
 
 #endif

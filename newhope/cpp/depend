@@ -82,7 +82,7 @@ resource.o: ui/resource.cc ui/resource.h libs/image.h libs/resource.h \
  libs/colors.h util/rect.h util/defines.h util/point.h util/logger.h \
  libs/graphiclibrary.h libs/font.h ui/resource_list.h
 terrainsurface.o: ui/terrainsurface.cc ui/terrainsurface.h util/point.h \
- util/rect.h util/defines.h world/world.h util/mapcache.h util/logger.h \
+ util/defines.h util/rect.h world/world.h util/mapcache.h util/logger.h \
  world/mapbuild.h util/polygon.h world/person.h /usr/include/SDL/SDL.h \
  /usr/include/SDL/SDL_main.h /usr/include/SDL/SDL_stdinc.h \
  /usr/include/SDL/SDL_config.h /usr/include/SDL/SDL_platform.h \
@@ -124,7 +124,8 @@ city.o: world/city.cc
 mapbuild.o: world/mapbuild.cc world/mapbuild.h util/polygon.h \
  util/defines.h util/rect.h util/point.h util/logger.h world/biome.h \
  world/world.h util/mapcache.h world/person.h world/city.h
-person.o: world/person.cc world/person.h util/point.h util/logger.h
+person.o: world/person.cc world/person.h util/point.h util/defines.h \
+ util/logger.h
 world.o: world/world.cc world/world.h util/mapcache.h util/logger.h \
- util/point.h world/mapbuild.h util/polygon.h util/defines.h util/rect.h \
+ util/point.h util/defines.h world/mapbuild.h util/polygon.h util/rect.h \
  world/person.h world/biome.h world/city.h

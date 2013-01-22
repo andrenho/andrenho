@@ -12,9 +12,23 @@ public:
 	mutable int elevation;
 	//mutable std::map<Point, int> distances;
 	
-	inline Point() : Point(0, 0) { }
-	inline Point(T x, T y) : x(x), y(y), elevation(0) { }
+	Point() : Point(0, 0) { }
+	Point(T x, T y) : x(x), y(y), elevation(0) { }
+
+	Point (const Point& other) :
+		x(other.x), y(other.y), elevation(other.elevation) { }
 	
+	Point& operator=(const Point& other)
+	{
+		if(this != &other) {
+			x = other.x;
+			y = other.y;
+			elevation = other.elevation;
+		}
+		return *this;
+	}
+
+
 	inline T Distance(struct Point p2) const
 	{
 		/*
