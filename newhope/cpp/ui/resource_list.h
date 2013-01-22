@@ -71,6 +71,10 @@ static const struct {
 	{ "watergrass","watergrass.png",terrain_r, terrain_sfx },
 	{ "snow",      "snow.png",      terrain_r, terrain_sfx },
 
+	// trees
+	{ "trunk", "trunk.png", { Rect(0,0,96,96), Rect(96,0,96,96) }, 
+		{ "_1", "_2" } },
+
 	// map
 	{ "mm", "scrollsandblocks.png", mm_r, mm_sfx },
 

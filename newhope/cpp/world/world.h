@@ -54,8 +54,11 @@ private:
 	void AddPoints(Point<int> p1, Point<int> p2, 
 			std::set<Point<int>>& points, int w);
 
+	static TerrainType FindBiome(World* ths, Point<int> p);
+
 	std::vector<Point<int>> riverpts, roadpts, lavapts;
 	mapcache<Point<int>,TerrainType>* cache;
+	int randspecial[100][100];
 
 	DISALLOW_COPY_AND_ASSIGN(World);
 };

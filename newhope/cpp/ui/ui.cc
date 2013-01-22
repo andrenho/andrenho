@@ -8,6 +8,7 @@ using namespace std;
 #include "ui/resource.h"
 #include "ui/terrainsurface.h"
 #include "ui/charengine.h"
+#include "ui/decorengine.h"
 #include "ui/minimap.h"
 #include "util/logger.h"
 #include "world/city.h"
@@ -21,6 +22,7 @@ UI::UI(const World& world, const GraphicLibrary& video)
 	  terrain_sf(new TerrainSurface(world, video, *res)),
 	  minimap(new Minimap(video, world, *res)), 
 	  char_engine(new CharEngine(world, video, *res, *this)),
+	  decor_engine(new DecorEngine(world, video, *res, *this)),
 	  frame_timer(nullptr)
 {
 	terrain_sf->Resize(video.Window->w, video.Window->h);
@@ -30,6 +32,7 @@ UI::UI(const World& world, const GraphicLibrary& video)
 
 UI::~UI()
 {
+	delete decor_engine;
 	delete char_engine;
 	delete minimap;
 	delete terrain_sf;
@@ -105,6 +108,7 @@ UI::Draw()
 	       -ry % TileSize);
 	terrain_sf->Img->Blit(*video.Window, r); // TODO - not always
 
+	decor_engine->Draw(video.Window->w, video.Window->h);
 	char_engine->Draw(video.Window->w, video.Window->h);
 	
 	video.Window->Update();

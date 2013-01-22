@@ -37,6 +37,13 @@ World::World(int w, int h) :
 
 	// create terrain cache
 	cache = new mapcache<Point<int>,TerrainType>(10000, TerrainCache, this);
+
+	// randomize terrain
+	for(int i(0); i<100; i++) {
+		for(int j(0); j<100; j++) {
+			randspecial[i][j] = rand() % 100;
+		}
+	}
 }
 
 
@@ -71,29 +78,9 @@ World::Terrain(Point<int> p, bool use_cache) const
 }
 
 
-TerrainType 
-World::TerrainCache(void* obj, Point<int> p)
+TerrainType
+World::FindBiome(World* ths, Point<int> p)
 {
-	World* ths((World*)obj);
-
-	// find rivers
-	//if(!ignore_paths)
-	{
-		if(binary_search(ths->roadpts.begin(), ths->roadpts.end(), p))
-		{
-			//if(Terrain(p, true) != t_LAVAROCK)
-				return t_LAVAROCK;
-			//else
-			//	return t_DIRT;
-		}
-		if(binary_search(ths->riverpts.begin(), ths->riverpts.end(), p)) {
-			return t_WATER;
-		}
-		if(binary_search(ths->lavapts.begin(), ths->lavapts.end(), p)) {
-			return t_LAVA;
-		}
-	}
-
 	// find biome
 	unsigned int sz(ths->map->biomes.size());
 	for(unsigned int i(0); i<sz; i++) {
@@ -105,10 +92,33 @@ World::TerrainCache(void* obj, Point<int> p)
 }
 
 
-int
-World::Special(Point<int> p) const // TODO
+TerrainType 
+World::TerrainCache(void* obj, Point<int> p)
 {
-	int n(rand() % 100);
+	World* ths((World*)obj);
+
+	if(binary_search(ths->roadpts.begin(), ths->roadpts.end(), p))
+	{
+		if(FindBiome(ths, p) != t_LAVAROCK)
+			return t_LAVAROCK;
+		else
+			return t_DIRT;
+	}
+	if(binary_search(ths->riverpts.begin(), ths->riverpts.end(), p)) {
+		return t_WATER;
+	}
+	if(binary_search(ths->lavapts.begin(), ths->lavapts.end(), p)) {
+		return t_LAVA;
+	}
+
+	return FindBiome(ths, p);
+}
+
+
+int
+World::Special(Point<int> p) const
+{
+	int n(randspecial[p.x % 100][p.y % 100]);
 	if(n >= 4) {
 		return 0; 
 	} else {
