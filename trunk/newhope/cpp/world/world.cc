@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "util/logger.h"
+#include "util/mapcache.h"
 #include "util/polygon.h"
 #include "world/biome.h"
 #include "world/city.h"
@@ -30,11 +31,15 @@ World::World(int w, int h) :
 	// add people
 	People.push_back(new Person(*this, map->cities[0]->pos));
 	Hero = People[0];
+
+	// create terrain cache
+	cache = new mapcache<Point<int>,TerrainType>(5000, TerrainCache, this);
 }
 
 
 World::~World()
 {
+	delete cache;
 	for(auto const& person: People)
 		delete person;
 	delete map;
@@ -51,29 +56,41 @@ World::Process()
 
 
 TerrainType 
-World::Terrain(Point<int> p, bool ignore_paths) const
+World::Terrain(Point<int> p) const
 {
+	return (*cache)[p];
+}
+
+
+TerrainType 
+World::TerrainCache(void* obj, Point<int> p)
+{
+	World* ths = (World*)obj;
+
 	// find rivers
-	if(!ignore_paths)
+	//if(!ignore_paths)
 	{
-		if(std::binary_search(roadpts.begin(), roadpts.end(), p))
+		if(std::binary_search(ths->roadpts.begin(), 
+					ths->roadpts.end(), p))
 		{
-			if(Terrain(p, true) != t_LAVAROCK)
+			//if(Terrain(p, true) != t_LAVAROCK)
 				return t_LAVAROCK;
-			else
-				return t_DIRT;
+			//else
+			//	return t_DIRT;
 		}
-		if(std::binary_search(riverpts.begin(), riverpts.end(), p))
+		if(std::binary_search(ths->riverpts.begin(), 
+					ths->riverpts.end(), p))
 			return t_WATER;
-		if(std::binary_search(lavapts.begin(), lavapts.end(), p))
+		if(std::binary_search(ths->lavapts.begin(), 
+					ths->lavapts.end(), p))
 			return t_LAVA;
 	}
 
 	// find biome
-	unsigned int sz = map->biomes.size();
+	unsigned int sz = ths->map->biomes.size();
 	for(unsigned int i=0; i<sz; i++)
-		if(map->biomes[i]->polygon->PointInPolygon(p))
-			return map->biomes[i]->terrain;
+		if(ths->map->biomes[i]->polygon->PointInPolygon(p))
+			return ths->map->biomes[i]->terrain;
 	return t_WATER;
 }
 

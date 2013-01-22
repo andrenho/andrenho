@@ -1,5 +1,6 @@
 #include "ui/terrainsurface.h"
 
+#include <cstdint>
 #include <algorithm>
 #include <bitset>
 #include <sstream>
@@ -18,14 +19,21 @@ TerrainSurface::~TerrainSurface()
 }
 
 
+#include "SDL.h"
 void
 TerrainSurface::RedrawImg(std::vector<Rect>& rects)
 {
+	uint32_t t = SDL_GetTicks();
+
 	for(auto const& tile: tiles_to_redraw)
 	{
 		rects.push_back(Rect(tile.x, tile.y, TileSize, TileSize));
 		DrawTile(tile);
 	}
+
+	if(!tiles_to_redraw.empty())
+		logger.DebugFrame("Frame redraw: %d tiles, %d ms", 
+				tiles_to_redraw.size(), SDL_GetTicks() - t);
 	tiles_to_redraw.clear();
 }
 

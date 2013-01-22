@@ -1,8 +1,8 @@
 main.o: main.cc libs/sdl/sdl.h libs/graphiclibrary.h util/rect.h \
  libs/image.h libs/resource.h libs/colors.h util/point.h libs/font.h \
  ui/ui.h ui/terrainsurface.h ui/resource.h util/logger.h world/world.h \
- world/mapbuild.h util/polygon.h world/person.h util/i18n.h util/logger.h \
- world/world.h
+ util/mapcache.h world/mapbuild.h util/polygon.h world/person.h \
+ util/i18n.h util/logger.h world/world.h
 image.o: libs/image.cc libs/image.h libs/resource.h libs/colors.h \
  util/rect.h util/point.h
 sdl.o: libs/sdl/sdl.cc libs/sdl/sdl.h libs/graphiclibrary.h util/rect.h \
@@ -72,14 +72,15 @@ sdltimer.o: libs/sdl/sdltimer.cc libs/sdl/sdltimer.h \
  /usr/include/SDL/SDL_joystick.h /usr/include/SDL/SDL_quit.h \
  /usr/include/SDL/SDL_loadso.h /usr/include/SDL/SDL_timer.h \
  /usr/include/SDL/SDL_version.h
-charengine.o: ui/charengine.cc ui/charengine.h world/world.h util/point.h \
- world/mapbuild.h util/polygon.h util/rect.h world/person.h ui/resource.h \
- libs/graphiclibrary.h libs/image.h libs/resource.h libs/colors.h \
- libs/font.h util/logger.h ui/ui.h ui/terrainsurface.h
+charengine.o: ui/charengine.cc ui/charengine.h world/world.h \
+ util/mapcache.h util/point.h world/mapbuild.h util/polygon.h util/rect.h \
+ world/person.h ui/resource.h libs/graphiclibrary.h libs/image.h \
+ libs/resource.h libs/colors.h libs/font.h util/logger.h ui/ui.h \
+ ui/terrainsurface.h
 minimap.o: ui/minimap.cc ui/minimap.h libs/graphiclibrary.h util/rect.h \
  libs/image.h libs/resource.h libs/colors.h util/point.h libs/font.h \
- ui/resource.h util/logger.h world/world.h world/mapbuild.h \
- util/polygon.h world/person.h /usr/include/SDL/SDL.h \
+ ui/resource.h util/logger.h world/world.h util/mapcache.h \
+ world/mapbuild.h util/polygon.h world/person.h /usr/include/SDL/SDL.h \
  /usr/include/SDL/SDL_main.h /usr/include/SDL/SDL_stdinc.h \
  /usr/include/SDL/SDL_config.h /usr/include/SDL/SDL_platform.h \
  /usr/include/SDL/begin_code.h /usr/include/SDL/close_code.h \
@@ -99,12 +100,8 @@ resource.o: ui/resource.cc ui/resource.h libs/graphiclibrary.h \
 terrainsurface.o: ui/terrainsurface.cc ui/terrainsurface.h \
  libs/graphiclibrary.h util/rect.h libs/image.h libs/resource.h \
  libs/colors.h util/point.h libs/font.h ui/resource.h util/logger.h \
- world/world.h world/mapbuild.h util/polygon.h world/person.h
-ui.o: ui/ui.cc ui/ui.h ui/terrainsurface.h libs/graphiclibrary.h \
- util/rect.h libs/image.h libs/resource.h libs/colors.h util/point.h \
- libs/font.h ui/resource.h util/logger.h world/world.h world/mapbuild.h \
- util/polygon.h world/person.h ui/charengine.h ui/minimap.h world/city.h \
- /usr/include/SDL/SDL.h /usr/include/SDL/SDL_main.h \
+ world/world.h util/mapcache.h world/mapbuild.h util/polygon.h \
+ world/person.h /usr/include/SDL/SDL.h /usr/include/SDL/SDL_main.h \
  /usr/include/SDL/SDL_stdinc.h /usr/include/SDL/SDL_config.h \
  /usr/include/SDL/SDL_platform.h /usr/include/SDL/begin_code.h \
  /usr/include/SDL/close_code.h /usr/include/SDL/SDL_audio.h \
@@ -117,6 +114,24 @@ ui.o: ui/ui.cc ui/ui.h ui/terrainsurface.h libs/graphiclibrary.h \
  /usr/include/SDL/SDL_video.h /usr/include/SDL/SDL_joystick.h \
  /usr/include/SDL/SDL_quit.h /usr/include/SDL/SDL_loadso.h \
  /usr/include/SDL/SDL_timer.h /usr/include/SDL/SDL_version.h
+ui.o: ui/ui.cc ui/ui.h ui/terrainsurface.h libs/graphiclibrary.h \
+ util/rect.h libs/image.h libs/resource.h libs/colors.h util/point.h \
+ libs/font.h ui/resource.h util/logger.h world/world.h util/mapcache.h \
+ world/mapbuild.h util/polygon.h world/person.h ui/charengine.h \
+ ui/minimap.h world/city.h /usr/include/SDL/SDL.h \
+ /usr/include/SDL/SDL_main.h /usr/include/SDL/SDL_stdinc.h \
+ /usr/include/SDL/SDL_config.h /usr/include/SDL/SDL_platform.h \
+ /usr/include/SDL/begin_code.h /usr/include/SDL/close_code.h \
+ /usr/include/SDL/SDL_audio.h /usr/include/SDL/SDL_error.h \
+ /usr/include/SDL/SDL_endian.h /usr/include/SDL/SDL_mutex.h \
+ /usr/include/SDL/SDL_thread.h /usr/include/SDL/SDL_rwops.h \
+ /usr/include/SDL/SDL_cdrom.h /usr/include/SDL/SDL_cpuinfo.h \
+ /usr/include/SDL/SDL_events.h /usr/include/SDL/SDL_active.h \
+ /usr/include/SDL/SDL_keyboard.h /usr/include/SDL/SDL_keysym.h \
+ /usr/include/SDL/SDL_mouse.h /usr/include/SDL/SDL_video.h \
+ /usr/include/SDL/SDL_joystick.h /usr/include/SDL/SDL_quit.h \
+ /usr/include/SDL/SDL_loadso.h /usr/include/SDL/SDL_timer.h \
+ /usr/include/SDL/SDL_version.h
 logger.o: util/logger.cc util/logger.h
 i18n.o: util/i18n.cc util/i18n.h util/logger.h
 polygon.o: util/polygon.cc util/polygon.h util/rect.h util/point.h \
@@ -124,9 +139,9 @@ polygon.o: util/polygon.cc util/polygon.h util/rect.h util/point.h \
 rect.o: util/rect.cc util/rect.h
 city.o: world/city.cc
 mapbuild.o: world/mapbuild.cc world/mapbuild.h util/polygon.h util/rect.h \
- util/point.h util/logger.h world/biome.h world/world.h world/person.h \
- world/city.h
+ util/point.h util/logger.h world/biome.h world/world.h util/mapcache.h \
+ world/person.h world/city.h
 person.o: world/person.cc world/person.h util/point.h util/logger.h
-world.o: world/world.cc world/world.h util/point.h world/mapbuild.h \
- util/polygon.h util/rect.h world/person.h util/logger.h world/biome.h \
- world/city.h
+world.o: world/world.cc world/world.h util/mapcache.h util/point.h \
+ world/mapbuild.h util/polygon.h util/rect.h world/person.h util/logger.h \
+ world/biome.h world/city.h

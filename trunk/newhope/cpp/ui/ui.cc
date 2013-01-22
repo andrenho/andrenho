@@ -103,31 +103,17 @@ UI::Draw()
 {
 	CenterHero();
 	
-	Uint32 t = SDL_GetTicks();
-
 	std::vector<Rect> rects;
 	terrain_sf->RedrawImg(rects);
 	assert(terrain_sf->Img);
 
-	logger.DebugFrame("---------------");
-	logger.DebugFrame("New Frame");
-	logger.DebugFrame("---------------");
-	logger.DebugFrame("Tiles redrawn: %d tiles", rects.size());
-	logger.DebugFrame("Terrain redraw: %d ms", SDL_GetTicks()-t);
-
-	t = SDL_GetTicks();
 	Rect r(-rx % TerrainSurface::TileSize, 
 	       -ry % TerrainSurface::TileSize);
 	terrain_sf->Img->Blit(*video.Window, r); // TODO - not always
-	logger.DebugFrame("Terrain blit: %d ms", SDL_GetTicks()-t);
 
-	t = SDL_GetTicks();
 	char_engine->Draw(video.Window->w, video.Window->h);
-	logger.DebugFrame("Characters blit: %d ms", SDL_GetTicks()-t);
 	
-	t = SDL_GetTicks();
 	video.Window->Update();
-	logger.DebugFrame("Screen flip: %d ms", SDL_GetTicks()-t);
 }
 
 
@@ -145,16 +131,12 @@ UI::EndFrame()
 void 
 UI::MoveView(int horiz, int vert)
 {
-	Uint32 t = SDL_GetTicks();
-
 	// move center of screen
 	rx -= horiz;
 	ry -= vert;
 
 	terrain_sf->SetTopLeft(Point<int>((rx/TerrainSurface::TileSize), 
 			                 (ry/TerrainSurface::TileSize)));
-
-	logger.DebugFrame("SetTopLeft: %d ms", SDL_GetTicks()-t);
 }
 
 
