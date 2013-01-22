@@ -1,26 +1,26 @@
 #ifndef UI_TERRAINSURFACE_H
 #define UI_TERRAINSURFACE_H
 
-#include <cstdint>
-#include <cstdlib>
-#include <climits>
 #include <map>
 #include <queue>
 #include <set>
 #include <vector>
 
-#include "libs/graphiclibrary.h"
 #include "util/point.h"
 #include "util/rect.h"
-#include "libs/image.h"
-#include "ui/resource.h"
+#include "util/defines.h"
 #include "world/world.h"
+
+class GraphicLibrary;
+class Image;
+class Resources;
+class World;
 
 class TerrainSurface {
 public:
 	TerrainSurface(World const& world, GraphicLibrary const& video,
 			Resources const& res) :
-		Img(NULL), world(world), video(video), res(res), 
+		Img(nullptr), world(world), video(video), res(res), 
 		x(-10000), y(-10000), w(0), h(0) { }
 	~TerrainSurface();
 
@@ -30,8 +30,6 @@ public:
 	void SetTopLeft(Point<int> p);
 
 	Image* Img;
-
-	static const int TileSize = 32;
 
 private:
 	void Redraw();
@@ -50,6 +48,8 @@ private:
 	Resources const& res;
 	int x, y, w, h;
 	std::set<Point<int>> tiles_to_redraw;
+
+	DISALLOW_COPY_AND_ASSIGN(TerrainSurface);
 };
 
 #endif

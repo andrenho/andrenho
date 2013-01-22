@@ -4,9 +4,9 @@
 
 #include "util/logger.h"
 
-SDLFont::SDLFont(std::string const& filename, int size)
+SDLFont::SDLFont(std::string const& filename, int size) :
+	font(TTF_OpenFont(filename.c_str(), size))
 {
-	font = TTF_OpenFont(filename.c_str(), size);
 	if(!font)
 		logger.Warning("TTF_OpenFont: %s", TTF_GetError());
 }

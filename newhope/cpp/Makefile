@@ -1,14 +1,12 @@
-# Vintage Terminal
+# New Hope
 # See LICENSE file for copyright and license details.
 
 include config.mk
 
 SRC = main.cc		   \
-      libs/image.cc        \
       libs/sdl/sdl.cc      \
       libs/sdl/sdlfont.cc  \
       libs/sdl/sdlimage.cc \
-      libs/sdl/sdltimer.cc \
       ui/charengine.cc     \
       ui/minimap.cc        \
       ui/resource.cc       \
@@ -17,7 +15,6 @@ SRC = main.cc		   \
       util/logger.cc       \
       util/i18n.cc         \
       util/polygon.cc      \
-      util/rect.cc         \
       world/city.cc        \
       world/mapbuild.cc    \
       world/person.cc      \
@@ -26,7 +23,8 @@ TRANSLATIONS = pt_BR
 	
 OBJ = ${SRC:.cc=.o}
 HEADERS = $(filter-out main.h,${SRC:.cc=.h}) libs/graphiclibrary.h \
-	util/point.h world/biome.h util/mapcache.h
+	util/point.h world/biome.h util/mapcache.h util/defines.h  \
+	libs/sdl/sdltimer.h
 DIST = AUTHORS HACKING LICENSE NEWS README INSTALL
 DATA = $(wildcard data/*.png) $(wildcard data/*.ttf)
 

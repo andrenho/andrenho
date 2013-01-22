@@ -9,9 +9,8 @@
 #include "util/logger.h"
 
 SDLImage::SDLImage(SDL_Surface* sf, bool must_free)
-	: Image(sf->w, sf->h), must_free(must_free)
+	: Image(sf->w, sf->h), sf(sf), must_free(must_free)
 {
-	this->sf = sf;
 }
 
 
@@ -137,37 +136,24 @@ SDLImage::SurfaceFromPNGAlpha(Rect const& r, png_bytep* row_pointers,
 	if(palette)
 		logger.Error(1, "Sorry: palettized surfaces on alpha not supported.");
 
-	SDL_Surface* sf = SDL_CreateRGBSurface(SDL_SWSURFACE, 
+	SDL_Surface* sf(SDL_CreateRGBSurface(SDL_SWSURFACE, 
 			r.w, r.h, 32, 
-			0x000000FF, 0x0000FF00, 0x00FF0000, 0xFF000000);
-	int _y;
-	for(_y=0; _y<r.h; _y++)
+			0x000000FF, 0x0000FF00, 0x00FF0000, 0xFF000000));
+	for(int _y(0); _y<r.h; _y++)
 		memcpy(((char*)sf->pixels) + (_y*r.w*4), 
 				&row_pointers[_y+r.y][r.x*x_width], 
 				r.w * x_width);
-	SDL_Surface* sf2 = SDL_DisplayFormatAlpha(sf);
+	SDL_Surface* sf2(SDL_DisplayFormatAlpha(sf));
 	SDL_FreeSurface(sf);
 
 	return sf2;
 }
 
 
-inline void 
-SDLImage::SetPixel(int x, int y, Color c)
-{
-	SDL_PixelFormat *fmt = sf->format;
-	Uint32 color = (c.r >> fmt->Rloss) << fmt->Rshift
-		| (c.g >> fmt->Gloss) << fmt->Gshift
-		| (c.b >> fmt->Bloss) << fmt->Bshift | fmt->Amask;
-	Uint8 *p = (Uint8*)sf->pixels + (y * sf->pitch) + (x * 4);
-	*(Uint32*)p = color;
-}
-
-
 void 
 SDLImage::Blit(Image const& image) const
 {
-	const SDLImage* dest = (const SDLImage*)&image;
+	const SDLImage* dest((const SDLImage*)&image);
 	SDL_BlitSurface(sf, NULL, dest->sf, NULL);
 }
 
@@ -175,8 +161,8 @@ SDLImage::Blit(Image const& image) const
 void 
 SDLImage::Blit(Image const& image, Rect const& r) const
 {
-	SDL_Rect rect = { (Sint16)r.x, (Sint16)r.y, (Uint16)r.w, (Uint16)r.h };
-	const SDLImage* dest = (const SDLImage*)&image;
+	SDL_Rect rect { (Sint16)r.x, (Sint16)r.y, (Uint16)r.w, (Uint16)r.h };
+	const SDLImage* dest((const SDLImage*)&image);
 	SDL_BlitSurface(sf, NULL, dest->sf, &rect);
 }
 
@@ -184,7 +170,7 @@ SDLImage::Blit(Image const& image, Rect const& r) const
 void 
 SDLImage::FillBox(Color c)
 {
-	Uint32 color = SDL_MapRGB(sf->format, c.r, c.g, c.b);
+	Uint32 color(SDL_MapRGB(sf->format, c.r, c.g, c.b));
 	SDL_FillRect(sf, NULL, color);
 }
 
@@ -192,8 +178,8 @@ SDLImage::FillBox(Color c)
 void 
 SDLImage::FillBox(Rect r, Color c)
 {
-	SDL_Rect rect = { (Sint16)r.x, (Sint16)r.y, (Uint16)r.w, (Uint16)r.h };
-	Uint32 color = SDL_MapRGB(sf->format, c.r, c.g, c.b);
+	SDL_Rect rect { (Sint16)r.x, (Sint16)r.y, (Uint16)r.w, (Uint16)r.h };
+	Uint32 color(SDL_MapRGB(sf->format, c.r, c.g, c.b));
 	SDL_FillRect(sf, &rect, color);
 }
 
@@ -201,37 +187,33 @@ SDLImage::FillBox(Rect r, Color c)
 void 
 SDLImage::DrawLine(IPoint p1, IPoint p2, Color c, int line_width)
 {
-	int x0 = std::min(std::max(p1.x, 0), this->w - line_width),
-	    y0 = std::min(std::max(p1.y, 0), this->h - line_width),
-	    x1 = std::min(p2.x, this->w - line_width),
-	    y1 = std::min(p2.y, this->h - line_width);
-	Uint32 color = SDL_MapRGB(sf->format, c.r, c.g, c.b);
-	int dx = abs(x1-x0), sx = x0<x1 ? 1 : -1;
-	int dy = abs(y1-y0), sy = y0<y1 ? 1 : -1;
-	int err = (dx>dy ? dx : -dy)/2, e2;
+	int x0(std::min(std::max(p1.x, 0), this->w - line_width)),
+	    y0(std::min(std::max(p1.y, 0), this->h - line_width)),
+	    x1(std::min(p2.x, this->w - line_width)),
+	    y1(std::min(p2.y, this->h - line_width));
+	Uint32 color(SDL_MapRGB(sf->format, c.r, c.g, c.b));
+	int dx(abs(x1-x0)), sx(x0<x1 ? 1 : -1);
+	int dy(abs(y1-y0)), sy(y0<y1 ? 1 : -1);
+	int err((dx>dy ? dx : -dy)/2), e2;
 
-	for(;;)
-	{
-		int xx = 0; //rand() % w;
-		int yy = 0; //rand() % w;
-		for(int x=0; x<line_width; x++)
-			for(int y=0; y<line_width; y++)
-			{
-				Uint8 *p = (Uint8*)sf->pixels 
+	for(;;) {
+		int xx(0);
+		int yy(0);
+		for(int x(0); x<line_width; x++)
+			for(int y(0); y<line_width; y++) {
+				Uint8 *p((Uint8*)sf->pixels 
 						+ ((y0+y+yy) * sf->pitch)
-						+ ((x0+x+xx) * 4);
+						+ ((x0+x+xx) * 4));
 				*(Uint32*)p = color;
 			}
 		if(x0 == x1 && y0 == y1)
 			break;
 		e2 = err;
-		if(e2 > -dx)
-		{
+		if(e2 > -dx) {
 			err -= dy;
 			x0 += sx;
 		}
-		if(e2 < dy)
-		{
+		if(e2 < dy) {
 			err += dx;
 			y0 += sy;
 		}

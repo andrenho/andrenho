@@ -33,7 +33,7 @@ World::World(int w, int h) :
 	Hero = People[0];
 
 	// create terrain cache
-	cache = new mapcache<Point<int>,TerrainType>(5000, TerrainCache, this);
+	cache = new mapcache<Point<int>,TerrainType>(10000, TerrainCache, this);
 }
 
 

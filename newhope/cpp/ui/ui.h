@@ -1,7 +1,7 @@
 #ifndef UI_UI_H
 #define UI_UI_H
 
-#include "ui/terrainsurface.h"
+#include "util/defines.h"
 #include "util/point.h"
 
 class World;
@@ -12,6 +12,7 @@ class CharEngine;
 class GraphicLibrary;
 class Minimap;
 class Timer;
+class TerrainSurface;
 
 class UI {
 public:
@@ -25,15 +26,15 @@ public:
 
 	template<typename T> Point<int> TileToScr(Point<T> t) const
 	{
-		return { (int)((t.x * (double)TerrainSurface::TileSize)),
-			 (int)((t.y * (double)TerrainSurface::TileSize)) };
+		return { (int)((t.x * (double)TileSize)),
+			 (int)((t.y * (double)TileSize)) };
 	}
 
 
 	template<typename T> Point<int> TileToRel(Point<T> t) const
 	{
-		return { (int)((t.x * (double)TerrainSurface::TileSize)) - rx,
-			 (int)((t.y * (double)TerrainSurface::TileSize)) - ry};
+		return { (int)((t.x * (double)TileSize)) - rx,
+			 (int)((t.y * (double)TileSize)) - ry};
 	}
 
 	inline bool Active() { return active; }
@@ -55,6 +56,8 @@ private:
 	Minimap* minimap;
 	CharEngine const* char_engine;
 	Timer* frame_timer;
+
+	DISALLOW_COPY_AND_ASSIGN(UI);
 };
 
 #endif

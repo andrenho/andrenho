@@ -2,6 +2,7 @@
 
 #include <cassert>
 #include <vector>
+using namespace std;
 
 #include "libs/graphiclibrary.h"
 #include "ui/resource.h"
@@ -14,8 +15,7 @@
 #include "SDL.h"
 
 UI::UI(World const& world, GraphicLibrary const& video)
-	: world(world), active(true), rx(0), ry(0), 
-	  video(video), 
+	: world(world), active(true), rx(0), ry(0), video(video), 
 	  res(new Resources(video)),
 	  terrain_sf(new TerrainSurface(world, video, *res)),
 	  minimap(new Minimap(video, world, *res)), 
@@ -24,10 +24,6 @@ UI::UI(World const& world, GraphicLibrary const& video)
 {
 	terrain_sf->Resize(video.Window->w, video.Window->h);
 	minimap->Reset();
-
-	//GoTo(world.Hero->Pos);
-	//GoToScr(Point<int>{3000*32, 3000*32});
-	//CenterHero();
 }
 
 
@@ -54,17 +50,14 @@ UI::ProcessEvents()
 {
 	ProcessMovementKeys();
 
-	Event const* event = video.GetEvent();
-	if(event->type == Event::QUIT)
+	Event const* event(video.GetEvent());
+	if(event->type == Event::QUIT) {
 		active = false;
-	else if(event->type == Event::KEY)
-	{
+	} else if(event->type == Event::KEY) {
 		const KeyEvent* key = (const KeyEvent*)event;
 		if(key->key == '\t')
 			minimap->Display(); 
-	}
-	else if(event->type == Event::RESIZE)
-	{
+	} else if(event->type == Event::RESIZE) {
 		terrain_sf->Resize(video.Window->w, video.Window->h);
 		minimap->Reset();
 	}
@@ -103,12 +96,12 @@ UI::Draw()
 {
 	CenterHero();
 	
-	std::vector<Rect> rects;
+	vector<Rect> rects;
 	terrain_sf->RedrawImg(rects);
 	assert(terrain_sf->Img);
 
-	Rect r(-rx % TerrainSurface::TileSize, 
-	       -ry % TerrainSurface::TileSize);
+	Rect r(-rx % TileSize, 
+	       -ry % TileSize);
 	terrain_sf->Img->Blit(*video.Window, r); // TODO - not always
 
 	char_engine->Draw(video.Window->w, video.Window->h);
@@ -135,8 +128,8 @@ UI::MoveView(int horiz, int vert)
 	rx -= horiz;
 	ry -= vert;
 
-	terrain_sf->SetTopLeft(Point<int>((rx/TerrainSurface::TileSize), 
-			                 (ry/TerrainSurface::TileSize)));
+	terrain_sf->SetTopLeft(Point<int>((rx/TileSize), 
+			                 (ry/TileSize)));
 }
 
 
@@ -152,7 +145,7 @@ UI::GoToScr(Point<T> p)
 void
 UI::CenterHero()
 {
-	IPoint src = TileToScr(world.Hero->Pos);
+	Point<int> src(TileToScr(world.Hero->Pos));
 	src.x -= video.Window->w / 2;
 	src.y -= video.Window->h / 2;
 	GoToScr(src);

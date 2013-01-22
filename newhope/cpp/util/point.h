@@ -6,13 +6,14 @@
 template <typename T> int sgn(T val) { return (T(0) < val) - (val < T(0)); }
 
 template <typename T>
-struct Point {
+class Point {
+public:
 	T x, y;
 	mutable int elevation;
 	//mutable std::map<Point, int> distances;
 	
-	inline Point() { }
-	inline Point(T x, T y) : x(x), y(y) { }
+	inline Point() : Point(0, 0) { }
+	inline Point(T x, T y) : x(x), y(y), elevation(0) { }
 	
 	inline T Distance(struct Point p2) const
 	{

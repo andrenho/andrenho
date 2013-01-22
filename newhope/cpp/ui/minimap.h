@@ -2,11 +2,16 @@
 #define UI_MINIMAP_H
 
 #include <map>
+#include <vector>
 
-#include "libs/graphiclibrary.h"
 #include "libs/colors.h"
-#include "ui/resource.h"
+#include "util/point.h"
+#include "util/defines.h"
 #include "world/world.h"
+
+class GraphicLibrary;
+class Image;
+class Resources;
 
 class Minimap {
 public:
@@ -26,7 +31,7 @@ private:
 	void DrawRivers();
 	void DrawCities();
 	void HandleEvents();
-	void DrawPath(std::vector<IPoint>& points, Color c);
+	void DrawPath(std::vector<Point<int>>& points, Color c);
 
 	static int CreationThread(void* self);
 
@@ -38,6 +43,8 @@ private:
 	int sz;
 	bool thread_killed;
 	std::map<TerrainType, Color> colors;
+
+	DISALLOW_COPY_AND_ASSIGN(Minimap);
 };
 
 #endif
