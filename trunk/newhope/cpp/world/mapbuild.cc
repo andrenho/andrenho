@@ -65,7 +65,7 @@ MapBuild::CreateCoastline()
 	// middle square
 	int qw = pars.w / 8,
 	    qh = pars.h / 8;
-	IPoint pts[] = { { qw*2, qh*2 }, { qw*6, qh*2 }, 
+	Point<int> pts[] = { { qw*2, qh*2 }, { qw*6, qh*2 }, 
 		{ qw*6, qh*6 }, { qw*2, qh*6 } };
 
 	// disturb points
@@ -81,7 +81,7 @@ MapBuild::CreateCoastline()
 	polygon.MidlineDisplacement(4);
 	for(const auto& biome : biomes)
 	{
-		IPoint p = biome->polygon->Midpoint();
+		Point<int> p = biome->polygon->Midpoint();
 		if(!polygon.PointInPolygon(p))
 			biome->terrain = t_WATER;
 	}
@@ -101,7 +101,7 @@ MapBuild::CreateLakes()
 		lake.MidlineDisplacement(2);
 		for(const auto& biome : biomes)
 		{
-			IPoint p = biome->polygon->Midpoint();
+			Point<int> p = biome->polygon->Midpoint();
 			if(lake.PointInPolygon(p))
 				biome->terrain = t_WATER;
 		}
@@ -164,7 +164,7 @@ MapBuild::CreateRivers()
 		if(biomes[b]->terrain != t_WATER)
 		{
 			int k = rand() % biomes[b]->polygon->points.size();
-			IPoint p = biomes[b]->polygon->points[k];
+			Point<int> p = biomes[b]->polygon->points[k];
 			if(DistanceFromWater(p, false) > 600)
 			{
 				rivers.push_back(CreateFlow(p));
@@ -305,7 +305,7 @@ try_again:
 				goto try_again;
 
 		// add city
-		IPoint pos = biomes[b]->polygon->Midpoint();
+		Point<int> pos = biomes[b]->polygon->Midpoint();
 		cities.push_back(new City(pos, *biomes[b]));
 		biomes[b]->has_city = true;
 	}
@@ -489,7 +489,7 @@ MapBuild::CreateRoad(City const& c1, City const& c2)
 			});
 		
 		// next biome
-		IPoint p = b->polygon->Midpoint();
+		Point<int> p = b->polygon->Midpoint();
 		road->points.push_back(p);
 		b = biomes[0];
 	}
@@ -502,10 +502,10 @@ MapBuild::CreateRoad(City const& c1, City const& c2)
 
 
 Polygon*
-MapBuild::CreateFlow(IPoint start, int iterations)
+MapBuild::CreateFlow(Point<int> start, int iterations)
 {
 	Polygon* poly = new Polygon();
-	IPoint p = start;
+	Point<int> p = start;
 	int iter = 0;
 
 	while(p.elevation != -1 && iter < iterations)
@@ -513,7 +513,7 @@ MapBuild::CreateFlow(IPoint start, int iterations)
 		poly->points.push_back(p);
 		
 		// find neighbours
-		std::vector<IPoint> neighbours;
+		std::vector<Point<int>> neighbours;
 		for(const auto& biome : biomes)
 			if(biome->polygon->ContainsPoint(p))
 				biome->polygon->NeighbourPoints(p, neighbours);
@@ -521,7 +521,7 @@ MapBuild::CreateFlow(IPoint start, int iterations)
 
 		// order by elevation
 		std::sort(neighbours.begin(), neighbours.end(), 
-				[](IPoint const& p1, IPoint const& p2) -> bool
+				[](Point<int> const& p1, Point<int> const& p2) -> bool
 				{ return p1.elevation < p2.elevation; });
 
 		// skip points already added
@@ -546,7 +546,7 @@ MapBuild::CreateFlow(IPoint start, int iterations)
 
 
 int 
-MapBuild::DistanceFromWater(IPoint const& p, bool include_rivers)
+MapBuild::DistanceFromWater(Point<int> const& p, bool include_rivers)
 {
 	int dist = INT_MAX;
 
