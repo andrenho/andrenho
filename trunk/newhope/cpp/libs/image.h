@@ -14,8 +14,8 @@ public:
 	virtual ~Image() { }
 
 	virtual void SetPixel(int x, int y, Color c) = 0;
-	virtual void Blit(Image const& image) const = 0;
-	virtual void Blit(Image const& image, Rect const& r) const = 0;
+	virtual void Blit(const Image& image) const = 0;
+	virtual void Blit(const Image& image, const Rect& r) const = 0;
 	virtual void Update() = 0;
 	virtual void FillBox(Color c) = 0;
 	virtual void FillBox(Rect r, Color c) = 0;
@@ -26,7 +26,7 @@ public:
 		FillBox(Rect(r.x, r.y+r.h-width, r.w, width), c);
 		FillBox(Rect(r.x+r.w-width, r.y, width, r.h), c);
 	}
-	virtual void DrawLine(IPoint p1, IPoint p2, Color c, int w=1) = 0;
+	virtual void DrawLine(Point<int> p1, Point<int> p2, Color c, int w=1) = 0;
 
 	const int w, h;
 

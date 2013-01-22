@@ -10,7 +10,7 @@ struct _TTF_Font;
 
 class SDLFont : public Font {
 public:
-	SDLFont(std::string const& filename, int size);
+	SDLFont(const std::string& filename, int size);
 	~SDLFont();
 private:
 	struct _TTF_Font* font;

@@ -71,11 +71,11 @@ public:
 
 	virtual Timer* CreateTimer(int wait_ms) const = 0;
 
-	virtual Image* LoadImage(std::string const& filename, Rect const& r) const = 0;
+	virtual Image* LoadImage(const std::string& filename, const Rect& r) const = 0;
 	virtual Image* CreateImage(int w, int h) const = 0;
-	virtual Font* LoadFont(std::string const& filename, int size) const = 0;
+	virtual Font* LoadFont(const std::string& filename, int size) const = 0;
 
-	virtual Event const* GetEvent() const = 0;
+	virtual const Event* GetEvent() const = 0;
 	virtual void GetKeyState(KeyState& state) const = 0;
 
 	mutable Image* Window;

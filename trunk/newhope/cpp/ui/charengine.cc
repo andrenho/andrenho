@@ -9,6 +9,7 @@ using namespace std;
 #include "ui/resource.h"
 #include "ui/ui.h"
 #include "world/world.h"
+#include "world/person.h"
 
 CharEngine::~CharEngine()
 {
@@ -18,7 +19,7 @@ CharEngine::~CharEngine()
 void 
 CharEngine::Draw(int scr_h, int scr_w) const
 {
-	for(auto const& person: world.People) {
+	for(const auto& person: world.People) {
 		Point<int> p(ui.TileToRel(person->Pos));
 		if(p.x >= -TileSize && p.y >= -TileSize 
 		&& p.x < scr_w + TileSize && p.y < scr_h + TileSize)
@@ -28,7 +29,7 @@ CharEngine::Draw(int scr_h, int scr_w) const
 
 
 void 
-CharEngine::DrawPerson(Person const& person) const
+CharEngine::DrawPerson(const Person& person) const
 {
 	// body
 	string body("male");

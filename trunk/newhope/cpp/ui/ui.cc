@@ -11,10 +11,11 @@ using namespace std;
 #include "ui/minimap.h"
 #include "util/logger.h"
 #include "world/city.h"
+#include "world/person.h"
 
 #include "SDL.h"
 
-UI::UI(World const& world, GraphicLibrary const& video)
+UI::UI(const World& world, const GraphicLibrary& video)
 	: world(world), active(true), rx(0), ry(0), video(video), 
 	  res(new Resources(video)),
 	  terrain_sf(new TerrainSurface(world, video, *res)),
@@ -50,7 +51,7 @@ UI::ProcessEvents()
 {
 	ProcessMovementKeys();
 
-	Event const* event(video.GetEvent());
+	const Event* event(video.GetEvent());
 	if(event->type == Event::QUIT) {
 		active = false;
 	} else if(event->type == Event::KEY) {

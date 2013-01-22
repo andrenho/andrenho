@@ -11,9 +11,10 @@ using namespace std;
 #include "util/logger.h"
 #include "util/polygon.h"
 #include "world/city.h"
+#include "world/mapbuild.h"
 
-Minimap::Minimap(GraphicLibrary const& video, World const& world, 
-		Resources const& res)
+Minimap::Minimap(const GraphicLibrary& video, const World& world, 
+		const Resources& res)
 	: video(video), world(world), res(res), thread(nullptr), image(nullptr), 
 	  sz(0), thread_killed(false)
 {
@@ -187,15 +188,15 @@ void
 Minimap::DrawRivers()
 {
 	logger.Debug("Drawing lava...");
-	for(auto const& lavapath: world.map->lava)
+	for(const auto& lavapath: world.map->lava)
 		DrawPath(lavapath->points, Color(0xcf, 0x10, 0x20));
 
 	logger.Debug("Drawing rivers...");
-	for(auto const& river: world.map->rivers)
+	for(const auto& river: world.map->rivers)
 		DrawPath(river->points, colors[t_WATER]);
 
 	logger.Debug("Drawing roads...");
-	for(auto const& road: world.map->roads)
+	for(const auto& road: world.map->roads)
 		DrawPath(road->points, Color(0, 0, 0));
 }
 
@@ -205,7 +206,7 @@ Minimap::DrawPath(vector<Point<int>>& points, Color c)
 {
 	double ps = double(world.w) / double(sz);
 	Point<int> p2 = Point<int>(-1, -1);
-	for(auto const& p1: points) {
+	for(const auto& p1: points) {
 		if(p2 == Point<int>(-1, -1)) {
 			p2 = Point<int>(p1.x, p1.y);
 			continue;
@@ -226,7 +227,7 @@ void
 Minimap::DrawCities()
 {
 	double ps = (double)world.w / (double)sz;
-	for(auto const& city : world.map->cities) {
+	for(const auto& city : world.map->cities) {
 		Point<int> p = city->pos;
 		Color c(128, 0, 0);
 		image->HollowBox(Rect((p.x/ps)-6, (p.y/ps)-6, 12, 12), c);
@@ -240,7 +241,7 @@ Minimap::HandleEvents()
 {
 	bool map_active = true;
 	while(map_active) {
-		Event const* event = video.GetEvent();
+		const Event* event = video.GetEvent();
 		if(event->type == Event::CLICK) {
 			map_active = false;
 		}

@@ -11,20 +11,20 @@ class UI;
 
 class CharEngine {
 public:
-	CharEngine(World const& world, GraphicLibrary const& video, 
-			Resources const& res, UI const& ui)
+	CharEngine(const World& world, const GraphicLibrary& video, 
+			const Resources& res, const UI& ui)
 		: world(world), video(video), res(res), ui(ui) { }
 	~CharEngine();
 
 	void Draw(int scr_h, int scr_w) const;
 
 private:
-	void DrawPerson(Person const& person) const;
+	void DrawPerson(const Person& person) const;
 
-	World const& world;
-	GraphicLibrary const& video;
-	Resources const& res;
-	UI const& ui;
+	const World& world;
+	const GraphicLibrary& video;
+	const Resources& res;
+	const UI& ui;
 
 	DISALLOW_COPY_AND_ASSIGN(CharEngine);
 };

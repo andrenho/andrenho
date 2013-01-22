@@ -15,8 +15,8 @@ class Resources;
 
 class Minimap {
 public:
-	Minimap(GraphicLibrary const& video, World const& world, 
-			Resources const& res);
+	Minimap(const GraphicLibrary& video, const World& world, 
+			const Resources& res);
 	~Minimap();
 
 	void Reset();
@@ -35,9 +35,9 @@ private:
 
 	static int CreationThread(void* self);
 
-	GraphicLibrary const& video;
-	World const& world;
-	Resources const& res;
+	const GraphicLibrary& video;
+	const World& world;
+	const Resources& res;
 	void* thread;
 	Image* image;
 	int sz;

@@ -5,8 +5,7 @@
 
 class Polygon;
 
-class Biome
-{
+class Biome {
 public:
 	Biome(Polygon* polygon)
 		: polygon(polygon), terrain(t_DIRT), elevation(0), moisture(0),
