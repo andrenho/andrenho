@@ -4,6 +4,7 @@
 #include <set>
 #include <vector>
 
+#include "util/mapcache.h"
 #include "util/point.h"
 #include "world/mapbuild.h"
 #include "world/person.h"
@@ -36,8 +37,10 @@ public:
 	~World();
 
 	void Process();
-	TerrainType Terrain(Point<int> p, bool ignore_paths=false) const;
+	TerrainType Terrain(Point<int> p) const;
 	int Special(Point<int> p) const;
+
+	static TerrainType TerrainCache(void* obj, Point<int> p);
 
 	const int w, h;
 	const MapBuild* map;
@@ -48,7 +51,8 @@ private:
 	void CreatePathsCache();
 	void AddPoints(IPoint p1, IPoint p2, std::set<IPoint>& points, int w);
 
-	std::vector<IPoint> riverpts, roadpts, lavapts;
+	std::vector<Point<int>> riverpts, roadpts, lavapts;
+	mapcache<Point<int>,TerrainType>* cache;
 };
 
 #endif
