@@ -5,25 +5,25 @@
 #include <stdexcept>
 #include <string>
 
-#include "libs/graphiclibrary.h"
-#include "libs/resource.h"
+#include "libs/image.h"
 #include "util/logger.h"
-#include "util/rect.h"
+#include "util/defines.h"
 
-typedef std::map<const std::string, const Resource*> mapR;
+class GraphicLibrary;
+class Rect;
+
+//typedef std::map<const std::string, const Resource*> mapR;
 
 class Resources {
 public:
-	Resources(GraphicLibrary const& video);
+	explicit Resources(GraphicLibrary const& video);
 	~Resources();
 
 	inline const Image* operator[](std::string const& s) const {
-		try 
-		{
+		try {
 			return dynamic_cast<const Image*>(res.at(s));
 		} 
-		catch(std::out_of_range& e)
-		{
+		catch(std::out_of_range& e) {
 			logger.Error(1, "Image resource %s does not exists.", 
 					s.c_str());
 			abort();
@@ -37,7 +37,9 @@ private:
 	void LoadFile(std::string const& name, std::string const& path);
 
 	GraphicLibrary const& video;
-	mapR res;
+	std::map<const std::string, const Resource*> res;
+
+	DISALLOW_COPY_AND_ASSIGN(Resources);
 };
 
 #endif

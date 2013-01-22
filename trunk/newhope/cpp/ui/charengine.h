@@ -1,6 +1,8 @@
 #ifndef UI_CHARENGINE_H
 #define UI_CHARENGINE_H
 
+#include "util/defines.h"
+
 class World;
 class GraphicLibrary;
 class Resources;
@@ -23,6 +25,8 @@ private:
 	GraphicLibrary const& video;
 	Resources const& res;
 	UI const& ui;
+
+	DISALLOW_COPY_AND_ASSIGN(CharEngine);
 };
 
 #endif

@@ -3,6 +3,7 @@
 
 #include <cstdint>
 #include "libs/graphiclibrary.h"
+#include "util/defines.h"
 
 struct SDL_Surface;
 
@@ -20,7 +21,10 @@ public:
 	Event const* GetEvent() const;
 	void GetKeyState(KeyState& state) const;
 
+private:
 	mutable struct SDL_Surface* screen;
+
+	DISALLOW_COPY_AND_ASSIGN(SDL);
 };
 
 #endif

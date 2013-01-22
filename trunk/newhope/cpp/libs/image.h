@@ -5,6 +5,7 @@
 #include "libs/colors.h"
 #include "util/rect.h"
 #include "util/point.h"
+#include "util/defines.h"
 
 class Image : public Resource {
 public:
@@ -18,10 +19,19 @@ public:
 	virtual void Update() = 0;
 	virtual void FillBox(Color c) = 0;
 	virtual void FillBox(Rect r, Color c) = 0;
-	virtual void HollowBox(Rect r, Color c, int width=1);
+	virtual inline void HollowBox(Rect r, Color c, int width=1)
+	{
+		FillBox(Rect(r.x, r.y, width, r.h), c);
+		FillBox(Rect(r.x, r.y, r.w, width), c);
+		FillBox(Rect(r.x, r.y+r.h-width, r.w, width), c);
+		FillBox(Rect(r.x+r.w-width, r.y, width, r.h), c);
+	}
 	virtual void DrawLine(IPoint p1, IPoint p2, Color c, int w=1) = 0;
 
 	const int w, h;
+
+protected:
+	DISALLOW_COPY_AND_ASSIGN(Image);
 };
 
 #endif

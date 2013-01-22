@@ -46,7 +46,7 @@ SDL::~SDL()
 Image* 
 SDL::CreateImage(int w, int h) const
 {
-	SDLImage* img = new SDLImage(w, h);
+	SDLImage* img(new SDLImage(w, h));
 	return img;
 }
 
@@ -54,7 +54,7 @@ SDL::CreateImage(int w, int h) const
 Image*
 SDL::LoadImage(std::string const& filename, Rect const& r) const
 {
-	SDLImage* img = new SDLImage(filename, r);
+	SDLImage* img(new SDLImage(filename, r));
 	return img;
 }
 
@@ -62,7 +62,7 @@ SDL::LoadImage(std::string const& filename, Rect const& r) const
 Font* 
 SDL::LoadFont(std::string const& filename, int size) const
 {
-	SDLFont* font = new SDLFont(filename, size);
+	SDLFont* font(new SDLFont(filename, size));
 	return font;
 }
 
@@ -73,15 +73,13 @@ SDL::GetEvent() const
 	SDL_Event e = { };
 	if(!SDL_PollEvent(&e))
 		return new Event(Event::NO_EVENT);
-	switch(e.type)
-	{
+	switch(e.type) {
 		case SDL_QUIT:
 			return new Event(Event::QUIT);
 		case SDL_KEYDOWN:
 		{
 			int key;
-			switch(e.key.keysym.sym)
-			{
+			switch(e.key.keysym.sym) {
 			case SDLK_UP:
 				key = Key::UP; break;
 			case SDLK_DOWN:
@@ -98,7 +96,7 @@ SDL::GetEvent() const
 			break;
 		case SDL_MOUSEBUTTONDOWN:
 		{
-			ClickEvent::MouseButton b = ClickEvent::LEFT;
+			ClickEvent::MouseButton b(ClickEvent::LEFT);
 			if(e.button.button == SDL_BUTTON_RIGHT)
 				b = ClickEvent::RIGHT;
 			else if(e.button.button == SDL_BUTTON_MIDDLE)
@@ -119,7 +117,7 @@ SDL::GetEvent() const
 Timer* 
 SDL::CreateTimer(int wait_ms) const 
 { 
-	SDLTimer* timer = new SDLTimer(wait_ms);
+	SDLTimer* timer(new SDLTimer(wait_ms));
 	return timer;
 }
 
@@ -128,8 +126,8 @@ void
 SDL::GetKeyState(KeyState& state) const
 {
 	SDL_PumpEvents();
-	SDLMod mod = SDL_GetModState();
-	Uint8 *k = SDL_GetKeyState(NULL);
+	SDLMod mod(SDL_GetModState());
+	Uint8 *k(SDL_GetKeyState(NULL));
 
 	state.Shift = mod & KMOD_SHIFT;
 	state.Control = mod & KMOD_CTRL;

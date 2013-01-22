@@ -5,28 +5,38 @@
 #include "util/rect.h"
 #include "libs/image.h"
 #include "libs/font.h"
+#include "util/defines.h"
 
 class Event {
 public:
 	enum TypeEvent { NO_EVENT, QUIT, KEY, CLICK, RESIZE };
-	Event(enum TypeEvent type) : type(type) { }
+	explicit Event(enum TypeEvent type) : type(type) { }
 	
 	const enum TypeEvent type;
+
+private:
+	DISALLOW_COPY_AND_ASSIGN(Event);
 };
+
 
 typedef enum Key { UP=256, DOWN, LEFT, RIGHT } Key;
 
 class KeyEvent : public Event {
 public:
-	KeyEvent(int key) 
+	explicit KeyEvent(int key) 
 		: Event(KEY), key(key) { }
 	const int key;
+
+private:
+	DISALLOW_COPY_AND_ASSIGN(KeyEvent);
 };
+
 
 struct KeyState {
 	bool Shift, Control;
 	bool Left, Right, Up, Down;
 };
+
 
 class ClickEvent : public Event {
 public:
@@ -36,19 +46,27 @@ public:
 
 	const int x, y;
 	const enum MouseButton button;
+
+private:
+	DISALLOW_COPY_AND_ASSIGN(ClickEvent);
 };
+
 
 class Timer {
 public:
-	Timer(int wait_ms) { }
+	explicit Timer(int wait_ms) { }
 	virtual ~Timer() { }
 	virtual bool ReachedCountDown() const = 0;
 	virtual void WaitCountDown() = 0;
+
+private:
+	DISALLOW_COPY_AND_ASSIGN(Timer);
 };
 
 
 class GraphicLibrary {
 public:
+	GraphicLibrary() { }
 	virtual ~GraphicLibrary() { }
 
 	virtual Timer* CreateTimer(int wait_ms) const = 0;
@@ -61,6 +79,9 @@ public:
 	virtual void GetKeyState(KeyState& state) const = 0;
 
 	mutable Image* Window;
+
+private:
+	DISALLOW_COPY_AND_ASSIGN(GraphicLibrary);
 };
 
 #endif

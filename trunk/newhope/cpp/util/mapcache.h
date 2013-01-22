@@ -17,6 +17,11 @@ public:
 	mapcache(unsigned int size, V(*fctfault)(void*,K), void* obj)
 		: size(size), fctfault(fctfault), obj(obj) { }
 
+	~mapcache() { 
+		cmap.clear();
+		deq.clear();
+	}
+
 	inline V operator[](K key)
 	{
 		try
@@ -29,8 +34,6 @@ public:
 			cmap[key] = value;
 			deq.push_back(key);
 			if(cmap.size() > size)
-			{
-				logger.Debug("cleanup");
 				for(typename vector<K>::iterator it=deq.begin(); 
 						it != deq.begin() + (size*0.5); 
 						it++)
@@ -38,7 +41,6 @@ public:
 					cmap.erase(*it);
 					it = deq.erase(it);
 				}
-			}
 			if(cmap.size() != deq.size())
 				abort();
 			return value;

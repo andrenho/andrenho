@@ -4,6 +4,7 @@
 #include <string>
 
 #include "libs/font.h"
+#include "util/defines.h"
 
 struct _TTF_Font;
 
@@ -13,6 +14,8 @@ public:
 	~SDLFont();
 private:
 	struct _TTF_Font* font;
+
+	DISALLOW_COPY_AND_ASSIGN(SDLFont);
 };
 
 #endif

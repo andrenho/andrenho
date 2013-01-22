@@ -4,28 +4,26 @@
 #include "util/logger.h"
 #include "world/world.h"
 
-Logger logger(true, true);
+Logger logger(true, false);
 
 int main(int argc, char** argv)
 {
 	// initialization
 	i18n_init();
-	World* world = new World(5000, 5000);
-	GraphicLibrary* video = new SDL();
-	UI* ui = new UI(*world, *video);
+	World world(5000, 5000);
+	GraphicLibrary* video(new SDL());
+	UI* ui(new UI(world, *video));
 
 	// main loop
-	while(ui->Active())
-	{
+	while(ui->Active()) {
 		ui->StartFrame();
 		ui->Draw();
 		ui->ProcessEvents();
-		world->Process();
+		world.Process();
 		ui->EndFrame();
 	}
 
 	// clean up
 	delete ui;
 	delete video;
-	delete world;
 }
