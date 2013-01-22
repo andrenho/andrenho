@@ -9,6 +9,7 @@ using namespace std;
 #include "libs/graphiclibrary.h"
 #include "ui/resource.h"
 #include "util/logger.h"
+#include "util/polygon.h"
 #include "world/city.h"
 
 Minimap::Minimap(GraphicLibrary const& video, World const& world, 
