@@ -125,3 +125,60 @@ person.o: world/person.cc world/person.h util/defines.h util/point.h \
 world.o: world/world.cc world/world.h util/defines.h util/point.h \
  util/mapcache.h util/logger.h util/polygon.h util/rect.h world/biome.h \
  world/city.h world/mapbuild.h world/person.h
+sdl.o: libs/sdl/sdl.h libs/graphiclibrary.h util/rect.h libs/image.h \
+ libs/resource.h libs/colors.h util/point.h util/defines.h libs/font.h
+sdlfont.o: libs/sdl/sdlfont.h libs/font.h libs/resource.h util/defines.h
+sdlimage.o: libs/sdl/sdlimage.h /usr/include/libpng15/png.h \
+ /usr/include/libpng15/pnglibconf.h /usr/include/libpng15/pngconf.h \
+ /usr/include/SDL/SDL.h /usr/include/SDL/SDL_main.h \
+ /usr/include/SDL/SDL_stdinc.h /usr/include/SDL/SDL_config.h \
+ /usr/include/SDL/SDL_platform.h /usr/include/SDL/begin_code.h \
+ /usr/include/SDL/close_code.h /usr/include/SDL/SDL_audio.h \
+ /usr/include/SDL/SDL_error.h /usr/include/SDL/SDL_endian.h \
+ /usr/include/SDL/SDL_mutex.h /usr/include/SDL/SDL_thread.h \
+ /usr/include/SDL/SDL_rwops.h /usr/include/SDL/SDL_cdrom.h \
+ /usr/include/SDL/SDL_cpuinfo.h /usr/include/SDL/SDL_events.h \
+ /usr/include/SDL/SDL_active.h /usr/include/SDL/SDL_keyboard.h \
+ /usr/include/SDL/SDL_keysym.h /usr/include/SDL/SDL_mouse.h \
+ /usr/include/SDL/SDL_video.h /usr/include/SDL/SDL_joystick.h \
+ /usr/include/SDL/SDL_quit.h /usr/include/SDL/SDL_loadso.h \
+ /usr/include/SDL/SDL_timer.h /usr/include/SDL/SDL_version.h libs/image.h \
+ libs/resource.h libs/colors.h util/rect.h util/point.h util/defines.h
+charengine.o: ui/charengine.h util/defines.h
+minimap.o: ui/minimap.h libs/colors.h util/point.h util/defines.h \
+ world/world.h util/mapcache.h util/logger.h
+resource.o: ui/resource.h libs/image.h libs/resource.h libs/colors.h \
+ util/rect.h util/point.h util/defines.h util/logger.h
+terrainsurface.o: ui/terrainsurface.h util/point.h util/rect.h \
+ util/defines.h world/world.h util/mapcache.h util/logger.h
+ui.o: ui/ui.h util/defines.h util/point.h
+logger.o: util/logger.h
+i18n.o: util/i18n.h
+polygon.o: util/polygon.h util/defines.h util/rect.h util/point.h
+city.o: world/city.h util/defines.h util/point.h
+mapbuild.o: world/mapbuild.h util/defines.h util/point.h
+person.o: world/person.h util/defines.h util/point.h
+world.o: world/world.h util/defines.h util/point.h util/mapcache.h \
+ util/logger.h
+graphiclibrary.o: libs/graphiclibrary.h util/rect.h libs/image.h \
+ libs/resource.h libs/colors.h util/point.h util/defines.h libs/font.h
+point.o: util/point.h
+biome.o: world/biome.h world/world.h util/defines.h util/point.h \
+ util/mapcache.h util/logger.h
+mapcache.o: util/mapcache.h util/defines.h util/logger.h
+defines.o: util/defines.h
+sdltimer.o: libs/sdl/sdltimer.h libs/graphiclibrary.h util/rect.h \
+ libs/image.h libs/resource.h libs/colors.h util/point.h util/defines.h \
+ libs/font.h /usr/include/SDL/SDL.h /usr/include/SDL/SDL_main.h \
+ /usr/include/SDL/SDL_stdinc.h /usr/include/SDL/SDL_config.h \
+ /usr/include/SDL/SDL_platform.h /usr/include/SDL/begin_code.h \
+ /usr/include/SDL/close_code.h /usr/include/SDL/SDL_audio.h \
+ /usr/include/SDL/SDL_error.h /usr/include/SDL/SDL_endian.h \
+ /usr/include/SDL/SDL_mutex.h /usr/include/SDL/SDL_thread.h \
+ /usr/include/SDL/SDL_rwops.h /usr/include/SDL/SDL_cdrom.h \
+ /usr/include/SDL/SDL_cpuinfo.h /usr/include/SDL/SDL_events.h \
+ /usr/include/SDL/SDL_active.h /usr/include/SDL/SDL_keyboard.h \
+ /usr/include/SDL/SDL_keysym.h /usr/include/SDL/SDL_mouse.h \
+ /usr/include/SDL/SDL_video.h /usr/include/SDL/SDL_joystick.h \
+ /usr/include/SDL/SDL_quit.h /usr/include/SDL/SDL_loadso.h \
+ /usr/include/SDL/SDL_timer.h /usr/include/SDL/SDL_version.h

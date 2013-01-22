@@ -42,10 +42,11 @@ options:
 
 ${OBJ}: config.mk
 
+-include depend
+
 newhope: ${OBJ} depend
 	@echo CC -o $@
 	@${CC} -o $@ ${OBJ} ${LDFLAGS}
--include depend
 
 po:
 	@echo creating PO file
@@ -74,7 +75,7 @@ dist: clean
 
 depend: ${SRC}
 	@echo checking dependencies
-	@${CC} -MM ${CPPFLAGS} ${SRC} >depend
+	@${CC} -MM ${CPPFLAGS} ${SRC} ${HEADERS} >depend
 
 install: all
 	@echo installing executable file to ${DESTDIR}${PREFIX}/bin

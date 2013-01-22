@@ -8,6 +8,7 @@
 #include <iostream>
 #include <stdexcept>
 
+#include "util/defines.h"
 #include "util/logger.h"
 
 template <typename K, typename V>
@@ -49,6 +50,8 @@ private:
 	const unsigned int size;
 	V(*fctfault)(void*,K);
 	void* obj;
+
+	DISALLOW_COPY_AND_ASSIGN(mapcache);
 };
 
 #endif
