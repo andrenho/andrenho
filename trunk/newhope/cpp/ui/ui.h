@@ -9,6 +9,7 @@ class GraphicLibrary;
 class Resources;
 class TerrainSurface;
 class CharEngine;
+class DecorEngine;
 class GraphicLibrary;
 class Minimap;
 class Timer;
@@ -55,6 +56,7 @@ private:
 	TerrainSurface* terrain_sf;
 	Minimap* minimap;
 	const CharEngine* char_engine;
+	const DecorEngine* decor_engine;
 	Timer* frame_timer;
 
 	DISALLOW_COPY_AND_ASSIGN(UI);
