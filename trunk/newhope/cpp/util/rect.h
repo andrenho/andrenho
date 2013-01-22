@@ -1,8 +1,6 @@
 #ifndef LIBS_RECT_H
 #define LIBS_RECT_H
 
-#include "util/defines.h"
-
 class Rect {
 public:
 	constexpr Rect(int x, int y, int w, int h)
@@ -22,14 +20,23 @@ public:
 		this->h += h;
 	}
 
-	void operator=(const Rect&) {
+	/*Rect& operator=(const Rect& other) {
+		if(this != &other) {
+			x = other.x;
+			y = other.y;
+			w = other.w;
+			h = other.h;
+		}
+		return *this;
+	}*/
 
-	}
+	Rect(const Rect& other) :
+		x(other.x), y(other.y), w(other.w), h(other.h) { }
 
 	int x, y, w, h;
 
 private:
-	DISALLOW_COPY_AND_ASSIGN(Rect);
+	Rect& operator=(const Rect& other); // disallow assignment
 };
 
 #endif
