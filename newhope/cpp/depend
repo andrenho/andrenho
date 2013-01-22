@@ -73,10 +73,10 @@ sdltimer.o: libs/sdl/sdltimer.cc libs/sdl/sdltimer.h \
  /usr/include/SDL/SDL_loadso.h /usr/include/SDL/SDL_timer.h \
  /usr/include/SDL/SDL_version.h
 charengine.o: ui/charengine.cc ui/charengine.h world/world.h \
- util/mapcache.h util/point.h world/mapbuild.h util/polygon.h util/rect.h \
- world/person.h ui/resource.h libs/graphiclibrary.h libs/image.h \
- libs/resource.h libs/colors.h libs/font.h util/logger.h ui/ui.h \
- ui/terrainsurface.h
+ util/mapcache.h util/logger.h util/point.h world/mapbuild.h \
+ util/polygon.h util/rect.h world/person.h ui/resource.h \
+ libs/graphiclibrary.h libs/image.h libs/resource.h libs/colors.h \
+ libs/font.h ui/ui.h ui/terrainsurface.h
 minimap.o: ui/minimap.cc ui/minimap.h libs/graphiclibrary.h util/rect.h \
  libs/image.h libs/resource.h libs/colors.h util/point.h libs/font.h \
  ui/resource.h util/logger.h world/world.h util/mapcache.h \
@@ -142,6 +142,6 @@ mapbuild.o: world/mapbuild.cc world/mapbuild.h util/polygon.h util/rect.h \
  util/point.h util/logger.h world/biome.h world/world.h util/mapcache.h \
  world/person.h world/city.h
 person.o: world/person.cc world/person.h util/point.h util/logger.h
-world.o: world/world.cc world/world.h util/mapcache.h util/point.h \
- world/mapbuild.h util/polygon.h util/rect.h world/person.h util/logger.h \
+world.o: world/world.cc world/world.h util/mapcache.h util/logger.h \
+ util/point.h world/mapbuild.h util/polygon.h util/rect.h world/person.h \
  world/biome.h world/city.h
