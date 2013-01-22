@@ -176,7 +176,7 @@ Minimap::DrawMap()
 		{
 			if(thread_killed)
 				return;
-			TerrainType t = world.Terrain(Point<int>(x, y));
+			TerrainType t = world.Terrain(Point<int>(x, y), false);
 			image->SetPixel(px, py, colors[t]);
 		}
 	}

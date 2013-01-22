@@ -37,7 +37,7 @@ public:
 	~World();
 
 	void Process();
-	TerrainType Terrain(Point<int> p) const;
+	TerrainType Terrain(Point<int> p, bool use_cache=true) const;
 	int Special(Point<int> p) const;
 
 	static TerrainType TerrainCache(void* obj, Point<int> p);

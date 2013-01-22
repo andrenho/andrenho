@@ -1,6 +1,8 @@
 #ifndef UTIL_MAPCACHE_H
 #define UTIL_MAPCACHE_H
 
+#include <cstdlib>
+#include <algorithm>
 #include <map>
 #include <vector>
 #include <iostream>
@@ -25,10 +27,10 @@ public:
 		{
 			V value = fctfault(obj, key);
 			cmap[key] = value;
-			if(find(deq.begin(), deq.end(), key) == deq.end())
-				deq.push_back(key);
+			deq.push_back(key);
 			if(cmap.size() > size)
 			{
+				logger.Debug("cleanup");
 				for(typename vector<K>::iterator it=deq.begin(); 
 						it != deq.begin() + (size*0.5); 
 						it++)

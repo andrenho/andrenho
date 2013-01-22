@@ -56,9 +56,12 @@ World::Process()
 
 
 TerrainType 
-World::Terrain(Point<int> p) const
+World::Terrain(Point<int> p, bool use_cache) const
 {
-	return (*cache)[p];
+	if(use_cache)
+		return (*cache)[p];
+	else
+		return TerrainCache((void*)this, p);
 }
 
 
