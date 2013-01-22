@@ -29,7 +29,7 @@ public:
 	}
 
 
-	inline T Distance(struct Point p2) const
+	inline T Distance(Point p2) const
 	{
 		/*
 		if(distances.find(p2) != distances.end())
@@ -39,7 +39,7 @@ public:
 		return sqrt(pow(p2.x-x, 2) + pow(p2.y-y, 2));
 	}
 
-	inline struct Point Displace(struct Point p2, int displ) const
+	inline Point Displace(Point p2, int displ) const
 	{
 		T mx = (x+p2.x)/2,
 		    my = (y+p2.y)/2;
@@ -60,8 +60,5 @@ public:
 		return { static_cast<F>(x), static_cast<F>(y) };
 	}
 };
-
-typedef Point<int> IPoint;
-typedef Point<double> DPoint;
 
 #endif

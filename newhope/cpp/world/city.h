@@ -4,13 +4,15 @@
 #include "util/defines.h"
 #include "util/point.h"
 
+class Biome;
+
 class City {
 public:
-	City(IPoint pos, Biome const& biome)
+	City(Point<int> pos, const Biome& biome)
 		: pos(pos), biome(biome) { }
 
-	IPoint const pos;
-	Biome const& biome;
+	const Point<int> pos;
+	const Biome& biome;
 	std::vector<const City*> connections;
 
 private:

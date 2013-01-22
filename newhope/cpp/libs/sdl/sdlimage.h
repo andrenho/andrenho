@@ -16,15 +16,15 @@ class SDLImage : public Image {
 public:
 	SDLImage(int w, int h); // create blank surface
 	explicit SDLImage(SDL_Surface* sf, bool must_free=true);
-	SDLImage(std::string const& filename, Rect const& r);
+	SDLImage(const std::string& filename, const Rect& r);
 	~SDLImage();
 
-	void Blit(Image const& image) const;
-	void Blit(Image const& image, Rect const& r) const;
+	void Blit(const Image& image) const;
+	void Blit(const Image& image, const Rect& r) const;
 	void Update();
 	void FillBox(Color c);
 	void FillBox(Rect r, Color c);
-	void DrawLine(IPoint p1, IPoint p2, Color c, int w=1);
+	void DrawLine(Point<int> p1, Point<int> p2, Color c, int w=1);
 
 	inline void SetPixel(int x, int y, Color c)
 	{
@@ -41,7 +41,7 @@ protected:
 
 private:
 	const bool must_free;
-	SDL_Surface* SurfaceFromPNGAlpha(Rect const& r, png_bytep* row_pointers, 
+	SDL_Surface* SurfaceFromPNGAlpha(const Rect& r, png_bytep* row_pointers, 
 			int n_col, png_color* palette, 
 			int n_transp, png_bytep trans, int x_width) const;
 

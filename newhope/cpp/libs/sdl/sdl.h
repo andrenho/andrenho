@@ -15,10 +15,10 @@ public:
 	Timer* CreateTimer(int wait_ms) const;
 
 	Image* CreateImage(int w, int h) const;
-	Image* LoadImage(std::string const& filename, Rect const& r) const;
-	Font* LoadFont(std::string const& filename, int size) const;
+	Image* LoadImage(const std::string& filename, const Rect& r) const;
+	Font* LoadFont(const std::string& filename, int size) const;
 
-	Event const* GetEvent() const;
+	const Event* GetEvent() const;
 	void GetKeyState(KeyState& state) const;
 
 private:

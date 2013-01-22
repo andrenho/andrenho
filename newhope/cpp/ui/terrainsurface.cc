@@ -16,7 +16,7 @@ using namespace std;
 
 TerrainSurface::~TerrainSurface()
 {
-	for(auto const& image: imagehash) {
+	for(const auto& image: imagehash) {
 		delete image.second;
 	}
 	if(Img) {
@@ -30,7 +30,7 @@ TerrainSurface::RedrawImg(vector<Rect>& rects)
 {
 	uint32_t t(SDL_GetTicks());
 
-	for(auto const& tile: tiles_to_redraw) {
+	for(const auto& tile: tiles_to_redraw) {
 		rects.push_back(Rect(tile.x, tile.y, TileSize, TileSize));
 		DrawTile(tile);
 	}
@@ -153,7 +153,7 @@ const Image*
 TerrainSurface::TileSurface(Point<int> p)
 {
 	// build queue
-	queue<Image const*> st;
+	queue<const Image*> st;
 	BuildTile(p, st);
 
 	// lookup in the hash
@@ -188,7 +188,7 @@ static map<TerrainType, string> basic {
 
 
 void 
-TerrainSurface::BuildTile(Point<int> p, queue<Image const*>& st)
+TerrainSurface::BuildTile(Point<int> p, queue<const Image*>& st)
 {
 	// basic terrain
 	TerrainType terrain(world.Terrain(p));
@@ -208,7 +208,7 @@ TerrainSurface::BuildTile(Point<int> p, queue<Image const*>& st)
 
 void
 TerrainSurface::BuildTileBorders(Point<int> p, TerrainType t, 
-		queue<Image const*>& st)
+		queue<const Image*>& st)
 {
 	// find terrains around
 	TerrainType around[8] {
@@ -233,7 +233,7 @@ TerrainSurface::BuildTileBorders(Point<int> p, TerrainType t,
 	sort(terrains.begin(), terrains.end());
 
 	// find borders
-	for(auto const& terrain: terrains) {
+	for(const auto& terrain: terrains) {
 		if(terrain <= t) {
 			continue;
 		}
@@ -247,7 +247,7 @@ TerrainSurface::BuildTileBorders(Point<int> p, TerrainType t,
 
 
 void
-TerrainSurface::BuildBorder(TerrainType t, uint8_t bs, queue<Image const*>& st)
+TerrainSurface::BuildBorder(TerrainType t, uint8_t bs, queue<const Image*>& st)
 {
 	struct { int nw, n, ne, w, e, sw, s, se; } b = {
 		(bs & 0b00000001), (bs & 0b00000010), (bs & 0b00000100),

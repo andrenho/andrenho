@@ -16,10 +16,10 @@ class Rect;
 
 class Resources {
 public:
-	explicit Resources(GraphicLibrary const& video);
+	explicit Resources(const GraphicLibrary& video);
 	~Resources();
 
-	inline const Image* operator[](std::string const& s) const {
+	const inline Image* operator[](const std::string& s) const {
 		try {
 			return dynamic_cast<const Image*>(res.at(s));
 		} 
@@ -31,12 +31,12 @@ public:
 	}
 
 private:
-	std::string const FindFile(std::string const& filename);
-	void LoadFile(std::string const& name, std::string const& path, 
-			Rect const& r, std::string const& suffix);
-	void LoadFile(std::string const& name, std::string const& path);
+	const std::string FindFile(const std::string& filename);
+	void LoadFile(const std::string& name, const std::string& path, 
+			const Rect& r, const std::string& suffix);
+	void LoadFile(const std::string& name, const std::string& path);
 
-	GraphicLibrary const& video;
+	const GraphicLibrary& video;
 	std::map<const std::string, const Resource*> res;
 
 	DISALLOW_COPY_AND_ASSIGN(Resources);

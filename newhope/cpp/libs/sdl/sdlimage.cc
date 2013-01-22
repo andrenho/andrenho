@@ -3,6 +3,8 @@
 #include <cstdlib>
 #include <stdint.h>
 #include <algorithm>
+using namespace std;
+
 #include <png.h>
 #include "SDL.h"
 
@@ -24,7 +26,7 @@ SDLImage::SDLImage(int w, int h)
 }
 
 
-SDLImage::SDLImage(std::string const& filename, Rect const& r)
+SDLImage::SDLImage(const string& filename, const Rect& r)
 	: Image(r.w, r.h), must_free(true)
 {
 	int _x = r.x, _y = r.y, _w = r.w, _h = r.h;
@@ -129,7 +131,7 @@ SDLImage::~SDLImage()
 
 
 SDL_Surface* 
-SDLImage::SurfaceFromPNGAlpha(Rect const& r, png_bytep* row_pointers, 
+SDLImage::SurfaceFromPNGAlpha(const Rect& r, png_bytep* row_pointers, 
 		int n_col, png_color* palette, 
 		int n_transp, png_bytep trans, int x_width) const
 {
@@ -151,7 +153,7 @@ SDLImage::SurfaceFromPNGAlpha(Rect const& r, png_bytep* row_pointers,
 
 
 void 
-SDLImage::Blit(Image const& image) const
+SDLImage::Blit(const Image& image) const
 {
 	const SDLImage* dest((const SDLImage*)&image);
 	SDL_BlitSurface(sf, NULL, dest->sf, NULL);
@@ -159,7 +161,7 @@ SDLImage::Blit(Image const& image) const
 
 
 void 
-SDLImage::Blit(Image const& image, Rect const& r) const
+SDLImage::Blit(const Image& image, const Rect& r) const
 {
 	SDL_Rect rect { (Sint16)r.x, (Sint16)r.y, (Uint16)r.w, (Uint16)r.h };
 	const SDLImage* dest((const SDLImage*)&image);
@@ -185,12 +187,12 @@ SDLImage::FillBox(Rect r, Color c)
 
 
 void 
-SDLImage::DrawLine(IPoint p1, IPoint p2, Color c, int line_width)
+SDLImage::DrawLine(Point<int> p1, Point<int> p2, Color c, int line_width)
 {
-	int x0(std::min(std::max(p1.x, 0), this->w - line_width)),
-	    y0(std::min(std::max(p1.y, 0), this->h - line_width)),
-	    x1(std::min(p2.x, this->w - line_width)),
-	    y1(std::min(p2.y, this->h - line_width));
+	int x0(min(max(p1.x, 0), this->w - line_width)),
+	    y0(min(max(p1.y, 0), this->h - line_width)),
+	    x1(min(p2.x, this->w - line_width)),
+	    y1(min(p2.y, this->h - line_width));
 	Uint32 color(SDL_MapRGB(sf->format, c.r, c.g, c.b));
 	int dx(abs(x1-x0)), sx(x0<x1 ? 1 : -1);
 	int dy(abs(y1-y0)), sy(y0<y1 ? 1 : -1);

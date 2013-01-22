@@ -18,8 +18,8 @@ class World;
 
 class TerrainSurface {
 public:
-	TerrainSurface(World const& world, GraphicLibrary const& video,
-			Resources const& res) :
+	TerrainSurface(const World& world, const GraphicLibrary& video,
+			const Resources& res) :
 		Img(nullptr), world(world), video(video), res(res), 
 		x(-10000), y(-10000), w(0), h(0) { }
 	~TerrainSurface();
@@ -35,17 +35,17 @@ private:
 	void Redraw();
 	void DrawTile(Point<int> p);
 	const Image* TileSurface(Point<int> p);
-	void BuildTile(Point<int> p, std::queue<Image const*>& st);
+	void BuildTile(Point<int> p, std::queue<const Image*>& st);
 	void BuildTileBorders(Point<int> p, TerrainType t, 
-			std::queue<Image const*>& st);
+			std::queue<const Image*>& st);
 	void BuildBorder(TerrainType t, uint8_t bs, 
-			std::queue<Image const*>& st);
+			std::queue<const Image*>& st);
 	
-	std::map<std::queue<Image const*>, Image const*> imagehash;
+	std::map<std::queue<const Image*>, const Image*> imagehash;
 
-	World const& world;
-	GraphicLibrary const& video;
-	Resources const& res;
+	const World& world;
+	const GraphicLibrary& video;
+	const Resources& res;
 	int x, y, w, h;
 	std::set<Point<int>> tiles_to_redraw;
 

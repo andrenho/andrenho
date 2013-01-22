@@ -7,7 +7,6 @@
 #include <vector>
 #include <iostream>
 #include <stdexcept>
-using namespace std;
 
 #include "util/logger.h"
 
@@ -22,34 +21,31 @@ public:
 		deq.clear();
 	}
 
-	inline V operator[](K key)
-	{
-		try
-		{
+	inline V operator[](K key) {
+		try {
 			return cmap.at(key);
 		}
-		catch(out_of_range& e)
-		{
-			V value = fctfault(obj, key);
+		catch(std::out_of_range& e) {
+			V value(fctfault(obj, key));
 			cmap[key] = value;
 			deq.push_back(key);
 			if(cmap.size() > size)
-				for(typename vector<K>::iterator it=deq.begin(); 
+				for(auto it(deq.begin()); 
 						it != deq.begin() + (size*0.5); 
-						it++)
-				{
+						it++) {
 					cmap.erase(*it);
 					it = deq.erase(it);
 				}
-			if(cmap.size() != deq.size())
+			if(cmap.size() != deq.size()) {
 				abort();
+			}
 			return value;
 		}
 	}
 
 private:
-	map<K,V> cmap;
-	vector<K> deq;
+	std::map<K,V> cmap;
+	std::vector<K> deq;
 	const unsigned int size;
 	V(*fctfault)(void*,K);
 	void* obj;

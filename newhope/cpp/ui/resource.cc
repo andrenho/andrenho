@@ -10,10 +10,10 @@ using namespace std;
 #include "util/logger.h"
 #include "util/rect.h"
 
-Resources::Resources(GraphicLibrary const& video)
+Resources::Resources(const GraphicLibrary& video)
 	: video(video)
 {
-	for(auto const& res: reslist) {
+	for(const auto& res: reslist) {
 		string filepath(FindFile(res.filename));
 
 		if(res.suffix.empty()) {
@@ -38,8 +38,8 @@ Resources::~Resources()
 }
 
 
-string const 
-Resources::FindFile(string const& filename)
+const string 
+Resources::FindFile(const string& filename)
 {
 	string buf[2];
 	buf[0] = string(DATADIR) + "/" + filename; // data dir
@@ -57,8 +57,8 @@ Resources::FindFile(string const& filename)
 
 
 void
-Resources::LoadFile(string const& name, string const& path, 
-		Rect const& r, string const& suffix)
+Resources::LoadFile(const string& name, const string& path, 
+		const Rect& r, const string& suffix)
 {
 	size_t found(path.find_last_of('.'));
 	string filesuffix(path.substr(found));
@@ -73,7 +73,7 @@ Resources::LoadFile(string const& name, string const& path,
 
 
 void
-Resources::LoadFile(string const& name, string const& path)
+Resources::LoadFile(const string& name, const string& path)
 {
 	LoadFile(name, path, Rect(0, 0, 0, 0), "");
 }

@@ -30,7 +30,7 @@ public:
 		return *this;
 	}*/
 
-	Rect(const Rect& other) :
+	constexpr Rect(const Rect& other) :
 		x(other.x), y(other.y), w(other.w), h(other.h) { }
 
 	int x, y, w, h;

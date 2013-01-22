@@ -1,5 +1,7 @@
 #include "libs/sdl/sdl.h"
 
+using namespace std;
+
 #include "util/logger.h"
 #include "libs/sdl/sdlfont.h"
 #include "libs/sdl/sdlimage.h"
@@ -52,7 +54,7 @@ SDL::CreateImage(int w, int h) const
 
 
 Image*
-SDL::LoadImage(std::string const& filename, Rect const& r) const
+SDL::LoadImage(const string& filename, const Rect& r) const
 {
 	SDLImage* img(new SDLImage(filename, r));
 	return img;
@@ -60,14 +62,14 @@ SDL::LoadImage(std::string const& filename, Rect const& r) const
 
 
 Font* 
-SDL::LoadFont(std::string const& filename, int size) const
+SDL::LoadFont(const string& filename, int size) const
 {
 	SDLFont* font(new SDLFont(filename, size));
 	return font;
 }
 
 
-Event const* 
+const Event* 
 SDL::GetEvent() const
 {
 	SDL_Event e = { };

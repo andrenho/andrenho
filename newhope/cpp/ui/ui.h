@@ -16,7 +16,7 @@ class TerrainSurface;
 
 class UI {
 public:
-	UI(World const& world, GraphicLibrary const& video);
+	UI(const World& world, const GraphicLibrary& video);
 	~UI();
 
 	void StartFrame();
@@ -47,14 +47,14 @@ private:
 	void MoveView(int horiz, int vert);
 
 
-	World const& world;
+	const World& world;
 	bool active;
 	int rx, ry;
-	GraphicLibrary const& video;
+	const GraphicLibrary& video;
 	Resources* res;
 	TerrainSurface* terrain_sf;
 	Minimap* minimap;
-	CharEngine const* char_engine;
+	const CharEngine* char_engine;
 	Timer* frame_timer;
 
 	DISALLOW_COPY_AND_ASSIGN(UI);

@@ -4,10 +4,12 @@
 #include <set>
 #include <vector>
 
-#include "util/mapcache.h"
+#include "util/defines.h"
 #include "util/point.h"
-#include "world/mapbuild.h"
-#include "world/person.h"
+#include "util/mapcache.h"
+
+class MapBuild;
+class Person;
 
 // the order is the importance
 typedef enum {
@@ -49,10 +51,13 @@ public:
 
 private:
 	void CreatePathsCache();
-	void AddPoints(IPoint p1, IPoint p2, std::set<IPoint>& points, int w);
+	void AddPoints(Point<int> p1, Point<int> p2, 
+			std::set<Point<int>>& points, int w);
 
 	std::vector<Point<int>> riverpts, roadpts, lavapts;
 	mapcache<Point<int>,TerrainType>* cache;
+
+	DISALLOW_COPY_AND_ASSIGN(World);
 };
 
 #endif
