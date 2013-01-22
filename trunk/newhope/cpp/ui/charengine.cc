@@ -1,5 +1,8 @@
 #include "ui/charengine.h"
 
+#include <cstdlib>
+#include <climits>
+#include <algorithm>
 #include <string>
 #include <sstream>
 using namespace std;
@@ -17,13 +20,51 @@ CharEngine::~CharEngine()
 
 
 void 
-CharEngine::Draw(int scr_h, int scr_w) const
+CharEngine::PrepareFrame(int scr_h, int scr_w) const
 {
+	// clear frame
+	people_frame.clear();
+
+	// add people to frame
 	for(const auto& person: world.People) {
 		Point<int> p(ui.TileToRel(person->Pos));
 		if(p.x >= -TileSize && p.y >= -TileSize 
-		&& p.x < scr_w + TileSize && p.y < scr_h + TileSize)
-			DrawPerson(*person);
+		&& p.x < scr_w + TileSize && p.y < scr_h + TileSize) {
+			people_frame.push_back(person);
+		}
+	}
+
+	// sort frame
+	sort(people_frame.begin(), people_frame.end(),
+	[](const Person* const& p1, const Person* const& p2) -> bool { 
+		return p1->Pos.y > p2->Pos.y;
+	});
+}
+
+int 
+CharEngine::Next(int y) const
+{
+	if(!people_frame.empty()) {
+		Point<int> p(ui.TileToRel(people_frame[0]->Pos));
+		return p.y;
+	}
+	return INT_MIN;
+}
+
+
+void 
+CharEngine::Draw(int y) const
+{
+	if(people_frame.empty()) {
+		abort();
+	}
+
+	int i = 0;
+	double ny = people_frame[0]->Pos.y;
+	while(!people_frame.empty() && people_frame[0]->Pos.y == ny) {
+		DrawPerson(*people_frame[i]);
+		people_frame.erase(people_frame.begin());
+		i++;
 	}
 }
 

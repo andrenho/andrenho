@@ -16,7 +16,9 @@ public:
 		: world(world), video(video), res(res), ui(ui) { }
 	~DecorEngine();
 
-	void Draw(int scr_h, int scr_w) const;
+	void PrepareFrame(int scr_h, int scr_w) const;
+	int Next(int y) const;
+	void Draw(int y) const;
 
 private:
 	const World& world;

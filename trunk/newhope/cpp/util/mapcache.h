@@ -30,13 +30,15 @@ public:
 			V value(fctfault(obj, key));
 			cmap[key] = value;
 			deq.push_back(key);
-			if(cmap.size() > size)
+			if(cmap.size() > size) {
 				for(auto it(deq.begin()); 
-						it != deq.begin() + (size*0.5); 
+						it != deq.begin() + (size*0.2); 
 						it++) {
 					cmap.erase(*it);
-					it = deq.erase(it);
+					//it = deq.erase(it);
 				}
+				deq.erase(deq.begin(), deq.begin()+(size*0.2));
+			}
 			if(cmap.size() != deq.size()) {
 				abort();
 			}
