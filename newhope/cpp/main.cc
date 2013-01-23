@@ -4,7 +4,7 @@
 #include "util/logger.h"
 #include "world/world.h"
 
-Logger logger(true, false);
+Logger logger(true, true);
 
 int main(int argc, char** argv)
 {

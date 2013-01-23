@@ -9,17 +9,22 @@ class Resources;
 class Person;
 class UI;
 
-typedef enum { TREE } ObjType;
+typedef enum { TREE, PERSON } ObjType;
 struct DecorObject {
-	DecorObject(int y, ObjType o, Point<int> tile) : 
-		y(y), objType(o), tile(tile) { }
+	DecorObject(int y, ObjType o) : 
+		y(y), objType(o) { }
 	const int y;
 	const ObjType objType;
-	const Point<int> tile;
+};
+struct DecorObjPerson : public DecorObject {
+	DecorObjPerson(int y, ObjType o, const Person* person) 
+		: DecorObject(y, o), person(person) { }
+	const Person* person;
 };
 struct DecorObjTree : public DecorObject {
 	DecorObjTree(int y, ObjType o, Point<int> tile, TreeType type) 
-		: DecorObject(y, o, tile), type(type) { }
+		: DecorObject(y, o), tile(tile), type(type) { }
+	const Point<int> tile;
 	const TreeType type;
 };
 
@@ -31,11 +36,11 @@ public:
 	~DecorEngine();
 
 	void PrepareFrame(int scr_w, int scr_h) const;
-	int Next(int y) const;
-	void Draw(int y) const;
+	void Draw() const;
 
 private:
 	void DrawTree(const DecorObjTree* obj) const;
+	void DrawPerson(const Person* person) const;
 
 	const World& world;
 	const GraphicLibrary& video;

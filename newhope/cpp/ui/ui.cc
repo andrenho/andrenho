@@ -8,7 +8,6 @@ using namespace std;
 #include "libs/graphiclibrary.h"
 #include "ui/resource.h"
 #include "ui/terrainsurface.h"
-#include "ui/charengine.h"
 #include "ui/decorengine.h"
 #include "ui/minimap.h"
 #include "util/logger.h"
@@ -22,7 +21,6 @@ UI::UI(const World& world, const GraphicLibrary& video)
 	  res(new Resources(video)),
 	  terrain_sf(new TerrainSurface(world, video, *res)),
 	  minimap(new Minimap(video, world, *res)), 
-	  char_engine(new CharEngine(world, video, *res, *this)),
 	  decor_engine(new DecorEngine(world, video, *res, *this)),
 	  frame_timer(nullptr)
 {
@@ -34,7 +32,6 @@ UI::UI(const World& world, const GraphicLibrary& video)
 UI::~UI()
 {
 	delete decor_engine;
-	delete char_engine;
 	delete minimap;
 	delete terrain_sf;
 	delete res;
@@ -60,8 +57,11 @@ UI::ProcessEvents()
 		active = false;
 	} else if(event->type == Event::KEY) {
 		const KeyEvent* key = (const KeyEvent*)event;
-		if(key->key == '\t')
-			minimap->Display(); 
+		if(key->key == '\t') {
+			minimap->Display();
+		} else if(key->key == 'q') {
+			active = false;
+		}
 	} else if(event->type == Event::RESIZE) {
 		terrain_sf->Resize(video.Window->w, video.Window->h);
 		minimap->Reset();
@@ -114,18 +114,7 @@ UI::Draw()
 	// draw people and scenery, from bottom to top, in order, so that
 	// everything is hidden behind other things correctly
 	decor_engine->PrepareFrame(video.Window->w, video.Window->h);
-	char_engine->PrepareFrame(video.Window->w, video.Window->h);
-	int y(video.Window->h + TileSize);
-	while(y != INT_MIN)
-	{
-		if(decor_engine->Next(y) > char_engine->Next(y)) {
-			decor_engine->Draw(y);
-			y = decor_engine->Next(y);
-		} else {
-			char_engine->Draw(y);
-			y = char_engine->Next(y);
-		}
-	}
+	decor_engine->Draw();
 	
 	// update screen
 	video.Window->Update();
