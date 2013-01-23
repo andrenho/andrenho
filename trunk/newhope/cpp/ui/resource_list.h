@@ -18,7 +18,7 @@ const vector<Rect> terrain_r = {
 };
 
 const vector<string> terrain_sfx { 
-	"_1", "_2", "_3",
+	"_0", "_1", "_2",
 	"_ic_nw", "_ic_ne", "_ic_sw", 
 	"_ic_se", "_ec_nw", "_ec_n", 
 	"_ec_ne", "_ec_w", "_c", 

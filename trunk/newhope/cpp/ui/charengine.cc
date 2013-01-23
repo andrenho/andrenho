@@ -16,11 +16,12 @@ using namespace std;
 
 CharEngine::~CharEngine()
 {
+	people_frame.clear();
 }
 
 
 void 
-CharEngine::PrepareFrame(int scr_h, int scr_w) const
+CharEngine::PrepareFrame(int scr_w, int scr_h) const
 {
 	// clear frame
 	people_frame.clear();
@@ -59,12 +60,10 @@ CharEngine::Draw(int y) const
 		abort();
 	}
 
-	int i = 0;
 	double ny = people_frame[0]->Pos.y;
 	while(!people_frame.empty() && people_frame[0]->Pos.y == ny) {
-		DrawPerson(*people_frame[i]);
+		DrawPerson(*people_frame[0]);
 		people_frame.erase(people_frame.begin());
-		i++;
 	}
 }
 

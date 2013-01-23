@@ -18,7 +18,7 @@ public:
 		: world(world), video(video), res(res), ui(ui) { }
 	~CharEngine();
 
-	void PrepareFrame(int scr_h, int scr_w) const;
+	void PrepareFrame(int scr_w, int scr_h) const;
 	int Next(int y) const;
 	void Draw(int y) const;
 

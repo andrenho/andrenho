@@ -36,7 +36,7 @@ World::World(int w, int h) :
 	Hero = People[0];
 
 	// create terrain cache
-	cache = new mapcache<Point<int>,TerrainType>(10000, TerrainCache, this);
+	cache = new mapcache<Point<int>,TerrainType>(4000, TerrainCache, this);
 
 	// randomize terrain
 	for(int i(0); i<100; i++) {
@@ -100,12 +100,12 @@ World::TerrainCache(void* obj, Point<int> p)
 	if(binary_search(ths->roadpts.begin(), ths->roadpts.end(), p))
 	{
 		if(FindBiome(ths, p) != t_LAVAROCK)
-			return t_LAVAROCK;
+			return t_ROAD;
 		else
 			return t_DIRT;
 	}
 	if(binary_search(ths->riverpts.begin(), ths->riverpts.end(), p)) {
-		return t_WATER;
+		return t_RIVER;
 	}
 	if(binary_search(ths->lavapts.begin(), ths->lavapts.end(), p)) {
 		return t_LAVA;
@@ -118,12 +118,34 @@ World::TerrainCache(void* obj, Point<int> p)
 int
 World::Special(Point<int> p) const
 {
-	int n(randspecial[p.x % 100][p.y % 100]);
-	if(n >= 4) {
-		return 0; 
-	} else {
-		return n;
+	return randspecial[p.x % 100][p.y % 100];
+}
+
+
+TreeType 
+World::Tree(Point<int> p) const
+{
+	const int DENSITY_NO_FOREST = 99,
+	          DENSITY_FOREST = 20;
+	TerrainType tr = Terrain(p);
+	if(tr == t_SNOW || tr == t_TUNDRA) {
+		if(Special(p) >= DENSITY_NO_FOREST) {
+			return TREE_POINTY;
+		}
+	} else if(tr == t_COLDFOREST) {
+		if(Special(p) >= DENSITY_FOREST) {
+			return TREE_POINTY;
+		}
+	} else if(tr == t_GRASS) {
+		if(Special(p) >= DENSITY_NO_FOREST) {
+			return TREE_ROUND;
+		}
+	} else if(tr == t_HOTFOREST) {
+		if(Special(p) >= DENSITY_FOREST) {
+			return TREE_ROUND;
+		}
 	}
+	return NO_TREE; // TODO - add desert trees
 }
 
 
