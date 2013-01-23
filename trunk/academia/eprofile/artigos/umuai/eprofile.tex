@@ -68,7 +68,16 @@
 \textit{This paper or a similar version is not currently under review by a journal or conference, nor will be submitted to such within the next three months. This paper is void of plagiarism or self-plagiarism as defined in Springer's Policy on Publishing Integrity.}\\[1cm]
 
 \begin{abstract}
-Context-aware and ubiquitous systems have the challenge of implicitly collect relevant information about entities, and use this information to understand and predict their behaviour. This allows the applications to adapt themselves to the the entities, thus avoiding to overflow it with inquires and information. This article presents a model that allows applications to register users' actions and infer profile information from these actions, using semantic interoperability and thus allowing different applications of different domains to be able to share information and infer a unified profile.
+Context-aware and ubiquitous systems have the challenge of implicitly collect
+relevant information about entities, and use this information to understand and
+predict their behaviour. This allows the applications to adapt themselves to
+the the entities, thus avoiding to overflow it with inquires and information.
+This article presents a model that allows applications to register users'
+actions in trails and infer profile information from these trails, using
+semantic interoperability and thus allowing different applications to share
+information and infer a unified profile. The contributions of this model are
+the use of trails for extracting profiles, the generation of dynamic profiles
+and the capability of managing dynamic inference rules for profile generation.
 \keywords{Profile Management \and Ubiquitous Computing \and Trails \and Profile Inference}
 % \PACS{PACS code1 \and PACS code2 \and more} % TODO
 % \subclass{MSC code1 \and MSC code2 \and more}
@@ -80,21 +89,40 @@ Context-aware and ubiquitous systems have the challenge of implicitly collect re
 \label{ch:introducao}
 %\paragraph{Paragraph headings} Use paragraph headings as needed.
 
-\todo[inline]{Rever segunda parte do abstract}
-
-\todo[inline]{Procurar pesquisas mais recentes, preferencialmente no próprio periódico}
-
 Nowadays, most users interact with a wide variety of computing systems. The current tendency is the increased interconnectedness between these systems, since the internet is becoming every day more present and available. Recent research predicts the full integration between these systems in a federation of computing systems. This federation is referred to as Smart Environment \citep{heckmann05}.
 
-\citet{weiser91} discussed a vision for the concept of smart environments. He presented a scenario in which the computer would become invisible and indistinguishable from its environment. In this scenario, interaction between humans and computers would not occur as usual -- where the humans devote their full attention to the computer --, but would consist of small and quick interactions, usually in different devices and locations \citep{weiser96}. According to the author, ``the most profound technologies are those that disappear. They weave themselves into the fabric of everyday life until they are indistinguishable from it.'' \citep{weiser91}. He asserts that the future of computing lies in integrating the computer to the real world, not the other way around, and he calls this new paradigm Ubiquitous Computing.
+\citet{weiser91} discussed a vision for the concept of smart environments. He
+presented a scenario in which the computer would become invisible and
+indistinguishable from its environment. In this scenario, interaction between
+humans and computers would not occur as usual -- where the humans devote their
+full attention to the computer --, but would consist of small and quick
+interactions, usually in different devices and locations \citep{weiser96}.
+According to \citet{weiser91}, ``the most profound technologies are those that
+disappear. They weave themselves into the fabric of everyday life until they
+are indistinguishable from it.'' He asserts that the future
+of computing lies in integrating the computer to the real world, not the
+opposite, and he calls this new paradigm Ubiquitous Computing.
 
-However, the availability of computing resources at any time and everywhere poses the risk of information overload on the user. To solve this problem, the concept of ``calm technology'' was created \citep{weiser96}. This means the transfer of information between the computer and the user must happen in the ``periphery'' of the user's attention, moving to the ``center'' of his attention in moments of urgency. A car's engine can be taken as an example. When a person drives a car, his attention is focused on the road, and he almost doesn't notice the engine sound. However, if the engine emits a strange sound (that might indicate some kind of problem), the driver's attention turns to the engine.
+However, the availability of computing resources at any time and everywhere
+poses the risk of information overload on the user. To solve this problem, the
+concept of ``calm technology'' was created \citep{weiser96}. This means the
+transfer of information between the computer and the users must happen in the
+``periphery'' of the users' attention, moving to the ``center'' of their
+attention in moments of urgency. A car's engine can be taken as an example. When
+a person drives a car, the attention is focused on the road, and the driver almost doesn't notice the engine sound. However, if the engine emits a strange sound (that might indicate some kind of problem), the driver's attention turns to the engine.
 
-If a system is to be minimally intrusive, it must understand the situation of the user and his surroundings, and adapt its own behaviour according to this information. This information is called context, and systems capable of this kind of adaptation are called context-sensitive \citep{satyanarayanan01,dey2001}. 
+If a system is to be minimally intrusive, it must understand the situation of
+the user and his surroundings, and adapt its own behaviour according to this
+information. This information is called Context, and systems capable of this
+kind of adaptation are called context-aware \citep{satyanarayanan01,dey2001}. 
 
-\todo[inline]{Atualizar referência de trilhas}
-
-Research in this area shows that is not only useful to know the context of the user when a service is being offered, but that the history of visited contexts can be a valuable information to help the application to adapt itself to the user. This history of visited contexts is called Trail \citep{silva10}. Although the trail is usually tied to the location of a user, the concept of a trail is broader and includes activities performed, applications used, content accessed -- among others -- inside a specific context and timeframe \citep{silva09}.
+Research in this area shows that is not only useful to know the context of the
+user when a service is being offered, but that the history of visited contexts
+can be a valuable information to help the application to adapt itself to the
+user. This history of visited contexts is called Trail \citep{silva09}. Although
+the trail is usually tied to the location of a user, the concept of a trail is
+broader and includes activities performed, applications used, content accessed
+-- among others -- inside a specific context and timeframe \citep{silva10}.
 
 \todo[inline]{Colocar referência para User Profiles}
 
