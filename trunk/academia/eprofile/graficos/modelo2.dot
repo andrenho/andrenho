@@ -13,6 +13,9 @@ digraph modelo2 {
   eProfile -> "Aplicação 1";
   eProfile -> "Aplicação 2";
   eProfile -> "Aplicação 3";
+  "Aplicação 1" -> eProfile;
+  "Aplicação 2" -> eProfile;
+  "Aplicação 3" -> eProfile;
 
   fontsize = 12;
 
