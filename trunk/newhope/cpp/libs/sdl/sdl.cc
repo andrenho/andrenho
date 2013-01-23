@@ -19,6 +19,7 @@ SDL::SDL()
 
 	// create window
 	screen = SDL_SetVideoMode(800, 600, 32, SDL_SWSURFACE|SDL_RESIZABLE);
+	//screen = SDL_SetVideoMode(0, 0, 32, SDL_HWSURFACE|SDL_FULLSCREEN|SDL_DOUBLEBUF);
 	if(!screen)
 		logger.Error(2, "Could not initialize screen: %s.", 
 				SDL_GetError());
