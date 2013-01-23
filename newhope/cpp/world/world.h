@@ -13,9 +13,6 @@ class Person;
 
 // the order is the importance
 typedef enum {
-	t_INVALID       = -1,
-	t_OUT_OF_BOUNDS	= 0,
-	t_NOTHING       = 1,
 	t_WATER		= 99,
 	t_LAVA          = 98,
 	t_SNOW          = 80,
@@ -33,6 +30,8 @@ typedef enum {
 
 } TerrainType;
 
+typedef enum { NO_TREE = 0, TREE_ROUND, TREE_POINTY } TreeType;
+
 class World {
 public:
 	World(int w, int h);
@@ -41,6 +40,7 @@ public:
 	void Process();
 	TerrainType Terrain(Point<int> p, bool use_cache=true) const;
 	int Special(Point<int> p) const;
+	TreeType Tree(Point<int> p) const;
 
 	static TerrainType TerrainCache(void* obj, Point<int> p);
 

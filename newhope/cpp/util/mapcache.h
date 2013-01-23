@@ -32,12 +32,11 @@ public:
 			deq.push_back(key);
 			if(cmap.size() > size) {
 				for(auto it(deq.begin()); 
-						it != deq.begin() + (size*0.2); 
+						it != deq.begin() + (size*0.1); 
 						it++) {
 					cmap.erase(*it);
-					//it = deq.erase(it);
 				}
-				deq.erase(deq.begin(), deq.begin()+(size*0.2));
+				deq.erase(deq.begin(), deq.begin()+(size*0.1));
 			}
 			if(cmap.size() != deq.size()) {
 				abort();

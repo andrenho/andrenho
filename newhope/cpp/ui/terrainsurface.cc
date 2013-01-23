@@ -184,6 +184,9 @@ static map<TerrainType, string> basic {
 	{ t_HOTFOREST, "grass" },
 	{ t_TUNDRA, "earth" },
 	{ t_COLDFOREST, "grass" },
+
+	{ t_ROAD, "lavarock" },
+	{ t_RIVER, "water" }
 };
 
 
@@ -193,13 +196,13 @@ TerrainSurface::BuildTile(Point<int> p, queue<const Image*>& st)
 	// basic terrain
 	TerrainType terrain(world.Terrain(p));
 	string basic_terrain(basic[terrain]);
-	int special;
-	if((special = world.Special(p)) == 0) {
-		st.push(res[basic_terrain + "_c"]);
-	} else {
+	int special(world.Special(p));
+	if(special <= 2) {
 		stringstream s;
 		s << basic_terrain << "_" << special;
 		st.push(res[s.str()]);
+	} else {
+		st.push(res[basic_terrain + "_c"]);
 	}
 
 	BuildTileBorders(p, terrain, st);

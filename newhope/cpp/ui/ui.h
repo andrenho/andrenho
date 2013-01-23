@@ -35,7 +35,14 @@ public:
 	template<typename T> Point<int> TileToRel(Point<T> t) const
 	{
 		return { (int)((t.x * (double)TileSize)) - rx,
-			 (int)((t.y * (double)TileSize)) - ry};
+			 (int)((t.y * (double)TileSize)) - ry };
+	}
+
+
+	template<typename T> Point<double> RelToTile(Point<T> t) const
+	{
+		return { (t.x + rx) / (double)TileSize,
+			 (t.y + ry) / (double)TileSize };
 	}
 
 	inline bool Active() { return active; }

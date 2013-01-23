@@ -59,9 +59,9 @@ charengine.o: ui/charengine.cc ui/charengine.h util/defines.h \
  libs/graphiclibrary.h libs/font.h ui/resource.h util/logger.h ui/ui.h \
  world/world.h util/mapcache.h world/person.h
 decorengine.o: ui/decorengine.cc ui/decorengine.h util/defines.h \
- libs/image.h libs/resource.h libs/colors.h util/rect.h util/point.h \
- libs/graphiclibrary.h libs/font.h ui/resource.h util/logger.h ui/ui.h \
- world/world.h util/mapcache.h world/person.h
+ world/world.h util/point.h util/mapcache.h util/logger.h libs/image.h \
+ libs/resource.h libs/colors.h util/rect.h libs/graphiclibrary.h \
+ libs/font.h ui/resource.h ui/ui.h world/person.h
 minimap.o: ui/minimap.cc ui/minimap.h libs/colors.h util/point.h \
  util/defines.h world/world.h util/mapcache.h util/logger.h \
  /usr/include/SDL/SDL.h /usr/include/SDL/SDL_main.h \
@@ -150,7 +150,8 @@ sdlimage.o: libs/sdl/sdlimage.h /usr/include/libpng15/png.h \
  /usr/include/SDL/SDL_timer.h /usr/include/SDL/SDL_version.h libs/image.h \
  libs/resource.h libs/colors.h util/rect.h util/point.h util/defines.h
 charengine.o: ui/charengine.h util/defines.h
-decorengine.o: ui/decorengine.h util/defines.h
+decorengine.o: ui/decorengine.h util/defines.h world/world.h util/point.h \
+ util/mapcache.h util/logger.h
 minimap.o: ui/minimap.h libs/colors.h util/point.h util/defines.h \
  world/world.h util/mapcache.h util/logger.h
 resource.o: ui/resource.h libs/image.h libs/resource.h libs/colors.h \

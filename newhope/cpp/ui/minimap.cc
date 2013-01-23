@@ -42,7 +42,6 @@ Minimap::SetupColors()
 	colors[t_LAVAROCK] = Color( 0x50, 0x50, 0x50 );
 	colors[t_SNOW] = Color( 0xe0, 0xe0, 0xff );
 	colors[t_COLDFOREST] = Color( 0, 52, 27 );
-	colors[t_INVALID] = Color( 0, 0, 0 );
 }
 
 
