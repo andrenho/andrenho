@@ -118,7 +118,7 @@ export LESSOPEN="| /usr/bin/source-highlight-esc.sh %s"
 export LESS=' -R '
 
 
-export PS1="\w$ "
+export PS1='\w\$ '
 export JAVA_HOME="/usr/lib/jvm/jre1.7.0_02"
 alias ls="ls -F --color"
 alias grep='grep --color=auto'
@@ -127,5 +127,7 @@ export PATH=$PATH:/usr/games
 export PATH="/usr/lib/colorgcc/bin:$PATH"
 alias gcc='colorgcc'
 
+
+export https_proxy=$http_proxy
 export LANG=pt_BR.utf8
 export LC_ALL=$LANG
