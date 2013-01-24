@@ -22,7 +22,7 @@ int main(int argc, char** argv)
 		world.Process();
 		ui->EndFrame();
 	}
-
+	
 	// clean up
 	delete ui;
 	delete video;
