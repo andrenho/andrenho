@@ -261,8 +261,6 @@ The trail ontology data (eOntoTrail), shown in Figure~\ref{fig:ont_trilha}, is f
   \label{fig:ont_trilha}
 \end{figure}
 
-\todo[inline]{Descrever como são padronizados os nomes das entidades}
-
 Context-aware applications are interested in knowing {\bf who}, {\bf where},
 {\bf when} and {\bf what} (that is, what the user is doing), so they can
 discover why the situation is occurring \citep{abowd99}. Thus, a trail is
@@ -283,18 +281,32 @@ lastclass is the most comprehensive of the ontology, and will possibly be the mo
 The profile ontology (eOntoProfile), shown in Figure~\ref{fig:ont_perfil}, is
 the ontology used in the profile information inferred from the trail, according to the entity model defined by the application. For the ontology to be feasible within the proposed model, it must be a generic ontology that allows its classes to be extended by applications. In the figure, a relationship between classes is shown by a dotted line, and a specialization of a class is shown by a continuous line. The eOntoProfile is a basic ontology, extended by the applications for them to assemble their own entity models.
 
-The basic class of the ontology is the {\em Element} class. The class {\em Element} represents anything in the real world. It has the following children classes: (i) {\it Entity}, which represents an entity, that is, an element that has a profile associated with it, and (ii) {\it NonEntity}, which represents an element than doesn't have a profile associated with it. For example, a trail registers a event in which a person enters a store, but the store has no profile registered in eProfile. In this case, the store is a {\it NonEntity}. This distinction is important because in the first case, eProfile has access to a wide range of information about the entity, entities related to that first entity, and so on.
+The basic class of the ontology is the {\em Element} class. This class {\em
+Element} represents anything in the real world. It is extended by two classes:
+(i) {\it Entity}, which represents an entity, that is, an element that has a
+profile associated with it, and (ii) {\it NonEntity}, which represents an
+element than doesn't have a profile associated with it. For example, a trail
+registers a event in which a person enters a store, but the store has no profile
+registered in eProfile. In this case, the person is a {\it Entity} but the store
+is a {\it NonEntity}. This distinction is important because in the first case,
+eProfile has access to a wide range of information about the entity, entities
+related to that first entity, and so on, while in the second case the store is
+just an object that eProfile doesn't know nothing about it except for the name.
+The {\em Entity} in this ontology is the same as the {\em Entity} in the
+eOntoTrail ontology (see Figure~\ref{fig:ont_trail}).
 
-The class {\em Characteristic} represent a aspect of the entity, and is the class that will be extended by applications to refer to any information related to that entity. These characteristics can be simple labels (such as name of a person, or mileage of a car) or more complex information (such as academic knowledge or latest routes traveled).
+The class {\em Characteristic} represents an aspect of the entity, and is the class that will be extended by applications to refer to any information related to that entity. These characteristics can be simple labels (such as name of a person, or mileage of a car) or more complex information (such as academic knowledge or latest routes traveled).
 
 
 
 \subsection{Rule Execution}
 \label{sec:regras}
 
-The execution of rules is key to eProfile's operation. A inference rule is an instruction issued by an application, that runs on a entity trailset, resulting in an entity profile according to a entity model previously registered by the application.
+The execution of rules is key to eProfile's operation. An inference rule is an
+instruction issued by an application, that runs on an entity trail, resulting in
+an entity profile according to an entity model previously registered by the application.
 
-For a rule to be executed, the application must have previously registered within eProfile: (i) the rule itself, (ii) in an entity model, which serves as basis for the entity profile format, and (iii) the trail of the entity on which the inference is performed. From these three pieces of information, the reasoner is able to generate a profile entity, according to Figure~\ref{fig:dados_inferencia}.
+For a rule to be executed, the application must have previously registered within eProfile: (i) the rule itself, (ii) an entity model, which serves as basis for the entity profile format, and (iii) the trail of the entity on which the inference is performed. From these three pieces of information, the reasoner is able to generate a profile entity, according to Figure~\ref{fig:dados_inferencia}.
 
 \begin{figure}\centering
   \includegraphics[width=0.9\textwidth]{imagens/dados_inferencia_en.png}
@@ -302,8 +314,23 @@ For a rule to be executed, the application must have previously registered withi
   \label{fig:dados_inferencia}
 \end{figure}
 
-The rules are always defined by the application, and a rule is composed of the following set of information: (i) name, (ii) profile field that will be updated, (iii) the rule, written in OWL language \citep{owl-guide}, (iv) update method (the value can be overwritten or updated according to a formula), (v) update frequency, and (vi) expiration of the rule.
+The rules are always defined by the application, and a rule is composed of the
+following set of information: (i) rule name, (ii) profile field that will be
+updated, (iii) the rule, written in OWL language \citep{owl-guide}, (iv) update
+method (replacement or update), (v) update frequency, and (vi) expiration of the rule.
 
+The update method defines how the value will be changed in every execution of
+the rule. There are two options: (i) replacement, where the value will be
+replaced by a new information (for example, in the case of a person who changes
+its address); and (ii) update, where the value is updated according with a
+formula, that can take into consideration the current value (before the update).
+The update option could be used, for example, in a field that stores the
+interest of a person in a particular subject. The interest doesn't change
+radically, but is changed smoothly based in the previously registered interest.
+
+The rules and the entity model can be changed at any moment during the execution
+of eProfile. A change in the rules or in the model will reflect in a change in
+the generated profile when the rules are executed the next time.
 
 %-----------------------------------------------------------
 \section{Implementation Aspects}
