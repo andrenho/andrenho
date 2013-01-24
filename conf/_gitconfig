@@ -1,0 +1,18 @@
+[user]
+	name = André Wagner
+	email = andre_nho@gmail.com
+[credential]
+	helper = cache --timeout=50000
+[http]
+	proxy = http://aw98156:morgana8@proxybrv.deere.com:81/
+[color]
+	status = auto
+	branch = auto
+[push]
+	default = matching
+[branch]
+	autosetuprebase = always
+[core]
+	excludefiles = .gitignore
+[merge]
+	ff = false

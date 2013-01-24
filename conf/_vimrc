@@ -115,3 +115,6 @@ let python_highlight_space_errors = 0
 " mark 80th column
 set textwidth=80
 set colorcolumn=+1
+
+" clipboard
+set clipboard=unnamedplus
