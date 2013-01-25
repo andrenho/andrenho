@@ -336,11 +336,17 @@ the generated profile when the rules are executed the next time.
 \section{Implementation Aspects}
 \label{ch:implementacao}
 
-\todo[inline]{Explicar melhor a utilização de SQL}
+eProfile prototype was developed in Python \citep{python}. Python is a generic,
+open source, object-oriented, high-level language, that supports multiple
+architectures. The rule, model and profile databases are implemented using the
+SQLite3 database \citep{sqlite3}. SQLite3 is an SQL transactional self-contained
+database, available in the public domain. The SQLite3 was chosen due to its good
+performance and the fact that it does not require a separate server for
+deployment. The use of a relational database to store the rule, model and
+profile databases was made due to performance reasons.
 
-eProfile prototype was developed in Python \citep{python}. Python is a generic, open source, object-oriented, high-level language, that supports multiple architectures. The databases are implemented using the SQLite3 database \citep{sqlite3}. SQLite3 is an SQL transactional self-contained database, available in the public domain. The SQLite3 was chosen due to its good performance and the fact that it does not require a separate server for deployment.
-
-Figure~\ref{fig:dados_inferencia} shows the data flow for the entity profile inference process. At the heart of this operation is the Reasoner agent, which uses an external inference engine to implement the rules. The reasoner used is FACT++, a propositional logic reasoner created as a platform for use of algorithms of semantic {\em tableaux} and optimization techniques \citep{tsarkov06}. This reasoner was chosen due to its good performance and to support all functions used by eProfile.
+Figure~\ref{fig:dados_inferencia} shows the data flow for the entity profile
+inference process. At the center of this operation is the Reasoner agent, which uses an external inference engine to implement the rules. The reasoner used is FACT++, a propositional logic reasoner created as a platform for use of algorithms of semantic {\em tableaux} and optimization techniques \citep{tsarkov06}. This reasoner was chosen due to its good performance and to support all functions used by eProfile.
 
 The knowledge representation language used for storage and processing of ontologies is OWL\citep {owl-guide}, chosen because for being the most expressive ontology language defined for the Semantic Web \citep{daconta03}.
 
@@ -467,7 +473,7 @@ Additionally, LOCAL registered the personal preferences of two students about pr
   \label{fig:modelo_cenario1}
 \end{figure}
 
-The scenario is composed of four applications that interact among themselves, according to Figure~\ref{fig:modelo_cenario1}. LOCAL is a ubiquitous learning system used to find learning opportunities by putting students in touch and recommending learning content. UniManager is an application used by the administration of the university to manage student grades and disciplines. Both softwares have profile modules, where the profile information is used for decision making. Since in both cases the profile module is static and depends on collection of explicit information, eProfile is connected to these softwares, leveraging the dynamic creation of profiles and collecting information implicitly. Furthermore, eProfile enables interoperability between these systems by allowing information from both systems to be used to generate single profiles. The scenario also includes a trail manager, that manages the entities trails. In this scenario disciplines, students and professors are represented as entities.
+The scenario is composed of four applications that interact among themselves, according to Figure~\ref{fig:modelo_cenario1}. LOCAL is a ubiquitous learning system used to find learning opportunities by putting students in touch and recommending learning content \citep{barbosa11}. UniManager is an application used by the administration of the university to manage student grades and disciplines. Both softwares have profile modules, where the profile information is used for decision making. Since in both cases the profile module is static and depends on collection of explicit information, eProfile is connected to these softwares, leveraging the dynamic creation of profiles and collecting information implicitly. Furthermore, eProfile enables interoperability between these systems by allowing information from both systems to be used to generate single profiles. The scenario also includes a trail manager, that manages the entities trails. In this scenario disciplines, students and professors are represented as entities.
 
 The initial communication occurs between applications and eProfile (arrows ``a'' and ``b''), where applications define their entity models and rules. This data exchange can occur as often as necessary, because applications can update their rules and their entity models at any time. During the execution of the applications, they record the events in the trail manager (arrows ``c'' and ``d''). This means applications can run disconnected from eProfile, and connect only when a rule needs to be updated or when profile data must be downloaded. eProfile retrieves trails periodically from the trail manager (arrow ``e''). When eProfile is in possession of the trails, rules and entity models, it starts to process this information, inferring new profile data. These profiles are then downloaded by the applications (arrows ``f'' and ``g'').
 
@@ -490,7 +496,13 @@ The gathering of LOCAL's profile system information is explicit. This means that
 
 LOCAL and eProfile integrate according to Figure~\ref{fig:eprofile_local}. Besides LOCAL and eProfile, Figure~\ref{fig:eprofile_local} presents an application called trail manager. A trail manager is an external program that stores the trails, processes them and forwards them to eProfile, as described in Section~\ref{sec:model}. For this scenario, we created a simple trail manager, which just receives, stores and forwards the trails to eProfile upon request.
 
-Integration between eProfile and LOCAL was based on the following changes to LOCAL: (i) we included a connection interface with eProfile, able to generate learners entity models and rules for profile processing, (ii) we included a connection interface with the trail manager, to allow the tracking events and actions undertaken on the Personnel Assistant to be sent to the trail manager, and (iii) we included a communication interface with eProfile, where the LOCAL User Profile module is fed by profiles generated by eProfile.
+Integration between eProfile and LOCAL was based on the following changes to
+LOCAL: (i) we included a connection interface with eProfile, able to generate
+learners entity models and rules for profile processing, (ii) we included a
+connection interface with the trail manager, to allow the location events and
+actions undertaken on the Personnel Assistant to be sent to the trail manager,
+and (iii) we included a communication interface with eProfile, where the LOCAL
+User Profiles module is fed by profiles generated by eProfile.
 
 The first step of integration occurs when the LOCAL communicates with eProfile for the first time. In that moment, LOCAL sends to eProfile the entity model and the rules for the profile generation. This information set is registered in eProfile through the Configurator Agent (arrow ``a''), which organizes this information and registers it in the Model and Rules databases.
 
@@ -500,7 +512,15 @@ The first step of integration occurs when the LOCAL communicates with eProfile f
   \label{fig:eprofile_local}
 \end{figure}
 
-As learners use LOCAL, their location changes are identified by the Location System module, and their actions are done on the Personal Assistant. These modules record events in the trail manager (arrows ``b'' and ``c''), which in turn sends them to the Converter eProfile agent (arrow ``d''). Trails sent are stored in the trail database. These trails are periodically processed according to the models and rules defined initially, and a inference process based on this information generates profiles, which are sent to the LOCAL User Profiles module (arrow ``e'') by the communicator agent. These profiles help LOCAL know its users (learners) in order to distribute content in the most contextualized possible way.
+As learners use LOCAL, their location changes are identified by the Location
+System module, and their actions are done on the Personal Assistant. These
+modules record events in the trail manager (arrows ``b'' and ``c''), which in
+turn sends them to the Converter eProfile agent (arrow ``d''). Trails sent are
+stored in the trail database. These trails are periodically processed according
+to the models and rules defined initially, and a inference process based on this
+information generates profiles, which are sent to the LOCAL User Profiles module
+(arrow ``e'') by the communicator agent. These profiles help LOCAL know its
+users (learners) in order to put them in contact and distribute content in the most contextualized possible way.
 
 
 % - Contato: seria gerado a partir das informações básicas dos alunos.
@@ -531,7 +551,10 @@ UniManager is a administrative software used by the university for registration 
 
 UniManager has two interfaces: administrative and user. The administrative interface is used by the management of the university to enroll subjects, professors and students. It is also used by students to carry out their registration for the next semester. This interface connects to a discipline manager, which manages the enrollment and prerequisites between disciplines.
 
-The user interface is used in the professors' and students' mobile devices, and is connected to the university tracking system. Thus, all events recorded in UniManager from this interface contains the location of the student within the university, that is, the campus' region where the student is. The tracking system integrated to the user interface allows the system to check whether the student or the professor are present in class. The student performs the tests and hands out papers using this interface, and the professor evaluates the student tests and papers.
+The user interface is used in the professors' and students' mobile devices, and
+is connected to the university location system. Thus, all events recorded in
+UniManager from this interface contains the location of the student within the
+university, that is, the campus' region where the student is. The location system integrated to the user interface allows the system to check whether the student or the professor are present in class. The student performs the tests and hands out papers using this interface, and the professor evaluates the student tests and papers.
 
 UniManager also contains a profile database. On this database are stored: (i) registration information about the disciplines, (ii) presences and absences of professors and students, and (iii) tests and papers handed out by the students, and (iv) students evaluations about the professor.
 
