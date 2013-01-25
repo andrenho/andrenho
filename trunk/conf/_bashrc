@@ -131,3 +131,7 @@ alias gcc='colorgcc'
 export https_proxy=$http_proxy
 export LANG=pt_BR.utf8
 export LC_ALL=$LANG
+
+bind '"\e[A": history-search-backward'
+bind '"\e[B": history-search-forward'
+

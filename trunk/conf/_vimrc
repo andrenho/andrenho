@@ -118,6 +118,7 @@ set colorcolumn=+1
 
 " languages
 au BufNewFile,BufRead *.cc set syntax=cpp11
+au BufNewFile,BufRead *.h  set syntax=cpp11
 
 " clipboard
 set clipboard=unnamedplus
