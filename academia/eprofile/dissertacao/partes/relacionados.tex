@@ -173,9 +173,27 @@ A OntobUMf classifica os usuários de acordo com o nível de atividade, o tipo d
 
 \citetexto{kim08} apresentam um {\it framework} para gerenciamento de perfis baseado em {\it Web Services} para fornecer serviços personalizados. Os autores compreendem gerenciamento de perfil como sendo a coleta de um conjunto de informações necessárias para prover aos usuários cinco tipos de serviço personalizado: (i) configuração de perfil, (ii) criação de perfil, (iii) troca de perfil, (iv) processamento de perfil e (v) serviço de perfil.
 
+O {\it framework} é montado de acordo com a Figura~\ref{fig:kim08_b}. A comunicação entre os módulos é feita através de {\it Web Services}, de modo a poder operar de forma distribuída entre várias plataformas e dispositivos.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.6\textwidth]{imagens/kim08_b.png}
+  \caption{Framework de perfis \cite{kim08}}
+  \label{fig:kim08_b}
+\end{figure}
+
 A configuração de perfil configura os perfis em dois tipos: perfis básicos, requeridos para todos os tipos de serviço, e perfis de serviço, configurados diferentemente para cada tipo de serviço. O tipo de perfil define o tipo de informação que irá conter cada perfil.
 
-A criação de perfil é a tecnologia que permite que clientes e provedores de serviço criem os perfis. A criação dos perfis é feita através de um conjunto de componentes, de acordo com a Figura
+A criação de perfil é a tecnologia que permite que clientes e provedores de serviço criem os perfis. A criação dos perfis é feita através de um conjunto de componentes, de acordo com a Figura~\ref{fig:kim08_a}. O Gerenciador de Criação cria o perfil, com base nos Arquivos de Template de Perfil, que é então codificado pelo Gerenciador de Segurança, num processo coordenado pelo Gerenciador de Serviços de Perfil. Toda a comunicação entre os módulos ocorre via {\it Web Services}.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.6\textwidth]{imagens/kim08_a.png}
+  \caption{Mecanismo de Criação de Perfis \cite{kim08}}
+  \label{fig:kim08_a}
+\end{figure}
+
+Troca de perfis é o processo através do qual um perfil é enviado pelo servidor ao cliente. O processamento do perfil classifica os perfis transferidos pelos clientes através de regras e os armazena em uma base de dados. Os serviços de perfil extraem os perfis do repositório e os fornecem aos provedores de serviço quando os mesmos os requisitam.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -198,9 +216,12 @@ A Tabela~\ref{tab:comparacao} exibe um comparativo entre os trabalhos apresentad
                                          & Interope-  & Perfis    & Armaze-  & Sensibilidade & Utiliza & \\
     Trabalho                             & rabilidade & dinâmicos & namento  & a contexto    & trilhas & Domínio \\
     \midrule
-    PeLeP                                & Não        & Sim       & Servidor & Sim           & Parcial & Educação \\
-    Chellouche et al                     & Sintática  & Sim       & Servidor & Sim           & Não     & Serviços multimídia \\
-    UUCM                                 & Sintática  & Sim       & Cliente  & Sim           & Não     & Genérico \\
+    \citetexto{pelep}                    & Não        & Sim       & Servidor & Sim           & Parcial & Educação \\
+    \citetexto{chellouche10}             & Sintática  & Sim       & Servidor & Sim           & Não     & Serviços multimídia \\
+    \citetexto{niederee04}               & Sintática  & Sim       & Cliente  & Sim           & Não     & Genérico \\
+%    \citetexto{tao11}                    & 
+%    \citetexto{razmerita11}
+%    \citetexto{kim08}
     \bottomrule
   \end{tabular*}
   \caption{Comparação entre os trabalhos apresentados}
