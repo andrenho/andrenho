@@ -1,0 +1,41 @@
+# visualização / office
+acroread aspell evince feh graphviz dia fbreader 
+
+# office, grandes
+libreoffice texlive-most
+
+# bash
+bash-completion bc screen tmux mlocate scrot mc
+
+# programação
+clang colorgcc gvim gdb python3 sdl sdl_image sdl_ttf git subversion
+
+# internet
+chromium qbittorrent elinks
+
+# gráficos
+grafx2 mtpaint gimp eog feh inkscape
+
+# Xorg
+i3-wm i3status tk ttf-dejavu ubuntu-font-family-console xorg-xinit xterm
+webfonts rxvt-unicode xorg-server xorg-server-utils mesa xf86-video-intel
+xf86-input-synaptic xorg-xclock st
+
+# plugins
+flashplugin icedtea-web-java7
+
+# mídia
+mplayer alsa-utils sound-juicer vlc 
+
+# jogos
+nethack scummvm openttd zsnes stella gens-gs fceux sdlmame dosbox 
+
+# energia
+acpid cpupower laptop-mode hdparm
+
+# aplicativos
+gdmap thunar xchm xorg-xcalc gcalctool
+
+# outros (apoio)
+jre7-openjdk netcfg sudo unzip yaourt pacman-color unrar dialog wifi-menu
+wireless_tools iw, wpa_supplicant
