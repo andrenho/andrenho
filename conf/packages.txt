@@ -19,7 +19,7 @@ grafx2 mtpaint gimp eog feh inkscape
 # Xorg
 i3-wm i3status tk ttf-dejavu ubuntu-font-family-console xorg-xinit xterm
 webfonts rxvt-unicode xorg-server xorg-server-utils mesa xf86-video-intel
-xf86-input-synaptic xorg-xclock st
+xf86-input-synaptic xorg-xclock st dmenu
 
 # plugins
 flashplugin icedtea-web-java7
