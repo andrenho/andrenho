@@ -125,50 +125,6 @@ Para utilizar o passaporte de contexto em um ambiente de personalização multi-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{\citetexto{tao11}}
-
-No artigo apresentado por \citetexto{tao11}, os autores avaliam que, embora ontologias venham sendo cada vez mais uilizadas como modelo de descrição e formalização de conhecimento, a maioria dos modelos utiliza somente as informações de uma base de conhecimento global ou informações locais de usuário para montar um perfil de usuário. Desta forma, é proposto um modelo de ontologia sobre perfis de usuários que compõe-se tanto a partir de uma base de conhecimento global quanto de repositórios locais de usuários.
-
-De acordo com os autores, ontologias personalizadas são um modelo de conceitualização que formalmente descrevem e especificam o conhecimento de fundo do usuário. Por exemplo, quando o usuário busca pelo tópico "New York" em um agente de buscas, a informação demandada é diferente para usuários de negócios e turistas. A expectativa pode ser diferente até mesmo para o mesmo usuário fazendo a mesma busca em contextos diferentes (um usuário de negócios pode estar fazendo a busca para uma viagem de negócios ou a lazer, por exemplo). Desta forma, o modelo conceitual do usuário pode mudar de acordo com a sua necessidade.
-
-A primeira base de informação é uma representação de conhecimento global. A base utilizada pelo modelo é a {\it Library of Congress Subject Headings} (LCSH). A LCSH foi desenvolvida para organizar e consultar informações de um grande volume de coleções da Biblioteca do Congresso Americano. O sistema da LCSH possui três tipos de referência: ``termo amplo'', ``usado para'' e ``termo relacionado''. Estas referências e as ligações entre elas são usadas para construir o conhecimento de mundo necessário para a composição da ontologia.
-
-A base de interesses de usuários é extraída através de uma ferramenta denominada {\it Ontology Learning Environment} (OLE). A ferramenta constrói a ontologia através da alimentação manual de informações pelo usuário. A ontologia classifica os assuntos alimentados pelo usuário em três tipos: (i) ``assuntos positivos'', (ii) ``assuntos negativos'' e ``assuntos neutros.'' Assuntos positivos são conceitos relevantes para a informação necessária, e assuntos negativos são conceitos que resolvem interpretações ambíguas ou paradoxais. Assuntos neutros são aqueles que não tem relevância para a informação buscada.
-
-\begin{figure}
-  \centering
-  \includegraphics[width=0.6\textwidth]{imagens/tao11.png}
-  \caption[Arquitetura do modelo de \citetexto{tao11}]{Arquitetura do modelo de \citetexto{tao11}}
-  \label{fig:tao11}
-\end{figure}
-
-A Figura~\ref{fig:tao11} apresenta a arquitetura do modelo. O passo inicial do processo é a construção da ontologia, de acordo com um determinado tópico, utilizando como base as duas fontes de conhecimento (base de conhecimento global e as informações locais de usuário). A base de conhecimento local e as informações providas pelo OLE são utilizadas para gerar o conjunto de informações sobre o assunto que, unido ao {\it background} do usuário, são processados atraves de um processo chamado ``mineração de ontologia'', que gera o conhecimento de {\it background} do usuário a respeito de um determinado tópico.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{\citetexto{razmerita11}}
-
-\citetexto{razmerita11} apresenta o modelo OntobUMf ({\it Ontology-based User Modeling framework}), um {\it framework} para modelagem de usuários baseado em ontologia. O artigo defende que o gerenciamento de conhecimento (KM, ou {\it Knowledge Management}) são tarefas importantes para indivíduos e organizações, e que sistemas de gerenciamento de conhecimento (KMS) atuais focam no compartilhamento e criação de conteúdo que, por sua vez, leva à inovação tanto a nível individual quanto corporativo. Mais recentemente, o KM pessoal tem se tornado relevante, e foca na busca do indivíduo em encontrar, aprender, compartilhar conteúdo e socializar.
-
-O modelo OntobUMf busca unir o KM tradicional com o KM pessoal, através da personalização de um KMS, de modo a permitir a customização de {\it interfaces} e adaptação da funcionalidade, estrutura, conteúdo e modularidade, aumentando assim a relevância para usuários individuais.
-
-\begin{figure}
-  \centering
-  \includegraphics[width=0.6\textwidth]{imagens/razmerita11.png}
-  \caption{Arquitetura do modelo OntobUMf}
-  \label{fig:razmerita11}
-\end{figure}
-
-A Figura~\ref{fig:razmerita11} apresenta a arquitetura do modelo OntobUMf. OntobUMf é uma aplicação de três camadas: (i) {\it front end}, (ii) serviços e (iii) dados. A camada de {\it front end} é um conjunto de {\it interfaces} de usuário que permitem que o usuário acesse e atualize seu modelo de usuário ou perfil de usuário. 
-
-A camada de serviços contém vários serviços inteligentes, tais como algoritmos de modelagem de usuários, mecanismos de personalização, entre outros. Os serviços possuem duas tarefas principais no sistema. A primeira é atualizar e manter o modelo de usuário tendo por base os dados de uso disponíveis do sistema através de um extrator de categoria, que é composto por um conjunto de mecanismos para modelagem das características dos usuários que estão interagindo com o sistema. A segunda tarefa é fornecer um conjunto de serviços personalizados baseados nas características dos usuários.
-
-A camada de dados inclui dados de usuários relacionados a dados específicos de domínio. Ontologias capturam o conceito e as relações entre os conceitos descrevendo diferentes recursos disponíveis no sistema. OntobUMf possui três ontologias. A ontologia de usuários estrutura as características dos usuários, classificando-as em conceitos, subconceitos, propriedades e relacionamentos. A ontologia de domínios descreve o domínio de conhecimentos e os relacionamentos entre os diferentes conceitos. A ontologia de log define a semântica de interação do usuário com o sistema, descrevendo as ações do usuário e os eventos associados disparados pelo sistema.
-
-A OntobUMf classifica os usuários de acordo com o nível de atividade, o tipo de atividade e nível de compartilhamento de conhecimento. Baseado no tipo de atividade, os usuários são classificados como ``leitores'', ``escritores'' ou ``espiões''. Baseado no nível de atividade, os eles são classificados como ``muito ativo'', ``ativo'', ``visitante'' e ``inativo''. Baseado no nível de compartilhamento de conteúdo, eles são classificados como ``inconsciente'', ``consciente'', ``interessado'', ``tentativo'' ou ``adotante''.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \section{\citetexto{kim08}}
 
 \citetexto{kim08} apresentam um {\it framework} para gerenciamento de perfis baseado em {\it Web Services} para fornecer serviços personalizados. Os autores compreendem gerenciamento de perfil como sendo a coleta de um conjunto de informações necessárias para prover aos usuários cinco tipos de serviço personalizado: (i) configuração de perfil, (ii) criação de perfil, (iii) troca de perfil, (iv) processamento de perfil e (v) serviço de perfil.
@@ -194,6 +150,50 @@ A criação de perfil é a tecnologia que permite que clientes e provedores de s
 \end{figure}
 
 Troca de perfis é o processo através do qual um perfil é enviado pelo servidor ao cliente. O processamento do perfil classifica os perfis transferidos pelos clientes através de regras e os armazena em uma base de dados. Os serviços de perfil extraem os perfis do repositório e os fornecem aos provedores de serviço quando os mesmos os requisitam.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{\citetexto{tao11}}
+
+No artigo apresentado por \citetexto{tao11}, os autores avaliam que, embora ontologias venham sendo cada vez mais uilizadas como modelo de descrição e formalização de conhecimento, a maioria dos modelos utiliza somente as informações de uma base de conhecimento global ou informações locais de usuário para montar um perfil de usuário. Desta forma, é proposto um modelo de ontologia sobre perfis de usuários que compõe-se tanto a partir de uma base de conhecimento global quanto de repositórios locais de usuários.
+
+De acordo com os autores, ontologias personalizadas são um modelo de conceitualização que formalmente descrevem e especificam o conhecimento de fundo do usuário. Por exemplo, quando o usuário busca pelo tópico "New York" em um agente de buscas, a informação demandada é diferente para usuários de negócios e turistas. A expectativa pode ser diferente até mesmo para o mesmo usuário fazendo a mesma busca em contextos diferentes (um usuário de negócios pode estar fazendo a busca para uma viagem de negócios ou a lazer, por exemplo). Desta forma, o modelo conceitual do usuário pode mudar de acordo com a sua necessidade.
+
+A primeira base de informação é uma representação de conhecimento global. A base utilizada pelo modelo é a {\it Library of Congress Subject Headings} (LCSH). A LCSH foi desenvolvida para organizar e consultar informações de um grande volume de coleções da Biblioteca do Congresso Americano. O sistema da LCSH possui três tipos de referência: ``termo amplo'', ``usado para'' e ``termo relacionado''. Estas referências e as ligações entre elas são usadas para construir o conhecimento de mundo necessário para a composição da ontologia.
+
+A base de interesses de usuários é extraída através de uma ferramenta denominada {\it Ontology Learning Environment} (OLE). A ferramenta constrói a ontologia através da alimentação manual de informações pelo usuário. A ontologia classifica os assuntos alimentados pelo usuário em três tipos: (i) ``assuntos positivos'', (ii) ``assuntos negativos'' e ``assuntos neutros.'' Assuntos positivos são conceitos relevantes para a informação necessária, e assuntos negativos são conceitos que resolvem interpretações ambíguas ou paradoxais. Assuntos neutros são aqueles que não tem relevância para a informação buscada.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.6\textwidth]{imagens/tao11.png}
+  \caption[Arquitetura do modelo de \citetexto{tao11}]{Arquitetura do modelo de \citetexto{tao11}}
+  \label{fig:tao11}
+\end{figure}
+
+A Figura~\ref{fig:tao11} apresenta a arquitetura do modelo. O passo inicial do processo é a construção da ontologia, de acordo com um determinado tópico, utilizando como base as duas fontes de conhecimento (base de conhecimento global e as informações locais de usuário). A base de conhecimento local e as informações providas pelo OLE são utilizadas para gerar o conjunto de informações sobre o assunto que, unido ao {\it background} do usuário, são processados atraves de um processo chamado ``mineração de ontologia'', que gera o conhecimento de {\it background} do usuário a respeito de um determinado tópico.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{\citetexto{razmerita11}}
+
+\citetexto{razmerita11} apresenta o modelo OntobUMf ({\it Ontology-based User Modeling framework}), um {\it framework} para modelagem de usuários baseado em ontologia. O artigo defende que o gerenciamento de conhecimento (KM, ou {\it Knowledge Management}) são tarefas importantes para indivíduos e organizações, e que sistemas de gerenciamento de conhecimento (KMS) atuais focam no compartilhamento e criação de conteúdo que, por sua vez, leva à inovação tanto a nível individual quanto corporativo. Mais recentemente, o KM pessoal tem se tornado relevante, e foca na busca do indivíduo em encontrar, aprender, compartilhar conteúdo e socializar.
+
+O modelo OntobUMf busca unir o KM tradicional com o KM pessoal através da personalização de um KMS, de modo a permitir a customização de {\it interfaces} e adaptação da funcionalidade, estrutura, conteúdo e modularidade, aumentando assim a relevância para usuários individuais.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.6\textwidth]{imagens/razmerita11.png}
+  \caption{Arquitetura do modelo OntobUMf}
+  \label{fig:razmerita11}
+\end{figure}
+
+A Figura~\ref{fig:razmerita11} apresenta a arquitetura do modelo OntobUMf. OntobUMf é uma aplicação de três camadas: (i) {\it front end}, (ii) serviços e (iii) dados. A camada de {\it front end} é um conjunto de {\it interfaces} de usuário que permitem que o usuário acesse e atualize seu modelo de usuário ou perfil de usuário. 
+
+A camada de serviços contém vários serviços inteligentes, tais como algoritmos de modelagem de usuários, mecanismos de personalização, entre outros. Os serviços possuem duas tarefas principais no sistema. A primeira é atualizar e manter o modelo de usuário tendo por base os dados de uso disponíveis do sistema através de um extrator de categoria, que é composto por um conjunto de mecanismos para modelagem das características dos usuários que estão interagindo com o sistema. A segunda tarefa é fornecer um conjunto de serviços personalizados baseados nas características dos usuários.
+
+A camada de dados inclui dados de usuários relacionados a dados específicos de domínio. Ontologias capturam o conceito e as relações entre os conceitos descrevendo diferentes recursos disponíveis no sistema. OntobUMf possui três ontologias. A ontologia de usuários estrutura as características dos usuários, classificando-as em conceitos, subconceitos, propriedades e relacionamentos. A ontologia de domínios descreve o domínio de conhecimentos e os relacionamentos entre os diferentes conceitos. A ontologia de log define a semântica de interação do usuário com o sistema, descrevendo as ações do usuário e os eventos associados disparados pelo sistema.
+
+A OntobUMf classifica os usuários de acordo com o nível de atividade, o tipo de atividade e nível de compartilhamento de conhecimento. Baseado no tipo de atividade, os usuários são classificados como ``leitores'', ``escritores'' ou ``espiões''. Baseado no nível de atividade, os eles são classificados como ``muito ativo'', ``ativo'', ``visitante'' e ``inativo''. Baseado no nível de compartilhamento de conteúdo, eles são classificados como ``inconsciente'', ``consciente'', ``interessado'', ``tentativo'' ou ``adotante''.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
