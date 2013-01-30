@@ -750,35 +750,51 @@ Figure~\ref{fig:result1} shows the results of the simulation. On this simulation
 \section{Related Works}
 \label{ch:relacionados}
 
-\todo[inline]{Reescrever essa seção. Está muito ruim.}
+Atualmente, as áreas de computação ubíqua, sensibilidade a contexto, trilhas e personalização são bastante promissoras, sendo que um grande número de trabalhos são publicados anualmente a este respeito. No entanto, não foi encontrado nenhum trabalho que faça uso de inferência em trilhas com o objetivo de personalizar a experiência do usuário dentro de um domínio genérico. Assim, o modelo apresentado neste trabalho busca suprir esta necessidade.
 
-We haven't find any studies where trail inference is used in order to personalize the user experience across a generic domain. Thus, the model presented in this paper seeks to fill this gap.
-
-\begin{table*}\footnotesize
-  \begin{tabular*}{1.1\textwidth}{@{}lllllll@{}}
-    \toprule
-                                         & Interope-  & Dynamic   & Storage & Context-      & Uses     & \\
-    Model                                & rability   & profiles  &         & sensitiveness & trails   & Domain \\
-    \midrule
-    PeLeP                                & No         & Yes       & Server  & Yes           & Partial & Education \\
-    Chellouche et al                     & Syntactic   & Yes       & Server  & Yes           & No      & Multimedia services \\
-    UUCM                                 & Syntactic   & Yes       & Client  & Yes           & No      & Generic \\
-    eProfile                             & Semantic   & Yes       & Server  & Yes           & Yes     & Generic \\
-    \bottomrule
-  \end{tabular*}
-  \caption{Comparison between related models}
-  \label{tab:comparacao2}
-\end{table*}
-
-% No  encontrou-se nenhum modelo que ofereça suporte a estes pré-requisitos de forma genérica (isto é, para qualquer tipo de contexto) e, assim, este modelo busca suprir esta necessidade.
-
-PeLeP \citep{pelep} supports automatic improvement of a learner's profile in education ubiquitous environments, using the history of apprentices to update the profiles through inference. eProfile uses a similar strategy. However, since PeLeP's inference is made on a single specific domain (education), in the eProfile model the inference rules are defined by the application and not the model, thus allowing eProfile to be applied to a generic domain. Moreover, eProfile's rules are dynamic (an application can define or remove rules dynamically), rather than being pre-defined in the model. This allows the evolution and refining of rules of inference.
+\citetexto{kim08} apresentam um {\it framework} para gerenciamento de perfis baseado em {\it Web Services}. O modelo provê um conjunto de serviços para coletar informações necessárias para a criação de um perfil: configuração, criação, troca, processamento e serviço. O modelo também aplica metadadaos e técnicas de configuração dinâmica para o gerencimaneto eficiente dos perfis.
 
 The model presented by \citet{chellouche10}, like eProfile presents a unified profile which can be used for various applications. However, differently from eProfile, the model assumes syntactic interoperability, which means that all applications need to record the events using the same format, which can cause the application to not be able register the event with the richness of detail required . Moreover, as with PeLeP, the model presented by \citet{chellouche10} is limited to a specific domain (multimedia services).
 
 The UUCM model \citep{niederee04}, unlike other models, works in a generic domain. It does this by creating a basic ontology that can be extended by applications. Unlike other proposals, UUCM stores the profiles on the client rather than the server. This brings advantages and disadvantages. Among the advantages there can be mentioned the privacy and disconnected access. However, this approach limits the interoperability between systems, since each client gets a version of the client's profile, restricting the use of a unified profile.
 
-Table~\ref{tab:comparacao2} shows a comparison between eProfile and the related works presented. eProfile was based on some elements of the works cited, such as automatic profile improvement, use of unified profiles and operation in generic domains. Comparing the related models, eProfile main contribution is the use of trails for extracting profiles, which facilitates the inference with context-sensitivity. Moreover, eProfile allows each application to register its trails in the format they find most helpful for them, allowing the richness of details registered by an application to be translated into a more accurate profile of the entity.
+PeLeP \citep{pelep} supports automatic improvement of a learner's profile in education ubiquitous environments, using the history of apprentices to update the profiles through inference. eProfile uses a similar strategy. However, since PeLeP's inference is made on a single specific domain (education), in the eProfile model the inference rules are defined by the application and not the model, thus allowing eProfile to be applied to a generic domain. Moreover, eProfile's rules are dynamic (an application can define or remove rules dynamically), rather than being pre-defined in the model. This allows the evolution and refining of rules of inference.
+
+O modelo apresentado por \citetexto{razmerita11} tem como objetivo vincular o KM ({\it Knowlegde Managemet}, ou Gerenciamento de Conhecimento) tradicional com o KM pessoal. Isto é feito através do modelo OntobUMf, capaz de gerenciar informações a respeito de usuários. A arquitetura possui três camadas: {\it front end}, serviços e dados. O modelo trabalha em um domínio genérico e possui três ontologias (usuários, domínios e {\it log}), a partir são buscadas informações que classificam o usuário de várias formas, de acordo com o nível de atividade, tipo de atividade e nível de compartilhamento de conhecimento.
+
+No artigo apresentado por \citetexto{tao11}, é proposto um modelo de ontologia para representação de conhecimento para coleta de informações personalizdas. O modelo constrói ontologias de usuário personalizadas extraindo informações globais do sistema LCSH e descobrindo informação a partir de repósitórios locais de usuário. A alimentação do sistema de informações locais é alimentado manualmente pelo usuário. Quando uma informação é necessária, o sistema faz o processamento das duas ontologias para gerar o dado solicitado.
+
+A Tabela~\ref{tab:comparacao2} exibe um comparativo entre o eProfile e os trabalhos apresentados no Capítulo~\ref{ch:relacionados}. Os seguintes fatores são levados em consideração:
+
+\begin{itemize}
+  \item Interoperabilidade: considera se o modelo apresenta interoperabilidade -- caso positivo, se a mesma é sintática ou semântica -- de acordo com a definição apresentada na Seção~\ref{sec:personalizacao};
+  \item Perfis dinâmicos: identifica se o modelo de perfil permite que os perfis sejam atualizados de acordo com eventos externos, sem a interferência do usuário;
+  \item Armazenamento: define onde ficam armazenados os perfis do usuário;
+  \item Sensíbilidade a contexto: considera se o contexto do usuário é levado em consideração na formação do perfil;
+  \item Utiliza trilhas: define se as trilhas do usuário são levadas em consideração na construção do perfil. Na tabela, a definição de ``Parcial'' significa que o modelo usa algum tipo de histórico para a montagem do perfil, mas não utiliza a definição formal de trilhas;
+  \item Domínio: identifica se o perfil é voltado para um domínio específico, ou se o mesmo permite que vários domínios possam ser utilizados.
+\end{itemize}
+
+\begin{table*}\centering\footnotesize
+  \begin{tabular*}{1\textwidth}{@{}lllllll@{}}
+    \toprule
+                                         & Interope-  & Perfis    & Armaze-  & Sensibilidade & Utiliza &                     \\
+    Trabalho                             & rabilidade & dinâmicos & namento  & a contexto    & trilhas & Domínio             \\
+    \midrule
+    \citetexto{kim08}                    & Sintática  & Sim       & Servidor & Não           & Não     & Genérico            \\
+    \citetexto{chellouche10}             & Sintática  & Sim       & Servidor & Sim           & Não     & Serviços multimídia \\
+    \citetexto{niederee04}               & Sintática  & Sim       & Cliente  & Sim           & Não     & Genérico            \\
+    \citetexto{pelep}                    & Não        & Sim       & Servidor & Sim           & Parcial & Educação            \\
+    \citetexto{razmerita11}              & Sintática  & Sim       & Servidor & Sim           & Parcial & Genérico            \\
+    \citetexto{tao11}                    & Semântica  & Sim       & Servidor & Sim           & Parcial & Genérico            \\
+    eProfile                             & Semântica  & Sim       & Servidor & Sim           & Sim     & Genérico            \\
+    \bottomrule
+  \end{tabular*}
+  \caption{Comparação entre os trabalhos apresentados}
+  \label{tab:comparacao2}
+\end{table*}
+
+eProfile was based on some elements of the works cited, such as automatic profile improvement, use of unified profiles and operation in generic domains. Comparing the related models, eProfile main contribution is the use of trails for extracting profiles, which facilitates the inference with context-sensitivity. Moreover, eProfile allows each application to register its trails in the format they find most helpful for them, allowing the richness of details registered by an application to be translated into a more accurate profile of the entity.
 
 %-----------------------------------------------------------
 \section{Conclusion}
