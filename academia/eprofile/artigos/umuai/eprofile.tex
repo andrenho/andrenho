@@ -709,7 +709,7 @@ After the execution of the rule shown in Figures~\ref{fig:regra3} and~\ref{fig:r
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Prototype and Simulation}
+\subsection{Prototype and Yesulation}
 \label{sec:simulacao_cen1}
 
 To simulate the model, we developed two programs:
@@ -741,7 +741,7 @@ Figure~\ref{fig:result1} shows the results of the simulation. On this simulation
 
 \begin{figure}[!t]
   \centering\includegraphics[width=0.7\textwidth,angle=-90]{imagens/auto.eps}
-  \caption{Simulation results: automatic choices by semester}
+  \caption{Yesulation results: automatic choices by semester}
   \label{fig:result1}
 \end{figure}
 
@@ -750,47 +750,47 @@ Figure~\ref{fig:result1} shows the results of the simulation. On this simulation
 \section{Related Works}
 \label{ch:relacionados}
 
-Atualmente, as áreas de computação ubíqua, sensibilidade a contexto, trilhas e personalização são bastante promissoras, sendo que um grande número de trabalhos são publicados anualmente a este respeito. No entanto, não foi encontrado nenhum trabalho que faça uso de inferência em trilhas com o objetivo de personalizar a experiência do usuário dentro de um domínio genérico. Assim, o modelo apresentado neste trabalho busca suprir esta necessidade.
+Currently, the areas of ubiquitous computing, context-awareness, trails and personalization are very promising, with a large number of papers being published annually on these subjects. However, we were unable to find a model that makes use of inference using trails in order to personalize the user experience within a generic domain. Thus, the model presented in this paper aims to fill this need.
 
-\citetexto{kim08} apresentam um {\it framework} para gerenciamento de perfis baseado em {\it Web Services}. O modelo provê um conjunto de serviços para coletar informações necessárias para a criação de um perfil: configuração, criação, troca, processamento e serviço. O modelo também aplica metadadaos e técnicas de configuração dinâmica para o gerencimaneto eficiente dos perfis.
+\citet{kim08} present a framework for profile management based on Web Services. The model provides a set of services to gather information necessary to create a profile: configuration, creation, exchange, processing and service. The model also applies dynamic configuration techniques for efficient profile management.
 
-The model presented by \citet{chellouche10}, like eProfile presents a unified profile which can be used for various applications. However, differently from eProfile, the model assumes syntactic interoperability, which means that all applications need to record the events using the same format, which can cause the application to not be able register the event with the richness of detail required . Moreover, as with PeLeP, the model presented by \citet{chellouche10} is limited to a specific domain (multimedia services).
+The model presented by \citet{chellouche10}, like eProfile, presents a unified profile which can be used for various applications. However, differently from eProfile, the model assumes syntactic interoperability, which means that all applications need to record the events using the same format, which can cause the application to not be able register the event with the richness of detail required . Moreover, the model presented by \citet{chellouche10} is limited to a specific domain (multimedia services).
 
 The UUCM model \citep{niederee04}, unlike other models, works in a generic domain. It does this by creating a basic ontology that can be extended by applications. Unlike other proposals, UUCM stores the profiles on the client rather than the server. This brings advantages and disadvantages. Among the advantages there can be mentioned the privacy and disconnected access. However, this approach limits the interoperability between systems, since each client gets a version of the client's profile, restricting the use of a unified profile.
 
 PeLeP \citep{pelep} supports automatic improvement of a learner's profile in education ubiquitous environments, using the history of apprentices to update the profiles through inference. eProfile uses a similar strategy. However, since PeLeP's inference is made on a single specific domain (education), in the eProfile model the inference rules are defined by the application and not the model, thus allowing eProfile to be applied to a generic domain. Moreover, eProfile's rules are dynamic (an application can define or remove rules dynamically), rather than being pre-defined in the model. This allows the evolution and refining of rules of inference.
 
-O modelo apresentado por \citetexto{razmerita11} tem como objetivo vincular o KM ({\it Knowlegde Managemet}, ou Gerenciamento de Conhecimento) tradicional com o KM pessoal. Isto é feito através do modelo OntobUMf, capaz de gerenciar informações a respeito de usuários. A arquitetura possui três camadas: {\it front end}, serviços e dados. O modelo trabalha em um domínio genérico e possui três ontologias (usuários, domínios e {\it log}), a partir são buscadas informações que classificam o usuário de várias formas, de acordo com o nível de atividade, tipo de atividade e nível de compartilhamento de conhecimento.
+The model presented by \citet{razmerita11} aims to link tradition KM (Knowledge Management) with person KM. This is done through OntobUMf model, that manages user information. The architecture has three layers: front end, services and data. The model works in a generic domain and has three ontologies (user, domain and log), from which are fetched information that categorize the user in various ways, according to the level of activity, type of activity and level of knowledge sharing.
 
-No artigo apresentado por \citetexto{tao11}, é proposto um modelo de ontologia para representação de conhecimento para coleta de informações personalizdas. O modelo constrói ontologias de usuário personalizadas extraindo informações globais do sistema LCSH e descobrindo informação a partir de repósitórios locais de usuário. A alimentação do sistema de informações locais é alimentado manualmente pelo usuário. Quando uma informação é necessária, o sistema faz o processamento das duas ontologias para gerar o dado solicitado.
+In the paper presented by \citet{tao11}, it is proposed a ontology model for knowledge representation to gather personalized information. The model builds personalized user ontologies by extracting global information from LCSH system and by discovering information from local user repositories. The local information system is fed manually by the user. When information is needed, the processes both ontologies to generate the requested data.
 
-A Tabela~\ref{tab:comparacao2} exibe um comparativo entre o eProfile e os trabalhos apresentados no Capítulo~\ref{ch:relacionados}. Os seguintes fatores são levados em consideração:
+Table~\ref{tab:comparacao2} shows a comparison between eProfile and related works. The following factors are taken into consideration:
 
 \begin{itemize}
-  \item Interoperabilidade: considera se o modelo apresenta interoperabilidade -- caso positivo, se a mesma é sintática ou semântica -- de acordo com a definição apresentada na Seção~\ref{sec:personalizacao};
-  \item Perfis dinâmicos: identifica se o modelo de perfil permite que os perfis sejam atualizados de acordo com eventos externos, sem a interferência do usuário;
-  \item Armazenamento: define onde ficam armazenados os perfis do usuário;
-  \item Sensíbilidade a contexto: considera se o contexto do usuário é levado em consideração na formação do perfil;
-  \item Utiliza trilhas: define se as trilhas do usuário são levadas em consideração na construção do perfil. Na tabela, a definição de ``Parcial'' significa que o modelo usa algum tipo de histórico para a montagem do perfil, mas não utiliza a definição formal de trilhas;
-  \item Domínio: identifica se o perfil é voltado para um domínio específico, ou se o mesmo permite que vários domínios possam ser utilizados.
+  \item Interoperability: considers if the model presents interoperability -- if yes, whether it is sintatic or semantic -- according to the definition in Section~\ref{ch:introducao};
+  \item Dynamic profiles: identifies if the model allows the profiles to be updated according to external events, without user interference;
+  \item Storage: defines where the user profiles are stored;
+  \item Context-awareness: considers if the user context is taken into consideration when forming the profile;
+  \item Uses trails: defines if the user trails are used when building the profile. In the table, ``Partial'' means the model uses some type of historical information to form the profile, but it doesn't use the formal definition of trails;
+  \item Domain: identifies if the profile is oriented to a specific domain, or if it allows different domains to be used.
 \end{itemize}
 
 \begin{table*}\centering\footnotesize
   \begin{tabular*}{1\textwidth}{@{}lllllll@{}}
     \toprule
-                                         & Interope-  & Perfis    & Armaze-  & Sensibilidade & Utiliza &                     \\
-    Trabalho                             & rabilidade & dinâmicos & namento  & a contexto    & trilhas & Domínio             \\
+                                         & Interope-  & Dynamic   & Storage  & Context-      & Uses    &                     \\
+    Paper                                & rability   & profiles  &          & awareness     & trails  & Domain              \\
     \midrule
-    \citetexto{kim08}                    & Sintática  & Sim       & Servidor & Não           & Não     & Genérico            \\
-    \citetexto{chellouche10}             & Sintática  & Sim       & Servidor & Sim           & Não     & Serviços multimídia \\
-    \citetexto{niederee04}               & Sintática  & Sim       & Cliente  & Sim           & Não     & Genérico            \\
-    \citetexto{pelep}                    & Não        & Sim       & Servidor & Sim           & Parcial & Educação            \\
-    \citetexto{razmerita11}              & Sintática  & Sim       & Servidor & Sim           & Parcial & Genérico            \\
-    \citetexto{tao11}                    & Semântica  & Sim       & Servidor & Sim           & Parcial & Genérico            \\
-    eProfile                             & Semântica  & Sim       & Servidor & Sim           & Sim     & Genérico            \\
+    \citetexto{kim08}                    & Sintatic   & Yes       & Server   & No            & No      & Generic             \\
+    \citetexto{chellouche10}             & Sintatic   & Yes       & Server   & Yes           & No      & Multimedia Services \\
+    \citetexto{niederee04}               & Sintatic   & Yes       & Client   & Yes           & No      & Generic             \\
+    \citetexto{pelep}                    & No         & Yes       & Server   & Yes           & Partial & Education           \\
+    \citetexto{razmerita11}              & Sintatic   & Yes       & Server   & Yes           & Partial & Generic             \\
+    \citetexto{tao11}                    & Semantic   & Yes       & Server   & Yes           & Partial & Generic             \\
+    eProfile                             & Semantic   & Yes       & Server   & Yes           & Yes     & Generic             \\
     \bottomrule
   \end{tabular*}
-  \caption{Comparação entre os trabalhos apresentados}
+  \caption{Comparasion between presented papers}
   \label{tab:comparacao2}
 \end{table*}
 
