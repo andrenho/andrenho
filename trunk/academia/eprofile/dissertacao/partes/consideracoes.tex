@@ -15,6 +15,20 @@ Atualmente, as áreas de computação ubíqua, sensibilidade a contexto, trilhas
 
 % TODO - adicionar contribuições
 
+% Não encontrou-se nenhum modelo que ofereça suporte a estes pré-requisitos de forma genérica (isto é, para qualquer tipo de contexto) e, assim, este modelo busca suprir esta necessidade.
+
+\citetexto{kim08} apresentam um {\it framework} para gerenciamento de perfis baseado em {\it Web Services}. O modelo provê um conjunto de serviços para coletar informações necessárias para a criação de um perfil: configuração, criação, troca, processamento e serviço. O modelo também aplica metadadaos e técnicas de configuração dinâmica para o gerencimaneto eficiente dos perfis.
+
+O modelo apresentado por \citetexto{chellouche10}, assim como o eProfile, apresenta um perfil unificado que pode ser utilizado por diversas aplicações. No entanto, ao contrário do eProfile, o modelo assume a interoperabilidade sintática, o que significa que as todas aplicações precisam registrar os eventos utilizando o mesmo formato, o que pode fazer com que a aplicação não consiga registrar o evento com a riqueza de detalhes necessária. Além disso, assim como o PeLeP, o modelo de \citetexto{chellouche10} está limitado a um domínio específico, que são os serviços multimídia.
+
+O modelo UUCM \cite{niederee04}, trabalha em um domínio genérico. Ele faz isso através da criação de uma ontologia básica que pode ser estendida pelas aplicações. Ao contrário das outras propostas (e do eProfile), o UUCM armazena os perfis no cliente, ao invés do servidor. Isto traz vantagens e desvantagens. Entre as vantagens pode-se citar a privacidade e acesso desconectado. No entanto, esta abordagem limita a interoperabilidade entre sistemas, uma vez que cada cliente fica com uma versão do próprio perfil, restringindo a utilização de um perfil unificado.
+
+O PeLeP \cite{pelep} suporta aperfeiçoamento automático do perfil de um aprendiz em ambientes de educação ubíqua, utilizando o histórico dos aprendizes para a atualização dos perfis através de inferências. O eProfile utiliza uma estratégia semelhante. No entanto, as regras de inferência são definidas pela aplicação, e não pelo modelo. Esta alteração é necessária para que a inferência passe de um domínio específico (educação) para um domínio genérico. Além disso, ao contrário do eProfile, as regras são dinâmicas (uma aplicação pode definir ou remover regras dinamicamente), ao invés de estarem pré-definidas no modelo. Isto permite a evolução e refino das regras de inferência.
+
+O modelo apresentado por \citetexto{razmerita11} tem como objetivo vincular o KM ({\it Knowlegde Managemet}, ou Gerenciamento de Conhecimento) tradicional com o KM pessoal. Isto é feito através do modelo OntobUMf, capaz de gerenciar informações a respeito de usuários. A arquitetura possui três camadas: {\it front end}, serviços e dados. O modelo trabalha em um domínio genérico e possui três ontologias (usuários, domínios e {\it log}), a partir são buscadas informações que classificam o usuário de várias formas, de acordo com o nível de atividade, tipo de atividade e nível de compartilhamento de conhecimento.
+
+No artigo apresentado por \citetexto{tao11}, é proposto um modelo de ontologia para representação de conhecimento para coleta de informações personalizdas. O modelo constrói ontologias de usuário personalizadas extraindo informações globais do sistema LCSH e descobrindo informação a partir de repósitórios locais de usuário. A alimentação do sistema de informações locais é alimentado manualmente pelo usuário. Quando uma informação é necessária, o sistema faz o processamento das duas ontologias para gerar o dado solicitado.
+
 A Tabela~\ref{tab:comparacao2} exibe um comparativo entre o eProfile e os trabalhos apresentados no Capítulo~\ref{ch:relacionados}. Os seguintes fatores são levados em consideração:
 
 \begin{itemize}
@@ -44,20 +58,6 @@ A Tabela~\ref{tab:comparacao2} exibe um comparativo entre o eProfile e os trabal
   \caption{Comparação entre os trabalhos apresentados}
   \label{tab:comparacao2}
 \end{table*}
-
-% Não encontrou-se nenhum modelo que ofereça suporte a estes pré-requisitos de forma genérica (isto é, para qualquer tipo de contexto) e, assim, este modelo busca suprir esta necessidade.
-
-\citetexto{kim08} apresentam um {\it framework} para gerenciamento de perfis baseado em {\it Web Services}. O modelo provê um conjunto de serviços para coletar informações necessárias para a criação de um perfil: configuração, criação, troca, processamento e serviço. O modelo também aplica metadadaos e técnicas de configuração dinâmica para o gerencimaneto eficiente dos perfis.
-
-O modelo apresentado por \citetexto{chellouche10}, assim como o eProfile, apresenta um perfil unificado que pode ser utilizado por diversas aplicações. No entanto, ao contrário do eProfile, o modelo assume a interoperabilidade sintática, o que significa que as todas aplicações precisam registrar os eventos utilizando o mesmo formato, o que pode fazer com que a aplicação não consiga registrar o evento com a riqueza de detalhes necessária. Além disso, assim como o PeLeP, o modelo de \citetexto{chellouche10} está limitado a um domínio específico, que são os serviços multimídia.
-
-O modelo UUCM \cite{niederee04}, trabalha em um domínio genérico. Ele faz isso através da criação de uma ontologia básica que pode ser estendida pelas aplicações. Ao contrário das outras propostas (e do eProfile), o UUCM armazena os perfis no cliente, ao invés do servidor. Isto traz vantagens e desvantagens. Entre as vantagens pode-se citar a privacidade e acesso desconectado. No entanto, esta abordagem limita a interoperabilidade entre sistemas, uma vez que cada cliente fica com uma versão do próprio perfil, restringindo a utilização de um perfil unificado.
-
-O PeLeP \cite{pelep} suporta aperfeiçoamento automático do perfil de um aprendiz em ambientes de educação ubíqua, utilizando o histórico dos aprendizes para a atualização dos perfis através de inferências. O eProfile utiliza uma estratégia semelhante. No entanto, as regras de inferência são definidas pela aplicação, e não pelo modelo. Esta alteração é necessária para que a inferência passe de um domínio específico (educação) para um domínio genérico. Além disso, ao contrário do eProfile, as regras são dinâmicas (uma aplicação pode definir ou remover regras dinamicamente), ao invés de estarem pré-definidas no modelo. Isto permite a evolução e refino das regras de inferência.
-
-O modelo apresentado por \citetexto{razmerita11} tem como objetivo vincular o KM ({\it Knowlegde Managemet}, ou Gerenciamento de Conhecimento) tradicional com o KM pessoal. Isto é feito através do modelo OntobUMf, capaz de gerenciar informações a respeito de usuários. A arquitetura possui três camadas: {\it front end}, serviços e dados. O modelo trabalha em um domínio genérico e possui três ontologias (usuários, domínios e {\it log}), a partir são buscadas informações que classificam o usuário de várias formas, de acordo com o nível de atividade, tipo de atividade e nível de compartilhamento de conhecimento.
-
-No artigo apresentado por \citetexto{tao11}, é proposto um modelo de ontologia para representação de conhecimento para coleta de informações personalizdas. O modelo constrói ontologias de usuário personalizadas extraindo informações globais do sistema LCSH e descobrindo informação a partir de repósitórios locais de usuário. A alimentação do sistema de informações locais é alimentado manualmente pelo usuário. Quando uma informação é necessária, o sistema faz o processamento das duas ontologias para gerar o dado solicitado.
 
 O eProfile fez utilização das ideias apresentadas nos trabalhos, como o aperfeiçoamento automático de perfis, a utilização de perfis unificados e o funcionamento em um domínio genérico. A estas ideias, o eProfile traz como inovação a utilização de trilhas para a extração de perfis, o que facilita a inferência com sensibilidade a contexto. Além disso, o eProfile permite que cada aplicação registre sua trilha no formato que considerar mais proveitoso para si, permitindo assim que a riqueza de detalhes registrados por uma aplicação possa se traduzir em um perfil mais exato da entidade.
 
