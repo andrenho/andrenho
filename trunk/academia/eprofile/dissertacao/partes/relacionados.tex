@@ -5,37 +5,33 @@ Esta seção apresenta trabalhos relacionados com o modelo proposto, bem como um
 
 Os trabalhos apresentados utilizam o conceito de modelo e perfil de usuário ao invés de modelo e perfil de entidade, que é o termo utilizado neste trabalho. Assim sendo, os termos modelo e perfil de usuário serão utilizados quando apropriado.
 
-\section{\citetexto{pelep}}
+\section{\citetexto{kim08}}
 
-O projeto PeLeP, apresentado por \citetexto{pelep}, integra a utilização de perfis aperfeiçoados automaticamente com ambientes de educação ubíqua.
+\citetexto{kim08} apresentam um {\it framework} para gerenciamento de perfis baseado em {\it Web Services} para fornecer serviços personalizados. Os autores compreendem gerenciamento de perfil como sendo a coleta de um conjunto de informações necessárias para prover aos usuários cinco tipos de serviço personalizado: (i) configuração de perfil, (ii) criação de perfil, (iii) troca de perfil, (iv) processamento de perfil e (v) serviço de perfil.
 
-\citetexto{barbosa05} compreendem Educação Ubíqua como sendo processos educacionais que ocorrem em qualquer lugar, a qualquer tempo e com qualquer dispositivo, de forma contínua, contextualizada e integrada ao cotidiano do aprendiz. Desta forma, o conhecimento presente no dia-a-dia das mais diferentes formas e em diferentes locais podem ser relacionados com processos educacionais direcionados aos aprendizes.
-
-O PeLeP, cujo modelo é mostrado na Figura~\ref{fig:pelep1}, é dedicado ao gerenciamento de perfis de aprendizes em um ambiente ubíquo de ensino e aprendizagem. O modelo administra os perfis automaticamente, inferindo informações através do histórico do aprendiz. As alterações realizadas no perfil refletem o comportamento do aprendiz no ambiente ubíquo, levando em consideração o seu modelo de mobilidade e de contexto.
+O {\it framework} é montado de acordo com a Figura~\ref{fig:kim08_b}. A comunicação entre os módulos é feita através de {\it Web Services}, de modo a poder operar de forma distribuída entre várias plataformas e dispositivos.
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.8\textwidth]{imagens/pelep1.png}
-  \caption[Arquitetura do PeLeP]{Arquitetura do PeLeP \cite{pelep}}
-  \label{fig:pelep1}
+  \includegraphics[width=0.6\textwidth]{imagens/kim08_b.png}
+  \caption{Framework de perfis \cite{kim08}}
+  \label{fig:kim08_b}
 \end{figure}
 
-No PeLeP, o Perfil do Aprendiz consiste em um perfil contendo campos pré-definidos, voltados para o ambiente de educação ubíqua. Os campos são distribuídos nas seguintes categorias: identificação, objetivos, agenda, segurança, relacionamentos, competências e preferências. 
+A configuração de perfil configura os perfis em dois tipos: perfis básicos, requeridos para todos os tipos de serviço, e perfis de serviço, configurados diferentemente para cada tipo de serviço. O tipo de perfil define o tipo de informação que irá conter cada perfil.
 
-É realizado um acompanhamento ({\em tracking}) do histórico do aprendiz, onde são armazenados os contextos visitados pelo usuário, bem como os conteúdos, dispositivos e aplicativos utilizados em cada contexto. Os valores relativos das variáveis numéricas recebidas no {\emph tracking} são regularizados através de um processo de normalização de amplitude. Como diferentes valores podem ter diferentes impactos para a determinação da preferência de um usuário, calcula-se o Fator de Certeza ($FC$), de acordo com a equação~\ref{eq:pelep-fc}, onde $f_i$ é o valor normalizado para o fator, $p_i$ o seu percentual, e $n$ o número de fatores considerados.
+A criação de perfil é a tecnologia que permite que clientes e provedores de serviço criem os perfis. A criação dos perfis é feita através de um conjunto de componentes, de acordo com a Figura~\ref{fig:kim08_a}. O Gerenciador de Criação cria o perfil, com base nos Arquivos de Template de Perfil, que é então codificado pelo Gerenciador de Segurança, num processo coordenado pelo Gerenciador de Serviços de Perfil. Toda a comunicação entre os módulos ocorre via {\it Web Services}.
 
-\begin{equation}
-  FC = \frac{\frac{\displaystyle\sum_{i=0}^n f_i p_i}{100}}{n}
-  \label{eq:pelep-fc}
-\end{equation}
+\begin{figure}
+  \centering
+  \includegraphics[width=0.6\textwidth]{imagens/kim08_a.png}
+  \caption{Mecanismo de Criação de Perfis \cite{kim08}}
+  \label{fig:kim08_a}
+\end{figure}
 
-O fator tempo também é levado em consideração, onde Fatores de Certeza mais antigos têm um impacto menor. Assim, por exemplo, se o usuário trocar o seu aplicativo preferido, à medida que o tempo for passando o impacto do aplicativo anterior será cada vez menor.
+Troca de perfis é o processo através do qual um perfil é enviado pelo servidor ao cliente. O processamento do perfil classifica os perfis transferidos pelos clientes através de regras e os armazena em uma base de dados. Os serviços de perfil extraem os perfis do repositório e os fornecem aos provedores de serviço quando os mesmos os requisitam.
 
-O processo de atualização do modelo do aprendiz é então realizado através de regras pré-definidas, que levam em conta as ocorrências e o seu fator de certeza. As regras suportam conclusões a partir de evidências antecedentes, e cada categoria de informação possui regras diferentes.
-
-O PeLeP foi validado através da integração com o Local ({\em Location and Context-Aware Learning}), um sistema de educação ubíqua sensível a contexto \cite{barbosa11}.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{\citetexto{chellouche10}}
 
@@ -125,53 +121,37 @@ Para utilizar o passaporte de contexto em um ambiente de personalização multi-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{\citetexto{kim08}}
+\section{\citetexto{pelep}}
 
-\citetexto{kim08} apresentam um {\it framework} para gerenciamento de perfis baseado em {\it Web Services} para fornecer serviços personalizados. Os autores compreendem gerenciamento de perfil como sendo a coleta de um conjunto de informações necessárias para prover aos usuários cinco tipos de serviço personalizado: (i) configuração de perfil, (ii) criação de perfil, (iii) troca de perfil, (iv) processamento de perfil e (v) serviço de perfil.
+O projeto PeLeP, apresentado por \citetexto{pelep}, integra a utilização de perfis aperfeiçoados automaticamente com ambientes de educação ubíqua.
 
-O {\it framework} é montado de acordo com a Figura~\ref{fig:kim08_b}. A comunicação entre os módulos é feita através de {\it Web Services}, de modo a poder operar de forma distribuída entre várias plataformas e dispositivos.
+\citetexto{barbosa05} compreendem Educação Ubíqua como sendo processos educacionais que ocorrem em qualquer lugar, a qualquer tempo e com qualquer dispositivo, de forma contínua, contextualizada e integrada ao cotidiano do aprendiz. Desta forma, o conhecimento presente no dia-a-dia das mais diferentes formas e em diferentes locais podem ser relacionados com processos educacionais direcionados aos aprendizes.
 
-\begin{figure}
-  \centering
-  \includegraphics[width=0.6\textwidth]{imagens/kim08_b.png}
-  \caption{Framework de perfis \cite{kim08}}
-  \label{fig:kim08_b}
-\end{figure}
-
-A configuração de perfil configura os perfis em dois tipos: perfis básicos, requeridos para todos os tipos de serviço, e perfis de serviço, configurados diferentemente para cada tipo de serviço. O tipo de perfil define o tipo de informação que irá conter cada perfil.
-
-A criação de perfil é a tecnologia que permite que clientes e provedores de serviço criem os perfis. A criação dos perfis é feita através de um conjunto de componentes, de acordo com a Figura~\ref{fig:kim08_a}. O Gerenciador de Criação cria o perfil, com base nos Arquivos de Template de Perfil, que é então codificado pelo Gerenciador de Segurança, num processo coordenado pelo Gerenciador de Serviços de Perfil. Toda a comunicação entre os módulos ocorre via {\it Web Services}.
+O PeLeP, cujo modelo é mostrado na Figura~\ref{fig:pelep1}, é dedicado ao gerenciamento de perfis de aprendizes em um ambiente ubíquo de ensino e aprendizagem. O modelo administra os perfis automaticamente, inferindo informações através do histórico do aprendiz. As alterações realizadas no perfil refletem o comportamento do aprendiz no ambiente ubíquo, levando em consideração o seu modelo de mobilidade e de contexto.
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.6\textwidth]{imagens/kim08_a.png}
-  \caption{Mecanismo de Criação de Perfis \cite{kim08}}
-  \label{fig:kim08_a}
+  \includegraphics[width=0.8\textwidth]{imagens/pelep1.png}
+  \caption[Arquitetura do PeLeP]{Arquitetura do PeLeP \cite{pelep}}
+  \label{fig:pelep1}
 \end{figure}
 
-Troca de perfis é o processo através do qual um perfil é enviado pelo servidor ao cliente. O processamento do perfil classifica os perfis transferidos pelos clientes através de regras e os armazena em uma base de dados. Os serviços de perfil extraem os perfis do repositório e os fornecem aos provedores de serviço quando os mesmos os requisitam.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+No PeLeP, o Perfil do Aprendiz consiste em um perfil contendo campos pré-definidos, voltados para o ambiente de educação ubíqua. Os campos são distribuídos nas seguintes categorias: identificação, objetivos, agenda, segurança, relacionamentos, competências e preferências. 
 
-\section{\citetexto{tao11}}
+É realizado um acompanhamento ({\em tracking}) do histórico do aprendiz, onde são armazenados os contextos visitados pelo usuário, bem como os conteúdos, dispositivos e aplicativos utilizados em cada contexto. Os valores relativos das variáveis numéricas recebidas no {\emph tracking} são regularizados através de um processo de normalização de amplitude. Como diferentes valores podem ter diferentes impactos para a determinação da preferência de um usuário, calcula-se o Fator de Certeza ($FC$), de acordo com a equação~\ref{eq:pelep-fc}, onde $f_i$ é o valor normalizado para o fator, $p_i$ o seu percentual, e $n$ o número de fatores considerados.
 
-No artigo apresentado por \citetexto{tao11}, os autores avaliam que, embora ontologias venham sendo cada vez mais uilizadas como modelo de descrição e formalização de conhecimento, a maioria dos modelos utiliza somente as informações de uma base de conhecimento global ou informações locais de usuário para montar um perfil de usuário. Desta forma, é proposto um modelo de ontologia sobre perfis de usuários que compõe-se tanto a partir de uma base de conhecimento global quanto de repositórios locais de usuários.
+\begin{equation}
+  FC = \frac{\frac{\displaystyle\sum_{i=0}^n f_i p_i}{100}}{n}
+  \label{eq:pelep-fc}
+\end{equation}
 
-De acordo com os autores, ontologias personalizadas são um modelo de conceitualização que formalmente descrevem e especificam o conhecimento de fundo do usuário. Por exemplo, quando o usuário busca pelo tópico "New York" em um agente de buscas, a informação demandada é diferente para usuários de negócios e turistas. A expectativa pode ser diferente até mesmo para o mesmo usuário fazendo a mesma busca em contextos diferentes (um usuário de negócios pode estar fazendo a busca para uma viagem de negócios ou a lazer, por exemplo). Desta forma, o modelo conceitual do usuário pode mudar de acordo com a sua necessidade.
+O fator tempo também é levado em consideração, onde Fatores de Certeza mais antigos têm um impacto menor. Assim, por exemplo, se o usuário trocar o seu aplicativo preferido, à medida que o tempo for passando o impacto do aplicativo anterior será cada vez menor.
 
-A primeira base de informação é uma representação de conhecimento global. A base utilizada pelo modelo é a {\it Library of Congress Subject Headings} (LCSH). A LCSH foi desenvolvida para organizar e consultar informações de um grande volume de coleções da Biblioteca do Congresso Americano. O sistema da LCSH possui três tipos de referência: ``termo amplo'', ``usado para'' e ``termo relacionado''. Estas referências e as ligações entre elas são usadas para construir o conhecimento de mundo necessário para a composição da ontologia.
+O processo de atualização do modelo do aprendiz é então realizado através de regras pré-definidas, que levam em conta as ocorrências e o seu fator de certeza. As regras suportam conclusões a partir de evidências antecedentes, e cada categoria de informação possui regras diferentes.
 
-A base de interesses de usuários é extraída através de uma ferramenta denominada {\it Ontology Learning Environment} (OLE). A ferramenta constrói a ontologia através da alimentação manual de informações pelo usuário. A ontologia classifica os assuntos alimentados pelo usuário em três tipos: (i) ``assuntos positivos'', (ii) ``assuntos negativos'' e ``assuntos neutros.'' Assuntos positivos são conceitos relevantes para a informação necessária, e assuntos negativos são conceitos que resolvem interpretações ambíguas ou paradoxais. Assuntos neutros são aqueles que não tem relevância para a informação buscada.
+O PeLeP foi validado através da integração com o Local ({\em Location and Context-Aware Learning}), um sistema de educação ubíqua sensível a contexto \cite{barbosa11}.
 
-\begin{figure}
-  \centering
-  \includegraphics[width=0.6\textwidth]{imagens/tao11.png}
-  \caption[Arquitetura do modelo de \citetexto{tao11}]{Arquitetura do modelo de \citetexto{tao11}}
-  \label{fig:tao11}
-\end{figure}
-
-A Figura~\ref{fig:tao11} apresenta a arquitetura do modelo. O passo inicial do processo é a construção da ontologia, de acordo com um determinado tópico, utilizando como base as duas fontes de conhecimento (base de conhecimento global e as informações locais de usuário). A base de conhecimento local e as informações providas pelo OLE são utilizadas para gerar o conjunto de informações sobre o assunto que, unido ao {\it background} do usuário, são processados atraves de um processo chamado ``mineração de ontologia'', que gera o conhecimento de {\it background} do usuário a respeito de um determinado tópico.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{\citetexto{razmerita11}}
 
@@ -194,6 +174,27 @@ A camada de dados inclui dados de usuários relacionados a dados específicos de
 
 A OntobUMf classifica os usuários de acordo com o nível de atividade, o tipo de atividade e nível de compartilhamento de conhecimento. Baseado no tipo de atividade, os usuários são classificados como ``leitores'', ``escritores'' ou ``espiões''. Baseado no nível de atividade, os eles são classificados como ``muito ativo'', ``ativo'', ``visitante'' e ``inativo''. Baseado no nível de compartilhamento de conteúdo, eles são classificados como ``inconsciente'', ``consciente'', ``interessado'', ``tentativo'' ou ``adotante''.
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{\citetexto{tao11}}
+
+No artigo apresentado por \citetexto{tao11}, os autores avaliam que, embora ontologias venham sendo cada vez mais uilizadas como modelo de descrição e formalização de conhecimento, a maioria dos modelos utiliza somente as informações de uma base de conhecimento global ou informações locais de usuário para montar um perfil de usuário. Desta forma, é proposto um modelo de ontologia sobre perfis de usuários que compõe-se tanto a partir de uma base de conhecimento global quanto de repositórios locais de usuários.
+
+De acordo com os autores, ontologias personalizadas são um modelo de conceitualização que formalmente descrevem e especificam o conhecimento de fundo do usuário. Por exemplo, quando o usuário busca pelo tópico "New York" em um agente de buscas, a informação demandada é diferente para usuários de negócios e turistas. A expectativa pode ser diferente até mesmo para o mesmo usuário fazendo a mesma busca em contextos diferentes (um usuário de negócios pode estar fazendo a busca para uma viagem de negócios ou a lazer, por exemplo). Desta forma, o modelo conceitual do usuário pode mudar de acordo com a sua necessidade.
+
+A primeira base de informação é uma representação de conhecimento global. A base utilizada pelo modelo é a {\it Library of Congress Subject Headings} (LCSH). A LCSH foi desenvolvida para organizar e consultar informações de um grande volume de coleções da Biblioteca do Congresso Americano. O sistema da LCSH possui três tipos de referência: ``termo amplo'', ``usado para'' e ``termo relacionado''. Estas referências e as ligações entre elas são usadas para construir o conhecimento de mundo necessário para a composição da ontologia.
+
+A base de interesses de usuários é extraída através de uma ferramenta denominada {\it Ontology Learning Environment} (OLE). A ferramenta constrói a ontologia através da alimentação manual de informações pelo usuário. A ontologia classifica os assuntos alimentados pelo usuário em três tipos: (i) ``assuntos positivos'', (ii) ``assuntos negativos'' e ``assuntos neutros.'' Assuntos positivos são conceitos relevantes para a informação necessária, e assuntos negativos são conceitos que resolvem interpretações ambíguas ou paradoxais. Assuntos neutros são aqueles que não tem relevância para a informação buscada.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.6\textwidth]{imagens/tao11.png}
+  \caption[Arquitetura do modelo de \citetexto{tao11}]{Arquitetura do modelo de \citetexto{tao11}}
+  \label{fig:tao11}
+\end{figure}
+
+A Figura~\ref{fig:tao11} apresenta a arquitetura do modelo. O passo inicial do processo é a construção da ontologia, de acordo com um determinado tópico, utilizando como base as duas fontes de conhecimento (base de conhecimento global e as informações locais de usuário). A base de conhecimento local e as informações providas pelo OLE são utilizadas para gerar o conjunto de informações sobre o assunto que, unido ao {\it background} do usuário, são processados atraves de um processo chamado ``mineração de ontologia'', que gera o conhecimento de {\it background} do usuário a respeito de um determinado tópico.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
