@@ -27,3 +27,5 @@ urxvt*color13:    #fba1fb
 urxvt*color14:    #d7d9fc
 urxvt*color15:    #e2e2e2
 urxvt*internalborder: 6
+urxvt*transparent: true
+urxvt*shading: 8
