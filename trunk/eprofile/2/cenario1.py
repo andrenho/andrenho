@@ -1,6 +1,8 @@
 import random, sys, pprint
 pp = pprint.PrettyPrinter(indent=4)
 
+search_others = False
+
 class Course:
 
   def __init__(self, name, depend, optional=False):
@@ -62,9 +64,9 @@ courses = (al1, mat, geo, por, an1, al2, est, ca1, an2, ing, co1, lip, arq, eng,
 # 
 n = 0
 for course in courses:
-  for _ in range(random.randint(3,5)):
+  for _ in range(random.randint(2,3)):
     subjects = []
-    for _ in range(random.randint(3,4)):
+    for _ in range(random.randint(2,3)):
       subjects.append(n)
       n += 1
     course.debates.append(subjects)
@@ -94,7 +96,7 @@ class Student:
     self.courses_taken = []
     self.n = n
     self.preferences = []
-  
+
   def graduated(self):
     return (len(self.courses_taken) >= 25)
 
@@ -115,6 +117,20 @@ class Student:
     else:
       return None
 
+  def closest_students(self):
+    st = {}
+    for s in all_students:
+      st[s] = self.similarity(s)
+    return sorted(st, key=st.get)[0:5]
+
+  def similarity(self, other_student):
+    n = 0
+    for pref in self.preferences:
+      for pref2 in other_student.preferences:
+        n += 1
+    return n
+
+
 all_students = []
 st = 1
 for _ in range(50): # XXX
@@ -128,6 +144,10 @@ semester = 1
 choices = 0
 automatic = 0
 while True:
+
+  if semester == 8:
+    search_others = True
+
   students = list(s for s in all_students if not s.graduated())
   if len(students) == 0:
     break
@@ -157,6 +177,13 @@ while True:
       for student in course.students:
         found = False
         for subject in debate:
+          if search_others:
+            for st in student.closest_students():
+              for preference in st.preferences:
+                if preference == subject:
+                  automatic += 1
+                  found = True
+                  continue
           if subject in student.preferences:
 #           print(debate, sorted(student.preferences), 'auto')
             automatic += 1
@@ -181,7 +208,7 @@ while True:
   #
   # relatório
   #
-  if 1:
+  if 0:
     print('Semestre:', semester)
     print('Disciplinas ocorrendo:', len(list((cr for cr in courses if cr.happening_this_semester()))))
     print('Alunos cursando:', len(list(s for s in all_students if not s.graduated())))
