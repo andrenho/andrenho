@@ -124,11 +124,11 @@ the trail is usually tied to the location of a user, the concept of a trail is
 broader and includes activities performed, applications used, content accessed
 -- among others -- inside a specific context and timeframe \citep{silva10}.
 
-\todo[inline]{Colocar referência para User Profiles}
+%\todo[inline]{Colocar referência para User Profiles}
 
 For an application to adapt itself effectively to a user, it is not only important to know the history of contexts visited by a user, but to understand who the user is -- that is, what are his characteristics. This kind of application organize its knowledge about a user in User Profiles. The profiles are stored in a format called User Model \citep{viviani10}.
 
-\todo[inline]{Explicar melhor a diferença entre modelos e perfis}
+%\todo[inline]{Explicar melhor a diferença entre modelos e perfis}
 
 Personalization means the individual adaptation of products, services and information. Personalization technology usually involves programs that learn patterns, habits and preferences of a user. The main goal of modern personalization systems is to offer the users what they want, without demanding them to inform it explicitly \citep{mulvenna00}. It is clear that this purpose meets the ubiquitous computing objective that is, the development of a technology that ``disappears''.
 
@@ -163,7 +163,7 @@ This article is organized as follows. Section~\ref{ch:modelo} proposes the eProf
 \section{eProfile Model}
 \label{ch:modelo}
 
-\todo[inline]{Concretizar idéias como agentes, regras, etc. Formalizar como os agentes foram modelados e as regras formadas.}
+%\todo[inline]{Concretizar idéias como agentes, regras, etc. Formalizar como os agentes foram modelados e as regras formadas.}
 
 This section describes the eProfile model. Section~\ref{sec:visao_geral}
 presents a general vision of the model. Section~\ref{sec:arquitetura} explains
@@ -425,13 +425,13 @@ The full set of disciplines used for this scenario is shown in Table~\ref{tab:cu
 
 Students and professors use mobile devices (laptops or smartphones), on which the applications used for administration of their academic life are installed -- in particular, UniManager and LOCAL.
 
-UniManager is the system used for discipline administration, as described in Section~\ref{sec:eprofile_unimanager}. It is used by the university administration, the professors and the students. The administration uses it to register disciplines, students and professors, to link students and professors to their disciplines and to issue management reports such as attendance and approval/failing of students, as well as absences and evaluations of professors. Professors use the system to conduct student evaluations. Students use it to hand out their tests and papers, to make their enrollment in the disciplines and to check their grades and absences.
+UniManager is the system used for discipline administration, and it is described in detail in Section~\ref{sec:eprofile_unimanager}. It is used by the university administration, the professors and the students. The administration uses it to register disciplines, students and professors, to link students and professors to their disciplines and to issue management reports such as attendance and approval/failing of students, as well as absences and evaluations of professors. Professors use the system to conduct student evaluations. Students use it to hand out their tests and papers, to make their enrollment in the disciplines and to check their grades and absences.
 
-In addition, professors and students also use LOCAL on their mobile devices. LOCAL is described in Section~\ref{sec:eprofile_local}. LOCAL links information from profiles to their location to be able to assist them, facilitating interaction between learners and enabling the delivery of contextualized educational material. Professors use the LOCAL to register material that will be distributed to students. LOCAL communicates with students to distribute educational material previously registered and to put students with similar interests in touch during educational activities. If, during these activities, the student has not registered any interest that matches those required by the activity, he has the option to make the choice using the Personal Assistant.
+In addition, professors and students also use LOCAL on their mobile devices. LOCAL is described in grater detail in Section~\ref{sec:eprofile_local} and in \citep{barbosa11}. LOCAL links information from profiles to their location to be able to assist them, facilitating interaction between learners and enabling the delivery of contextualized educational material. Professors use the LOCAL to register material that will be distributed to students. LOCAL communicates with students to distribute educational material previously registered and to put students with similar interests in touch during educational activities. If, during these activities, the student has not registered any interest that matches those required by the activity, he has the option to make the choice using a user interface to LOCAL called Personal Assistant.
 
 Table~\ref{tab:aula} exemplifies a two and a half hours class involving 10 students, in which there was a debate about Programming Techniques. After the debate, students undertook a study about the individual topics discussed in the debate. In this example, the presence of students, the handing out of their work and the grade achieved were registered in UniManager. The educational content of the lesson was registered in LOCAL.
 
-Additionally, LOCAL registered the personal preferences of two students about programming techniques. If LOCAL and UniManager were being used in isolation, this information would have been relevant only to the immediate lesson assignment. However, the integration of these systems with eProfile allows this information to be used to update the profile of the students, and can be used in the future to facilitate interaction between students and personalize the delivery of educational content (by LOCAL). Furthermore, a single profile can be generated by the trails from both applications, this information can be used to assist the student in the recommendation of optional disciplines (by UniManager).
+In this example, LOCAL registered the personal preferences of two students about programming techniques. If LOCAL and UniManager were being used in isolation, this information would have been relevant only to the immediate lesson assignment. However, the integration of these systems with eProfile allows this information to be used to update the profile of the students, and can be used in the future to facilitate interaction between students and personalize the delivery of educational content (by LOCAL). Furthermore, a single profile can be generated by the trails from both applications, this information can be used to assist the student in the recommendation of optional disciplines (by UniManager).
 
 \begin{table*}\centering\footnotesize
     \begin{tabular*}{1\textwidth}{@{}cccp{6.8cm}@{}}
@@ -474,9 +474,9 @@ class into LOCAL, and requests the handing out of a paper through UniManager. \\
   \label{fig:modelo_cenario1}
 \end{figure}
 
-The scenario is composed of four applications that interact among themselves, according to Figure~\ref{fig:modelo_cenario1}. LOCAL is a ubiquitous learning system used to find learning opportunities by putting students in touch and recommending learning content \citep{barbosa11}. UniManager is an application used by the administration of the university to manage student grades and disciplines. Both softwares have profile modules, where the profile information is used for decision making. Since in both cases the profile module is static and depends on collection of explicit information, eProfile is connected to these softwares, leveraging the dynamic creation of profiles and collecting information implicitly. Furthermore, eProfile enables interoperability between these systems by allowing information from both systems to be used to generate single profiles. The scenario also includes a trail manager, that manages the entities trails. In this scenario disciplines, students and professors are represented as entities.
+The scenario is composed of four applications that interact among themselves, according to Figure~\ref{fig:modelo_cenario1}. LOCAL is a ubiquitous learning system used to find learning opportunities by putting students in touch and recommending learning content \citep{barbosa11}. UniManager is an application used by the administration of the university to manage student grades and disciplines. Both softwares have profile modules, and the profile information is used for making decisions. Since in both cases the profile module is static and depends on collection of explicit information, eProfile is connected to these softwares, leveraging the dynamic creation of profiles and collecting information implicitly. Furthermore, eProfile enables interoperability between these systems by allowing information from both systems to be used to generate single profiles. The scenario also includes a trail manager, that manages the entities trails. In this scenario, the disciplines, students and professors are represented as entities.
 
-The initial communication occurs between applications and eProfile (arrows ``a'' and ``b''), where applications define their entity models and rules. This data exchange can occur as often as necessary, because applications can update their rules and their entity models at any time. During the execution of the applications, they record the events in the trail manager (arrows ``c'' and ``d''). This means applications can run disconnected from eProfile, and connect only when a rule needs to be updated or when profile data must be downloaded. eProfile retrieves trails periodically from the trail manager (arrow ``e''). When eProfile is in possession of the trails, rules and entity models, it starts to process this information, inferring new profile data. These profiles are then downloaded by the applications (arrows ``f'' and ``g'').
+The initial communication occurs between applications and eProfile (arrows ``a'' and ``b''), where applications define their entity models and rules. This data exchange can occur as often as necessary, because applications can update their rules and their entity models at any time. During the execution of the applications, they record the events in the trail manager (arrows ``c'' and ``d''). This means that applications can run disconnected from eProfile, and connect only when a rule needs to be updated or when profile data must be downloaded. eProfile retrieves trails periodically from the trail manager (arrow ``e''). When eProfile is in possession of the trails, rules and entity models, it starts to process this information, inferring new profile data. These profiles are then downloaded by the applications (arrows ``f'' and ``g'').
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -617,7 +617,7 @@ The entities models are the data structure used to store the profile of a entity
 
 \begin{figure}[!t]
   \centering\includegraphics[width=0.7\textwidth]{imagens/perfil_local.png}
-  \caption{LOCAL profile model}
+  \caption{LOCAL profile model \citep{barbosa11}}
   \label{fig:perfil_local}
 \end{figure}
 
@@ -709,7 +709,7 @@ After the execution of the rule shown in Figures~\ref{fig:regra3} and~\ref{fig:r
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Prototype and Yesulation}
+\subsection{Prototype and Simulation}
 \label{sec:simulacao_cen1}
 
 To simulate the model, we developed two programs:
@@ -731,18 +731,28 @@ A simulation starts with the creation of the discipline, student and professor e
 \item The students final grades are calculated, and the students decide if they will continue on the course or drop out.
 \end{enumerate}
 
-Each course consists of 14 classes. There are two types of events that can occur in a class: (i) a debate or group work, and (ii) an individual paper or test, where a class can have one of two events, both or neither. Table~\ref{tab:aula} exemplifies a class in which the two types of events occurred.
+Each course consists of 14 classes. There are two types of events that can occur in a class: (i) a debate or group work, and (ii) an individual paper or test. A class can have one of these two events, both or neither. Table~\ref{tab:aula} exemplifies a class in which the two types of events occurred.
 
 For this simulation, it was defined that in each discipline there were studied a number of different subjects (from 3 to 5, randomly), and that each subject was related to 1 or 2 other subjects. For example, in the ``Programming Languages'' discipline, the subject of ``C Language'' was studied, among other programming languages. Later, in the discipline of ``Data Structures'', the subject of ``Pointers'' was studied. Since ``C Language'' and ``Pointers'' are related concepts, the subjects were linked, and if a student chose to study ``C Language'' using the LOCAL application, then the subject of ``Pointers'' is recommended to him.
 
 Optional disciplines are also linked to subjects chosen by the students. Debate and paper subjects chosen by the students using LOCAL are used to suggest optional disciplines to the user on UniManager.
 
-Figure~\ref{fig:result1} shows the results of the simulation. On this simulation, a group of 50 students goes through a complete graduation course. The simulator registers the percentage of the debates and papers subjects that were be suggested by the system, based on previous student choices. In the first semester, the system was able to suggest only 9\% of the time, but as the students made more choices, the system was able to suggest more subjects, until the level of recommendation passed 90\% in the 13th semester.
+Figure~\ref{fig:result1} shows the results of the simulation. On this simulation, a group of 50 students goes through a complete graduation course. The simulator registers the percentage of the debates and papers subjects that were be suggested by the system, based on previous student choices. In the first semester, the system was able to suggest only 9\% of the time, but as the students made more choices, the system was able to suggest more subjects, until the level of recommendation passed 90\% in the 13th semester onwards.
 
 \begin{figure}[!t]
   \centering\includegraphics[width=0.7\textwidth,angle=-90]{imagens/auto.eps}
-  \caption{Yesulation results: automatic choices by semester}
+  \caption{Simulation results: automatic recommendations by semester}
   \label{fig:result1}
+\end{figure}
+
+To test the capability of changing the rules during the execution of eProfile, a new test was made. On this test, the execution was the same as the previous test until the 8th semester. After this semester, the rule for generating the listing of subjects related to the subject that is being debated or studied (as demonstrated in Figure~\ref{fig:regra1}) was changed: in addition to consider subjects related to the subject in point, the subjects chosen by the 5 most similar students to each student were also used as recommendation. In this context, the most similiar student is the one who made more choices equals to another student.
+
+Figure~\ref{fig:result2} shows the result of the second experiment. Comparing Figure~\ref{fig:result1} and Figure~\ref{fig:result2}, it can be seen a sudden increase in the rate of subjects on the 8th semester, which is the result of the modification of the rules during the execution of the simulation.
+
+\begin{figure}[!t]
+  \centering\includegraphics[width=0.7\textwidth,angle=-90]{imagens/auto2.eps}
+  \caption{Simulation results with rule modification during execution }
+  \label{fig:result2}
 \end{figure}
 
 
@@ -776,18 +786,18 @@ Table~\ref{tab:comparacao2} shows a comparison between eProfile and related work
 \end{itemize}
 
 \begin{table*}\centering\footnotesize
-  \begin{tabular*}{1\textwidth}{@{}lllllll@{}}
+  \begin{tabular*}{1.16\textwidth}{@{}lllllll@{}}
     \toprule
                                          & Interope-  & Dynamic   & Storage  & Context-      & Uses    &                     \\
     Paper                                & rability   & profiles  &          & awareness     & trails  & Domain              \\
     \midrule
-    \citetexto{kim08}                    & Sintatic   & Yes       & Server   & No            & No      & Generic             \\
-    \citetexto{chellouche10}             & Sintatic   & Yes       & Server   & Yes           & No      & Multimedia Services \\
-    \citetexto{niederee04}               & Sintatic   & Yes       & Client   & Yes           & No      & Generic             \\
-    \citetexto{pelep}                    & No         & Yes       & Server   & Yes           & Partial & Education           \\
-    \citetexto{razmerita11}              & Sintatic   & Yes       & Server   & Yes           & Partial & Generic             \\
-    \citetexto{tao11}                    & Semantic   & Yes       & Server   & Yes           & Partial & Generic             \\
-    eProfile                             & Semantic   & Yes       & Server   & Yes           & Yes     & Generic             \\
+    \citet{kim08}                    & Sintatic   & Yes       & Server   & No            & No      & Generic             \\
+    \citet{chellouche10}             & Sintatic   & Yes       & Server   & Yes           & No      & Multimedia Services \\
+    \citet{niederee04}               & Sintatic   & Yes       & Client   & Yes           & No      & Generic             \\
+    \citet{pelep}                    & No         & Yes       & Server   & Yes           & Partial & Education           \\
+    \citet{razmerita11}              & Sintatic   & Yes       & Server   & Yes           & Partial & Generic             \\
+    \citet{tao11}                    & Semantic   & Yes       & Server   & Yes           & Partial & Generic             \\
+    \textbf{eProfile}                & Semantic   & Yes       & Server   & Yes           & Yes     & Generic             \\
     \bottomrule
   \end{tabular*}
   \caption{Comparasion between presented papers}
@@ -802,13 +812,13 @@ eProfile was based on some elements of the works cited, such as automatic profil
 
 This article has proposed a model to support the management of profiles in ubiquitous environments, allowing entity trail inference through definition of rules by applications. Although eProfile was integrated with LOCAL and UniManager in the scenario, its proposal is generic enough to be applied to any other systems that use profiles from improvement of personalization. The use of automatic profiles allows ubiquitous systems to be more efficient in understanding user intent, because this means they can use more precise, up-to-date and broad information in a way that caters to the application specific need.
 
-The objective of the scenario was to demonstrate that is viable to integrate ubiquitous systems with eProfile, enriching the profile generation of these applications and allowing them to adapt themselves to their users. The scenario demonstrate three of the four contributions of the model. 
+The objective of the scenario was to demonstrate that is viable to integrate ubiquitous systems with eProfile, enriching the profile generation of these applications and allowing them to adapt themselves to their users. The scenario demonstrate the four contributions of the model.
 
 The first contribution is the use of trails for extracting profiles. The use of trails enrich the information database that can be used for generating profiles by providing a historical view of the entity actions within contexts. In the scenario, past decisions regarding debate and papers subjects are used to extract the preferences that will compose the students profiles.
 
 The second contribution is the generation of dynamic profiles. By updating the profiles with new information present in the trails, it is possible to keep the profile in sync with everything that is happening with the entity. This allows the application to personalize the user experience. In the scenario presented, the profiles are updated every time a student makes a decision regarding a debate or paper subject.
 
-The third contribution is the capability of managing dynamic inference rules and models. By allowing the rules and entity models to be updated at any time, eProfile facilitates the adaptation of the application to its user.
+The third contribution is the capability of managing dynamic inference rules and models. By allowing the rules and entity models to be updated at any time, eProfile facilitates the adaptation of the application to its user. A second experiment was made where the inference rules for profile generation were changed during the execution of the simulation, resulting in a positive change on the outcome of the scenario.
 
 The fourth contribution is the semantic operability of the model. This opens the possibility that one application can use information generated by a different application to create the profile of its entities. This is demonstrated in the scenario where UniManager uses information generated by LOCAL (the optional disciplines chosen by the students) as part of the data that is used to create UniManager profiles. This information is later used to suggest optional disciplines to the students.
 
