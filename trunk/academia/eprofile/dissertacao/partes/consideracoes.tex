@@ -3,19 +3,10 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Conclusão}
-\label{sec:conclusao}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Contribuições}
+\section{Comparação com os Trabalhos Relacionados}
 \label{sec:contribuicoes}
 
 Atualmente, as áreas de computação ubíqua, sensibilidade a contexto, trilhas e personalização são bastante promissoras, sendo que um grande número de trabalhos são publicados anualmente a este respeito. No entanto, não foi encontrado nenhum trabalho que faça uso de inferência em trilhas com o objetivo de personalizar a experiência do usuário dentro de um domínio genérico. Assim, o modelo apresentado neste trabalho busca suprir esta necessidade.
-
-% TODO - adicionar contribuições
-
-% Não encontrou-se nenhum modelo que ofereça suporte a estes pré-requisitos de forma genérica (isto é, para qualquer tipo de contexto) e, assim, este modelo busca suprir esta necessidade.
 
 \citetexto{kim08} apresentam um {\it framework} para gerenciamento de perfis baseado em {\it Web Services}. O modelo provê um conjunto de serviços para coletar informações necessárias para a criação de um perfil: configuração, criação, troca, processamento e serviço. O modelo também aplica metadados e técnicas de configuração dinâmica para o gerencimento eficiente dos perfis.
 
@@ -63,7 +54,19 @@ O eProfile fez utilização das ideias apresentadas nos trabalhos, como o aperfe
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Trabalhos futuros}
-\label{sec:trab_futuros}
+\section{Conclusão}
+\label{sec:conclusao}
 
+Este trabalho propôs um modelo para suportar o gerenciamento de perfis em ambientes ubíquos, permitindo a inferência de trilhas de entidades através da definição de regras pelas aplicações. Embora o eProfile tinha sido integrado com o LOCAL e o UniManager no cenário apresentado no Capítulo~\ref{ch:avaliacao}, sua propósta é genérica e pode ser utilizada para qualquer aplicação ou conjunto de aplicações que utilize perfis para aperfeiçoamento da personalização. O uso de perfis automáticos permite que sistemas ubíquos sejam mais eficientes na compreensão da intenção do usuário, pois isso significa que sistemas deste tipo podem utilizar informações mais precisas, atualizadas e amplas para suprir as necessidades das aplicações.
 
+O objetivo do cenário foi demonstrar que é viável integrar sistemas ubíquos com o eProfile, enriquecendo a geração de perfis destas aplicações e permitindo que elas se adaptem aos seus usuários. O cenário demonstra as quatro contribuições do modelo.
+
+A primeira contribuição é o uso de trilhas para extração de perfis. A utilização de trilhas enriquece o banco de dados de informações que pode ser utilizado para a geração de perfis ao oferecer uma visão histórica das ações das entidades dentro dos contextos. No cenário apresentado, decisões passadas a respeito de assuntos de trabalhos e debates foram utilizadas para extrair as preferências que comporam os perfis dos estudantes.
+
+A segunda contribuição é a geração de perfis dinâmicos. Ao atualizar os perfis com novas informações presentes nas trilhas, é possível manter o perfil sincronizado com tudo que está ocorrendo com a entidade. Isto permite que as aplicações personalizem a experiência do usuário. No cenário apresentado, os perfis são atualizados toda vez que o estudante toma uma decisão referente a um debate ou trabalho.
+
+A terceira contribuição é a capacidade de gerenciar regras de inferência dinâmeicas e modelos dinâmicos. Ao permitir que as regras e os modelos sejam atualizados a qualquer momento, o eProfile facilita a adaptação da aplicação ao seu usuário. Um segundo experimento foi realizado, onde as regras de inferência para a geração dos perfis foram alteradas durante a execução da simulação, resultando numa mudança positiva no resultado do cenário.
+
+A quarta contribuição é a operabilidade semântica do modelo. Isto abre a possibilidade de uma aplicação utilizar informações geradas por uma aplicação diferente para gerar os perfis de suas entidades. Isto é demonstrado no cenário onde o UniManager utiliza as informações geradas pelo LOCAL (as disciplinas opcionais escolhidas pelos estudantes) como parte dos dados usados para criar os perfis utilizados pelo UniManager. Esta informação depois é utilizada para sugerir disciplinas opcionais aos estudantes.
+
+O eProfile é uma proposta inicial, tal como a integração com o LOCAL e o UniManager. As seguintes atividades permitirão a continuidade do estudo: (i) a integração de mais aplicações com o eProfile, de modo a testar e expandir as capacidades do eProfile, (ii) o desempenho de uma grande quantiodade de trilhas precisa ser avaliada, uma vez que o experimento considerou um pequeno número de interações e (iii) a simulação ideal envolveria trilhas geradas por entidades reais, ao invés de uma simulação.
