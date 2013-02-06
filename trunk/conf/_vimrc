@@ -122,19 +122,21 @@ set colorcolumn=+1
 set clipboard=unnamedplus
 
 " clang-complete options
-"let g:clang_complete_auto=1
-"let g:clang_close_preview=1
+let g:clang_complete_auto=0
+let g:clang_close_preview=1
 let g:clang_user_options = '-std=c++11'
 set wildmode=longest,list:longest
 inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
 inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
+inoremap <expr> <Tab>       pumvisible() ? "\<C-y>" : "\<Tab>"
 inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
 inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
 inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
+inoremap <C-l> <C-x><C-u>
 set conceallevel=2
 set concealcursor=vin
-let g:clang_snippets=1
-let g:clang_conceal_snippets=1
-let g:clang_snippets_engine='clang_complete'
+"let g:clang_snippets=1
+"let g:clang_conceal_snippets=1
+"let g:clang_snippets_engine='clang_complete'
 set completeopt=menu,menuone
