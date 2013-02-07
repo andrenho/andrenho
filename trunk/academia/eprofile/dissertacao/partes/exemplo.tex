@@ -1,11 +1,9 @@
 \section{Exemplo de operação}
 \label{sec:exemplo}
 
-Esta seção mostra o exemplo do funcionamento 
+Nesta seção é mostrado o exemplo de funcionamento do modelo eProfile, detalhado nas seções anteriores. Este exemplo demonstra um curso de programação em linguagens orientadas a objeto, na qual os estudantes podem escolher quais assuntos específicos dentro da matérias eles vão estudar.
 
-O experimento apresentado é baseado na geração simulada de trilhas de estudantes dentro de um contexto de Educação Ubíqua. Educação Ubíqua pode ser compreendida como processos educacionais que ocorrem em qualquer lugar, a qualquer tempo e com qualquer dispositivo, de forma contínua, contextualizada e integrada ao cotidiano do aprendiz \cite{barbosa05}.
-
-O cenário simula um curso de programação em linguagens orientadas a objeto. O curso consiste em um conjunto de módulos relacionados a orientação a objetos que o usuário transfere para seu dispositivo móvel e estuda através dele. Destes módulos fazem parte conceitos básicos da matéria (classes, herança, {\em interfaces} e ponteiros) e linguagens de programação orientadas a objeto (C++, Python e Java). O estudante não é obrigado a concluir todos os módulos. No final do curso, no entanto, ele deve escolher a linguagem de programação que ele utilizará para responder as questões da prova final. Dependendo da linguagem que escolher, ele deve ter concluído, no mínimo, os módulos referentes àquela linguagem.
+O curso consiste em um conjunto de módulos relacionados a orientação a objetos que o usuário transfere para seu dispositivo móvel e estuda através dele. Destes módulos fazem parte conceitos básicos da matéria (classes, herança, {\em interfaces} e ponteiros) e linguagens de programação orientadas a objeto (C++, Python e Java). O estudante não é obrigado a concluir todos os módulos. No final do curso, no entanto, ele deve escolher a linguagem de programação que ele utilizará para responder as questões da prova final. Dependendo da linguagem que escolher, ele deve ter concluído, no mínimo, os módulos referentes àquela linguagem.
 
 As dependências dos módulos estão representadas na Figura~\ref{fig:cen1_modulos}. Por exemplo, caso o aluno decida realizar a prova em Java, ele deve ter estudado classes, herança e {\em interfaces}, além do Java propriamente dito. Como a linguagem Java não contém o conceito de ponteiros, ele não é obrigado a ter cursado este módulo.
 
@@ -17,11 +15,9 @@ As dependências dos módulos estão representadas na Figura~\ref{fig:cen1_modul
   \label{fig:cen1_modulos}
 \end{figure}
 
-Neste experimento, aplicativo de educação ubíqua distribui os objetos de aprendizagem de forma contextualizada. O aplicativo registra em um gerenciador de trilhas cada vez que um módulo é iniciado ou concluído. Tanto o aplicativo quanto o gerenciador de trilhas são simulados.
+Neste exemplo, aplicativo móvel distribui os objetos de aprendizagem de forma contextualizada. O aplicativo registra em um gerenciador de trilhas cada vez que um módulo é iniciado ou concluído. O aplicativo móvel, o gerenciador de trilhas e o eProfile conectam-se entre si de acordo com a Figura~\ref{fig:modelobasico} (Seção~\ref{sec:modelo}).
 
-% TODO - figura para vinculação 
-
-Cada evento (início ou conclusão de um objeto de aprendizagem) é registrado contendo as seguintes informações: (i) entidade que realizou o evento, (ii) objeto de aprendizagem, (iii) tipo de evento (início ou conclusão), (iii) data e hora e (iv) se é a primeira vez que o estudante realiza este tipo de evento. No cenário simulado, os eventos descritos na Tabela~\ref{tab:eventos} foram registrados pelo aplicativo no gerenciador de trilhas durante um período de um dia.
+Cada evento (início ou conclusão de um objeto de aprendizagem) é registrado contendo as seguintes informações: (i) entidade que realizou o evento, (ii) objeto de aprendizagem, (iii) tipo de evento (início ou conclusão), (iii) data e hora e (iv) se é a primeira vez que o estudante realiza este tipo de evento. Neste exemplo, os eventos descritos na Tabela~\ref{tab:eventos} foram registrados pelo aplicativo no gerenciador de trilhas durante um período de um dia.
 
 \begin{table}\centering\footnotesize
   \begin{tabular*}{0.47\textwidth}{@{}lllll@{}}
@@ -43,7 +39,7 @@ Cada evento (início ou conclusão de um objeto de aprendizagem) é registrado c
   \label{tab:eventos}
 \end{table}
 
-No cenário apresentado, deseja-se atualizar o perfil de uma entidade, inserindo a informação de proficiência dela em determinada disciplina. Esta informação será utilizada posteriormente pela aplicação para determinar se o estudante está apto a realizar o teste. Para que o eProfile possa ser capaz de inferir esta informação, a aplicação precisa, ao montar as trilhas, enviar informações suficientes para que o eProfile possa montar a ontologia que represente a situação atual. Neste experimento, um exemplo de informação deste tipo são as dependências entre as disciplinas. A Figura~\ref{fig:cen1_ontologia} mostra a ontologia montada pelo eProfile baseado nas trilhas enviadas da aplicação o gerenciador de trilhas, e do gerenciador ao eProfile.
+No exemplo apresentado, deseja-se atualizar o perfil de uma entidade, inserindo a informação de proficiência dela em determinada disciplina. Esta informação será utilizada posteriormente pela aplicação para determinar se o estudante está apto a realizar o teste. Para que o eProfile possa ser capaz de inferir esta informação, a aplicação precisa, ao montar as trilhas, enviar informações suficientes para que o eProfile possa montar a ontologia que represente a situação atual. Um exemplo de informação deste tipo são as dependências entre as disciplinas. A Figura~\ref{fig:cen1_ontologia} mostra a ontologia montada pelo eProfile baseado nas trilhas enviadas da aplicação o gerenciador de trilhas, e do gerenciador ao eProfile.
 
 \begin{figure}
   \begin{center}
@@ -53,7 +49,7 @@ No cenário apresentado, deseja-se atualizar o perfil de uma entidade, inserindo
   \label{fig:cen1_ontologia}
 \end{figure}
 
-Além das trilhas, a aplicação deve enviar as regras de inferência ao eProfile. Estas regras serão utilizadas pelo eProfile para inferir as trilhas e gerar o perfil. Neste experimento, para que o eProfile possa identificar se uma entidade é proficiente em alguma disciplina, são necessárias três regras: (i) a identificação dos objetos de aprendizagem requeridos para a proficiência na disciplina; (ii) a identificação dos objetos de aprendizagem concluídos pelo estudante e; (iii) a verificação se os objetos requeridos foram concluídos.
+Além das trilhas, a aplicação deve enviar as regras de inferência ao eProfile. Estas regras serão utilizadas pelo eProfile para inferir as trilhas e gerar o perfil. Para que o eProfile possa identificar se uma entidade é proficiente em alguma disciplina, são necessárias três regras: (i) a identificação dos objetos de aprendizagem requeridos para a proficiência na disciplina; (ii) a identificação dos objetos de aprendizagem concluídos pelo estudante e; (iii) a verificação se os objetos requeridos foram concluídos.
 
 A primeira regra está apresentada na Figura~\ref{cod:regra1}, sendo composta por uma classe escrita em OWL\footnote{Embora o eProfile utilize internamente a sintaxe OWL/RDF \cite{owl-guide}, a sintaxe Manchester-OWL está sendo usada neste artigo por ser mais compacta e amigável \cite{owl-manchester}.}. Para que um estudante seja considerado proficiente em Java, ele deve ter concluído os objetos de aprendizagens que fazem relação com a linguagem Java (neste caso classes, herança e {\em interfaces}, na linha 4), bem como o objeto de aprendizagem da própria linguagem Java (linha 3). 
 
@@ -98,5 +94,4 @@ JavaProficience <=
 \label{cod:regra3}
 \end{figure}
 
-No experimento realizado, verificou-se que nenhum dos usuários foi considerado proficiente em Java. Isto ocorre pois, de acordo com a Tabela~\ref{tab:eventos}, nenhum dos usuários chegou a concluir todos os módulos requeridos para a proficiência nesta linguagem. Assim, o perfil destas entidades foi atualizado como ``Não-proficiente em Java''. Como esta regra será executada periodicamente, uma vez que os usuários tenham concluído todos os módulos requeridos, o perfil será atualizado como ``Proficiente em Java''.
-
+No exemplo apresentado, nenhum dos usuários foi considerado proficiente em Java. Isto ocorre pois, de acordo com a Tabela~\ref{tab:eventos}, nenhum dos usuários chegou a concluir todos os módulos requeridos para a proficiência nesta linguagem. Assim, o perfil destas entidades foi atualizado como ``Não-proficiente em Java''. Como esta regra será executada periodicamente, uma vez que os usuários tenham concluído todos os módulos requeridos, o perfil será atualizado como ``Proficiente em Java''.
