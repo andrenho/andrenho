@@ -6,7 +6,7 @@
 O eProfile utiliza duas ontologias: uma ontologia de trilhas e uma ontologia de perfis. As ontologias utilizadas pelo eProfile, tanto a ontologia de trilhas quanto a ontologia de perfis, são ontologias básicas, estendidas através de subclasses de acordo com o formato da trilha enviada pelo gerenciador (no caso da ontologia de trilha) ou das necessidades da aplicação (no caso da ontologia do perfil). Isto é exemplificado na Figura~\ref{fig:heranca}, onde o eProfile oferece uma classe genérica ``Atividade'', que é especializada pela classe ``AtividadeDeCompra'', utilizada por um dos gerenciadores de trilha.
 
 \begin{figure}
-  \centering\includegraphics[width=0.8\textwidth]{imagens/heranca.png}
+  \centering\includegraphics[width=0.6\textwidth]{imagens/heranca.png}
   \caption{Exemplo da extensão de uma classe do eProfile}
   \label{fig:heranca}
 \end{figure}
@@ -16,14 +16,14 @@ O eProfile utiliza duas ontologias: uma ontologia de trilhas e uma ontologia de 
 \subsection{Ontologia de Trilha (eOntoTrail)}
 \label{sec:eontotrail}
 
-O eProfile implementa uma ontologia de trilha, a qual será chamada \textbf{eOntoTrail}. Esta ontologia será alimentada a partir dos diferentes gerenciadores de trilhas suportados, onde o agente conversor é responsável por receber os dados no formato do gerenciador de trilhas e convertê-los para a eOntoTrail. Assim, o raciocinador terá uma ontologia única sobre a qual poderá raciocinar.
+O eProfile implementa uma ontologia de trilha, chamada \textbf{eOntoTrail}. Esta ontologia será alimentada a partir dos diferentes gerenciadores de trilhas suportados, onde o agente conversor é responsável por receber os dados no formato do gerenciador de trilhas e convertê-los para a eOntoTrail. Assim, o raciocinador terá uma ontologia única sobre a qual poderá raciocinar.
 
 A eOntoTrail está representada na Figura~\ref{fig:ont_trilha}, onde todos os relacionamentos, representados pelas setas, são do tipo ou ``has-a'' ou ``has-some''.
 
 %\todo[inline]{Está correto utilizar ``has-a'' e ``has-some''? Estou querendo representar ``0 ou 1'', e ``0 ou mais'' respectivamente.}
 
 \begin{figure*}
-  \centering\includegraphics[width=1\textwidth]{imagens/ont_trilha.png}
+  \centering\includegraphics[width=1\textwidth]{imagens/ont_trilha_simples.png}
   \caption{Ontologia de Trilha do eProfile}
   \label{fig:ont_trilha}
 \end{figure*}
@@ -32,9 +32,11 @@ A eOntoTrail está representada na Figura~\ref{fig:ont_trilha}, onde todos os re
 
 \begin{itemize}
 
-  \item {\em Identity:} é a identidade da entidade que está realizando a ação. Esta entidade pode estar realizando a ação com um ou mais recursos ({\em Resource}) (um aplicativo ou dispositivo, por exemplo) e pode estar vinculada a um perfil ({\em Profile}) dentro do eProfile. A classe {\em Participants} contém as identidades das entidades que estão participando deste evento;
+  \item {\em Entity:} é a entidade que está realizando a ação. Esta entidade é vinculada à ontologia descrita na Seção~\ref{sec:eontoprofile};
 
-  \item {\em Location:} a localização onde está ocorrendo a ação. Uma localização pode ser uma localização física específica (como uma sala) ou não (uma estrada, por exemplo). A localização pode estar vinculada a uma região ({\em Region}) que, adicionalmente, pode estar vinculada a outras subregiões e geralmente possui uma localização global (GPS) vinculada a ela. Outros tipos de localização podem ser estendidas a partir da classe;
+  \item {\em Participants:} uma lista de outras entidades relacionadas à ação. No caso de uma reunião de negócios, por exemplo, o perfil que está sendo analisado é do tipo {\em Entity}, enquanto os outros participantes são membros da classe {\em Participants};
+
+  \item {\em Location:} a localização onde está ocorrendo a ação. Uma localização pode ser uma localização física específica (como uma sala) ou não (uma estrada, por exemplo). A localização pode estar vinculada a uma região que, opcionalmente, pode estar vinculada a outras subregiões e geralmente possui uma localização global (GPS) vinculada a ela. Outros tipos de localização podem ser estendidas a partir da classe;
 
   \item {\em Time:} data e hora em que ocorreu o evento;
 
@@ -69,7 +71,7 @@ A classe básica da ontologia é a classe {\em Element} (elemento). A classe {\e
 
 \end{itemize}
 
-Esta diferenciação é importante porque no primeiro caso, o eProfile tem acesso a uma vasta gama de informações a respeito da entidade, das entidades relacionadas àquela entidade, e assim por diante.
+Esta diferenciação é importante porque no primeiro caso, o eProfile tem acesso a uma vasta gama de informações a respeito da entidade, das entidades relacionadas àquela entidade, e assim por diante. No caso de uma {\em NonEntity}, o perfil não está disponível, e é apenas um nome para o eProfile.
 
 A ontologia FOAF \cite{foaf} utiliza o conceito de {\em knows} (conhece) para vincular duas pessoas. A eOntoProfile estende este conceito através da propriedade {\em relates-to} (se-relaciona-com) que vincula dois elementos. Através desta propriedade, é possível não apenas vincular os elementos, mas também descrever o tipo de relação que eles tem. Exemplos de relações são {\em friend-of} (amigo-de), representando uma amizade entre duas pessoas, {\em employee-of} (empregado-de), representando um vínculo empregatício entre duas pessoas, {\em owns} (possui), representando que uma pessoa possui um dispositivo, {\em depends} (depende), onde um dispositivo depende de outro, e qualquer outra relação que a aplicação deseje criar.
 

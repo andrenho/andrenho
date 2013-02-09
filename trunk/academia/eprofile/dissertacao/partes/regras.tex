@@ -43,9 +43,8 @@ As regras são sempre definidas pela aplicação, e uma regra é composta pelo s
 
 O raciocinador gerenciará a carga de processamento no servidor. Assim, algumas regras podem não ser executadas de acordo com o agendamento solicitado. Além disso, é possível que uma aplicação registre certas regras mas deixe de usar o servidor, fazendo com que as regras continuem sendo executadas desnecessariamente. Assim, caso um perfil não seja consultado por um tempo determinado, a frequência da execução das regras passa a diminuir progressivamente, até o ponto em que a regra não seja mais executada. Caso a aplicação volte a consultar os perfis, a frequência de execução das regras é normalizada.
 
-As regras podem ser escritas em duas linguagens diferentes: SPARQL ou SWRL. O SPARQL \cite{sparql} é uma linguagem de consulta de ontologias cuja sintaxe assemelha-se a linguagem de consulta de banco de dados SQL \cite{sql}, enquanto o SWRL \cite{swrl} é uma linguagem de regras que permite a consulta utilizando construtores lógicos mais complexos que o SPARQL.
+As regras podem ser escritas em duas linguagens diferentes: SPARQL ou SWRL. O SPARQL \cite{sparql} é uma linguagem de consulta de ontologias cuja sintaxe assemelha-se a linguagem de consulta de banco de dados SQL \cite{sql}, enquanto o SWRL \cite{swrl} é uma linguagem de regras que permite a consulta utilizando construtores lógicos mais complexos que o SPARQL. Além disso, as informações podem ser inferidas através das relações axiomáticas entre as classes.
 
 Uma vez que a regra tenha sido validada pelo agente regulador, ela entra em funcionamento e passa a ser elegível para execução.
 
-Tanto as consultas via OWL quanto as consultas via SPARQL são executadas através de um motor de inferências externo que é descrito na Seção~\ref{sec:motor_inferencia}.
-
+Tanto as consultas via SPARQL/SWRL quanto a geração de classes a partir das relações axiomáticas são executadas através de um motor de inferências externo que é descrito na Seção~\ref{sec:motor_inferencia}.

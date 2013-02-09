@@ -8,9 +8,11 @@ Para que o modelo possa ser avaliado, um protótipo será construído. Esta seç
 \section{Tecnologias Utilizadas}
 \label{sec:tecnologias}
 
-O protótipo do eProfile será desenvolvido em Java \cite{java}. O Java é uma linguagem de código aberto, orientada a objetos e de alto nível, desenvolvida com o intuito de poder ter seus programas executados em qualquer arquitetura.
+O protótipo do eProfile foi desenvolvido em Python \cite{python}. Python é uma linguagem genérica, orientada a objetos, de alto nível, com suporte a múltiplas arquiteturas e de código aberto.
 
-As bases de dados serão implementadas utilizando o banco de dados SQLite3 \cite{sqlite3}. O SQLite3 é um banco de dados SQL auto-contido transacional, disponível em domínio público. O SQLite3 foi escolhido por apresentar bom desempenho e não necessitar de um servidor separado para sua implantação.
+As regras, modelos de entidade e perfis de entidade serão armazenadas no banco de dados SQLite3 \cite{sqlite3}. O SQLite3 é um banco de dados SQL auto-contido transacional, disponível em domínio público. O SQLite3 foi escolhido por apresentar bom desempenho e não necessitar de um servidor separado para sua implantação.
+
+A comuncação entre o eProfile, o gerenciador de trilhas e as aplicações é feita através de {\it web services} \citep{fielding00}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -51,30 +53,30 @@ O \textbf{DAML+OIL} é uma linguagem de representação de conhecimento baseada 
 O \textbf{OWL} é a linguagem de ontologia mais expressiva definida ou em definição para a Web Semântica \cite{daconta03}. O OWL utiliza uma URI (\emph{Uniform Resource Identifier}) para os nomes, e a estrutura de descrição disponibilizada pelo RDF. O OWL está uma camada acima do RDF e do RDF/S, e adiciona mais vocabulário para descrever propriedades e classes, tais como relações entre classes, cardinalidade, igualdade, tipagem mais avançada de propriedades, características de propriedades e classes enumeradas \cite{owl-guide}. O OWL está disponível em três sub-linguagens: \emph{OWL Lite}, \emph{OWL DL} e \emph{OWL Full}, cada uma aumentando o nível de complexidade e expressividade. Um grande número de ferramentas com capacidade para edição e raciocínio semântico com suporte para OWL está disponível no mercado.
 
 % Escolhido - OWL
-Devido à expressividade e ao suporte de ferramentas externas, o OWL foi escolhido como a linguagem de ontologias utilizada pelo eProfile para modelagem das ontologia de perfis e de trilhas.
+Devido à expressividade e ao suporte de ferramentas externas, o OWL DL foi escolhido como a linguagem de ontologias utilizada pelo eProfile para modelagem das ontologia de perfis e de trilhas.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Metodologia de Avaliação}
-\label{sec:avaliacao}
+%\section{Metodologia de Avaliação}
+%\label{sec:avaliacao}
 
-O trabalho apresenta um modelo que auxilia aplicações a montarem perfis de entidades utilizando inferência em trilhas. O eProfile é uma proposta de infraestrutura e, portanto, sua avaliação é difícil, uma vez que não é visível para o usuário final. Segundo \citetexto{edwards03}, somente é possível avaliar as funcionalidades de uma proposta de infraestrutura construindo aplicações que a utilizem e então avaliá-las, de modo a obter uma avaliação indireta do {\em framework}.
+%O trabalho apresenta um modelo que auxilia aplicações a montarem perfis de entidades utilizando inferência em trilhas. O eProfile é uma proposta de infraestrutura e, portanto, sua avaliação é difícil, uma vez que não é visível para o usuário final. Segundo \citetexto{edwards03}, somente é possível avaliar as funcionalidades de uma proposta de infraestrutura construindo aplicações que a utilizem e então avaliá-las, de modo a obter uma avaliação indireta do {\em framework}.
 
-Assim sendo, para a avaliação desta proposta será realizada uma abordagem sob duas perspectivas: {\bf funcionalidade} e {\bf cenário}. Na primeira, a avaliação se dará sobre as funcionalidades propostas, isto é, se o protótipo é funcional e atende o modelo proposto no Capítulo~\ref{ch:modelo}. Na segunda, serão desenvolvidos dois protótipos de aplicação (representando duas aplicações diferentes), que seguirão roteiros definidos em um conjunto de cenários. Será, então, verificado se o eProfile conseguiu cumprir as premissas descritas no cenário.
+%Assim sendo, para a avaliação desta proposta será realizada uma abordagem sob duas perspectivas: {\bf funcionalidade} e {\bf cenário}. Na primeira, a avaliação se dau sobre as funcionalidades propostas, isto é, se o protótipo é funcional e atende o modelo proposto no Capítulo~\ref{ch:modelo}. Na segunda, foi desenvolvido um protótipo de aplicação, que seguiu um roteiro definidos em um cenário. Foi, então, verificado se o eProfile conseguiu cumprir as premissas descritas no cenário e se a utilização do eProfile trouxe aperfeiçoamento das informações geradas no cenário descrito.
 
-Para o teste de funcionalidades, serão verificadas as premissas descritas abaixo. Caso seja necessário, serão desenvolvidos programas capazes de realizar os seguintes testes:
+%Para o teste de funcionalidades, foram verificadas as premissas descritas abaixo.
 
-\begin{itemize}
+%\begin{itemize}
 
-\item o eProfile é capaz de se conectar a uma aplicação e um gerenciador de trilhas;
-\item a aplicação pode registrar uma nova entidade no eProfile;
-\item a aplicação pode registrar um novo modelo de entidade no eProfile;
-\item a aplicação pode registrar novas regras no eProfile;
-\item o eProfile busca a trilha da entidade no gerenciador de trilhas;
-\item o eProfile traduz a trilha da entidade do formato do gerenciador de trilhas para seu formato próprio;
-\item o eProfile é capaz de utilizar as regras para realizar a inferência nas trilhas de uma entidade, e montar um perfil de acordo com o modelo de entidade;
-\item o eProfile é capaz de realizar todos os testes acima para múltiplos gerenciadores de trilhas, múltiplas aplicações e múltiplas entidades.
+%\item o eProfile é capaz de se conectar a uma aplicação e um gerenciador de trilhas;
+%\item a aplicação pode registrar uma nova entidade no eProfile;
+%\item a aplicação pode registrar um novo modelo de entidade no eProfile;
+%\item a aplicação pode registrar novas regras no eProfile;
+%\item o eProfile busca a trilha da entidade no gerenciador de trilhas;
+%\item o eProfile traduz a trilha da entidade do formato do gerenciador de trilhas para seu formato próprio;
+%\item o eProfile é capaz de utilizar as regras para realizar a inferência nas trilhas de uma entidade, e montar um perfil de acordo com o modelo de entidade;
+%\item o eProfile é capaz de realizar todos os testes acima para múltiplos gerenciadores de trilhas, múltiplas aplicações e múltiplas entidades.
 
-\end{itemize}
+%\end{itemize}
 
-Para a realização do teste de cenário, serão desenvolvidos de dois a três cenários que simularão atividades realizadas por múltiplas aplicações e múltiplas entidades, onde o cenário terá um resultado pré-definido, contra o qual será verificado o resultado obtido pelo protótipo do eProfile.
+%Para a realização do teste de cenário, foi desenvolvido um cenários onde foram simuladas atividades realizadas por múltiplas aplicações e múltiplas entidadas. Através da análise das informações geradas pelas aplicações simuladas no cenário, foi possível verificar que o eProfile potencializou a capacidade de personalização das aplicações. O cenário está descrito no 

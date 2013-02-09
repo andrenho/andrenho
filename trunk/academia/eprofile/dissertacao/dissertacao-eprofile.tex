@@ -15,6 +15,14 @@
 \usepackage{todonotes}         % Notas TODO
 \usepackage{booktabs}          % Tabelas bonitas
 \renewcommand{\arraystretch}{1.2}
+\usepackage{listings}
+\lstset{
+	basicstyle=\footnotesize\ttfamily,
+	numbers=left,
+	numberstyle=\tiny,
+	numbersep=5pt,
+	frame=single
+}
 
 % Configurações de bibliografia
 \unisinosbst
@@ -30,28 +38,33 @@
 \curso{Programa de Pós-Gradudação em Computação Aplicada}
 \nivel{Nível Mestrado}
 \natureza{%
-%Dissertação apresentada como requisito parcial para a obtenção
-%do título de Mestre pelo Programa de Pós-Graduação em Computação
-%Aplicada da Universidade do Vale do Rio dos Sinos --- UNISINOS
-Proposta de dissertação submetida à avaliação como requisito
-parcial para a obtenção do grau de Mestre em Computação Aplicada
+Dissertação apresentada como requisito parcial para a obtenção
+do título de Mestre pelo Programa de Pós-Graduação em Computação
+Aplicada da Universidade do Vale do Rio dos Sinos --- UNISINOS
+%Proposta de dissertação submetida à avaliação como requisito
+%parcial para a obtenção do grau de Mestre em Computação Aplicada
 }
 \local{São Leopoldo}
-\ano{2012}
+\ano{2013}
 
 % dados da ficha catalográfica
 % (obrigatória somente para dissertações e teses)
-%\cip{Dissertação (mestrado)}{004.732}
-%\bibliotecario{Bibliotecária responsável: Fulana da Silva}{12/3456}
+\cip{Dissertação (mestrado)}{004.732}
+\bibliotecario{Bibliotecária responsável: Eliete Mari Doncato Brasil}{10/1184}
 
 % 
 % Palavras-chave
 %
-\palavrachave{brazilian}{perfil de usuário}
-\palavrachave{brazilian}{modelo de usuário}
-\palavrachave{english}{user profile}
-\palavrachave{english}{user model}
-% TODO - mais palavras chave
+\palavrachave{brazilian}{Gerenciamento de perfis}
+\palavrachave{brazilian}{Computação ubíqua}
+\palavrachave{brazilian}{Modelagem de usuários}
+\palavrachave{brazilian}{Trilhas}
+\palavrachave{brazilian}{Inferência de perfis}
+\palavrachave{english}{Profile management}
+\palavrachave{english}{Ubiquitous computing}
+\palavrachave{english}{User modeling}
+\palavrachave{english}{Trails}
+\palavrachave{english}{Profile inference}
 
 
 %
@@ -59,12 +72,12 @@ parcial para a obtenção do grau de Mestre em Computação Aplicada
 %
 \begin{document}
 
-%\input{partes/partes_iniciais.tex}
+\input{partes/partes_iniciais.tex}
 
-\folhaderosto
-\tableofcontents
-\listoffigures
-\listoftables
+%\folhaderosto
+%\tableofcontents
+%\listoffigures
+%\listoftables
 
 % 
 % Lista de capítulos
