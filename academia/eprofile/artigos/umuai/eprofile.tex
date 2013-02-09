@@ -68,17 +68,8 @@
 \textit{This paper or a similar version is not currently under review by a journal or conference, nor will be submitted to such within the next three months. This paper is void of plagiarism or self-plagiarism as defined in Springer's Policy on Publishing Integrity.}\\[1cm]
 
 \begin{abstract}
-Context-aware and ubiquitous systems have the challenge of implicitly collect
-relevant information about entities, and use this information to understand and
-predict their behaviour. This allows the applications to adapt themselves to
-the the entities, thus avoiding to overflow it with inquires and information.
-This article presents a model that allows applications to register users'
-actions in trails and infer profile information from these trails, using
-semantic interoperability and thus allowing different applications to share
-information and infer a unified profile. The contributions of this model are
-the use of trails for extracting profiles, the generation of dynamic profiles
-and the capability of managing dynamic inference rules for profile generation.
-\keywords{Profile Management \and Ubiquitous Computing \and Trails \and Profile Inference}
+Context-aware and ubiquitous systems have the challenge of implicitly collect relevant information about entities, and use this information to understand and predict their behaviour. This allows the applications to adapt themselves to the the entities, thus avoiding to overflow it with inquires and information.  This article presents a model that allows applications to register users' actions in trails and infer profile information from these trails, using semantic interoperability and thus allowing different applications to share information and infer a unified profile. The contributions of this model are the use of trails for extracting profiles, the generation of dynamic profiles, the capability of managing dynamic inference rules for profile generation and the semantic interoperabilty of the model.
+\keywords{Profile Management \and Ubiquitous Computing \and User Modeling \and Trails \and Profile Inference}
 % \PACS{PACS code1 \and PACS code2 \and more} % TODO
 % \subclass{MSC code1 \and MSC code2 \and more}
 \end{abstract}
@@ -338,8 +329,7 @@ the generated profile when the rules are executed the next time.
 
 eProfile prototype was developed in Python \citep{python}. Python is a generic,
 open source, object-oriented, high-level language, that supports multiple
-architectures. The rule, model and profile databases are implemented using the
-SQLite3 database \citep{sqlite3}. SQLite3 is an SQL transactional self-contained
+architectures. The rule, model and profile information are stored in SQLite3 databases \citep{sqlite3}. SQLite3 is an SQL transactional self-contained
 database, available in the public domain. The SQLite3 was chosen due to its good
 performance and the fact that it does not require a separate server for
 deployment. The use of a relational database to store the rule, model and

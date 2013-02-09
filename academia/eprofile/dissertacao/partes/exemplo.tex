@@ -8,10 +8,8 @@ O curso consiste em um conjunto de módulos relacionados a orientação a objeto
 As dependências dos módulos estão representadas na Figura~\ref{fig:cen1_modulos}. Por exemplo, caso o aluno decida realizar a prova em Java, ele deve ter estudado classes, herança e {\em interfaces}, além do Java propriamente dito. Como a linguagem Java não contém o conceito de ponteiros, ele não é obrigado a ter cursado este módulo.
 
 \begin{figure}
-  \begin{center}
-    \includegraphics[width=0.15\textwidth]{imagens/cen1_modulos.png}
-  \end{center}
-  \caption{\textbf{Módulos de estudo obrigatórios}}
+  \centering\includegraphics[width=0.3\textwidth]{imagens/cen1_modulos.png}
+  \caption{Módulos de estudo obrigatórios}
   \label{fig:cen1_modulos}
 \end{figure}
 
@@ -20,7 +18,7 @@ Neste exemplo, aplicativo móvel distribui os objetos de aprendizagem de forma c
 Cada evento (início ou conclusão de um objeto de aprendizagem) é registrado contendo as seguintes informações: (i) entidade que realizou o evento, (ii) objeto de aprendizagem, (iii) tipo de evento (início ou conclusão), (iii) data e hora e (iv) se é a primeira vez que o estudante realiza este tipo de evento. Neste exemplo, os eventos descritos na Tabela~\ref{tab:eventos} foram registrados pelo aplicativo no gerenciador de trilhas durante um período de um dia.
 
 \begin{table}\centering\footnotesize
-  \begin{tabular*}{0.47\textwidth}{@{}lllll@{}}
+  \begin{tabular*}{0.65\textwidth}{@{}lllll@{}}
     \toprule
     Entidade & Objeto de    & Tipo de & Data e Hora & Primeira \\
              & aprendizagem & evento  &             & vez? \\
@@ -35,7 +33,7 @@ Cada evento (início ou conclusão de um objeto de aprendizagem) é registrado c
     Andre    & Java         & Término & 09/07/2012 16:18 & Não \\
     \bottomrule
   \end{tabular*}
-  \caption{\textbf{Trilha gerada pelo aplicativo}}
+  \caption{Trilha gerada pelo aplicativo}
   \label{tab:eventos}
 \end{table}
 
@@ -43,15 +41,15 @@ No exemplo apresentado, deseja-se atualizar o perfil de uma entidade, inserindo 
 
 \begin{figure}
   \begin{center}
-    \includegraphics[width=0.5\textwidth]{cen_ontologia.png}
+    \includegraphics[width=1\textwidth]{imagens/cen_ontologia.png}
   \end{center}
-  \caption{\textbf{Ontologia do cenário apresentado}}
+  \caption{Ontologia do cenário apresentado}
   \label{fig:cen1_ontologia}
 \end{figure}
 
 Além das trilhas, a aplicação deve enviar as regras de inferência ao eProfile. Estas regras serão utilizadas pelo eProfile para inferir as trilhas e gerar o perfil. Para que o eProfile possa identificar se uma entidade é proficiente em alguma disciplina, são necessárias três regras: (i) a identificação dos objetos de aprendizagem requeridos para a proficiência na disciplina; (ii) a identificação dos objetos de aprendizagem concluídos pelo estudante e; (iii) a verificação se os objetos requeridos foram concluídos.
 
-A primeira regra está apresentada na Figura~\ref{cod:regra1}, sendo composta por uma classe escrita em OWL\footnote{Embora o eProfile utilize internamente a sintaxe OWL/RDF \cite{owl-guide}, a sintaxe Manchester-OWL está sendo usada neste artigo por ser mais compacta e amigável \cite{owl-manchester}.}. Para que um estudante seja considerado proficiente em Java, ele deve ter concluído os objetos de aprendizagens que fazem relação com a linguagem Java (neste caso classes, herança e {\em interfaces}, na linha 4), bem como o objeto de aprendizagem da própria linguagem Java (linha 3). 
+A primeira regra está apresentada na Figura~\ref{cod:regra1}, sendo composta por uma classe escrita em OWL\footnote{Embora o eProfile utilize internamente a sintaxe OWL/RDF \cite{owl-guide}, a sintaxe Manchester-OWL está sendo usada neste exemplo por ser mais compacta e amigável \cite{owl-manchester}.}. Para que um estudante seja considerado proficiente em Java, ele deve ter concluído os objetos de aprendizagens que fazem relação com a linguagem Java (neste caso classes, herança e {\em interfaces}, na linha 4), bem como o objeto de aprendizagem da própria linguagem Java (linha 3). 
 
 \begin{figure}
 \begin{lstlisting}
@@ -60,11 +58,11 @@ Class: <el:JavaRequirement>
         <el:Java>
          or (<el:relatesTo> some <el:Java>)
 \end{lstlisting}
-\caption{\textbf{Regra de requerimentos para disciplina}}
+\caption{Regra de requerimentos para disciplina}
 \label{cod:regra1}
 \end{figure}
 
-O segundo passo é a identificação dos objetos de aprendizagem concluídos pelo estudante relacionados ao Java. Esta regra é apresentada na Figura~\ref{cod:regra2}. Assim, são considerados apenas os eventos de conclusão de objeto de aprendizagem (linha 3) realizados pela entidade (linha 4), relacionados ao Java (linha 5) e que tenham sido realizados pela primeira vez (linha 7), uma vez que o aluno pode estudar o mesmo material várias vezes. O parâmetro \texttt{[?entity]} será substituído pela entidade na execução da regra de cada perfil. É importante notar que para verificar se a disciplina está relacionada ao Java, a regra criada na Figura~\ref{cod:regra1} é utilizada (linhas 5 e 6).
+O segundo passo é a identificação dos objetos de aprendizagem concluídos pelo estudante relacionados ao Java. Esta regra é apresentada na Figura~\ref{cod:regra2}. Assim, são considerados apenas os eventos de conclusão de objeto de aprendizagem (linha 3) realizados pela entidade (linha 4), relacionados ao Java (linha 5) e que tenham sido realizados pela primeira vez (linha 7), uma vez que o aluno pode estudar o mesmo material várias vezes. O parâmetro \texttt{[?entity]} é substituído pela entidade na execução da regra de cada perfil. É importante notar que para verificar se a disciplina está relacionada ao Java, a regra criada na Figura~\ref{cod:regra1} é utilizada (linhas 5 e 6).
 
 \begin{figure}
 \begin{lstlisting}
@@ -76,13 +74,13 @@ Class: <el:JavaLessonsTaken>
 	                    <el:JavaRequirement>)
          and (<el:isFirstTime> value true)
 \end{lstlisting}
-\caption{\textbf{Regra de objetos de aprendizagem concluídos}}
+\caption{Regra de objetos de aprendizagem concluídos}
 \label{cod:regra2}
 \end{figure}
 
 Uma vez que estas duas regras estejam criadas na ontologia, o eProfile executa o raciocinador, que gera uma nova ontologia OWL, com as classes inferidas identificadas como filhas das classes criadas.
 
-A terceira regra é uma regra de atualização de perfil (Figura~\ref{cod:regra3}. Nesta regra, são comparados o número de módulos Java (regra da Figura~\ref{cod:regra1}) com o número de objetos de aprendizagem relacionados ao Java que foram concluídos pela entidade (regra da Figura~\ref{cod:regra2}). Se o número for igual, o usuário é considerado proficiente, e esta regra é atualizada no perfil da entidade.
+A terceira regra é uma regra de atualização de perfil (Figura~\ref{cod:regra3}). Nesta regra, são comparados o número de módulos Java (regra da Figura~\ref{cod:regra1}) com o número de objetos de aprendizagem relacionados ao Java que foram concluídos pela entidade (regra da Figura~\ref{cod:regra2}). Se o número for igual, o usuário é considerado proficiente, e esta regra é atualizada no perfil da entidade.
 
 \begin{figure}
 \begin{lstlisting}
@@ -90,7 +88,7 @@ JavaProficience <=
   (Count(SubClasses(JavaRequirement))) equals
           (Count(SubClasses(JavaLessonsTaken)))
 \end{lstlisting}
-\caption{\textbf{Regra de proficiência}}
+\caption{Regra de proficiência}
 \label{cod:regra3}
 \end{figure}
 
