@@ -329,7 +329,7 @@ Após a aplicação da regra mostrada nas Figuras~\ref{fig:regra3} e~\ref{fig:re
 \section{Protótipo e Simulação}
 \label{sec:simulacao_cen1}
 
-O protótipo do eProfile foi desenvolvido na linguagem Python \cite{python}. Ele utiliza o FaCT++ como motor de inferência \cite{tsarkov06}. A comunicação entre os três aplicativos (UniManager, LOCAL e eProfile) é realizado através de {\it web services} REST \cite{fielding00}. A implementação do eProfile é descrita em mais detalhes no Capítulo~\ref{ch:implementacao}.
+Segundo mencionado no Capítulo~\ref{ch:implementacao}, o protótipo do eProfile foi desenvolvido na linguagem Python \cite{python}. Ele utiliza o FaCT++ como motor de inferência \cite{tsarkov06}. A comunicação entre os três aplicativos (UniManager, LOCAL e eProfile) é realizado através de {\it web services} REST \cite{fielding00}. A implementação do eProfile é descrita em mais detalhes no Capítulo~\ref{ch:implementacao}.
 
 Para a simulação do modelo, foram desenvolvidos dois programas:
 
@@ -359,7 +359,7 @@ Disciplinas opcionais também são vinculadas a assuntos escolhidos pelos estuda
 A Figura~\ref{fig:result1} mostra os resultados da simulação. Nesta simulação, um grupo de 50 alunos passa por um curso completo de graduação. O curso completo leva mais de 16 semestres pois, devido a um número limitado de vagas nas disciplinas, nem todos os estudantes cursar todas as disciplinas disponíveis a eles todos os semstres. O simulador registra a porcentagem de debates e trabalhos entregues cujos assuntos foram sugeridos pelo sistema, baseado nas escolhas anteriores dos estudantes. No primeiro semestre, o sistema foi capaz de recomendar assuntos apenas 2\% das vezes, mas à medida que os estudantes fizeram mais escolhas, o sistema foi capaz de sugerir mais assuntos, até que o nível de recomendação estabilizou-se acima de 90\% a partir do 13º semestre.
 
 \begin{figure}[!t]
-  \centering\includegraphics[width=0.7\textwidth,angle=-90]{imagens/auto.eps}
+  \centering\includegraphics[width=0.6\textwidth,angle=-90]{imagens/auto.eps}
   \caption{Resultados da simulação: recomendações automáticas por semestre}
   \label{fig:result1}
 \end{figure}
@@ -369,7 +369,7 @@ Para testar a capacidade de alterar as regras durante a execução do eProfile, 
 A Figura~\ref{fig:result2} mostra o resultado do segundo experimento. Comparando a Figura~\ref{fig:result1} e a Figura~\ref{fig:result2}, pode-se verificar um súbito aumento na quantidade de assuntos recomendados a partir do 8º semestre, que é o resultado da modificação das regras durante a execução da simulação.
 
 \begin{figure}[!t]
-  \centering\includegraphics[width=0.7\textwidth,angle=-90]{imagens/auto2.eps}
-  \caption{Simulation results with rule modification during execution }
+  \centering\includegraphics[width=0.6\textwidth,angle=-90]{imagens/auto2.eps}
+  \caption{Resultados da simulação com a alteração da regra durante a execução}
   \label{fig:result2}
 \end{figure}
