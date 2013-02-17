@@ -242,7 +242,7 @@ Once in possession of the trails, the model and rules, the \textbf{Reasoner} age
 \subsection{Ontologies}
 \label{sec:ontologias}
 
-As mentioned in Section~\ref{sec:arquitetura}, eProfile uses two ontologies: a trail ontology and a profile ontology. These are both basic ontologies, extended by subclasses according to the trail format sent by the trail manager (for the trail ontology) or the needs of the application (for the profile ontology).
+As mentioned in Section~\ref{sec:arquitetura}, eProfile uses two ontologies: a trail ontology and a profile ontology. These are both basic ontologies, extended by sub-classes according to the trail format sent by the trail manager (for the trail ontology) or the needs of the application (for the profile ontology).
 
 The trail ontology data (eOntoTrail), shown in Figure~\ref{fig:ont_trilha}, is fed by different supported trail managers. The Converter agent is responsible for receiving data in the trail manager format and converting it to the eOntoTrail. This way, the reasoner has a single ontology on which to reason.
 
@@ -261,7 +261,7 @@ can optionally be linked to a profile, (ii) {\em Location}, the place where the
 action is taking place, (iii) {\em Time}, the date and time the event occurred,
 (iv) {\em Participants}, the entities linked to this action, and (v) {\em
 Activity}, the action that the entity is performing (or trying to perform). This
-lastclass is the most comprehensive of the ontology, and will possibly be the most specialized by the trail managers.
+last class is the most comprehensive of the ontology, and will possibly be the most specialized by the trail managers.
 
 \begin{figure}
   \centering\includegraphics[width=0.45\textwidth]{imagens/ont_perfil3.png}
@@ -603,7 +603,7 @@ The entities models are the data structure used to store the profile of a entity
 
 Sections of the profile persistent block are (i) contact, which stores basic information of the user (such as name, phone number, among others), (ii) preferences, which stores the media type preferred by the user, and (iii) interests, which identifies the student's topics of interest. The interests section is categorized according to ACM's computational classification system \citep{acm10}. Sections of the contextual block are (i) relations, identifying relationships with other users within the same context, (ii) performance, which refers to the goals to be achieved by students and (iii) security, which stores credentials necessary to access different levels in specific contexts.
 
-UniManager stores profiles of disciplines, professors and students. Its entity model is illustrated in Figure~\ref{fig:perfil_unimanager}. The basic information, disciplines enrolled and notes/absences from the student profile, along with the disciplines information, are used for managerial activities of the university, such as checking if the student can attend a particular discipline. Performance information about the professor and historical average grades of disciplines are used to adjust the professor with the discipline he has higher affinity or performance. Information about students interests are used to suggest optionals disciplines to them.
+UniManager stores profiles of disciplines, professors and students. Its entity model is illustrated in Figure~\ref{fig:perfil_unimanager}. The basic information, disciplines enrolled and notes/absences from the student profile, along with the disciplines information, are used for managerial activities of the university, such as checking if the student can attend a particular discipline. Performance information about the professor and historical average grades of disciplines are used to adjust the professor with the discipline he has higher affinity or performance. Information about students interests are used to suggest optional disciplines to them.
 
 \begin{figure}[!t]
   \centering\includegraphics[width=0.65\textwidth]{imagens/unimanager_perfil_en.png}
@@ -613,11 +613,11 @@ UniManager stores profiles of disciplines, professors and students. Its entity m
 
 Each application define a set of rules for profile generation based on the trails registered by each one. An application has the option of using the trail of another application for processing rules and, consequently, profile generation, thus allowing the entity profile to be enriched by the surrounding environment.
 
-The rule definition is written in OWL by creating classes that can be processed by a reasoner. Table~\ref{tab:aula} shows an example of a classroom where the professor registers in LOCAL a set of subjects that'll be discussed in class (event 1). This event generates a trail that is sent from LOCAL to the trail manager and, subsequently, to eProfile.
+The rule definition is written in OWL by creating classes that can be processed by a reasoner. Table~\ref{tab:aula} shows an example of a classroom where the professor registers in LOCAL a set of subjects that will be discussed in class (event 1). This event generates a trail that is sent from LOCAL to the trail manager and, subsequently, to eProfile.
 
-LOCAL then tries to identify students who have the same interests as the ones in the proposed debate, or interests related to these (event 7), by sending the OWL rules described in Figure~\ref{fig:regra1}. The first rule is called {\em RelatedSubjects} (line 2), where the subjects (class {\em Subject}, in line 4) related (line 6) to what will be discussed in class (line 7) are inferred. The expression {\tt ?Subject} is an eProfile extension to OWL, where this expression is replaced by the subjects that will be discussed, allowing the same rule to be used in different situations. This rule, after the inference process, results in the listing of all subjects (classes of type {\em Subject}) that relate to the subject that will be discussed, putting these classes as subclasses of class {\em RelatedSubjects}.
+LOCAL then tries to identify students who have the same interests as the ones in the proposed debate, or interests related to these (event 7), by sending the OWL rules described in Figure~\ref{fig:regra1}. The first rule is called {\em RelatedSubjects} (line 2), where the subjects (class {\em Subject}, in line 4) related (line 6) to what will be discussed in class (line 7) are inferred. The expression {\tt ?Subject} is an eProfile extension to OWL, where this expression is replaced by the subjects that will be discussed, allowing the same rule to be used in different situations. This rule, after the inference process, results in the listing of all subjects (classes of type {\em Subject}) that relate to the subject that will be discussed, putting these classes as sub-classes of class {\em RelatedSubjects}.
 
-Using this rule, it is possible to find out the students (line 15) whose interests intersect with the interests found in the {\em RelatedSubjects} class (line 18). These students, in this ontology, become subclasses of class {\em StudentsSelected} (line 13).
+Using this rule, it is possible to find out the students (line 15) whose interests intersect with the interests found in the {\em RelatedSubjects} class (line 18). These students, in this ontology, become sub-classes of class {\em StudentsSelected} (line 13).
 
 \begin{figure}[!t]
 \begin{verbatim}
@@ -649,7 +649,7 @@ Using this rule, it is possible to find out the students (line 15) whose interes
 
 Event 7 in Table~\ref{tab:aula} describes that two students did not match either group because they had no interest related to the subjects of debate, and LOCAL asked them on what subject they would like to participate (events 8 and 9), thus generating a trail event for these two students. Once the trail is registered, the student's profile is reprocessed according to the rules defined by LOCAL.
 
-The header of the rule that updates the student interest field is shown in Figure~\ref{fig:regra3}. This header defines that the student profile (line 1) {\em Interest} field (line 2) will be updated using the subclasses of class {\em StudentInterest}, whose OWL rule is shown in Figure~\ref{fig:regra2}. It is also defined that a new interest is added to the interests that already exist (line 4), that this rule is updated every time an event is registered in the trail in which a subject is chosen (line 5). The OWL rule of Figure~\ref{fig:regra2} defines that the {\em StudentInterest} class consists of the subjects chosen (line 6) by the students who are part of this context (line 10 and 11) and that have chosen a particular subject (lines 6 and 7).
+The header of the rule that updates the student interest field is shown in Figure~\ref{fig:regra3}. This header defines that the student profile (line 1) {\em Interest} field (line 2) will be updated using the sub-classes of class {\em StudentInterest}, whose OWL rule is shown in Figure~\ref{fig:regra2}. It is also defined that a new interest is added to the interests that already exist (line 4), that this rule is updated every time an event is registered in the trail in which a subject is chosen (line 5). The OWL rule of Figure~\ref{fig:regra2} defines that the {\em StudentInterest} class consists of the subjects chosen (line 6) by the students who are part of this context (line 10 and 11) and that have chosen a particular subject (lines 6 and 7).
 
 \begin{figure}[!t]
 \begin{verbatim}
@@ -695,7 +695,7 @@ After the execution of the rule shown in Figures~\ref{fig:regra3} and~\ref{fig:r
 To simulate the model, we developed two programs:
 
 \begin{enumerate}
-  \item A simulator, the simlates students, professors and disciplines using UniManager and LOCAL;
+  \item A simulator, the simulates students, professors and disciplines using UniManager and LOCAL;
   \item A trail manager, which stores the generated trails and makes them available to eProfile.
 \end{enumerate}
 
@@ -713,11 +713,11 @@ A simulation starts with the creation of the discipline, student and professor e
 
 Each course consists of 14 classes. There are two types of events that can occur in a class: (i) a debate or group work, and (ii) an individual paper or test. A class can have one of these two events, both or neither. Table~\ref{tab:aula} exemplifies a class in which the two types of events occurred.
 
-For this simulation, it was defined that in each discipline there were studied a number of different subjects (from 3 to 5, randomly), and that each subject was related to 1 or 2 other subjects. For example, in the ``Programming Languages'' discipline, the subject of ``C Language'' was studied, among other programming languages. Later, in the discipline of ``Data Structures'', the subject of ``Pointers'' was studied. Since ``C Language'' and ``Pointers'' are related concepts, the subjects were linked, and if a student chose to study ``C Language'' using the LOCAL application, then the subject of ``Pointers'' is recommended to him when he takes the ``Data Strutures'' discipline.
+For this simulation, it was defined that in each discipline there were studied a number of different subjects (from 3 to 5, randomly), and that each subject was related to 1 or 2 other subjects. For example, in the ``Programming Languages'' discipline, the subject of ``C Language'' was studied, among other programming languages. Later, in the discipline of ``Data Structures'', the subject of ``Pointers'' was studied. Since ``C Language'' and ``Pointers'' are related concepts, the subjects were linked, and if a student chose to study ``C Language'' using the LOCAL application, then the subject of ``Pointers'' is recommended to him when he takes the ``Data Structures'' discipline.
 
 Optional disciplines are also linked to subjects chosen by the students. Debate and paper subjects chosen by the students using LOCAL are used to suggest optional disciplines to the user on UniManager.
 
-Figure~\ref{fig:result1} shows the results of the simulation. On this simulation, a group of 50 students goes through a complete undergraduation course. The course takes more than 16 semesters because, due to limited number of openings in the disciplines, not all students take all disciplines available every semester. The simulator registers the percentage of the debates and papers subjects whose subjects were be suggested by the system, based on previous student choices. In the first semester, the system was able to suggest only 2\% of the time, but as the students made more choices, the system was able to suggest more subjects, until the level of recommendation stabilized above 90\% in the 13th semester onwards.
+Figure~\ref{fig:result1} shows the results of the simulation. On this simulation, a group of 50 students goes through a complete under-graduation course. The course takes more than 16 semesters because, due to limited number of openings in the disciplines, not all students take all disciplines available every semester. The simulator registers the percentage of the debates and papers subjects whose subjects were be suggested by the system, based on previous student choices. In the first semester, the system was able to suggest only 2\% of the time, but as the students made more choices, the system was able to suggest more subjects, until the level of recommendation stabilized above 90\% in the 13th semester onward.
 
 \begin{figure}[!t]
   \centering\includegraphics[width=0.7\textwidth,angle=-90]{imagens/auto.eps}
@@ -725,9 +725,9 @@ Figure~\ref{fig:result1} shows the results of the simulation. On this simulation
   \label{fig:result1}
 \end{figure}
 
-To test the capability of changing the rules during the execution of eProfile, a new experiment was made. On this test, the execution was the same as the previous test until the 8th semester. On this semester, the rule for generating the listing of subjects related to the subject that is being debated or studied (as demonstrated in Figure~\ref{fig:regra1}) was changed: in addition to consider subjects related to the subject in point, the subjects chosen by the 5 most similar students to each student were also used as recommendation. In this context, the most similiar student is the one who made more choices equals to another student.
+To test the capability of changing the rules during the execution of eProfile, a new experiment was made. On this test, the execution was the same as the previous test until the 8th semester. On this semester, the rule for generating the listing of subjects related to the subject that is being debated or studied (as demonstrated in Figure~\ref{fig:regra1}) was changed: in addition to consider subjects related to the subject in point, the subjects chosen by the 5 most similar students to each student were also used as recommendation. In this context, the most similar student is the one who made more choices equals to another student.
 
-Figure~\ref{fig:result2} shows the result of the second experiment. Comparing Figure~\ref{fig:result1} and Figure~\ref{fig:result2}, it can be seen a sudden increase in the rate of recommended subjects from the 8th semester onwards, which is the result of the modification of the rules during the execution of the simulation.
+Figure~\ref{fig:result2} shows the result of the second experiment. Comparing Figure~\ref{fig:result1} and Figure~\ref{fig:result2}, it can be seen a sudden increase in the rate of recommended subjects from the 8th semester onward, which is the result of the modification of the rules during the execution of the simulation.
 
 \begin{figure}[!t]
   \centering\includegraphics[width=0.7\textwidth,angle=-90]{imagens/auto2.eps}
@@ -757,7 +757,7 @@ In the paper presented by \citet{tao11}, it is proposed a ontology model for kno
 Table~\ref{tab:comparacao2} shows a comparison between eProfile and related works. The following factors are taken into consideration:
 
 \begin{itemize}
-  \item Interoperability: considers if the model presents interoperability -- if yes, whether it is sintatic or semantic -- according to the definition in Section~\ref{ch:introducao};
+  \item Interoperability: considers if the model presents interoperability -- if yes, whether it is syntactic or semantic -- according to the definition in Section~\ref{ch:introducao};
   \item Dynamic profiles: identifies if the model allows the profiles to be updated according to external events, without user interference;
   \item Storage: defines where the user profiles are stored;
   \item Context-awareness: considers if the user context is taken into consideration when forming the profile;
@@ -771,16 +771,16 @@ Table~\ref{tab:comparacao2} shows a comparison between eProfile and related work
                                          & Interope-  & Dynamic   & Storage  & Context-      & Uses    &                     \\
     Paper                                & rability   & profiles  &          & awareness     & trails  & Domain              \\
     \midrule
-    \citet{kim08}                    & Sintatic   & Yes       & Server   & No            & No      & Generic             \\
-    \citet{chellouche10}             & Sintatic   & Yes       & Server   & Yes           & No      & Multimedia Services \\
-    \citet{niederee04}               & Sintatic   & Yes       & Client   & Yes           & No      & Generic             \\
+    \citet{kim08}                    & Syntactic   & Yes       & Server   & No            & No      & Generic             \\
+    \citet{chellouche10}             & Syntactic   & Yes       & Server   & Yes           & No      & Multimedia Services \\
+    \citet{niederee04}               & Syntactic   & Yes       & Client   & Yes           & No      & Generic             \\
     \citet{pelep}                    & No         & Yes       & Server   & Yes           & Partial & Education           \\
-    \citet{razmerita11}              & Sintatic   & Yes       & Server   & Yes           & Partial & Generic             \\
+    \citet{razmerita11}              & Syntactic   & Yes       & Server   & Yes           & Partial & Generic             \\
     \citet{tao11}                    & Semantic   & Yes       & Server   & Yes           & Partial & Generic             \\
     \textbf{eProfile}                & Semantic   & Yes       & Server   & Yes           & Yes     & Generic             \\
     \bottomrule
   \end{tabular*}
-  \caption{Comparasion between presented papers}
+  \caption{Comparison between presented papers}
   \label{tab:comparacao2}
 \end{table*}
 

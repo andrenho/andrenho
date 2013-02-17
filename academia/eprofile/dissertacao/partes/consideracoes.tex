@@ -1,4 +1,4 @@
-\chapter{Resultados e Conclusão}
+\chapter{Conclusão}
 \label{ch:consideracoes}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -8,7 +8,7 @@
 
 Atualmente, as áreas de computação ubíqua, sensibilidade a contexto, trilhas e personalização são bastante promissoras, sendo que um grande número de trabalhos são publicados anualmente a este respeito. No entanto, não foi encontrado nenhum trabalho que faça uso de inferência em trilhas com o objetivo de personalizar a experiência do usuário dentro de um domínio genérico. Assim, o modelo apresentado neste trabalho busca suprir esta necessidade.
 
-\citetexto{kim08} apresentam um {\it framework} para gerenciamento de perfis baseado em {\it Web Services}. O modelo provê um conjunto de serviços para coletar informações necessárias para a criação de um perfil: configuração, criação, troca, processamento e serviço. O modelo também aplica metadados e técnicas de configuração dinâmica para o gerencimento eficiente dos perfis.
+\citetexto{kim08} apresentam um {\it framework} para gerenciamento de perfis baseado em {\it Web Services}. O modelo provê um conjunto de serviços para coletar informações necessárias para a criação de um perfil: configuração, criação, troca, processamento e serviço. O modelo também aplica metadados e técnicas de configuração dinâmica para o gerenciamento eficiente dos perfis.
 
 O modelo apresentado por \citetexto{chellouche10}, assim como o eProfile, apresenta um perfil unificado que pode ser utilizado por diversas aplicações. No entanto, ao contrário do eProfile, o modelo assume a interoperabilidade sintática, o que significa que as todas aplicações precisam registrar os eventos utilizando o mesmo formato, o que pode fazer com que a aplicação não consiga registrar o evento com a riqueza de detalhes necessária. Além disso, assim como o PeLeP, o modelo de \citetexto{chellouche10} está limitado a um domínio específico, que são os serviços multimídia.
 
@@ -16,9 +16,9 @@ O modelo UUCM \cite{niederee04}, trabalha em um domínio genérico. Ele faz isso
 
 O PeLeP \cite{pelep} suporta aperfeiçoamento automático do perfil de um aprendiz em ambientes de educação ubíqua, utilizando o histórico dos aprendizes para a atualização dos perfis através de inferências. O eProfile utiliza uma estratégia semelhante. No entanto, as regras de inferência são definidas pela aplicação, e não pelo modelo. Esta alteração é necessária para que a inferência passe de um domínio específico (educação) para um domínio genérico. Além disso, ao contrário do eProfile, as regras são dinâmicas (uma aplicação pode definir ou remover regras dinamicamente), ao invés de estarem pré-definidas no modelo. Isto permite a evolução e refino das regras de inferência.
 
-O modelo apresentado por \citetexto{razmerita11} tem como objetivo vincular o KM ({\it Knowlegde Managemet}, ou Gerenciamento de Conhecimento) tradicional com o KM pessoal. Isto é feito através do modelo OntobUMf, capaz de gerenciar informações a respeito de usuários. A arquitetura possui três camadas: {\it front end}, serviços e dados. O modelo trabalha em um domínio genérico e possui três ontologias (usuários, domínios e {\it log}), a partir são buscadas informações que classificam o usuário de várias formas, de acordo com o nível de atividade, tipo de atividade e nível de compartilhamento de conhecimento.
+O modelo apresentado por \citetexto{razmerita11} tem como objetivo vincular o KM ({\it Knowlegde Management}, ou Gerenciamento de Conhecimento) tradicional com o KM pessoal. Isto é feito através do modelo OntobUMf, capaz de gerenciar informações a respeito de usuários. A arquitetura possui três camadas: {\it front end}, serviços e dados. O modelo trabalha em um domínio genérico e possui três ontologias (usuários, domínios e {\it log}), a partir são buscadas informações que classificam o usuário de várias formas, de acordo com o nível de atividade, tipo de atividade e nível de compartilhamento de conhecimento.
 
-No artigo apresentado por \citetexto{tao11}, é proposto um modelo de ontologia para representação de conhecimento para coleta de informações personalizadas. O modelo constrói ontologias de usuário personalizadas extraindo informações globais do sistema LCSH e descobrindo informação a partir de repósitórios locais de usuário. O sistema de informações locais é alimentado manualmente pelo usuário. Quando uma informação é necessária, o sistema faz o processamento das duas ontologias para gerar o dado solicitado.
+No artigo apresentado por \citetexto{tao11}, é proposto um modelo de ontologia para representação de conhecimento para coleta de informações personalizadas. O modelo constrói ontologias de usuário personalizadas extraindo informações globais do sistema LCSH e descobrindo informação a partir de repositórios locais de usuário. O sistema de informações locais é alimentado manualmente pelo usuário. Quando uma informação é necessária, o sistema faz o processamento das duas ontologias para gerar o dado solicitado.
 
 A Tabela~\ref{tab:comparacao2} exibe um comparativo entre o eProfile e os trabalhos apresentados no Capítulo~\ref{ch:relacionados}. Os seguintes fatores são levados em consideração:
 
@@ -26,7 +26,7 @@ A Tabela~\ref{tab:comparacao2} exibe um comparativo entre o eProfile e os trabal
   \item Interoperabilidade: considera se o modelo apresenta interoperabilidade -- caso positivo, se a mesma é sintática ou semântica -- de acordo com a definição apresentada na Seção~\ref{sec:personalizacao};
   \item Perfis dinâmicos: identifica se o modelo de perfil permite que os perfis sejam atualizados de acordo com eventos externos, sem a interferência do usuário;
   \item Armazenamento: define onde ficam armazenados os perfis do usuário;
-  \item Sensíbilidade a contexto: considera se o contexto do usuário é levado em consideração na formação do perfil;
+  \item Sensibilidade a contexto: considera se o contexto do usuário é levado em consideração na formação do perfil;
   \item Utiliza trilhas: define se as trilhas do usuário são levadas em consideração na construção do perfil. Na tabela, a definição de ``Parcial'' significa que o modelo usa algum tipo de histórico para a montagem do perfil, mas não utiliza a definição formal de trilhas;
   \item Domínio: identifica se o perfil é voltado para um domínio específico, ou se o mesmo permite que vários domínios possam ser utilizados.
 \end{itemize}
@@ -54,19 +54,21 @@ O eProfile fez utilização das ideias apresentadas nos trabalhos, como o aperfe
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Conclusão}
+\section{Contribuições}
 \label{sec:conclusao}
 
-Este trabalho propôs um modelo para suportar o gerenciamento de perfis em ambientes ubíquos, permitindo a inferência de trilhas de entidades através da definição de regras pelas aplicações. Embora o eProfile tinha sido integrado com o LOCAL e o UniManager no cenário apresentado no Capítulo~\ref{ch:avaliacao}, sua propósta é genérica e pode ser utilizada para qualquer aplicação ou conjunto de aplicações que utilize perfis para aperfeiçoamento da personalização. O uso de perfis automáticos permite que sistemas ubíquos sejam mais eficientes na compreensão da intenção do usuário, pois isso significa que sistemas deste tipo podem utilizar informações mais precisas, atualizadas e amplas para suprir as necessidades das aplicações.
+Este trabalho propôs um modelo para suportar o gerenciamento de perfis em ambientes ubíquos, permitindo a inferência de trilhas de entidades através da definição de regras pelas aplicações. Embora o eProfile tinha sido integrado com o LOCAL e o UniManager no cenário apresentado no Capítulo~\ref{ch:avaliacao}, sua proposta é genérica e pode ser utilizada para qualquer aplicação ou conjunto de aplicações que utilize perfis para aperfeiçoamento da personalização. O uso de perfis automáticos permite que sistemas ubíquos sejam mais eficientes na compreensão da intenção do usuário, pois isso significa que sistemas deste tipo podem utilizar informações mais precisas, atualizadas e amplas para suprir as necessidades das aplicações.
 
 O objetivo do cenário foi demonstrar que é viável integrar sistemas ubíquos com o eProfile, enriquecendo a geração de perfis destas aplicações e permitindo que elas se adaptem aos seus usuários. O cenário demonstra as quatro contribuições do modelo.
 
-A primeira contribuição é o uso de trilhas para extração de perfis. A utilização de trilhas enriquece o banco de dados de informações que pode ser utilizado para a geração de perfis ao oferecer uma visão histórica das ações das entidades dentro dos contextos. No cenário apresentado, decisões passadas a respeito de assuntos de trabalhos e debates foram utilizadas para extrair as preferências que comporam os perfis dos estudantes.
+A primeira contribuição é o uso de trilhas para extração de perfis. A utilização de trilhas enriquece o banco de dados de informações que pode ser utilizado para a geração de perfis ao oferecer uma visão histórica das ações das entidades dentro dos contextos. No cenário apresentado, decisões passadas a respeito de assuntos de trabalhos e debates foram utilizadas para extrair as preferências que compuseram os perfis dos estudantes.
 
 A segunda contribuição é a geração de perfis dinâmicos. Ao atualizar os perfis com novas informações presentes nas trilhas, é possível manter o perfil sincronizado com tudo que está ocorrendo com a entidade. Isto permite que as aplicações personalizem a experiência do usuário. No cenário apresentado, os perfis são atualizados toda vez que o estudante toma uma decisão referente a um debate ou trabalho.
 
-A terceira contribuição é a capacidade de gerenciar regras de inferência dinâmeicas e modelos dinâmicos. Ao permitir que as regras e os modelos sejam atualizados a qualquer momento, o eProfile facilita a adaptação da aplicação ao seu usuário. Um segundo experimento foi realizado, onde as regras de inferência para a geração dos perfis foram alteradas durante a execução da simulação, resultando numa mudança positiva no resultado do cenário.
+A terceira contribuição é a capacidade de gerenciar regras de inferência dinâmicas e modelos dinâmicos. Ao permitir que as regras e os modelos sejam atualizados a qualquer momento, o eProfile facilita a adaptação da aplicação ao seu usuário. Um segundo experimento foi realizado, onde as regras de inferência para a geração dos perfis foram alteradas durante a execução da simulação, resultando numa mudança positiva no resultado do cenário.
 
 A quarta contribuição é a operabilidade semântica do modelo. Isto abre a possibilidade de uma aplicação utilizar informações geradas por uma aplicação diferente para gerar os perfis de suas entidades. Isto é demonstrado no cenário onde o UniManager utiliza as informações geradas pelo LOCAL (as disciplinas opcionais escolhidas pelos estudantes) como parte dos dados usados para criar os perfis utilizados pelo UniManager. Esta informação depois é utilizada para sugerir disciplinas opcionais aos estudantes.
 
-O eProfile é uma proposta inicial, tal como a integração com o LOCAL e o UniManager. As seguintes atividades permitirão a continuidade do estudo: (i) a integração de mais aplicações com o eProfile, de modo a testar e expandir as capacidades do eProfile, (ii) o desempenho de uma grande quantiodade de trilhas precisa ser avaliada, uma vez que o experimento considerou um pequeno número de interações e (iii) a simulação ideal envolveria trilhas geradas por entidades reais, ao invés de uma simulação.
+\section{Trabalhos Futuros}
+
+O eProfile é uma proposta inicial, tal como a integração com o LOCAL e o UniManager. As seguintes atividades permitirão a continuidade do estudo: (i) a integração de mais aplicações com o eProfile, de modo a testar e expandir as capacidades do eProfile, (ii) o desempenho de uma grande quantidade de trilhas precisa ser avaliada, uma vez que o experimento considerou um pequeno número de interações e (iii) a simulação ideal envolveria trilhas geradas por entidades reais, ao invés de uma simulação.
