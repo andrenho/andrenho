@@ -1,7 +1,7 @@
 \chapter{Avaliação}
 \label{ch:avaliacao}
 
-Somente é possível avaliar as funcionalidades de uma proposta de infraestrutura construindo aplicações que a utilizem e então avaliá-las, de modo a obter uma avaliação indireta do modelo \cite{edwards03}. A comunidade científica vem utilizando cenários para realizar este tipo de avaliação indireta em ambientes sensíveis a contexto (como a abordagem realizada por Dey \cite{dey2001b}) e ubíquos (de acordo com Satyanarayanan \cite{satyanarayanan01}). Este trabalho segue a mesma abordagem, foram criados um protótipo e um cenários para realização de experimentos que avaliem o eProfile.
+Somente é possível avaliar as funcionalidades de uma proposta de infraestrutura construindo aplicações que a utilizem e então avaliá-las, de modo a obter uma avaliação indireta do modelo \cite{edwards03}. A comunidade científica vem utilizando cenários para realizar este tipo de avaliação indireta em ambientes sensíveis a contexto (como a abordagem realizada por Dey \cite{dey2001b}) e ubíquos (de acordo com Satyanarayanan \cite{satyanarayanan01}). Este trabalho segue a mesma abordagem: foram criados um protótipo e um cenário para realização de experimentos que avaliem o eProfile.
 
 O experimento apresentado é baseado na geração simulada de trilhas de estudantes de graduação dentro de um contexto de Aprendizagem Ubíqua. Aprendizagem Ubíqua pode ser compreendida como um conjunto de processos educacionais que ocorrem em qualquer lugar, a qualquer tempo e com qualquer dispositivo, de forma contínua, contextualizada e integrada ao cotidiano do aprendiz \cite{barbosa11}.
 
@@ -12,13 +12,7 @@ As seguintes seções descrevem o ambiente da simulação (Seção~\ref{sec:desc
 \section{Ambiente}
 \label{sec:desc_cen1}
 
-O cenário é composto por um conjunto de alunos que realiza um curso de Ciência da Computação. O curso é composto por um conjunto de 40 disciplinas, dentre as quais 12 são opcionais (o aluno deve cumprir ao menos 8 dentre estas 12). Todas as disciplinas possuem outras disciplinas como pré-requisito, exceto pelas disciplinas de início de curso (a Figura~\ref{fig:disciplinas} exemplifica um subconjunto de disciplinas com seus pré-requisitos). Cada disciplina possui um docente, um número limitado de vagas para os alunos, e um conjunto de recursos (como salas especiais ou equipamentos).
-
-\begin{figure}[!t]
-  \centering\includegraphics[width=1\textwidth]{imagens/disciplinas.png}
-  \caption{Pré-requisitos de algumas disciplinas}
-  \label{fig:disciplinas}
-\end{figure}
+O cenário é composto por um grupo de alunos que realiza um curso de Ciência da Computação. O curso é composto por um conjunto de 40 disciplinas, dentre as quais 12 são opcionais (o aluno deve cumprir ao menos 8 dentre estas 12). Todas as disciplinas possuem outras disciplinas como pré-requisito, exceto pelas disciplinas de início de curso (a Figura~\ref{fig:disciplinas} exemplifica um subconjunto de disciplinas com seus pré-requisitos). Cada disciplina possui um docente, um número limitado de vagas para os alunos, e um conjunto de recursos (como salas especiais ou equipamentos).
 
 O conjunto de disciplinas utilizado para este cenário é mostrado na Tabela~\ref{tab:curso}, onde as que estão marcadas com um asterisco são opcionais. Algumas requerem um laboratório (com computadores simples), laboratório de redes e laboratório de hardware. As disciplinas sem recursos obrigatórios requerem apenas uma sala de aula.
 
@@ -68,6 +62,12 @@ O conjunto de disciplinas utilizado para este cenário é mostrado na Tabela~\re
   \label{tab:curso}
 \end{table*}
 
+\begin{figure}[!t]
+  \centering\includegraphics[width=1\textwidth]{imagens/disciplinas.png}
+  \caption{Pré-requisitos de algumas disciplinas}
+  \label{fig:disciplinas}
+\end{figure}
+
 Os alunos e docentes utilizam dispositivos móveis ({\em laptop} ou {\em smartphones}), onde estão instalados aplicativos utilizados para a administração de sua vida acadêmica. Em especial, estão instalados o UniManager e o LOCAL.
 
 O UniManager é o sistema utilizado pela universidade para administração das disciplinas, descrito na Seção~\ref{sec:eprofile_unimanager}. Ele é usado pela administração da universidade, pelos professores e estudantes. A administração utiliza-o para cadastrar disciplinas, alunos e docentes, vincular os alunos e docentes às disciplinas e emitir relatórios gerenciais, como lista de presenças e aprovação/reprovação de alunos, bem como faltas e avaliações de professores. Os docentes utilizam o sistema para realizar as avaliações dos alunos. Os estudantes o utilizam para realizar suas provas e trabalhos, para fazer sua matrícula nas disciplinas e para verificar suas notas e faltas.
@@ -89,7 +89,7 @@ Neste exemplo, o LOCAL registrou a preferência pessoal de dois alunos, a respei
     4 & 7:30 & UniManager & UniManager identifica a entrada dos alunos na sala. \\
     5 & 7:30 & LOCAL & LOCAL envia o conteúdo pedagógico da aula aos alunos. \\
     6 & 8:00 & Professor & Professor pede a criação de grupos para o debate. \\
-    7 & 8:00 & LOCAL & O LOCAL forma três grupos baseado nas preferências dos estudantes: {\em Algoritmos Distribuídos} (3 alunos), {\em Algoritmos de Escalonamento} (3 alunos) e {\em Algoritmos Matemáricos} (1 aluno). Dois alunos não tem uma preferência cadastrada que permita que o LOCAL os encaixe em algum grupo. \\
+    7 & 8:00 & LOCAL & O LOCAL forma três grupos baseado nas preferências dos estudantes: {\em Algoritmos Distribuídos} (3 alunos), {\em Algoritmos de Escalonamento} (3 alunos) e {\em Algoritmos Matemáticos} (1 aluno). Dois alunos não tem uma preferência cadastrada que permita que o LOCAL os encaixe em algum grupo. \\
     8 & 8:00 & LOCAL & LOCAL solicita aos dois estudantes que escolham algum grupo. \\
     9 & 8:10 & Alunos & Os alunos indicam sua preferência através do Assistente Pessoal do LOCAL. \\
     10 & 8:10 & LOCAL & O LOCAL encaixa os dois alunos nos grupos de sua preferência, um em {\em Algoritmos de Escalonamento} e o outro em {\em Algoritmos Matemáticos}. \\
@@ -251,7 +251,7 @@ Cada aplicação define um conjunto de regras para geração dos perfis baseados
 
 A definição das regras é feita em OWL, através da criação de classes que possam ser processadas por um raciocinador. A Tabela~\ref{tab:aula} mostra o exemplo de uma aula onde o professor cadastra no LOCAL um conjunto de assuntos que serão debatidos em aula (evento 1). Este evento gera uma trilha que é enviada do LOCAL ao Gerenciador de Trilhas e, subsequentemente, ao eProfile.
 
-O LOCAL, então, tenta identificar os alunos que possuam iteresses iguais aos do debate proposto, ou interesses que estejam relacionadas a estes (evento 7). Desta forma, o LOCAL envia as regras OWL descritas na Figura~\ref{fig:regra1} para realizar esta identificação. A primeira regra chama-se {\em RelatedSubjects} (linha 2), onde são inferidos todos os assuntos (classe {\em Subject}, linha 4) que sejam relacionados (linha 6) aos assuntos que serão debatidos em aula (linha 7). A expressão {\tt ?subject} é uma extensão do eProfile, que substitui esta expressão pelos assuntos que estão sendo utilizados, permitindo que a mesma regra possa ser usada em diferentes situações. Esta regra, após inferida, resulta na listagem de todos os assuntos (classes do tipo {\em Subject}) que se relacionam aos assuntos que serão debatidos, colocando estas classes como subclasses da classe {\em RelatedSubjects}.
+O LOCAL, então, tenta identificar os alunos que possuam interesses iguais aos do debate proposto, ou interesses que estejam relacionadas a estes (evento 7). Desta forma, o LOCAL envia as regras OWL descritas na Figura~\ref{fig:regra1} para realizar esta identificação. A primeira regra chama-se {\em RelatedSubjects} (linha 2), onde são inferidos todos os assuntos (classe {\em Subject}, linha 4) que sejam relacionados (linha 6) aos assuntos que serão debatidos em aula (linha 7). A expressão {\tt ?subject} é uma extensão do eProfile, que substitui esta expressão pelos assuntos que estão sendo utilizados, permitindo que a mesma regra possa ser usada em diferentes situações. Esta regra, após inferida, resulta na listagem de todos os assuntos (classes do tipo {\em Subject}) que se relacionam aos assuntos que serão debatidos, colocando estas classes como subclasses da classe {\em RelatedSubjects}.
 
 A partir desta regra, é possível buscar os estudantes (linha 15) cujos interesses se intersectam com os interesses encontrados na classe {\em RelatedSubjects} (linha 18). Estes estudantes, na ontologia, passam a ser subclasses da classe {\em StudentsSelected} (linha 13).
 
@@ -352,11 +352,11 @@ Uma simulação inicia com a criação das entidades de disciplinas, estudantes 
 
 Cada disciplina é composta por 14 aulas. Existem dois tipos de eventos que podem ocorrer em uma aula: (i) um trabalho ou debate em grupo, e (ii) um trabalho ou prova individual, sendo que uma aula pode ter um dos dois eventos, ambos ou nenhum. A Tabela~\ref{tab:aula} exemplifica uma aula em que os dois tipos de eventos ocorreram.
 
-Para esta simulação, foi definido que em cada disciplina foram estudados um conjunto de diferentes assuntos (3 a 5, aleatoriamente), e que cada assunto estava relacionado a 1 ou 2 outros assuntos. Por exemplo, na disciplina de ``Linguages de Programação'', o assunto ``Linguagem C'' foi estudada, entre outras linguagens de programação. Depois, da disciplina ``Estrutura de Dados'', o assunto ``Ponteiros'' foi estudado. Como ``Linguagem C'' e ``Ponteiros'' são assuntos relacionados, os assuntos foram vinculados, e se um aluno escolhe estudar ``Linguagem C'' (através do LOCAL), o assunto ``Ponteiros'' é recomendado a ele quando ele cursar a disciplina de ``Estrutura de Dados''.
+Para esta simulação, foi definido que em cada disciplina foram estudados um conjunto de diferentes assuntos (3 a 5, aleatoriamente), e que cada assunto estava relacionado a 1 ou 2 outros assuntos. Por exemplo, na disciplina de ``Linguagens de Programação'', o assunto ``Linguagem C'' foi estudada, entre outras linguagens de programação. Depois, da disciplina ``Estrutura de Dados'', o assunto ``Ponteiros'' foi estudado. Como ``Linguagem C'' e ``Ponteiros'' são assuntos relacionados, os assuntos foram vinculados, e se um aluno escolhe estudar ``Linguagem C'' (através do LOCAL), o assunto ``Ponteiros'' é recomendado a ele quando ele cursar a disciplina de ``Estrutura de Dados''.
 
 Disciplinas opcionais também são vinculadas a assuntos escolhidos pelos estudantes. Debates e trabalhos cujos assuntos foram escolhidos pelos estudantes através do LOCAL são utilizados para recomendar disciplinas opcionais aos alunos através do UniManager.
 
-A Figura~\ref{fig:result1} mostra os resultados da simulação. Nesta simulação, um grupo de 50 alunos passa por um curso completo de graduação. O curso completo leva mais de 16 semestres pois, devido a um número limitado de vagas nas disciplinas, nem todos os estudantes cursar todas as disciplinas disponíveis a eles todos os semstres. O simulador registra a porcentagem de debates e trabalhos entregues cujos assuntos foram sugeridos pelo sistema, baseado nas escolhas anteriores dos estudantes. No primeiro semestre, o sistema foi capaz de recomendar assuntos apenas 2\% das vezes, mas à medida que os estudantes fizeram mais escolhas, o sistema foi capaz de sugerir mais assuntos, até que o nível de recomendação estabilizou-se acima de 90\% a partir do 13º semestre.
+A Figura~\ref{fig:result1} mostra os resultados da simulação. Nesta simulação, um grupo de 50 alunos passa por um curso completo de graduação. O curso completo leva mais de 16 semestres pois, devido a um número limitado de vagas nas disciplinas, nem todos os estudantes cursar todas as disciplinas disponíveis a eles todos os semestres. O simulador registra a porcentagem de debates e trabalhos entregues cujos assuntos foram sugeridos pelo sistema, baseado nas escolhas anteriores dos estudantes. No primeiro semestre, o sistema foi capaz de recomendar assuntos apenas 2\% das vezes, mas à medida que os estudantes fizeram mais escolhas, o sistema foi capaz de sugerir mais assuntos, até que o nível de recomendação estabilizou-se acima de 90\% a partir do 13º semestre.
 
 \begin{figure}[!t]
   \centering\includegraphics[width=0.6\textwidth,angle=-90]{imagens/auto.eps}
