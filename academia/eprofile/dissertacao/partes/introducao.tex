@@ -6,13 +6,13 @@
 
 Atualmente, a maioria dos usuários interage com uma grande variedade de sistemas computacionais, tanto no trabalho quanto em casa. Entre os sistemas utilizados, podem-se citar máquinas fotográficas digitais, telefones celulares, caixas eletrônicos, aparelhos de DVD, reprodutores de música portáteis e {\em tablets}. No entanto, muitos dos usuários não percebem a variedade e a quantidade de sistemas utilizados diariamente.
 
-Cada vez mais, existe a tendência do aumento da interconectividade entre estes sistemas, devido ao fato da internet estar cada vez mais presente e disponível em qualquer lugar. Assim, pesquisas recentes preveem a integração completa de todos estes sistemas em uma federação de sistemas computacionais, que podem ser descritos como Ambientes Inteligentes \cite{heckmann05}.
+Cada vez mais, existe a tendência do aumento da interconectividade entre estes sistemas, devido ao fato da internet estar cada vez mais presente e disponível em qualquer lugar. Assim, pesquisas recentes preveem a integração de todos estes sistemas em uma federação de sistemas computacionais, que podem ser descritos como Ambientes Inteligentes \cite{heckmann05}.
 
-Uma visão para o conceito de ambientes inteligentes foi discutida por \citetexto{weiser91} em seu artigo seminal, onde ele apresentou um cenário em que o computador se tornaria invisível e indistinguível de seu ambiente. Neste cenário, a interação entre humanos e computadores ocorreria não como a usual -- onde o humano dedica 100\% de sua atenção ao computador --, mas constituíra-se de pequenas interações rápidas, geralmente em locais e dispositivos distintos, muitas vezes utilizando a periferia da atenção do usuário \cite{weiser96} ou sem ele se dar conta de estar interagindo com um sistema computacional.
+Uma visão para o conceito de ambientes inteligentes foi discutida por \citetexto{weiser91} em seu artigo seminal, onde ele apresentou um cenário em que o computador se tornaria invisível e indistinguível de seu ambiente. Neste cenário, a interação entre humanos e computadores ocorreria não como a usual -- onde o humano dedica 100\% de sua atenção ao computador --, mas constituiria-se de pequenas interações rápidas, geralmente em locais e dispositivos distintos, muitas vezes utilizando a periferia da atenção do usuário \cite{weiser96} ou sem ele se dar conta de estar interagindo com um sistema computacional.
 
 Para que este cenário seja possível, é necessário que os aplicativos tenham condições de considerar o contexto no qual se encontram e adaptar-se a este contexto, ou seja, é necessário que sejam ``sensíveis a contexto''. Embora existam várias definições de contexto, uma das mais utilizadas é a de que um contexto é qualquer informação que pode ser usada para caracterizar a situação de uma entidade, onde uma entidade pode ser uma pessoa, local ou objeto considerado relevante à interação entre o usuário e a aplicação \cite{dey2001}.
 
-Para que um aplicativo possa se adaptar a um usuário de forma eficaz, é importante que ele conheça não apenas o histórico de contextos visitados por um usuário, mas conheça quem o usuário é. Atualmente, muitos trabalhos têm buscado maneiras de coletar informações a respeito dos usuários, com o objetivo de conhecer suas preferências, possibilitando a oferta de serviços personalizados. Assim, estas aplicações organizam seu conhecimento a respeito do usuário em perfis de usuário, os quais armazenam as informações em um formato baseado em um modelo de usuário específico \cite{viviani10}.
+Para que um aplicativo possa se adaptar a um usuário de forma eficaz, é importante que ele conheça não apenas o histórico de contextos visitados por um usuário, mas conheça quem o usuário é. Atualmente, diversos trabalhos têm buscado maneiras de coletar informações a respeito dos usuários, com o objetivo de conhecer suas preferências, possibilitando a oferta de serviços personalizados. Assim, estas aplicações organizam seu conhecimento a respeito do usuário em perfis de usuário, os quais armazenam as informações em um formato baseado em um modelo de usuário específico \cite{viviani10}.
 
 Pesquisas nesta área têm indicado que não apenas é interessante conhecer o contexto do usuário no momento em que um determinado serviço está sendo oferecido, mas que o histórico de contextos visitados pode ser uma informação valiosa na adaptação da aplicação ao usuário. Este histórico de contextos recebe o nome de Trilha \cite{silva10}.
 
@@ -32,6 +32,8 @@ Para que um sistema tenha sucesso em obter a intenção do usuário, é necessá
 
 Embora existam alguns trabalhos que busquem inferir conhecimento a respeito de um usuário a partir de sua trilha, os trabalhos anteriores operam dentro de um contexto específico (como Educação \cite{barbosa11} ou Comércio \cite{franco11}) ou trabalham com o modelo de usuário de forma estática.
 
+Levando em consideração estas limitações, surge a oportunidade para o desenvolvimento de um modelo que permita a inferência de perfis de entidades a partir de uma trilha. Neste sentido, torna-se possível a utilização de perfis dinâmicos, isto é, de perfis que podem ser atualizados baseados em novas informações da trilha dinamicamente. Dentro deste conexto, abre-se a possibilidade da alteração dos modelos de entidade e das regras de geração de perfis durante a execução, aumentando assim o nível de dinamicidade do modelo.
+
 Neste trabalho, o conceito de Entidade é usado no lugar do conceito clássico de Usuário. Enquanto geralmente o usuário compreende a pessoa que está utilizando o aplicativo, uma entidade refere-se a qualquer objeto (físico ou não) capaz de controlar um aplicativo. Desta forma, uma entidade pode ser uma pessoa, um objeto móvel (como um carro) ou imóvel (como uma sala), ou até mesmo um sistema.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -48,7 +50,7 @@ Assim sendo, são objetivos específicos deste trabalho:
   \item apresentar o estado-da-arte em gerenciamento de perfis;
   \item especificar o eProfile;
   \item desenvolver um protótipo para o modelo;
-  \item validar o modelo a partir do protótipo apresentado.
+  \item validar o modelo a partir do protótipo.
 
 \end{itemize}
 
@@ -57,19 +59,19 @@ Assim sendo, são objetivos específicos deste trabalho:
 \section{Metodologia}
 \label{sec:metodologia}
 
-A viabilização dos objetivos propostos por este trabalho se dá através de uma metodologia cujo primeiro passo é o estudo de modelos já propostos para suporte ao gerenciamento de perfis. O objetivo deste primeiro passo é verificar como os modelos atuais gerenciam perfis, e quais são os desafios e limitações da área.
+A viabilização dos objetivos propostos por este trabalho ocorreu através de uma metodologia cujo primeiro passo foi o estudo de modelos já propostos para suporte ao gerenciamento de perfis. O objetivo deste primeiro passo foi verificar como os modelos atuais gerenciam perfis, e quais eram os desafios e limitações da área.
 
-O segundo passo será a especificação do eProfile. O objetivo é determinar quais módulos são necessários para o modelo e como eles irão interagir entre si e com serviços externos.
+O segundo passo foi a especificação do eProfile. O objetivo é determinar quais módulos são necessários para o modelo e como eles irão interagir entre si e com serviços externos.
 
-A elaboração de um cenário para aplicação do modelo será o passo seguinte. Esta atividade tem por objetivo explorar os possíveis ganhos que serão trazidos pelo modelo, para que o mesmo possa ser ajustado conforme necessário.
+A elaboração de um cenário para aplicação do modelo foi o passo seguinte. Esta atividade teve por objetivo explorar os ganhos que trazidos pelo modelo.
 
-Para validar o modelo proposto será desenvolvido um protótipo. Este desenvolvimento irá cobrir todos os componentes que se fizerem necessários para viabilizar o cenário descritos no passo anterior.
+Para validar o modelo proposto foi desenvolvido um protótipo. Este desenvolvimento cobriu todos os componentes que se fizeram necessários para viabilizar o cenário descrito no passo anterior.
 
-Por fim, será feita uma avaliação do modelo, onde será realizada uma simulação da operação de entidades, gerando e analisando trilhas de entidades e inferindo perfis através destas trilhas. Os dados desse experimento serão medidos e tabulados a fim de se verificar o desempenho do modelo.
+Por fim, foi feita uma avaliação do modelo, onde foi realizada uma simulação da operação de entidades, gerando e analisando trilhas de entidades e inferindo perfis através destas trilhas. Os dados desse experimento foram medidos e tabulados a fim de se verificar o desempenho do modelo.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Organização da Dissertação}
 \label{sec:organizacao}
 
-Este trabalho está organizado da seguinte forma. O Capítulo~\ref{ch:conceitos} descreve os principais conceitos referentes às áreas relacionadas a este trabalho. O Capítulo~\ref{ch:relacionados} descreve trabalhos relacionados na área de gerenciamento de perfis, apresentando os principais desafios da área. No Capítulo~\ref{ch:modelo} é proposto o modelo do eProfile, bem como sua forma de operação. O Capítulo~\ref{ch:implementacao} apresenta os aspectos de implementação e avaliação do modelo, e o Capítulo~\ref{ch:avaliacao} apresenta o cenário que serve de avaliação do modelo. Por fim, o Capítulo~\ref{ch:consideracoes} apresenta as considerações finais.
+Este trabalho está organizado da seguinte forma. O Capítulo~\ref{ch:conceitos} descreve os principais conceitos referentes às áreas relacionadas a este trabalho. O Capítulo~\ref{ch:relacionados} descreve trabalhos relacionados na área de gerenciamento de perfis, apresentando os principais desafios da área. No Capítulo~\ref{ch:modelo} é proposto o modelo do eProfile, bem como sua forma de operação. O Capítulo~\ref{ch:implementacao} apresenta os aspectos de implementação e avaliação do modelo, e o cenário que serve de avaliação do modelo. Por fim, o Capítulo~\ref{ch:consideracoes} apresenta as considerações finais.
