@@ -10,21 +10,21 @@ Este capítulo apresenta o modelo {\bf eProfile}. A Seção~\ref{sec:modelo} des
 
 \begin{figure}
   \centering\includegraphics[width=0.6\textwidth]{imagens/modelobasico.png}
-  \caption{Modelo básico do eProfile}
+  \caption{Visão geral do eProfile}
   \label{fig:modelobasico}
 \end{figure}
 
-Segundo \citetexto{weiser96}, é desejável que os sistemas do futuro se tornem cada vez mais invisíveis aos seus usuários, e \citetexto{satyanarayanan01} defende que um sistema só pode se tornar invisível se for pró-ativo, e só pode ser pró-ativo se conhecer o usuário. Para que um sistema possa conhecer uma entidade, ele deve conhecer o histórico da entidade, compreender o contexto em que ela está inserido, bem como os dados coletados a respeito dela no mesmo contexto (ou num contexto similar), e ser capaz de processar este conjunto de informações em um perfil de entidade.
+Segundo \citetexto{weiser96}, é desejável que os sistemas do futuro se tornem cada vez mais invisíveis aos seus usuários, e \citetexto{satyanarayanan01} defende que um sistema só pode se tornar invisível se for pró-ativo, e só pode ser pró-ativo se conhecer o usuário. Para que um sistema possa conhecer uma entidade, ele deve conhecer o histórico da entidade, compreender o contexto em que ela está inserida, bem como os dados coletados a respeito dela no mesmo contexto (ou num contexto similar), e ser capaz de processar este conjunto de informações em um perfil de entidade.
 
 A Figura~\ref{fig:modelobasico} apresenta a visão geral do eProfile, onde cada círculo representa um componente, e as setas indicam o fluxo dos dados.
 
 O primeiro componente representado é a {\bf aplicação}. A aplicação, dentro deste modelo, é qualquer aplicação que está sendo utilizada diretamente por uma entidade. Para que uma aplicação seja considerada apta a este modelo (isto é, possa utilizar as funcionalidades oferecidas pelo eProfile), ela precisa ser capaz de registrar suas informações em um gerenciador de trilhas suportado pelo eProfile, e deverá seguir o protocolo de comunicação do eProfile para se comunicar com o mesmo. Seguidos estes pré-requisitos, a aplicação pode ser de qualquer tipo e operar em qualquer tipo de dispositivo que tenha comunicação com a internet.
 
-O segundo componente representado é um {\bf gerenciador de trilhas}. Um gerenciador de trilhas é capaz de registrar eventos realizados por uma entidade, colocando-os em uma ordem cronológica e registando informações relevantes ao evento (como o contexto na qual o evento foi realizado). O modelo do eProfile é desenhado para oferecer suporte a qualquer gerenciador de trilhas, desde que o protocolo de comunicação entre o gerenciador de trilhas e o eProfile esteja codificado no eProfile.
+O segundo componente representado é um {\bf gerenciador de trilhas}. Um gerenciador de trilhas é capaz de registrar eventos realizados por uma entidade, colocando-os em uma ordem cronológica e registrando informações relevantes ao evento (como o contexto na qual o evento foi realizado). O modelo do eProfile é desenhado para oferecer suporte a qualquer gerenciador de trilhas, desde que o protocolo de comunicação entre o gerenciador de trilhas e o eProfile esteja codificado no eProfile.
 
-A Figura~\ref{fig:modelobasico} apresenta ainda um terceiro componente, o eProfile, que é o modelo apresentado neste trabalho. Detalhes sobre a arquitetura do eProfile são apresentados na Seção~\ref{sec:arquitetura}.
+A Figura~\ref{fig:modelobasico} apresenta ainda um terceiro componente, o eProfile, que é o modelo apresentado neste trabalho. Detalhes sobre a arquitetura do eProfile são apresentados na Seção~\ref{sec:arquitetura_modelo}.
 
-As setas indicam o fluxo dos dados. A comunicação tem início quando a aplicação registra-se no eProfile, enviando (i) o modelo de entidade utilizado pela aplicação e (ii) as regras para construção deste modelo (seta ``a''). A partir deste momento, a aplicação passa a registrar os eventos no gerenciador de trilhas (seta ``b''). O eProfile periodicamente busca esta informação a partir do gerenciador de trilhas, e constrói ou reconfigura o perfil de entidade (seta ``c''). À medida que a aplicação tem necessidade de um perfil atualizado, ela busca este perfil no eProfile (seta ``d'').
+As setas indicam o fluxo dos dados. A comunicação tem início quando a aplicação registra-se no eProfile (seta ``a''), enviando (i) o modelo de entidade utilizado pela aplicação e (ii) as regras para construção deste modelo. A partir deste momento, a aplicação passa a registrar os eventos no gerenciador de trilhas (seta ``b''). O eProfile periodicamente busca esta informação a partir do gerenciador de trilhas, e constrói ou reconfigura o perfil de entidade (seta ``c''). À medida que a aplicação tem necessidade de um perfil atualizado, ela busca este perfil no eProfile (seta ``d'').
 
 Como o eProfile oferece suporte a várias aplicações, é possível que diferentes aplicações utilizem diferentes gerenciadores de trilhas. Por isso, o eProfile oferece também suporte à comunicação com vários gerenciadores de trilhas, segundo exemplificado na Figura~\ref{fig:gerenciadores}.
 
@@ -37,7 +37,7 @@ Como o eProfile oferece suporte a várias aplicações, é possível que diferen
 
 \begin{figure}
   \centering\includegraphics[width=1\textwidth]{imagens/modelo.png}
-  \caption{Modelo simplificado do eProfile}
+  \caption{Arquitetura do eProfile}
   \label{fig:modelo}
 \end{figure}
 
@@ -46,7 +46,7 @@ Como o eProfile oferece suporte a várias aplicações, é possível que diferen
 \section{Arquitetura}
 \label{sec:arquitetura_modelo}
 
-A Figura~\ref{fig:modelo} apresenta a arquitetura do eProfile. Os serviços ``Aplicação'' e ``Gerenciador de Trilhas'' são os mesmos mostrados na Figura~\ref{fig:modelobasico}, enquanto o serviço ``eProfile'' foi expandido para mostrar seu funcionamento interno.
+A Figura~\ref{fig:modelo} apresenta a arquitetura do eProfile. Os componentes ``Aplicação'' e ``Gerenciador de Trilhas'' são os mesmos mostrados na Figura~\ref{fig:modelobasico}, enquanto o componente ``eProfile'' foi expandido para mostrar seu funcionamento interno.
 
 Cada aplicação tem a possibilidade de montar seu próprio modelo de entidade. Para que o eProfile processe os perfis baseados em um modelo de entidade, ele precisa de três informações: (i) a trilha da entidade, (ii) o modelo de entidade utilizado pela aplicação e (iii) as regras de inferência para o perfil. Isto é visível na Figura~\ref{fig:modelo}, onde o agente ``Raciocinador'' recebe dados destes três bancos. A trilha da entidade é carregada pelo eProfile a partir do gerenciador de trilhas, enquanto as outras duas informações são enviadas diretamente da aplicação para o eProfile. Desta forma, as regras de inferência definidas pela aplicação serão utilizadas para inferir o perfil da entidade.
 
