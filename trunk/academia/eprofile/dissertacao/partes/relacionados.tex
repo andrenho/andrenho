@@ -1,7 +1,7 @@
 \chapter{Trabalhos Relacionados}
 \label{ch:relacionados}
 
-Esta seção apresenta trabalhos relacionados com o modelo proposto, bem como uma comparação entre os mesmos. Foram escolhidos trabalhos que tivessem como foco a adaptação de um perfil de entidade de acordo com as ações tomadas pela mesma. Como não pode ser encontrado nenhum modelo que tivesse o foco pretendido para este trabalho (montagem de um perfil através de inferência em trilhas), foram escolhidos modelos que tivessem uma ou mais características que se farão úteis para o modelo deste trabalho.
+Esta seção apresenta trabalhos relacionados com o modelo proposto, bem como uma comparação entre os mesmos. Foram escolhidos trabalhos que tivessem como foco a adaptação de um perfil de entidade de acordo com as ações tomadas pela mesma. Como não foi encontrado nenhum modelo que tivesse o foco pretendido para este trabalho (montagem de um perfil através de inferência em trilhas), foram escolhidos modelos que tivessem uma ou mais características que se farão úteis para o modelo deste trabalho.
 
 Os trabalhos apresentados utilizam o conceito de modelo e perfil de usuário ao invés de modelo e perfil de entidade, que é o termo utilizado neste trabalho. Assim sendo, os termos modelo e perfil de usuário serão utilizados quando apropriado.
 
@@ -20,7 +20,7 @@ O {\it framework} é montado de acordo com a Figura~\ref{fig:kim08_b}. A comunic
 
 A configuração de perfil configura os perfis em dois tipos: perfis básicos, requeridos para todos os tipos de serviço, e perfis de serviço, configurados diferentemente para cada tipo de serviço. O tipo de perfil define o tipo de informação que irá conter cada perfil.
 
-A criação de perfil é a tecnologia que permite que clientes e provedores de serviço criem os perfis. A criação dos perfis é feita através de um conjunto de componentes, de acordo com a Figura~\ref{fig:kim08_a}. O Gerenciador de Criação cria o perfil, com base nos Arquivos de Template de Perfil, que é então codificado pelo Gerenciador de Segurança, num processo coordenado pelo Gerenciador de Serviços de Perfil. Toda a comunicação entre os módulos ocorre via {\it Web Services}.
+A criação de perfil é a tecnologia que permite que clientes e provedores de serviço criem os perfis. A criação dos perfis é feita através de um conjunto de componentes, de acordo com a Figura~\ref{fig:kim08_a}. O gerenciador de criação cria o perfil, com base nos arquivos de template de perfil, que é então codificado pelo gerenciador de segurança, num processo coordenado pelo gerenciador de serviços de perfil. Toda a comunicação entre os módulos ocorre via {\it Web Services}.
 
 \begin{figure}
   \centering
@@ -37,7 +37,7 @@ Troca de perfis é o processo através do qual um perfil é enviado pelo servido
 
 O modelo de \citetexto{chellouche10} busca resolver as dificuldades atuais no desenvolvimento de aplicativos para dispositivos móveis, uma vez que os mesmos possuem uma grande variedade de resolução, memória, poder computacional, entre outros. Além disso, a qualidade da conexão de um usuário pode variar significativamente, e isto também deve ser levado em consideração no desenvolvimento.
 
-O conjunto de informações que caracteriza um usuário é chamada de Perfil de Usuário. Com a intenção de compartilhar o contexto do usuário entre serviços e minimizar as mudanças no desenvolvimento de aplicações sensíveis a contexto, os autores propõem como solução um {\em middleware} que gerencia o perfil de um usuário dinamicamente e supre às aplicações todas as informações que elas podem precisar durante o período de adaptação.
+O conjunto de informações que caracteriza um usuário é chamada de perfil de usuário. Com a intenção de compartilhar o contexto do usuário entre serviços e minimizar as mudanças no desenvolvimento de aplicações sensíveis a contexto, os autores propõem como solução um {\em middleware} que gerencia o perfil de um usuário dinamicamente e supre às aplicações todas as informações que elas podem precisar durante o período de adaptação.
 
 O perfil do usuário é constituído por seu contexto, onde a definição de contexto utilizada é aquela dada por \citetexto{dey2001}, na qual contexto refere-se a qualquer informação que pode ser utilizada para caracterizar a situação de uma entidade. Assim, o perfil de usuário é dividido em cinco componentes:
 
@@ -107,10 +107,10 @@ O UUCM apenas define o método através do qual o perfil de contexto de usuário
 As seguintes dimensões são utilizadas:
 
 \begin{itemize}
-  \item Cognitiva: ({\em CognitivePattern}): descreve as dimensões cognitivas do usuário, tais como áreas de interesse, competências e preferências;
-  \item Tarefa: ({\em Task}): descreve os objetivos do usuário quando ele interage com sistemas. Esta dimensão utiliza dados tais como tarefa atual, papel do usuário na tarefa e histórico da tarefa;
-  \item Relacionamentos: ({\em Relationship}): armazena as entidades com as quais o usuário tem alguma relação;
-  \item Ambiente: ({\em Environment}): parâmetros que são tipicamente utilizados para abordagens sensíveis a contexto, tais como tempo, localização, dispositivo e linguagem.
+  \item Cognitiva ({\em CognitivePattern}): descreve as dimensões cognitivas do usuário, tais como áreas de interesse, competências e preferências;
+  \item Tarefa ({\em Task}): descreve os objetivos do usuário quando ele interage com sistemas. Esta dimensão utiliza dados tais como tarefa atual, papel do usuário na tarefa e histórico da tarefa;
+  \item Relacionamentos ({\em Relationship}): armazena as entidades com as quais o usuário tem alguma relação;
+  \item Ambiente ({\em Environment}): parâmetros que são tipicamente utilizados para abordagens sensíveis a contexto, tais como tempo, localização, dispositivo e linguagem.
 \end{itemize}
 
 O perfil de usuário do UUCM é codificado como um RDF Schema\cite{rdf}, ampliado com expressões OWL.
@@ -125,7 +125,7 @@ Para utilizar o passaporte de contexto em um ambiente de personalização multi-
 
 O projeto PeLeP, apresentado por \citetexto{pelep}, integra a utilização de perfis aperfeiçoados automaticamente com ambientes de educação ubíqua.
 
-\citetexto{barbosa05} compreendem Educação Ubíqua como sendo processos educacionais que ocorrem em qualquer lugar, a qualquer tempo e com qualquer dispositivo, de forma contínua, contextualizada e integrada ao cotidiano do aprendiz. Desta forma, o conhecimento presente no dia-a-dia das mais diferentes formas e em diferentes locais podem ser relacionados com processos educacionais direcionados aos aprendizes.
+\citetexto{barbosa05} compreendem Educação Ubíqua como sendo processos educacionais que ocorrem em qualquer lugar, a qualquer tempo e com qualquer dispositivo, de forma contínua, contextualizada e integrada ao cotidiano do aprendiz. Desta forma, o conhecimento presente no dia-a-dia das mais diferentes formas e em diferentes locais pode ser relacionado com processos educacionais direcionados aos aprendizes.
 
 O PeLeP, cujo modelo é mostrado na Figura~\ref{fig:pelep1}, é dedicado ao gerenciamento de perfis de aprendizes em um ambiente ubíquo de ensino e aprendizagem. O modelo administra os perfis automaticamente, inferindo informações através do histórico do aprendiz. As alterações realizadas no perfil refletem o comportamento do aprendiz no ambiente ubíquo, levando em consideração o seu modelo de mobilidade e de contexto.
 
@@ -138,7 +138,7 @@ O PeLeP, cujo modelo é mostrado na Figura~\ref{fig:pelep1}, é dedicado ao gere
 
 No PeLeP, o Perfil do Aprendiz consiste em um perfil contendo campos pré-definidos, voltados para o ambiente de educação ubíqua. Os campos são distribuídos nas seguintes categorias: identificação, objetivos, agenda, segurança, relacionamentos, competências e preferências. 
 
-É realizado um acompanhamento ({\em tracking}) do histórico do aprendiz, onde são armazenados os contextos visitados pelo usuário, bem como os conteúdos, dispositivos e aplicativos utilizados em cada contexto. Os valores relativos das variáveis numéricas recebidas no {\emph tracking} são regularizados através de um processo de normalização de amplitude. Como diferentes valores podem ter diferentes impactos para a determinação da preferência de um usuário, calcula-se o Fator de Certeza ($FC$), de acordo com a equação~\ref{eq:pelep-fc}, onde $f_i$ é o valor normalizado para o fator, $p_i$ o seu percentual, e $n$ o número de fatores considerados.
+É realizado um acompanhamento ({\em tracking}) do histórico do aprendiz, onde são armazenados os contextos visitados pelo usuário, bem como os conteúdos, dispositivos e aplicativos utilizados em cada contexto. Os valores relativos das variáveis numéricas recebidas no {\em tracking} são regularizados através de um processo de normalização de amplitude. Como diferentes valores podem ter diferentes impactos para a determinação da preferência de um usuário, calcula-se o Fator de Certeza ($FC$), de acordo com a equação~\ref{eq:pelep-fc}, onde $f_i$ é o valor normalizado para o fator, $p_i$ o seu percentual, e $n$ o número de fatores considerados.
 
 \begin{equation}
   FC = \frac{\frac{\displaystyle\sum_{i=0}^n f_i p_i}{100}}{n}
@@ -149,13 +149,13 @@ O fator tempo também é levado em consideração, onde Fatores de Certeza mais 
 
 O processo de atualização do modelo do aprendiz é então realizado através de regras pré-definidas, que levam em conta as ocorrências e o seu fator de certeza. As regras suportam conclusões a partir de evidências antecedentes, e cada categoria de informação possui regras diferentes.
 
-O PeLeP foi validado através da integração com o Local ({\em Location and Context-Aware Learning}), um sistema de educação ubíqua sensível a contexto \cite{barbosa11}.
+O PeLeP foi validado através da integração com o LOCAL ({\em Location and Context-Aware Learning}), um sistema de educação ubíqua sensível a contexto \cite{barbosa11}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{\citetexto{razmerita11}}
 
-\citetexto{razmerita11} apresenta o modelo OntobUMf ({\it Ontology-based User Modeling framework}), um {\it framework} para modelagem de usuários baseado em ontologia. O artigo defende que o gerenciamento de conhecimento (KM, ou {\it Knowledge Management}) são tarefas importantes para indivíduos e organizações, e que sistemas de gerenciamento de conhecimento (KMS) atuais focam no compartilhamento e criação de conteúdo que, por sua vez, leva à inovação tanto a nível individual quanto corporativo. Mais recentemente, o KM pessoal tem se tornado relevante, e foca na busca do indivíduo em encontrar, aprender, compartilhar conteúdo e socializar.
+\citetexto{razmerita11} apresenta o modelo OntobUMf ({\it Ontology-based User Modeling framework}), um {\it framework} para modelagem de usuários baseado em ontologia. O artigo defende que o gerenciamento de conhecimento (KM, ou {\it Knowledge Management}) é uma tarefa importante para indivíduos e organizações, e que sistemas de gerenciamento de conhecimento (KMS) atuais focam no compartilhamento e na criação de conteúdo que, por sua vez, leva à inovação tanto a nível individual quanto corporativo. Mais recentemente, o KM pessoal tem se tornado relevante, e foca na busca do indivíduo em encontrar, aprender, compartilhar conteúdo e socializar.
 
 O modelo OntobUMf busca unir o KM tradicional com o KM pessoal através da personalização de um KMS, de modo a permitir a customização de {\it interfaces} e adaptação da funcionalidade, estrutura, conteúdo e modularidade, aumentando assim a relevância para usuários individuais.
 
@@ -166,13 +166,13 @@ O modelo OntobUMf busca unir o KM tradicional com o KM pessoal através da perso
   \label{fig:razmerita11}
 \end{figure}
 
-A Figura~\ref{fig:razmerita11} apresenta a arquitetura do modelo OntobUMf. OntobUMf é uma aplicação de três camadas: (i) {\it front end}, (ii) serviços e (iii) dados. A camada de {\it front end} é um conjunto de {\it interfaces} de usuário que permitem que o usuário acesse e atualize seu modelo de usuário ou perfil de usuário. 
+A Figura~\ref{fig:razmerita11} apresenta a arquitetura do modelo OntobUMf. OntobUMf é uma aplicação de três camadas: (i) {\it front end}, (ii) serviços e (iii) dados. A camada de {\it front end} é um conjunto de {\it interfaces} que permitem que o usuário acesse e atualize seu modelo de usuário ou perfil de usuário. 
 
-A camada de serviços contém vários serviços inteligentes, tais como algoritmos de modelagem de usuários, mecanismos de personalização, entre outros. Os serviços possuem duas tarefas principais no sistema. A primeira é atualizar e manter o modelo de usuário tendo por base os dados de uso disponíveis do sistema através de um extrator de categoria, que é composto por um conjunto de mecanismos para modelagem das características dos usuários que estão interagindo com o sistema. A segunda tarefa é fornecer um conjunto de serviços personalizados baseados nas características dos usuários.
+A camada de serviços contém serviços inteligentes, tais como algoritmos de modelagem de usuários, mecanismos de personalização, entre outros. Os serviços possuem duas tarefas principais no sistema. A primeira é atualizar e manter o modelo de usuário tendo por base os dados de uso disponíveis do sistema através de um extrator de categoria, que é composto por um conjunto de mecanismos para modelagem das características dos usuários que estão interagindo com o sistema. A segunda tarefa é fornecer um conjunto de serviços personalizados baseados nas características dos usuários.
 
-A camada de dados inclui dados de usuários relacionados a dados específicos de domínio. Ontologias capturam o conceito e as relações entre os conceitos descrevendo diferentes recursos disponíveis no sistema. OntobUMf possui três ontologias. A ontologia de usuários estrutura as características dos usuários, classificando-as em conceitos, subconceitos, propriedades e relacionamentos. A ontologia de domínios descreve o domínio de conhecimentos e os relacionamentos entre os diferentes conceitos. A ontologia de log define a semântica de interação do usuário com o sistema, descrevendo as ações do usuário e os eventos associados disparados pelo sistema.
+A camada de dados inclui dados de usuários relacionados a dados específicos de domínio. Ontologias capturam o conceito e as relações entre os conceitos descrevendo diferentes recursos disponíveis no sistema. OntobUMf possui três ontologias. A ontologia de usuários estrutura as características dos usuários, classificando-as em conceitos, subconceitos, propriedades e relacionamentos. A ontologia de domínios descreve o domínio de conhecimentos e os relacionamentos entre os diferentes conceitos. A ontologia de log define a semântica de interação do usuário com o sistema, descrevendo as ações do usuário e os eventos associados executados pelo sistema.
 
-A OntobUMf classifica os usuários de acordo com o nível de atividade, o tipo de atividade e nível de compartilhamento de conhecimento. Baseado no tipo de atividade, os usuários são classificados como ``leitores'', ``escritores'' ou ``espiões''. Baseado no nível de atividade, os eles são classificados como ``muito ativo'', ``ativo'', ``visitante'' e ``inativo''. Baseado no nível de compartilhamento de conteúdo, eles são classificados como ``inconsciente'', ``consciente'', ``interessado'', ``tentativo'' ou ``adotante''.
+A OntobUMf classifica os usuários de acordo com o nível de atividade, o tipo de atividade e nível de compartilhamento de conhecimento. Baseado no tipo de atividade, os usuários são classificados como ``leitores'', ``escritores'' ou ``espiões''. Baseado no nível de atividade, eles são classificados como ``muito ativo'', ``ativo'', ``visitante'' e ``inativo''. Baseado no nível de compartilhamento de conteúdo, eles são classificados como ``inconsciente'', ``consciente'', ``interessado'', ``tentativo'' ou ``adotante''.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -198,9 +198,51 @@ A Figura~\ref{fig:tao11} apresenta a arquitetura do modelo. O passo inicial do p
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\section{Considerações sobre os trabalhos relacionados}
+
+A Tabela~\ref{tab:comparacao2} exibe um comparativo entre os trabalhos apresentados neste Capítulo. Os seguintes fatores são levados em consideração:
+
+\begin{itemize}
+  \item Interoperabilidade: considera se o modelo apresenta interoperabilidade -- caso positivo, se a mesma é sintática ou semântica -- de acordo com a definição apresentada na Seção~\ref{sec:personalizacao};
+  \item Perfis dinâmicos: identifica se o modelo de perfil permite que os perfis sejam atualizados de acordo com eventos externos, sem a interferência do usuário;
+  \item Armazenamento: define onde ficam armazenados os perfis do usuário;
+  \item Sensibilidade a contexto: considera se o contexto do usuário é levado em consideração na formação do perfil;
+  \item Utiliza trilhas: define se as trilhas do usuário são levadas em consideração na construção do perfil. Na tabela, a definição de ``Parcial'' significa que o modelo usa algum tipo de histórico para a montagem do perfil, mas não utiliza a definição formal de trilhas;
+  \item Domínio: identifica se o perfil é voltado para um domínio específico, ou se o mesmo permite que vários domínios possam ser utilizados.
+\end{itemize}
+
+\begin{table*}\centering\footnotesize
+  \begin{tabular*}{1\textwidth}{@{}lllllll@{}}
+    \toprule
+                                         & Interope-  & Perfis    & Armaze-  & Sensibilidade & Utiliza &                     \\
+    Trabalho                             & rabilidade & dinâmicos & namento  & a contexto    & trilhas & Domínio             \\
+    \midrule
+    \citetexto{kim08}                    & Sintática  & Sim       & Servidor & Não           & Não     & Genérico            \\
+    \citetexto{chellouche10}             & Sintática  & Sim       & Servidor & Sim           & Não     & Multimídia \\
+    \citetexto{niederee04}               & Sintática  & Sim       & Cliente  & Sim           & Não     & Genérico            \\
+    \citetexto{pelep}                    & Não        & Sim       & Servidor & Sim           & Parcial & Educação            \\
+    \citetexto{razmerita11}              & Sintática  & Sim       & Servidor & Sim           & Parcial & Genérico            \\
+    \citetexto{tao11}                    & Semântica  & Sim       & Servidor & Sim           & Parcial & Genérico            \\
+    \bottomrule
+  \end{tabular*}
+  \caption{Comparação entre os trabalhos apresentados}
+  \label{tab:comparacao2}
+\end{table*}
+
+Os trabalhos apresentam uma série de características úteis para o modelo exposto neste trabalho. A maior parte dos modelos apresentados realiza algum tipo de aperfeiçoamento automático de perfis baseado nas ações do usuário. Enquanto alguns trabalhos atualizam os perfis no momento da realização da ação do usuário ou entidade, outros armazenam estes eventos em um histórico, e realizam a atualização através da análise do histórico. 
+
+A maior parte dos modelos armazena os perfis em um servidor, enquanto um deles armazena no cliente. O armazenamento em um servidor traz vantagens e desvantagens. A principal desvantagem é a indisponibilidade do perfil no caso de falta de conectividade entre o servidor e o cliente. No entanto, o armazenamento em um servidor aumenta a segurança da informação, permite um maior poder de processamento e simplifica o modelo.
+
+Enquanto alguns trabalhos se especializam em domínios específicos (tais como multimídia ou educação), outros modelos permitem seu uso em qualquer domínio. A especialização simplifica o modelo, mas o domínio genérico expande a possibilidade de utilização e, especialmente, de interoperabilidade.
+
+Enquanto alguns modelos apresentaram a utilização do histórico do usuário para a montagem do perfil, nenhum deles utilizou o conceito de trilha, o que enriqueceria ainda mais a geração do perfil pois permitiria a utilização de eventos contextualizados. Além disso, em todos os trabalhos, as regras de processamento de perfil e modelo de perfil foram apresentados como estáticos, isto é, configuráveis no início da execução mas não posteriormente. Como estas são características relevantes e permitem a geração de informações de perfil mais precisas e completas, este trabalho busca preencher esta lacuna.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Considerações finais}
 
 Este capítulo apresentou um conjunto de propostas focadas na personalização através da adaptação de perfis de entidade de acordo com as ações tomadas pelas mesmas.  A Seção~\ref{sec:contribuicoes} apresenta uma comparação entre os trabalhos apresentados neste capítulo e o modelo que está sendo proposto nesta dissertação.
+
 
 %\section{Considerações sobre os trabalhos relacionados}
 
