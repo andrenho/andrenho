@@ -1,7 +1,7 @@
 \chapter{Aspectos de Implementação e Avaliação}
 \label{ch:implementacao}
 
-Para que o modelo possa ser avaliado, um protótipo será construído. Esta seção descreve as tecnologias utilizadas na implementação do modelo, e a forma como será realizada esta avaliação.
+Um protótipo foi construído para que o modelo pudesse ser avaliado. Este capítulo descreve as tecnologias utilizadas na construção do modelo (Seção~\ref{sec:tecnologias}) e a forma como foi realizada a avaliação (Seção~\ref{ch:avaliacao}).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -10,7 +10,7 @@ Para que o modelo possa ser avaliado, um protótipo será construído. Esta seç
 
 O protótipo do eProfile foi desenvolvido em Python \cite{python}. Python é uma linguagem genérica, orientada a objetos, de alto nível, com suporte a múltiplas arquiteturas e de código aberto.
 
-As regras, modelos de entidade e perfis de entidade serão armazenadas no banco de dados SQLite3 \cite{sqlite3}. O SQLite3 é um banco de dados SQL auto-contido transacional, disponível em domínio público. O SQLite3 foi escolhido por apresentar bom desempenho e não necessitar de um servidor separado para sua implantação.
+As regras, modelos de entidade e perfis de entidade são armazenadas no banco de dados SQLite3 \cite{sqlite3}. O SQLite3 é um banco de dados SQL auto-contido transacional, disponível em domínio público. O SQLite3 foi escolhido por apresentar bom desempenho e não necessitar de um servidor separado para sua implantação.
 
 A comunicação entre o eProfile, o gerenciador de trilhas e as aplicações é feita através de {\it web services} \citep{fielding00}.
 

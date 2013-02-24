@@ -46,6 +46,8 @@ A eOntoTrail está representada na Figura~\ref{fig:ont_trilha}, onde todos os re
 
 %É importante notar que a própria classe base {\em Thing}\footnote{Em OWL, a classe {\em Thing} é a classe base a partir da qual todas as outras classes são extendidas.} pode ser extendida, como forma de registrar outras informações necessárias. Por exemplo, a trilha registra o interesse de um usuário em um determinado produto, a classe {\em Thing} pode ser extendida à classe {\em Product} para o registro das informações deste produto.
 
+Juntamente com as informações acima, as aplicações podem armazenar \textbf{informações contextuais} na trilha. Informações contextuais são informações que classificam ou expandem classes utilizadas na ontologia. Se, por exemplo, uma ontologia faz referência a uma determinada sala denominada \texttt{SalaReuniao}, e esta sala é registrada como uma entidade na ontologia, a mesma será uma classe derivada da classe \texttt{Entity}. No entanto, havendo um classe \texttt{Sala} definida nas informações contextualizadas desta trilha, a classe \texttt{SalaReuniao} pode também ser derivada da classe \texttt{Sala}, fornecendo assim mais informações sobre a ontologia. Um exemplo mais completo deste tipo de informação contextualizada pode ser verificado na Seção~\ref{sec:exemplo}.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Ontologia de Perfil (eOntoProfile)}

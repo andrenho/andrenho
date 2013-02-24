@@ -1,7 +1,7 @@
 \section{Exemplo de operação}
 \label{sec:exemplo}
 
-Nesta seção é mostrado o exemplo de funcionamento do modelo eProfile, detalhado nas seções anteriores. Este exemplo demonstra um curso de programação em linguagens orientadas a objeto, na qual os estudantes podem escolher quais assuntos específicos dentro da matérias eles vão estudar.
+Nesta seção é mostrado um exemplo de funcionamento do eProfile, detalhado nas seções anteriores. Este exemplo mostra um curso de programação em linguagens orientadas a objeto, na qual os estudantes podem escolher quais assuntos específicos dentro da matérias eles vão estudar. O objetivo do exemplo é demonstrar o processo através do qual um campo de perfil de uma entidade é atualizado.
 
 O curso consiste em um conjunto de módulos relacionados a orientação a objetos que o usuário transfere para seu dispositivo móvel e estuda através dele. Destes módulos fazem parte conceitos básicos da matéria (classes, herança, {\em interfaces} e ponteiros) e linguagens de programação orientadas a objeto (C++, Python e Java). O estudante não é obrigado a concluir todos os módulos. No final do curso, no entanto, ele deve escolher a linguagem de programação que ele utilizará para responder as questões da prova final. Dependendo da linguagem que escolher, ele deve ter concluído, no mínimo, os módulos referentes àquela linguagem.
 
@@ -13,9 +13,11 @@ As dependências dos módulos estão representadas na Figura~\ref{fig:cen1_modul
   \label{fig:cen1_modulos}
 \end{figure}
 
-Neste exemplo, aplicativo móvel distribui os objetos de aprendizagem de forma contextualizada. O aplicativo registra em um gerenciador de trilhas cada vez que um módulo é iniciado ou concluído. O aplicativo móvel, o gerenciador de trilhas e o eProfile conectam-se entre si de acordo com a Figura~\ref{fig:modelobasico} (Seção~\ref{sec:modelo}).
+Neste exemplo, um gerenciador de conteúdo distribui os módulos aos alunos, que o acessam através de seus dispositivos pessoais. O gerenciador de conteúdo registra em um gerenciador de trilhas cada vez que um módulo é iniciado ou concluído. O gerenciador de conteúdo, o gerenciador de trilhas e o eProfile conectam-se de acordo com a Figura~\ref{fig:modelobasico} (Seção~\ref{sec:modelo}).
 
-Cada evento (início ou conclusão de um objeto de aprendizagem) é registrado contendo as seguintes informações: (i) entidade que realizou o evento, (ii) objeto de aprendizagem, (iii) tipo de evento (início ou conclusão), (iii) data e hora e (iv) se é a primeira vez que o estudante realiza este tipo de evento. Neste exemplo, os eventos descritos na Tabela~\ref{tab:eventos} foram registrados pelo aplicativo no gerenciador de trilhas durante um período de um dia.
+Cada evento (início ou conclusão de um módulo) é registrado contendo as seguintes informações: (i) entidade que realizou o evento, (ii) módulo, (iii) tipo de evento (início ou conclusão), (iii) data e hora e (iv) se é a primeira vez que o estudante realiza este tipo de evento. A definição da primeira vez que o estudante realiza o módulo é importante, pois ele pode realizar o mesmo módulo várias vezes, mas apenas a primeira vez é utilizada na contagem dos módulos realizados.
+
+Neste exemplo, os eventos descritos na Tabela~\ref{tab:eventos} foram registrados pelo aplicativo no gerenciador de trilhas durante um período de um dia. A Entidade é derivada da classe ``Entity'', a data e hora são derivadas da classe ``Time'', e as outras informações são derivadas da classe ``Activity'', de acordo com a ontologia definida na Figura~\ref{fig:ont_trilha}.
 
 \begin{table}\centering\footnotesize
   \begin{tabular*}{0.65\textwidth}{@{}lllll@{}}
@@ -37,19 +39,25 @@ Cada evento (início ou conclusão de um objeto de aprendizagem) é registrado c
   \label{tab:eventos}
 \end{table}
 
-No exemplo apresentado, deseja-se atualizar o perfil de uma entidade, inserindo a informação de proficiência dela em determinada disciplina. Esta informação será utilizada posteriormente pela aplicação para determinar se o estudante está apto a realizar o teste. Para que o eProfile possa ser capaz de inferir esta informação, a aplicação precisa, ao montar as trilhas, enviar informações suficientes para que o eProfile possa montar a ontologia que represente a situação atual. Um exemplo de informação deste tipo são as dependências entre as disciplinas. A Figura~\ref{fig:cen1_ontologia} mostra a ontologia montada pelo eProfile baseado nas trilhas enviadas da aplicação o gerenciador de trilhas, e do gerenciador ao eProfile.
+No exemplo apresentado, deseja-se atualizar o perfil de uma entidade, inserindo a informação de proficiência dela em determinado assunto. Esta informação será utilizada posteriormente pela aplicação para determinar se o estudante está apto a realizar o teste. Para que o eProfile possa ser capaz de inferir esta informação, a aplicação precisa, nas trilhas, enviar informações suficientes para que o eProfile possa montar a ontologia que represente a situação atual. 
+
+Um exemplo de informação deste tipo são as dependências entre as disciplinas. Para que o eProfile possa ser capaz de compreender o contexto dos módulos de estudo e dos assuntos, é necessário que a aplicação (neste caso, o gerenciador de conteúdo) envie a informação contextual relevante, que está representada na Figura~\ref{fig:cen1_ontologia}.
 
 \begin{figure}
   \begin{center}
     \includegraphics[width=1\textwidth]{imagens/cen_ontologia.png}
   \end{center}
-  \caption{Ontologia do cenário apresentado}
+  \caption{Informações contextualizadas do cenário apresentado}
   \label{fig:cen1_ontologia}
 \end{figure}
 
-Além das trilhas, a aplicação deve enviar as regras de inferência ao eProfile. Estas regras serão utilizadas pelo eProfile para inferir as trilhas e gerar o perfil. Para que o eProfile possa identificar se uma entidade é proficiente em alguma disciplina, são necessárias três regras: (i) a identificação dos objetos de aprendizagem requeridos para a proficiência na disciplina; (ii) a identificação dos objetos de aprendizagem concluídos pelo estudante e; (iii) a verificação se os objetos requeridos foram concluídos.
+A informação contextual pode ser enviada através da trilha apenas uma vez (caso ela seja reenviada, a nova informação sobrescreve a anterior). Esta informação é recebida pelo eProfile através do módulo configurador e armazenada na base de dados de trilhas. A partir deste momento, neste exemplo, o eProfile poderá identificar uma referência à ``Java'' ou ``Python'', identificando-as como Linguagens de Programação.
 
-A primeira regra está apresentada na Figura~\ref{cod:regra1}, sendo composta por uma classe escrita em OWL\footnote{Embora o eProfile utilize internamente a sintaxe OWL/RDF \cite{owl-guide}, a sintaxe Manchester-OWL está sendo usada neste exemplo por ser mais compacta e amigável \cite{owl-manchester}.}. Para que um estudante seja considerado proficiente em Java, ele deve ter concluído os objetos de aprendizagens que fazem relação com a linguagem Java (neste caso classes, herança e {\em interfaces}, na linha 4), bem como o objeto de aprendizagem da própria linguagem Java (linha 3). 
+Além das trilhas, a aplicação deve enviar as regras de inferência ao eProfile. Estas regras serão utilizadas pelo eProfile para inferir as trilhas e gerar o perfil. Para que o eProfile possa identificar se uma entidade é proficiente em alguma disciplina, são necessárias três regras: (i) a identificação dos módulos requeridos para a proficiência na disciplina; (ii) a identificação dos módulos concluídos pelo estudante e; (iii) a verificação se os objetos requeridos foram concluídos.
+
+O perfil da entidade (que, neste caso, respresenta o aluno) é extremamente simples para este exemplo, possuindo apenas um campo: proeficiência em Java.
+
+A primeira regra está apresentada na Figura~\ref{cod:regra1}, sendo composta por uma classe escrita em OWL\footnote{Embora o eProfile utilize internamente a sintaxe OWL/RDF \cite{owl-guide}, a sintaxe Manchester-OWL está sendo usada neste exemplo por ser mais compacta e amigável \cite{owl-manchester}.}. Para que um estudante seja considerado proficiente em Java, ele deve ter concluído os módulos que fazem relação com a linguagem Java (neste caso classes, herança e {\em interfaces}, na linha 4), bem como o objeto de aprendizagem da própria linguagem Java (linha 3). 
 
 \begin{figure}
 \begin{lstlisting}
@@ -78,9 +86,9 @@ Class: <el:JavaLessonsTaken>
 \label{cod:regra2}
 \end{figure}
 
-Uma vez que estas duas regras estejam criadas na ontologia, o eProfile executa o raciocinador, que gera uma nova ontologia OWL, com as classes inferidas identificadas como filhas das classes criadas.
+Uma vez que estas duas regras estejam armazenadas na base de dados de regras, o eProfile executa o raciocinador, que gera uma nova ontologia OWL, com as classes inferidas identificadas como filhas das classes criadas.
 
-A terceira regra é uma regra de atualização de perfil (Figura~\ref{cod:regra3}). Nesta regra, são comparados o número de módulos Java (regra da Figura~\ref{cod:regra1}) com o número de objetos de aprendizagem relacionados ao Java que foram concluídos pela entidade (regra da Figura~\ref{cod:regra2}). Se o número for igual, o usuário é considerado proficiente, e esta regra é atualizada no perfil da entidade.
+A terceira regra é uma regra de atualização de perfil (Figura~\ref{cod:regra3}). Nesta regra, são comparados o número de módulos relacionados ao Java (regra da Figura~\ref{cod:regra1}) com o número de objetos de aprendizagem relacionados ao Java que foram concluídos pela entidade (regra da Figura~\ref{cod:regra2}). Se o número for igual, o usuário é considerado proficiente, e esta regra é atualiza o campo de proeficiência no perfil da entidade.
 
 \begin{figure}
 \begin{lstlisting}
