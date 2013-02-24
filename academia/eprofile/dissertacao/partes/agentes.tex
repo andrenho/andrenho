@@ -92,10 +92,11 @@ Os preceitos do modelo, isto é, os pontos onde o eProfile recebe informações 
   \item Base de dados de perfis de entidades: contém os perfis de entidades, já inferidos a partir dos modelos, regras e trilhas.
 \end{itemize}
 
+As bases de dados estão presentes nas Figuras ~\ref{fig:modelo},~\ref{fig:coupling} e~\ref{fig:coupling_agentes}, embora no primeiro caso apenas as mais importantes são mostradas. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Arquitetura}
+\subsection{Arquitetura dos Agentes}
 \label{sec:arquitetura}
 
 A Figura~\ref{fig:coupling} apresenta o diagrama de ligação ({\em coupling}) do eProfile. A partir deste diagrama, é possível agrupar as bases de dados e funcionalidades em grupos afins, e identificar os agentes resultantes, como é mostrado na Figura~\ref{fig:coupling_agentes}. Quatro agentes foram identificados: (i) comunicador, (ii) configurador, (iii) conversor e (iv) raciocinador.
@@ -108,7 +109,7 @@ A Figura~\ref{fig:coupling} apresenta o diagrama de ligação ({\em coupling}) d
 
 \begin{figure}
   \includegraphics[width=1\textwidth]{imagens/coupling2.png}
-  \caption{Diagrama de ligação do eProfile, com a identificação dos clientes}
+  \caption{Diagrama de ligação do eProfile, com a identificação dos agentes}
   \label{fig:coupling_agentes}
 \end{figure}
 
@@ -120,7 +121,7 @@ O agente realiza também o recebimento das regras enviadas pela aplicação. Uma
 
 O \textbf{agente conversor} realiza a conversão dos dados da trilha do gerenciador de trilhas (externo) para a ontologia de trilhas do eProfile (interno). A trilha do gerenciador pode ser disponibilizada em qualquer formato e por qualquer meio, desde que o eProfile ofereça suporte ao gerenciador de trilhas específico. O agente conversor tem também a responsabilidade de verificar, a cada período pré-determinado, atualizações nos dados disponibilizados no gerenciador.
 
-O \textbf{agente raciocinador} infere trilhas de acordo com as regras enviadas pela aplicação, e atualiza o perfil da entidade. A execução do agente não necessita que o aplicativo ou o gerenciador de trilhas esteja conectado no momento da execução da inferência, e ocorre da seguinte forma:
+O \textbf{agente raciocinador} infere nas trilhas de acordo com as regras enviadas pela aplicação, e atualiza o perfil da entidade. A execução do agente não necessita que o aplicativo ou o gerenciador de trilhas esteja conectado no momento da execução da inferência, e ocorre da seguinte forma:
 
 \begin{enumerate}
 
