@@ -1,7 +1,7 @@
 \section{Regras e Inferência}
 \label{sec:regras}
 
-A aplicação de regras é peça fundamental para o funcionamento do eProfile. Uma regra é uma instrução de inferência registrada por uma aplicação que será executada sobre um conjunto de trilhas de uma entidade, resultando num perfil de entidade de acordo com um modelo de entidade previamente cadastrado pela aplicação.
+A aplicação de regras é peça fundamental para o funcionamento do eProfile. Uma regra é uma instrução de inferência registrada por uma aplicação que será executada sobre trilhas de uma entidade, resultando num perfil de entidade de acordo com um modelo de entidade previamente cadastrado pela aplicação.
 
 Para que uma regra possa ser aplicada, as seguintes informações precisam ter sido previamente registradas no eProfile:
 
@@ -35,9 +35,9 @@ As regras são sempre definidas pela aplicação, e uma regra é composta pelo s
 
 \item {\bf Atualização:} uma instrução que define como o campo será atualizado (por exemplo, o valor pode ser simplesmente sobrescrito ou atualizado de acordo com alguma fórmula);
 
-\item {\bf Frequência de atualização:} define de quanto em quanto tempo esta regra deve ser executada. É importante notar que o valor definido aqui pode não ser honrado, devido a outros motivos (como uma sobrecarga no servidor);
+\item {\bf Frequência de atualização:} define a periodicidade de execução da regra. É importante notar que o valor definido aqui pode não ser honrado, devido a outros motivos (como uma sobrecarga no servidor);
 
-\item {\bf Validade}: define qual a data limite para a execução desta regra. A ausência desta informação define que a regra continuará sendo processada indefinidamente;
+\item {\bf Validade}: define qual a data limite para a execução desta regra. A ausência desta informação define que a regra continuará sendo processada indefinidamente.
 
 \end{itemize}
 
@@ -45,6 +45,6 @@ O raciocinador gerenciará a carga de processamento no servidor. Assim, algumas 
 
 As regras podem ser escritas em duas linguagens diferentes: SPARQL ou SWRL. O SPARQL \cite{sparql} é uma linguagem de consulta de ontologias cuja sintaxe assemelha-se a linguagem de consulta de banco de dados SQL \cite{sql}, enquanto o SWRL \cite{swrl} é uma linguagem de regras que permite a consulta utilizando construtores lógicos mais complexos que o SPARQL. Além disso, as informações podem ser inferidas através das relações axiomáticas entre as classes.
 
-Uma vez que a regra tenha sido validada pelo agente regulador, ela entra em funcionamento e passa a ser elegível para execução.
+Uma vez que a regra tenha sido validada pelo agente configurador, ela entra em funcionamento e passa a ser elegível para execução.
 
 Tanto as consultas via SPARQL/SWRL quanto a geração de classes a partir das relações axiomáticas são executadas através de um motor de inferências externo que é descrito na Seção~\ref{sec:motor_inferencia}. Um exemplo detalhado da aplicação de regras pode ser verificado na Seção~\ref{sec:exemplo}.
