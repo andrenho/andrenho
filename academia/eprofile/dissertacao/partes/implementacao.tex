@@ -10,9 +10,21 @@ Um protótipo foi construído para que o modelo pudesse ser avaliado. Este capí
 
 O protótipo do eProfile foi desenvolvido em Python \cite{python}. Python é uma linguagem genérica, orientada a objetos, de alto nível, com suporte a múltiplas arquiteturas e de código aberto.
 
-As regras, modelos de entidade e perfis de entidade são armazenadas no banco de dados SQLite3 \cite{sqlite3}. O SQLite3 é um banco de dados SQL auto-contido transacional, disponível em domínio público. O SQLite3 foi escolhido por apresentar bom desempenho e não necessitar de um servidor separado para sua implantação.
+O diagrama de classes do eProfile está representado na Figura~\ref{fig:classes}. As classes Comunicador, Configurador, Conversor e Raciocinador representam os respectivos agentes com os mesmos nomes, segundo descrito na Seção~\ref{sec:modelagem}. Estas classes derivam da classe Agente, onde estão as tarefas comuns para todos os agentes, como inicialização, comunicação entre agentes, controle de {\em threads}, entre outros.
 
-A comunicação entre o eProfile, o gerenciador de trilhas e as aplicações é feita através de {\it web services} \citep{fielding00}.
+\begin{figure}
+  \includegraphics[width=1\textwidth]{imagens/classes.png}
+  \caption{Diagrama de classes do eProfile}
+  \label{fig:classes}
+\end{figure}
+
+As classes nas quais estão implementados os agentes trocam mensagens com três classes de conexão. Estas classes são utilizadas para conectar com aplicações externas ou bibliotecas internas.
+
+A classe ConectorDB conecta os agentes ao banco de dados. As regras, modelos de entidade e perfis de entidade são armazenadas no banco de dados SQLite3 \cite{sqlite3}. O SQLite3 é um banco de dados SQL auto-contido transacional, disponível em domínio público. O SQLite3 foi escolhido por apresentar bom desempenho e não necessitar de um servidor separado para sua implantação.
+
+A classe ConectorWS conecta o eProfile ao gerenciador de trilhas e às aplicações, onde a comunicação ocorre através de {\it web services} \citep{fielding00}. Esta classe inicializa um servidor HTTP\footnote{{\em HyperText Transfer Protocol} - Protocolo de Transferência de Hipertexto} que recebe as requisições das aplicações e dos gerenciadores de trilhas. Ela também é responsável por enviar requisições HTTP às aplicações e gerenciadores de trilhas.
+
+A classe ConectorFaCT conecta o agente Raciociador ao motor de inferências FaCT++ (ver Seção~\ref{sec:motor_inferencia}). A comunicação entre o eProfile e o FaCT++ é feita através de troca de arquivos: o eProfile gera um arquivo com a ontologia OWL que será inferida, e o FaCT é executado através do sistema operacional, onde ele executa sobre a ontologia e, como resultado, gera um arquivo com a ontologia inferida. Se houver sucesso na execução (o que pode ser verificado pela variável de retorno do sistema operacional), a classe ConectorFaCT envia o conteúdo do arquivo ao Raciocinador.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
