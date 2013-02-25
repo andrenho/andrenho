@@ -13,9 +13,10 @@ O protótipo do eProfile foi desenvolvido em Python \cite{python}. Python é uma
 O diagrama de classes do eProfile está representado na Figura~\ref{fig:classes}. As classes Comunicador, Configurador, Conversor e Raciocinador representam os respectivos agentes com os mesmos nomes, segundo descrito na Seção~\ref{sec:modelagem}. Estas classes derivam da classe Agente, onde estão as tarefas comuns para todos os agentes, como inicialização, comunicação entre agentes, controle de {\em threads}, entre outros.
 
 \begin{figure}
-  \includegraphics[width=1\textwidth]{imagens/classes.png}
   \caption{Diagrama de classes do eProfile}
+  \includegraphics[width=1\textwidth]{imagens/classes.png}
   \label{fig:classes}
+  Fonte: elaborado pelo autor
 \end{figure}
 
 As classes nas quais estão implementados os agentes trocam mensagens com três classes de conexão. Estas classes são utilizadas para conectar com aplicações externas ou bibliotecas internas.
@@ -29,9 +30,10 @@ A classe ConectorFaCT conecta o agente Raciocinador ao motor de inferências FaC
 A Figura~\ref{fig:activity} mostra o diagrama de sequência do eProfile. Os textos em itálico no diagrama representam comunicação via {\it web services}, enquanto os textos normais representam chamadas de métodos internos do eProfile. As classes representadas neste diagrama são as mesmas da Figura~\ref{fig:classes}. Neste diagrama são exibidas as cinco principais operações do eProfile: (i) inicialização, (ii) definições, (iii) recebimento de trilhas, (iv) inferência e (v) busca de perfil.
 
 \begin{figure}
-  \includegraphics[width=1\textwidth]{imagens/activity.png}
   \caption{Diagrama de sequência do eProfile}
+  \includegraphics[width=1\textwidth]{imagens/activity.png}
   \label{fig:activity}
+  Fonte: elaborado pelo autor
 \end{figure}
 
 A inicialização ocorre quando uma nova aplicação ou um novo gerenciador de trilhas se conecta ao eProfile. Neste caso, a aplicação precisa se registrar para que o eProfile passe a se comunicar com ela. Os novos aplicativos e gerenciadores de trilhas são registrados na base de dados de aplicações.

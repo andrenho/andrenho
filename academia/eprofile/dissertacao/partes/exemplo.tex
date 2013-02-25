@@ -8,9 +8,10 @@ Este exemplo mostra um curso de programação em linguagens orientadas a objeto,
 As dependências dos módulos estão representadas na Figura~\ref{fig:cen1_modulos}. Por exemplo, caso o aluno decida realizar a prova em Java, ele deve ter estudado classes, herança e {\em interfaces}, além do Java propriamente dito. Como a linguagem Java não contém o conceito de ponteiros, ele não é obrigado a ter cursado este módulo.
 
 \begin{figure}
-  \centering\includegraphics[width=0.3\textwidth]{imagens/cen1_modulos.png}
   \caption{Módulos de estudo obrigatórios}
+  \centering\includegraphics[width=0.3\textwidth]{imagens/cen1_modulos.png}
   \label{fig:cen1_modulos}
+  Fonte: Elaborado pelo autor
 \end{figure}
 
 Neste exemplo, um gerenciador de conteúdo distribui os módulos aos alunos, que o acessam através de seus dispositivos pessoais. O gerenciador de conteúdo registra em um gerenciador de trilhas cada vez que um módulo é iniciado ou concluído. O gerenciador de conteúdo, o gerenciador de trilhas e o eProfile conectam-se de acordo com a Figura~\ref{fig:modelobasico} (Seção~\ref{sec:modelo}).
@@ -20,6 +21,7 @@ Cada evento (início ou conclusão de um módulo) é registrado contendo as segu
 Neste exemplo, os eventos descritos na Tabela~\ref{tab:eventos} foram registrados pelo aplicativo no gerenciador de trilhas durante um período de um dia. A Entidade é derivada da classe ``Entity'', a data e hora são derivadas da classe ``Time'', e as outras informações são derivadas da classe ``Activity'', de acordo com a ontologia definida na Figura~\ref{fig:ont_trilha}.
 
 \begin{table}\centering\footnotesize
+  \caption{Trilha gerada pelo aplicativo}
   \begin{tabular*}{0.65\textwidth}{@{}lllll@{}}
     \toprule
     Entidade & Objeto de    & Tipo de & Data e Hora & Primeira \\
@@ -36,8 +38,8 @@ Neste exemplo, os eventos descritos na Tabela~\ref{tab:eventos} foram registrado
     Andre    & Interfaces   & Término & 09/07/2012 17:32 & Sim \\
     \bottomrule
   \end{tabular*}
-  \caption{Trilha gerada pelo aplicativo}
   \label{tab:eventos}
+  Fonte: Elaborado pelo autor
 \end{table}
 
 No exemplo apresentado, deseja-se atualizar o perfil de uma entidade, inserindo a informação de proficiência dela em determinado assunto. Esta informação será utilizada posteriormente pela aplicação para determinar se o estudante está apto a realizar o teste. O perfil da entidade (aluno) que será gerado é bastante simples, possuindo apenas um campo: proficiência em Java.
@@ -45,11 +47,12 @@ No exemplo apresentado, deseja-se atualizar o perfil de uma entidade, inserindo 
 Para que o eProfile possa ser capaz de inferir esta informação, a aplicação precisa, nas trilhas, enviar informações contextuais suficientes para que o eProfile possa montar a ontologia que represente a situação atual. Um exemplo de informação deste tipo são as dependências entre as disciplinas. Para que o eProfile possa ser capaz de compreender o contexto dos módulos de estudo e dos assuntos, é necessário que a aplicação (neste caso, o gerenciador de conteúdo) envie a informação contextual relevante, que está representada na Figura~\ref{fig:cen1_ontologia}.
 
 \begin{figure}
+  \caption{Informações contextuais do cenário apresentado}
   \begin{center}
     \includegraphics[width=1\textwidth]{imagens/cen_ontologia.png}
   \end{center}
-  \caption{Informações contextuais do cenário apresentado}
   \label{fig:cen1_ontologia}
+  Fonte: elaborado pelo autor
 \end{figure}
 
 A informação contextual pode ser enviada através da trilha apenas uma vez (caso ela seja reenviada, a nova informação sobrescreve a anterior). Esta informação é recebida pelo eProfile através do módulo configurador e armazenada na base de dados de trilhas. A partir deste momento, neste exemplo, o eProfile poderá identificar uma referência à ``Java'' ou ``Python'', identificando-as como Linguagens de Programação.
@@ -59,19 +62,21 @@ Além das trilhas, a aplicação deve enviar as regras de inferência ao eProfil
 A primeira regra está apresentada na Figura~\ref{cod:regra1}, sendo composta por uma classe escrita em OWL\footnote{Embora o eProfile utilize internamente a sintaxe OWL/RDF \cite{owl-guide}, a sintaxe Manchester-OWL está sendo usada neste exemplo por ser mais compacta e amigável \cite{owl-manchester}.}. Para que um estudante seja considerado proficiente em Java, ele deve ter concluído os módulos que fazem relação com a linguagem Java (neste caso classes, herança e {\em interfaces}, na linha 4), bem como o objeto de aprendizagem da própria linguagem Java (linha 3). 
 
 \begin{figure}
+\caption{Regra de requerimentos para disciplina}
 \begin{lstlisting}
 Class: <el:JavaRequirement>
     EquivalentTo: 
         <el:Java>
          or (<el:relatesTo> some <el:Java>)
 \end{lstlisting}
-\caption{Regra de requerimentos para disciplina}
 \label{cod:regra1}
+Fonte: elaborado pelo autor
 \end{figure}
 
 O segundo passo é a identificação dos objetos de aprendizagem concluídos pelo estudante relacionados ao Java. Esta regra é apresentada na Figura~\ref{cod:regra2}. Assim, são considerados apenas os eventos de conclusão de objeto de aprendizagem (linha 3) realizados pela entidade (linha 4), relacionados ao Java (linha 5) e que tenham sido realizados pela primeira vez (linha 7), uma vez que o aluno pode estudar o mesmo material várias vezes. O parâmetro \texttt{[?entity]} é substituído pela entidade na execução da regra de cada perfil. É importante notar que para verificar se a disciplina está relacionada ao Java, a regra criada na Figura~\ref{cod:regra1} é utilizada (linhas 5 e 6).
 
 \begin{figure}
+\caption{Regra de objetos de aprendizagem concluídos}
 \begin{lstlisting}
 Class: <el:JavaLessonsTaken>
     EquivalentTo: 
@@ -81,25 +86,27 @@ Class: <el:JavaLessonsTaken>
 	                    <el:JavaRequirement>)
          and (<el:isFirstTime> value true)
 \end{lstlisting}
-\caption{Regra de objetos de aprendizagem concluídos}
 \label{cod:regra2}
+Fonte: elaborado pelo autor
 \end{figure}
 
 Uma vez que estas duas regras estejam armazenadas na base de dados de regras, o eProfile executa o raciocinador, que gera uma nova ontologia OWL, com as classes inferidas identificadas como filhas das classes criadas.
 
 \begin{figure}
+\caption{Regra de proficiência}
 \begin{lstlisting}
 JavaProficience <= 
   (Count(SubClasses(JavaRequirement))) equals
           (Count(SubClasses(JavaLessonsTaken)))
 \end{lstlisting}
-\caption{Regra de proficiência}
 \label{cod:regra3}
+Fonte: elaborado pelo autor
 \end{figure}
 
 A terceira regra é uma regra de atualização de perfil (Figura~\ref{cod:regra3}). Nesta regra, são comparados o número de módulos relacionados ao Java (regra da Figura~\ref{cod:regra1}) com o número de objetos de aprendizagem relacionados ao Java que foram concluídos pela entidade (regra da Figura~\ref{cod:regra2}). Se o número for igual, o usuário é considerado proficiente, e esta regra é atualiza o campo de proficiência no perfil da entidade.
 
 \begin{figure}[!t]
+\caption{Regra para processamento do perfil do estudante}
 \begin{lstlisting}
 Entity:    Student
 Field:     Knowledge\JavaProficience
@@ -108,8 +115,8 @@ Update:    update
 Frequence: 300
 Expires:   never
 \end{lstlisting}
-\caption{Regra para processamento do perfil do estudante}
 \label{fig:defregra}
+Fonte: elaborado pelo autor
 \end{figure}
 
 A Figura~\ref{fig:defregra} mostra a definição da regra. A definição informa o eProfile que o campo JavaProficience (linha 2) das entidades do tipo Estudante (linha 1) será atualizado com o resultado da regra chamada JavaProficience (linha 3), que é a regra mostrada na Figura~\ref{cod:regra3}. O prefixo ``Knowledge'' da linha 2 indica que este campo é filho da classe Knowledge na ontologia de perfil apresentada na Figura~\ref{fig:ont_perfil}. A regra de atualização da linha 4 indica que, cada vez que a regra for executada, o valor resultante deve substituir o valor anterior. A regra será executada a cada 300 segundos (linha 5) e não expira (linha 6).
@@ -117,6 +124,7 @@ A Figura~\ref{fig:defregra} mostra a definição da regra. A definição informa
 O perfil gerado pela aplicação da regra é uma ontologia OWL, mostrada na Figura~\ref{fig:perfil_gerado}. A ontologia contém as classes Andre e Maria (linhas 13 e 17), que representam as duas entidades deste exemplo. Pode-se verificar no perfil que a entidade Andre possui na propriedade {\em hasKnowledge} a classe {\em JavaProficience}, o que indica que a mesma possui proficiência em Java. Como a entidade Maria não possui esta propriedade, a mesma não pode ser considerada como proficiente em Java.
 
 \begin{figure}[!t]
+\caption{Perfil das entidades}
 \begin{lstlisting}
 Ontology: <el>
 
@@ -138,9 +146,8 @@ Class: <el:Andre>
     SubClassOf: 
         <el:Entity>,
         <el:hasKnowledge> some <el:JavaProficience>\end{lstlisting}
-\caption{Perfil gerado das entidades}
 \label{fig:perfil_gerado}
+Fonte: elaborado pelo autor
 \end{figure}
-
 
 Esta regra será executada periodicamente, a cada 5 minutos. Uma vez que a entidade Maria tenha concluído todos os módulos requeridos, o perfil será atualizado como ``Proficiente em Java''.
