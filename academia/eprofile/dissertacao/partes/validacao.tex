@@ -1,7 +1,7 @@
 \section{Avaliação}
 \label{ch:avaliacao}
 
-Somente é possível avaliar as funcionalidades de uma proposta de infraestrutura construindo aplicações que a utilizem e então avaliá-las, de modo a obter uma avaliação indireta do modelo \cite{edwards03}. A comunidade científica vem utilizando cenários para realizar este tipo de avaliação indireta em ambientes sensíveis a contexto (como a abordagem realizada por Dey \cite{dey2001b}) e ubíquos (de acordo com Satyanarayanan \cite{satyanarayanan01}). Este trabalho segue a mesma abordagem: foram criados um protótipo e um cenário para realização de experimentos que avaliem o eProfile.
+Somente é possível avaliar as funcionalidades de uma proposta de infraestrutura construindo aplicações que a utilizem e então avaliá-las, de modo a obter uma avaliação indireta do modelo \cite{edwards03}. A comunidade científica vem utilizando cenários para realizar este tipo de avaliação indireta em ambientes sensíveis a contexto (como a abordagem realizada por Dey \cite{dey2001b}) e ubíquos (de acordo com Satyanarayanan \cite{satyanarayanan01}). Este trabalho segue a mesma abordagem, tendo sido criados um protótipo e um cenário para realização de experimentos que avaliem o eProfile.
 
 O experimento apresentado é baseado na geração simulada de trilhas de estudantes de graduação dentro de um contexto de Aprendizagem Ubíqua. Aprendizagem Ubíqua pode ser compreendida como um conjunto de processos educacionais que ocorrem em qualquer lugar, a qualquer tempo e com qualquer dispositivo, de forma contínua, contextualizada e integrada ao cotidiano do aprendiz \cite{barbosa11}.
 
@@ -9,7 +9,7 @@ As seguintes seções descrevem o ambiente da simulação (Seção~\ref{sec:desc
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Ambiente}
+\subsection{Ambiente de Simulação}
 \label{sec:desc_cen1}
 
 O cenário é composto por um grupo de alunos que realiza um curso de Ciência da Computação. O curso é composto por um conjunto de 40 disciplinas, dentre as quais 12 são opcionais (o aluno deve cumprir ao menos 8 dentre estas 12). Todas as disciplinas possuem outras disciplinas como pré-requisito, exceto pelas disciplinas de início de curso (a Figura~\ref{fig:disciplinas} exemplifica um subconjunto de disciplinas com seus pré-requisitos). Cada disciplina possui um docente, um número limitado de vagas para os alunos, e um conjunto de recursos (como salas especiais ou equipamentos).
@@ -58,7 +58,7 @@ O conjunto de disciplinas utilizado para este cenário é mostrado na Tabela~\re
     F5 & Algoritmos Avançados*  & B1, B2 & 15 & Laboratório \\
     \bottomrule
   \end{tabular*}
-  \caption{Curso utilizado para o Cenário 1}
+  \caption{Curso utilizado para o Cenário}
   \label{tab:curso}
 \end{table*}
 
@@ -72,7 +72,7 @@ Os alunos e docentes utilizam dispositivos móveis ({\em laptop} ou {\em smartph
 
 O UniManager é o sistema utilizado pela universidade para administração das disciplinas, descrito na Seção~\ref{sec:eprofile_unimanager}. Ele é usado pela administração da universidade, pelos professores e estudantes. A administração utiliza-o para cadastrar disciplinas, alunos e docentes, vincular os alunos e docentes às disciplinas e emitir relatórios gerenciais, como lista de presenças e aprovação/reprovação de alunos, bem como faltas e avaliações de professores. Os docentes utilizam o sistema para realizar as avaliações dos alunos. Os estudantes o utilizam para realizar suas provas e trabalhos, para fazer sua matrícula nas disciplinas e para verificar suas notas e faltas.
 
-Além disso, os docentes e os alunos também utilizam o LOCAL em seus dispositivos móveis. O LOCAL é descrito em maior detalhe na Seção~\ref{sec:eprofile_local} e em \cite{barbosa11}. O LOCAL combina as informações dos perfis com sua localização, de modo a poder assisti-los, facilitando a interação entre os aprendizes e permitindo a entrega de material pedagógico contextualizado. Os docentes utilizam o LOCAL para cadastrar o material pedagógico que será distribuído aos alunos. O LOCAL se comunica com os estudantes de modo a distribuir o material pedagógico previamente cadastrado e coloca estudantes com interesses similares em contato durante a realização de atividades pedagógicas. Caso, durante estas atividades, o estudante não tenha nenhum interesse cadastrado que corresponda àqueles requeridos pela atividade, ele tem a opção de fazer a escolha utilizando uma {\it interface} de usuário do LOCAL chamada Assistente Pessoal. 
+Além disso, os docentes e os alunos também utilizam o LOCAL em seus dispositivos móveis. O LOCAL \cite{barbosa11} é descrito na Seção~\ref{sec:eprofile_local}. O LOCAL combina as informações dos perfis com sua localização, de modo a poder assisti-los, facilitando a interação entre os aprendizes e permitindo a entrega de material pedagógico contextualizado. Os docentes utilizam o LOCAL para cadastrar o material pedagógico que será distribuído aos alunos. O LOCAL se comunica com os estudantes de modo a distribuir o material pedagógico previamente cadastrado e coloca estudantes com interesses similares em contato durante a realização de atividades pedagógicas. Caso, durante estas atividades, o estudante não tenha nenhum interesse cadastrado que corresponda àqueles requeridos pela atividade, ele tem a opção de fazer a escolha utilizando uma {\it interface} de usuário do LOCAL chamada Assistente Pessoal. 
 
 A Tabela~\ref{tab:aula} exemplifica uma aula de duas horas e meia envolvendo 10 alunos, na qual foi realizado um debate a respeito de Técnicas de Programação. Após o debate, os alunos realizaram um trabalho individual a respeito dos assuntos discutidos no debate. Neste exemplo, foram registrados no UniManager a presença dos alunos, a entrega do seu trabalho e a nota obtida e, no LOCAL, o conteúdo pedagógico da aula.
 
@@ -113,11 +113,11 @@ Neste exemplo, o LOCAL registrou a preferência pessoal de dois alunos, a respei
 
 \begin{figure}
   \centering\includegraphics[width=0.6\textwidth]{imagens/modelo_cenario1.png}
-  \caption{Modelo do Cenário 1}
+  \caption{Modelo do Cenário}
   \label{fig:modelo_cenario1}
 \end{figure}
 
-O cenário é composto por quatro aplicações que interagem entre si, de acordo com a Figura~\ref{fig:modelo_cenario1}. O LOCAL é um sistema de educação ubíqua utilizado para encontrar oportunidades de aprendizagem, colocando estudantes em contato e recomendando conteúdo, e o UniManager é um aplicativo utilizado pela coordenação da Universidade para gerenciar notas e disciplinas dos alunos. Ambos os softwares possuem um módulo de perfis, onde as informações de perfil são utilizadas para tomada de decisões. Como em ambos os casos o módulo de perfis é estático e depende de uma coleta de informações explícita, o eProfile é conectado a estes softwares, potencializando a criação dinâmica de perfis e a coleta implícita de informações. Além disso, o eProfile permite a interoperabilidade entre estes sistemas, permitindo que as informações de ambos sejam utilizadas na geração de um mesmo perfil. O cenário inclui também um gerenciador de trilhas, que gerencia as trilhas das entidades. Neste cenário, as disciplinas, estudantes e docentes são representados como entidades.
+O cenário é composto por quatro aplicações que interagem entre si, de acordo com a Figura~\ref{fig:modelo_cenario1}. Ambos os softwares possuem um módulo de perfis, onde as informações de perfil são utilizadas para tomada de decisões. Como em ambos os casos o módulo de perfis é estático e depende de uma coleta de informações explícita, o eProfile é conectado a estes softwares, potencializando a criação dinâmica de perfis e a coleta implícita de informações. Além disso, o eProfile permite a interoperabilidade entre estes sistemas, permitindo que as informações de ambos sejam utilizadas na geração de um mesmo perfil. O cenário inclui também um gerenciador de trilhas, que gerencia as trilhas das entidades. Neste cenário, as disciplinas, estudantes e docentes são representados como entidades.
 
 A comunicação inicial ocorre entre as aplicações e o eProfile, (setas ``a'' e ``b''), onde as aplicações definem seus modelos de entidade e as regras. Essa comunicação pode ocorrer quantas vezes forem necessárias, pois as aplicações podem atualizar suas regras e seus modelos de entidades continuamente. Durante a execução das aplicações, as mesmas registram as regras no Gerenciador de Trilhas (setas ``c'' e ``d''). Isto significa que as aplicações podem trabalhar desconectadas do eProfile, e conectar-se apenas no momento de atualizar alguma regra ou descarregar os dados de perfil. O eProfile busca periodicamente as trilhas no gerenciador de trilhas (seta ``e''). A partir do momento que o eProfile esteja de posse das trilhas, regras e modelos de entidade, ele passa a processar estas informações, inferindo novos dados de perfil. Estes dados de perfil são então descarregados pelas aplicações (setas ``f'' e ``g'').
 
@@ -126,13 +126,13 @@ A comunicação inicial ocorre entre as aplicações e o eProfile, (setas ``a'' 
 \subsection{Integração eProfile/LOCAL}
 \label{sec:eprofile_local}
 
-Este cenário integra o eProfile a um sistema de educação ubíqua denominado LOCAL ({\em Location and Context-Aware Learning}). O LOCAL usa informações de localização e de contexto como auxílio ao processo de ensino e de aprendizagem. Um sistema de localização acompanha a mobilidade dos aprendizes e, baseado nas suas posições físicas, explora oportunidades educacionais \cite{barbosa11}. 
+O cenário integra o eProfile ao LOCAL ({\em Location and Context-Aware Learning}). O LOCAL usa informações de localização e de contexto como auxílio ao processo de ensino e de aprendizagem. Um sistema de localização acompanha a mobilidade dos aprendizes e, baseado nas suas posições físicas, explora oportunidades educacionais \cite{barbosa11}. 
 
 O LOCAL, cuja arquitetura é mostrada na Figura~\ref{fig:arq_local}, é formado por sete componentes: (i) um sistema de perfis de usuário, que armazena dados relevantes ao processo de ensino e aprendizagem, (ii) um sistema de localização, (iii) um Assistente Pessoal (AP), que acompanha o usuário em seu dispositivo móvel, (iv) um repositório de objetos de aprendizagem, (v) um sistema de envio de mensagens contextualizadas, (vi) um sistema de eventos, que agenda tarefas e (vii) o Tutor, um motor de análise que realiza inferências usando dados fornecidos pelos sistemas de perfis e localização.
 
 \begin{figure}[!t]
   \centering\includegraphics[width=0.7\textwidth]{imagens/arq_local.png}
-  \caption{Arquitetura do LOCAL}
+  \caption{Modelo do LOCAL \cite{barbosa11}}
   \label{fig:arq_local}
 \end{figure}
 
@@ -179,13 +179,13 @@ O UniManager é um {\em software} administrativo utilizado pela universidade par
   \label{fig:unimanager}
 \end{figure}
 
-O UniManager possui duas {\em interfaces}: administrativa e de usuário. A {\em interface} administrativa é utilizada pela administração da universidades para cadastrar disciplinas, docentes e estudantes. Ela é utilizada também pelos estudantes para realizar a sua matrícula para o próximo semestre. Esta {\em interface} conecta-se a um gerenciador de disciplinas, que gerencia as matrículas e os pré-requisitos entre as disciplinas.
+O UniManager possui duas {\em interfaces}: administrativa e de usuário. A {\em interface} administrativa é utilizada pela administração da universidade para cadastrar disciplinas, docentes e estudantes. Ela é utilizada também pelos estudantes para realizar a sua matrícula para o próximo semestre. Esta {\em interface} conecta-se a um gerenciador de disciplinas, que gerencia as matrículas e os pré-requisitos entre as disciplinas.
 
-A {\em interface} de usuário é utilizada nos dispositivos móveis dos professores e dos estudantes, e está conectada a um sistema de localização da Universidade. Desta forma, todos os registros realizados no UniManager a partir desta {\em interface} contém a localização do aluno dentro da Universidade, isto é, a sala onde o aluno está. O sistema de localização integrado à {\em interface} de usuário permite verificar se o aluno ou o docente estão presentes em aula. Através desta {\em interface} o aluno realiza as provas e entrega os trabalhos, e o docente avalia as provas e trabalhos dos alunos.
+A {\em interface} de usuário é utilizada nos dispositivos móveis dos professores e dos estudantes, e está conectada a um sistema de localização da universidade. Desta forma, todos os registros realizados no UniManager a partir desta {\em interface} contêm a localização do aluno dentro da universidade, isto é, a sala onde o aluno está. O sistema de localização integrado à {\em interface} de usuário permite verificar se o aluno ou o docente estão presentes em aula. Através desta {\em interface} o aluno realiza as provas e entrega os trabalhos, e o docente avalia as provas e trabalhos dos alunos.
 
 O UniManager possui também um banco de dados de perfis. Neste banco de dados são armazenadas: (i) informações cadastrais das disciplinas, (ii) presenças e ausências dos professores e alunos, (iii) as provas e disciplinas dos alunos, e (iv) a avaliação feita pelo professor a respeito dos trabalhos dos alunos. 
 
-A base de perfis é dinâmica, atualizada com base nos eventos registrados, mas está limitada aos dados registrados no próprio UniManager. A integração do UniManager ao eProfile potencializa a geração de perfis mais avançados, utilizando as informações registradas inferidas a partir dos dados gerados pelo LOCAL. Utilizando-se destes dados, é possível registrar na base de perfis do UniManager os interesses do estudante, de modo a poder sugerir a ele disciplinas opcionais que sejam do seu interesse. Além disso, a utilização de trilhas permite que os perfis sejam gerados com base em informações históricas, obtendo informações de perfis que podem ser úteis em análises administrativas (por exemplo, qual combinação de disciplina e professor resultou historicamente na maior nota para os alunos em cada disciplina).
+A base de perfis é dinâmica, atualizada com base nos eventos registrados, mas está limitada aos dados registrados no próprio UniManager. A integração do UniManager ao eProfile potencializa a geração de perfis mais avançados, utilizando as informações inferidas a partir dos dados gerados pelo LOCAL. Utilizando-se destes dados, é possível registrar na base de perfis do UniManager os interesses do estudante, de modo a poder sugerir a ele disciplinas opcionais que sejam do seu interesse. Além disso, a utilização de trilhas permite que os perfis sejam gerados com base em informações históricas, obtendo informações de perfis que podem ser úteis em análises administrativas (por exemplo, qual combinação de disciplina e professor resultou historicamente na maior nota para os alunos em cada disciplina).
 
 \begin{figure}[!t]
   \centering\includegraphics[width=1\textwidth]{imagens/unimanager_eprofile.png}
@@ -193,7 +193,7 @@ A base de perfis é dinâmica, atualizada com base nos eventos registrados, mas 
   \label{fig:unimanager_eprofile}
 \end{figure}
 
-O UniManager se integra ao eProfile de acordo com a Figura~\ref{fig:unimanager_eprofile}. No momento da primeira comunicação entre UniManager e eProfile, o UniManager envia um conjunto de mensagens ao eProfile indicando qual serão os modelos de entidade esperados e as regras utilizadas para a geração dos perfis (seta ``a''). O registro destas informações é feito no agente configurador, responsável por validar e armazenar as regras e os modelos em seus respectivos bancos de dados. À medida que os usuários fazem uso das {\em interfaces} do UniManager, os dados são processados e registrados pelos módulos gerenciadores de Disciplinas, Docentes e Estudante, que registram no Gerenciador de Trilhas os eventos ocorridos, juntamente com sua localização (setas ``b'', ``c'' e ``d''). Estas trilhas são organizadas e armazenadas no Gerenciador de Trilhas que, periodicamente, envia as trilhas ao agente Conversor do eProfile (seta ``e''). O agente Conversor converte as trilhas para o formato do eProfile e armazena-as no banco de dados de trilhas. Uma vez de posse das trilhas, dos modelos e das regras, o agente raciocinador processa as informações, gerando os perfis que são enviados ao UniManager através do agente comunicador (seta ``f'').
+O UniManager se integra ao eProfile de acordo com a Figura~\ref{fig:unimanager_eprofile}. No momento da primeira comunicação entre UniManager e eProfile, o UniManager envia mensagens ao eProfile indicando qual será o modelo de entidade esperado e as regras utilizadas para a geração dos perfis (seta ``a''). O registro destas informações é feito no agente configurador, responsável por validar e armazenar as regras e os modelos em seus respectivos bancos de dados. À medida que os usuários fazem uso das {\em interfaces} do UniManager, os dados são processados e registrados pelos módulos gerenciadores de Disciplinas, Docentes e Estudantes, que registram no Gerenciador de Trilhas os eventos ocorridos, juntamente com sua localização (setas ``b'', ``c'' e ``d''). Estas trilhas são organizadas e armazenadas no Gerenciador de Trilhas que, periodicamente, envia as trilhas ao agente Conversor do eProfile (seta ``e''). O agente Conversor converte as trilhas para o formato do eProfile e armazena-as no banco de dados de trilhas. Uma vez de posse das trilhas, dos modelos e das regras, o agente raciocinador processa as informações, gerando os perfis que são enviados ao UniManager através do agente comunicador (seta ``f''). O gerenciador de trilhas mostrado na Figura~\ref{fig:unimanager_eprofile} é o mesmo presente na Figura~\ref{fig:eprofile_local}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -201,11 +201,11 @@ O UniManager se integra ao eProfile de acordo com a Figura~\ref{fig:unimanager_e
 \subsection{Trilhas, Regras e Perfis}
 \label{sec:trilhas_cen1}
 
-Segundo descrito nas Seções~\ref{sec:eprofile_local} e \ref{sec:eprofile_unimanager}, os aplicativos LOCAL e UniManager sofreram três alterações significativas: (i) foram incluídas {\em interfaces} de comunicação com o eProfile, para que os aplicativos fornecessem os modelos de entidade e as regras, (ii) foram incluídas {\em interfaces} de comunicação com o Gerenciador de Trilhas, de modo que os aplicativos pudessem informar os eventos ocorridos e (iii) o módulo de perfis de ambas as aplicações foi modificado de modo a solicitar as atualizações de perfil a partir do eProfile.
+Segundo descrito nas Seções~\ref{sec:eprofile_local} e \ref{sec:eprofile_unimanager}, os aplicativos LOCAL e UniManager sofreram três alterações: (i) foram incluídas {\em interfaces} de comunicação com o eProfile, para que os aplicativos fornecessem os modelos de entidade e as regras, (ii) foram incluídas {\em interfaces} de comunicação com o Gerenciador de Trilhas, de modo que os aplicativos pudessem informar os eventos ocorridos e (iii) o módulo de perfis de ambas as aplicações foi modificado de modo a solicitar as atualizações de perfil a partir do eProfile.
 
 O cenário é composto por três entidades: (i) estudantes, (ii) docentes e (iii) disciplinas. As entidades ``estudante'' e ``docente'' representam, respectivamente, cada um dos alunos e professores envolvidos no curso. A entidade ``disciplina'', que refere-se a cada uma das disciplinas do curso, poderia ser representada tanto como uma entidade quanto como um simples recurso. Neste cenário, foi decidido que ela seria representada como uma entidade, pois desta forma é possível permitir que ela crie uma trilha, da qual pode ser obtido um perfil. Desta forma, o perfil da disciplina pode conter campos que são atualizados repetidamente, tal como a nota média da disciplina.
 
-Segundo descrito na Seção~\ref{sec:eontotrail}, aplicações sensíveis a contexto estão interessadas em saber {\bf quem}, {\bf onde}, {\bf quando} e {\bf o quê} (isto é, o que o usuário está fazendo), de forma a poderem descobrir por que a situação está ocorrendo. A ontologia de trilha do eProfile, mostrada na Figura~\ref{fig:ont_trilha}, define que estas questões são respondidas, respectivamente, pelas classes {\em Entity}, {\em Location}, {\em Time} e {\em Activity}. Além disso, a classe {\em Participants} descreve as outras entidades envolvidas neste evento. Quando uma trilha é armazenada no eProfile, a informação referente ao evento deve ser herdada destas classes, utilizando tantas classes quantas forem relevantes para que a informação esteja completa.
+Segundo descrito na Seção~\ref{sec:eontotrail}, aplicações sensíveis a contexto estão interessadas em saber {\bf quem}, {\bf onde}, {\bf quando} e {\bf o quê} (isto é, o que a entidade está fazendo), de forma a poderem descobrir por que a situação está ocorrendo. A ontologia de trilha do eProfile, mostrada na Figura~\ref{fig:ont_trilha}, define que estas questões são respondidas, respectivamente, pelas classes {\em Entity}, {\em Location}, {\em Time} e {\em Activity}. Além disso, a classe {\em Participants} descreve as outras entidades envolvidas neste evento. Quando uma trilha é armazenada no eProfile, a informação referente ao evento deve ser herdada destas classes, utilizando tantas classes quantas forem relevantes para que a informação esteja completa.
 
 A trilha dos estudantes contém os seguintes eventos: cadastro, matrícula em disciplina, entrada e saída em aula, realização de provas e trabalhos, escolha de preferências e abandono de curso. O formato da trilha está detalhado na Figura~\ref{fig:ont_estudante}. Na trilha dos docentes são registrados os seguintes eventos: cadastro, entrada e saída em aula e avaliação das provas e trabalhos dos alunos, segundo detalhando na Figura~\ref{fig:ont_docente}. A trilha da disciplina recebe os seguintes eventos: cadastro, início e fim de semestre e trabalhos em grupo, de acordo com a Figura~\ref{fig:ont_disciplina}.
 
@@ -223,7 +223,7 @@ A trilha dos estudantes contém os seguintes eventos: cadastro, matrícula em di
 
 \begin{figure}[!t]
   \centering\includegraphics[width=0.6\textwidth]{imagens/ont_disciplina.png}
-  \caption{Ontologia de disciplina}
+  \caption{Ontologia de trilha da disciplina}
   \label{fig:ont_disciplina}
 \end{figure}
 
@@ -233,13 +233,13 @@ Os modelos de entidades são a estrutura de dados utilizada para armazenar o per
 
 \begin{figure}[!t]
   \centering\includegraphics[width=0.7\textwidth]{imagens/perfil_local.png}
-  \caption{Modelo de perfis do LOCAL}
+  \caption{Modelo de perfis do LOCAL \cite{barbosa11}}
   \label{fig:perfil_local}
 \end{figure}
 
-As seções do bloco persistente do perfil são (i) contato, que armazena dados básicos do usuário, tais como nome, telefone, entre outros, (ii) preferências, que guarda o tipo de mídia preferida pelo usuário e (iii) interesses, que identifica tópicos de interesse dos alunos. A seção de interesses está categorizada de acordo com o sistema de classificação computacional da ACM \cite{acm10}. As seções do bloco contextual são (i) relações, que identifica os relacionamentos com outros usuários dentro do mesmo contexto, (ii) performance, que diz respeito a objetivos que devem ser atingidos pelos estudantes e (iii) segurança, que armazena credenciais necessárias para acessar diferentes níveis em contextos específicos.
+As seções do bloco persistente do perfil são (i) contato, que armazena dados básicos do usuário, tais como nome, telefone, entre outros, (ii) preferências, que guarda o tipo de mídia preferida pelo usuário e (iii) interesses, que identifica tópicos de interesse dos alunos. A seção de interesses está categorizada de acordo com o sistema de classificação computacional da ACM \cite{acm10}. As seções do bloco contextual são (i) relações, que identifica os relacionamentos com outros usuários dentro do mesmo contexto, (ii) desempenho, que diz respeito a objetivos que devem ser atingidos pelos estudantes e (iii) segurança, que armazena credenciais necessárias para acessar diferentes níveis em contextos específicos.
 
-O UniManager armazena perfis de disciplinas, docentes e estudantes, e tem seu modelo de entidade ilustrado na Figura~\ref{fig:perfil_unimanager}. As informações básicas, disciplinas matriculadas e notas/faltas do perfil do estudante são utilizadas para atividades gerenciais da Universidade, como verificar se o aluno pode cursar uma determinada disciplina, assim como as informações de disciplinas do docente. As informações de desempenho do docente e de médias históricas das disciplinas são utilizadas para ajustar o docente com a disciplina que tenha maior afinidade ou desempenho. As informações de interesse dos alunos são utilizadas para sugerir disciplinas opcionais aos mesmos.
+O UniManager armazena perfis de disciplinas, docentes e estudantes, e tem seu modelo de entidade ilustrado na Figura~\ref{fig:perfil_unimanager}. As informações básicas, disciplinas matriculadas e notas/faltas do perfil do estudante são utilizadas para atividades gerenciais da universidade, como verificar se o aluno pode cursar uma determinada disciplina, assim como as informações de disciplinas do docente. As informações de desempenho do docente e de médias históricas das disciplinas são utilizadas para ajustar o docente com a disciplina que tenha maior afinidade ou desempenho. As informações de interesse dos alunos são utilizadas para sugerir disciplinas opcionais aos mesmos.
 
 \begin{figure}[!t]
   \centering\includegraphics[width=0.65\textwidth]{imagens/unimanager_perfil.png}
@@ -249,9 +249,9 @@ O UniManager armazena perfis de disciplinas, docentes e estudantes, e tem seu mo
 
 Cada aplicação define um conjunto de regras para geração dos perfis baseados nas trilhas geradas por ambos os aplicativos. Um aplicativo tem a possibilidade de utilizar a trilha de outro aplicativo para o processamento das regras e consequente geração dos perfis, permitido assim que o perfil da entidade seja enriquecido pelo ambiente que o cerca.
 
-A definição das regras é feita em OWL, através da criação de classes que possam ser processadas por um raciocinador. A Tabela~\ref{tab:aula} mostra o exemplo de uma aula onde o professor cadastra no LOCAL um conjunto de assuntos que serão debatidos em aula (evento 1). Este evento gera uma trilha que é enviada do LOCAL ao Gerenciador de Trilhas e, subsequentemente, ao eProfile.
+A definição das regras é feita em OWL, através da criação de classes que possam ser processadas por um raciocinador. A Tabela~\ref{tab:aula} mostra o exemplo de uma aula onde o professor cadastra no LOCAL um conjunto de assuntos que serão debatidos em aula (evento 1). Este evento gera um registro uma trilha que é enviada do LOCAL ao Gerenciador de Trilhas e, subsequentemente, ao eProfile.
 
-O LOCAL, então, tenta identificar os alunos que possuam interesses iguais aos do debate proposto, ou interesses que estejam relacionadas a estes (evento 7). Desta forma, o LOCAL envia as regras OWL descritas na Figura~\ref{fig:regra1} para realizar esta identificação. A primeira regra chama-se {\em RelatedSubjects} (linha 2), onde são inferidos todos os assuntos (classe {\em Subject}, linha 4) que sejam relacionados (linha 6) aos assuntos que serão debatidos em aula (linha 7). A expressão {\tt ?subject} é uma extensão do eProfile, que substitui esta expressão pelos assuntos que estão sendo utilizados, permitindo que a mesma regra possa ser usada em diferentes situações. Esta regra, após inferida, resulta na listagem de todos os assuntos (classes do tipo {\em Subject}) que se relacionam aos assuntos que serão debatidos, colocando estas classes como subclasses da classe {\em RelatedSubjects}.
+O LOCAL, então, tenta identificar os alunos que possuam interesses iguais aos do debate proposto, ou interesses que estejam relacionadas a estes (evento 7) através do perfil do estudante. Desta forma, o LOCAL envia as regras OWL descritas na Figura~\ref{fig:regra1} para realizar esta identificação. A primeira regra chama-se {\em RelatedSubjects} (linha 2), onde são inferidos todos os assuntos (classe {\em Subject}, linha 4) que sejam relacionados (linha 6) aos assuntos que serão debatidos em aula (linha 7). A expressão {\tt ?subject} é uma extensão do eProfile, que substitui esta expressão pelos assuntos que estão sendo utilizados, permitindo que a mesma regra possa ser usada em diferentes situações. Esta regra, após inferida, resulta na listagem de todos os assuntos (classes do tipo {\em Subject}) que se relacionam aos assuntos que serão debatidos, colocando estas classes como subclasses da classe {\em RelatedSubjects}.
 
 A partir desta regra, é possível buscar os estudantes (linha 15) cujos interesses se intersectam com os interesses encontrados na classe {\em RelatedSubjects} (linha 18). Estes estudantes, na ontologia, passam a ser subclasses da classe {\em StudentsSelected} (linha 13).
 
@@ -329,18 +329,18 @@ Após a aplicação da regra mostrada nas Figuras~\ref{fig:regra3} e~\ref{fig:re
 \section{Protótipo e Simulação}
 \label{sec:simulacao_cen1}
 
-Segundo mencionado no Capítulo~\ref{ch:implementacao}, o protótipo do eProfile foi desenvolvido na linguagem Python \cite{python}. Ele utiliza o FaCT++ como motor de inferência \cite{tsarkov06}. A comunicação entre os três aplicativos (UniManager, LOCAL e eProfile) é realizado através de {\it web services} REST \cite{fielding00}. A implementação do eProfile é descrita em mais detalhes no Capítulo~\ref{ch:implementacao}.
+Segundo mencionado na Seção~\ref{sec:tecnologias}, o protótipo do eProfile foi desenvolvido na linguagem Python \cite{python}. Ele utiliza o FaCT++ como motor de inferência \cite{tsarkov06}. A comunicação entre os três aplicativos (UniManager, LOCAL e eProfile) é realizado através de {\it web services} REST \cite{fielding00}.
 
 Para a simulação do modelo, foram desenvolvidos dois programas:
 
 \begin{enumerate}
-  \item Um simulador, que une as funcionalidades do UniManager e do LOCAL gerando trilhas simuladas dos estudantes, dos docentes e das disciplinas;
-  \item Um gerenciador de trilhas simulado, que armazena as trilhas geradas e disponibiliza-as para o eProfile.
+  \item um simulador, que simula operações realizadas por estudantes e docentes no LOCAL e no UniManager;
+  \item um gerenciador de trilhas simulado, que armazena as trilhas geradas e disponibiliza-as para o eProfile.
 \end{enumerate}
 
 Para simular o cenário de forma mais fiel possível, cada uma das entidades foi criada com um conjunto de características que as distinguem umas das outras, e faz com que tenham desempenhos diferentes e tomem decisões diferentes quando confrontadas com uma escolha. Os docentes são gerados com valores aleatórios de experiência e rigor. Estas características influem diretamente no nível de aprendizado dos estudantes, na dificuldade da disciplina e na probabilidade de desistência dos alunos. Os estudantes são gerados com níveis variados de empenho, inteligência e gostos pessoais. Estas características influenciam o desempenho do aluno, a probabilidade de desistência das disciplinas e do curso, e as escolhas que o aluno irá realizar.
 
-O cenário simula um conjunto de 40 alunos que realiza um curso de ciência da computação em uma Universidade. O tempo da simulação é aberto, sendo que a mesma será executada até que todos os alunos se formem ou tenham desistido do curso.
+O cenário simula um conjunto de 40 alunos que realiza um curso de ciência da computação em uma universidade. O tempo da simulação é aberto, sendo que a mesma é executada até que todos os alunos se formem ou tenham desistido do curso.
 
 Uma simulação inicia com a criação das entidades de disciplinas, estudantes e docentes. São então gerados os perfis iniciais das disciplinas, e os docentes são distribuídos aleatoriamente entre as disciplinas. A partir daí, inicia-se um {\em loop} que termina apenas quando todos os alunos tiverem concluído ou abandonado o curso. Cada iteração do {\em loop} representa um semestre do curso contém os seguintes passos:
 
@@ -356,7 +356,9 @@ Para esta simulação, foi definido que em cada disciplina foram estudados um co
 
 Disciplinas opcionais também são vinculadas a assuntos escolhidos pelos estudantes. Debates e trabalhos cujos assuntos foram escolhidos pelos estudantes através do LOCAL são utilizados para recomendar disciplinas opcionais aos alunos através do UniManager.
 
-A Figura~\ref{fig:result1} mostra os resultados da simulação. Nesta simulação, um grupo de 50 alunos passa por um curso completo de graduação. O curso completo leva mais de 16 semestres pois, devido a um número limitado de vagas nas disciplinas, nem todos os estudantes cursar todas as disciplinas disponíveis a eles todos os semestres. O simulador registra a porcentagem de debates e trabalhos entregues cujos assuntos foram sugeridos pelo sistema, baseado nas escolhas anteriores dos estudantes. No primeiro semestre, o sistema foi capaz de recomendar assuntos apenas 2\% das vezes, mas à medida que os estudantes fizeram mais escolhas, o sistema foi capaz de sugerir mais assuntos, até que o nível de recomendação estabilizou-se acima de 90\% a partir do 13º semestre.
+A Figura~\ref{fig:result1} mostra os resultados da simulação. Nesta simulação, um grupo de 40 alunos passa por um curso completo de graduação. O curso completo leva mais de 16 semestres pois, devido a um número limitado de vagas nas disciplinas, nem todos os estudantes cursaram todas as disciplinas disponíveis a eles todos os semestres. O simulador registra a porcentagem de debates e trabalhos entregues cujos assuntos foram sugeridos pelo sistema, baseado nas escolhas anteriores dos estudantes. 
+
+No primeiro semestre, o LOCAL foi capaz de recomendar assuntos através do perfil gerado pelo eProfile em 2\% das situações em que os estudantes deveriam escolher um assunto. À medida que os estudantes fizeram mais escolhas, o sistema foi capaz de sugerir mais assuntos, até que o nível de recomendação estabilizou-se acima de 90\% a partir do 13º semestre.
 
 \begin{figure}[!t]
   \centering\includegraphics[width=0.6\textwidth,angle=-90]{imagens/auto.eps}
