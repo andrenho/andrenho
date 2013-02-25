@@ -24,13 +24,13 @@ A classe ConectorDB conecta os agentes ao banco de dados. As regras, modelos de 
 
 A classe ConectorWS conecta o eProfile ao gerenciador de trilhas e às aplicações, onde a comunicação ocorre através de {\it web services} \citep{fielding00}. Esta classe inicializa um servidor HTTP\footnote{{\em HyperText Transfer Protocol} - Protocolo de Transferência de Hipertexto} que recebe as requisições das aplicações e dos gerenciadores de trilhas. Ela também é responsável por enviar requisições HTTP às aplicações e gerenciadores de trilhas.
 
-A classe ConectorFaCT conecta o agente Raciociador ao motor de inferências FaCT++ (ver Seção~\ref{sec:motor_inferencia}). A comunicação entre o eProfile e o FaCT++ é feita através de troca de arquivos: o eProfile gera um arquivo com a ontologia OWL que será inferida, e o FaCT é executado através do sistema operacional, onde ele executa sobre a ontologia e, como resultado, gera um arquivo com a ontologia inferida. Se houver sucesso na execução (o que pode ser verificado pela variável de retorno do sistema operacional), a classe ConectorFaCT envia o conteúdo do arquivo ao Raciocinador.
+A classe ConectorFaCT conecta o agente Raciocinador ao motor de inferências FaCT++ (ver Seção~\ref{sec:motor_inferencia}). A comunicação entre o eProfile e o FaCT++ é feita através de troca de arquivos: o eProfile gera um arquivo com a ontologia OWL que será inferida, e o FaCT é executado através do sistema operacional, onde ele executa sobre a ontologia e, como resultado, gera um arquivo com a ontologia inferida. Se houver sucesso na execução (o que pode ser verificado pela variável de retorno do sistema operacional), a classe ConectorFaCT envia o conteúdo do arquivo ao Raciocinador.
 
-A Figura~\ref{fig:activity} mostra o diagrama de seqüência do eProfile. Os textos em itálico no diagama representam comunicação via {\it web services}, enquanto os textos normais representam chamadas de métodos internos do eProfile. As classes representadas neste diagrama são as mesmas da Figura~\ref{fig:classes}. Neste diagrama são exibidas as cinco principais operações do eProfile: (i) inicialização, (ii) definições, (iii) recebimento de trilhas, (iv) inferência e (v) busca de perfil.
+A Figura~\ref{fig:activity} mostra o diagrama de sequência do eProfile. Os textos em itálico no diagrama representam comunicação via {\it web services}, enquanto os textos normais representam chamadas de métodos internos do eProfile. As classes representadas neste diagrama são as mesmas da Figura~\ref{fig:classes}. Neste diagrama são exibidas as cinco principais operações do eProfile: (i) inicialização, (ii) definições, (iii) recebimento de trilhas, (iv) inferência e (v) busca de perfil.
 
 \begin{figure}
   \includegraphics[width=1\textwidth]{imagens/activity.png}
-  \caption{Diagrama de seqüência do eProfile}
+  \caption{Diagrama de sequência do eProfile}
   \label{fig:activity}
 \end{figure}
 
