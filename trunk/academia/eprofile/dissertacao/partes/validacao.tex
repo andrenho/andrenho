@@ -285,12 +285,12 @@ A partir desta regra, é possível buscar os estudantes (linha 15) cujos interes
 
 O evento 7 da Tabela~\ref{tab:aula} descreve que dois alunos não se encaixaram em nenhum dos grupos pois não tinham nenhum interesse cadastrado relacionado aos assuntos do debate, e o LOCAL questionou-os em qual assunto eles gostariam de se encaixar (eventos 8 e 9), gerando assim um evento de trilha para estes dois estudantes. Uma vez que o registro tenha sido feito, o perfil dos estudantes é reprocessado de acordo com as regras definidas pelo LOCAL. 
 
-O cabeçalho da regra que atualiza o campo de interesses de um aluno é mostrado na Figura~\ref{fig:regra3}. Este cabeçalho define que o campo {\em Interest} (linha 2) dos perfis dos estudantes (linha 1) serão atualizados com as subclasses da classe {\em StudentInterest}, cuja regra OWL é mostrada na Figura~\ref{fig:regra2}. Também é definido que um novo interesse é somado ao interesses que já existem (linha 4), que esta regra é atualizada toda vez que é registrado um evento de trilha na qual um assunto é escolhido (linha 5). A regra OWL da Figura~\ref{fig:regra2} define que a classe {\em StudentInterest} é formada dos assuntos escolhidos (linha 6) pelos estudantes que fazem parte deste contexto (linha 10 e 11) e que tenham escolhido um determinado assunto (linhas 6 e 7).
+O cabeçalho da regra que atualiza o campo de interesses de um aluno é mostrado na Figura~\ref{fig:regra3}. Este cabeçalho define que o campo {\em StudentInterest} (linha 2) dos perfis dos estudantes (linha 1) serão atualizados com as subclasses da classe {\em StudentInterest}, cuja regra OWL é mostrada na Figura~\ref{fig:regra2}. A linha 2 define que o campo {\em StudentInterest} é uma classe OWL filha da classe {\em Interest}, de acordo com a ontologia de perfil apresentada na Figura~\ref{fig:ont_perfil}. Também é definido que um novo interesse é somado ao interesses que já existem (linha 4), que esta regra é atualizada toda vez que é registrado um evento de trilha na qual um assunto é escolhido (linha 5). A regra OWL da Figura~\ref{fig:regra2} define que a classe {\em StudentInterest} é formada dos assuntos escolhidos (linha 6) pelos estudantes que fazem parte deste contexto (linha 10 e 11) e que tenham escolhido um determinado assunto (linhas 6 e 7).
 
 \begin{figure}[!t]
 \begin{verbatim}
-1  Profile:   Student
-2  Field:     Interest
+1  Entity:    Student
+2  Field:     Interest\StudentInterest
 3  Rule:      StudentInterest
 4  Update:    addition
 5  Frequence: onTrailEvent(SubjectChosen)
@@ -375,3 +375,55 @@ A Figura~\ref{fig:result2} mostra o resultado do segundo experimento. Comparando
   \caption{Resultados da simulação com a alteração da regra durante a execução}
   \label{fig:result2}
 \end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Comparação com os Trabalhos Relacionados}
+\label{sec:contribuicoes}
+
+Atualmente, as áreas de computação ubíqua, sensibilidade a contexto, trilhas e personalização são bastante promissoras, sendo que um grande número de trabalhos são publicados anualmente a este respeito. No entanto, não foi encontrado nenhum trabalho que faça uso de inferência em trilhas com o objetivo de personalizar a experiência do usuário dentro de um domínio genérico. Assim, o modelo apresentado neste trabalho busca suprir esta necessidade.
+
+\citetexto{kim08} apresentam um {\it framework} para gerenciamento de perfis baseado em {\it Web Services}. O modelo provê um conjunto de serviços para coletar informações necessárias para a criação de um perfil: configuração, criação, troca, processamento e serviço. O modelo também aplica metadados e técnicas de configuração dinâmica para o gerenciamento eficiente dos perfis.
+
+O modelo apresentado por \citetexto{chellouche10}, assim como o eProfile, apresenta um perfil unificado que pode ser utilizado por diversas aplicações. No entanto, ao contrário do eProfile, o modelo assume a interoperabilidade sintática, o que significa que todas as aplicações precisam registrar os eventos utilizando o mesmo formato, o que pode fazer com que a aplicação não consiga registrar o evento com a riqueza de detalhes necessária. Além disso, assim como o PeLeP, o modelo de \citetexto{chellouche10} está limitado a um domínio específico, que são os serviços multimídia.
+
+O modelo UUCM \cite{niederee04}, trabalha em um domínio genérico. Ele faz isso através da criação de uma ontologia básica que pode ser estendida pelas aplicações. Ao contrário das outras propostas (e do eProfile), o UUCM armazena os perfis no cliente, ao invés do servidor. Isto traz vantagens e desvantagens. Entre as vantagens pode-se citar a privacidade e acesso desconectado. No entanto, esta abordagem limita a interoperabilidade entre sistemas, uma vez que cada cliente fica com uma versão do próprio perfil, restringindo a utilização de um perfil unificado.
+
+O PeLeP \cite{pelep} suporta aperfeiçoamento automático do perfil de um aprendiz em ambientes de educação ubíqua, utilizando o histórico dos aprendizes para a atualização dos perfis através de inferências. O eProfile utiliza uma estratégia semelhante. No entanto, as regras de inferência são definidas pela aplicação, e não pelo modelo. Esta alteração é necessária para que a inferência passe de um domínio específico (educação) para um domínio genérico. Além disso, ao contrário do eProfile, as regras são dinâmicas (uma aplicação pode definir ou remover regras dinamicamente), ao invés de estarem pré-definidas no modelo. Isto permite a evolução e refino das regras de inferência.
+
+O modelo apresentado por \citetexto{razmerita11} tem como objetivo vincular o KM ({\it Knowlegde Management}, ou Gerenciamento de Conhecimento) tradicional com o KM pessoal. Isto é feito através do modelo OntobUMf, capaz de gerenciar informações a respeito de usuários. A arquitetura possui três camadas: {\it front end}, serviços e dados. O modelo trabalha em um domínio genérico e possui três ontologias (usuários, domínios e {\it log}), a partir são buscadas informações que classificam o usuário de várias formas, de acordo com o nível de atividade, tipo de atividade e nível de compartilhamento de conhecimento.
+
+No artigo apresentado por \citetexto{tao11}, é proposto um modelo de ontologia para representação de conhecimento para coleta de informações personalizadas. O modelo constrói ontologias de usuário personalizadas extraindo informações globais do sistema LCSH e descobrindo informação a partir de repositórios locais de usuário. O sistema de informações locais é alimentado manualmente pelo usuário. Quando uma informação é necessária, o sistema faz o processamento das duas ontologias para gerar o dado solicitado.
+
+A Tabela~\ref{tab:comparacao3} exibe um comparativo entre o eProfile e os trabalhos apresentados no Capítulo~\ref{ch:relacionados}. Os seguintes fatores são levados em consideração:
+
+\begin{itemize}
+  \item Interoperabilidade: considera se o modelo apresenta interoperabilidade -- caso positivo, se a mesma é sintática ou semântica -- de acordo com a definição apresentada na Seção~\ref{sec:personalizacao};
+  \item Perfis dinâmicos: identifica se o modelo de perfil permite que os perfis sejam atualizados de acordo com eventos externos, sem a interferência do usuário;
+  \item Armazenamento: define onde ficam armazenados os perfis do usuário;
+  \item Sensibilidade a contexto: considera se o contexto do usuário é levado em consideração na formação do perfil;
+  \item Utiliza trilhas: define se as trilhas do usuário são levadas em consideração na construção do perfil. Na tabela, a definição de ``Parcial'' significa que o modelo usa algum tipo de histórico para a montagem do perfil, mas não utiliza a definição formal de trilhas;
+  \item Domínio: identifica se o perfil é voltado para um domínio específico, ou se o mesmo permite que vários domínios possam ser utilizados.
+\end{itemize}
+
+\begin{table*}\centering\footnotesize
+  \begin{tabular*}{1\textwidth}{@{}lllllll@{}}
+    \toprule
+                                         & Interope-  & Perfis    & Armaze-  & Sensibilidade & Utiliza &                     \\
+    Trabalho                             & rabilidade & dinâmicos & namento  & a contexto    & trilhas & Domínio             \\
+    \midrule
+    \citetexto{kim08}                    & Sintática  & Sim       & Servidor & Não           & Não     & Genérico            \\
+    \citetexto{chellouche10}             & Sintática  & Sim       & Servidor & Sim           & Não     & Multimídia \\
+    \citetexto{niederee04}               & Sintática  & Sim       & Cliente  & Sim           & Não     & Genérico            \\
+    \citetexto{pelep}                    & Não        & Sim       & Servidor & Sim           & Parcial & Educação            \\
+    \citetexto{razmerita11}              & Sintática  & Sim       & Servidor & Sim           & Parcial & Genérico            \\
+    \citetexto{tao11}                    & Semântica  & Sim       & Servidor & Sim           & Parcial & Genérico            \\
+    eProfile                             & Semântica  & Sim       & Servidor & Sim           & Sim     & Genérico            \\
+    \bottomrule
+  \end{tabular*}
+  \caption{Comparação entre o eProfile e os trabalhos apresentados}
+  \label{tab:comparacao3}
+\end{table*}
+
+O eProfile fez utilização das ideias apresentadas nos trabalhos, como o aperfeiçoamento automático de perfis, a utilização de perfis unificados e o funcionamento em um domínio genérico. A estas ideias, o eProfile traz como inovação a utilização de trilhas para a extração de perfis, o que facilita a inferência com sensibilidade a contexto. Além disso, o eProfile permite que cada aplicação registre sua trilha no formato que considerar mais proveitoso, permitindo assim que a riqueza de detalhes registrados por uma aplicação possa se traduzir em um perfil mais exato da entidade.
+
