@@ -100,20 +100,47 @@ JavaProficience <=
 A terceira regra é uma regra de atualização de perfil (Figura~\ref{cod:regra3}). Nesta regra, são comparados o número de módulos relacionados ao Java (regra da Figura~\ref{cod:regra1}) com o número de objetos de aprendizagem relacionados ao Java que foram concluídos pela entidade (regra da Figura~\ref{cod:regra2}). Se o número for igual, o usuário é considerado proficiente, e esta regra é atualiza o campo de proeficiência no perfil da entidade.
 
 \begin{figure}[!t]
-\begin{verbatim}
-1  Entity:    Student
-2  Field:     Knowledge\JavaProficience
-3  Rule:      JavaProficience
-4  Update:    update
-5  Frequence: 300
-6  Expires:   never
-\end{verbatim}
-  \caption{Regra para processamento do perfil do estudante}
-  \label{fig:defregra}
+\begin{lstlisting}
+Entity:    Student
+Field:     Knowledge\JavaProficience
+Rule:      JavaProficience
+Update:    update
+Frequence: 300
+Expires:   never
+\end{lstlisting}
+\caption{Regra para processamento do perfil do estudante}
+\label{fig:defregra}
 \end{figure}
 
 A Figura~\ref{fig:defregra} mostra a definição da regra. A definição informa o eProfile que o campo JavaProficience (linha 2) das entidades do tipo Estudante (linha 1) será atualizado com o resultado da regra chamada JavaProficience (linha 3), que é a regra mostrada na Figura~\ref{cod:regra3}. O prefixo ``Knowledge'' da linha 2 indica que este campo é filho da classe Knowledge na ontologia de perfil apresentada na Figura~\ref{fig:ont_perfil}. A regra de atualização da linha 4 indica que, cada vez que a regra for executada, o valor resultante deve substituir o valor anterior. A regra será executada a cada 300 segundos (linha 5) e não expira (linha 6).
 
-O perfil gerado pela aplicação da regra foi o perfil mostrado na Figura~\ref{fig:perfil_gerado}. % TODO...
+O perfil gerado pela aplicação da regra é uma ontologia OWL, mostrada na Figura~\ref{fig:perfil_gerado}. A ontologia contém as classes Andre e Maria (linhas 13 e 17), que representam as duas entidades deste exemplo. Pode-se verificar no perfil que a entidade Andre possui na propriedade {\em hasKnowledge} a classe {\em JavaProficience}, o que indica que a mesma possui proficiência em Java. Como a entidade Maria não possui esta propriedade, a mesma não pode ser considerada como proeficiente em Java.
 
-No exemplo apresentado, um usuários foi considerado proficiente em Java. Isto ocorre pois, de acordo com a Tabela~\ref{tab:eventos}, nenhum dos usuários chegou a concluir todos os módulos requeridos para a proficiência nesta linguagem. Assim, o perfil destas entidades foi atualizado como ``Não-proficiente em Java''. Como esta regra será executada periodicamente, uma vez que os usuários tenham concluído todos os módulos requeridos, o perfil será atualizado como ``Proficiente em Java''.
+\begin{figure}[!t]
+\begin{lstlisting}
+Ontology: <el>
+
+Class: <el:Knowledge>
+    
+Class: <el:JavaProficience>
+    SubClassOf: 
+        <el:Knowledge>
+    
+ObjectProperty: <el:hasKnowledge>
+    
+Class: <el:Entity>
+    
+Class: <el:Maria>
+    SubClassOf: 
+        <el:Entity>
+    
+Class: <el:Andre>
+    SubClassOf: 
+        <el:Entity>,
+        <el:hasKnowledge> some <el:JavaProficience>\end{lstlisting}
+\caption{Perfil gerado das entidades}
+\label{fig:perfil_gerado}
+\end{figure}
+
+
+Esta regra será executada periodicamente, a cada 5 minutos. Uma vez que a entidade Maria tenha concluído todos os módulos requeridos, o perfil será atualizado como ``Proficiente em Java''.
