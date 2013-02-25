@@ -60,12 +60,14 @@ A partir dos subobjetivos, é possível extrair as funcionalidades do modelo. A 
 Os preceitos do modelo, isto é, os pontos onde o eProfile recebe informações de outros sistemas são: (i) registro de nova aplicação, (ii) registro de nova entidade, (iii) modelo definido pela aplicação, (iv) regras para inferência das trilhas e (v) as próprias trilhas. O eProfile possui apenas uma ação, isto é, apenas uma saída de informações, que são os perfis das entidades que são gerados pelo modelo.
 
 \begin{figure}
-  \includegraphics[width=1\textwidth]{imagens/funcionalidades.png}
   \caption{Funcionalidades do eProfile}
+  \includegraphics[width=1\textwidth]{imagens/funcionalidades.png}
   \label{fig:funcionalidades}
+  Fonte: Elaborado pelo autor
 \end{figure}
 
 \begin{table*}\centering\footnotesize
+  \caption{Funcionalidades do eProfile}
   \begin{tabular*}{1\textwidth}{@{}p{4cm}p{2.5cm}p{2cm}p{2.4cm}p{3cm}@{}}
     \toprule
       Funcionalidade & Ação & Gatilho & Informações usadas & Informações geradas \\
@@ -77,8 +79,8 @@ Os preceitos do modelo, isto é, os pontos onde o eProfile recebe informações 
       Sistema de inferência & Executar inferência & Agendamento & Base de regras, modelos e trilhas & Base de perfis \\
     \bottomrule
   \end{tabular*}
-  \caption{Funcionalidades do eProfile}
   \label{tab:funcionalidades}
+  Fonte: elaborado pelo autor
 \end{table*}
 
 É necessário também a identificação das bases de dados necessárias para o funcionamento do modelo. O eProfile faz uso das seguintes bases de dados:
@@ -102,15 +104,17 @@ As bases de dados estão presentes nas Figuras ~\ref{fig:modelo},~\ref{fig:coupl
 A Figura~\ref{fig:coupling} apresenta o diagrama de ligação ({\em coupling}) do eProfile. A partir deste diagrama, é possível agrupar as bases de dados e funcionalidades em grupos afins, e identificar os agentes resultantes, como é mostrado na Figura~\ref{fig:coupling_agentes}. Quatro agentes foram identificados: (i) comunicador, (ii) configurador, (iii) conversor e (iv) raciocinador.
 
 \begin{figure}
-  \includegraphics[width=0.7\textwidth]{imagens/coupling.png}
   \caption{Diagrama de ligação do eProfile}
+  \includegraphics[width=0.7\textwidth]{imagens/coupling.png}
   \label{fig:coupling}
+  Fonte: Elaborado pelo autor
 \end{figure}
 
 \begin{figure}
-  \includegraphics[width=1\textwidth]{imagens/coupling2.png}
   \caption{Diagrama de ligação do eProfile, com a identificação dos agentes}
+  \includegraphics[width=1\textwidth]{imagens/coupling2.png}
   \label{fig:coupling_agentes}
+  Fonte: Elaborado pelo autor
 \end{figure}
 
 O \textbf{agente comunicador} é responsável pela comunicação entre as aplicações e o eProfile. Ele cadastra as aplicações na base de dados de aplicações e permite que as aplicações cadastrem as entidades na base de dados de entidades. Ele também disponibiliza os perfis inferidos pelo agente raciocinador para que sejam recuperados pelas aplicações.
@@ -136,9 +140,10 @@ O \textbf{agente raciocinador} infere nas trilhas de acordo com as regras enviad
 A Figura~\ref{fig:overview} mostra o diagrama da visão geral do modelo, que junta todas as partes da arquitetura. Esta figura é comparável à Figura~\ref{fig:modelo}, porém apresentando uma representação mais completa.
 
 \begin{figure}
-  \includegraphics[width=1\textwidth]{imagens/overview.png}
   \caption{Diagrama da visão geral do modelo}
+  \includegraphics[width=1\textwidth]{imagens/overview.png}
   \label{fig:overview}
+  Fonte: Elaborado pelo autor
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

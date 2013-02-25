@@ -6,9 +6,10 @@
 O eProfile utiliza duas ontologias: uma ontologia de trilhas e uma ontologia de perfis. As ontologias utilizadas pelo eProfile são ontologias básicas, estendidas através de subclasses de acordo com o formato da trilha enviada pelo gerenciador (no caso da ontologia de trilha) ou das necessidades da aplicação (no caso da ontologia do perfil). Isto é exemplificado na Figura~\ref{fig:heranca}, onde o eProfile oferece uma classe genérica ``Atividade'', que é especializada pela classe ``AtividadeDeCompra'', utilizada por um dos gerenciadores de trilha.
 
 \begin{figure}
-  \centering\includegraphics[width=0.6\textwidth]{imagens/heranca.png}
   \caption{Exemplo da extensão de uma classe do eProfile}
+  \centering\includegraphics[width=0.6\textwidth]{imagens/heranca.png}
   \label{fig:heranca}
+  Fonte: elaborado pelo autor
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -23,9 +24,10 @@ A eOntoTrail está representada na Figura~\ref{fig:ont_trilha}, onde todos os re
 %\todo[inline]{Está correto utilizar ``has-a'' e ``has-some''? Estou querendo representar ``0 ou 1'', e ``0 ou mais'' respectivamente.}
 
 \begin{figure*}
-  \centering\includegraphics[width=1\textwidth]{imagens/ont_trilha_simples.png}
   \caption{Ontologia de Trilha do eProfile}
+  \centering\includegraphics[width=1\textwidth]{imagens/ont_trilha_simples.png}
   \label{fig:ont_trilha}
+  Fonte: elaborado pelo autor
 \end{figure*}
 
 \citetexto{abowd99} definem que aplicações sensíveis a contexto estão interessadas em saber {\bf quem}, {\bf onde}, {\bf quando} e {\bf o quê} (isto é, o que o usuário está fazendo), de forma a poderem descobrir por que a situação está ocorrendo. Assim, uma trilha é representada por um conjunto de eventos caracterizados pelas seguintes classes:
@@ -58,9 +60,10 @@ A ontologia de perfil é a ontologia utilizada para armazenar os modelos de enti
 A ontologia proposta, a qual chama-se eOntoProfile, está representada na Figura~\ref{fig:ont_perfil}. Nesta figura, um relacionamento entre as classes é mostrado através de uma linha pontilhada, e uma especialização de uma classe é mostrado por uma linha contínua. A eOntoProfile é uma ontologia básica, que será estendida pelas aplicações de modo a montarem seus próprios modelos de entidade.
 
 \begin{figure}
-  \centering\includegraphics[width=0.8\textwidth]{imagens/ont_perfil2.png}
   \caption{Ontologia de Perfil do eProfile}
+  \centering\includegraphics[width=0.8\textwidth]{imagens/ont_perfil2.png}
   \label{fig:ont_perfil}
+  Fonte: elaborado pelo autor
 \end{figure}
 
 A classe básica da ontologia é a classe {\em Element} (elemento). A classe {\em Element} representa qualquer coisa no mundo real. Ela tem como filhos as classes:

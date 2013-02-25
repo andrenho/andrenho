@@ -12,10 +12,11 @@ Os trabalhos apresentados utilizam o conceito de modelo e perfil de usuário ao 
 O {\it framework} é montado de acordo com a Figura~\ref{fig:kim08_b}. A comunicação entre os módulos é feita através de {\it Web Services}, de modo a poder operar de forma distribuída entre várias plataformas e dispositivos.
 
 \begin{figure}
+  \caption{Framework de perfis}
   \centering
   \includegraphics[width=0.6\textwidth]{imagens/kim08_b.png}
-  \caption{Framework de perfis \cite{kim08}}
   \label{fig:kim08_b}
+  Fonte: \cite{kim08}
 \end{figure}
 
 A configuração de perfil configura os perfis em dois tipos: perfis básicos, requeridos para todos os tipos de serviço, e perfis de serviço, configurados diferentemente para cada tipo de serviço. O tipo de perfil define o tipo de informação que irá conter cada perfil.
@@ -23,10 +24,11 @@ A configuração de perfil configura os perfis em dois tipos: perfis básicos, r
 A criação de perfil é a tecnologia que permite que clientes e provedores de serviço criem os perfis. A criação dos perfis é feita através de um conjunto de componentes, de acordo com a Figura~\ref{fig:kim08_a}. O gerenciador de criação cria o perfil, com base nos arquivos de {\em template} de perfil, que é então codificado pelo gerenciador de segurança, num processo coordenado pelo gerenciador de serviços de perfil. Toda a comunicação entre os módulos ocorre via {\it Web Services}.
 
 \begin{figure}
+  \caption{Mecanismo de Criação de Perfis}
   \centering
   \includegraphics[width=0.6\textwidth]{imagens/kim08_a.png}
-  \caption{Mecanismo de Criação de Perfis \cite{kim08}}
   \label{fig:kim08_a}
+  Fonte: \cite{kim08}
 \end{figure}
 
 Troca de perfis é o processo através do qual um perfil é enviado pelo servidor ao cliente. O processamento do perfil classifica os perfis transferidos pelos clientes através de regras e os armazena em uma base de dados. Os serviços de perfil extraem os perfis do repositório e os fornecem aos provedores de serviço quando os mesmos os requisitam.
@@ -52,10 +54,11 @@ O perfil do usuário é constituído por seu contexto, onde a definição de con
 O {\em middleware} é apresentado segundo ilustrado na Figura~\ref{fig:chellouche1}, sendo composto dos seguintes módulos:
 
 \begin{figure}
+  \caption{Arquitetura do {\em middleware} de Chellouche et al}
   \centering
   \includegraphics[width=0.8\textwidth]{imagens/chellouche1.png}
-  \caption[Arquitetura do {\em middleware} de Chellouche et al]{Arquitetura do {\em middleware} de \citetexto{chellouche10}}
   \label{fig:chellouche1}
+  Fonte: \cite{chellouche10}
 \end{figure}
 
 \begin{itemize}
@@ -69,10 +72,11 @@ O {\em middleware} é apresentado segundo ilustrado na Figura~\ref{fig:chellouch
 O perfil é construído seguindo o fluxo apresentado na Figura~\ref{fig:chellouche2}. A aplicação solicita os dados ao gerenciador de perfis, através da API, que por sua vez repassa a solicitação ao gerenciador de consultas. Ao mesmo tempo, o gerenciador de contextos é informado que a aplicação está em execução e passa a atualizar o gerenciador de perfis com as informações atualizadas. O perfil de usuário é criado e enviado ao gerenciador de transporte, que retorna o perfil solicitado à aplicação solicitante.
 
 \begin{figure}
+  \caption{Construção de perfil}
   \centering
   \includegraphics[width=0.8\textwidth]{imagens/chellouche2.png}
-  \caption[Construção de perfil]{Construção de perfil \cite{chellouche10}}
   \label{fig:chellouche2}
+  Fonte: \cite{chellouche10}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -94,10 +98,11 @@ A abordagem para a modelagem unificada de contextos de usuário é proposta em d
 No nível \emph{concreto}, um conjunto de dimensões e facetas são definidos. As facetas e dimensões são descritas como parte de uma ontologia adicional que é compartilhada pelos componentes envolvidos na personalização multi-sistemas.
 
 \begin{figure}
+  \caption{Modelo do UUCM}
   \centering
   \includegraphics[width=0.5\textwidth]{imagens/niederee1.png}
-  \caption[Modelo do UUCM]{Modelo do UUCM \cite{niederee04}}
   \label{fig:niederee1}
+  Fonte: \cite{niederee04}
 \end{figure}
 
 O modelo do UUCM é apresentado na Figura~\ref{fig:niederee1}. Segundo o modelo, um perfil de usuário ({\em Unified User Context Model}) é dividido em um conjunto de contextos de trabalho ({\em Working Context}), onde cada contexto é descrito por um conjunto de facetas ({\em UUCM Facet}). Cada faceta é vinculada a uma dimensão ({\em UUCMDimension}).
@@ -130,10 +135,11 @@ O projeto PeLeP, apresentado por \citetexto{pelep}, integra a utilização de pe
 O PeLeP, cujo modelo é mostrado na Figura~\ref{fig:pelep1}, é dedicado ao gerenciamento de perfis de aprendizes em um ambiente ubíquo de ensino e aprendizagem. O modelo administra os perfis automaticamente, inferindo informações através do histórico do aprendiz. As alterações realizadas no perfil refletem o comportamento do aprendiz no ambiente ubíquo, levando em consideração o seu modelo de mobilidade e de contexto.
 
 \begin{figure}
+  \caption{Arquitetura do PeLeP}
   \centering
   \includegraphics[width=0.8\textwidth]{imagens/pelep1.png}
-  \caption[Arquitetura do PeLeP]{Arquitetura do PeLeP \cite{pelep}}
   \label{fig:pelep1}
+  Fonte: \cite{pelep}
 \end{figure}
 
 No PeLeP, o Perfil do Aprendiz consiste em um perfil contendo campos pré-definidos, voltados para o ambiente de educação ubíqua. Os campos são distribuídos nas seguintes categorias: identificação, objetivos, agenda, segurança, relacionamentos, competências e preferências. 
@@ -160,10 +166,11 @@ O PeLeP foi validado através da integração com o LOCAL ({\em Location and Con
 O modelo OntobUMf busca unir o KM tradicional com o KM pessoal através da personalização de um KMS, de modo a permitir a customização de {\it interfaces} e adaptação da funcionalidade, estrutura, conteúdo e modularidade, aumentando assim a relevância para usuários individuais.
 
 \begin{figure}
+  \caption{Arquitetura do modelo OntobUMf}
   \centering
   \includegraphics[width=0.6\textwidth]{imagens/razmerita11.png}
-  \caption{Arquitetura do modelo OntobUMf \cite{razmerita11}}
   \label{fig:razmerita11}
+  Fonte: \cite{razmerita11}
 \end{figure}
 
 A Figura~\ref{fig:razmerita11} apresenta a arquitetura do modelo OntobUMf. OntobUMf é uma aplicação de três camadas: (i) {\it front end}, (ii) serviços e (iii) dados. A camada de {\it front end} é um conjunto de {\it interfaces} que permitem que o usuário acesse e atualize seu modelo de usuário ou perfil de usuário. 
@@ -188,10 +195,11 @@ A primeira base de informação é uma representação de conhecimento global. A
 A base de interesses de usuários é extraída através de uma ferramenta denominada {\it Ontology Learning Environment} (OLE). A ferramenta constrói a ontologia através da alimentação manual de informações pelo usuário. A ontologia classifica os assuntos alimentados pelo usuário em três tipos: (i) ``assuntos positivos'', (ii) ``assuntos negativos'' e ``assuntos neutros.'' Assuntos positivos são conceitos relevantes para a informação necessária, e assuntos negativos são conceitos que resolvem interpretações ambíguas ou paradoxais. Assuntos neutros são aqueles que não tem relevância para a informação buscada.
 
 \begin{figure}
+  \caption{Arquitetura do modelo de Tao, Li e Zhong
   \centering
   \includegraphics[width=0.6\textwidth]{imagens/tao11.png}
-  \caption[Arquitetura do modelo de \citetexto{tao11}]{Arquitetura do modelo de \citetexto{tao11}}
   \label{fig:tao11}
+  Fonte: \cite{tao11}
 \end{figure}
 
 A Figura~\ref{fig:tao11} apresenta a arquitetura do modelo. O passo inicial do processo é a construção da ontologia, de acordo com um determinado tópico, utilizando como base as duas fontes de conhecimento (base de conhecimento global e as informações locais de usuário). A base de conhecimento local e as informações providas pelo OLE são utilizadas para gerar o conjunto de informações sobre o assunto que, unido ao {\it background} do usuário, são processados através de um processo chamado ``mineração de ontologia'', que gera o conhecimento de {\it background} do usuário a respeito de um determinado tópico.
