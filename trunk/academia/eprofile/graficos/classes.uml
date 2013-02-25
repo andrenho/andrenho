@@ -1,0 +1,39 @@
+@startuml
+
+Agente <|-- Comunicador
+Agente <|-- Configurador
+Agente <|-- Conversor
+Agente <|-- Raciocinador
+
+Conversor ..> ConectorDB
+Configurador ..> ConectorDB
+Raciocinador ..> ConectorDB
+Comunicador ..> ConectorDB
+
+Comunicador <..> ConectorWS
+Configurador <..> ConectorWS
+Conversor <..> ConectorWS
+
+Raciocinador ..> ConectorFaCT
+
+ConectorWS : iniciaServico()
+ConectorWS : enviaMensagem()
+
+ConectorDB : consulta()
+ConectorDB : alteraDados()
+
+ConectorFaCT : executaInferencia()
+
+Agente : setup()
+Raciocinador : executaInferencia()
+Raciocinador : verificaNovaExecucao()
+Conversor : realizaConversao()
+Conversor : recebeTrilha()
+Configurador : novaRegra()
+Configurador : novoModelo()
+Comunicador : novaAplicacao()
+Comunicador : novoGerenciadorTrilhas()
+Comunicador : novaEntidade()
+Comunicador : consultaPerfil()
+
+@enduml

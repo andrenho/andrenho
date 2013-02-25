@@ -1,0 +1,53 @@
+@startuml
+
+entity Aplicação
+entity GerenciadorTrilhas
+participant ConectorWS
+participant Comunicador
+participant Configurador
+participant Conversor
+participant Raciocinador
+
+== Inicialização ==
+
+Aplicação -> ConectorWS : <i>Nova Aplicação</i>
+ConectorWS -> Comunicador : novaAplicacao()
+Comunicador -> ConectorDB : alteraDados()
+GerenciadorTrilhas -> ConectorWS : <i>Novo Gerenciador</i>
+ConectorWS -> Comunicador : novoConectorTrilhas()
+Comunicador -> ConectorDB : alteraDados()
+
+== Definições ==
+
+Aplicação -> ConectorWS : <i>Nova Regra</i>
+ConectorWS -> Configurador : novaRegra()
+Configurador -> ConectorDB : alteraDados()
+Aplicação -> ConectorWS : <i>Novo Modelo</i>
+ConectorWS -> Configurador : novoModelo()
+Configurador -> ConectorDB : alteraDados()
+
+== Recebimento de trilhas ==
+
+Aplicação -> GerenciadorTrilhas : <i>Novo Evento</i>
+GerenciadorTrilhas -> Conversor : recebeTrilha()
+Conversor -> Conversor : realizaConversao()
+Conversor -> ConectorDB : alteraDados()
+
+== Inferência ==
+
+Raciocinador -> Raciocinador : verificaNovaExecucao()
+Raciocinador -> ConectorDB : consulta()
+ConectorDB --> Raciocinador : [Retorna Dados]
+Raciocinador -> ConectorFaCT : executaInferencia()
+ConectorFaCT -> ConectorDB : alteraDados()
+
+== Busca de perfil ==
+
+Aplicação -> ConectorWS : <i>Busca Perfil</i>
+ConectorWS -> Comunicador : consultaPerfil()
+Comunicador -> ConectorDB : consulta()
+ConectorDB --> Comunicador : [Retorna Dados]
+Comunicador -> ConectorWS : enviaMensagem()
+ConectorWS -> Aplicação : <i>Perfil</i>
+
+@enduml
