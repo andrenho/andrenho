@@ -16,7 +16,9 @@ O {\it framework} é montado de acordo com a Figura~\ref{fig:kim08_b}. A comunic
   \centering
   \includegraphics[width=0.6\textwidth]{imagens/kim08_b.png}
   \label{fig:kim08_b}
-  Fonte: \cite{kim08}
+
+  
+Fonte: \cite{kim08}
 \end{figure}
 
 A configuração de perfil configura os perfis em dois tipos: perfis básicos, requeridos para todos os tipos de serviço, e perfis de serviço, configurados diferentemente para cada tipo de serviço. O tipo de perfil define o tipo de informação que irá conter cada perfil.
@@ -28,7 +30,8 @@ A criação de perfil é a tecnologia que permite que clientes e provedores de s
   \centering
   \includegraphics[width=0.6\textwidth]{imagens/kim08_a.png}
   \label{fig:kim08_a}
-  Fonte: \cite{kim08}
+  
+Fonte: \cite{kim08}
 \end{figure}
 
 Troca de perfis é o processo através do qual um perfil é enviado pelo servidor ao cliente. O processamento do perfil classifica os perfis transferidos pelos clientes através de regras e os armazena em uma base de dados. Os serviços de perfil extraem os perfis do repositório e os fornecem aos provedores de serviço quando os mesmos os requisitam.
@@ -58,7 +61,8 @@ O {\em middleware} é apresentado segundo ilustrado na Figura~\ref{fig:chellouch
   \centering
   \includegraphics[width=0.8\textwidth]{imagens/chellouche1.png}
   \label{fig:chellouche1}
-  Fonte: \cite{chellouche10}
+  
+Fonte: \cite{chellouche10}
 \end{figure}
 
 \begin{itemize}
@@ -76,7 +80,8 @@ O perfil é construído seguindo o fluxo apresentado na Figura~\ref{fig:chellouc
   \centering
   \includegraphics[width=0.8\textwidth]{imagens/chellouche2.png}
   \label{fig:chellouche2}
-  Fonte: \cite{chellouche10}
+  
+Fonte: \cite{chellouche10}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -102,7 +107,8 @@ No nível \emph{concreto}, um conjunto de dimensões e facetas são definidos. A
   \centering
   \includegraphics[width=0.5\textwidth]{imagens/niederee1.png}
   \label{fig:niederee1}
-  Fonte: \cite{niederee04}
+  
+Fonte: \cite{niederee04}
 \end{figure}
 
 O modelo do UUCM é apresentado na Figura~\ref{fig:niederee1}. Segundo o modelo, um perfil de usuário ({\em Unified User Context Model}) é dividido em um conjunto de contextos de trabalho ({\em Working Context}), onde cada contexto é descrito por um conjunto de facetas ({\em UUCM Facet}). Cada faceta é vinculada a uma dimensão ({\em UUCMDimension}).
@@ -139,7 +145,8 @@ O PeLeP, cujo modelo é mostrado na Figura~\ref{fig:pelep1}, é dedicado ao gere
   \centering
   \includegraphics[width=0.8\textwidth]{imagens/pelep1.png}
   \label{fig:pelep1}
-  Fonte: \cite{pelep}
+  
+Fonte: \cite{pelep}
 \end{figure}
 
 No PeLeP, o Perfil do Aprendiz consiste em um perfil contendo campos pré-definidos, voltados para o ambiente de educação ubíqua. Os campos são distribuídos nas seguintes categorias: identificação, objetivos, agenda, segurança, relacionamentos, competências e preferências. 
@@ -170,7 +177,8 @@ O modelo OntobUMf busca unir o KM tradicional com o KM pessoal através da perso
   \centering
   \includegraphics[width=0.6\textwidth]{imagens/razmerita11.png}
   \label{fig:razmerita11}
-  Fonte: \cite{razmerita11}
+  
+Fonte: \cite{razmerita11}
 \end{figure}
 
 A Figura~\ref{fig:razmerita11} apresenta a arquitetura do modelo OntobUMf. OntobUMf é uma aplicação de três camadas: (i) {\it front end}, (ii) serviços e (iii) dados. A camada de {\it front end} é um conjunto de {\it interfaces} que permitem que o usuário acesse e atualize seu modelo de usuário ou perfil de usuário. 
@@ -195,11 +203,12 @@ A primeira base de informação é uma representação de conhecimento global. A
 A base de interesses de usuários é extraída através de uma ferramenta denominada {\it Ontology Learning Environment} (OLE). A ferramenta constrói a ontologia através da alimentação manual de informações pelo usuário. A ontologia classifica os assuntos alimentados pelo usuário em três tipos: (i) ``assuntos positivos'', (ii) ``assuntos negativos'' e ``assuntos neutros.'' Assuntos positivos são conceitos relevantes para a informação necessária, e assuntos negativos são conceitos que resolvem interpretações ambíguas ou paradoxais. Assuntos neutros são aqueles que não tem relevância para a informação buscada.
 
 \begin{figure}
-  \caption{Arquitetura do modelo de Tao, Li e Zhong
+  \caption{Arquitetura do modelo de Tao, Li e Zhong}
   \centering
   \includegraphics[width=0.6\textwidth]{imagens/tao11.png}
   \label{fig:tao11}
-  Fonte: \cite{tao11}
+  
+Fonte: \cite{tao11}
 \end{figure}
 
 A Figura~\ref{fig:tao11} apresenta a arquitetura do modelo. O passo inicial do processo é a construção da ontologia, de acordo com um determinado tópico, utilizando como base as duas fontes de conhecimento (base de conhecimento global e as informações locais de usuário). A base de conhecimento local e as informações providas pelo OLE são utilizadas para gerar o conjunto de informações sobre o assunto que, unido ao {\it background} do usuário, são processados através de um processo chamado ``mineração de ontologia'', que gera o conhecimento de {\it background} do usuário a respeito de um determinado tópico.
@@ -243,7 +252,7 @@ A maior parte dos modelos armazena os perfis em um servidor, enquanto um deles a
 
 Enquanto alguns trabalhos se especializam em domínios específicos (tais como multimídia ou educação), outros modelos permitem seu uso em qualquer domínio. A especialização simplifica o modelo, mas o domínio genérico expande a possibilidade de utilização e, especialmente, de interoperabilidade.
 
-Enquanto alguns modelos apresentaram a utilização do histórico do usuário para a montagem do perfil, nenhum deles utilizou o conceito de trilha, o que enriqueceria ainda mais a geração do perfil pois permitiria a utilização de eventos contextualizados. Além disso, em todos os trabalhos, as regras de processamento de perfil e modelo de perfil foram apresentados como estáticos, isto é, configuráveis no início da execução mas não posteriormente. Como estas são características relevantes e permitem a geração de informações de perfil mais precisas e completas, este trabalho busca preencher esta lacuna.
+Enquanto alguns modelos apresentaram a utilização do histórico do usuário para a montagem do perfil, nenhum deles utilizou o conceito de trilha, o que enriqueceria ainda mais a geração do perfil pois permitiria a utilização de eventos contextualizados. A trilha, ao contrário do histórico, possui não apenas informações de eventos realizados, mas também o contexto que cerca estas ações. Além disso, em todos os trabalhos, as regras de processamento de perfil e o modelo de perfil foram apresentados como estáticos, isto é, configuráveis no início da execução mas não posteriormente. Como estas são características relevantes e permitem a geração de informações de perfil mais precisas e completas, este trabalho busca preencher esta lacuna.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

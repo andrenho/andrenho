@@ -5,7 +5,7 @@ Um protótipo foi construído para que o modelo pudesse ser avaliado. Este capí
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Tecnologias Utilizadas}
+\section{Aspectos de Implementação}
 \label{sec:tecnologias}
 
 O protótipo do eProfile foi desenvolvido em Python \cite{python}. Python é uma linguagem genérica, orientada a objetos, de alto nível, com suporte a múltiplas arquiteturas e de código aberto.
@@ -16,7 +16,8 @@ O diagrama de classes do eProfile está representado na Figura~\ref{fig:classes}
   \caption{Diagrama de classes do eProfile}
   \includegraphics[width=1\textwidth]{imagens/classes.png}
   \label{fig:classes}
-  Fonte: elaborado pelo autor
+  
+Fonte: elaborado pelo autor
 \end{figure}
 
 As classes nas quais estão implementados os agentes trocam mensagens com três classes de conexão. Estas classes são utilizadas para conectar com aplicações externas ou bibliotecas internas.
@@ -33,14 +34,15 @@ A Figura~\ref{fig:activity} mostra o diagrama de sequência do eProfile. Os text
   \caption{Diagrama de sequência do eProfile}
   \includegraphics[width=1\textwidth]{imagens/activity.png}
   \label{fig:activity}
-  Fonte: elaborado pelo autor
+  
+Fonte: elaborado pelo autor
 \end{figure}
 
 A inicialização ocorre quando uma nova aplicação ou um novo gerenciador de trilhas se conecta ao eProfile. Neste caso, a aplicação precisa se registrar para que o eProfile passe a se comunicar com ela. Os novos aplicativos e gerenciadores de trilhas são registrados na base de dados de aplicações.
 
 As definições são os eventos na qual uma aplicação define uma nova regra ou modelo de entidade. Estas definições podem ocorrer a qualquer momento, mesmo que a aplicação já tenha definido outras regras anteriormente. A definição pode não só criar novas regras e modelos, mas também alterar os que já foram cadastrados, ou excluí-los. Novas regras e modelos são registrados na base de dados de regras e modelos, respectivamente.
 
-O recebimento de trilhas ocorre periodicamente, a cada 5 minutos. Neste caso, o agente Conversor solicita as trilhas ao gerenciador de trilhas, converte-as ao formato do eProfile e armazena-as na base de dados de trilhas.
+O recebimento de trilhas ocorre periodicamente, de acordo com a freqüencia configurada no eProfile. Neste caso, o agente Conversor solicita as trilhas ao gerenciador de trilhas, converte-as ao formato do eProfile e armazena-as na base de dados de trilhas.
 
 O processo de inferência é disparado pelo agente Raciocinador. Quando o agente verifica que é o momento de executar novamente a inferência (de acordo com a periodicidade que foi definida na regra), ele chama o motor de inferência FaCT++ através da classe ConversorFaCT. Os dados são processados de acordo com as definições da regra e armazenados no banco de dados de perfil.
 
