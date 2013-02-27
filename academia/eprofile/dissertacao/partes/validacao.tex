@@ -358,7 +358,7 @@ Após a aplicação da regra mostrada nas Figuras~\ref{fig:regra3} e~\ref{fig:re
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Protótipo e Simulação}
+\subsection{Protótipo e Simulação}
 \label{sec:simulacao_cen1}
 
 Segundo mencionado na Seção~\ref{sec:tecnologias}, o protótipo do eProfile foi desenvolvido na linguagem Python \cite{python}. Ele utiliza o FaCT++ como motor de inferência \cite{tsarkov06}. A comunicação entre os três aplicativos (UniManager, LOCAL e eProfile) é realizado através de {\it web services} REST \cite{fielding00}.
@@ -402,8 +402,6 @@ Fonte: elaborado pelo autor
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Alteração de regras durante a execução}
-
 Uma das principais contribuições do eProfile é a possibilidade da alteração de regras durante a execução. Para a validação desta funcionalidade, o cenário descrito na Seção~\ref{ch:avaliacao} sofreu uma modificação, na qual uma nova regra foi criada.
 
 Esta regra baseia-se na ideia de que se um aluno fez várias escolhas iguais a outro aluno, seus interesses são semelhantes, e as escolhas feitas pelo segundo aluno podem ser utilizadas como recomendação ao primeiro. Desta forma, foi criada uma regra onde, para cada aluno, são escolhido os 5 alunos que tomaram mais decisões iguais. Desta forma, quando o aluno é confrontado com uma escolha, as escolhas anteriores feitas por estes 5 alunos semelhantes são utilizadas como recomendação.
@@ -422,9 +420,9 @@ Fonte: elaborado pelo autor
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Avaliação e Contribuições}
+\subsection{Avaliação e Contribuições}
 
-Este trabalho propôs um modelo para suportar o gerenciamento de perfis em ambientes ubíquos, permitindo a inferência de trilhas de entidades através da definição de regras pelas aplicações. Embora o eProfile tinha sido integrado com o LOCAL e o UniManager no cenário apresentado no Capítulo~\ref{ch:avaliacao}, sua proposta é genérica e pode ser utilizada para qualquer aplicação ou conjunto de aplicações que utilize perfis para aperfeiçoamento da personalização. O uso de perfis automáticos permite que sistemas ubíquos sejam mais eficientes na compreensão da intenção do usuário, pois isso significa que sistemas deste tipo podem utilizar informações mais precisas, atualizadas e amplas para suprir as necessidades das aplicações.
+Este trabalho propôs um modelo para suportar o gerenciamento de perfis em ambientes ubíquos, permitindo a inferência de trilhas de entidades através da definição de regras pelas aplicações. Embora o eProfile tinha sido integrado com o LOCAL e o UniManager no cenário apresentado na Seção~\ref{ch:avaliacao}, sua proposta é genérica e pode ser utilizada para qualquer aplicação ou conjunto de aplicações que utilize perfis para aperfeiçoamento da personalização. O uso de perfis automáticos permite que sistemas ubíquos sejam mais eficientes na compreensão da intenção do usuário, pois isso significa que sistemas deste tipo podem utilizar informações mais precisas, atualizadas e amplas para suprir as necessidades das aplicações.
 
 O objetivo do cenário foi demonstrar que é viável integrar sistemas ubíquos com o eProfile, enriquecendo a geração de perfis destas aplicações e permitindo que elas se adaptem aos seus usuários. O cenário demonstra as quatro contribuições do modelo.
 
