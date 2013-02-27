@@ -126,7 +126,7 @@ As seguintes dimensões são utilizadas:
 
 O perfil de usuário do UUCM é codificado como um RDF Schema\cite{rdf}, ampliado com expressões OWL.
 
-O modelo inclui ainda o conceito de Passaporte de Contexto. O passaporte de contexto é uma representação compacta do modelo de contexto atual do usuário para a personalização multi-sistemas. Ele contém informações ontologicamente arranjadas a respeito dos padrões cognitivos (habilidades, interesses, etc), o ambiente (data, local, dispositivo usado) e sua rede pessoal de pessoas e relacionamentos envolvidos.
+O modelo inclui ainda o conceito de Passaporte de Contexto. O passaporte de contexto é uma representação compacta do modelo de contexto atual do usuário para a personalização multi-sistemas. Ele contém informações ontologicamente arranjadas a respeito dos padrões cognitivos (habilidades, interesses, entre outros), o ambiente (data, local, dispositivo usado) e sua rede pessoal de pessoas e relacionamentos envolvidos.
 
 Para utilizar o passaporte de contexto em um ambiente de personalização multi-sistemas, o usuário ``apresenta'' o passaporte ao sistema que o usuário deseja utilizar. Como o passaporte está vinculado a uma ontologia compartilhada, é possível que o sistema consiga interpretar parcialmente o passaporte através de uma arquitetura mediadora. Como resultado, dois fluxos são possíveis: (i) do passaporte para o sistema, auxiliando o sistema a compreender o contexto do usuário, e (ii) do sistema para o passaporte, realizando alterações nas informações de contexto do usuário.
 
@@ -196,7 +196,7 @@ A OntobUMf classifica os usuários de acordo com o nível de atividade, o tipo d
 
 No artigo apresentado por \citetexto{tao11}, os autores avaliam que, embora ontologias venham sendo cada vez mais utilizadas como modelo de descrição e formalização de conhecimento, a maioria dos modelos utiliza somente as informações de uma base de conhecimento global ou informações locais de usuário para montar um perfil de usuário. Desta forma, é proposto um modelo de ontologia sobre perfis de usuários que compõe-se tanto a partir de uma base de conhecimento global quanto de repositórios locais de usuários.
 
-De acordo com os autores, ontologias personalizadas são um modelo de conceitualização que formalmente descrevem e especificam o conhecimento de fundo do usuário. Por exemplo, quando o usuário busca pelo tópico "New York" em um agente de buscas, a informação demandada é diferente para usuários de negócios e turistas. A expectativa pode ser diferente até mesmo para o mesmo usuário fazendo a mesma busca em contextos diferentes (um usuário de negócios pode estar fazendo a busca para uma viagem de negócios ou a lazer, por exemplo). Desta forma, o modelo conceitual do usuário pode mudar de acordo com a sua necessidade.
+De acordo com os autores, ontologias personalizadas são um modelo de conceitualização que formalmente descrevem e especificam o conhecimento de fundo do usuário. Por exemplo, quando o usuário busca pelo tópico ``New York'' em um agente de buscas, a informação demandada é diferente para usuários de negócios e turistas. A expectativa pode ser diferente até mesmo para o mesmo usuário fazendo a mesma busca em contextos diferentes (um usuário de negócios pode estar fazendo a busca para uma viagem de negócios ou a lazer, por exemplo). Desta forma, o modelo conceitual do usuário pode mudar de acordo com a sua necessidade.
 
 A primeira base de informação é uma representação de conhecimento global. A base utilizada pelo modelo é a {\it Library of Congress Subject Headings} (LCSH). A LCSH foi desenvolvida para organizar e consultar informações de um grande volume de coleções da Biblioteca do Congresso Americano. O sistema da LCSH possui três tipos de referência: ``termo amplo'', ``usado para'' e ``termo relacionado''. Estas referências e as ligações entre elas são usadas para construir o conhecimento de mundo necessário para a composição da ontologia.
 
@@ -229,6 +229,7 @@ A Tabela~\ref{tab:comparacao2} exibe um comparativo entre os trabalhos apresenta
 \end{itemize}
 
 \begin{table*}\centering\footnotesize
+  \caption{Comparação entre os trabalhos apresentados}
   \begin{tabular*}{1\textwidth}{@{}lllllll@{}}
     \toprule
                                          & Interope-  & Modelos   & Armaze-  & Sensibilidade & Utiliza &                     \\
@@ -242,8 +243,9 @@ A Tabela~\ref{tab:comparacao2} exibe um comparativo entre os trabalhos apresenta
     \citetexto{tao11}                    & Semântica  & Não       & Servidor & Sim           & Parcial & Genérico            \\
     \bottomrule
   \end{tabular*}
-  \caption{Comparação entre os trabalhos apresentados}
   \label{tab:comparacao2}
+
+Fonte: elaborado pelo autor
 \end{table*}
 
 Os trabalhos apresentam uma série de características úteis para o modelo exposto neste trabalho. A maior parte dos modelos apresentados realiza algum tipo de aperfeiçoamento automático de perfis baseado nas ações do usuário. Enquanto alguns trabalhos atualizam os perfis no momento da realização da ação do usuário ou entidade, outros armazenam estes eventos em um histórico, e realizam a atualização através da análise do histórico. 

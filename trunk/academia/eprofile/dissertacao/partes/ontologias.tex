@@ -6,6 +6,7 @@
 O eProfile utiliza duas ontologias: uma ontologia de trilhas e uma ontologia de perfis. As ontologias utilizadas pelo eProfile são ontologias básicas, estendidas através de subclasses de acordo com o formato da trilha enviada pelo gerenciador (no caso da ontologia de trilha) ou das necessidades da aplicação (no caso da ontologia do perfil). Isto é exemplificado na Figura~\ref{fig:heranca}, onde o eProfile oferece uma classe genérica ``Atividade'', que é especializada pela classe ``AtividadeDeCompra'', utilizada por um dos gerenciadores de trilha.
 
 \begin{figure}
+  \centering
   \caption{Exemplo da extensão de uma classe do eProfile}
   \centering\includegraphics[width=0.6\textwidth]{imagens/heranca.png}
   \label{fig:heranca}
@@ -62,6 +63,7 @@ A ontologia de perfil é a ontologia utilizada para armazenar os modelos de enti
 A ontologia proposta, a qual chama-se eOntoProfile, está representada na Figura~\ref{fig:ont_perfil}. Nesta figura, um relacionamento entre as classes é mostrado através de uma linha pontilhada, e uma especialização de uma classe é mostrado por uma linha contínua. A eOntoProfile é uma ontologia básica, que será estendida pelas aplicações de modo a montarem seus próprios modelos de entidade.
 
 \begin{figure}
+  \centering
   \caption{Ontologia de Perfil do eProfile}
   \centering\includegraphics[width=0.8\textwidth]{imagens/ont_perfil2.png}
   \label{fig:ont_perfil}
