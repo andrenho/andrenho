@@ -8,14 +8,14 @@ PRATOS PRINCIPAIS
      <http://www.youtube.com/watch?v=xn4x-g26P70>
  - Fraldinha asiática
      <http://www.blue-kitchen.com/2012/09/05/flavor-meets-tender-grilled-asian-flank-steak/>
- - Tilapia com verdes
-     <http://www.blue-kitchen.com/2012/06/20/butter-poached-tilapia/>
  - Salmão teriaki
      <http://healthy-delicious.com/2012/08/two-minute-salmon-terryaki/>
  - Tacos com frango
      <http://www.ellesnewenglandkitchen.com/blog/2012/10/4/shredded-chicken-tacos-for-national-taco-day.html>
  - Kebapia com batatas asadas
      <http://www.kalofagas.ca/2012/10/02/kebapia-with-roast-potatoes/>
+ - Fritatta de legumes
+     <http://www.fitsugar.com/Recipe-Asparagus-Cheese-Potato-Frittata-8425753>
 
 ACOMPANHAMENTOS
 
@@ -39,10 +39,6 @@ SALADAS
      <http://www.macheesmo.com/2009/07/nicoise-salad/>
  - Salada de batatas com pesto de salsa
      <http://www.simplesmentedelicia.com/?p=2345>
- - Salada provençal
-     <http://www.simplyrecipes.com/recipes/provencal_potato_salad/>
- - Salada caprese com frango
-     <http://www.macheesmo.com/2012/08/chicken-caprese-salad/>
  - Salada de batatas e tomatinho
      <http://www.blue-kitchen.com/2012/09/12/tastes-like-victory-quick-delicious-potato-and-cherry-tomato-salad/>
  - Salada de espinafre com nozes
@@ -52,8 +48,6 @@ SALADAS
 
 SOBREMESAS/DOCES
 
- - Alfajor
-     <http://www.macheesmo.com/2010/12/alfajores/>
  - Beignet
      <http://www.macheesmo.com/2009/01/can-you-say-beignet/>
  - Bolo de abacate
@@ -68,8 +62,6 @@ SOBREMESAS/DOCES
      <http://allrecipes.com/recipe/loukoumades/>
  - Massa folhada dinamarquesa
      <http://www.joepastry.com/category/pastry/danish-pastry/>
- - Macarons
-     <http://www.joepastry.com/category/miscellaneous-desserts-and-cookies/macarons/>
  - Pastel de forno de pêssegos
      <http://www.macheesmo.com/2010/07/portable-peach-pies/>
  - Rolinhos de canela e tâmaras
@@ -122,10 +114,14 @@ LANCHES
      <http://www.macheesmo.com/2012/08/zucchini-parm-fritters/>
  - Cebola roxa frita
      <http://www.macheesmo.com/2011/07/red-onion-strings/>
+ - Chips de couve
+     <http://www.fitsugar.com/Baked-Kale-Chips-Recipe-7182555>
  - Gougères
      <http://www.joepastry.com/category/pastry/gougeres/>
  - Omelete de milho
      <http://www.macheesmo.com/2012/07/charred-corn-omelets/>
+ - Rolinhos de Tofu e Pepino
+     <http://www.fitsugar.com/Cucumber-Tofu-Rolls-Recipe-21583467>
  - Saundiche de baguette
      <http://www.macheesmo.com/2008/11/good-day-sir-crunchy/>
  - Sanduiche de Brie e Pesto
