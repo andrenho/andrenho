@@ -26,6 +26,8 @@ PRATOS PRINCIPAIS
      <http://www.macheesmo.com/2012/02/chicken-adobo/>
  - Frango jamaicano
      <http://www.youtube.com/watch?v=MxPqgNvc5sQ>
+ - Frango Kung-Pao
+     <file:kungpao.txt>
  - Massa caseira
      <file:massa_caseira.txt>
  - Massa com camembert assado 
@@ -46,6 +48,8 @@ PRATOS PRINCIPAIS
      <http://www.macheesmo.com/2011/04/breakfast-tacos/>
  - Tilápia com limão e alho
      <http://allrecipes.com/recipe/lemon-garlic-tilapia/>
+ - Tilapia com verdes
+     <http://www.blue-kitchen.com/2012/06/20/butter-poached-tilapia/>
  - Tofu com pimenta do reino
      <http://www.macheesmo.com/2012/07/black-pepper-tofu/>
  - Vindaloo
@@ -94,6 +98,8 @@ SALADAS
      <http://www.macheesmo.com/2010/07/lemony-potato-salad/>
  - Salada de bife e batatas 
      <http://www.macheesmo.com/2012/04/steak-and-potato-salad/>
+ - Salada caprese com frango
+     <http://www.macheesmo.com/2012/08/chicken-caprese-salad/>
  - Salada de rúcula com galinha e alho 
      <http://www.macheesmo.com/2012/05/a-grill-disaster-plus-a-salad/>
  - Salada de tomates
@@ -102,11 +108,15 @@ SALADAS
      <http://www.youtube.com/watch?v=JbCd_YuP9PE>
  - Salada Panzanella
      <http://www.macheesmo.com/2010/07/panzanella-salad/>
+ - Salada provençal
+     <http://www.simplyrecipes.com/recipes/provencal_potato_salad/>
  - Verdes com ovos poché
      <http://www.macheesmo.com/2008/12/warmed-greens-with-poached-egg/>
 
 SOBREMESAS/DOCES
 
+ - Alfajor
+     <http://www.macheesmo.com/2010/12/alfajores/>
  - Barras de puro limão 
      <http://www.simplesmentedelicia.com/?p=922>
  - Bolo de Caramelo
@@ -118,6 +128,8 @@ SOBREMESAS/DOCES
      <http://www.joyofbaking.com/breakfast/LemonPoppyseedBread.html>
  - Kourabiedes (biscoitos gregos de nozes)
      <http://www.foodnetwork.com/recipes/food-network-kitchens/kourabiedes-greece-walnut-sugar-cookies-recipe/index.html>
+ - Macarons
+     <http://www.joepastry.com/category/miscellaneous-desserts-and-cookies/macarons/>
  - Mousse de chocolate
      <http://www.youtube.com/watch?v=aWB3Es7Xn2k>
  - Pão-de-ló com morangos e creme 
