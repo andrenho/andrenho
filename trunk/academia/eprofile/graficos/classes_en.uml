@@ -1,0 +1,39 @@
+@startuml
+
+Agent <|-- Communicator
+Agent <|-- Configurator
+Agent <|-- Converter
+Agent <|-- Reasoner
+
+Converter ..> ConnectorDB
+Configurator ..> ConnectorDB
+Reasoner ..> ConnectorDB
+Communicator ..> ConnectorDB
+
+Communicator <..> ConnectorWS
+Configurator <..> ConnectorWS
+Converter <..> ConnectorWS
+
+Reasoner ..> ConnectorFaCT
+
+ConnectorWS : startService()
+ConnectorWS : sendMessage()
+
+ConnectorDB : query()
+ConnectorDB : changeData()
+
+ConnectorFaCT : reason()
+
+Agent : setup()
+Reasoner : reason()
+Reasoner : checkNewReasoning()
+Converter : convert()
+Converter : getTrail()
+Configurator : newRule()
+Configurator : newModel()
+Communicator : newApplication()
+Communicator : newTrailManager()
+Communicator : newEntity()
+Communicator : queryProfile()
+
+@enduml
