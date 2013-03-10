@@ -252,6 +252,27 @@ As setas representam o fluxo dos dados.
 %%%%%
 
 \begin{frame}
+  \frametitle{Implementação}
+  \begin{figure}
+    \includegraphics[width=1\textwidth]{../imagens/classes.png}
+    \caption{Diagrama de classes}
+  \end{figure}
+  
+\end{frame}
+
+%%%%%
+
+\begin{frame}
+\begin{figure}
+  \includegraphics[width=0.65\textwidth]{../imagens/activity.png}
+  \caption{Diagrama de sequência}
+\end{figure}
+  
+\end{frame}
+
+%%%%%%%%%%
+
+\begin{frame}
   \frametitle{Exemplo}
   
   \begin{itemize}
@@ -479,10 +500,54 @@ Class: <el:Andre>
   \end{figure}
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Trabalhos relacionados}
+
+	\begin{table}\centering\tiny
+  \begin{tabular*}{1\textwidth}{@{}llllllllll@{}}
+    \toprule
+                              & PeLeP    & Chellouche & UUCM      & Kim       & Razmerita & Tao       & {\bf eProfile}  \\
+    \midrule
+    Interoperabilidade        & Não      & Sintática  & Sintática & Sintática & Sintática & Semântica & {\bf Semântica} \\
+    Modelos dinâmicos         & Não      & Não        & Não       & Não       & Não       & Não       & {\bf Sim}       \\
+    Armazenamento             & Servidor & Servidor   & Cliente   & Servidor  & Servidor  & Servidor  & {\bf Servidor} \\
+    Sensibilidade a contexto  & Sim      & Sim        & Sim       & Não       & Genérico  & Genérico  & {\bf Genérico} \\
+    Utiliza trilhas           & Parcial  & Não        & Não       & Parcial   & Parcial   & Parcial   & {\bf Sim}      \\
+    Domínio                   & Educação & Multimídia & Genérico  & Genérico  & Genérico  & Genérico  & {\bf Genérico} \\
+    \bottomrule
+  \end{tabular*}
+  \caption{Comparação entre os trabalhos apresentados}
+  \label{tab:comparacao}
+\end{table}
+
+\end{frame}
+
 %%%%%
 
 \begin{frame}
-  \frametitle{}
+  \frametitle{Contribuições}
+  \begin{itemize}
+    \item Utilização de trilhas para extração de perfis
+    \item Geração de perfis dinâmicos
+    \item Gerenciamento {\em online} de regras de inferências e modelos de entidade dinâmicos 
+    \item Interoperabilidade semântica
+  \end{itemize}
+\end{frame}
+
+%%%%%
+
+\begin{frame}
+  \frametitle{Trabalhos futuros}
+  \begin{itemize}
+    \item Avaliação com entidades reais (não simuladas)
+    \item Avaliação de desempenho
+    \item Integração com outras aplicações em outros domínios
+    \item Outros gerenciadores de trilhas
+    \item Suporte à operação desconectada
+    \item Descentralização do servidor
+    \item Suporte a protocolos de segurança e confidencialidade
+  \end{itemize}
 \end{frame}
 
 %%%%%
