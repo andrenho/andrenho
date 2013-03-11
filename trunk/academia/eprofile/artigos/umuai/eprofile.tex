@@ -79,7 +79,7 @@ Context-aware and ubiquitous systems have the challenge of implicitly collect re
 \label{ch:introducao}
 %\paragraph{Paragraph headings} Use paragraph headings as needed.
 
-Nowadays, most users interact with a wide variety of computing systems. The current tendency is the increased interconnectedness between these systems, since the internet is becoming every day more present and available. Recent research predicts the full integration between these systems in a federation of computing systems. This federation is referred to as Smart Environment \citep{heckmann05,todo}.
+Nowadays, most users interact with a wide variety of computing systems. The current tendency is the increased interconnectedness between these systems, since the internet is becoming every day more present and available. Recent research predicts the full integration between these systems in a federation of computing systems. This federation is referred to as Smart Environment \citep{heckmann05,augusto10}.
 
 \citet{weiser91} discussed a vision for the concept of smart environments. He
 presented a scenario in which the computer would become invisible and
@@ -116,7 +116,7 @@ broader and includes activities performed, applications used, content accessed
 
 %\todo[inline]{Colocar referência para User Profiles}
 
-For an application to adapt itself effectively to a user, it is not only important to know the history of contexts visited by a user, but to understand who the user is -- that is, what are his characteristics. This kind of application organize its knowledge about a user in User Profiles. The profiles are stored in a format called User Model \citep{viviani10,todo}.
+For an application to adapt itself effectively to a user, it is not only important to know the history of contexts visited by a user, but to understand who the user is -- that is, what are his characteristics. This kind of application organize its knowledge about a user in User Profiles. The profiles are stored in a format called User Model \citep{fischer01,viviani10}.
 
 %\todo[inline]{Explicar melhor a diferença entre modelos e perfis}
 
@@ -126,7 +126,7 @@ In this paper, the concept of {\em entity} is used instead of the classic concep
 
 A relevant aspect for environments with multiple independent systems is the interoperability. Interoperability is the ability of two or more systems or components to exchange information and use the information that has been exchanged \citep{ieeedict}. In the context of customization, interoperability refers to the ability to access and interpret information derived from multiple heterogeneous sources, and integrate it into a common user model. Interoperability can be (i) syntactic, where the differences between the models are resolved at application level, or (ii) semantic, where the differences between the models are resolved at the level of knowledge \citep{carmagnola09}.
 
-Research indicates that it is desirable that future systems become increasingly invisible to their users \citep{weiser96}, and that a system can only become invisible if it is proactive, and can only be proactive by knowing the user \citep{satyanarayanan01}. For a system to know a user, it must know the user history \citep{silva10}, understand the context in which he is inserted \citep{dey2001}, as well as data collected concerning him in the same context (or in a similar context) \citep{todo}, and be able to process this set of information into a user profile \citep{viviani10,todo}.
+Research indicates that it is desirable that future systems become increasingly invisible to their users \citep{weiser96}, and that a system can only become invisible if it is proactive, and can only be proactive by knowing the user \citep{satyanarayanan01}. For a system to know a user, it must know the user history \citep{silva10}, understand the context in which he is inserted \citep{dey2001}, as well as data collected concerning him in the same context (or in a similar context), and be able to process this set of information into a user profile \citep{fischer01,viviani10}.
 
 In this setting we are proposing eProfile, a model for the automatic creation of profiles by inference of entity trails. %This model allows the use of a single profile by several independent systems, offering the possibility of semantic interoperability between them.
 
@@ -466,7 +466,7 @@ LOCAL, whose architecture is shown in Figure~\ref{fig:arq_local}, consists of se
 
 The gathering of LOCAL's profile system information is explicit. This means that users' (learners) relevant data need to be pre-populated in the system. Furthermore, the LOCAL profile system is static, which means that data is not automatically updated in response to actions taken by learners or external events. Since eProfile is a dynamic entity model with implicit information collection, integrating these two models result in the enhancement of LOCAL capabilities.
 
-LOCAL and eProfile integrate according to Figure~\ref{fig:eprofile_local}. Besides LOCAL and eProfile, Figure~\ref{fig:eprofile_local} presents an application called Trail Manager. The Trail Manager is an external program that stores the trails, processes them and forwards them to eProfile, as described in Section~\ref{ch:model}. For this scenario, we created a simple trail manager, which just receives, stores and forwards the trails to eProfile upon request.
+LOCAL and eProfile integrate according to Figure~\ref{fig:eprofile_local}. Besides LOCAL and eProfile, Figure~\ref{fig:eprofile_local} presents an application called Trail Manager. The Trail Manager is an external program that stores the trails, processes them and forwards them to eProfile, as described in Section~\ref{ch:modelo}. For this scenario, we created a simple trail manager, which just receives, stores and forwards the trails to eProfile upon request.
 
 Integration between eProfile and LOCAL was based on the following changes to
 LOCAL: (i) we included a connection interface with eProfile, able to generate
