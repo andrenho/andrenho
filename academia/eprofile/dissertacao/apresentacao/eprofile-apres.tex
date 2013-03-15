@@ -17,10 +17,9 @@
 \renewcommand{\arraystretch}{1.2}
 
 \title[eProfile]{Um Modelo para Gerenciamento de Perfis de Entidades Através de Inferência em Trilhas}
-\author{André Wagner}
+\author[André Wagner]{André Wagner\\{\small Orientador: Dr. Jorge Luis Victória Barbosa}}
 \institute[UNISINOS]{
   Programa de Pós-Graduação em Computação Aplicada \\
-  Unidade Acadêmica de Pesquisa e Pós-Graduação \\
   Universidade do Vale do Rio dos Sinos (UNISINOS) \\
   \texttt{andre.nho@gmail.com}
 }
@@ -31,6 +30,25 @@
 
 \begin{frame}[plain]
   \titlepage
+\end{frame}
+
+%%%
+
+\begin{frame}
+  \frametitle{Organização}
+  \begin{enumerate}
+    \item Introdução
+    \item Modelo
+    \item Implementação
+    \item Avaliação
+    \item Conclusão
+  \end{enumerate}
+\end{frame}
+
+%%%
+
+\begin{frame}
+  \huge Introdução
 \end{frame}
 
 %%%
@@ -125,7 +143,7 @@
     Interoperabilidade        & Não      & Sintática  & Sintática & Sintática & Sintática & Semântica \\
     Modelos dinâmicos         & Não      & Não        & Não       & Não       & Não       & Não \\
     Armazenamento             & Servidor & Servidor   & Cliente   & Servidor  & Servidor  & Servidor \\
-    Sensibilidade a contexto  & Sim      & Sim        & Sim       & Não       & Genérico  & Genérico \\
+    Sensibilidade a contexto  & Sim      & Sim        & Sim       & Não       & Sim & Sim \\
     Utiliza trilhas           & Parcial  & Não        & Não       & Parcial   & Parcial   & Parcial \\
     Domínio                   & Educação & Multimídia & Genérico  & Genérico  & Genérico  & Genérico \\
     \bottomrule
@@ -147,6 +165,12 @@
     \item Regras de inferência e modelos de entidades dinâmicos
     \item Interoperabilidade semântica
   \end{itemize}
+\end{frame}
+
+%%%
+
+\begin{frame}
+  \huge Modelo
 \end{frame}
 
 %%%%%
@@ -237,7 +261,7 @@ As setas representam o fluxo dos dados.
       \item SPARQL (consulta) 
       \item SWRL (lógica)
     \end{itemize}
-    \item Um regra possui as seguintes informações:
+    \item Uma regra possui as seguintes informações:
     \begin{itemize}
       \item Nome
       \item Campo de perfil
@@ -247,27 +271,6 @@ As setas representam o fluxo dos dados.
       \item Validade
     \end{itemize}
   \end{itemize}
-\end{frame}
-
-%%%%%
-
-\begin{frame}
-  \frametitle{Implementação}
-  \begin{figure}
-    \includegraphics[width=1\textwidth]{../imagens/classes.png}
-    \caption{Diagrama de classes}
-  \end{figure}
-  
-\end{frame}
-
-%%%%%
-
-\begin{frame}
-\begin{figure}
-  \includegraphics[width=0.65\textwidth]{../imagens/activity.png}
-  \caption{Diagrama de sequência}
-\end{figure}
-  
 \end{frame}
 
 %%%%%%%%%%
@@ -366,6 +369,53 @@ Class: <el:Andre>
         <el:hasKnowledge> some <el:JavaProficience>
 \end{lstlisting}
   
+\end{frame}
+
+%%%
+
+\begin{frame}
+  \huge Implementação
+\end{frame}
+
+%%%%%
+
+\begin{frame}
+  \frametitle{Implementação - Tecnologias Utilizadas}
+  \begin{itemize}
+    \item Linguagem de programação: {\bf Python}
+    \item Banco de dados: {\bf SQLite3}
+    \item Aplicativos contectados via {\bf {\em webservices} do tipo REST}
+    \item Motor de inferência: {\bf FaCT++}
+    \item Linguagem de ontologia: {\bf OWL DL}
+  \end{itemize}
+  
+\end{frame}
+
+%%%%%
+
+\begin{frame}
+  \frametitle{Implementação}
+  \begin{figure}
+    \includegraphics[width=1\textwidth]{../imagens/classes.png}
+    \caption{Diagrama de classes}
+  \end{figure}
+  
+\end{frame}
+
+%%%%%
+
+\begin{frame}
+\begin{figure}
+  \includegraphics[width=0.65\textwidth]{../imagens/activity.png}
+  \caption{Diagrama de sequência}
+\end{figure}
+  
+\end{frame}
+
+%%%
+
+\begin{frame}
+  \huge Avaliação
 \end{frame}
 
 %%%%%
@@ -500,27 +550,10 @@ Class: <el:Andre>
   \end{figure}
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%
+%%%
 
-\begin{frame}{Trabalhos relacionados}
-
-	\begin{table}\centering\tiny
-  \begin{tabular*}{1\textwidth}{@{}llllllllll@{}}
-    \toprule
-                              & PeLeP    & Chellouche & UUCM      & Kim       & Razmerita & Tao       & {\bf eProfile}  \\
-    \midrule
-    Interoperabilidade        & Não      & Sintática  & Sintática & Sintática & Sintática & Semântica & {\bf Semântica} \\
-    Modelos dinâmicos         & Não      & Não        & Não       & Não       & Não       & Não       & {\bf Sim}       \\
-    Armazenamento             & Servidor & Servidor   & Cliente   & Servidor  & Servidor  & Servidor  & {\bf Servidor} \\
-    Sensibilidade a contexto  & Sim      & Sim        & Sim       & Não       & Genérico  & Genérico  & {\bf Genérico} \\
-    Utiliza trilhas           & Parcial  & Não        & Não       & Parcial   & Parcial   & Parcial   & {\bf Sim}      \\
-    Domínio                   & Educação & Multimídia & Genérico  & Genérico  & Genérico  & Genérico  & {\bf Genérico} \\
-    \bottomrule
-  \end{tabular*}
-  \caption{Comparação entre os trabalhos apresentados}
-  \label{tab:comparacao}
-\end{table}
-
+\begin{frame}
+  \huge Conclusão
 \end{frame}
 
 %%%%%
@@ -533,6 +566,29 @@ Class: <el:Andre>
     \item Gerenciamento {\em online} de regras de inferências e modelos de entidade dinâmicos 
     \item Interoperabilidade semântica
   \end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Trabalhos relacionados}
+
+	\begin{table}\centering\tiny
+  \begin{tabular*}{1\textwidth}{@{}llllllllll@{}}
+    \toprule
+                              & PeLeP    & Chellouche & UUCM      & Kim       & Razmerita & Tao       & {\bf eProfile}  \\
+    \midrule
+    Interoperabilidade        & Não      & Sintática  & Sintática & Sintática & Sintática & Semântica & {\bf Semântica} \\
+    Modelos dinâmicos         & Não      & Não        & Não       & Não       & Não       & Não       & {\bf Sim}       \\
+    Armazenamento             & Servidor & Servidor   & Cliente   & Servidor  & Servidor  & Servidor  & {\bf Servidor} \\
+    Sensibilidade a contexto  & Sim      & Sim        & Sim       & Não       & Sim  & Sim  & {\bf Sim} \\
+    Utiliza trilhas           & Parcial  & Não        & Não       & Parcial   & Parcial   & Parcial   & {\bf Sim}      \\
+    Domínio                   & Educação & Multimídia & Genérico  & Genérico  & Genérico  & Genérico  & {\bf Genérico} \\
+    \bottomrule
+  \end{tabular*}
+  \caption{Comparação entre os trabalhos apresentados}
+  \label{tab:comparacao}
+\end{table}
+
 \end{frame}
 
 %%%%%
