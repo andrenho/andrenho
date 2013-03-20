@@ -134,8 +134,8 @@ inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
 inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
 inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
 inoremap <C-l> <C-x><C-u>
-set conceallevel=2
-set concealcursor=vin
+"set conceallevel=2
+"set concealcursor=vin
 "let g:clang_snippets=1
 "let g:clang_conceal_snippets=1
 "let g:clang_snippets_engine='clang_complete'
