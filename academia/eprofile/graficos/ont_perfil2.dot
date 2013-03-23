@@ -1,14 +1,14 @@
 digraph perfil {
 
-  Element -> Entity;
-  Element -> NonEntity;
+  Entity -> KnownEntity;
+  Entity -> UnknownEntity;
   //Entity -> Device;
 
-  Entity -> Element [label="relates-to", style="dotted"];
+  KnownEntity -> Entity [label="relates-to", style="dotted"];
   //Entity -> Device [label="owns", style="dotted"];
-  Entity -> Knowledge [label="has", style="dotted"];
-  Entity -> Interest [label="has", style="dotted"];
-  Entity -> PersonalInfo [label="has", style="dotted"];
+  KnownEntity -> Knowledge [label="has", style="dotted"];
+  KnownEntity -> Interest [label="has", style="dotted"];
+  KnownEntity -> PersonalInfo [label="has", style="dotted"];
   //Entity -> Entity [label="knows", style="dotted"];
 
   //labelfontsize=10;

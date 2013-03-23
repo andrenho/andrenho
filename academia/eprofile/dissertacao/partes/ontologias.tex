@@ -3,7 +3,7 @@
 \section{Ontologias}
 \label{sec:ontologia}
 
-O eProfile utiliza duas ontologias: uma ontologia de trilhas e uma ontologia de perfis. As ontologias utilizadas pelo eProfile são ontologias básicas, estendidas através de subclasses de acordo com o formato da trilha enviada pelo gerenciador (no caso da ontologia de trilha) ou das necessidades da aplicação (no caso da ontologia do perfil). Isto é exemplificado na Figura~\ref{fig:heranca}, onde o eProfile oferece uma classe genérica ``Atividade'', que é especializada pela classe ``AtividadeDeCompra'', utilizada por um dos gerenciadores de trilha.
+O eProfile utiliza duas ontologias: uma ontologia de trilhas e uma ontologia de perfis. As ontologias utilizadas pelo eProfile são estendidas através de subclasses de acordo com o formato da trilha enviada pelo gerenciador (no caso da ontologia de trilha) ou das necessidades da aplicação (no caso da ontologia do perfil). Isto é exemplificado na Figura~\ref{fig:heranca}, onde o eProfile oferece uma classe genérica ``Atividade'', que é especializada pela classe ``AtividadeDeCompra'', utilizada por um dos gerenciadores de trilha.
 
 \begin{figure}
   \centering
@@ -60,7 +60,7 @@ Juntamente com as informações acima, as aplicações podem armazenar \textbf{i
 
 A ontologia de perfil é a ontologia utilizada para armazenar os modelos de entidade, bem como as informações de perfil que são inferidas a partir da trilha. Para que a ontologia seja viável dentro do modelo proposto, ela deve ser uma ontologia genérica que permita que suas classes sejam estendidas pelas aplicações. %Uma ontologia genérica não está limitada a um domínio específico do conhcecimento,  Existem algumas ontologias genéricas propostas, tais como FOAF \cite{foaf}, GUMO \cite{gumo}, Ontonym \cite{ontonym}, e a ontologia proposta por \citetexto{golemati07}.
 
-A ontologia proposta, a qual chama-se eOntoProfile, está representada na Figura~\ref{fig:ont_perfil}. Nesta figura, um relacionamento entre as classes é mostrado através de uma linha pontilhada, e uma especialização de uma classe é mostrado por uma linha contínua. A eOntoProfile é uma ontologia básica, que será estendida pelas aplicações de modo a montarem seus próprios modelos de entidade.
+A ontologia proposta, a qual chama-se eOntoProfile, está representada na Figura~\ref{fig:ont_perfil}. Nesta figura, um relacionamento entre as classes é mostrado através de uma linha pontilhada, e uma especialização de uma classe é mostrado por uma linha contínua. A eOntoProfile é uma ontologia que será estendida pelas aplicações de modo a montarem seus próprios modelos de entidade.
 
 \begin{figure}
   \centering
@@ -71,17 +71,17 @@ A ontologia proposta, a qual chama-se eOntoProfile, está representada na Figura
 Fonte: elaborado pelo autor
 \end{figure}
 
-A classe básica da ontologia é a classe {\em Element} (elemento). A classe {\em Element} representa qualquer coisa no mundo real. Ela tem como filhos as classes:
+A classe básica da ontologia é a classe {\em Entity}. A classe {\em Entity} representa qualquer entidade no mundo real. Ela tem como filhos as classes:
 
 \begin{itemize}
 
-  \item {\it Entity:} representa uma entidade, isto é, um elemento que tenha um perfil associado a ela. Por exemplo, se uma pessoa tem um perfil no eProfile e é registrado um evento de trilha associado a outra pessoa {\bf que também possua um perfil}, esta segunda pessoa é registrada como uma {\it Entity} neste evento;
+  \item {\it KnownEntity:} representa uma entidade conhecida, isto é, uma entidade que tenha um perfil associado a ela. Por exemplo, se uma pessoa tem um perfil no eProfile e é registrado um evento de trilha associado a outra pessoa {\bf que também possua um perfil}, esta segunda pessoa é registrada como uma {\it KnownEntity} neste evento;
 
-  \item {\it NonEntity:} representa um elemento que não possui um perfil associado a ela. Por exemplo, uma trilha registra o evento em que uma pessoa entra em uma loja, mas a loja não tem um perfil no eProfile. Neste caso, a loja é uma {\it NonEntity};
+  \item {\it UnknownEntity:} representa uma entidade que não possui um perfil associado a ela. Por exemplo, uma trilha registra o evento em que uma pessoa entra em uma loja, mas a loja não tem um perfil no eProfile. Neste caso, a loja é uma {\it UnkownEntity};
 
 \end{itemize}
 
-Esta diferenciação é importante porque no primeiro caso, o eProfile tem acesso a uma vasta gama de informações a respeito da entidade, das entidades relacionadas àquela entidade, e assim por diante. No caso de uma {\em NonEntity}, o perfil não está disponível, e é apenas um nome para o eProfile.
+Esta diferenciação é importante porque no primeiro caso, o eProfile tem acesso a uma vasta gama de informações a respeito da entidade, das entidades relacionadas àquela entidade, e assim por diante. No caso de uma {\em UnknownEntity}, o perfil não está disponível, e é apenas um nome para o eProfile.
 
 A ontologia FOAF \cite{foaf} utiliza o conceito de {\em knows} (conhece) para vincular duas pessoas. A eOntoProfile estende este conceito através da propriedade {\em relates-to} (se-relaciona-com) que vincula dois elementos. Através desta propriedade, é possível não apenas vincular os elementos, mas também descrever o tipo de relação que eles tem. Exemplos de relações são {\em friend-of} (amigo-de), representando uma amizade entre duas pessoas, {\em employee-of} (empregado-de), representando um vínculo empregatício entre duas pessoas, {\em owns} (possui), representando que uma pessoa possui um dispositivo, {\em depends} (depende), onde um dispositivo depende de outro, e qualquer outra relação que a aplicação deseje criar.
 

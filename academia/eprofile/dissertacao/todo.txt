@@ -1,0 +1,10 @@
+3) Entidade x Elemento. Não seria melhor usar Entidade ao invés de Elemento (na ontologia)
+7) Motores de inferência. Não gostou da justificativa de escolha do FACT++
+8) Sentiu falta da questão de pesquisa (eu havia sentido falta em uma faz revisões, mas não me lembrei de falar)
+8) Nomenclatura: Ontologia básica seria um termo estranho. Que existiriam Ontologias de Topo, Ontologias de Domínio. Mas não sei se esses termos se encaixam na nossa ideia
+
+24) Justificar avaliação melhor
+13) UniManager (origem): Explicar que foi feito. Que não é um software comercial. Isso é importante para evitar mal entendidos
+
+18) Faltou a descrição de Ontologias nos conceitos básicos e uma discussão de como ontologias são usadas em contextos
+9) Avalição. Mas afinal oque seria um “perfil”? Não teria sido descrito em nenhum lugar
