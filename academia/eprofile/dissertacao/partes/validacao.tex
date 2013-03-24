@@ -3,7 +3,14 @@
 
 Somente é possível avaliar as funcionalidades de uma proposta de infraestrutura construindo aplicações que a utilizem e então avaliá-las, de modo a obter uma avaliação indireta do modelo \cite{edwards03}. A comunidade científica vem utilizando cenários para realizar este tipo de avaliação indireta em ambientes sensíveis a contexto (como a abordagem realizada por Dey \cite{dey2001b}) e ubíquos (de acordo com Satyanarayanan \cite{satyanarayanan01}). Este trabalho segue a mesma abordagem, tendo sido criados um protótipo e um cenário para realização de experimentos que avaliem o eProfile.
 
-O experimento apresentado é baseado na geração simulada de trilhas de estudantes de graduação dentro de um contexto de Aprendizagem Ubíqua. Aprendizagem Ubíqua pode ser compreendida como um conjunto de processos educacionais que ocorrem em qualquer lugar, a qualquer tempo e com qualquer dispositivo, de forma contínua, contextualizada e integrada ao cotidiano do aprendiz \cite{barbosa11}.
+Os experimentos apresentados são baseado na geração simulada de trilhas de estudantes de graduação dentro de um contexto de Aprendizagem Ubíqua. Aprendizagem Ubíqua pode ser compreendida como um conjunto de processos educacionais que ocorrem em qualquer lugar, a qualquer tempo e com qualquer dispositivo, de forma contínua, contextualizada e integrada ao cotidiano do aprendiz \cite{barbosa11}.
+
+O objetivos dos experimentos é verificar se:
+
+\begin{itemize}
+  \item A integração do eProfile a um modelo já existente é capaz de enriquecer a geração de informações de perfil do modelo;
+  \item A modificação de regras de inferência de perfil durante a execução pode trazer uma melhora nos dados de perfil gerados.
+\end{itemize}
 
 As seguintes seções descrevem o ambiente da simulação (Seção~\ref{sec:desc_cen1}), as aplicações utilizadas (Seção~\ref{sec:cen1_apps}), a integração eProfile/LOCAL (Seção~\ref{sec:eprofile_local}) e a integração eProfile/UniManager (Seção~\ref{sec:eprofile_unimanager}), as trilhas, regras e perfis gerados (Seção~\ref{sec:trilhas_cen1}) e os parâmetros de simulação e resultados (Seção~\ref{sec:simulacao_cen1}).
 
@@ -74,7 +81,7 @@ Fonte: elaborado pelo autor
 
 Os alunos e docentes utilizam dispositivos móveis ({\em laptop} ou {\em smartphones}), onde estão instalados aplicativos utilizados para a administração de sua vida acadêmica. Em especial, estão instalados o UniManager e o LOCAL.
 
-O UniManager é o sistema utilizado pela universidade para administração das disciplinas, descrito na Seção~\ref{sec:eprofile_unimanager}. Ele é usado pela administração da universidade, pelos professores e estudantes. A administração utiliza-o para cadastrar disciplinas, alunos e docentes, vincular os alunos e docentes às disciplinas e emitir relatórios gerenciais, como lista de presenças e aprovação/reprovação de alunos, bem como faltas e avaliações de professores. Os docentes utilizam o sistema para realizar as avaliações dos alunos. Os estudantes o utilizam para realizar suas provas e trabalhos, para fazer sua matrícula nas disciplinas e para verificar suas notas e faltas.
+O UniManager é o sistema utilizado pela universidade para administração das disciplinas, descrito na Seção~\ref{sec:eprofile_unimanager}. Ele é usado pela administração da universidade, pelos professores e estudantes. A administração utiliza-o para cadastrar disciplinas, alunos e docentes, vincular os alunos e docentes às disciplinas e emitir relatórios gerenciais, como lista de presenças e aprovação/reprovação de alunos, bem como faltas e avaliações de professores. Os docentes utilizam o sistema para realizar as avaliações dos alunos. Os estudantes o utilizam para realizar suas provas e trabalhos, para fazer sua matrícula nas disciplinas e para verificar suas notas e faltas. O UniManager foi criado especialmente para ser utilizado neste cenário.
 
 Além disso, os docentes e os alunos também utilizam o LOCAL em seus dispositivos móveis. O LOCAL \cite{barbosa11} é descrito na Seção~\ref{sec:eprofile_local}. O LOCAL combina as informações dos perfis com sua localização, de modo a poder assisti-los, facilitando a interação entre os aprendizes e permitindo a entrega de material pedagógico contextualizado. Os docentes utilizam o LOCAL para cadastrar o material pedagógico que será distribuído aos alunos. O LOCAL se comunica com os estudantes de modo a distribuir o material pedagógico previamente cadastrado e coloca estudantes com interesses similares em contato durante a realização de atividades pedagógicas. Caso, durante estas atividades, o estudante não tenha nenhum interesse cadastrado que corresponda àqueles requeridos pela atividade, ele tem a opção de fazer a escolha utilizando uma {\it interface} de usuário do LOCAL chamada Assistente Pessoal. 
 
