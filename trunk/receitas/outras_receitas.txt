@@ -2,6 +2,8 @@ PRATOS PRINCIPAIS
 
  - Alho-poró assado cremoso 
      <livro:Revolução na Cozinha - Jamie Oliver>
+ - Atum em cama de legumes
+     <http://www.macheesmo.com/2010/08/steamed-salmon-with-roasted-veg/>
  - Arroz carreteiro
      <head:>
  - Boeuf bourguignon
@@ -197,6 +199,8 @@ BISCOITOS
 
 MOLHOS
 
+ - Caldo de legumes
+     <http://www.simplyrecipes.com/recipes/how_to_make_vegetable_stock/>
  - Chimichurri (vinagrete)
      <http://www.macheesmo.com/2011/03/argentine-chimichurri/>
  - Guacamole
