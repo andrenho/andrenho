@@ -63,8 +63,12 @@ ENSOPADOS
      <http://www.macheesmo.com/2010/11/green-bean-casserole-from-scratch/>
  - Cappelletti
      <http://italianfood.about.com/library/rec/blr0102.htm>
+ - Sopa de brócolis com parmesão
+     <http://www.macheesmo.com/2012/03/broccoli-parmesan-soup/>
  - Sopa de feijão fradinho
      <http://www.macheesmo.com/2008/12/good-luck-pea-soup/>
+ - Sopa de grão-de-bico
+     <http://www.macheesmo.com/2012/02/thirty-minute-chickpea-stew/>
  - Lentilhas
      <file:lentilhas.txt>
 
@@ -183,6 +187,8 @@ LANCHES
      <livro:Revolução na Cozinha - Jamie Oliver>
  - Omelete de Denver
      <http://www.macheesmo.com/2010/04/the-denver-omelet/>
+ - Omelete Lox
+     <http://www.macheesmo.com/2011/11/the-lox-omelet/>
  - Quesadillas de milho
      <http://www.macheesmo.com/2011/04/sweet-corn-quesadilla/>
  - Sanduiche de abacate e sardinhas
