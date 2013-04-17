@@ -12601,6 +12601,8 @@ Based on the following sources:
 <part name="T6" library="transistor" deviceset="2N2222" device=""/>
 <part name="R17" library="rcl" deviceset="R-EU_" device="0207/10" value="1K"/>
 <part name="GND9" library="supply1" deviceset="GND" device=""/>
+<part name="SUPPLY3" library="supply2" deviceset="VCC" device=""/>
+<part name="SUPPLY4" library="supply2" deviceset="VCC" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -12685,6 +12687,9 @@ Based on the following sources:
 <instance part="T6" gate="G$1" x="175.26" y="-66.04"/>
 <instance part="R17" gate="G$1" x="167.64" y="-66.04" rot="R180"/>
 <instance part="GND9" gate="1" x="177.8" y="-86.36"/>
+<instance part="IC2" gate="P" x="10.16" y="17.78" rot="R90"/>
+<instance part="SUPPLY3" gate="G$1" x="0" y="17.78" rot="R90"/>
+<instance part="SUPPLY4" gate="G$1" x="20.32" y="17.78" rot="R270"/>
 </instances>
 <busses>
 <bus name="PB[0..7],PD6">
@@ -12820,6 +12825,14 @@ Based on the following sources:
 <wire x1="12.7" y1="-22.86" x2="12.7" y2="-25.4" width="0.1524" layer="91"/>
 <wire x1="12.7" y1="-25.4" x2="15.24" y2="-25.4" width="0.1524" layer="91"/>
 <junction x="12.7" y="-22.86"/>
+</segment>
+<segment>
+<pinref part="IC2" gate="P" pin="VDD"/>
+<pinref part="SUPPLY3" gate="G$1" pin="VCC"/>
+</segment>
+<segment>
+<pinref part="IC2" gate="P" pin="VSS"/>
+<pinref part="SUPPLY4" gate="G$1" pin="VCC"/>
 </segment>
 </net>
 <net name="N$4" class="0">
