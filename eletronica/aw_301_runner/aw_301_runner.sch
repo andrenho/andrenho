@@ -10737,12 +10737,13 @@ Source: http://www.murata.com .. GRM43DR72E224KW01.pdf</description>
 <part name="SW1" library="special" deviceset="SW_DIP-8" device=""/>
 <part name="G1" library="battery" deviceset="CR2032H" device=""/>
 <part name="C1" library="resistor" deviceset="CPOL-EU" device="E2.5-6" value="100mF"/>
-<part name="R2" library="rcl" deviceset="R-EU_" device="0207/10" value="50"/>
+<part name="R2" library="rcl" deviceset="R-EU_" device="0207/10" value="100"/>
 <part name="GND2" library="supply1" deviceset="GND" device=""/>
 <part name="GND3" library="supply1" deviceset="GND" device=""/>
 <part name="SG1" library="buzzer" deviceset="F/CM12P" device=""/>
 <part name="GND1" library="supply1" deviceset="GND" device=""/>
 <part name="GND4" library="supply1" deviceset="GND" device=""/>
+<part name="R1" library="rcl" deviceset="R-EU_" device="0207/10" value="100"/>
 </parts>
 <sheets>
 <sheet>
@@ -10762,6 +10763,7 @@ Source: http://www.murata.com .. GRM43DR72E224KW01.pdf</description>
 <instance part="SG1" gate="G$1" x="129.54" y="22.86" rot="R270"/>
 <instance part="GND1" gate="1" x="127" y="15.24"/>
 <instance part="GND4" gate="1" x="142.24" y="71.12"/>
+<instance part="R1" gate="G$1" x="121.92" y="30.48" rot="R180"/>
 </instances>
 <busses>
 </busses>
@@ -10822,12 +10824,18 @@ Source: http://www.murata.com .. GRM43DR72E224KW01.pdf</description>
 <pinref part="IC1" gate="G$1" pin="(T1)PD5"/>
 <pinref part="R2" gate="G$1" pin="2"/>
 <wire x1="116.84" y1="25.4" x2="111.76" y2="25.4" width="0.1524" layer="91"/>
+<pinref part="R1" gate="G$1" pin="2"/>
+<wire x1="116.84" y1="25.4" x2="116.84" y2="30.48" width="0.1524" layer="91"/>
+<junction x="116.84" y="25.4"/>
 </segment>
 </net>
 <net name="N$3" class="0">
 <segment>
 <pinref part="R2" gate="G$1" pin="1"/>
 <pinref part="SG1" gate="G$1" pin="1"/>
+<pinref part="R1" gate="G$1" pin="1"/>
+<wire x1="127" y1="30.48" x2="127" y2="25.4" width="0.1524" layer="91"/>
+<junction x="127" y="25.4"/>
 </segment>
 </net>
 <net name="VCC" class="0">
