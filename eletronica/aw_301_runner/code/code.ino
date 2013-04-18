@@ -1,4 +1,8 @@
 #include <stdint.h>
+#include <avr/sleep.h>
+#include <avr/power.h>
+#include <avr/io.h>
+#include <avr/wdt.h>
 
 const byte FOREVER = 10;
 const byte PIEZO = 7;
@@ -33,35 +37,16 @@ const uint16_t* runs[] = {
   (uint16_t[]){ 1800, 0 }, // W9D3
 };
 
-enum { WARMUP, RUN, WALK } state;
-int day = 0;
-int current = 0; // current iteration
+enum State { WARMUP, RUN, WALK } state;
+volatile int day = 0;
+volatile int current = 0;
+volatile int times = 0;
 
-void setup() {
-  // setup piezo
-  pinMode(PIEZO, OUTPUT);
-
-  // setup input pins
-  for(int i=14; i >= 9; i--) {
-    pinMode(i, INPUT);
-    day <<= 1;
-    day += (digitalRead(i) == HIGH ? 1 : 0);
-  }
-  if(day > 26) {
-    beep(FOREVER);
-  }
-  
-  // setup warmup
-  pinMode(WARMUP_PIN, INPUT);
-  state = (digitalRead(WARMUP_PIN) == HIGH ? WARMUP : RUN);
-}
-
-
-void beep(int count) {
+void beep(int count, int delay_=400) {
   for(int i=0; i<count; i++) {
 again:
     digitalWrite(PIEZO, HIGH);
-    delay(400);
+    delay(delay_);
     digitalWrite(PIEZO, LOW);
     delay(300);
     if(count == FOREVER) {
@@ -71,19 +56,58 @@ again:
 }
 
 
-void loop() {
+/*ISR(WDT_vect)
+{
+      for(int j=0; j<times; j++) {      
+        beep(1, 100);
+        delay(100);
+      }
+}*/
+
+void setup() {
+  // setup piezo
+  pinMode(PIEZO, OUTPUT);
+
+  // setup input pins
+  for(int i=14; i >= 9; i--) {
+    pinMode(i, INPUT_PULLUP); // INPUT_PULLUP
+    day <<= 1;
+    day += (digitalRead(i) == HIGH ? 0 : 1);
+  }
+  if(day > 26) {
+    beep(FOREVER);
+  }
+  
+  // setup warmup
+  pinMode(WARMUP_PIN, INPUT_PULLUP);
+  state = (digitalRead(WARMUP_PIN) == LOW ? WARMUP : RUN);
+
   // warmup
   if(state == WARMUP) {
     beep(3);
-    delay(1000 * 60 * 5);
+    delay(1000l * 60 * 5);
     state = RUN;
   }
+  
+  // sleep
+  MCUSR = MCUSR & B11110111;
+  WDTCSR = WDTCSR | B00011000; 
+  WDTCSR = B00100001;
+  WDTCSR = WDTCSR | B01000000;
+  MCUSR = MCUSR & B11110111;
+}
 
-  // loop
-  current = 0;
-  while(runs[day][current] != 0) {
+
+void loop() {
+  if(runs[day][current] == 0) {
+    // warmout
+    beep(3);
+    delay(1000l * 60 * 5);
+    beep(FOREVER);
     
-    // beep
+  } else if(times == 0) {
+    uint16_t x = 20;
+    times = x/8; //runs[day][current] / 8;
     if(state == RUN) {
       beep(2);
       state = WALK; // for next iteration
@@ -91,14 +115,20 @@ void loop() {
       beep(1);
       state = RUN; // for next iteration
     }
+    ++current;
     
-    // wait
-    delay(1000 * runs[day][current]);
-    current++;
+  } else {
+    set_sleep_mode(SLEEP_MODE_PWR_DOWN); // Set sleep mode.
+    sleep_enable(); // Enable sleep mode.
+    sleep_mode();
+    sleep_disable();
   }
+}
 
-  // warmout
-  beep(3);
-  delay(1000 * 60 * 5);
-  beep(FOREVER);
+
+ISR(WDT_vect)
+{
+  times--;
+  beep(1,80);
+  delay(80);
 }
