@@ -61,7 +61,7 @@ volatile boolean f_wdt=1;
 void setup() {
   //Serial.begin(9600);
   read_controls();
-  setup_watchdog(5);
+  setup_watchdog(9);
 }
 
 
