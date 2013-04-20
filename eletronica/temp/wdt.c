@@ -11,9 +11,10 @@ void system_sleep() {
 void watchdog_init()
 {
 	cli();
+	MCUSR &= ~(1 << WDRF);
 	wdt_reset();
-	WDTCSR = (1<<WDCE) | (1<<WDE); // enable WDT
-	WDTCSR = (1<<WDIE) | (1<<WDP2) | (1<<WDP1); // interrupt every 1 sec
+	_WD_CONTROL_REG = (1<<_WD_CHANGE_BIT) | (1<<WDE); // enable WDT
+	_WD_CONTROL_REG = (1<<WDIF) | (1<<WDIE) | (1<<WDP2) | (1<<WDP1); // interrupt every 1 sec
 	sei();
 }
 
@@ -22,3 +23,6 @@ ISR(WDT_OVERFLOW_vect) {
 //ISR(WDT_vect) {
 	f_wdt=1;  // set global flag
 }
+
+
+ISR(__vector_default){}
