@@ -1,4 +1,4 @@
-#define F_CPU 16000000UL
+#define F_CPU 8000000UL
 
 #include <avr/interrupt.h>
 #include <avr/io.h>
@@ -89,9 +89,9 @@ beep_again:
 #if DEBUG
 	USART_printf("Beep! ");
 #endif
-		PORTB |= (1<<PIEZO);
+		PORTD |= (1<<PIEZO);
 		_delay_ms(400);
-		PORTB &= ~(1<<PIEZO);
+		PORTD &= ~(1<<PIEZO);
 		_delay_ms(300);
 		if(times == FOREVER)
 			goto beep_again;
@@ -116,8 +116,8 @@ static void read_controls()
 	state = (PINB & 0b01000000 ? WARMUP : RUN);
 
 	// set variables (TODO)
-	state = WARMUP;
-	day = 0;
+	//state = WARMUP;
+	//day = 0;
 
 	// set variables
 	current = days[day];
@@ -171,6 +171,11 @@ static void step()
 	else
 	{
 		--timer;
+		/*
+		PORTD |= (1<<PIEZO);
+		_delay_ms(50);
+		PORTD &= ~(1<<PIEZO);
+		*/
 #if DEBUG
 		USART_printf("Timer: %d\n", timer);
 #endif
@@ -185,14 +190,15 @@ int main()
 	USART_printf("c%dk\n", 25);
 #endif
 	read_controls();
-	watchdog_init();
+	//watchdog_init();
 	
 	for(;;) 
-		if(f_wdt == 1)
+		//if(f_wdt == 1)
 		{
-			f_wdt = 0;
+		//	f_wdt = 0;
 			step();
-			system_sleep();
+			_delay_ms(1000);
+		//	system_sleep();
 		}
 
 	return 0;
