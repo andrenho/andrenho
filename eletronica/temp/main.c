@@ -32,6 +32,8 @@ volatile uint8_t day, warmup;
 
 static void read_controls()
 {
+	_delay_ms(500);
+
 	// set piezo as output
 	DDRD |= (1<<PIEZO);
 
@@ -39,9 +41,22 @@ static void read_controls()
 	DDRB = 0b10000000;
 	PORTB = 0b01111111; // set as pullup
 	day = ~(PINB) & 0b00111111;
+	warmup = (PINB & 0b01000000 ? 0 : 1);
+
+	// debug day
+	/*
+	DDRD |= (1<<PORTD4) | (1<<PORTD3) | (1<<PORTD2);
+	DDRA |= (1<<PORTA0) | (1<<PORTA1);
+	
+	PORTD |= (day & 0x1) << PORTD4;
+	PORTD |= ((day >> 1) & 0x1) << PORTD3;
+	PORTD |= ((day >> 2) & 0x1) << PORTD2;
+	PORTA |= ((day >> 3) & 0x1) << PORTA0;
+	PORTA |= ((day >> 4) & 0x1) << PORTA1;
+	*/
+
 	if(day > 26)
 		beep(FOREVER);
-	warmup = (PINB & 0b01000000 ? 0 : 1);
 }
 
 
