@@ -12799,6 +12799,7 @@ general purpose rectifier, 1 A</description>
 <segment>
 <pinref part="IC2" gate="A" pin="IA"/>
 <wire x1="15.24" y1="-10.16" x2="0" y2="-10.16" width="0.1524" layer="91"/>
+<label x="-7.62" y="-10.16" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="PB1" class="0">
@@ -12809,6 +12810,7 @@ general purpose rectifier, 1 A</description>
 <segment>
 <pinref part="IC2" gate="A" pin="IB"/>
 <wire x1="15.24" y1="-12.7" x2="0" y2="-12.7" width="0.1524" layer="91"/>
+<label x="-7.62" y="-12.7" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="PB2" class="0">
@@ -12819,6 +12821,7 @@ general purpose rectifier, 1 A</description>
 <segment>
 <pinref part="IC2" gate="A" pin="IC"/>
 <wire x1="15.24" y1="-15.24" x2="0" y2="-15.24" width="0.1524" layer="91"/>
+<label x="-7.62" y="-15.24" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="PB3" class="0">
@@ -12829,6 +12832,7 @@ general purpose rectifier, 1 A</description>
 <segment>
 <pinref part="IC2" gate="A" pin="ID"/>
 <wire x1="15.24" y1="-17.78" x2="0" y2="-17.78" width="0.1524" layer="91"/>
+<label x="-7.62" y="-17.78" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="PB4" class="0">
@@ -12839,6 +12843,7 @@ general purpose rectifier, 1 A</description>
 <segment>
 <pinref part="R17" gate="G$1" pin="2"/>
 <wire x1="162.56" y1="-66.04" x2="162.56" y2="-73.66" width="0.1524" layer="91"/>
+<label x="157.48" y="-71.12" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="PB5" class="0">
@@ -12849,6 +12854,7 @@ general purpose rectifier, 1 A</description>
 <segment>
 <pinref part="R16" gate="G$1" pin="2"/>
 <wire x1="137.16" y1="-66.04" x2="137.16" y2="-73.66" width="0.1524" layer="91"/>
+<label x="132.08" y="-71.12" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="PB6" class="0">
@@ -12859,6 +12865,7 @@ general purpose rectifier, 1 A</description>
 <segment>
 <pinref part="R15" gate="G$1" pin="2"/>
 <wire x1="111.76" y1="-66.04" x2="111.76" y2="-73.66" width="0.1524" layer="91"/>
+<label x="106.68" y="-71.12" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="PB7" class="0">
@@ -12869,6 +12876,7 @@ general purpose rectifier, 1 A</description>
 <segment>
 <pinref part="R14" gate="G$1" pin="2"/>
 <wire x1="86.36" y1="-66.04" x2="86.36" y2="-73.66" width="0.1524" layer="91"/>
+<label x="81.28" y="-71.12" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="N$15" class="0">
@@ -13137,6 +13145,7 @@ general purpose rectifier, 1 A</description>
 <segment>
 <pinref part="R13" gate="G$1" pin="2"/>
 <wire x1="60.96" y1="-66.04" x2="60.96" y2="-73.66" width="0.1524" layer="91"/>
+<label x="55.88" y="-71.12" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="N$13" class="0">
