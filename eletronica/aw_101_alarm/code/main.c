@@ -24,16 +24,22 @@ static inline void initialize()
 	// initialize I/O ports
 	DDRB = 0xff;		// 7-segment digits
 	DDRD = 0b01000000;	// PD* = input, PD6 = digit
+	PORTD = 0b00111111;     // set inputs as pullup
 
 	// give time to ports adjust
 	_delay_ms(100);
 
-	// initialize timer
+	// initialize general timer (for seconds)
 	//   (((Input_Freq / Prescaler) / Target_Freq) - 1)
 	//   (((4.000.000 / 256) / 1) - 1) = 15624
 	TCCR1B = (1<<WGM12) | (1<<CS12); // set 1:256 prescaler, init CTC
 	OCR1A  = 15624;			 // set counter
 	TIMSK = (1<<OCIE1A);		 // enable timer interrupt
+
+	// initialize beep time (1/6 second) [TODO]
+	//   (((Input_Freq / Prescaler) / Target_Freq) - 1)
+	//   (((4.000.000 / 1024) / 6) - 1) = 650.04
+	//TCCR0B = (1<<CS12) | (1<<CS10);	// set 1:1024 prescaler
 }
 
 
@@ -74,14 +80,6 @@ static void draw_7segment()
 }
 
 
-static inline void beep_for_1sec()
-{
-	// check for beep stop (TODO)
-	
-	// beeps and draws 7-segment (TODO)
-}
-
-
 static inline void adjust_timer(int amt)
 {
 	int s = selected_timer();
@@ -115,14 +113,9 @@ int main()
 	// main loop
 	for(;;)
 	{
-		if(beep[0] || beep[1] || beep[2])
-			beep_for_1sec();
-		else
-		{
-			draw_7segment();
-			adjust_timer(updown_pressed());
-			// _delay_ms(20);
-		}
+		// TODO - beeps
+		draw_7segment();
+		adjust_timer(updown_pressed()); // TODO - check timing
 	}
 
 	return 0;
