@@ -12382,84 +12382,6 @@ general purpose rectifier, 1 A</description>
 </deviceset>
 </devicesets>
 </library>
-<library name="buzzer">
-<description>&lt;b&gt;Speakers and Buzzers&lt;/b&gt;&lt;p&gt;
-&lt;ul&gt;Distributors:
-&lt;li&gt;Buerklin
-&lt;li&gt;Spoerle
-&lt;li&gt;Schukat
-&lt;/ul&gt;
-&lt;author&gt;Created by librarian@cadsoft.de&lt;/author&gt;</description>
-<packages>
-<package name="F/CM12P">
-<description>&lt;b&gt;BUZZER&lt;/b&gt;</description>
-<wire x1="3.175" y1="3.048" x2="4.445" y2="3.048" width="0.254" layer="21"/>
-<wire x1="3.81" y1="3.683" x2="3.81" y2="2.413" width="0.254" layer="21"/>
-<circle x="0" y="0" radius="6.985" width="0.1524" layer="21"/>
-<circle x="0" y="0" radius="1.27" width="0.1524" layer="21"/>
-<circle x="3.81" y="3.048" radius="1.27" width="0.1524" layer="21"/>
-<pad name="-" x="-3.81" y="0" drill="1.016" diameter="2.54" shape="octagon"/>
-<pad name="+" x="3.81" y="0" drill="1.016" diameter="2.54" shape="octagon"/>
-<text x="2.54" y="6.985" size="1.27" layer="25" ratio="10">&gt;NAME</text>
-<text x="-4.445" y="-3.81" size="1.27" layer="27" ratio="10">&gt;VALUE</text>
-</package>
-</packages>
-<symbols>
-<symbol name="B2P">
-<wire x1="-1.27" y1="3.175" x2="0" y2="3.175" width="0.1524" layer="94"/>
-<wire x1="0" y1="3.175" x2="0" y2="3.81" width="0.1524" layer="94"/>
-<wire x1="0" y1="3.175" x2="0" y2="2.54" width="0.1524" layer="94"/>
-<wire x1="0.635" y1="4.445" x2="0.635" y2="1.905" width="0.1524" layer="94"/>
-<wire x1="0.635" y1="1.905" x2="1.905" y2="1.905" width="0.1524" layer="94"/>
-<wire x1="1.905" y1="1.905" x2="1.905" y2="4.445" width="0.1524" layer="94"/>
-<wire x1="1.905" y1="4.445" x2="0.635" y2="4.445" width="0.1524" layer="94"/>
-<wire x1="2.54" y1="3.81" x2="2.54" y2="3.175" width="0.1524" layer="94"/>
-<wire x1="2.54" y1="3.175" x2="3.81" y2="3.175" width="0.1524" layer="94"/>
-<wire x1="2.54" y1="3.175" x2="2.54" y2="2.54" width="0.1524" layer="94"/>
-<wire x1="2.54" y1="-2.54" x2="2.54" y2="1.27" width="0.1524" layer="94"/>
-<wire x1="0" y1="-2.54" x2="0" y2="1.27" width="0.1524" layer="94"/>
-<wire x1="-2.54" y1="1.27" x2="0" y2="1.27" width="0.254" layer="94"/>
-<wire x1="5.08" y1="1.27" x2="5.08" y2="5.08" width="0.254" layer="94"/>
-<wire x1="5.08" y1="5.08" x2="5.715" y2="5.08" width="0.254" layer="94"/>
-<wire x1="5.715" y1="5.08" x2="5.715" y2="5.715" width="0.254" layer="94"/>
-<wire x1="5.715" y1="5.715" x2="-3.175" y2="5.715" width="0.254" layer="94"/>
-<wire x1="-3.175" y1="5.715" x2="-3.175" y2="5.08" width="0.254" layer="94"/>
-<wire x1="-3.175" y1="5.08" x2="-2.54" y2="5.08" width="0.254" layer="94"/>
-<wire x1="-2.54" y1="5.08" x2="-2.54" y2="1.27" width="0.254" layer="94"/>
-<wire x1="-2.54" y1="5.08" x2="5.08" y2="5.08" width="0.254" layer="94"/>
-<wire x1="2.54" y1="1.27" x2="5.08" y2="1.27" width="0.254" layer="94"/>
-<wire x1="0" y1="1.27" x2="2.54" y2="1.27" width="0.254" layer="94"/>
-<text x="-2.54" y="6.35" size="1.778" layer="95">&gt;NAME</text>
-<text x="6.35" y="0" size="1.778" layer="96">&gt;VALUE</text>
-<pin name="2" x="5.08" y="-2.54" visible="pad" length="short" direction="pas" rot="R180"/>
-<pin name="1" x="-2.54" y="-2.54" visible="pad" length="short" direction="pas"/>
-</symbol>
-</symbols>
-<devicesets>
-<deviceset name="F/CM12P" prefix="SG">
-<description>&lt;b&gt;BUZZER&lt;/b&gt;&lt;p&gt; Source: Buerklin</description>
-<gates>
-<gate name="G$1" symbol="B2P" x="0" y="0"/>
-</gates>
-<devices>
-<device name="" package="F/CM12P">
-<connects>
-<connect gate="G$1" pin="1" pad="+"/>
-<connect gate="G$1" pin="2" pad="-"/>
-</connects>
-<technologies>
-<technology name="">
-<attribute name="MF" value="" constant="no"/>
-<attribute name="MPN" value="" constant="no"/>
-<attribute name="OC_FARNELL" value="unknown" constant="no"/>
-<attribute name="OC_NEWARK" value="unknown" constant="no"/>
-</technology>
-</technologies>
-</device>
-</devices>
-</deviceset>
-</devicesets>
-</library>
 </libraries>
 <attributes>
 </attributes>
@@ -12521,8 +12443,8 @@ general purpose rectifier, 1 A</description>
 <part name="GND1" library="supply1" deviceset="GND" device=""/>
 <part name="D1" library="diode" deviceset="1N4004" device=""/>
 <part name="D2" library="diode" deviceset="1N4004" device=""/>
-<part name="SG1" library="buzzer" deviceset="F/CM12P" device=""/>
 <part name="GND7" library="supply1" deviceset="GND" device=""/>
+<part name="X4" library="con-ptr500" deviceset="AK500/2" device="" value="BUZZER"/>
 </parts>
 <sheets>
 <sheet>
@@ -12608,8 +12530,9 @@ general purpose rectifier, 1 A</description>
 <instance part="GND1" gate="1" x="2.54" y="40.64"/>
 <instance part="D1" gate="1" x="7.62" y="60.96"/>
 <instance part="D2" gate="1" x="15.24" y="66.04" rot="R270"/>
-<instance part="SG1" gate="G$1" x="88.9" y="27.94" rot="R270"/>
-<instance part="GND7" gate="1" x="86.36" y="20.32"/>
+<instance part="GND7" gate="1" x="86.36" y="25.4"/>
+<instance part="X4" gate="-1" x="91.44" y="27.94" rot="R180"/>
+<instance part="X4" gate="-2" x="91.44" y="30.48" rot="R180"/>
 </instances>
 <busses>
 <bus name="PB[0..7],PD6">
@@ -12695,7 +12618,7 @@ general purpose rectifier, 1 A</description>
 <pinref part="GND1" gate="1" pin="GND"/>
 </segment>
 <segment>
-<pinref part="SG1" gate="G$1" pin="2"/>
+<pinref part="X4" gate="-1" pin="KL"/>
 <pinref part="GND7" gate="1" pin="GND"/>
 </segment>
 </net>
@@ -13211,8 +13134,8 @@ general purpose rectifier, 1 A</description>
 <net name="N$10" class="0">
 <segment>
 <pinref part="IC1" gate="G$1" pin="(RXD)PD0"/>
-<pinref part="SG1" gate="G$1" pin="1"/>
 <wire x1="86.36" y1="40.64" x2="86.36" y2="30.48" width="0.1524" layer="91"/>
+<pinref part="X4" gate="-2" pin="KL"/>
 </segment>
 </net>
 </nets>
