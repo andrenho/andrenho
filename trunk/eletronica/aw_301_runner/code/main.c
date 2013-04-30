@@ -7,7 +7,8 @@
 #include <util/delay.h>
 
 
-#define PIEZO PORTD5
+#define PIEZO_A PORTD5
+#define PIEZO_B PORTD4
 #define FOREVER 99
 
 
@@ -17,7 +18,8 @@ static void beep(int times)
 	for(i=0; i<times; i++)
 	{
 beep_again:
-		PORTD |= (1<<PIEZO);
+		PORTD |= (1<<PIEZO_A);
+		PORTD ~= (1<<PIEZO_B);
 		_delay_ms(400);
 		PORTD &= ~(1<<PIEZO);
 		_delay_ms(300);
@@ -71,7 +73,7 @@ void warm_up()
 
 void run(int time)
 {
-	beep(2);
+	beep(1);
 
 	int i;
 	for(i=0; i<time; i++)
@@ -83,7 +85,7 @@ void run(int time)
 
 void walk(int time)
 {
-	beep(1);
+	beep(2);
 
 	int i;
 	for(i=0; i<time; i++)
@@ -106,17 +108,17 @@ int main()
 	case 0: case 1: case 2:
 		run(60); walk(90); run(60); walk(90); run(60); walk(90);
 		run(60); walk(90); run(60); walk(90); run(60); walk(90);
-		run(60); walk(90); run(60); walk(90);
+		run(60); walk(90); run(60);
 		break;
 	/* W2 */
 	case 3: case 4: case 5:
   		run(90); walk(120); run(90); walk(120); run(90); walk(120); 
-		run(90); walk(120); run(90); walk(120); run(90); walk(120);
+		run(90); walk(120); run(90); walk(120); run(90);
 		break;
 	/* W3 */
 	case 6: case 7: case 8:
   		run(90); walk(90); run(180); walk(180); run(90); walk(90); 
-		run(180); walk(180);
+		run(180);
 		break;
 	/* W4 */
 	case 9: case 10: case 11:
