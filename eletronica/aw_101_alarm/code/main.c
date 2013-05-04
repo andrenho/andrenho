@@ -7,7 +7,7 @@
 #include <util/delay.h>
 
 // global variables
-volatile uint16_t timer[3];
+volatile int16_t timer[3];
 volatile bool beep[3];
 
 
@@ -45,11 +45,14 @@ static inline void initialize()
 
 static inline int selected_timer()
 {
+	return 0;
+	/* TODO
 	if(PIND & (1<<PORTD3))
 		return 0;
 	else if(PIND & (1<<PORTD2))
 		return 1;
 	return 2;
+	*/
 }
 
 
@@ -57,7 +60,6 @@ static void draw_7segment()
 {
 	int digit;
 	int s = selected_timer();
-	PORTD &= ~(1<<PORTD6);
 
 	uint32_t time = (timer[s] % 60) + ((timer[s] / 60 % 60) * 100) +
 		((timer[s] / 3600) * 10000);
@@ -66,14 +68,28 @@ static void draw_7segment()
 	uint8_t seg = 0b00010000;
 	for(digit=0; digit<5; digit++)
 	{
+		// draw number and activate corresponding digit
 		uint8_t d = time / r % 10;
-		if(seg == 0x0)
+		if(digit == 4)
 		{
+			PORTD |= (1<<PORTD6);
 			PORTB = d;
-			PORTD = (1<<PORTD6);
 		}
 		else
+		{
+			PORTD &= ~(1<<PORTD6);
 			PORTB = seg | d;
+		}
+
+		// wait (more for numbers with more LEDs)
+		if(d == 1)
+			_delay_us(300);
+		else if(d == 7)
+			_delay_us(500);
+		else
+			_delay_ms(1);
+
+		// next number
 		r *= 10;
 		seg <<= 1;
 	}
@@ -82,22 +98,25 @@ static void draw_7segment()
 
 static inline void adjust_timer(int amt)
 {
+	if(amt == 0)
+		return;
+
 	int s = selected_timer();
-	if(amt < 0 && timer[s] < amt)
+	timer[s] += amt;
+
+	if(timer[s] < 0)
 		timer[s] = 0;
 	else if(timer[s] + amt > 60*60*9)
 		timer[s] = 60*60*9;
-	else
-		--timer[s];
 }
 
 
 static inline int updown_pressed()
 {
-	if(PIND & (1<<PORTD4))
-		return -1;
-	else if(PIND & (1<<PORTD5))
-		return 1;
+	if(!(PIND & (1<<PORTD4)))
+		return -2;
+	else if(!(PIND & (1<<PORTD5)))
+		return 2;
 	return 0;
 }
 
