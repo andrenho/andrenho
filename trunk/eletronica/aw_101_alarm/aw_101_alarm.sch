@@ -12422,15 +12422,15 @@ general purpose rectifier, 1 A</description>
 <part name="DIS4" library="display-hp" deviceset="HD-H103" device=""/>
 <part name="DIS5" library="display-hp" deviceset="HD-H103" device=""/>
 <part name="T2" library="transistor" deviceset="2N2222" device=""/>
-<part name="R13" library="rcl" deviceset="R-EU_" device="0207/10" value="1K"/>
+<part name="R13" library="rcl" deviceset="R-EU_" device="0207/10" value="100"/>
 <part name="T3" library="transistor" deviceset="2N2222" device=""/>
-<part name="R14" library="rcl" deviceset="R-EU_" device="0207/10" value="1K"/>
+<part name="R14" library="rcl" deviceset="R-EU_" device="0207/10" value="100"/>
 <part name="T4" library="transistor" deviceset="2N2222" device=""/>
-<part name="R15" library="rcl" deviceset="R-EU_" device="0207/10" value="1K"/>
+<part name="R15" library="rcl" deviceset="R-EU_" device="0207/10" value="100"/>
 <part name="T5" library="transistor" deviceset="2N2222" device=""/>
-<part name="R16" library="rcl" deviceset="R-EU_" device="0207/10" value="1K"/>
+<part name="R16" library="rcl" deviceset="R-EU_" device="0207/10" value="100"/>
 <part name="T6" library="transistor" deviceset="2N2222" device=""/>
-<part name="R17" library="rcl" deviceset="R-EU_" device="0207/10" value="1K"/>
+<part name="R17" library="rcl" deviceset="R-EU_" device="0207/10" value="100"/>
 <part name="GND9" library="supply1" deviceset="GND" device=""/>
 <part name="SUPPLY3" library="supply2" deviceset="VCC" device=""/>
 <part name="SUPPLY4" library="supply2" deviceset="VCC" device=""/>
@@ -12445,6 +12445,7 @@ general purpose rectifier, 1 A</description>
 <part name="D2" library="diode" deviceset="1N4004" device=""/>
 <part name="GND7" library="supply1" deviceset="GND" device=""/>
 <part name="X4" library="con-ptr500" deviceset="AK500/2" device="" value="BUZZER"/>
+<part name="C1" library="rcl" deviceset="CPOL-EU" device="E2.5-6" value="10mF"/>
 </parts>
 <sheets>
 <sheet>
@@ -12530,9 +12531,10 @@ general purpose rectifier, 1 A</description>
 <instance part="GND1" gate="1" x="2.54" y="40.64"/>
 <instance part="D1" gate="1" x="7.62" y="60.96"/>
 <instance part="D2" gate="1" x="15.24" y="66.04" rot="R270"/>
-<instance part="GND7" gate="1" x="86.36" y="25.4"/>
+<instance part="GND7" gate="1" x="86.36" y="20.32"/>
 <instance part="X4" gate="-1" x="91.44" y="27.94" rot="R180"/>
 <instance part="X4" gate="-2" x="91.44" y="30.48" rot="R180"/>
+<instance part="C1" gate="G$1" x="76.2" y="30.48"/>
 </instances>
 <busses>
 <bus name="PB[0..7],PD6">
@@ -12620,6 +12622,11 @@ general purpose rectifier, 1 A</description>
 <segment>
 <pinref part="X4" gate="-1" pin="KL"/>
 <pinref part="GND7" gate="1" pin="GND"/>
+<wire x1="86.36" y1="22.86" x2="86.36" y2="25.4" width="0.1524" layer="91"/>
+<pinref part="C1" gate="G$1" pin="-"/>
+<wire x1="86.36" y1="25.4" x2="86.36" y2="27.94" width="0.1524" layer="91"/>
+<wire x1="76.2" y1="25.4" x2="86.36" y2="25.4" width="0.1524" layer="91"/>
+<junction x="86.36" y="25.4"/>
 </segment>
 </net>
 <net name="VCC" class="0">
@@ -13134,8 +13141,12 @@ general purpose rectifier, 1 A</description>
 <net name="N$10" class="0">
 <segment>
 <pinref part="IC1" gate="G$1" pin="(RXD)PD0"/>
-<wire x1="86.36" y1="40.64" x2="86.36" y2="30.48" width="0.1524" layer="91"/>
+<wire x1="86.36" y1="40.64" x2="86.36" y2="33.02" width="0.1524" layer="91"/>
 <pinref part="X4" gate="-2" pin="KL"/>
+<pinref part="C1" gate="G$1" pin="+"/>
+<wire x1="86.36" y1="33.02" x2="86.36" y2="30.48" width="0.1524" layer="91"/>
+<wire x1="76.2" y1="33.02" x2="86.36" y2="33.02" width="0.1524" layer="91"/>
+<junction x="86.36" y="33.02"/>
 </segment>
 </net>
 </nets>

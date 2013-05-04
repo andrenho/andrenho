@@ -7,8 +7,7 @@
 #include <util/delay.h>
 
 
-#define PIEZO_A PORTD5
-#define PIEZO_B PORTD4
+#define PIEZO PORTD5
 #define FOREVER 99
 
 
@@ -18,8 +17,7 @@ static void beep(int times)
 	for(i=0; i<times; i++)
 	{
 beep_again:
-		PORTD |= (1<<PIEZO_A);
-		PORTD ~= (1<<PIEZO_B);
+		PORTD |= (1<<PIEZO);
 		_delay_ms(400);
 		PORTD &= ~(1<<PIEZO);
 		_delay_ms(300);
