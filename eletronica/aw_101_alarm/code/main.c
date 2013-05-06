@@ -31,8 +31,8 @@ static inline void initialize()
 
 	// initialize I/O ports
 	DDRB = 0xff;		// 7-segment digits
-	DDRD = 0b01000000;	// PD* = input, PD6 = digit
-	PORTD = 0b00111111;     // set inputs as pullup
+	DDRD = 0b01000001;	// PD* = input, PD6 = digit, PD0 = buzzer
+	PORTD = 0b00111110;     // set inputs as pullup
 
 	// give time to ports adjust
 	_delay_ms(100);
@@ -160,7 +160,7 @@ static inline void beep_event()
 // check if the silent button was pressed
 void silent_button()
 {
-	int i;
+	long i;
 
 	if(!(PIND & (1<<PORTD1)))
 	{
@@ -173,10 +173,12 @@ void silent_button()
 			}
 
 		// debounce button
-		_delay_ms(100);
-		while(!(PIND & (1<<PORTD1)))
-			;
-		_delay_ms(100);
+		for(i=0; i<20; i++)           // delay (debounce)
+			draw_7segment();
+		while(!(PIND & (1<<PORTD1)))  // wait for depress
+			draw_7segment();
+		for(i=0; i<20; i++)           // delay (debounce)
+			draw_7segment();
 	}
 }
 
