@@ -138,7 +138,7 @@ static inline void beep_event()
 
 	// find if it should beep or not
 	for(i=0; i<3; i++)
-		if(beep[i] && beep_seq[i][beep_cur])
+		if(beep[i] && beep_seq[i][beep_cur/2])
 		{
 			v = true;
 			break;
@@ -152,7 +152,7 @@ static inline void beep_event()
 
 	// advance the beep current value
 	beep_cur++;
-	if(beep_cur == 12)
+	if(beep_cur > 23)
 		beep_cur = 0;
 }
 
@@ -193,10 +193,10 @@ int main()
 	for(;;)
 	{
 		// check for beeps
-		if(TCNT1 >= 324) // happens every 1/12 sec
+		if(TCNT0 >= 162) // happens every 1/24 sec
 		{
 			beep_event();
-			TCNT1 = 0;
+			TCNT0 = 0;
 		}
 
 		// draw digits
