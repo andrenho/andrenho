@@ -7,9 +7,17 @@
 #include <util/delay.h>
 
 // global variables
-volatile int16_t timer[3];
-volatile bool beep[3];
+volatile int16_t timer[3];	// current time on each timer
+volatile bool beep[3];		// weather the timer is being "beeped"
 
+// Sets a sequence of beeps for each timer. 1 = beeping, 0 = silent
+// Each bit is 1/12 second.
+const bool beep_seq[][12] = {
+	{ 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+	{ 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0 },
+	{ 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0 }
+};
+volatile int beep_cur = 0;
 
 static inline void initialize()
 {
@@ -36,13 +44,14 @@ static inline void initialize()
 	OCR1A  = 15624;			 // set counter
 	TIMSK = (1<<OCIE1A);		 // enable timer interrupt
 
-	// initialize beep time (1/6 second) [TODO]
+	// initialize beep time (1/12 second) [TODO]
 	//   (((Input_Freq / Prescaler) / Target_Freq) - 1)
-	//   (((4.000.000 / 1024) / 6) - 1) = 650.04
-	//TCCR0B = (1<<CS12) | (1<<CS10);	// set 1:1024 prescaler
+	//   (((4.000.000 / 1024) / 12) - 1) = 324.52
+	TCCR0B = (1<<CS12) | (1<<CS10);	// set 1:1024 prescaler
 }
 
 
+// returns the selected timer
 static inline int selected_timer()
 {
 	if(!(PIND & (1<<PORTD3)))
@@ -53,6 +62,7 @@ static inline int selected_timer()
 }
 
 
+// draw the 7-segment display digits
 static void draw_7segment()
 {
 	int digit;
@@ -93,6 +103,7 @@ static void draw_7segment()
 }
 
 
+// change the timers value based on the up/down switch
 static inline void adjust_timer(int amt)
 {
 	if(amt == 0)
@@ -108,6 +119,7 @@ static inline void adjust_timer(int amt)
 }
 
 
+// check the state of the up/down switch
 static inline int updown_pressed()
 {
 	if(!(PIND & (1<<PORTD4)))
@@ -115,6 +127,57 @@ static inline int updown_pressed()
 	else if(!(PIND & (1<<PORTD5)))
 		return 2;
 	return 0;
+}
+
+
+// beeps if necessary
+static inline void beep_event()
+{
+	int i;
+	bool v = false;
+
+	// find if it should beep or not
+	for(i=0; i<3; i++)
+		if(beep[i] && beep_seq[i][beep_cur])
+		{
+			v = true;
+			break;
+		}
+
+	// beep
+	if(v)
+		PORTD |= (1<<PORTD0);
+	else
+		PORTD &= ~(1<<PORTD0);
+
+	// advance the beep current value
+	beep_cur++;
+	if(beep_cur == 12)
+		beep_cur = 0;
+}
+
+
+// check if the silent button was pressed
+void silent_button()
+{
+	int i;
+
+	if(!(PIND & (1<<PORTD1)))
+	{
+		// silence beeper
+		for(i=0; i<3; i++)
+			if(beep[i])
+			{
+				beep[i] = false;
+				break; // only silences one beeper
+			}
+
+		// debounce button
+		_delay_ms(100);
+		while(!(PIND & (1<<PORTD1)))
+			;
+		_delay_ms(100);
+	}
 }
 
 
@@ -129,16 +192,26 @@ int main()
 	// main loop
 	for(;;)
 	{
-		// TODO - beeps
+		// check for beeps
+		if(TCNT1 >= 324) // happens every 1/12 sec
+		{
+			beep_event();
+			TCNT1 = 0;
+		}
+
+		// draw digits
 		draw_7segment();
-		adjust_timer(updown_pressed()); // TODO - check timing
+
+		// check events
+		adjust_timer(updown_pressed());
+		silent_button();
 	}
 
 	return 0;
 }
 
 
-// interruption fired every one second
+// interruption fired every one second, regresses 1 sec of the timers
 ISR(TIMER1_COMPA_vect)
 {
 	int i;
