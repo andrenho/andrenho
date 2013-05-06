@@ -1,0 +1,3 @@
+http://www.instructables.com/id/Arduino-Audio-Input/?ALLSTEPS
+http://www.instructables.com/id/Arduino-Frequency-Detection/?ALLSTEPS
+http://arduino.cc/en/Tutorial/Knock
