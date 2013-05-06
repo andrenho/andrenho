@@ -45,7 +45,6 @@ static inline void initialize()
 
 static inline int selected_timer()
 {
-	return 0;
 	if(!(PIND & (1<<PORTD3)))
 		return 0;
 	else if(!(PIND & (1<<PORTD2)))
