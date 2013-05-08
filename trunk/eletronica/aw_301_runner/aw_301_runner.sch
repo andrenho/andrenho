@@ -7350,6 +7350,7 @@ Source: www.farnell.com/datasheets/247.pdf</description>
 <part name="GND3" library="supply1" deviceset="GND" device=""/>
 <part name="SG1" library="buzzer" deviceset="F/CM12P" device=""/>
 <part name="GND4" library="supply1" deviceset="GND" device=""/>
+<part name="C2" library="resistor" deviceset="CPOL-EU" device="E2.5-6" value="100mF"/>
 </parts>
 <sheets>
 <sheet>
@@ -7365,8 +7366,9 @@ Source: www.farnell.com/datasheets/247.pdf</description>
 <instance part="C1" gate="G$1" x="71.12" y="30.48"/>
 <instance part="GND2" gate="1" x="104.14" y="71.12"/>
 <instance part="GND3" gate="1" x="71.12" y="12.7"/>
-<instance part="SG1" gate="G$1" x="121.92" y="22.86" rot="R270"/>
+<instance part="SG1" gate="G$1" x="129.54" y="22.86" rot="R270"/>
 <instance part="GND4" gate="1" x="142.24" y="71.12"/>
+<instance part="C2" gate="G$1" x="116.84" y="22.86" rot="R90"/>
 </instances>
 <busses>
 </busses>
@@ -7435,11 +7437,7 @@ Source: www.farnell.com/datasheets/247.pdf</description>
 <pinref part="C1" gate="G$1" pin="+"/>
 <wire x1="71.12" y1="33.02" x2="76.2" y2="33.02" width="0.1524" layer="91"/>
 <junction x="71.12" y="33.02"/>
-<wire x1="71.12" y1="58.42" x2="71.12" y2="50.8" width="0.1524" layer="91"/>
-<pinref part="IC1" gate="G$1" pin="RESET"/>
-<wire x1="71.12" y1="50.8" x2="71.12" y2="33.02" width="0.1524" layer="91"/>
-<wire x1="76.2" y1="50.8" x2="71.12" y2="50.8" width="0.1524" layer="91"/>
-<junction x="71.12" y="50.8"/>
+<wire x1="71.12" y1="58.42" x2="71.12" y2="33.02" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$4" class="0">
@@ -7498,20 +7496,28 @@ Source: www.farnell.com/datasheets/247.pdf</description>
 <wire x1="119.38" y1="48.26" x2="119.38" y2="58.42" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$1" class="0">
-<segment>
-<pinref part="IC1" gate="G$1" pin="(T1)PD5"/>
-<pinref part="SG1" gate="G$1" pin="1"/>
-<wire x1="111.76" y1="25.4" x2="119.38" y2="25.4" width="0.1524" layer="91"/>
-</segment>
-</net>
 <net name="N$2" class="0">
 <segment>
 <pinref part="IC1" gate="G$1" pin="(T0)PD4"/>
 <wire x1="111.76" y1="22.86" x2="114.3" y2="22.86" width="0.1524" layer="91"/>
-<wire x1="114.3" y1="22.86" x2="114.3" y2="17.78" width="0.1524" layer="91"/>
+<pinref part="C2" gate="G$1" pin="+"/>
+</segment>
+</net>
+<net name="N$1" class="0">
+<segment>
+<pinref part="IC1" gate="G$1" pin="(INT1)PD3"/>
+<wire x1="111.76" y1="20.32" x2="121.92" y2="20.32" width="0.1524" layer="91"/>
+<wire x1="121.92" y1="20.32" x2="121.92" y2="17.78" width="0.1524" layer="91"/>
 <pinref part="SG1" gate="G$1" pin="2"/>
-<wire x1="114.3" y1="17.78" x2="119.38" y2="17.78" width="0.1524" layer="91"/>
+<wire x1="121.92" y1="17.78" x2="127" y2="17.78" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$3" class="0">
+<segment>
+<pinref part="C2" gate="G$1" pin="-"/>
+<wire x1="121.92" y1="22.86" x2="121.92" y2="25.4" width="0.1524" layer="91"/>
+<pinref part="SG1" gate="G$1" pin="1"/>
+<wire x1="121.92" y1="25.4" x2="127" y2="25.4" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
