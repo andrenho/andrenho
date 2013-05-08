@@ -1,75 +1,150 @@
-% Termos:
-%   aprendiz = learner
-%   docente = professor ou faculty member
-%   curso (inteiro) = course
-%   disciplina = discipline
-%   assunto = subject
-%   ele (o estudante) = he
+%%
+%% Copyright 2007, 2008, 2009 Elsevier Ltd
+%%
+%% This file is part of the 'Elsarticle Bundle'.
+%% ---------------------------------------------
+%%
+%% It may be distributed under the conditions of the LaTeX Project Public
+%% License, either version 1.2 of this license or (at your option) any
+%% later version.  The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.2 or later is part of all distributions of LaTeX
+%% version 1999/12/01 or later.
+%%
+%% The list of all files belonging to the 'Elsarticle Bundle' is
+%% given in the file `manifest.txt'.
+%%
 
-% Pedir Barbosa:
-%  - referência mais atual para artigo de trilhas (ubitrail)
-%  - texto em português que justifica o uso de agentes
-%  - referências em inglês
+%% Template article for Elsevier's document class `elsarticle'
+%% with harvard style bibliographic references
+%% SP 2008/03/01
+%%
+%%
+%%
+%% $Id: elsarticle-template-harv.tex 4 2009-10-24 08:22:58Z rishi $
+%%
+%%
+%\documentclass[final,3p,authoryear,times,twocolumn]{elsarticle}
+\documentclass[preprint,authoryear,12pt]{elsarticle}
 
-\documentclass[5p,authoryear,12pt]{elsarticle}
+%% Use the option review to obtain double line spacing
+%% \documentclass[authoryear,preprint,review,12pt]{elsarticle}
 
-\usepackage{graphicx}
-\usepackage[utf8]{inputenc}
+%% Use the options 1p,twocolumn; 3p; 3p,twocolumn; 5p; or 5p,twocolumn
+%% for a journal layout:
+%% \documentclass[final,authoryear,1p,times]{elsarticle}
+%% \documentclass[final,authoryear,1p,times,twocolumn]{elsarticle}
+%% \documentclass[final,authoryear,3p,times]{elsarticle}
+%% \documentclass[final,authoryear,3p,times,twocolumn]{elsarticle}
+%% \documentclass[final,authoryear,5p,times]{elsarticle}
+%% \documentclass[final,authoryear,5p,times,twocolumn]{elsarticle}
+
+%% if you use PostScript figures in your article
+%% use the graphics package for simple commands
+%% \usepackage{graphics}
+%% or use the graphicx package for more complicated commands
+%% \usepackage{graphicx}
+%% or use the epsfig package if you prefer to use the old commands
+%% \usepackage{epsfig}
+
+%% The amssymb package provides various useful mathematical symbols
 \usepackage{amssymb}
-%\usepackage[round,]{natbib}
+%% The amsthm package provides extended theorem environments
+%% \usepackage{amsthm}
+\usepackage[utf8]{inputenc}
 \usepackage{booktabs}
-%\usepackage{todonotes}
-%\usepackage[T1]{fontenc}
+
+%% The lineno packages adds line numbers. Start line numbering with
+%% \begin{linenumbers}, end it with \end{linenumbers}. Or switch it on
+%% for the whole article with \linenumbers after \end{frontmatter}.
+%% \usepackage{lineno}
+
+%% natbib.sty is loaded by default. However, natbib options can be
+%% provided with \biboptions{...} command. Following options are
+%% valid:
+
+%%   round  -  round parentheses are used (default)
+%%   square -  square brackets are used   [option]
+%%   curly  -  curly braces are used      {option}
+%%   angle  -  angle brackets are used    <option>
+%%   semicolon  -  multiple citations separated by semi-colon (default)
+%%   colon  - same as semicolon, an earlier confusion
+%%   comma  -  separated by comma
+%%   authoryear - selects author-year citations (default)
+%%   numbers-  selects numerical citations
+%%   super  -  numerical citations as superscripts
+%%   sort   -  sorts multiple citations according to order in ref. list
+%%   sort&compress   -  like sort, but also compresses numerical citations
+%%   compress - compresses without sorting
+%%   longnamesfirst  -  makes first citation full author list
+%%
+%% \biboptions{longnamesfirst,comma}
+
+% \biboptions{}
 
 \journal{Expert Systems with Applications}
 
 \begin{document}
 
-%\begin{frontmatter}
+\begin{frontmatter}
+
+%% Title, authors and addresses
+
+%% use the tnoteref command within \title for footnotes;
+%% use the tnotetext command for the associated footnote;
+%% use the fnref command within \author or \address for footnotes;
+%% use the fntext command for the associated footnote;
+%% use the corref command within \author for corresponding author footnotes;
+%% use the cortext command for the associated footnote;
+%% use the ead command for the email address,
+%% and the form \ead[url] for the home page:
+%%
+%% \title{Title\tnoteref{label1}}
+%% \tnotetext[label1]{}
+%% \author{Name\corref{cor1}\fnref{label2}}
+%% \ead{email address}
+%% \ead[url]{home page}
+%% \fntext[label2]{}
+%% \cortext[cor1]{}
+%% \address{Address\fnref{label3}}
+%% \fntext[label3]{}
 
 \title{A Model for Profile Management Through Inference in Trails}
-%\thanks{The authors thank CNPq (the Brazilian Council for the Development of Science and Technology) for funding part of this research}}
-%\subtitle{Do you have a subtitle?\\ If so, write it here}
 
-%\titlerunning{Short form of title}        % if too long for running head
+%% use optional labels to link authors explicitly to addresses:
+%% \author[label1,label2]{<author name>}
+%% \address[label1]{<address>}
+%% \address[label2]{<address>}
 
-\author{André Wagner \and Jorge Luis Victória Barbosa \and Débora Nice Ferrari Barbosa}
+\author[UNISINOS]{André Wagner} \ead{andre.nho@gmail.com}
+\author[UNISINOS]{Jorge Luis Victória Barbosa} \ead{jbarbosa@unisinos.br}
+\author[FEEVALE]{Débora Nice Ferrari Barbosa} \ead{deboranice@feevale.br}
 
-\address{}
-
-%\authorrunning{Andr\'{e} Wagner \and Jorge Barbosa} % if too long for running head
-
-%\address{André Wagner \and Jorge Luis Victória Barbosa 
-%          \at Universidade do Vale do Rio dos Sinos (UNISINOS) \\
-%	      Programa de Pós-Graduação em Computação Aplicada (PIPCA) \\
-%	      Av. Unisinos, 950, São Leopoldo, Brazil \\
-%              \email{andre.nho@gmail.com, jbarbosa@unisinos.br}        
-%	      \and
-%           Débora Nice Ferrari Barbosa 
-%	  \at Universidade Feevale\\
-%              Programa de Pós-graduação em Diversidade e Inclusão\\
-%              RS-239, 2755, Novo Hamburgo, Brazil \\
-%              \email{deboranice@feevale.br}
-%}
-
-%\date{Received: date / Accepted: date}
-% The correct dates will be entered by the editor
+\address[UNISINOS]{Universidade do Vale do Rio dos Sinos (UNISINOS) \\
+	           Programa de Pós-Graduação em Computação Aplicada (PIPCA) \\
+                   Av. Unisinos, 950, São Leopoldo, Brazil}
+\address[FEEVALE]{Universidade Feevale\\
+                  Programa de Pós-graduação em Diversidade e Inclusão\\
+                  RS-239, 2755, Novo Hamburgo, Brazil}
 
 \begin{abstract}
 Context-aware and ubiquitous systems have the challenge of implicitly collect relevant information about entities, and use this information to understand and predict their behaviour. This allows the applications to adapt themselves to the entities, thus avoiding to overflow them with inquires and information. The analysis of trails, the context-aware history of actions, can further improve the relevance of information. This paper proposes a model that allows applications to register entities' actions in trails and infer profile information from these trails, using semantic interoperability and thus allowing different applications to share information and infer a unified profile. A prototype was developed for the evaluation of the model, and it was integrated with two different softwares. It was verified that was possible to enrich the profile generation of applications through this integration. The contributions of this model are the use of trails for extracting profiles and the capability of managing dynamic inference rules for profile generation.
 \end{abstract}
 
 \begin{keyword}
+%% keywords here, in the form: keyword \sep keyword
+
+%% MSC codes here, in the form: \MSC code \sep code
+%% or \MSC[2008] code \sep code (2000 is the default)
 Profile Management \sep Ubiquitous Computing \sep User Modeling \sep Trails \sep Profile Inference  \sep Entity-Adapted Interaction
+
 \end{keyword}
 
-%\end{frontmatter}
+\end{frontmatter}
 
-% \PACS{PACS code1 \and PACS code2 \and more} % TODO
-% \subclass{MSC code1 \and MSC code2 \and more}
+% \linenumbers
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+%% main text
 \section{Introduction}
 \label{ch:introducao}
 %\paragraph{Paragraph headings} Use paragraph headings as needed.
@@ -798,18 +873,87 @@ The scenario showed eProfile integration of two applications (LOCAL and UniManag
 
 As mentioned, the model is an initial proposal, and there are several opportunities for expanding. These include compatibility with other managers trails, expansion of basic ontologies, support to disconnected and/or unstable operation, server decentralization, and support for security protocols and confidentiality.
 
+%% The Appendices part is started with the command \appendix;
+%% appendix sections are then done as normal sections
+%% \appendix
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \section{}
+%% \label{}
 
-%\begin{acknowledgements}
-%If you'd like to thank anyone, place your comments here
-%and remove the percent signs.
-%\end{acknowledgements}
+%% References
+%%
+%% Following citation commands can be used in the body text:
+%%
+%%  \citet{key}  ==>>  Jones et al. (1990)
+%%  \citep{key}  ==>>  (Jones et al., 1990)
+%%
+%% Multiple citations as normal:
+%% \citep{key1,key2}         ==>> (Jones et al., 1990; Smith, 1989)
+%%                            or  (Jones et al., 1990, 1991)
+%%                            or  (Jones et al., 1990a,b)
+%% \cite{key} is the equivalent of \citet{key} in author-year mode
+%%
+%% Full author lists may be forced with \citet* or \citep*, e.g.
+%%   \citep*{key}            ==>> (Jones, Baker, and Williams, 1990)
+%%
+%% Optional notes as:
+%%   \citep[chap. 2]{key}    ==>> (Jones et al., 1990, chap. 2)
+%%   \citep[e.g.,][]{key}    ==>> (e.g., Jones et al., 1990)
+%%   \citep[see][pg. 34]{key}==>> (see Jones et al., 1990, pg. 34)
+%%  (Note: in standard LaTeX, only one note is allowed, after the ref.
+%%   Here, one note is like the standard, two make pre- and post-notes.)
+%%
+%%   \citealt{key}          ==>> Jones et al. 1990
+%%   \citealt*{key}         ==>> Jones, Baker, and Williams 1990
+%%   \citealp{key}          ==>> Jones et al., 1990
+%%   \citealp*{key}         ==>> Jones, Baker, and Williams, 1990
+%%
+%% Additional citation possibilities
+%%   \citeauthor{key}       ==>> Jones et al.
+%%   \citeauthor*{key}      ==>> Jones, Baker, and Williams
+%%   \citeyear{key}         ==>> 1990
+%%   \citeyearpar{key}      ==>> (1990)
+%%   \citetext{priv. comm.} ==>> (priv. comm.)
+%%   \citenum{key}          ==>> 11 [non-superscripted]
+%% Note: full author lists depends on whether the bib style supports them;
+%%       if not, the abbreviated list is printed even when full requested.
+%%
+%% For names like della Robbia at the start of a sentence, use
+%%   \Citet{dRob98}         ==>> Della Robbia (1998)
+%%   \Citep{dRob98}         ==>> (Della Robbia, 1998)
+%%   \Citeauthor{dRob98}    ==>> Della Robbia
+
+
+%% References with bibTeX database:
 
 \bibliographystyle{elsarticle-harv}
-%\bibliographystyle{plain}
-%\bibliographystyle{spbasic}
-%\bibliographystyle{spphys}
 \bibliography{../../eprofile}
 
+%% Authors are advised to submit their bibtex database files. They are
+%% requested to list a bibtex style file in the manuscript if they do
+%% not want to use elsarticle-harv.bst.
+
+%% References without bibTeX database:
+
+% \begin{thebibliography}{00}
+
+%% \bibitem must have one of the following forms:
+%%   \bibitem[Jones et al.(1990)]{key}...
+%%   \bibitem[Jones et al.(1990)Jones, Baker, and Williams]{key}...
+%%   \bibitem[Jones et al., 1990]{key}...
+%%   \bibitem[\protect\citeauthoryear{Jones, Baker, and Williams}{Jones
+%%       et al.}{1990}]{key}...
+%%   \bibitem[\protect\citeauthoryear{Jones et al.}{1990}]{key}...
+%%   \bibitem[\protect\astroncite{Jones et al.}{1990}]{key}...
+%%   \bibitem[\protect\citename{Jones et al., }1990]{key}...
+%%   \harvarditem[Jones et al.]{Jones, Baker, and Williams}{1990}{key}...
+%%
+
+% \bibitem[ ()]{}
+
+% \end{thebibliography}
+
 \end{document}
+
+%%
+%% End of file `elsarticle-template-harv.tex'.
