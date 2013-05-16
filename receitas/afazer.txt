@@ -1,7 +1,7 @@
-PRATOS PRINCIPAIS
+LOW-CARB
 
- - Chille Relleno Burrito
-     <http://www.macheesmo.com/2011/05/chile-relleno-burrito/>
+ - Molho de carne
+     <http://www.happychomp.com/post/50534241833/slow-cooked-beef-stew-after-playing-with-the-slow>
  - Cordeiro marroquino
      <http://www.youtube.com/watch?v=V2OWM4QodM0>
  - Frango com mostarda
@@ -10,6 +10,25 @@ PRATOS PRINCIPAIS
      <http://www.blue-kitchen.com/2012/09/05/flavor-meets-tender-grilled-asian-flank-steak/>
  - Salmão teriaki
      <http://healthy-delicious.com/2012/08/two-minute-salmon-terryaki/>
+ - Sopa de feijões com chipotle
+     <http://www.macheesmo.com/2012/10/tortilla-stick-black-bean-soup/>
+ - Camarões assados com tomatinhos
+     <http://www.simplyrecipes.com/recipes/baked_shrimp_with_tomatillos/>
+ - Hummus de caju
+     <http://www.macheesmo.com/2011/12/cashew-dip/>
+
+ALMOST LOW-CARB
+
+ - Baba Ganouch (humus de berinjela)
+     <http://www.macheesmo.com/2013/05/homemade-baba-ganoush/>
+ - Panquecas de repolho japonesas
+     <http://smittenkitchen.com/blog/2013/05/japanese-cabbage-and-vegetable-pancakes/>
+ - Chille Relleno Burrito
+     <http://www.macheesmo.com/2011/05/chile-relleno-burrito/>
+
+
+PRATOS PRINCIPAIS
+
  - Tacos com frango
      <http://www.ellesnewenglandkitchen.com/blog/2012/10/4/shredded-chicken-tacos-for-national-taco-day.html>
  - Kebapia com batatas asadas
@@ -28,10 +47,6 @@ ENSOPADOS
 
  - Caldo de carne
      <http://www.macheesmo.com/2012/06/roasted-beef-stock/>
- - Sopa de feijões com chipotle
-     <http://www.macheesmo.com/2012/10/tortilla-stick-black-bean-soup/>
- - Camarões assados com tomatinhos
-     <http://www.simplyrecipes.com/recipes/baked_shrimp_with_tomatillos/>
 
 SALADAS
 
@@ -135,8 +150,6 @@ LANCHES
 
 MOLHOS
 
- - Hummus de caju
-     <http://www.macheesmo.com/2011/12/cashew-dip/>
  - Molho de vinagre de estragão
      <http://www.macheesmo.com/2010/01/the-house-dressing/>
  - Molho de pimenta para bifes
