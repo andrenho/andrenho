@@ -1,53 +1,29 @@
-PRATOS PRINCIPAIS
+LOW-CARB
 
  - Alho-poró assado cremoso 
      <livro:Revolução na Cozinha - Jamie Oliver>
  - Atum em cama de legumes
      <http://www.macheesmo.com/2010/08/steamed-salmon-with-roasted-veg/>
- - Arroz carreteiro
-     <head:>
  - Boeuf bourguignon
      <http://www.macheesmo.com/2011/01/beef-burgundy/>
- - Batatas francesas
-     <http://www.youtube.com/watch?v=xn4x-g26P70>
- - Bife
-     <file:bife.txt>
- - Carne moída Wellington 
-     <livro:Revolução na Cozinha - Jamie Oliver>
  - Chilli con carne 
-     <livro:Revolução na Cozinha - Jamie Oliver>
- - Conchinhas com molho cremoso de bacon defumado e ervilhas 
      <livro:Revolução na Cozinha - Jamie Oliver>
  - Ensopado de carne (gado, cordeiro, frango e porco)
      <livro:Revolução na Cozinha - Jamie Oliver>
- - Estrogonofe de frango e alho-poró 
-     <livro:Revolução na Cozinha - Jamie Oliver>
- - Feijão com arroz
-     <head:>
  - Frango adobo
      <http://www.macheesmo.com/2012/02/chicken-adobo/>
  - Frango jamaicano
      <http://www.youtube.com/watch?v=MxPqgNvc5sQ>
  - Frango Kung-Pao
      <file:kungpao.txt>
- - Massa caseira
-     <file:massa_caseira.txt>
- - Massa com camembert assado 
-     <livro:Revolução na Cozinha - Jamie Oliver>
  - Moranga recheada
      <file:moranga_recheada.txt>
  - Peito de frango com parmesão e presunto crocante 
      <livro:Revolução na Cozinha - Jamie Oliver>
- - Raviolli
-     <http://www.macheesmo.com/2011/12/winter-squash-ravioli/>
  - Rabanetes tailandeses
      <http://www.macheesmo.com/2012/06/spicy-radish-toss/>
  - Salmão com manjerona
      <file:salmao.txt>
- - Sardinhas assadas
-     <http://www.youtube.com/watch?v=aWB3Es7Xn2k>
- - Taco batatas/bacon
-     <http://www.macheesmo.com/2011/04/breakfast-tacos/>
  - Tilápia com limão e alho
      <http://allrecipes.com/recipe/lemon-garlic-tilapia/>
  - Tilapia com verdes
@@ -56,13 +32,6 @@ PRATOS PRINCIPAIS
      <http://www.macheesmo.com/2012/07/black-pepper-tofu/>
  - Vindaloo
      <livro:Revolução na Cozinha - Jamie Oliver>
-
-ENSOPADOS
-
- - Cassarola de vagens
-     <http://www.macheesmo.com/2010/11/green-bean-casserole-from-scratch/>
- - Cappelletti
-     <http://italianfood.about.com/library/rec/blr0102.htm>
  - Sopa de brócolis com parmesão
      <http://www.macheesmo.com/2012/03/broccoli-parmesan-soup/>
  - Sopa de feijão fradinho
@@ -71,24 +40,32 @@ ENSOPADOS
      <http://www.macheesmo.com/2012/02/thirty-minute-chickpea-stew/>
  - Lentilhas
      <file:lentilhas.txt>
-
-ACOMPANHAMENTO
-
- - Arroz
-     <file:arroz.txt>
- - Batata-doce assada 
-     <http://www.simplesmentedelicia.com/?p=2177>
- - Batatas assadas
-     <http://www.youtube.com/watch?v=dsqODd789wI>
- - Batatas assadas com alho e azeite 
-     <http://www.simplesmentedelicia.com/?p=826>
-     <file:batatas_assadas.txt>
- - Batatas francesas assadas 
+ - Milho ao estilo mexicano 
      <livro:Revolução na Cozinha - Jamie Oliver>
- - Batatinhas assadas
-     <http://homecookingadventure.com/recipes/show/roasted-baby-potatoes>
- - Purê de batatas
-     <head:>
+ - Omelete
+     <livro:Revolução na Cozinha - Jamie Oliver>
+ - Omelete de Denver
+     <http://www.macheesmo.com/2010/04/the-denver-omelet/>
+ - Omelete Lox
+     <http://www.macheesmo.com/2011/11/the-lox-omelet/>
+ - Frango com páprica 
+     <http://www.happychomp.com/post/48660128323/how-to-make-spicy-lemon-paprika-chicken-thighs>
+ - Camarão com vagem de ervilhas  
+     <http://www.simplyrecipes.com/recipes/shrimp_with_snow_peas/>
+ - Feijão burmanês 
+     <http://www.notderbypie.com/burmese-black-eyed-peas/>
+ - Salada de lentilhas e grão-de-bico  
+     <http://smittenkitchen.com/blog/2013/04/lentil-and-chickpea-salad-with-feta-and-tahini/>
+ - Bolinhos de atum  
+     <http://www.happychomp.com/post/48725764981/recipe-tuna-patties>
+ - Bolinho de inhame e atum  
+     <http://www.happychomp.com/post/46237239700/recipe-spicy-tuna-bites>
+ - Bolinho de inhame e atum 2
+     <http://www.happychomp.com/post/46237733829/recipe-sweet-and-spicy-snack-balls>
+ - Cupcakes de ovo
+     <http://www.happychomp.com/post/46206080813/recipe-egg-sausage-cups>
+ - Sopa de milho e atum  
+     <http://www.simplesmentedelicia.com/?p=2689>
 
 SALADAS
 
@@ -118,6 +95,59 @@ SALADAS
      <http://www.simplyrecipes.com/recipes/provencal_potato_salad/>
  - Verdes com ovos poché
      <http://www.macheesmo.com/2008/12/warmed-greens-with-poached-egg/>
+
+
+PRATOS PRINCIPAIS
+
+ - Arroz carreteiro
+     <head:>
+ - Batatas francesas
+     <http://www.youtube.com/watch?v=xn4x-g26P70>
+ - Bife
+     <file:bife.txt>
+ - Carne moída Wellington 
+     <livro:Revolução na Cozinha - Jamie Oliver>
+ - Conchinhas com molho cremoso de bacon defumado e ervilhas 
+     <livro:Revolução na Cozinha - Jamie Oliver>
+ - Estrogonofe de frango e alho-poró 
+     <livro:Revolução na Cozinha - Jamie Oliver>
+ - Feijão com arroz
+     <head:>
+ - Massa caseira
+     <file:massa_caseira.txt>
+ - Massa com camembert assado 
+     <livro:Revolução na Cozinha - Jamie Oliver>
+ - Raviolli
+     <http://www.macheesmo.com/2011/12/winter-squash-ravioli/>
+ - Sardinhas assadas
+     <http://www.youtube.com/watch?v=aWB3Es7Xn2k>
+ - Taco batatas/bacon
+     <http://www.macheesmo.com/2011/04/breakfast-tacos/>
+
+ENSOPADOS
+
+ - Cassarola de vagens
+     <http://www.macheesmo.com/2010/11/green-bean-casserole-from-scratch/>
+ - Cappelletti
+     <http://italianfood.about.com/library/rec/blr0102.htm>
+
+ACOMPANHAMENTO
+
+ - Arroz
+     <file:arroz.txt>
+ - Batata-doce assada 
+     <http://www.simplesmentedelicia.com/?p=2177>
+ - Batatas assadas
+     <http://www.youtube.com/watch?v=dsqODd789wI>
+ - Batatas assadas com alho e azeite 
+     <http://www.simplesmentedelicia.com/?p=826>
+     <file:batatas_assadas.txt>
+ - Batatas francesas assadas 
+     <livro:Revolução na Cozinha - Jamie Oliver>
+ - Batatinhas assadas
+     <http://homecookingadventure.com/recipes/show/roasted-baby-potatoes>
+ - Purê de batatas
+     <head:>
 
 SOBREMESAS/DOCES
 
@@ -181,14 +211,6 @@ LANCHES
      Pão:   <http://www.wildyeastblog.com/2008/06/10/hamburger-rolls/>
      Molho: <http://allrecipes.com/recipe/authentic-thousand-island-dressing/>
      Carne: <livro:Revolução na Cozinha - Jamie Oliver>
- - Milho ao estilo mexicano 
-     <livro:Revolução na Cozinha - Jamie Oliver>
- - Omelete
-     <livro:Revolução na Cozinha - Jamie Oliver>
- - Omelete de Denver
-     <http://www.macheesmo.com/2010/04/the-denver-omelet/>
- - Omelete Lox
-     <http://www.macheesmo.com/2011/11/the-lox-omelet/>
  - Quesadillas de milho
      <http://www.macheesmo.com/2011/04/sweet-corn-quesadilla/>
  - Sanduiche de abacate e sardinhas
