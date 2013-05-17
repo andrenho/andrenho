@@ -34,7 +34,7 @@ USE_CPP_THREADS = yes
 # basic flags
 CFLAGS = -DVERSION=\"${VERSION}\" -DDATADIR=\"${NEWHOPEPREFIX}\" -Wall \
 	 -Wfatal-errors -I. -I/usr/include -std=c11
-LDFLAGS = -L/usr/lib
+LDFLAGS = -L/usr/lib -lm
 
 UNAME = $(shell uname -o)
 
