@@ -3,18 +3,18 @@
 $step = 1
 
 def f(t)
-    x = 0.3
-    if (t/100) % 2 == 0
-        x = 5.0
-    end
-    return x - 0.2 + rand(0.4)
+    return Math.sin(Math::PI / (t.to_f % 100)) * 5.0
 end
 
 #------------------------------
 
-$t = 0
+$t = 1
 while true
-    puts (f($t) * 1024 / 5).to_i
+    begin
+        puts (f($t) * 1024.0 / 5.0).to_i
+    rescue FloatDomainError
+        puts 0
+    end
     $t += 1
 end
 
