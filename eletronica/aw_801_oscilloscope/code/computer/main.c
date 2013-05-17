@@ -11,8 +11,12 @@
 static SDL_Surface* scr;	// main window
 struct {
 	int us_pixel; 		// numer of microsseconds by pixel
-} ctl = { 1 };
+	int trigger_active;
+	double trigger;
+} ctl = { 1, 0, 0.0 };
 int last_x, last_y;
+double last_v = 0;
+int triggered = 0;
 
 enum Colors { BG=0, FG, LINE1, N_COLORS };
 
@@ -113,6 +117,7 @@ static void draw_board()
 
 	// initialize trace
 	last_x = 50;
+	triggered = 0;
 }
 
 
@@ -130,13 +135,43 @@ static double read_next_value()
 }
 
 
+static void set_trigger(int active, double v)
+{
+	if(active)
+	{
+		ctl.trigger = v;
+		ctl.trigger_active = 1;
+		triggered = 0;
+	}
+	else
+		ctl.trigger_active = 0;
+	draw_board();
+	SDL_Flip(scr);
+}
+
+
 static void update_osc()
 {
+	// read data
 	float v = read_next_value();
 
+	// check trigger
+	if(ctl.trigger_active && !triggered)
+	{
+		if(last_v < ctl.trigger && v >= ctl.trigger)
+			triggered = 1;
+		else
+		{
+			last_v = v;
+			return;
+		}
+	}
+
+	// calculate position
 	int x = last_x + ctl.us_pixel;
 	int y = H/2 - (v * ((H-100) / 12));
 
+	// draw
 	if(x < H-50) // still inside scope
 	{
 		draw_line(last_x, last_y, x, y, LINE1, 3);
@@ -148,6 +183,9 @@ static void update_osc()
 	{
 		draw_board();
 	}
+
+	// store last voltage
+	last_v = v;
 }
 
 
@@ -156,6 +194,8 @@ int main(int argc, char** argv)
 	init_video();
 	draw_board();
 	SDL_Flip(scr);
+
+	set_trigger(1, 3.0);
 
 	while(1)
 	{
