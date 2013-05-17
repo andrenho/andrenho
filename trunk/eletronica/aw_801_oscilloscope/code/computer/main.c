@@ -8,7 +8,7 @@
 #define W 1024
 #define H 768
 
-static SDL_Surface* scr;	// main window
+static SDL_Surface *scr, *icons;
 struct {
 	int us_pixel; 		// numer of microsseconds by pixel
 	int trigger_active;
@@ -16,13 +16,21 @@ struct {
 } ctl = { 1, 0, 0.0 };
 int last_x, last_y;
 double last_v = 0;
+double last_trigger = 0.0;
 int triggered = 0;
 
 enum Colors { BG=0, FG, LINE1, N_COLORS };
 
+static int osc_y(double v)
+{
+	return H/2 - (v * ((H-100) / 12));
+}
+
+
 static void init_video()
 {
 	SDL_Init(SDL_INIT_VIDEO);
+	SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY, SDL_DEFAULT_REPEAT_INTERVAL);
 	scr = SDL_SetVideoMode(W, H, 8, SDL_SWSURFACE);
 
 	SDL_Color c[] = {
@@ -32,22 +40,10 @@ static void init_video()
 	};
 	SDL_SetColors(scr, c, 0, N_COLORS);
 
+	icons = SDL_LoadBMP("./icons.bmp");
+	SDL_SetColorKey(icons, SDL_SRCCOLORKEY, 0);
+
 	last_y = H/2;
-}
-
-
-static void check_events()
-{
-	SDL_Event e;
-	while(SDL_PollEvent(&e))
-	{
-		switch(e.type)
-		{
-		case SDL_QUIT:
-			SDL_Quit();
-			exit(0);
-		}
-	}
 }
 
 
@@ -115,6 +111,14 @@ static void draw_board()
 			*((Uint8*)(scr->pixels + y * scr->pitch + x)) = FG;
 	}
 
+	// trigger indicator
+	if(ctl.trigger_active)
+	{
+		int y = osc_y(ctl.trigger);
+		SDL_BlitSurface(icons, &((SDL_Rect){ 0, 0, 18, 7 }),
+				scr,   &((SDL_Rect){ 30, y }));
+	}
+
 	// initialize trace
 	last_x = 50;
 	triggered = 0;
@@ -169,7 +173,7 @@ static void update_osc()
 
 	// calculate position
 	int x = last_x + ctl.us_pixel;
-	int y = H/2 - (v * ((H-100) / 12));
+	int y = osc_y(v);
 
 	// draw
 	if(x < H-50) // still inside scope
@@ -189,13 +193,48 @@ static void update_osc()
 }
 
 
+static void check_events()
+{
+	SDL_Event e;
+	while(SDL_PollEvent(&e))
+	{
+		switch(e.type)
+		{
+		case SDL_QUIT:
+			SDL_Quit();
+			exit(0);
+		case SDL_KEYDOWN:
+			switch(e.key.keysym.sym)
+			{
+			case SDLK_t:
+				if(!ctl.trigger_active)
+					set_trigger(1, last_trigger);
+				else
+				{
+					last_trigger = ctl.trigger;
+					set_trigger(0, 0.0);
+				}
+				break;
+			case SDLK_g:
+				set_trigger(ctl.trigger_active, ctl.trigger+0.1);
+				break;
+			case SDLK_b:
+				set_trigger(ctl.trigger_active, ctl.trigger-0.1);
+				break;
+			default:
+				break;
+			}
+			break;
+		}
+	}
+}
+
+
 int main(int argc, char** argv)
 {
 	init_video();
 	draw_board();
 	SDL_Flip(scr);
-
-	set_trigger(1, 3.0);
 
 	while(1)
 	{
