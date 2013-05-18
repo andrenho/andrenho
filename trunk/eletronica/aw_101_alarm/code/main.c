@@ -90,16 +90,17 @@ static void draw_7segment()
 
 		// wait (more for numbers with more LEDs)
 		if(d == 1)
-			_delay_us(300);
+			_delay_us(250);
 		else if(d == 7)
-			_delay_us(500);
+			_delay_us(400);
 		else
-			_delay_ms(1);
+			_delay_us(800);
 
 		// next number
 		r *= 10;
 		seg <<= 1;
 	}
+	PORTD &= ~(1<<PORTD6);
 }
 
 
