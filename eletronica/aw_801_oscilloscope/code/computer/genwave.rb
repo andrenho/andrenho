@@ -3,7 +3,7 @@
 $step = 1
 
 def f(t)
-    return Math.sin(Math::PI / (t.to_f % 100)) * 5.0
+    return Math.sin(Math::PI / (t.to_f / 50.0)) * 5.0
 end
 
 #------------------------------
