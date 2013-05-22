@@ -15184,7 +15184,7 @@ Source: CANAL ELECTRONIC CO., LTD .. switsch.pdf</description>
 <part name="D4" library="diode" deviceset="ZENER-DIODE" device="DO35Z10"/>
 <part name="GND10" library="supply1" deviceset="GND" device=""/>
 <part name="GND11" library="supply1" deviceset="GND" device=""/>
-<part name="X1" library="con-ptr500" deviceset="AK500/8" device=""/>
+<part name="DIG" library="con-ptr500" deviceset="AK500/8" device=""/>
 <part name="R3" library="rcl" deviceset="R-EU_" device="0207/10" value="680"/>
 <part name="R4" library="rcl" deviceset="R-EU_" device="0207/10" value="680"/>
 <part name="R5" library="rcl" deviceset="R-EU_" device="0207/10" value="680"/>
@@ -15278,14 +15278,14 @@ Source: CANAL ELECTRONIC CO., LTD .. switsch.pdf</description>
 <instance part="D4" gate="G$1" x="134.62" y="154.94" rot="R90"/>
 <instance part="GND10" gate="1" x="127" y="147.32"/>
 <instance part="GND11" gate="1" x="134.62" y="147.32"/>
-<instance part="X1" gate="-1" x="231.14" y="60.96" rot="R180"/>
-<instance part="X1" gate="-2" x="231.14" y="63.5" rot="R180"/>
-<instance part="X1" gate="-3" x="231.14" y="66.04" rot="R180"/>
-<instance part="X1" gate="-4" x="231.14" y="68.58" rot="R180"/>
-<instance part="X1" gate="-5" x="231.14" y="71.12" rot="R180"/>
-<instance part="X1" gate="-6" x="231.14" y="73.66" rot="R180"/>
-<instance part="X1" gate="-7" x="231.14" y="76.2" rot="R180"/>
-<instance part="X1" gate="-8" x="231.14" y="78.74" rot="R180"/>
+<instance part="DIG" gate="-1" x="231.14" y="60.96" rot="R180"/>
+<instance part="DIG" gate="-2" x="231.14" y="63.5" rot="R180"/>
+<instance part="DIG" gate="-3" x="231.14" y="66.04" rot="R180"/>
+<instance part="DIG" gate="-4" x="231.14" y="68.58" rot="R180"/>
+<instance part="DIG" gate="-5" x="231.14" y="71.12" rot="R180"/>
+<instance part="DIG" gate="-6" x="231.14" y="73.66" rot="R180"/>
+<instance part="DIG" gate="-7" x="231.14" y="76.2" rot="R180"/>
+<instance part="DIG" gate="-8" x="231.14" y="78.74" rot="R180"/>
 <instance part="R3" gate="G$1" x="218.44" y="60.96" smashed="yes">
 <attribute name="NAME" x="212.09" y="59.9186" size="1.778" layer="95"/>
 <attribute name="VALUE" x="222.25" y="60.198" size="1.778" layer="96"/>
@@ -15777,56 +15777,56 @@ Source: CANAL ELECTRONIC CO., LTD .. switsch.pdf</description>
 <net name="N$25" class="0">
 <segment>
 <pinref part="R23" gate="G$1" pin="2"/>
-<pinref part="X1" gate="-8" pin="KL"/>
+<pinref part="DIG" gate="-8" pin="KL"/>
 <wire x1="223.52" y1="78.74" x2="226.06" y2="78.74" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$26" class="0">
 <segment>
 <pinref part="R22" gate="G$1" pin="2"/>
-<pinref part="X1" gate="-7" pin="KL"/>
+<pinref part="DIG" gate="-7" pin="KL"/>
 <wire x1="223.52" y1="76.2" x2="226.06" y2="76.2" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$27" class="0">
 <segment>
 <pinref part="R21" gate="G$1" pin="2"/>
-<pinref part="X1" gate="-6" pin="KL"/>
+<pinref part="DIG" gate="-6" pin="KL"/>
 <wire x1="223.52" y1="73.66" x2="226.06" y2="73.66" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$28" class="0">
 <segment>
 <pinref part="R20" gate="G$1" pin="2"/>
-<pinref part="X1" gate="-5" pin="KL"/>
+<pinref part="DIG" gate="-5" pin="KL"/>
 <wire x1="223.52" y1="71.12" x2="226.06" y2="71.12" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$29" class="0">
 <segment>
 <pinref part="R19" gate="G$1" pin="2"/>
-<pinref part="X1" gate="-4" pin="KL"/>
+<pinref part="DIG" gate="-4" pin="KL"/>
 <wire x1="223.52" y1="68.58" x2="226.06" y2="68.58" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$30" class="0">
 <segment>
 <pinref part="R5" gate="G$1" pin="2"/>
-<pinref part="X1" gate="-3" pin="KL"/>
+<pinref part="DIG" gate="-3" pin="KL"/>
 <wire x1="223.52" y1="66.04" x2="226.06" y2="66.04" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$31" class="0">
 <segment>
 <pinref part="R4" gate="G$1" pin="2"/>
-<pinref part="X1" gate="-2" pin="KL"/>
+<pinref part="DIG" gate="-2" pin="KL"/>
 <wire x1="223.52" y1="63.5" x2="226.06" y2="63.5" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$32" class="0">
 <segment>
 <pinref part="R3" gate="G$1" pin="2"/>
-<pinref part="X1" gate="-1" pin="KL"/>
+<pinref part="DIG" gate="-1" pin="KL"/>
 <wire x1="223.52" y1="60.96" x2="226.06" y2="60.96" width="0.1524" layer="91"/>
 </segment>
 </net>
