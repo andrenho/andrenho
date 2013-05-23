@@ -1,0 +1,20 @@
+   //-- UNUSED
+   ||
+01234567 01234567
+|||  ||| ||||||||
+|||  |\\-\\\\\\\\-- DATA
+|||  |
+|||  \-- NEGATIVE
+|||
+\\\-- COMMAND:
+         000 - Voltage probe 1
+         001 - Voltage probe 2
+         010 - Time potentiometer
+         011 - Trigger potentiometer
+         100 - Change mode
+
+Modes: 
+ 00 - Only probe 1
+ 01 - Probe 2 - horizontal
+ 10 - Probe 2 - vertical
+ 11 - Digital
