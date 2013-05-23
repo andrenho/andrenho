@@ -13491,11 +13491,11 @@ Source: http://products.nichicon.co.jp/en/pdf/XJA043/e-ud.pdf</description>
 <text x="-2.54" y="-2.54" size="1.778" layer="96">&gt;VALUE</text>
 <pin name="GND" x="0" y="2.54" visible="off" length="short" direction="sup" rot="R270"/>
 </symbol>
-<symbol name="VCC">
+<symbol name="+5V">
 <wire x1="1.27" y1="-1.905" x2="0" y2="0" width="0.254" layer="94"/>
 <wire x1="0" y1="0" x2="-1.27" y2="-1.905" width="0.254" layer="94"/>
-<text x="-2.54" y="-2.54" size="1.778" layer="96" rot="R90">&gt;VALUE</text>
-<pin name="VCC" x="0" y="-2.54" visible="off" length="short" direction="sup" rot="R90"/>
+<text x="-2.54" y="-5.08" size="1.778" layer="96" rot="R90">&gt;VALUE</text>
+<pin name="+5V" x="0" y="-2.54" visible="off" length="short" direction="sup" rot="R90"/>
 </symbol>
 </symbols>
 <devicesets>
@@ -13512,10 +13512,10 @@ Source: http://products.nichicon.co.jp/en/pdf/XJA043/e-ud.pdf</description>
 </device>
 </devices>
 </deviceset>
-<deviceset name="VCC" prefix="P+">
+<deviceset name="+5V" prefix="P+">
 <description>&lt;b&gt;SUPPLY SYMBOL&lt;/b&gt;</description>
 <gates>
-<gate name="VCC" symbol="VCC" x="0" y="0"/>
+<gate name="1" symbol="+5V" x="0" y="0"/>
 </gates>
 <devices>
 <device name="">
@@ -15141,14 +15141,12 @@ Source: CANAL ELECTRONIC CO., LTD .. switsch.pdf</description>
 <part name="C5" library="rcl" deviceset="C-EU" device="050-030X075" value="33pF"/>
 <part name="C6" library="rcl" deviceset="C-EU" device="050-030X075" value="33pF"/>
 <part name="GND4" library="supply1" deviceset="GND" device=""/>
-<part name="P+5" library="supply1" deviceset="VCC" device=""/>
 <part name="X2" library="con-ptr500" deviceset="AK500/4" device="" value="USB"/>
-<part name="P+6" library="supply1" deviceset="VCC" device=""/>
 <part name="GND5" library="supply1" deviceset="GND" device=""/>
 <part name="R6" library="rcl" deviceset="R-EU_" device="0207/10" value="68"/>
 <part name="R7" library="rcl" deviceset="R-EU_" device="0207/10" value="68"/>
-<part name="D1" library="diode" deviceset="ZENER-DIODE" device="DO35Z10"/>
-<part name="D2" library="diode" deviceset="ZENER-DIODE" device="DO35Z10"/>
+<part name="D1" library="diode" deviceset="ZENER-DIODE" device="DO35Z10" value="3.3V"/>
+<part name="D2" library="diode" deviceset="ZENER-DIODE" device="DO35Z10" value="3.3V"/>
 <part name="R8" library="rcl" deviceset="R-EU_" device="0207/10" value="2K2"/>
 <part name="R11" library="rcl" deviceset="R-EU_" device="0207/10" value="10M"/>
 <part name="R12" library="rcl" deviceset="R-EU_" device="0207/10" value="10M"/>
@@ -15165,26 +15163,23 @@ Source: CANAL ELECTRONIC CO., LTD .. switsch.pdf</description>
 <part name="GND7" library="supply1" deviceset="GND" device=""/>
 <part name="TIME" library="pot" deviceset="3RP/1610N" device="" value="200"/>
 <part name="TRIGGER" library="pot" deviceset="3RP/1610N" device="" value="200"/>
-<part name="P+7" library="supply1" deviceset="VCC" device=""/>
 <part name="GND8" library="supply1" deviceset="GND" device=""/>
-<part name="P+1" library="supply1" deviceset="VCC" device=""/>
 <part name="IC1" library="maxim" deviceset="ICL7660CPA" device=""/>
 <part name="C1" library="rcl" deviceset="CPOL-EU" device="E2.5-6" value="10uF"/>
 <part name="GND1" library="supply1" deviceset="GND" device=""/>
 <part name="C2" library="rcl" deviceset="CPOL-EU" device="E2.5-6" value="10uF"/>
 <part name="GND2" library="supply1" deviceset="GND" device=""/>
-<part name="PROBE" library="switch" deviceset="MS243" device=""/>
-<part name="GND3" library="supply1" deviceset="GND" device=""/>
-<part name="MODE" library="switch" deviceset="2P2T" device=""/>
+<part name="S1" library="switch" deviceset="MS243" device="" value="PROBE"/>
+<part name="S2" library="switch" deviceset="2P2T" device="" value="MODE"/>
 <part name="GND9" library="supply1" deviceset="GND" device=""/>
-<part name="AN" library="con-ptr500" deviceset="AK500/3" device=""/>
+<part name="X1" library="con-ptr500" deviceset="AK500/3" device="" value="ANALOG"/>
 <part name="R1" library="rcl" deviceset="R-EU_" device="0207/10" value="680"/>
 <part name="R2" library="rcl" deviceset="R-EU_" device="0207/10" value="680"/>
-<part name="D3" library="diode" deviceset="ZENER-DIODE" device="DO35Z10"/>
-<part name="D4" library="diode" deviceset="ZENER-DIODE" device="DO35Z10"/>
+<part name="D3" library="diode" deviceset="ZENER-DIODE" device="DO35Z10" value="5.1V"/>
+<part name="D4" library="diode" deviceset="ZENER-DIODE" device="DO35Z10" value="5.1V"/>
 <part name="GND10" library="supply1" deviceset="GND" device=""/>
 <part name="GND11" library="supply1" deviceset="GND" device=""/>
-<part name="DIG" library="con-ptr500" deviceset="AK500/8" device=""/>
+<part name="X3" library="con-ptr500" deviceset="AK500/8" device="" value="DIG"/>
 <part name="R3" library="rcl" deviceset="R-EU_" device="0207/10" value="680"/>
 <part name="R4" library="rcl" deviceset="R-EU_" device="0207/10" value="680"/>
 <part name="R5" library="rcl" deviceset="R-EU_" device="0207/10" value="680"/>
@@ -15193,15 +15188,24 @@ Source: CANAL ELECTRONIC CO., LTD .. switsch.pdf</description>
 <part name="R21" library="rcl" deviceset="R-EU_" device="0207/10" value="680"/>
 <part name="R22" library="rcl" deviceset="R-EU_" device="0207/10" value="680"/>
 <part name="R23" library="rcl" deviceset="R-EU_" device="0207/10" value="680"/>
-<part name="D5" library="diode" deviceset="ZENER-DIODE" device="DO35Z10"/>
-<part name="D6" library="diode" deviceset="ZENER-DIODE" device="DO35Z10"/>
-<part name="D7" library="diode" deviceset="ZENER-DIODE" device="DO35Z10"/>
-<part name="D8" library="diode" deviceset="ZENER-DIODE" device="DO35Z10"/>
-<part name="D9" library="diode" deviceset="ZENER-DIODE" device="DO35Z10"/>
-<part name="D10" library="diode" deviceset="ZENER-DIODE" device="DO35Z10"/>
-<part name="D11" library="diode" deviceset="ZENER-DIODE" device="DO35Z10"/>
-<part name="D12" library="diode" deviceset="ZENER-DIODE" device="DO35Z10"/>
+<part name="D5" library="diode" deviceset="ZENER-DIODE" device="DO35Z10" value="5.1V"/>
+<part name="D6" library="diode" deviceset="ZENER-DIODE" device="DO35Z10" value="5.1V"/>
+<part name="D7" library="diode" deviceset="ZENER-DIODE" device="DO35Z10" value="5.1V"/>
+<part name="D8" library="diode" deviceset="ZENER-DIODE" device="DO35Z10" value="5.1V"/>
+<part name="D9" library="diode" deviceset="ZENER-DIODE" device="DO35Z10" value="5.1V"/>
+<part name="D10" library="diode" deviceset="ZENER-DIODE" device="DO35Z10" value="5.1V"/>
+<part name="D11" library="diode" deviceset="ZENER-DIODE" device="DO35Z10" value="5.1V"/>
+<part name="D12" library="diode" deviceset="ZENER-DIODE" device="DO35Z10" value="5.1V"/>
 <part name="GND12" library="supply1" deviceset="GND" device=""/>
+<part name="P+2" library="supply1" deviceset="+5V" device=""/>
+<part name="P+1" library="supply1" deviceset="+5V" device=""/>
+<part name="P+3" library="supply1" deviceset="+5V" device=""/>
+<part name="P+4" library="supply1" deviceset="+5V" device=""/>
+<part name="C3" library="rcl" deviceset="CPOL-EU" device="E2.5-6" value="10uF"/>
+<part name="D13" library="diode" deviceset="ZENER-DIODE" device="DO35Z10" value="5.1V"/>
+<part name="D14" library="diode" deviceset="ZENER-DIODE" device="DO35Z10" value="5.1V"/>
+<part name="GND3" library="supply1" deviceset="GND" device=""/>
+<part name="GND13" library="supply1" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -15217,13 +15221,11 @@ Source: CANAL ELECTRONIC CO., LTD .. switsch.pdf</description>
 <instance part="C5" gate="G$1" x="25.4" y="127"/>
 <instance part="C6" gate="G$1" x="25.4" y="114.3"/>
 <instance part="GND4" gate="1" x="25.4" y="104.14"/>
-<instance part="P+5" gate="VCC" x="40.64" y="157.48"/>
-<instance part="X2" gate="-1" x="147.32" y="53.34" rot="MR0"/>
-<instance part="X2" gate="-2" x="147.32" y="50.8" rot="MR0"/>
-<instance part="X2" gate="-3" x="147.32" y="48.26" rot="MR0"/>
-<instance part="X2" gate="-4" x="147.32" y="45.72" rot="MR0"/>
-<instance part="P+6" gate="VCC" x="142.24" y="71.12"/>
-<instance part="GND5" gate="1" x="142.24" y="33.02"/>
+<instance part="X2" gate="-1" x="152.4" y="53.34" rot="MR0"/>
+<instance part="X2" gate="-2" x="152.4" y="50.8" rot="MR0"/>
+<instance part="X2" gate="-3" x="152.4" y="48.26" rot="MR0"/>
+<instance part="X2" gate="-4" x="152.4" y="45.72" rot="MR0"/>
+<instance part="GND5" gate="1" x="147.32" y="33.02"/>
 <instance part="R6" gate="G$1" x="119.38" y="50.8" smashed="yes">
 <attribute name="NAME" x="113.03" y="49.7586" size="1.778" layer="95"/>
 <attribute name="VALUE" x="123.19" y="50.038" size="1.778" layer="96"/>
@@ -15231,9 +15233,9 @@ Source: CANAL ELECTRONIC CO., LTD .. switsch.pdf</description>
 <instance part="R7" gate="G$1" x="119.38" y="48.26" smashed="yes">
 <attribute name="VALUE" x="123.19" y="47.498" size="1.778" layer="96"/>
 </instance>
-<instance part="D1" gate="G$1" x="134.62" y="43.18" rot="R90"/>
+<instance part="D1" gate="G$1" x="139.7" y="43.18" rot="R90"/>
 <instance part="D2" gate="G$1" x="129.54" y="43.18" rot="R90"/>
-<instance part="R8" gate="G$1" x="137.16" y="58.42" rot="R90"/>
+<instance part="R8" gate="G$1" x="142.24" y="58.42" rot="R90"/>
 <instance part="R11" gate="G$1" x="142.24" y="180.34" rot="R90"/>
 <instance part="R12" gate="G$1" x="142.24" y="170.18" rot="R90"/>
 <instance part="R13" gate="G$1" x="142.24" y="152.4" rot="R90"/>
@@ -15249,23 +15251,20 @@ Source: CANAL ELECTRONIC CO., LTD .. switsch.pdf</description>
 <instance part="GND6" gate="1" x="175.26" y="160.02"/>
 <instance part="GND7" gate="1" x="175.26" y="134.62"/>
 <instance part="TIME" gate="G$1" x="220.98" y="124.46" rot="R180"/>
-<instance part="TRIGGER" gate="G$1" x="238.76" y="116.84" rot="R180"/>
-<instance part="P+7" gate="VCC" x="220.98" y="137.16"/>
-<instance part="GND8" gate="1" x="238.76" y="101.6"/>
+<instance part="TRIGGER" gate="G$1" x="231.14" y="116.84" rot="R180"/>
+<instance part="GND8" gate="1" x="231.14" y="101.6"/>
 <instance part="IC4" gate="P" x="86.36" y="40.64" rot="MR270"/>
-<instance part="P+1" gate="VCC" x="78.74" y="48.26"/>
 <instance part="IC1" gate="G$1" x="60.96" y="22.86"/>
 <instance part="C1" gate="G$1" x="35.56" y="22.86"/>
 <instance part="GND1" gate="1" x="73.66" y="10.16"/>
-<instance part="C2" gate="G$1" x="86.36" y="27.94"/>
-<instance part="GND2" gate="1" x="86.36" y="20.32"/>
-<instance part="PROBE" gate="1" x="116.84" y="119.38" rot="R270"/>
-<instance part="GND3" gate="1" x="127" y="114.3"/>
-<instance part="MODE" gate="G$1" x="147.32" y="106.68" rot="R270"/>
-<instance part="GND9" gate="1" x="154.94" y="99.06"/>
-<instance part="AN" gate="-1" x="142.24" y="142.24" rot="R90"/>
-<instance part="AN" gate="-2" x="152.4" y="190.5" rot="R270"/>
-<instance part="AN" gate="-3" x="142.24" y="190.5" rot="R270"/>
+<instance part="C2" gate="G$1" x="86.36" y="25.4"/>
+<instance part="GND2" gate="1" x="86.36" y="17.78"/>
+<instance part="S1" gate="1" x="116.84" y="119.38" rot="R270"/>
+<instance part="S2" gate="G$1" x="127" y="106.68" rot="R270"/>
+<instance part="GND9" gate="1" x="137.16" y="99.06"/>
+<instance part="X1" gate="-1" x="142.24" y="142.24" rot="R90"/>
+<instance part="X1" gate="-2" x="152.4" y="190.5" rot="R270"/>
+<instance part="X1" gate="-3" x="142.24" y="190.5" rot="R270"/>
 <instance part="R1" gate="G$1" x="114.3" y="162.56" smashed="yes">
 <attribute name="NAME" x="107.95" y="161.5186" size="1.778" layer="95"/>
 <attribute name="VALUE" x="118.11" y="161.798" size="1.778" layer="96"/>
@@ -15278,55 +15277,64 @@ Source: CANAL ELECTRONIC CO., LTD .. switsch.pdf</description>
 <instance part="D4" gate="G$1" x="134.62" y="154.94" rot="R90"/>
 <instance part="GND10" gate="1" x="127" y="147.32"/>
 <instance part="GND11" gate="1" x="134.62" y="147.32"/>
-<instance part="DIG" gate="-1" x="231.14" y="60.96" rot="R180"/>
-<instance part="DIG" gate="-2" x="231.14" y="63.5" rot="R180"/>
-<instance part="DIG" gate="-3" x="231.14" y="66.04" rot="R180"/>
-<instance part="DIG" gate="-4" x="231.14" y="68.58" rot="R180"/>
-<instance part="DIG" gate="-5" x="231.14" y="71.12" rot="R180"/>
-<instance part="DIG" gate="-6" x="231.14" y="73.66" rot="R180"/>
-<instance part="DIG" gate="-7" x="231.14" y="76.2" rot="R180"/>
-<instance part="DIG" gate="-8" x="231.14" y="78.74" rot="R180"/>
-<instance part="R3" gate="G$1" x="218.44" y="60.96" smashed="yes">
-<attribute name="NAME" x="212.09" y="59.9186" size="1.778" layer="95"/>
-<attribute name="VALUE" x="222.25" y="60.198" size="1.778" layer="96"/>
+<instance part="X3" gate="-1" x="266.7" y="60.96" rot="R180"/>
+<instance part="X3" gate="-2" x="266.7" y="63.5" rot="R180"/>
+<instance part="X3" gate="-3" x="266.7" y="66.04" rot="R180"/>
+<instance part="X3" gate="-4" x="266.7" y="68.58" rot="R180"/>
+<instance part="X3" gate="-5" x="266.7" y="71.12" rot="R180"/>
+<instance part="X3" gate="-6" x="266.7" y="73.66" rot="R180"/>
+<instance part="X3" gate="-7" x="266.7" y="76.2" rot="R180"/>
+<instance part="X3" gate="-8" x="266.7" y="78.74" rot="R180"/>
+<instance part="R3" gate="G$1" x="254" y="60.96" smashed="yes">
+<attribute name="NAME" x="247.65" y="59.9186" size="1.778" layer="95"/>
+<attribute name="VALUE" x="257.81" y="60.198" size="1.778" layer="96"/>
 </instance>
-<instance part="R4" gate="G$1" x="218.44" y="63.5" smashed="yes">
-<attribute name="NAME" x="212.09" y="62.4586" size="1.778" layer="95"/>
-<attribute name="VALUE" x="222.25" y="62.738" size="1.778" layer="96"/>
+<instance part="R4" gate="G$1" x="254" y="63.5" smashed="yes">
+<attribute name="NAME" x="245.11" y="62.4586" size="1.778" layer="95"/>
+<attribute name="VALUE" x="257.81" y="62.738" size="1.778" layer="96"/>
 </instance>
-<instance part="R5" gate="G$1" x="218.44" y="66.04" smashed="yes">
-<attribute name="NAME" x="212.09" y="64.9986" size="1.778" layer="95"/>
-<attribute name="VALUE" x="222.25" y="65.278" size="1.778" layer="96"/>
+<instance part="R5" gate="G$1" x="254" y="66.04" smashed="yes">
+<attribute name="NAME" x="245.11" y="64.9986" size="1.778" layer="95"/>
+<attribute name="VALUE" x="257.81" y="65.278" size="1.778" layer="96"/>
 </instance>
-<instance part="R19" gate="G$1" x="218.44" y="68.58" smashed="yes">
-<attribute name="NAME" x="212.09" y="67.5386" size="1.778" layer="95"/>
-<attribute name="VALUE" x="222.25" y="67.818" size="1.778" layer="96"/>
+<instance part="R19" gate="G$1" x="254" y="68.58" smashed="yes">
+<attribute name="NAME" x="245.11" y="67.5386" size="1.778" layer="95"/>
+<attribute name="VALUE" x="257.81" y="67.818" size="1.778" layer="96"/>
 </instance>
-<instance part="R20" gate="G$1" x="218.44" y="71.12" smashed="yes">
-<attribute name="NAME" x="212.09" y="70.0786" size="1.778" layer="95"/>
-<attribute name="VALUE" x="222.25" y="70.358" size="1.778" layer="96"/>
+<instance part="R20" gate="G$1" x="254" y="71.12" smashed="yes">
+<attribute name="NAME" x="245.11" y="70.0786" size="1.778" layer="95"/>
+<attribute name="VALUE" x="257.81" y="70.358" size="1.778" layer="96"/>
 </instance>
-<instance part="R21" gate="G$1" x="218.44" y="73.66" smashed="yes">
-<attribute name="NAME" x="212.09" y="72.6186" size="1.778" layer="95"/>
-<attribute name="VALUE" x="222.25" y="72.898" size="1.778" layer="96"/>
+<instance part="R21" gate="G$1" x="254" y="73.66" smashed="yes">
+<attribute name="NAME" x="245.11" y="72.6186" size="1.778" layer="95"/>
+<attribute name="VALUE" x="257.81" y="72.898" size="1.778" layer="96"/>
 </instance>
-<instance part="R22" gate="G$1" x="218.44" y="76.2" smashed="yes">
-<attribute name="NAME" x="212.09" y="75.1586" size="1.778" layer="95"/>
-<attribute name="VALUE" x="222.25" y="75.438" size="1.778" layer="96"/>
+<instance part="R22" gate="G$1" x="254" y="76.2" smashed="yes">
+<attribute name="NAME" x="245.11" y="75.1586" size="1.778" layer="95"/>
+<attribute name="VALUE" x="257.81" y="75.438" size="1.778" layer="96"/>
 </instance>
-<instance part="R23" gate="G$1" x="218.44" y="78.74" smashed="yes">
-<attribute name="NAME" x="212.09" y="77.6986" size="1.778" layer="95"/>
-<attribute name="VALUE" x="222.25" y="77.978" size="1.778" layer="96"/>
+<instance part="R23" gate="G$1" x="254" y="78.74" smashed="yes">
+<attribute name="NAME" x="245.11" y="77.6986" size="1.778" layer="95"/>
+<attribute name="VALUE" x="257.81" y="77.978" size="1.778" layer="96"/>
 </instance>
-<instance part="D5" gate="G$1" x="210.82" y="55.88" rot="R90"/>
-<instance part="D6" gate="G$1" x="205.74" y="55.88" rot="R90"/>
-<instance part="D7" gate="G$1" x="200.66" y="55.88" rot="R90"/>
-<instance part="D8" gate="G$1" x="195.58" y="55.88" rot="R90"/>
-<instance part="D9" gate="G$1" x="190.5" y="55.88" rot="R90"/>
-<instance part="D10" gate="G$1" x="185.42" y="55.88" rot="R90"/>
-<instance part="D11" gate="G$1" x="180.34" y="55.88" rot="R90"/>
+<instance part="D5" gate="G$1" x="246.38" y="55.88" rot="R90"/>
+<instance part="D6" gate="G$1" x="236.22" y="55.88" rot="R90"/>
+<instance part="D7" gate="G$1" x="226.06" y="55.88" rot="R90"/>
+<instance part="D8" gate="G$1" x="215.9" y="55.88" rot="R90"/>
+<instance part="D9" gate="G$1" x="205.74" y="55.88" rot="R90"/>
+<instance part="D10" gate="G$1" x="195.58" y="55.88" rot="R90"/>
+<instance part="D11" gate="G$1" x="185.42" y="55.88" rot="R90"/>
 <instance part="D12" gate="G$1" x="175.26" y="55.88" rot="R90"/>
-<instance part="GND12" gate="1" x="210.82" y="48.26"/>
+<instance part="GND12" gate="1" x="246.38" y="48.26"/>
+<instance part="P+2" gate="1" x="40.64" y="160.02"/>
+<instance part="P+1" gate="1" x="78.74" y="48.26"/>
+<instance part="P+3" gate="1" x="147.32" y="73.66"/>
+<instance part="P+4" gate="1" x="220.98" y="137.16"/>
+<instance part="C3" gate="G$1" x="45.72" y="106.68"/>
+<instance part="D13" gate="G$1" x="144.78" y="121.92" rot="R90"/>
+<instance part="D14" gate="G$1" x="152.4" y="121.92" rot="R90"/>
+<instance part="GND3" gate="1" x="144.78" y="114.3"/>
+<instance part="GND13" gate="1" x="152.4" y="114.3"/>
 </instances>
 <busses>
 <bus name="DIG[0..7]">
@@ -15350,22 +15358,25 @@ Source: CANAL ELECTRONIC CO., LTD .. switsch.pdf</description>
 <wire x1="17.78" y1="109.22" x2="25.4" y2="109.22" width="0.1524" layer="91"/>
 <junction x="25.4" y="109.22"/>
 <pinref part="IC3" gate="G$1" pin="GND@1"/>
-<wire x1="53.34" y1="109.22" x2="25.4" y2="109.22" width="0.1524" layer="91"/>
+<wire x1="53.34" y1="109.22" x2="45.72" y2="109.22" width="0.1524" layer="91"/>
 <junction x="25.4" y="109.22"/>
+<pinref part="C3" gate="G$1" pin="+"/>
+<wire x1="45.72" y1="109.22" x2="25.4" y2="109.22" width="0.1524" layer="91"/>
+<junction x="45.72" y="109.22"/>
 </segment>
 <segment>
 <pinref part="X2" gate="-4" pin="KL"/>
 <pinref part="GND5" gate="1" pin="GND"/>
-<wire x1="142.24" y1="45.72" x2="142.24" y2="38.1" width="0.1524" layer="91"/>
+<wire x1="147.32" y1="45.72" x2="147.32" y2="38.1" width="0.1524" layer="91"/>
 <pinref part="D1" gate="G$1" pin="A"/>
-<wire x1="142.24" y1="38.1" x2="142.24" y2="35.56" width="0.1524" layer="91"/>
-<wire x1="134.62" y1="40.64" x2="134.62" y2="38.1" width="0.1524" layer="91"/>
-<wire x1="134.62" y1="38.1" x2="142.24" y2="38.1" width="0.1524" layer="91"/>
-<junction x="142.24" y="38.1"/>
+<wire x1="147.32" y1="38.1" x2="147.32" y2="35.56" width="0.1524" layer="91"/>
+<wire x1="139.7" y1="40.64" x2="139.7" y2="38.1" width="0.1524" layer="91"/>
+<wire x1="139.7" y1="38.1" x2="147.32" y2="38.1" width="0.1524" layer="91"/>
+<junction x="147.32" y="38.1"/>
 <pinref part="D2" gate="G$1" pin="A"/>
 <wire x1="129.54" y1="40.64" x2="129.54" y2="38.1" width="0.1524" layer="91"/>
-<wire x1="129.54" y1="38.1" x2="134.62" y2="38.1" width="0.1524" layer="91"/>
-<junction x="134.62" y="38.1"/>
+<wire x1="129.54" y1="38.1" x2="139.7" y2="38.1" width="0.1524" layer="91"/>
+<junction x="139.7" y="38.1"/>
 </segment>
 <segment>
 <pinref part="GND6" gate="1" pin="GND"/>
@@ -15380,12 +15391,12 @@ Source: CANAL ELECTRONIC CO., LTD .. switsch.pdf</description>
 <segment>
 <pinref part="TIME" gate="G$1" pin="E"/>
 <wire x1="220.98" y1="119.38" x2="220.98" y2="109.22" width="0.1524" layer="91"/>
-<wire x1="220.98" y1="109.22" x2="238.76" y2="109.22" width="0.1524" layer="91"/>
+<wire x1="220.98" y1="109.22" x2="231.14" y2="109.22" width="0.1524" layer="91"/>
 <pinref part="TRIGGER" gate="G$1" pin="E"/>
-<wire x1="238.76" y1="109.22" x2="238.76" y2="111.76" width="0.1524" layer="91"/>
+<wire x1="231.14" y1="109.22" x2="231.14" y2="111.76" width="0.1524" layer="91"/>
 <pinref part="GND8" gate="1" pin="GND"/>
-<wire x1="238.76" y1="109.22" x2="238.76" y2="104.14" width="0.1524" layer="91"/>
-<junction x="238.76" y="109.22"/>
+<wire x1="231.14" y1="109.22" x2="231.14" y2="104.14" width="0.1524" layer="91"/>
+<junction x="231.14" y="109.22"/>
 </segment>
 <segment>
 <pinref part="IC1" gate="G$1" pin="GND"/>
@@ -15397,23 +15408,22 @@ Source: CANAL ELECTRONIC CO., LTD .. switsch.pdf</description>
 <pinref part="GND2" gate="1" pin="GND"/>
 </segment>
 <segment>
-<pinref part="PROBE" gate="1" pin="S"/>
-<pinref part="GND3" gate="1" pin="GND"/>
-<wire x1="121.92" y1="116.84" x2="127" y2="116.84" width="0.1524" layer="91"/>
-</segment>
-<segment>
-<pinref part="MODE" gate="G$1" pin="3.1"/>
+<pinref part="S2" gate="G$1" pin="3.1"/>
 <pinref part="GND9" gate="1" pin="GND"/>
-<wire x1="152.4" y1="104.14" x2="154.94" y2="104.14" width="0.1524" layer="91"/>
-<wire x1="154.94" y1="104.14" x2="154.94" y2="101.6" width="0.1524" layer="91"/>
-<pinref part="MODE" gate="G$1" pin="2.1"/>
-<wire x1="152.4" y1="106.68" x2="154.94" y2="106.68" width="0.1524" layer="91"/>
-<wire x1="154.94" y1="106.68" x2="154.94" y2="104.14" width="0.1524" layer="91"/>
-<junction x="154.94" y="104.14"/>
-<pinref part="MODE" gate="G$1" pin="1.1"/>
-<wire x1="152.4" y1="109.22" x2="154.94" y2="109.22" width="0.1524" layer="91"/>
-<wire x1="154.94" y1="109.22" x2="154.94" y2="106.68" width="0.1524" layer="91"/>
-<junction x="154.94" y="106.68"/>
+<wire x1="132.08" y1="104.14" x2="137.16" y2="104.14" width="0.1524" layer="91"/>
+<wire x1="137.16" y1="104.14" x2="137.16" y2="101.6" width="0.1524" layer="91"/>
+<pinref part="S2" gate="G$1" pin="2.1"/>
+<wire x1="132.08" y1="106.68" x2="137.16" y2="106.68" width="0.1524" layer="91"/>
+<wire x1="137.16" y1="106.68" x2="137.16" y2="104.14" width="0.1524" layer="91"/>
+<junction x="137.16" y="104.14"/>
+<pinref part="S2" gate="G$1" pin="1.1"/>
+<wire x1="132.08" y1="109.22" x2="137.16" y2="109.22" width="0.1524" layer="91"/>
+<wire x1="137.16" y1="109.22" x2="137.16" y2="106.68" width="0.1524" layer="91"/>
+<junction x="137.16" y="106.68"/>
+<pinref part="S1" gate="1" pin="S"/>
+<wire x1="121.92" y1="116.84" x2="137.16" y2="116.84" width="0.1524" layer="91"/>
+<wire x1="137.16" y1="116.84" x2="137.16" y2="109.22" width="0.1524" layer="91"/>
+<junction x="137.16" y="109.22"/>
 </segment>
 <segment>
 <pinref part="D3" gate="G$1" pin="A"/>
@@ -15428,75 +15438,45 @@ Source: CANAL ELECTRONIC CO., LTD .. switsch.pdf</description>
 <segment>
 <pinref part="D5" gate="G$1" pin="A"/>
 <pinref part="GND12" gate="1" pin="GND"/>
-<wire x1="210.82" y1="53.34" x2="210.82" y2="50.8" width="0.1524" layer="91"/>
+<wire x1="246.38" y1="53.34" x2="246.38" y2="50.8" width="0.1524" layer="91"/>
 <pinref part="D6" gate="G$1" pin="A"/>
-<wire x1="210.82" y1="50.8" x2="205.74" y2="50.8" width="0.1524" layer="91"/>
-<wire x1="205.74" y1="50.8" x2="205.74" y2="53.34" width="0.1524" layer="91"/>
-<junction x="210.82" y="50.8"/>
+<wire x1="246.38" y1="50.8" x2="236.22" y2="50.8" width="0.1524" layer="91"/>
+<wire x1="236.22" y1="50.8" x2="236.22" y2="53.34" width="0.1524" layer="91"/>
+<junction x="246.38" y="50.8"/>
 <pinref part="D7" gate="G$1" pin="A"/>
-<wire x1="205.74" y1="50.8" x2="200.66" y2="50.8" width="0.1524" layer="91"/>
-<wire x1="200.66" y1="50.8" x2="200.66" y2="53.34" width="0.1524" layer="91"/>
-<junction x="205.74" y="50.8"/>
+<wire x1="236.22" y1="50.8" x2="226.06" y2="50.8" width="0.1524" layer="91"/>
+<wire x1="226.06" y1="50.8" x2="226.06" y2="53.34" width="0.1524" layer="91"/>
+<junction x="236.22" y="50.8"/>
 <pinref part="D8" gate="G$1" pin="A"/>
-<wire x1="200.66" y1="50.8" x2="195.58" y2="50.8" width="0.1524" layer="91"/>
-<wire x1="195.58" y1="50.8" x2="195.58" y2="53.34" width="0.1524" layer="91"/>
-<junction x="200.66" y="50.8"/>
+<wire x1="226.06" y1="50.8" x2="215.9" y2="50.8" width="0.1524" layer="91"/>
+<wire x1="215.9" y1="50.8" x2="215.9" y2="53.34" width="0.1524" layer="91"/>
+<junction x="226.06" y="50.8"/>
 <pinref part="D9" gate="G$1" pin="A"/>
-<wire x1="195.58" y1="50.8" x2="190.5" y2="50.8" width="0.1524" layer="91"/>
-<wire x1="190.5" y1="50.8" x2="190.5" y2="53.34" width="0.1524" layer="91"/>
-<junction x="195.58" y="50.8"/>
+<wire x1="215.9" y1="50.8" x2="205.74" y2="50.8" width="0.1524" layer="91"/>
+<wire x1="205.74" y1="50.8" x2="205.74" y2="53.34" width="0.1524" layer="91"/>
+<junction x="215.9" y="50.8"/>
 <pinref part="D10" gate="G$1" pin="A"/>
-<wire x1="190.5" y1="50.8" x2="185.42" y2="50.8" width="0.1524" layer="91"/>
-<wire x1="185.42" y1="50.8" x2="185.42" y2="53.34" width="0.1524" layer="91"/>
-<junction x="190.5" y="50.8"/>
+<wire x1="205.74" y1="50.8" x2="195.58" y2="50.8" width="0.1524" layer="91"/>
+<wire x1="195.58" y1="50.8" x2="195.58" y2="53.34" width="0.1524" layer="91"/>
+<junction x="205.74" y="50.8"/>
 <pinref part="D11" gate="G$1" pin="A"/>
-<wire x1="185.42" y1="50.8" x2="180.34" y2="50.8" width="0.1524" layer="91"/>
-<wire x1="180.34" y1="50.8" x2="180.34" y2="53.34" width="0.1524" layer="91"/>
-<junction x="185.42" y="50.8"/>
+<wire x1="195.58" y1="50.8" x2="185.42" y2="50.8" width="0.1524" layer="91"/>
+<wire x1="185.42" y1="50.8" x2="185.42" y2="53.34" width="0.1524" layer="91"/>
+<junction x="195.58" y="50.8"/>
 <pinref part="D12" gate="G$1" pin="A"/>
-<wire x1="180.34" y1="50.8" x2="175.26" y2="50.8" width="0.1524" layer="91"/>
+<wire x1="185.42" y1="50.8" x2="175.26" y2="50.8" width="0.1524" layer="91"/>
 <wire x1="175.26" y1="50.8" x2="175.26" y2="53.34" width="0.1524" layer="91"/>
-<junction x="180.34" y="50.8"/>
-</segment>
-</net>
-<net name="VCC" class="0">
-<segment>
-<pinref part="P+5" gate="VCC" pin="VCC"/>
-<wire x1="40.64" y1="154.94" x2="40.64" y2="129.54" width="0.1524" layer="91"/>
-<wire x1="40.64" y1="129.54" x2="40.64" y2="104.14" width="0.1524" layer="91"/>
-<wire x1="40.64" y1="104.14" x2="53.34" y2="104.14" width="0.1524" layer="91"/>
-<pinref part="IC3" gate="G$1" pin="VCC@1"/>
-<pinref part="IC3" gate="G$1" pin="AVCC"/>
-<wire x1="53.34" y1="129.54" x2="40.64" y2="129.54" width="0.1524" layer="91"/>
-<junction x="40.64" y="129.54"/>
+<junction x="185.42" y="50.8"/>
 </segment>
 <segment>
-<pinref part="X2" gate="-1" pin="KL"/>
-<pinref part="P+6" gate="VCC" pin="VCC"/>
-<wire x1="142.24" y1="53.34" x2="142.24" y2="63.5" width="0.1524" layer="91"/>
-<pinref part="R8" gate="G$1" pin="2"/>
-<wire x1="142.24" y1="63.5" x2="142.24" y2="68.58" width="0.1524" layer="91"/>
-<wire x1="137.16" y1="63.5" x2="142.24" y2="63.5" width="0.1524" layer="91"/>
-<junction x="142.24" y="63.5"/>
+<pinref part="D13" gate="G$1" pin="A"/>
+<pinref part="GND3" gate="1" pin="GND"/>
+<wire x1="144.78" y1="119.38" x2="144.78" y2="116.84" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="P+7" gate="VCC" pin="VCC"/>
-<pinref part="TIME" gate="G$1" pin="A"/>
-<wire x1="220.98" y1="134.62" x2="220.98" y2="132.08" width="0.1524" layer="91"/>
-<pinref part="TRIGGER" gate="G$1" pin="A"/>
-<wire x1="220.98" y1="132.08" x2="220.98" y2="129.54" width="0.1524" layer="91"/>
-<wire x1="238.76" y1="121.92" x2="238.76" y2="132.08" width="0.1524" layer="91"/>
-<wire x1="238.76" y1="132.08" x2="220.98" y2="132.08" width="0.1524" layer="91"/>
-<junction x="220.98" y="132.08"/>
-</segment>
-<segment>
-<pinref part="P+1" gate="VCC" pin="VCC"/>
-<pinref part="IC4" gate="P" pin="V+"/>
-<wire x1="78.74" y1="45.72" x2="78.74" y2="40.64" width="0.1524" layer="91"/>
-<pinref part="IC1" gate="G$1" pin="V+"/>
-<wire x1="78.74" y1="40.64" x2="78.74" y2="20.32" width="0.1524" layer="91"/>
-<wire x1="78.74" y1="20.32" x2="73.66" y2="20.32" width="0.1524" layer="91"/>
-<junction x="78.74" y="40.64"/>
+<pinref part="D14" gate="G$1" pin="A"/>
+<pinref part="GND13" gate="1" pin="GND"/>
+<wire x1="152.4" y1="119.38" x2="152.4" y2="116.84" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$7" class="0">
@@ -15523,24 +15503,24 @@ Source: CANAL ELECTRONIC CO., LTD .. switsch.pdf</description>
 <pinref part="X2" gate="-2" pin="KL"/>
 <wire x1="124.46" y1="50.8" x2="129.54" y2="50.8" width="0.1524" layer="91"/>
 <pinref part="D2" gate="G$1" pin="C"/>
-<wire x1="129.54" y1="50.8" x2="137.16" y2="50.8" width="0.1524" layer="91"/>
-<wire x1="137.16" y1="50.8" x2="142.24" y2="50.8" width="0.1524" layer="91"/>
+<wire x1="129.54" y1="50.8" x2="142.24" y2="50.8" width="0.1524" layer="91"/>
+<wire x1="142.24" y1="50.8" x2="147.32" y2="50.8" width="0.1524" layer="91"/>
 <wire x1="129.54" y1="45.72" x2="129.54" y2="50.8" width="0.1524" layer="91"/>
 <junction x="129.54" y="50.8"/>
 <pinref part="R8" gate="G$1" pin="1"/>
-<wire x1="137.16" y1="53.34" x2="137.16" y2="50.8" width="0.1524" layer="91"/>
-<junction x="137.16" y="50.8"/>
+<wire x1="142.24" y1="53.34" x2="142.24" y2="50.8" width="0.1524" layer="91"/>
+<junction x="142.24" y="50.8"/>
 </segment>
 </net>
 <net name="N$10" class="0">
 <segment>
 <pinref part="X2" gate="-3" pin="KL"/>
 <pinref part="R7" gate="G$1" pin="2"/>
-<wire x1="142.24" y1="48.26" x2="134.62" y2="48.26" width="0.1524" layer="91"/>
+<wire x1="147.32" y1="48.26" x2="139.7" y2="48.26" width="0.1524" layer="91"/>
 <pinref part="D1" gate="G$1" pin="C"/>
-<wire x1="134.62" y1="48.26" x2="124.46" y2="48.26" width="0.1524" layer="91"/>
-<wire x1="134.62" y1="45.72" x2="134.62" y2="48.26" width="0.1524" layer="91"/>
-<junction x="134.62" y="48.26"/>
+<wire x1="139.7" y1="48.26" x2="124.46" y2="48.26" width="0.1524" layer="91"/>
+<wire x1="139.7" y1="45.72" x2="139.7" y2="48.26" width="0.1524" layer="91"/>
+<junction x="139.7" y="48.26"/>
 </segment>
 </net>
 <net name="N$15" class="0">
@@ -15616,7 +15596,11 @@ Source: CANAL ELECTRONIC CO., LTD .. switsch.pdf</description>
 <wire x1="203.2" y1="129.54" x2="167.64" y2="129.54" width="0.1524" layer="91"/>
 <pinref part="IC3" gate="G$1" pin="PC2(ADC2)"/>
 <wire x1="167.64" y1="129.54" x2="167.64" y2="134.62" width="0.1524" layer="91"/>
-<wire x1="167.64" y1="134.62" x2="101.6" y2="134.62" width="0.1524" layer="91"/>
+<wire x1="167.64" y1="134.62" x2="144.78" y2="134.62" width="0.1524" layer="91"/>
+<pinref part="D13" gate="G$1" pin="C"/>
+<wire x1="144.78" y1="134.62" x2="101.6" y2="134.62" width="0.1524" layer="91"/>
+<wire x1="144.78" y1="124.46" x2="144.78" y2="134.62" width="0.1524" layer="91"/>
+<junction x="144.78" y="134.62"/>
 </segment>
 </net>
 <net name="N$19" class="0">
@@ -15644,7 +15628,11 @@ Source: CANAL ELECTRONIC CO., LTD .. switsch.pdf</description>
 <wire x1="208.28" y1="127" x2="165.1" y2="127" width="0.1524" layer="91"/>
 <pinref part="IC3" gate="G$1" pin="PC3(ADC3)"/>
 <wire x1="165.1" y1="127" x2="165.1" y2="132.08" width="0.1524" layer="91"/>
-<wire x1="165.1" y1="132.08" x2="101.6" y2="132.08" width="0.1524" layer="91"/>
+<wire x1="165.1" y1="132.08" x2="152.4" y2="132.08" width="0.1524" layer="91"/>
+<pinref part="D14" gate="G$1" pin="C"/>
+<wire x1="152.4" y1="132.08" x2="101.6" y2="132.08" width="0.1524" layer="91"/>
+<wire x1="152.4" y1="124.46" x2="152.4" y2="132.08" width="0.1524" layer="91"/>
+<junction x="152.4" y="132.08"/>
 </segment>
 </net>
 <net name="N$22" class="0">
@@ -15659,7 +15647,7 @@ Source: CANAL ELECTRONIC CO., LTD .. switsch.pdf</description>
 <net name="N$23" class="0">
 <segment>
 <pinref part="TRIGGER" gate="G$1" pin="S"/>
-<wire x1="233.68" y1="116.84" x2="160.02" y2="116.84" width="0.1524" layer="91"/>
+<wire x1="226.06" y1="116.84" x2="160.02" y2="116.84" width="0.1524" layer="91"/>
 <wire x1="160.02" y1="116.84" x2="160.02" y2="127" width="0.1524" layer="91"/>
 <pinref part="IC3" gate="G$1" pin="PC5(ADC5/SCL)"/>
 <wire x1="160.02" y1="127" x2="101.6" y2="127" width="0.1524" layer="91"/>
@@ -15700,20 +15688,9 @@ Source: CANAL ELECTRONIC CO., LTD .. switsch.pdf</description>
 <wire x1="35.56" y1="25.4" x2="45.72" y2="25.4" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="VOUT" class="0">
-<segment>
-<pinref part="IC1" gate="G$1" pin="VOUT"/>
-<pinref part="C2" gate="G$1" pin="+"/>
-<wire x1="73.66" y1="30.48" x2="86.36" y2="30.48" width="0.1524" layer="91"/>
-<pinref part="IC4" gate="P" pin="V-"/>
-<wire x1="86.36" y1="30.48" x2="93.98" y2="30.48" width="0.1524" layer="91"/>
-<wire x1="93.98" y1="30.48" x2="93.98" y2="40.64" width="0.1524" layer="91"/>
-<junction x="86.36" y="30.48"/>
-</segment>
-</net>
 <net name="N$4" class="0">
 <segment>
-<pinref part="PROBE" gate="1" pin="P"/>
+<pinref part="S1" gate="1" pin="P"/>
 <pinref part="IC3" gate="G$1" pin="PD0(RXD)"/>
 <wire x1="111.76" y1="116.84" x2="101.6" y2="116.84" width="0.1524" layer="91"/>
 </segment>
@@ -15723,8 +15700,7 @@ Source: CANAL ELECTRONIC CO., LTD .. switsch.pdf</description>
 <pinref part="IC3" gate="G$1" pin="PD1(TXD)"/>
 <wire x1="101.6" y1="114.3" x2="121.92" y2="114.3" width="0.1524" layer="91"/>
 <wire x1="121.92" y1="114.3" x2="121.92" y2="109.22" width="0.1524" layer="91"/>
-<pinref part="MODE" gate="G$1" pin="1.2"/>
-<wire x1="121.92" y1="109.22" x2="142.24" y2="109.22" width="0.1524" layer="91"/>
+<pinref part="S2" gate="G$1" pin="1.2"/>
 </segment>
 </net>
 <net name="N$6" class="0">
@@ -15732,26 +15708,26 @@ Source: CANAL ELECTRONIC CO., LTD .. switsch.pdf</description>
 <pinref part="IC3" gate="G$1" pin="PD2(INT0)"/>
 <wire x1="101.6" y1="111.76" x2="119.38" y2="111.76" width="0.1524" layer="91"/>
 <wire x1="119.38" y1="111.76" x2="119.38" y2="106.68" width="0.1524" layer="91"/>
-<pinref part="MODE" gate="G$1" pin="2.2"/>
-<wire x1="119.38" y1="106.68" x2="142.24" y2="106.68" width="0.1524" layer="91"/>
+<pinref part="S2" gate="G$1" pin="2.2"/>
+<wire x1="119.38" y1="106.68" x2="121.92" y2="106.68" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$13" class="0">
 <segment>
 <pinref part="R11" gate="G$1" pin="2"/>
-<pinref part="AN" gate="-3" pin="KL"/>
+<pinref part="X1" gate="-3" pin="KL"/>
 </segment>
 </net>
 <net name="N$21" class="0">
 <segment>
 <pinref part="R9" gate="G$1" pin="2"/>
-<pinref part="AN" gate="-2" pin="KL"/>
+<pinref part="X1" gate="-2" pin="KL"/>
 </segment>
 </net>
 <net name="N$24" class="0">
 <segment>
 <pinref part="R13" gate="G$1" pin="1"/>
-<pinref part="AN" gate="-1" pin="KL"/>
+<pinref part="X1" gate="-1" pin="KL"/>
 <pinref part="R14" gate="G$1" pin="1"/>
 <wire x1="142.24" y1="147.32" x2="152.4" y2="147.32" width="0.1524" layer="91"/>
 <junction x="142.24" y="147.32"/>
@@ -15777,57 +15753,57 @@ Source: CANAL ELECTRONIC CO., LTD .. switsch.pdf</description>
 <net name="N$25" class="0">
 <segment>
 <pinref part="R23" gate="G$1" pin="2"/>
-<pinref part="DIG" gate="-8" pin="KL"/>
-<wire x1="223.52" y1="78.74" x2="226.06" y2="78.74" width="0.1524" layer="91"/>
+<pinref part="X3" gate="-8" pin="KL"/>
+<wire x1="259.08" y1="78.74" x2="261.62" y2="78.74" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$26" class="0">
 <segment>
 <pinref part="R22" gate="G$1" pin="2"/>
-<pinref part="DIG" gate="-7" pin="KL"/>
-<wire x1="223.52" y1="76.2" x2="226.06" y2="76.2" width="0.1524" layer="91"/>
+<pinref part="X3" gate="-7" pin="KL"/>
+<wire x1="259.08" y1="76.2" x2="261.62" y2="76.2" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$27" class="0">
 <segment>
 <pinref part="R21" gate="G$1" pin="2"/>
-<pinref part="DIG" gate="-6" pin="KL"/>
-<wire x1="223.52" y1="73.66" x2="226.06" y2="73.66" width="0.1524" layer="91"/>
+<pinref part="X3" gate="-6" pin="KL"/>
+<wire x1="259.08" y1="73.66" x2="261.62" y2="73.66" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$28" class="0">
 <segment>
 <pinref part="R20" gate="G$1" pin="2"/>
-<pinref part="DIG" gate="-5" pin="KL"/>
-<wire x1="223.52" y1="71.12" x2="226.06" y2="71.12" width="0.1524" layer="91"/>
+<pinref part="X3" gate="-5" pin="KL"/>
+<wire x1="259.08" y1="71.12" x2="261.62" y2="71.12" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$29" class="0">
 <segment>
 <pinref part="R19" gate="G$1" pin="2"/>
-<pinref part="DIG" gate="-4" pin="KL"/>
-<wire x1="223.52" y1="68.58" x2="226.06" y2="68.58" width="0.1524" layer="91"/>
+<pinref part="X3" gate="-4" pin="KL"/>
+<wire x1="259.08" y1="68.58" x2="261.62" y2="68.58" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$30" class="0">
 <segment>
 <pinref part="R5" gate="G$1" pin="2"/>
-<pinref part="DIG" gate="-3" pin="KL"/>
-<wire x1="223.52" y1="66.04" x2="226.06" y2="66.04" width="0.1524" layer="91"/>
+<pinref part="X3" gate="-3" pin="KL"/>
+<wire x1="259.08" y1="66.04" x2="261.62" y2="66.04" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$31" class="0">
 <segment>
 <pinref part="R4" gate="G$1" pin="2"/>
-<pinref part="DIG" gate="-2" pin="KL"/>
-<wire x1="223.52" y1="63.5" x2="226.06" y2="63.5" width="0.1524" layer="91"/>
+<pinref part="X3" gate="-2" pin="KL"/>
+<wire x1="259.08" y1="63.5" x2="261.62" y2="63.5" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$32" class="0">
 <segment>
 <pinref part="R3" gate="G$1" pin="2"/>
-<pinref part="DIG" gate="-1" pin="KL"/>
-<wire x1="223.52" y1="60.96" x2="226.06" y2="60.96" width="0.1524" layer="91"/>
+<pinref part="X3" gate="-1" pin="KL"/>
+<wire x1="259.08" y1="60.96" x2="261.62" y2="60.96" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="DIG0" class="0">
@@ -15838,7 +15814,7 @@ Source: CANAL ELECTRONIC CO., LTD .. switsch.pdf</description>
 <segment>
 <pinref part="R23" gate="G$1" pin="1"/>
 <pinref part="D12" gate="G$1" pin="C"/>
-<wire x1="213.36" y1="78.74" x2="175.26" y2="78.74" width="0.1524" layer="91"/>
+<wire x1="248.92" y1="78.74" x2="175.26" y2="78.74" width="0.1524" layer="91"/>
 <wire x1="175.26" y1="78.74" x2="175.26" y2="58.42" width="0.1524" layer="91"/>
 <wire x1="170.18" y1="78.74" x2="175.26" y2="78.74" width="0.1524" layer="91"/>
 <junction x="175.26" y="78.74"/>
@@ -15852,10 +15828,10 @@ Source: CANAL ELECTRONIC CO., LTD .. switsch.pdf</description>
 <segment>
 <pinref part="R22" gate="G$1" pin="1"/>
 <pinref part="D11" gate="G$1" pin="C"/>
-<wire x1="213.36" y1="76.2" x2="180.34" y2="76.2" width="0.1524" layer="91"/>
-<wire x1="180.34" y1="76.2" x2="180.34" y2="58.42" width="0.1524" layer="91"/>
-<wire x1="170.18" y1="76.2" x2="180.34" y2="76.2" width="0.1524" layer="91"/>
-<junction x="180.34" y="76.2"/>
+<wire x1="248.92" y1="76.2" x2="185.42" y2="76.2" width="0.1524" layer="91"/>
+<wire x1="185.42" y1="76.2" x2="185.42" y2="58.42" width="0.1524" layer="91"/>
+<wire x1="170.18" y1="76.2" x2="185.42" y2="76.2" width="0.1524" layer="91"/>
+<junction x="185.42" y="76.2"/>
 </segment>
 </net>
 <net name="DIG2" class="0">
@@ -15866,10 +15842,10 @@ Source: CANAL ELECTRONIC CO., LTD .. switsch.pdf</description>
 <segment>
 <pinref part="R21" gate="G$1" pin="1"/>
 <pinref part="D10" gate="G$1" pin="C"/>
-<wire x1="213.36" y1="73.66" x2="185.42" y2="73.66" width="0.1524" layer="91"/>
-<wire x1="185.42" y1="73.66" x2="185.42" y2="58.42" width="0.1524" layer="91"/>
-<wire x1="170.18" y1="73.66" x2="185.42" y2="73.66" width="0.1524" layer="91"/>
-<junction x="185.42" y="73.66"/>
+<wire x1="248.92" y1="73.66" x2="195.58" y2="73.66" width="0.1524" layer="91"/>
+<wire x1="195.58" y1="73.66" x2="195.58" y2="58.42" width="0.1524" layer="91"/>
+<wire x1="170.18" y1="73.66" x2="195.58" y2="73.66" width="0.1524" layer="91"/>
+<junction x="195.58" y="73.66"/>
 </segment>
 </net>
 <net name="DIG3" class="0">
@@ -15880,10 +15856,10 @@ Source: CANAL ELECTRONIC CO., LTD .. switsch.pdf</description>
 <segment>
 <pinref part="R20" gate="G$1" pin="1"/>
 <pinref part="D9" gate="G$1" pin="C"/>
-<wire x1="213.36" y1="71.12" x2="190.5" y2="71.12" width="0.1524" layer="91"/>
-<wire x1="190.5" y1="71.12" x2="190.5" y2="58.42" width="0.1524" layer="91"/>
-<wire x1="170.18" y1="71.12" x2="190.5" y2="71.12" width="0.1524" layer="91"/>
-<junction x="190.5" y="71.12"/>
+<wire x1="248.92" y1="71.12" x2="205.74" y2="71.12" width="0.1524" layer="91"/>
+<wire x1="205.74" y1="71.12" x2="205.74" y2="58.42" width="0.1524" layer="91"/>
+<wire x1="170.18" y1="71.12" x2="205.74" y2="71.12" width="0.1524" layer="91"/>
+<junction x="205.74" y="71.12"/>
 </segment>
 </net>
 <net name="DIG4" class="0">
@@ -15894,10 +15870,10 @@ Source: CANAL ELECTRONIC CO., LTD .. switsch.pdf</description>
 <segment>
 <pinref part="R19" gate="G$1" pin="1"/>
 <pinref part="D8" gate="G$1" pin="C"/>
-<wire x1="213.36" y1="68.58" x2="195.58" y2="68.58" width="0.1524" layer="91"/>
-<wire x1="195.58" y1="68.58" x2="195.58" y2="58.42" width="0.1524" layer="91"/>
-<wire x1="170.18" y1="68.58" x2="195.58" y2="68.58" width="0.1524" layer="91"/>
-<junction x="195.58" y="68.58"/>
+<wire x1="248.92" y1="68.58" x2="215.9" y2="68.58" width="0.1524" layer="91"/>
+<wire x1="215.9" y1="68.58" x2="215.9" y2="58.42" width="0.1524" layer="91"/>
+<wire x1="170.18" y1="68.58" x2="215.9" y2="68.58" width="0.1524" layer="91"/>
+<junction x="215.9" y="68.58"/>
 </segment>
 </net>
 <net name="DIG5" class="0">
@@ -15908,10 +15884,10 @@ Source: CANAL ELECTRONIC CO., LTD .. switsch.pdf</description>
 <segment>
 <pinref part="R5" gate="G$1" pin="1"/>
 <pinref part="D7" gate="G$1" pin="C"/>
-<wire x1="213.36" y1="66.04" x2="200.66" y2="66.04" width="0.1524" layer="91"/>
-<wire x1="200.66" y1="66.04" x2="200.66" y2="58.42" width="0.1524" layer="91"/>
-<wire x1="170.18" y1="66.04" x2="200.66" y2="66.04" width="0.1524" layer="91"/>
-<junction x="200.66" y="66.04"/>
+<wire x1="248.92" y1="66.04" x2="226.06" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="226.06" y1="66.04" x2="226.06" y2="58.42" width="0.1524" layer="91"/>
+<wire x1="170.18" y1="66.04" x2="226.06" y2="66.04" width="0.1524" layer="91"/>
+<junction x="226.06" y="66.04"/>
 </segment>
 </net>
 <net name="DIG6" class="0">
@@ -15922,10 +15898,10 @@ Source: CANAL ELECTRONIC CO., LTD .. switsch.pdf</description>
 <segment>
 <pinref part="R4" gate="G$1" pin="1"/>
 <pinref part="D6" gate="G$1" pin="C"/>
-<wire x1="213.36" y1="63.5" x2="205.74" y2="63.5" width="0.1524" layer="91"/>
-<wire x1="205.74" y1="63.5" x2="205.74" y2="58.42" width="0.1524" layer="91"/>
-<wire x1="170.18" y1="63.5" x2="205.74" y2="63.5" width="0.1524" layer="91"/>
-<junction x="205.74" y="63.5"/>
+<wire x1="248.92" y1="63.5" x2="236.22" y2="63.5" width="0.1524" layer="91"/>
+<wire x1="236.22" y1="63.5" x2="236.22" y2="58.42" width="0.1524" layer="91"/>
+<wire x1="170.18" y1="63.5" x2="236.22" y2="63.5" width="0.1524" layer="91"/>
+<junction x="236.22" y="63.5"/>
 </segment>
 </net>
 <net name="DIG7" class="0">
@@ -15936,10 +15912,66 @@ Source: CANAL ELECTRONIC CO., LTD .. switsch.pdf</description>
 <segment>
 <pinref part="R3" gate="G$1" pin="1"/>
 <pinref part="D5" gate="G$1" pin="C"/>
-<wire x1="213.36" y1="60.96" x2="210.82" y2="60.96" width="0.1524" layer="91"/>
-<wire x1="210.82" y1="60.96" x2="210.82" y2="58.42" width="0.1524" layer="91"/>
-<wire x1="170.18" y1="60.96" x2="210.82" y2="60.96" width="0.1524" layer="91"/>
-<junction x="210.82" y="60.96"/>
+<wire x1="248.92" y1="60.96" x2="246.38" y2="60.96" width="0.1524" layer="91"/>
+<wire x1="246.38" y1="60.96" x2="246.38" y2="58.42" width="0.1524" layer="91"/>
+<wire x1="170.18" y1="60.96" x2="246.38" y2="60.96" width="0.1524" layer="91"/>
+<junction x="246.38" y="60.96"/>
+</segment>
+</net>
+<net name="+5V" class="0">
+<segment>
+<wire x1="40.64" y1="157.48" x2="40.64" y2="129.54" width="0.1524" layer="91"/>
+<wire x1="40.64" y1="129.54" x2="40.64" y2="101.6" width="0.1524" layer="91"/>
+<pinref part="IC3" gate="G$1" pin="AVCC"/>
+<wire x1="53.34" y1="129.54" x2="40.64" y2="129.54" width="0.1524" layer="91"/>
+<junction x="40.64" y="129.54"/>
+<pinref part="P+2" gate="1" pin="+5V"/>
+<pinref part="IC3" gate="G$1" pin="VCC@1"/>
+<wire x1="40.64" y1="101.6" x2="45.72" y2="101.6" width="0.1524" layer="91"/>
+<wire x1="45.72" y1="101.6" x2="53.34" y2="101.6" width="0.1524" layer="91"/>
+<wire x1="53.34" y1="101.6" x2="53.34" y2="104.14" width="0.1524" layer="91"/>
+<pinref part="C3" gate="G$1" pin="-"/>
+<junction x="45.72" y="101.6"/>
+</segment>
+<segment>
+<pinref part="IC4" gate="P" pin="V+"/>
+<wire x1="78.74" y1="45.72" x2="78.74" y2="40.64" width="0.1524" layer="91"/>
+<pinref part="IC1" gate="G$1" pin="V+"/>
+<wire x1="78.74" y1="40.64" x2="78.74" y2="20.32" width="0.1524" layer="91"/>
+<wire x1="78.74" y1="20.32" x2="73.66" y2="20.32" width="0.1524" layer="91"/>
+<junction x="78.74" y="40.64"/>
+<pinref part="P+1" gate="1" pin="+5V"/>
+</segment>
+<segment>
+<pinref part="X2" gate="-1" pin="KL"/>
+<wire x1="147.32" y1="53.34" x2="147.32" y2="63.5" width="0.1524" layer="91"/>
+<pinref part="P+3" gate="1" pin="+5V"/>
+<pinref part="R8" gate="G$1" pin="2"/>
+<wire x1="147.32" y1="63.5" x2="147.32" y2="71.12" width="0.1524" layer="91"/>
+<wire x1="142.24" y1="63.5" x2="147.32" y2="63.5" width="0.1524" layer="91"/>
+<junction x="147.32" y="63.5"/>
+</segment>
+<segment>
+<pinref part="TIME" gate="G$1" pin="A"/>
+<wire x1="220.98" y1="134.62" x2="220.98" y2="132.08" width="0.1524" layer="91"/>
+<pinref part="TRIGGER" gate="G$1" pin="A"/>
+<wire x1="220.98" y1="132.08" x2="220.98" y2="129.54" width="0.1524" layer="91"/>
+<wire x1="231.14" y1="121.92" x2="231.14" y2="132.08" width="0.1524" layer="91"/>
+<wire x1="231.14" y1="132.08" x2="220.98" y2="132.08" width="0.1524" layer="91"/>
+<junction x="220.98" y="132.08"/>
+<pinref part="P+4" gate="1" pin="+5V"/>
+</segment>
+</net>
+<net name="VOUT" class="0">
+<segment>
+<pinref part="IC4" gate="P" pin="V-"/>
+<wire x1="93.98" y1="30.48" x2="93.98" y2="40.64" width="0.1524" layer="91"/>
+<pinref part="IC1" gate="G$1" pin="VOUT"/>
+<wire x1="73.66" y1="30.48" x2="86.36" y2="30.48" width="0.1524" layer="91"/>
+<pinref part="C2" gate="G$1" pin="+"/>
+<wire x1="86.36" y1="30.48" x2="93.98" y2="30.48" width="0.1524" layer="91"/>
+<wire x1="86.36" y1="27.94" x2="86.36" y2="30.48" width="0.1524" layer="91"/>
+<junction x="86.36" y="30.48"/>
 </segment>
 </net>
 </nets>
