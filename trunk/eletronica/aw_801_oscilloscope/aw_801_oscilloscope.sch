@@ -15206,6 +15206,8 @@ Source: CANAL ELECTRONIC CO., LTD .. switsch.pdf</description>
 <part name="D14" library="diode" deviceset="ZENER-DIODE" device="DO35Z10" value="5.1V"/>
 <part name="GND3" library="supply1" deviceset="GND" device=""/>
 <part name="GND13" library="supply1" deviceset="GND" device=""/>
+<part name="S3" library="switch" deviceset="MS243" device="" value="AN/DIG"/>
+<part name="GND14" library="supply1" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -15335,6 +15337,8 @@ Source: CANAL ELECTRONIC CO., LTD .. switsch.pdf</description>
 <instance part="D14" gate="G$1" x="152.4" y="121.92" rot="R90"/>
 <instance part="GND3" gate="1" x="144.78" y="114.3"/>
 <instance part="GND13" gate="1" x="152.4" y="114.3"/>
+<instance part="S3" gate="1" x="91.44" y="68.58" rot="MR270"/>
+<instance part="GND14" gate="1" x="81.28" y="63.5"/>
 </instances>
 <busses>
 <bus name="DIG[0..7]">
@@ -15477,6 +15481,11 @@ Source: CANAL ELECTRONIC CO., LTD .. switsch.pdf</description>
 <pinref part="D14" gate="G$1" pin="A"/>
 <pinref part="GND13" gate="1" pin="GND"/>
 <wire x1="152.4" y1="119.38" x2="152.4" y2="116.84" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="S3" gate="1" pin="S"/>
+<pinref part="GND14" gate="1" pin="GND"/>
+<wire x1="81.28" y1="66.04" x2="86.36" y2="66.04" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$7" class="0">
@@ -15972,6 +15981,15 @@ Source: CANAL ELECTRONIC CO., LTD .. switsch.pdf</description>
 <wire x1="86.36" y1="30.48" x2="93.98" y2="30.48" width="0.1524" layer="91"/>
 <wire x1="86.36" y1="27.94" x2="86.36" y2="30.48" width="0.1524" layer="91"/>
 <junction x="86.36" y="30.48"/>
+</segment>
+</net>
+<net name="N$35" class="0">
+<segment>
+<pinref part="IC3" gate="G$1" pin="PB5(SCK)"/>
+<wire x1="101.6" y1="81.28" x2="104.14" y2="81.28" width="0.1524" layer="91"/>
+<wire x1="104.14" y1="81.28" x2="104.14" y2="66.04" width="0.1524" layer="91"/>
+<pinref part="S3" gate="1" pin="P"/>
+<wire x1="104.14" y1="66.04" x2="96.52" y2="66.04" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
