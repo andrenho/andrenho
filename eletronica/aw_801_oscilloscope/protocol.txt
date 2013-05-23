@@ -1,10 +1,8 @@
    //-- UNUSED
    ||
-01234567 01234567
+01234567 89ABCDEF
 |||  ||| ||||||||
-|||  |\\-\\\\\\\\-- DATA
-|||  |
-|||  \-- NEGATIVE
+|||  \\\-\\\\\\\\-- DATA
 |||
 \\\-- COMMAND:
          000 - Voltage probe 1
@@ -12,9 +10,23 @@
          010 - Time potentiometer
          011 - Trigger potentiometer
          100 - Change mode
+	 101 - Digital
+	
+---------------------------------------
 
-Modes: 
- 00 - Only probe 1
- 01 - Probe 2 - horizontal
- 10 - Probe 2 - vertical
- 11 - Digital
+Voltage probes (000, 001):
+[5] - Positive (0), negative (1)
+[6..F] - level, from 0 to 1023
+
+Potentiometers (010, 011):
+[8..F] - level, from 0 to 255
+
+Change Mode (100): 
+[EF]:
+  00 - Only probe 1
+  01 - Probe 2 - horizontal
+  10 - Probe 2 - vertical
+  11 - Digital
+
+Digital (101):
+[8..F] - Values (0/1) 
