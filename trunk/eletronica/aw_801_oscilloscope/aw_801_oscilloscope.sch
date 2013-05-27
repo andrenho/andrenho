@@ -16201,13 +16201,9 @@ Source: CANAL ELECTRONIC CO., LTD .. switsch.pdf</description>
 <segment>
 <wire x1="66.04" y1="264.16" x2="71.12" y2="264.16" width="0.1524" layer="91"/>
 <pinref part="D3" gate="G$1" pin="C"/>
-<wire x1="71.12" y1="264.16" x2="78.74" y2="264.16" width="0.1524" layer="91"/>
 <wire x1="71.12" y1="264.16" x2="71.12" y2="256.54" width="0.1524" layer="91"/>
 <junction x="71.12" y="264.16"/>
-<pinref part="D4" gate="G$1" pin="C"/>
-<wire x1="78.74" y1="264.16" x2="78.74" y2="256.54" width="0.1524" layer="91"/>
-<junction x="78.74" y="264.16"/>
-<wire x1="106.68" y1="264.16" x2="78.74" y2="264.16" width="0.1524" layer="91"/>
+<wire x1="106.68" y1="264.16" x2="71.12" y2="264.16" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="IC2" gate="G$1" pin="(AD0)PA0"/>
@@ -16216,7 +16212,11 @@ Source: CANAL ELECTRONIC CO., LTD .. switsch.pdf</description>
 </net>
 <net name="ANALOG1" class="0">
 <segment>
-<wire x1="106.68" y1="259.08" x2="66.04" y2="259.08" width="0.1524" layer="91"/>
+<wire x1="106.68" y1="259.08" x2="78.74" y2="259.08" width="0.1524" layer="91"/>
+<pinref part="D4" gate="G$1" pin="C"/>
+<wire x1="78.74" y1="259.08" x2="66.04" y2="259.08" width="0.1524" layer="91"/>
+<wire x1="78.74" y1="256.54" x2="78.74" y2="259.08" width="0.1524" layer="91"/>
+<junction x="78.74" y="259.08"/>
 </segment>
 <segment>
 <pinref part="IC2" gate="G$1" pin="(AD1)PA1"/>
