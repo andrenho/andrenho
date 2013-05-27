@@ -15489,6 +15489,8 @@ Source: CANAL ELECTRONIC CO., LTD .. switsch.pdf</description>
 <part name="GND16" library="supply1" deviceset="GND" device=""/>
 <part name="X4" library="con-ptr500" deviceset="AK300/6" device="" value="PROG"/>
 <part name="S4" library="switch" deviceset="MS243" device="" value="AN/DIG"/>
+<part name="C4" library="rcl" deviceset="CPOL-EU" device="E2.5-6" value="4.7uF"/>
+<part name="GND8" library="supply1" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -15604,7 +15606,7 @@ Source: CANAL ELECTRONIC CO., LTD .. switsch.pdf</description>
 <instance part="GND12" gate="1" x="251.46" y="81.28"/>
 <instance part="P+2" gate="1" x="48.26" y="175.26"/>
 <instance part="P+1" gate="1" x="198.12" y="251.46"/>
-<instance part="P+3" gate="1" x="139.7" y="58.42"/>
+<instance part="P+3" gate="1" x="139.7" y="63.5"/>
 <instance part="C3" gate="G$1" x="48.26" y="129.54"/>
 <instance part="D13" gate="G$1" x="99.06" y="228.6" rot="R90"/>
 <instance part="D14" gate="G$1" x="99.06" y="203.2" rot="R90"/>
@@ -15632,6 +15634,8 @@ Source: CANAL ELECTRONIC CO., LTD .. switsch.pdf</description>
 <instance part="X4" gate="-5" x="104.14" y="134.62" rot="R180"/>
 <instance part="X4" gate="-6" x="104.14" y="137.16" rot="R180"/>
 <instance part="S4" gate="1" x="121.92" y="93.98" rot="MR270"/>
+<instance part="C4" gate="G$1" x="144.78" y="55.88"/>
+<instance part="GND8" gate="1" x="144.78" y="48.26"/>
 </instances>
 <busses>
 <bus name="DIG[0..7]">
@@ -15794,6 +15798,10 @@ Source: CANAL ELECTRONIC CO., LTD .. switsch.pdf</description>
 <wire x1="48.26" y1="121.92" x2="48.26" y2="119.38" width="0.1524" layer="91"/>
 <wire x1="45.72" y1="121.92" x2="48.26" y2="121.92" width="0.1524" layer="91"/>
 <junction x="48.26" y="121.92"/>
+</segment>
+<segment>
+<pinref part="C4" gate="G$1" pin="-"/>
+<pinref part="GND8" gate="1" pin="GND"/>
 </segment>
 </net>
 <net name="N$7" class="0">
@@ -16155,9 +16163,13 @@ Source: CANAL ELECTRONIC CO., LTD .. switsch.pdf</description>
 <wire x1="139.7" y1="38.1" x2="139.7" y2="48.26" width="0.1524" layer="91"/>
 <pinref part="P+3" gate="1" pin="+5V"/>
 <pinref part="R8" gate="G$1" pin="2"/>
-<wire x1="139.7" y1="48.26" x2="139.7" y2="55.88" width="0.1524" layer="91"/>
+<wire x1="139.7" y1="48.26" x2="139.7" y2="58.42" width="0.1524" layer="91"/>
+<wire x1="139.7" y1="58.42" x2="139.7" y2="60.96" width="0.1524" layer="91"/>
 <wire x1="134.62" y1="48.26" x2="139.7" y2="48.26" width="0.1524" layer="91"/>
 <junction x="139.7" y="48.26"/>
+<pinref part="C4" gate="G$1" pin="+"/>
+<wire x1="144.78" y1="58.42" x2="139.7" y2="58.42" width="0.1524" layer="91"/>
+<junction x="139.7" y="58.42"/>
 </segment>
 <segment>
 <pinref part="IC2" gate="G$1" pin="VCC"/>
