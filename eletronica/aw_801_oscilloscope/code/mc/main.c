@@ -50,6 +50,7 @@ int main()
 		_delay_ms(1);
 	}
 	usbDeviceConnect();
+		PORTC |= 1;
 
 
 	sei();
@@ -58,7 +59,6 @@ int main()
 	{
 		wdt_reset();
 		usbPoll();
-		PORTC |= 1;
 	}
 
 	return 0;
