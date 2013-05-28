@@ -1,4 +1,4 @@
-DEVICE=attiny2313
+DEVICE=atmega162
 PROGRAMMER=avrisp
 SPEED=19200
 OBJECTS = usbdrv/usbdrv.o usbdrv/oddebug.o usbdrv/usbdrvasm.o main.o
@@ -32,7 +32,7 @@ upload: main.hex
 	# -C C:\temp\arduino-1.0.4\hardware\tools\avr\etc\avrdude.conf
 
 fuse:
-	avrdude -pattiny2313 -cstk500v1 -P/dev/ttyACM0 -b19200 -e -Uefuse:w:0xFF:m -Uhfuse:w:0xdf:m -Ulfuse:w:0xef:m
+	avrdude -p$(DEVICE) -cstk500v1 -P/dev/ttyACM0 -b19200 -e -Uefuse:w:0xFF:m -Uhfuse:w:0x99:m -Ulfuse:w:0x4f:m
 
 clean:
 	rm -f *.hex *.elf *.s *.o usbdrv/*.o

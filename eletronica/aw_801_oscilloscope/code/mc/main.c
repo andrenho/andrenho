@@ -20,10 +20,10 @@ USB_PUBLIC uchar usbFunctionSetup(uchar data[8])
 	switch(rq->bRequest)
 	{
 		case USB_LED_ON:
-			PORTB |= 1;
+			PORTC |= 1;
 			return 0;
 		case USB_LED_OFF:
-			PORTB &= ~1;
+			PORTC &= ~1;
 			return 0;
 		case USB_DATA_OUT: // send data to PC
 			usbMsgPtr = replyBuf;
@@ -37,7 +37,7 @@ int main()
 {
 	uchar i;
 
-	DDRB = 1;
+	DDRC = 1;
 
 	wdt_enable(WDTO_1S);
 
@@ -47,9 +47,10 @@ int main()
 	for(i=0; i<250; i++)
 	{
 		wdt_reset();
-		_delay_ms(2);
+		_delay_ms(1);
 	}
 	usbDeviceConnect();
+
 
 	sei();
 
@@ -57,6 +58,7 @@ int main()
 	{
 		wdt_reset();
 		usbPoll();
+		PORTC |= 1;
 	}
 
 	return 0;
