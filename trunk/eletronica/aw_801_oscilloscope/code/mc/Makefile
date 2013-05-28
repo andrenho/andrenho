@@ -32,7 +32,7 @@ upload: main.hex
 	# -C C:\temp\arduino-1.0.4\hardware\tools\avr\etc\avrdude.conf
 
 fuse:
-	avrdude -p$(DEVICE) -cstk500v1 -P/dev/ttyACM0 -b19200 -e -Uefuse:w:0xFF:m -Uhfuse:w:0x99:m -Ulfuse:w:0x4f:m
+	avrdude -p$(DEVICE) -cstk500v1 -P/dev/ttyACM0 -b19200 -e -Uefuse:w:0xFF:m -Uhfuse:w:0x99:m -Ulfuse:w:0xcf:m
 
 clean:
 	rm -f *.hex *.elf *.s *.o usbdrv/*.o
