@@ -1,0 +1,15 @@
+EESchema-DOCLIB  Version 2.0  Date: 29/05/2013 11:19:13
+#
+$CMP 4515
+D 16-bit Demultiplexer
+K CMOS DEMUX
+F C:/andre/projects/andrenho/eletronica/datasheets/CD4514.pdf
+$ENDCMP
+#
+$CMP 74HC4094
+D 74HC4094
+K 16-bit shift register (serial in, parallel/serial out)
+F 74HC_HCT4094.pdf
+$ENDCMP
+#
+#End Doc Library
