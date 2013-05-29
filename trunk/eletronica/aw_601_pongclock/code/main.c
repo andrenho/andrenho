@@ -11,13 +11,9 @@ int main()
 	while(1)
 	{
 		PORTB |= 1;
-		_delay_ms(1);
-		int i=0;
-		for(i=0; i<1024; i++)
-		{
-			PORTB &= ~1;
-		}
-		_delay_ms(15);
+		_delay_us(10);
+		PORTB &= ~1;
+		_delay_us(2550);
 	}
 
 	return 0;
