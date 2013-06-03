@@ -1,20 +1,65 @@
-#include <avr/io.h>
-#include <avr/interrupt.h>
-#include <avr/wdt.h>
+#define TEST
 
-#define F_CPU 16000000UL
-#include <util/delay.h>
+#include <stdint.h>
+#ifndef TEST
+#  include <avr/io.h>
+#  include <avr/interrupt.h>
+#  include <avr/wdt.h>
+
+#  define F_CPU 8000000UL
+#  include <util/delay.h>
+#endif
+
+// led display
+static uint32_t leds[16] = { 0 };
+
+#ifdef TEST
+#  include "curses.c"
+#endif
+
+// function prototypes
+static void init_ports();
+static void set_xy(int x, int y, uint32_t v);
+static void check_events();
+static void draw_leds();
 
 int main()
 {
-	DDRB = 1;
+	init_ports();
+
+	set_xy(2, 2, 1);
+
 	while(1)
 	{
-		PORTB |= 1;
-		_delay_us(10);
-		PORTB &= ~1;
-		_delay_us(2550);
+		check_events();
+		draw_leds();
 	}
 
 	return 0;
 }
+
+
+static void set_xy(int x, int y, uint32_t v)
+{
+	if(v == 0)
+		leds[y] &= ~(1 << x);
+	else
+		leds[y] |= (1 << x);
+}
+
+
+#ifndef TEST
+static void init_ports()
+{
+}
+
+
+static void check_events()
+{
+}
+
+
+static void draw_leds()
+{
+}
+#endif
