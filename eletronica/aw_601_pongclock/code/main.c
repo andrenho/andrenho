@@ -17,6 +17,16 @@ static uint32_t leds[16] = { 0 };
 #  include "curses.c"
 #endif
 
+uint32_t font[] = {
+	//A  B  C  D  E  F  G  H  I  J
+	//|  |  |  |  |  |  |  |  |  |
+	0b111111111110111111111101111111,
+	0b101101100101100100100101010001,
+	0b111111100101110110111111010001,
+	0b101101100101100100101101010101,
+	0b101111111111111100111101111111,
+};
+
 // function prototypes
 static void init_ports();
 static void set_xy(int x, int y, uint32_t v);
