@@ -1,75 +1,50 @@
-//#define TEST
+#include <avr/io.h>
+#include <avr/interrupt.h>
+#include <avr/wdt.h>
 
-#include <stdint.h>
-#ifndef TEST
-#  include <avr/io.h>
-#  include <avr/interrupt.h>
-#  include <avr/wdt.h>
+#define F_CPU 8000000UL
+#include <util/delay.h>
 
-#  define F_CPU 8000000UL
-#  include <util/delay.h>
-#endif
-
-// led display
-static uint32_t leds[16] = { 0 };
-
-#ifdef TEST
-#  include "curses.c"
-#endif
-
-uint32_t font[] = {
-	//A  B  C  D  E  F  G  H  I  J
-	//|  |  |  |  |  |  |  |  |  |
-	0b111111111110111111111101111111,
-	0b101101100101100100100101010001,
-	0b111111100101110110111111010001,
-	0b101101100101100100101101010101,
-	0b101111111111111100111101111111,
-};
-
-// function prototypes
-static void init_ports();
-static void set_xy(int x, int y, uint32_t v);
-static void check_events();
-static void draw_leds();
+#define DUTY 1
 
 int main()
 {
-	init_ports();
+	DDRB = 0xf;
 
-	set_xy(2, 2, 1);
+	PORTB = 0x0;
+	
 
 	while(1)
 	{
-		check_events();
-		draw_leds();
+		int i=0;
+		for(i=0; i<4; i++)
+		{
+			PORTB |= (1<<PORTB1); // DATA
+			PORTB |= (1<<PORTB2); // CLK
+			PORTB &= ~(1<<PORTB2);
+			PORTB &= ~(1<<PORTB1); // DATA
+			PORTB |= (1<<PORTB2); // CLK
+			PORTB &= ~(1<<PORTB2);
+		}
+		PORTB |= (1<<PORTB0); // STR
+		PORTB |= (1<<PORTB3); // OE
+
+		int j;
+		for(j=0; j<15; j++)
+		{
+		for(i=0; i<4; i++)
+		{
+			PORTB &= ~(1<<PORTB1); // DATA
+			PORTB |= (1<<PORTB2); // CLK
+			PORTB &= ~(1<<PORTB2);
+			PORTB |= (1<<PORTB1); // DATA
+			PORTB |= (1<<PORTB2); // CLK
+			PORTB &= ~(1<<PORTB2);
+		}
+		PORTB |= (1<<PORTB0); // STR
+		PORTB |= (1<<PORTB3); // OE
+		}
 	}
 
 	return 0;
 }
-
-
-static void set_xy(int x, int y, uint32_t v)
-{
-	if(v == 0)
-		leds[y] &= ~(1 << x);
-	else
-		leds[y] |= (1 << x);
-}
-
-
-#ifndef TEST
-static void init_ports()
-{
-}
-
-
-static void check_events()
-{
-}
-
-
-static void draw_leds()
-{
-}
-#endif
