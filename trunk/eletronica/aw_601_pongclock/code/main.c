@@ -1,4 +1,4 @@
-#define TEST
+//#define TEST
 
 #include <stdint.h>
 #ifndef TEST
