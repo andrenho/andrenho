@@ -1,4 +1,4 @@
-update=06/06/2013 14:31:58
+update=Qui 06 Jun 2013 20:33:06 BRT
 version=1
 last_client=eeschema
 [cvpcb]
