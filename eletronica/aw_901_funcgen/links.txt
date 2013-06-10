@@ -1,8 +1,0 @@
-http://www.myplace.nu/avr/minidds/index.htm
-http://www.scienceprog.com/avr-dds-signal-generator-v20/
-
-CHIP ICL8038
-
-http://produto.mercadolivre.com.br/MLB-488681983-icl8038-gerador-de-funcoes-new-old-stock-frete-unico-r600-_JM
-
-http://en.wikipedia.org/wiki/Direct_digital_synthesizer
