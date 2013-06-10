@@ -399,7 +399,9 @@ of eProfile. A change in the rules or in the model will reflect in a change in
 the generated profile when the rules are executed the next time.
 
 %-----------------------------------------------------------
-\section{Implementation Aspects}
+\section{Prototype and case study}
+
+\subsection{Implementation Aspects}
 \label{ch:implementacao}
 
 eProfile prototype was developed in Python \citep{python}. Python is a generic, open source, object-oriented, high-level language, that supports multiple architectures. eProfile class diagram is represented in Figure~\ref{fig:classes}. The Communicator, Configurator, Converter and Reasoner classes implement the agents with the same names described in Section~\ref{sec:arquitetura}, and all of them inherit from class Agent, where the common agent tasks are implemented, such as setup, inter-agent communication and thread control.
@@ -416,6 +418,65 @@ Figure~\ref{fig:dados_inferencia} shows the data flow for the entity profile
 inference process. At the center of this operation is the Reasoner agent, which uses an external inference engine to implement the rules. The reasoner used is FaCT++, a propositional logic reasoner created as a platform for use of algorithms of semantic {\em tableaux} and optimization techniques \citep{tsarkov06}. This reasoner was chosen due to its good performance and to support all functions used by eProfile. The ConnectorFaCT class implements communication between the Reasoner agent and FaCT++ reasoner.
 
 The knowledge representation language used for storage and processing of ontologies is OWL\citep {owl-guide}, chosen for being the most expressive ontology language defined for the Semantic Web \citep{daconta03}. Communication between eProfile, the trail managers and applications is done through REST web services \citep{fielding00}. This intersystem connection is implemented in ConnectorWS class.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\subsection{eProfile/LOCAL integration}
+
+It is only possible to evaluate the functionalities of a proposed infrastructure by building applications that utilize it and then evaluate them, in order to obtain an indirect evaluation of the model \citep{edwards03}. The scientific community has been using scenarios to perform this type of indirect evaluation in context sensitive (such as the approach taken by \citet{dey2001b}) and ubiquitous (according to \citet{satyanarayanan01}) environments. This work follows the same approach -- we created a prototype and a scenario for performing an experiment, in order to evaluate eProfile.
+
+eProfile's purpose is to provide profile management to other applications. In order to evaluate this model, we integrated eProfile to a ubiquitous learning system called LOCAL (Location and Context-Aware Learning). LOCAL uses location information and context as an aid to teaching and learning process. A location system monitors the mobility of apprentices and, based on their physical position, explores educational opportunities \citep{barbosa11}.
+
+LOCAL, whose architecture is shown in Figure~\ref{fig:arq_local}, consists of seven components: (i) a system of user profiles, which stores data relevant to the process of teaching and learning, (ii) a location system, (iii) a Personal Assistant (PA) that follows the user on his mobile device, (iv) a repository of learning objects, (v) a system for sending contextualized messages, (vi) a task scheduling event system and (vii) the Tutor, an analysis engine that performs inference using data provided by the profile and location systems.
+
+\begin{figure}[!t]
+  \centering\includegraphics[width=0.7\textwidth]{imagens/arq_local.png}
+  \caption{LOCAL model \citep{barbosa11}}
+  \label{fig:arq_local}
+\end{figure}
+
+When LOCAL runs alone (that is, without an external profile management system), the gathering of LOCAL's profile system information is explicit. This means that learners' relevant data need to be pre-populated in the system. Furthermore, the LOCAL profile system is static, which means that data is not automatically updated in response to actions taken by learners or external events. Since eProfile is a dynamic entity model with implicit information collection, integrating these two models result in the enhancement of LOCAL capabilities.
+
+LOCAL and eProfile integrate according to Figure~\ref{fig:eprofile_local}. Besides LOCAL and eProfile, Figure~\ref{fig:eprofile_local} presents an application called Trail Manager. The Trail Manager is an external program that stores the trails, processes them and forwards them to eProfile, as described in Section~\ref{ch:modelo}. For this scenario, we created a simple trail manager, which just receives, stores and forwards the trails to eProfile upon request.
+
+Integration between eProfile and LOCAL was based on the following changes to
+LOCAL: (i) we included a connection interface with eProfile, able to generate
+learners entity models and rules for profile processing, (ii) we included a
+connection interface with the trail manager, to allow the location events and
+actions undertaken on the Personal Assistant to be sent to the trail manager,
+and (iii) we included a communication interface with eProfile, where the LOCAL
+User Profiles module is fed by profiles generated by eProfile.
+
+The first step of integration occurs when the LOCAL communicates with eProfile for the first time. In that moment, LOCAL sends to eProfile the entity model and the rules for the profile generation. This information set is registered in eProfile through the Configurator agent (arrow ``a''), which organizes this information and registers it in the Model and Rule databases.
+
+\begin{figure}[!t]
+  \centering\includegraphics[width=1\textwidth]{imagens/eprofile_local_en.png}
+  \caption{eProfile/LOCAL Integration}
+  \label{fig:eprofile_local}
+\end{figure}
+
+As learners use LOCAL, their location changes are identified by the Location
+System component, and their actions are done on the Personal Assistant. These
+components record events in the Trail Manager (arrows ``b'' and ``c''), which in
+turn sends them to the Converter eProfile agent (arrow ``d''). Trails sent are
+stored in the Trail database. These trails are periodically processed according
+to the models and rules defined initially, and a inference process based on this
+information generates profiles, which are sent to the LOCAL User Profiles module
+(arrow ``e'') by the Communicator agent. These profiles help LOCAL to know its
+users (learners) in order to put them in contact and distribute content in the most contextualized possible way.
+
+%-------------------------------------------------------------------------
+
+\section{Evaluation scenario}
+
+The evaluation scenario takes place in a simulated university called XXXXXX. This university has 20 different courses, each one having 40 disciplines. Some disciplines are shared between different courses. Each discipline has 3 to 5 different subjects. A student is required to master all subjects to pass a discipline, and master all subjects in all disciplines in order to graduate from the course. Mastery of a subject is proven through approval in tests and excercises.
+
+All tests and exercises taken by the students are registered in an administrative software called UniManager. Based on a student records, UniManager register the proficiency level of the student. This information is used by the Univesity to determine if the student can attend a discipline.
+
+Figure \ref{fig:unimap} presents the map of the university. Rooms depicted with dots are classrooms, where the students take classes. Rooms depicted with lines are convivence rooms. These might be study rooms, bars, restaurants, or any other rooms where the students go to rest and socialize. Students will go to these rooms anytime they are in the University but not taking classes.
+
+
 
 \begin{comment}
 
