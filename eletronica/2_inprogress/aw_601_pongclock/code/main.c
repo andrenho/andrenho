@@ -9,11 +9,26 @@
 
 int main()
 {
-	DDRB = 0xf;
+	DDRB = 0xff;
+	DDRD = 0xff;
 
-	PORTB = 0x0;
-	
+	while(1)
+	{
+		int i=0;
+		for(i=0; i<8; i++)
+		{
+			PORTB |= (1<<PORTB0); // DATA
+			PORTB |= (1<<PORTB4); // CLK
+			PORTB &= ~(1<<PORTB4); // CLK
+			PORTB &= ~(1<<PORTB0); // DATA
+			PORTB |= (1<<PORTB4); // CLK
+			PORTB &= ~(1<<PORTB4); // CLK
+		}
+		PORTB |= (1<<PORTB5); // STR
+		PORTD |= (1<<PORTD5); // OE
+	}
 
+	/*
 	while(1)
 	{
 		int i=0;
@@ -45,6 +60,7 @@ int main()
 		PORTB |= (1<<PORTB3); // OE
 		}
 	}
+	*/
 
 	return 0;
 }
