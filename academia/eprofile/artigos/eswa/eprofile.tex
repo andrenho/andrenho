@@ -422,9 +422,33 @@ The knowledge representation language used for storage and processing of ontolog
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\subsection{eProfile/LOCAL integration}
+
+\section{Evaluation environment}
 
 It is only possible to evaluate the functionalities of a proposed infrastructure by building applications that utilize it and then evaluate them, in order to obtain an indirect evaluation of the model \citep{edwards03}. The scientific community has been using scenarios to perform this type of indirect evaluation in context sensitive (such as the approach taken by \citet{dey2001b}) and ubiquitous (according to \citet{satyanarayanan01}) environments. This work follows the same approach -- we created a prototype and a scenario for performing an experiment, in order to evaluate eProfile.
+
+The evaluation scenario takes place in a simulated university called XXXXXX. This university has 20 different courses, each one having 40 disciplines. Some disciplines are shared between different courses. Each discipline has 3 to 5 different subjects. A student is required to master all subjects to pass a discipline, and master all subjects in all disciplines in order to graduate from the course. Mastery of a subject is proven through approval in tests and excercises.
+
+All tests and exercises taken by the students are registered in an administrative software called UniManager. Based on a student records, UniManager register the proficiency level of the student. This information is used by the University to determine if the student can attend a discipline. UniManager also is used to control enrollment of students in disciplines.
+
+Figure \ref{fig:unimap} presents the map of the university. Rooms depicted with dots are classrooms, where the students take classes. Rooms depicted with lines are convivence rooms. These might be study rooms, bars, restaurants, or any other rooms where the students go to rest and socialize. Students will go to these rooms anytime they are in the University but not taking classes.
+
+Since most students remain idle during the time they are in these spaces, this situation provides an opportunity to put them in touch. Therefore, an integration between UniManager, eProfile and LOCAL was developed, in order to put in contact students that can help each other. Figure~\ref{fig:datacycle} explains the data flow.
+
+\begin{figure}[!t]
+  \centering\includegraphics[width=0.7\textwidth]{imagens/datacycle.png}
+  \caption{Scenario Data Cycle}
+  \label{fig:datacycle}
+\end{figure}
+
+As explained above, UniManager calculates the proficience of students in determinated subjects based on their evaluations. A student can be considered ``non-proficient'' or ``proficient''. In the moment that the student becomes proficient in a subject, this information is registered in a trail manager by UniManager (arrow ``a''). For this simulation, a very simple trail manager was created, that will simply store trail events in a database.
+
+eProfile, following rules determined by UniManager, will create or update a student's profile with his proficience information, the disciplines that he's enrolled, 
+
+% TODO - explain trail manager
+
+\subsection{eProfile/LOCAL integration}
+
 
 eProfile's purpose is to provide profile management to other applications. In order to evaluate this model, we integrated eProfile to a ubiquitous learning system called LOCAL (Location and Context-Aware Learning). LOCAL uses location information and context as an aid to teaching and learning process. A location system monitors the mobility of apprentices and, based on their physical position, explores educational opportunities \citep{barbosa11}.
 
@@ -467,17 +491,6 @@ information generates profiles, which are sent to the LOCAL User Profiles module
 users (learners) in order to put them in contact and distribute content in the most contextualized possible way.
 
 %-------------------------------------------------------------------------
-
-\section{Evaluation scenario}
-
-The evaluation scenario takes place in a simulated university called XXXXXX. This university has 20 different courses, each one having 40 disciplines. Some disciplines are shared between different courses. Each discipline has 3 to 5 different subjects. A student is required to master all subjects to pass a discipline, and master all subjects in all disciplines in order to graduate from the course. Mastery of a subject is proven through approval in tests and excercises.
-
-All tests and exercises taken by the students are registered in an administrative software called UniManager. Based on a student records, UniManager register the proficiency level of the student. This information is used by the Univesity to determine if the student can attend a discipline.
-
-Figure \ref{fig:unimap} presents the map of the university. Rooms depicted with dots are classrooms, where the students take classes. Rooms depicted with lines are convivence rooms. These might be study rooms, bars, restaurants, or any other rooms where the students go to rest and socialize. Students will go to these rooms anytime they are in the University but not taking classes.
-
-
-
 
 %%%%%%%%%%%%%%%%%
 %               %
