@@ -1,4 +1,4 @@
-update=Qui 06 Jun 2013 20:33:06 BRT
+update=13/06/2013 08:52:01
 version=1
 last_client=eeschema
 [cvpcb]
@@ -47,7 +47,7 @@ LibName16=valves
 version=1
 [eeschema]
 version=1
-LibDir=../../components
+LibDir=../../../components
 NetFmtName=
 RptD_X=0
 RptD_Y=100
