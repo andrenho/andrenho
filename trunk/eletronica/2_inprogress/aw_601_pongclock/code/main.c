@@ -2,7 +2,7 @@
 #include <avr/interrupt.h>
 #include <avr/wdt.h>
 
-#define F_CPU 8000000UL
+#define F_CPU 16000000UL
 #include <util/delay.h>
 
 // 74HC4094 commands
