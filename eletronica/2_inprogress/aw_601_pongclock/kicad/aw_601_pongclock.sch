@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date 13/06/2013 09:27:16
+EESchema Schematic File Version 2  date 13/06/2013 16:50:11
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -2524,4 +2524,15 @@ Text Label 3400 3600 0    60   ~ 0
 D4
 Text Label 3400 3700 0    60   ~ 0
 STRB
+$Comp
+L BARREL_JACK CON?
+U 1 1 51BA212D
+P 5250 1250
+F 0 "CON?" H 5250 1500 60  0000 C CNN
+F 1 "BARREL_JACK" H 5250 1050 60  0000 C CNN
+F 2 "" H 5250 1250 60  0000 C CNN
+F 3 "" H 5250 1250 60  0000 C CNN
+	1    5250 1250
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

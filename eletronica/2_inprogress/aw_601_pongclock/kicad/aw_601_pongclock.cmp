@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-may-18)-stable date = Qui 13 Jun 2013 12:39:59 BRT
+Cmp-Mod V01 Created by CvPcb (2013-05-16 BZR 4016)-stable date = 13/06/2013 14:34:47
 
 BeginCmp
 TimeStamp = /51B1A3E6;
@@ -18,21 +18,21 @@ BeginCmp
 TimeStamp = /51B0CDDA;
 Reference = D1;
 ValeurCmp = LED16X16;
-IdModule  = ;
+IdModule  = LED_16x16;
 EndCmp
 
 BeginCmp
 TimeStamp = /51B0D921;
 Reference = D2;
 ValeurCmp = LED16X16;
-IdModule  = ;
+IdModule  = LED_16x16;
 EndCmp
 
 BeginCmp
 TimeStamp = /51B0C7EC;
 Reference = IC1;
 ValeurCmp = ATMEGA8-P;
-IdModule  = DIL28;
+IdModule  = DIP-28__300;
 EndCmp
 
 BeginCmp
@@ -564,56 +564,56 @@ BeginCmp
 TimeStamp = /51B0CD9E;
 Reference = U2;
 ValeurCmp = ULN2803;
-IdModule  = DIP-16_300;
+IdModule  = DIP-18__300;
 EndCmp
 
 BeginCmp
 TimeStamp = /51B0CDAD;
 Reference = U3;
 ValeurCmp = ULN2803;
-IdModule  = DIP-16_300;
+IdModule  = DIP-18__300;
 EndCmp
 
 BeginCmp
 TimeStamp = /51B0CDBC;
 Reference = U4;
 ValeurCmp = ULN2803;
-IdModule  = DIP-16_300;
+IdModule  = DIP-18__300;
 EndCmp
 
 BeginCmp
 TimeStamp = /51B0CDCB;
 Reference = U5;
 ValeurCmp = ULN2803;
-IdModule  = DIP-16_300;
+IdModule  = DIP-18__300;
 EndCmp
 
 BeginCmp
 TimeStamp = /51B0C816;
 Reference = U6;
 ValeurCmp = 74HC4094;
-IdModule  = DIP-16_300;
+IdModule  = DIP-16__300;
 EndCmp
 
 BeginCmp
 TimeStamp = /51B0C825;
 Reference = U7;
 ValeurCmp = 74HC4094;
-IdModule  = DIP-16_300;
+IdModule  = DIP-16__300;
 EndCmp
 
 BeginCmp
 TimeStamp = /51B0C834;
 Reference = U8;
 ValeurCmp = 74HC4094;
-IdModule  = DIP-16_300;
+IdModule  = DIP-16__300;
 EndCmp
 
 BeginCmp
 TimeStamp = /51B0C843;
 Reference = U9;
 ValeurCmp = 74HC4094;
-IdModule  = DIP-16_300;
+IdModule  = DIP-16__300;
 EndCmp
 
 BeginCmp
