@@ -24,7 +24,7 @@ inline void DATA3_1() { PORTB |=  (1<<PORTB3); }
 // 4514 commands
 inline void STRB_0()   { PORTD &= ~(1<<PORTD4); }
 inline void STRB_1()   { PORTD |=  (1<<PORTD4); }
-
+inline void D(unsigned char x) { PORTD = (PORTD & (0xf<<4)) | (x & 0xf); }
 
 int main()
 {
@@ -37,8 +37,8 @@ int main()
 	STR_0();
 	OE_0();
 
-	// send data
-	int i=0;
+	// send data to 74HC4094
+	unsigned char i=0;
 	for(i=0; i<8; i++)
 	{
 		DATA3_1();
@@ -47,6 +47,18 @@ int main()
 	}
 	STR_1();
 	OE_1();
+
+	// send data to 4094
+	while(1)
+	{
+		for(i=0; i<16; i++)
+		{
+			STRB_1();
+			D(i);
+			STRB_0();
+			//_delay_us(5);
+		}
+	}
 
 	return 0;
 }
