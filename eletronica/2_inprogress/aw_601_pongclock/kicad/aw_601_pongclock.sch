@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date 13/06/2013 16:50:11
+EESchema Schematic File Version 2  date 14/06/2013 09:56:47
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -37,7 +37,7 @@ $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
 Title "AW601 Pong Clock"
-Date "13 jun 2013"
+Date "14 jun 2013"
 Rev ""
 Comp "Imperial Electronics"
 Comment1 ""
@@ -1251,16 +1251,6 @@ Text Label 8700 1850 0    60   ~ 0
 V2
 Text Label 8700 1950 0    60   ~ 0
 V3
-Text Label 8700 2050 0    60   ~ 0
-V4
-Text Label 8700 2150 0    60   ~ 0
-V5
-Text Label 8700 2250 0    60   ~ 0
-V6
-Text Label 8700 2350 0    60   ~ 0
-V7
-Text Label 8700 2450 0    60   ~ 0
-V8
 Text Label 8750 3850 0    60   ~ 0
 V9
 Text Label 8750 3950 0    60   ~ 0
@@ -1299,16 +1289,6 @@ Text Label 11800 3950 0    60   ~ 0
 V26
 Text Label 11800 4050 0    60   ~ 0
 V27
-Text Label 11800 4150 0    60   ~ 0
-V28
-Text Label 11800 4250 0    60   ~ 0
-V29
-Text Label 11800 4350 0    60   ~ 0
-V30
-Text Label 11800 4450 0    60   ~ 0
-V31
-Text Label 11800 4550 0    60   ~ 0
-V32
 Entry Wire Line
 	6000 5350 6100 5250
 Entry Wire Line
@@ -1379,16 +1359,6 @@ Text Label 6200 5350 1    60   ~ 0
 V2
 Text Label 6600 5350 1    60   ~ 0
 V3
-Text Label 6800 5350 1    60   ~ 0
-V4
-Text Label 7200 5350 1    60   ~ 0
-V5
-Text Label 7400 5350 1    60   ~ 0
-V6
-Text Label 7800 5350 1    60   ~ 0
-V7
-Text Label 8000 5350 1    60   ~ 0
-V8
 Text Label 8400 5350 1    60   ~ 0
 V9
 Text Label 8600 5350 1    60   ~ 0
@@ -1427,16 +1397,6 @@ Text Label 13500 5350 1    60   ~ 0
 V26
 Text Label 13900 5350 1    60   ~ 0
 V27
-Text Label 14100 5350 1    60   ~ 0
-V28
-Text Label 14500 5350 1    60   ~ 0
-V29
-Text Label 14700 5350 1    60   ~ 0
-V30
-Text Label 15100 5350 1    60   ~ 0
-V31
-Text Label 15300 5350 1    60   ~ 0
-V32
 $Comp
 L SW_PUSH SW1
 U 1 1 51B18043
@@ -1572,12 +1532,12 @@ $EndComp
 $Comp
 L +5V #PWR08
 U 1 1 51B19F4D
-P 2350 1600
-F 0 "#PWR08" H 2350 1690 20  0001 C CNN
-F 1 "+5V" H 2350 1690 30  0000 C CNN
-F 2 "" H 2350 1600 60  0000 C CNN
-F 3 "" H 2350 1600 60  0000 C CNN
-	1    2350 1600
+P 2350 1000
+F 0 "#PWR08" H 2350 1090 20  0001 C CNN
+F 1 "+5V" H 2350 1090 30  0000 C CNN
+F 2 "" H 2350 1000 60  0000 C CNN
+F 3 "" H 2350 1000 60  0000 C CNN
+	1    2350 1000
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -2525,14 +2485,120 @@ D4
 Text Label 3400 3700 0    60   ~ 0
 STRB
 $Comp
-L BARREL_JACK CON?
+L BARREL_JACK CON1
 U 1 1 51BA212D
 P 5250 1250
-F 0 "CON?" H 5250 1500 60  0000 C CNN
+F 0 "CON1" H 5250 1500 60  0000 C CNN
 F 1 "BARREL_JACK" H 5250 1050 60  0000 C CNN
 F 2 "" H 5250 1250 60  0000 C CNN
 F 3 "" H 5250 1250 60  0000 C CNN
 	1    5250 1250
 	1    0    0    -1  
 $EndComp
+$Comp
+L +5V #PWR014
+U 1 1 51BAFAF5
+P 5600 1050
+F 0 "#PWR014" H 5600 1140 20  0001 C CNN
+F 1 "+5V" H 5600 1140 30  0000 C CNN
+F 2 "" H 5600 1050 60  0000 C CNN
+F 3 "" H 5600 1050 60  0000 C CNN
+	1    5600 1050
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR015
+U 1 1 51BAFAFB
+P 5600 1450
+F 0 "#PWR015" H 5600 1450 30  0001 C CNN
+F 1 "GND" H 5600 1380 30  0001 C CNN
+F 2 "" H 5600 1450 60  0000 C CNN
+F 3 "" H 5600 1450 60  0000 C CNN
+	1    5600 1450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5550 1150 5600 1150
+Wire Wire Line
+	5600 1150 5600 1050
+Wire Wire Line
+	5550 1250 5600 1250
+Wire Wire Line
+	5600 1250 5600 1450
+Wire Wire Line
+	5550 1350 5600 1350
+Connection ~ 5600 1350
+Wire Wire Line
+	2350 1000 2350 1600
+$Comp
+L CP1 C3
+U 1 1 51BB0678
+P 2050 1300
+F 0 "C3" H 2100 1400 50  0000 L CNN
+F 1 "CP1" H 2100 1200 50  0000 L CNN
+F 2 "~" H 2050 1300 60  0000 C CNN
+F 3 "~" H 2050 1300 60  0000 C CNN
+	1    2050 1300
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR016
+U 1 1 51BB0685
+P 2050 1550
+F 0 "#PWR016" H 2050 1550 30  0001 C CNN
+F 1 "GND" H 2050 1480 30  0001 C CNN
+F 2 "" H 2050 1550 60  0000 C CNN
+F 3 "" H 2050 1550 60  0000 C CNN
+	1    2050 1550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2050 1100 2350 1100
+Connection ~ 2350 1100
+Wire Wire Line
+	2050 1500 2050 1550
+Text Label 8700 2050 0    60   ~ 0
+V4
+Text Label 8700 2150 0    60   ~ 0
+V5
+Text Label 8700 2250 0    60   ~ 0
+V6
+Text Label 8700 2350 0    60   ~ 0
+V7
+Text Label 8700 2450 0    60   ~ 0
+V8
+Text Label 6800 5350 1    60   ~ 0
+V4
+Text Label 7200 5350 1    60   ~ 0
+V5
+Text Label 7400 5350 1    60   ~ 0
+V6
+Text Label 7800 5350 1    60   ~ 0
+V7
+Text Label 8000 5350 1    60   ~ 0
+V8
+Text Label 8450 2050 0    60   ~ 0
+V4
+Text Label 6800 5500 0    60   ~ 0
+V4
+Text Label 11800 4150 0    60   ~ 0
+V28
+Text Label 11800 4250 0    60   ~ 0
+V29
+Text Label 11800 4350 0    60   ~ 0
+V30
+Text Label 11800 4450 0    60   ~ 0
+V31
+Text Label 11800 4550 0    60   ~ 0
+V32
+Text Label 14100 5350 1    60   ~ 0
+V28
+Text Label 14500 5350 1    60   ~ 0
+V29
+Text Label 14700 5350 1    60   ~ 0
+V30
+Text Label 15100 5350 1    60   ~ 0
+V31
+Text Label 15300 5350 1    60   ~ 0
+V32
 $EndSCHEMATC
