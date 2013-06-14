@@ -1,9 +1,31 @@
-PCBNEW-LibModule-V1  13/06/2013 14:29:15
+PCBNEW-LibModule-V1  14/06/2013 16:12:40
 # encoding utf-8
 Units mm
 $INDEX
+1pin
 LED_16x16
+pin
+pin1
 $EndINDEX
+$MODULE 1pin
+Po 0 0 0 15 51BB69C8 00000000 ~~
+Li 1pin
+Cd module 1 pin (ou trou mecanique de percage)
+Kw DEV
+Sc 0
+AR 1pin
+Op 0 0 0
+T0 0 -3.048 1.016 1.016 0 0.254 N V 21 N "1PIN"
+T1 0 2.794 1.016 1.016 0 0.254 N I 21 N "P***"
+DC 0 0 0 -1.286 0.381 21
+$PAD
+Sh "1" C 1.397 1.397 0 0 0
+Dr 0.8128 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 0 0
+$EndPAD
+$EndMODULE 1pin
 $MODULE LED_16x16
 Po 0 0 0 15 51B9FF74 00000000 ~~
 Li LED_16x16
@@ -241,4 +263,39 @@ Ne 0 ""
 Po 26.67 27.94
 $EndPAD
 $EndMODULE LED_16x16
+$MODULE pin
+Po 0 0 0 15 51BB69FE 00000000 ~~
+Li pin
+Cd module 1 pin (ou trou mecanique de percage)
+Kw DEV
+Sc 0
+AR 1pin
+Op 0 0 0
+T0 0 -3.048 1.016 1.016 0 0.254 N V 21 N "1PIN"
+T1 0 2.794 1.016 1.016 0 0.254 N I 21 N "P***"
+DC 0 0 0 -1.286 0.381 21
+$PAD
+Sh "1" C 1.397 1.397 0 0 0
+Dr 0.8128 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 0 0
+$EndPAD
+$EndMODULE pin
+$MODULE pin1
+Po 0 0 0 15 51BB6B24 00000000 ~~
+Li pin1
+Sc 0
+AR 
+Op 0 0 0
+T0 0 1.27 1 1 0 0.15 N V 21 N "pin1"
+T1 0 -1.27 1 1 0 0.15 N V 21 N "VAL**"
+$PAD
+Sh "1" C 1.397 1.397 0 0 0
+Dr 0.8128 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 0 0
+$EndPAD
+$EndMODULE pin1
 $EndLIBRARY
