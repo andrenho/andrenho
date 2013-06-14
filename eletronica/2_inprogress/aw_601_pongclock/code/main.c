@@ -41,6 +41,9 @@ int main()
 	unsigned char i=0;
 	for(i=0; i<8; i++)
 	{
+		DATA0_1();
+		DATA1_1();
+		DATA2_1();
 		DATA3_1();
 		CLK_1();
 		CLK_0();
