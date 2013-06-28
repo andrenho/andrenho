@@ -14,7 +14,7 @@ assembly: main.c
 	avr-gcc -S -mmcu=$(DEVICE) -Wall -Os -omain.s main.c
 
 upload: main.hex
-	avrdude -p$(DEVICE) -c$(PROGRAMMER) -b$(SPEED) -P/dev/ttyACM0 -U flash:w:main.hex
+	avrdude -V -p$(DEVICE) -c$(PROGRAMMER) -b$(SPEED) -P/dev/ttyACM0 -U flash:w:main.hex
 
 fuse:
 	#avrdude -p$(DEVICE) -cstk500v1 -P/dev/ttyACM0 -b19200 -e -Ulfuse:w:0xe4:m -Uhfuse:w:0xD9:m

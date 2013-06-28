@@ -220,6 +220,18 @@ static void draw_number(int x, int y, int n)
 	}
 }
 
+static void draw_bignumber(int x, int y, int n)
+{
+	if(n < 0 || n > 9)
+		return;
+	int xx, yy;
+	for(xx=0; xx<6; xx++) {
+		for(yy=0; yy<10; yy++) {
+			set_xy(x+xx, y+yy, numbers_big[n][yy] & (1<<(7-xx)));
+		}
+	}
+}
+
 
 /**************
  * IC CONTROL *
@@ -595,6 +607,19 @@ void pong_move_pad(void)
  *************/
 void bigclock_draw()
 {
+	draw_bignumber(1, 3, hours/10);
+	draw_bignumber(8, 3, hours%10);
+	draw_bignumber(18, 3, minutes/10);
+	draw_bignumber(25, 3, minutes%10);
+
+	int n = seconds % 2;
+	int x, y;
+	for(x=15; x<=16; x++) {
+		for(y=5; y<=6; y++) {
+			set_xy(x, y, n);
+			set_xy(x, y+4, n);
+		}
+	}
 }
 
 
