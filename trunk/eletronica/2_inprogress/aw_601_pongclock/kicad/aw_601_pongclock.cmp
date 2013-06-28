@@ -1,4 +1,11 @@
-Cmp-Mod V01 Created by CvPcb (2013-05-16 BZR 4016)-stable date = 14/06/2013 09:56:58
+Cmp-Mod V01 Created by CvPcb (2013-may-18)-stable date = Sex 28 Jun 2013 11:19:53 BRT
+
+BeginCmp
+TimeStamp = /51CDD52B;
+Reference = BT1;
+ValeurCmp = BATTERY;
+IdModule  = ;
+EndCmp
 
 BeginCmp
 TimeStamp = /51B1A3E6;
@@ -276,14 +283,14 @@ EndCmp
 BeginCmp
 TimeStamp = /51B1806D;
 Reference = R1;
-ValeurCmp = 680;
+ValeurCmp = 1.8K;
 IdModule  = R3;
 EndCmp
 
 BeginCmp
 TimeStamp = /51B18078;
 Reference = R2;
-ValeurCmp = 680;
+ValeurCmp = 220;
 IdModule  = R3;
 EndCmp
 
@@ -340,6 +347,13 @@ BeginCmp
 TimeStamp = /51B0D4B0;
 Reference = R10;
 ValeurCmp = 220;
+IdModule  = R3;
+EndCmp
+
+BeginCmp
+TimeStamp = /51CD9769;
+Reference = R11;
+ValeurCmp = 10K;
 IdModule  = R3;
 EndCmp
 
@@ -519,27 +533,6 @@ IdModule  = R3;
 EndCmp
 
 BeginCmp
-TimeStamp = /51B1809F;
-Reference = RV1;
-ValeurCmp = 2K;
-IdModule  = bornier3;
-EndCmp
-
-BeginCmp
-TimeStamp = /51B180B1;
-Reference = RV2;
-ValeurCmp = 2K;
-IdModule  = bornier3;
-EndCmp
-
-BeginCmp
-TimeStamp = /51B180B7;
-Reference = RV3;
-ValeurCmp = 2K;
-IdModule  = bornier3;
-EndCmp
-
-BeginCmp
 TimeStamp = /51B18043;
 Reference = SW1;
 ValeurCmp = SW_PUSH;
@@ -631,10 +624,24 @@ IdModule  = DIP-16__300;
 EndCmp
 
 BeginCmp
+TimeStamp = /51CDC416;
+Reference = U10;
+ValeurCmp = DS1307;
+IdModule  = DIP-8__300;
+EndCmp
+
+BeginCmp
 TimeStamp = /51B1A3C8;
 Reference = X1;
 ValeurCmp = 16Mhz;
 IdModule  = HC-49V;
+EndCmp
+
+BeginCmp
+TimeStamp = /51CDC4D8;
+Reference = X2;
+ValeurCmp = 16Mhz;
+IdModule  = QMONTRE;
 EndCmp
 
 EndListe
