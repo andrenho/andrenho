@@ -16,6 +16,7 @@
 volatile int step = 0;
 volatile int on_off = 0;
 volatile int bright = 1;
+volatile int bigclock = 0;
 
 // time control
 volatile uint8_t hours = 0;
@@ -40,11 +41,9 @@ volatile struct pong_t {
 	uint8_t change_hr    : 1;
 } pong;
 
-/***********
- *  VIDEO  *
- ***********/
-volatile uint16_t leds[32] = { 0 };
-
+/*********
+ * FONTS *
+ *********/
 uint16_t numbers[] = {
 //        0  1  2  3  4  
 //        |  |  |  |  |
@@ -61,6 +60,115 @@ uint16_t numbers[] = {
 	0b001101001101001,
 	0b111111001111001,
 };
+
+uint8_t numbers_big[10][14] = {
+	{ 0b00110000,
+	  0b01111000,
+	  0b11001100,
+	  0b11001100,
+	  0b11001100,
+	  0b11001100,
+	  0b11001100,
+	  0b11001100,
+	  0b01111000,
+	  0b00110000 },
+	{ 0b00110000,
+	  0b01110000,
+	  0b11110000,
+	  0b00110000,
+	  0b00110000,
+	  0b00110000,
+	  0b00110000,
+	  0b00110000,
+	  0b00110000,
+	  0b11111100 },
+	{ 0b00110000,
+	  0b01111000,
+	  0b11001100,
+	  0b00001100,
+	  0b00001100,
+	  0b00011000,
+	  0b00110000,
+	  0b01100000,
+	  0b11000000,
+	  0b11111100 },
+	{ 0b11111100,
+	  0b00001100,
+	  0b00011000,
+	  0b00110000,
+	  0b01110000,
+	  0b00011000,
+	  0b00001100,
+	  0b00001100,
+	  0b11011000,
+	  0b01110000 },
+	{ 0b00011000,
+	  0b00111000,
+	  0b01111000,
+	  0b01011000,
+	  0b11011000,
+	  0b11011000,
+	  0b11111100,
+	  0b00011000,
+	  0b00011000,
+	  0b00011000 },
+	{ 0b11111100,
+	  0b11000000,
+	  0b11000000,
+	  0b11000000,
+	  0b11111000,
+	  0b00001100,
+	  0b00001100,
+	  0b00001100,
+	  0b11001100,
+	  0b01111000 },
+	{ 0b00111100,
+	  0b01100000,
+	  0b11000000,
+	  0b11000000,
+	  0b11111000,
+	  0b11001100,
+	  0b11001100,
+	  0b11001100,
+	  0b01101100,
+	  0b00111000 },
+	{ 0b11111100,
+	  0b00001100,
+	  0b00011000,
+	  0b00011000,
+	  0b00110000,
+	  0b00110000,
+	  0b01100000,
+	  0b01100000,
+	  0b01100000,
+	  0b01100000 },
+	{ 0b00110000,
+	  0b01111000,
+	  0b11001100,
+	  0b01111000,
+	  0b00110000,
+	  0b01111000,
+	  0b11001100,
+	  0b11001100,
+	  0b01111000,
+	  0b00110000 },
+	{ 0b00110000,
+	  0b01111000,
+	  0b11001100,
+	  0b11001100,
+	  0b01111100,
+	  0b00111100,
+	  0b00001100,
+	  0b00001100,
+	  0b00011000,
+	  0b01110000 },
+};
+
+
+/***********
+ *  VIDEO  *
+ ***********/
+volatile uint16_t leds[32] = { 0 };
 
 static void clear(void)
 {
@@ -229,15 +337,15 @@ ISR(TIMER2_COMP_vect)
 		}
 	} else {
 		OE_1();
-	}
-	if(!bright) {
-		_delay_us(50);
-		OE_0();
+		if(!bright) {
+			_delay_us(20);
+			OE_0();
+		}
 	}
 }
 
 
-int read_button()
+void read_button(int adc)
 {
 	/* buttons:
 	 *   none = 0
@@ -245,31 +353,30 @@ int read_button()
 	 *   2 = 870
 	 *   3 = 1003
 	 *   4 = 960 */
-	ADCSRA |= (1<<ADSC);
-	while(ADCSRA & (1<<ADSC)) {
-	}
-	unsigned int adc = ADCW;
-	if(adc > 1015) {
-		return 1;
-	} else if(adc > 980) {
-		return 3;
-	} else if(adc > 920) {
-		return 4;
-	} else if(adc > 800) {
-		return 2;
-	} else {
-		return 0;
-	}
-}
-
-
-void check_buttons()
-{
-	int b = read_button();
-	if(b == 1) {
+	if(adc > 1015) { // brigthness
 		bright = !bright;
-	}
-	_delay_ms(200);
+		_delay_ms(50);
+	} else if(adc > 980) { // hours
+		hours++;
+		if(hours > 23) {
+			hours = 0;
+		}
+		_delay_ms(50);
+	} else if(adc > 920) { // minutes
+		minutes++;
+		if(minutes > 59) {
+			minutes = 0;
+			hours++;
+		}
+		if(hours > 23) {
+			hours = 0;
+		}
+		_delay_ms(50);
+	} else if(adc > 800) { // mode
+		clear();
+		bigclock = !bigclock;
+		_delay_ms(50);
+	} 
 }
 
 
@@ -484,6 +591,14 @@ void pong_move_pad(void)
 
 
 /*************
+ * BIG CLOCK *
+ *************/
+void bigclock_draw()
+{
+}
+
+
+/*************
  *  GENERAL  *
  *************/
 int main()
@@ -496,17 +611,21 @@ int main()
 	// infinite loop
 	//int c = 0;
 	for(;;) {
-		int i;
-		for(i=0; i<2; i++) {
-			pong_draw();
-			_delay_ms(25);
-			pong_move_pad();
+		ADCSRA |= (1<<ADSC);          // prepare to read button (ADC)
+		while(ADCSRA & (1<<ADSC)) {   // wait for ADC response
+			int i;
+			for(i=0; i<2; i++) {
+				if(bigclock) {
+					bigclock_draw();
+				} else {
+					pong_draw();
+				}
+				_delay_ms(25);
+				pong_move_pad();
+			}
+			pong_move_ball();
 		}
-		pong_move_ball();
-
-		//if(c++ % 50 == 0) {
-		//	check_buttons();
-		//}
+		read_button(ADCW);
 	}
 
 	return 0;
