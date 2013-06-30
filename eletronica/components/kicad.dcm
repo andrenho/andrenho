@@ -1,4 +1,4 @@
-EESchema-DOCLIB  Version 2.0  Date: Sex 28 Jun 2013 11:04:57 BRT
+EESchema-DOCLIB  Version 2.0  Date: Sex 28 Jun 2013 13:57:16 BRT
 #
 $CMP 4514
 D 16-bit Demultiplexer
@@ -22,6 +22,10 @@ $CMP DS1307
 D 74HC4094
 K 16-bit shift register (serial in, parallel/serial out)
 F 74HC_HCT4094.pdf
+$ENDCMP
+#
+$CMP LM556N
+F ns/lm555.pdf
 $ENDCMP
 #
 $CMP ULN2803
