@@ -37,7 +37,7 @@ $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
 Title "AW601 Pong Clock"
-Date "28 jun 2013"
+Date "30 jun 2013"
 Rev ""
 Comp "Imperial Electronics"
 Comment1 ""
@@ -2559,7 +2559,7 @@ L CRYSTAL X2
 U 1 1 51CDC4D8
 P 1750 8800
 F 0 "X2" H 1750 8950 60  0000 C CNN
-F 1 "16Mhz" H 1750 8650 60  0000 C CNN
+F 1 "32kHz" H 1750 8650 60  0000 C CNN
 F 2 "~" H 1750 8800 60  0000 C CNN
 F 3 "~" H 1750 8800 60  0000 C CNN
 	1    1750 8800
