@@ -1,0 +1,21 @@
+CITY MANAGER
+------------
+
+"City Manager" is a city simulation game. Key aspects of the game are:
+
+ - The city administrator (the player) manages every aspect of the city,
+   except for the houses of the inhabitants.
+ - In order to build the structures of the city (roads, industries, public
+   buildings, etc) the administrator doesn't use money, but construction
+   material. If the construction material are not available in the city, he
+   can then buy from neighbour cities for a price. As such, money is not so
+   important as for other city building games.
+ - The industry is a important aspect of the game, where raw materials are
+   fabricated and used to build more refined products. Every product that is
+   not available must be purchased from the neighbours.
+ - The quality of the houses of the inhabitants are dependant of the resources
+   available around (schools, hospitals, jobs, etc) and of the salary of the
+   people.
+ - Traffic is a very important aspect, for during the time that the person is
+   stuck in traffic, it is neither resting nor producing.
+ - People's actions are governed by their needs, much like the Maslow pyramid.

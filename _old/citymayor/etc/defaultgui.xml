@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<gui>
+    <images>
+        <image id="land" image="land.png" />
+        <image id="grid" image="grid.png" />
+	<image id="default" image="default.png" />
+	<image id="lateralarrow" image="lateralarrow.png" />
+    </images>
+    <buttons>
+        <button image="options.png">
+            <option image="fullscreen.png" command="fullscreen">
+                <title>Fullscreen</title>
+                <description>Exhibits the game in fullscreen.</description>
+            </option>
+            <option image="menu-$OS.png" command="quit">
+                <title>Exit to $OS</title>
+                <description>Exit to the operating system, saving the city.</description>
+            </option>
+        </button>
+    </buttons>
+</gui>

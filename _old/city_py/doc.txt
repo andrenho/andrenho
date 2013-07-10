@@ -1,0 +1,4 @@
+Triangle:
+ - People needs (maslow)
+ - People transportation
+ - City demand & supply

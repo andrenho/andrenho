@@ -1,0 +1,14 @@
+ingredients:
+  water:
+  salt:
+  flour:
+  olive_oil:
+
+recipes:
+  - name: cracker_dough
+  - ingredients: 
+    - water
+    - salt
+    - flour
+    - olive_oil
+  - 

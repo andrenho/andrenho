@@ -1,0 +1,92 @@
+  1. Pre-game
+    1.1 Initial options
+      1.2.1 Difficulty
+      1.2.2 Nationality
+      1.2.3 World creation options
+  
+  2. Game turn
+    2.1 Order of events
+X     2.1.1 Date advances
+t     2.1.2 Economy
+X     2.1.3 Player issues
+      2.1.4 Movement
+X       2.1.4.1 Simple movement
+        2.1.4.2 Water movement
+      2.1.5 Enemy moves
+    2.2 Game end
+      2.2.1 Quit
+      2.2.2 Retire
+      2.2.3 Defeat
+      2.2.4 Victory
+X   2.3 Save/load
+  
+  3. Interface
+    3.1 Map view
+X     3.1.1 Map scrolling
+t       3.1.1.2 Map movement
+      3.1.2 Status view
+      3.1.3 Query information
+X   3.2 City view
+X     3.2.1 Warehouse/transport
+X     3.2.2 Terrain view
+  
+  4. World
+    4.1 World creation
+X     4.1.1 Terrain/vegetation
+X     4.1.2 Mountains
+X     4.1.3 Rivers
+      4.1.4 Specials
+  
+  5. Nations and units
+    5.1 Nation
+    5.2 Units
+      5.2.1 Movement
+X       5.2.1.1 Simple movement
+        5.2.1.2 Water movement
+        5.2.1.3 Embark/disembark
+      5.2.2 Orders
+        5.2.2.1 Goto
+        5.2.2.2 Fortify
+        5.2.2.3 Sentry
+        5.2.2.4 Clear/plow
+        5.2.2.5 Road
+        5.2.2.6 Build city
+        5.2.2.7 Skip unit
+        5.2.2.8 Wait next
+        5.2.2.9 Disband
+      5.2.3 Trade routes
+        5.2.3.1 Create/edit/delete
+        5.2.3.2 Assign
+        5.2.3.3 Use
+      5.2.4 Attack
+        5.2.4.1 Attack/defend
+        5.2.4.2 Capture city
+X     5.2.5 Population growth
+  
+  6. Cities
+X   6.1 New city
+X   6.2 Load/unload cargo
+    6.3 Load/unload units
+X   6.4 Job management
+X     6.4.1 Work on area
+X     6.4.2 Work on building
+X     6.4.3 Change job
+    6.5 Leave colony
+X     6.5.1 As colonist
+      6.5.2 As pioneer
+      6.5.3 As scout
+      6.5.4 As soldier
+X   6.6 Production
+X     6.1 Surplus
+X     6.2 Lack of raw materials
+X     6.3 Waste
+    6.7 Construction
+X     6.7.1 Changing projects
+X     6.7.2 Building construction
+      6.7.3 Rushing projects
+    6.8 Special buildings effects
+      
+  
+  7. Foreign cities
+  
+  8. Egypt

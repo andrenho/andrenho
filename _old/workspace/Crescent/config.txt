@@ -1,0 +1,6 @@
+# 
+# Terrain types
+# 
+[Terrain]
+!key      name        costToEnter     defensiveBonus
+ocean     Ocean               1                   0             

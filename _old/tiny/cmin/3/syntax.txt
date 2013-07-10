@@ -1,0 +1,43 @@
+stats ::= statn [stats]
+
+statn ::= [id ":"] stat "\n"
+
+block ::= "{" stats "}"
+
+stat ::= 
+  ["global"] type id [":=" expression]
+  "def" id "(" parameters ")" ":" type block
+  assignment
+  expression
+  "break"
+  "goto" id
+  "while" expression block
+  "repeat" block "until" expression
+  "if" expression block ["elseif" expression block]* ["else" block]
+  "for" "(" expression ";" expression ";" assignment ")" block
+  "return" expression
+
+assignment ::=
+  id "=" expression
+  expression "=" expression
+  id ["++" | "--"]
+
+type ::= int8 | uint8 | int32 | uint32
+
+expression ::= expression "or" exp_and | exp_and
+
+exp_and ::= exp_and "and" exp_eq | exp_eq
+
+exp_eq ::= exp_eq ["==" | "!="] exp_rel | exp_rel
+
+exp_rel ::= exp_rel ["<" | "<=" | ">" | ">="] exp_add | exp_add
+
+exp_add ::= exp_add ["+" | "-"] exp_mul | exp_mul
+
+exp_mul ::= exp_mul ["*" | "/" | "%"] exp | exp
+
+exp ::= id | "&" id | constant | id "(" parameters ")"
+
+parameters ::= expression ["," parameters]
+
+constant ::= number | char

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	width="200" height="200">
+
+    <g id="square">
+        <rect x="10" y="10" width="20" height="20"
+            style="fill: none; stroke: black;"/>
+    </g>
+    <use xlink:href="#square" transform="scale(2)"/>
+</svg>

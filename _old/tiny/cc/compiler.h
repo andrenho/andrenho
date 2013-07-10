@@ -1,0 +1,28 @@
+#ifndef COMPILER_H
+#define COMPILER_H
+
+// Initialize everything
+void initialize();
+void finalize();
+
+// Function declarations
+void function_init(char* name);
+void function_end(char* name);
+
+// Block declaration
+void block_init();
+void block_end();
+
+// Variable declarations
+void declaration(const char* name);
+void assignment();
+
+// Data
+void constant(unsigned long d);
+void variable(const char* name);
+void no_dereference();
+
+// Commands
+void _return(int has_expression);
+
+#endif
