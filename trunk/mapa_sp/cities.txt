@@ -1,3 +1,0 @@
-# city pop lat long
-Indaiatuba 210 2305 -4713
-Campinas 1500 2254 -4703

@@ -1,7 +1,0 @@
-
-
-RAW:
-  - new
-  - load_tile
-  - blit_tile
-  - shut_down

@@ -1,1 +1,0 @@
--L-L/home/andre/Dados/src/Derelict2/lib -L-lDerelictSDL -L-lDerelictSDLttf -L-lDerelictUtil -L-ldl -I/home/andre/Dados/src/Derelict2/DerelictSDL -I/home/andre/Dados/src/Derelict2/DerelictUtil -debug -ofcitymayor
