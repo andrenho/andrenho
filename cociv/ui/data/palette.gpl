@@ -1,9 +1,0 @@
-GIMP Palette
-Name: mtPaint
-Columns: 16
-#
-  0   0   0	black
-255 255 255	white
-  0  43  54 base03
-101 123 131 base00
-253 246 227 base3
