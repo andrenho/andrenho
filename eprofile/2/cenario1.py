@@ -119,11 +119,11 @@ class Student:
     else:
       return None
 
-  def closest_students(self):
+  def closest_students(self, n):
     st = {}
     for s in all_students:
       st[s] = self.similarity(s)
-    return sorted(st, key=st.get)[0:5]
+    return sorted(st, key=st.get)[0:n]
 
   def similarity(self, other_student):
     n = 0
@@ -180,7 +180,7 @@ while True:
         found = False
         for subject in debate:
           if search_others:
-            for st in student.closest_students():
+            for st in student.closest_students(1):
               for preference in st.preferences:
                 if preference == subject:
                   automatic += 1
