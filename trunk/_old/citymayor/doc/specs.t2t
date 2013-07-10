@@ -1,0 +1,568 @@
+CityMayor Specification
+André Wagner
+
+
+= Introduction =
+
+CityMayor is a city and resource management game. The player acts as the mayor
+of a city, where he must make the city grow in size and number of inhabitants.
+Residents are attracted by a city that offers them a good quality of life:
+security, culture, entertainment, etc.
+
+Besides that, the mayor must maintain a healty budget for the city. The main
+two sources of money the city has are:
+
+- Property Tax: paid by residentes. The healtier they are, the more taxes they
+  pay.
+- Sales Tax: paid over products sold to other cities. The mayor is responsable
+  for managing the entire chain of production of the city, including the
+  transportation of the goods.
+
+
+The **goal** of the game depends on the type of game chosen. The
+**open-ended game** allows the player to play indefinitely. The **campaign**
+leads the mayor through different cities with diferent goals for each one.
+In this case, the goals could involve:
+
+- Achieving a given rating in one or more categories like: security,
+  education, culture, prosperity, entertainment, population, exports, etc.
+- Producing //x// units of a given good in some specifict timespan.
+- Rescuing the city from a debt.
+- Building a specific building.
+- Some other goal.
+
+
+= Game Initialization =
+
+The game initialization shows a pixel-art city as a background, with the
+following options for the user:
+
+- **New Game (Campaign)** (and tutorial?): this will bring a default region,
+  where the user will
+
+- **Free play**: leads the user to a random region (for the first time) or
+  the last region played, where the user can start a new free play game in
+  one city of the region.
+
+- **Options**:
+  - Windowed / fullscreen
+  - Resolution
+  - Etc.
+
+- **Exit game**
+
+
+= Region =
+
+A region is a cluster of cities. It is usually crossed by rivers and has a
+coast. Cities can be //n//x//m//, where //n// and //m// are a size of 1 to 4
+(to be defined the size of the unit).
+
+The region is presented to the user as a isometric minimap of the real cities.
+There minimaps are saved when the user saves the city. The user can choose
+one of the cities, which is the one he will be playing.
+
+
+= City =
+
+The **city** is the core of the game; is the city that the player -- the mayor
+-- will be in control. The city is a grid of //w//x//h// tiles, which is
+presented to the player as isometric tiles.
+
+
+== Terrain ==
+
+Each tile can be land or water, and it is initially empty, except perhaps for
+a few trees. The city is completely flat, without hills, mountains or
+depressions. Water is of the same height as the land, though the appearance
+can show a depression.
+
+A tile with trees is desirable.
+
+
+== People ==
+
+People refers to the inhabitants of the city. People come as **immigrants**,
+when they are attracted to the city by factors such as desirability,
+security, education, entertainment, healthcare, jobs available, goods available,
+etc.
+
+People can have the following attributes:
+
+- **I.Q.**: this affects the jobs a person can get. Education will make
+  people's I.Q. to increase primarily, and culture and entertainment second.
+  Immigrant's I.Q. will usually be dependant of the job openings, though
+  it will usually be lower than the city mean.
+
+- **Salary**: will be directly dependent of the person job (people can get a
+  unemployment security for a few months if unemployed). The person's salary
+  will determine if the person will have a car, and the type of residence
+  the person will live in.
+
+- **Gender**: marriage can only happen between a man and a woman.
+
+- **Age**: a person will marry with 20 and have the first baby with 25 and
+  the second with 30. The time of a person's life depends on the health
+  condition the city offers, and a few others factors like salary. A person
+  never retires.
+
+- **Family**: people will marry and have two kids of random gender. The kids
+  will marry and leave home when they're 20. Many times, the whole family
+  will come together.
+
+When people are unemployed, they'll look for a job that is close to their
+homes and pays well.
+
+
+=== Daily Routine ===
+
+Contrary to reality, all people will leave around the same time for work.
+They will work during the day, and then come back home - again, all about
+the same time. Then, they'll either stay at home, or go out somewhere to 
+do something fun (or grocery shopping), and then come back.
+
+People might get sick and go to the doctor during the day.
+
+A few people, like fireman, doctors and policemen, might work during the night.
+
+
+== Structures ==
+
+Structures refer to anything that is built on the city. Structures have a
+//xy// position on the city, and a //wh// size. Some structures such as
+residences and companies can hold a number of people, and many residences
+can hold a number of cars as well.
+
+Structures can be turned 90°, but cannot be placed diagonally.
+
+
+=== Residences ===
+
+Residences are the houses and apartments where the people live. They can be of:
+
+- **Low density**: houses, that can fit up to 
+- **High density**: buildings and condos, that can fit a great number of people.
+
+
+There are four classes of residences, according to the sum of the salaries of
+the people.
+
+- **Low class**: salary up to $1500.
+- **Middle class**: salary from $1500 ~ $3000.
+- **High class**: salary from $3000 ~ $10000.
+- **Millionaires**: salary above $10000. This class cannot be a high density.
+
+
+The mayor can only offer a terrain of a given density/class. People are expected
+to build their homes. Level 0 means a empty terrain, and each house can go from
+level 1 to 4. The level depends on many factors, and will make land value and
+tax collecting change, according to the following table:
+
+TODO
+
+Houses can upgrade and degrade according to the factors described above. But
+this usually take very months to happen.
+
+The price to offer a residence terrain for each class is:
+
+TODO
+
+Usually, the richer the house, the more desirable it is.
+
+
+=== Workplaces ===
+
+A workplace are building structures where people work. Each workplace will
+employ a number of people and pay them a salary. A workplace can have openings
+for different jobs (workers, engeneers, management) with different salaries.
+
+A workplace that is missing workers will produce at a slower pace, or will be
+less effective.
+
+Each job opening has a minimum I.Q. needed.
+
+
+==== Farms / Extraction ====
+
+Farms, mines, extraction buildings and engeneering houses are structures
+that produce raw material, that is, they produce goods without requiring any
+further goods. Usually, a farm, mine or extraction building will have to be
+placed on a terrain that is rich in the raw material that the structure 
+produces.
+
+This kind of building usually demands the least I.Q., and pays the least
+(except for software houses). They have a limited storage space for the goods
+they produce. When this storage space is exceeded, it stops producing.
+
+The follow table explains the kinds of buildings:
+
+TODO
+
+- Farms
+  - Vegetable farm
+  - Grain farm
+  - Cotton farm
+  - Wheat farm
+  - Livestock farm
+- Mines
+  - Iron ore mine
+  - Sand extraction pit
+  - Coal Mine
+  - Uranium mine
+  - Copper mine
+- Extraction
+  - Sand river extraction (?)
+  - Oil rig
+  - Oil platform
+  - Timber extraction (?)
+  - Salt extraction
+- Engeneering
+  - Software house
+
+
+==== Factories ====
+
+Factories are buildings that transform one kind of good in another. Some types
+of factories demand two or more types of raw goods.
+
+As with the extraction buildings, the factories have a limited storage space,
+and will stop producing when this storage is full.
+
+Factory table:
+
+- Leather factory
+- Wool factory
+- Iron factory
+- Glass factory
+- Computer chip factory
+- Plastic factory
+- Paper factory
+- Enriched uranium factory
+- (Market/Bakery)
+- Food factory
+- Shoe factory
+- Cloth factory
+- Utensils / Office Supply factory
+- Car factory
+- Airplane factory
+- Electrodomestics factory
+- Computer factory
+- Publisher house
+- Furniture factory
+
+
+==== Commerce / Services ====
+
+Commerce and services are buildings built by the mayor that serve a wide
+variety of porpouses:
+
+- Warehouse
+- Parking lot
+- Public garage
+- Store / Shopping Center
+- Market / Super Market
+- Bank (?)
+- Exporter / Importer
+- Hotel
+- Convention Centre
+- Bus company/garage
+
+
+==== Governamental buildings ====
+
+===== Police =====
+
+Police buildings will reduce crime, increasing the feeling of security of the
+people. The police stations are:
+
+- Small Police Station
+- Police Station
+- Police HQ
+
+
+===== Education =====
+
+Education plays a key role in developing the city, by allowing people to take
+more qualified jobs, producing more tax money for the city. The educational
+structures are:
+
+- Elementary school (normal, large)
+- High school (normal, large)
+- College
+- University
+- Museum
+- Library
+- Research unit
+- Church
+
+
+===== Health =====
+
+Health services allow people to go to a doctor and make exams when they are
+sick. The healthier people are, the more satisfied they are, they skip less
+work days and they live longer.
+
+- Clinic
+- Hospital
+- Medical Center
+- Medical Research Center
+
+
+===== Water services =====
+
+The mayor doesn't have to control water services in the game.
+
+
+===== Power services =====
+
+Power services are necessary to provide electricity for the people. Very few
+people are willing to live in a house without electricity. If the power stations
+are too far from the people, a **power line** will be necessary to take energy 
+to them.
+
+The possible stations are:
+
+- Coal power plant
+- Oil power plant
+- Nucelar power plant
+- Biomass power plant
+- Solar power plant
+- Wind power plant
+- Hydroeletric power plant
+
+
+The further people's houses are from the power station, less energy gets to
+them. If they live too far, a **substation** might be necessary.
+
+
+===== Culture / Entertainment =====
+
+Entertainment buildings increase entertanment and cultural ratings of the city,
+and increase a little people's I.Q.
+
+- Cinema
+- Theather
+- Restaurant
+- Stadium
+- Etc...
+
+
+=== Desirability ===
+
+Desirability structures increase the desability of the surroundings. They
+usually don't employ people.
+
+- Park (tiny, small, medium, large, huge)
+- Etc...
+
+
+=== Federal Buildings ===
+
+Federal buildings are (usually) undesirable buildings that the country
+government install in the city, and pays the city a sum for that.
+
+- Supermax
+- Federal road
+- Army barracks
+- Military airfield
+
+
+=== Transportation ===
+
+The transportation structures are blood vessels of the city: through
+them, people and goods go from one place to the other.
+
+==== Roads ====
+
+Roads are where people walk (on the sideways) and where cars, buses
+and trucks ride. In a T intersection, vehicles always give preference
+to the vehicle that doesn't turn. In X intersections, the preference
+always belongs to the people on the right.
+
+Intersections always have pedestrian crossings, and vehicles will stop
+if a person is crossing. People will only cross on pedestrian crossings,
+except for dirt roads and streets.
+
+Roads allow cars to park.
+
+- Dirt road
+- Street
+- One way street
+- Road
+- Avenue
+- Freeway
+  - Freeway entrances
+- Viaduto (?)
+- Oblique parking
+
+
+===== Buses =====
+
+Buses are public transport vehicles that travel through predefined routes.
+They'll stop at **bus stops** to pick up passengers, and will return at night
+to the garage for maintance.
+
+Each **bus garage** built will make, at most, 5 (?) buses available. The
+mayor can choose whatever route he wants for the buses (a route is a array
+of bus stops).
+
+
+===== Road additions =====
+
+There are some signs that can be added to the roads, such as:
+
+- Passenger crossing
+- Semaphores
+
+
+==== Rail ====
+- Tracks
+  - Rail station
+- Elevated tracks
+  - Elevated rail station
+- Maglev
+  - Maglev station
+- Subway
+  - Subway station
+
+
+==== Air ====
+- Airport (small, medium, large)
+
+
+==== Sea / River ====
+- Port (small, medium, large)
+
+
+= Economy =
+
+The budget of the city will depend on several factors:
+- Profit
+  - Property taxes
+  - Export taxes
+  - Federal buildings
+- Expenses
+  - Build expenses
+  - Extraction industry salaries
+  - Factory salaries
+  - Commerce salaries
+  - Transportation maintance
+  - Government
+  - Bond payments (?)
+
+
+== Taxes ==
+
+**Property taxes** are paid by the people over the land value of the area of 
+the residence. Bigger houses, of course, will pay for all the tiles they are
+sitting over, and high density will pay a percentage much higher than low
+density. Thus, the mayor must strive to get peoples houses the higher level
+possible, since this will mean higher taxes.
+
+**Sales taxes** are paid over the sale of products to other cities.
+
+
+== Raw Material ==
+- Farming
+  - Vegetables
+  - Grain
+  - Livestock
+  - Cotton
+  - Wheat
+- Mining / extracting
+  - Iron ore
+  - Sand
+  - Salt
+  - Oil
+  - Timber
+  - Coal
+  - Uranium
+  - Copper
+- Engeneering
+  - Software
+- Other
+  - Reforestation reserve
+
+
+== Byproducts ==
+- Leather
+- Wool
+- Iron
+- Glass
+- Computer chips
+- Plastic
+- Paper
+- Refined Uranium
+
+
+== Final products ==
+- Food
+  - Vegetable (1p) - basic
+  - Grain (1p) - basic
+  - Meat (2p) - avg
+  - Bread (2p) - avg
+  - Processed Food (2/3p) - avg
+- Utilites
+  - Salt (1p) - basic
+  - Shoes (3p) - avg
+  - Cloth (2/3p) - basic
+  - Utensils (3p) - avg
+  - Cars (3+3+2p) - luxury
+  - Airplanes (3+3+3+3p) - (export only?)
+  - Electrodomestics (2+3p) - avg
+  - Computers (3+2p) - luxury
+  - Software (1p) - luxury
+  - Office Supplies (3p) - (export only?)
+  - Books (3p) - avg
+  - Furniture (2p) - basic
+- Power
+  - Biomass
+  - Oil power
+  - Coal power
+  - Nuclear power
+
+
+== Chain of Production ==
+= Time =
+
+
+= User interface =
+
+- Toolbar
+  - Terrain
+    - Plant tree
+  - Residence
+    - Density / Class
+  - Structures
+    - Farms / Extraction
+      - List of farms/extraction
+    - Factories
+      - List of factories
+    - Commerce / Services
+      - List of structures
+  - Government
+    - Police
+      - Size
+    - Hospital
+      - Size
+    - Education
+      - List of educational services
+    - Culture
+      - List of buildings
+    - Power
+      - List of plants/structures
+    - Desirability
+      - List of structures
+  - Tranportation
+    - Roads
+      - Road structures
+    - Rail
+    - Seaport
+    - Airport
+  - Destroy
+  - Graphics
+    - ...
+  - Budget
+  - Options
+    - Return to region
+    - Quit to Unix

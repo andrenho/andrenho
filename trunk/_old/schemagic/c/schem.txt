@@ -1,0 +1,15 @@
+# components
+v:    V "+9V"
+r1:   R "2 M 2"
+r2:   R "2 M 2"
+g:    G
+in:   CN "Input"
+c1:   C "220n"
+op:   OP "NE5534"
+c2:   CP "10u"
+out:  CN "Output"
+
+# connections
+b -- r1 -- *1 -- r2 -- g
+in -- c1 -- *1 -- op(+)
+op(-) -- *2 -- c2 -- out

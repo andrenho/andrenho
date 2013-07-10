@@ -1,0 +1,73 @@
+digraph fsm {
+
+  rankdir = "LR";
+  size = "8.5";
+  node [ shape = doublecircle ]; START; IDENTIFIER; PPNUMBER; CHAR; STRING; 
+    PREPROC; HEADER;
+  node [ shape = circle];
+
+//  node [ label = "" ]; A; B; C; D; E; F; G; H; I; J; K; L; M; N;
+
+  START -> A [ label = "U,L" ];
+  START -> H [ label = "u" ];
+  START -> B [ label = "R" ];
+  START -> C [ label = "[A-z_] ![u,U,L,R]" ];
+  START -> D [ label = "[0-9]" ];
+  START -> F [ label = "'" ];
+  START -> G [ label = "\", !after_include" ];
+  START -> M [ label = "\", after_include" ];
+  START -> J [ label = "preproc" ];
+  START -> K [ label = "<" ];
+
+  A -> C [ label = "!'" ];
+  H -> C [ label = "!\"" ];
+  B -> C [ label = "!'" ];
+  C -> C [ label = "[A-z0-9_]" ];
+  C -> IDENTIFIER [ label = "![A-z0-9_], !is_prepoc" ];
+  C -> PREPROC [ label = "![A-z0-9_], is_prepoc" ];
+  C -> STRING [ label = "userString" ];
+
+  D -> D [ label = "[A-z0-9_.] ![eE]" ];
+  D -> PPNUMBER [ label = "![A-z0-9_.]" ];
+  D -> E [ label = "[eE]" ];
+  E -> D;
+  E -> PPNUMBER [ label = "[+-]" ];
+
+  A -> F [ label = "'" ];
+  H -> F [ label = "'" ];
+  F -> F [ label = "!['\\n\\],esc" ];
+  F -> CHAR [ label = "'" ];
+
+  A -> G [ label = "\"" ];
+  H -> G [ label = "\"" ];
+  H -> I [ label = "8" ];
+  I -> G [ label = "\"" ];
+  I -> C [ label = "![\\'\\" ];
+  G -> G [ label = "!['\\n\\\\],esc" ];
+  G -> R [ label = "\"" ];
+  R -> C [ label = "[Az_]" ];
+  R -> STRING;
+
+  J -> J [ label = "next_is_prepoc" ];
+  J -> PREPROC [ label = "!next_is_prepoc, is_preproc" ];
+
+  K -> J [ label = "prepoc" ];
+  K -> L [ label = "![\\n>]" ];
+  L -> L;
+  L -> HEADER [ label = ">" ];
+
+  M -> N [ label = "![\\n\"]" ];
+  N -> N;
+  N -> HEADER [ label = "\"" ];
+
+  B -> P [ label = "\"" ];
+  P -> P [ label = "![\\s()\\\\n\\t\\f\\v]" ];
+  P -> Q [ label = "(" ];
+  Q -> Q [ label = "![)rawseq\"]" ];
+  Q -> STRING [ label = "\"" ];
+
+}
+
+// missing
+//  - raw strings
+//  - unversal char set, unicode
