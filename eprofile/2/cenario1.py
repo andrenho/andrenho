@@ -1,7 +1,9 @@
 import random, sys, pprint
 pp = pprint.PrettyPrinter(indent=4)
 
-search_others = False
+random.seed()
+
+search_others = True
 
 class Course:
 
@@ -184,23 +186,20 @@ while True:
                   automatic += 1
                   found = True
                   continue
-          if subject in student.preferences:
-#           print(debate, sorted(student.preferences), 'auto')
-            automatic += 1
-            found = True
-            break
-          else:
-            for preference in student.preferences:
-              if preference in vinc[subject]:
-                found = True
-#               print(debate, sorted(student.preferences), 'related')
-                student.preferences.append(subject)
-                automatic += 1
-                break
-            continue
+          #if subject in student.preferences:
+          #  automatic += 1
+          #  found = True
+          #  break
+          #else:
+          #  for preference in student.preferences:
+          #    if preference in vinc[subject]:
+          #      found = True
+          #      student.preferences.append(subject)
+          #      automatic += 1
+          #      break
+          #  continue
         if not found:
           n = debate[random.randint(0, len(debate)-1)]
-#         print(debate, sorted(student.preferences), 'manual')
           student.preferences.append(n)
           choices += 1
 
@@ -216,7 +215,10 @@ while True:
     print('Debates:', n_debates)
     print('Escolhas automaticas:', automatic)
     print('Escolhas manuais:', choices)
-    print('% escolhas automáticas:', round(automatic/float(choices+automatic)*100, 2))
+    try:
+      print('% escolhas automáticas:', round(automatic/float(choices+automatic)*100, 2))
+    except ZeroDivisionError:
+      print('% escolhas automáticas: 0.0')
     print('--------------------------')
   else:
     print(semester, round(automatic/float(choices+automatic)*100, 2))
