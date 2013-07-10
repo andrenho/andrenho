@@ -1,0 +1,23 @@
+[led]
+panel_bg = #282828
+panel_lt = #d0d0d0
+panel_sw = #000000
+unlit    = #004840
+halflit  = #007C70
+lit      = #20b0a8
+glow     = #00e800
+warning  = #e90000
+halfwarning   = #990000
+warning_unlit = #600000
+
+[lcd]
+panel_bg = #8e968a
+panel_lt = #d0d0d0
+panel_sw = #020202
+unlit    = #767c6f
+halflit  = #3e463e
+lit      = #020202
+glow     = #000000
+warning  = #e90000
+halfwarning   = #990000
+warning_unlit = #600000

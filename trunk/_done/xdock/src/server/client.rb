@@ -1,0 +1,18 @@
+require 'socket'
+
+s = TCPSocket.new('localhost', 52530)
+
+puts s.gets
+
+s.puts <<EOF
+HELLO HELLO
+
+# create panel
+PANEL 5 5 86 86
+UPDATE
+
+EOF
+
+puts s.gets
+
+while true; sleep 1; end
