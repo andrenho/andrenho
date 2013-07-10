@@ -1,0 +1,168 @@
+FEITOS - PRATOS PRINCIPAIS
+
+ - Alho-poró assado cremoso 
+     <livro:Revolução na Cozinha - Jamie Oliver>
+ - Atum em cama de legumes
+     <http://www.macheesmo.com/2010/08/steamed-salmon-with-roasted-veg/>
+ - Bife
+     <file:bife.txt>
+ - Boeuf bourguignon
+     <http://www.macheesmo.com/2011/01/beef-burgundy/>
+ - Chilli con carne 
+     <livro:Revolução na Cozinha - Jamie Oliver>
+ - Estrogonofe de frango e alho-poró 
+     <livro:Revolução na Cozinha - Jamie Oliver>
+ - Frango adobo
+     <http://www.macheesmo.com/2012/02/chicken-adobo/>
+ - Frango jamaicano
+     <http://www.youtube.com/watch?v=MxPqgNvc5sQ>
+ - Frango Kung-Pao
+     <file:kungpao.txt>
+ - Moranga recheada
+     <file:moranga_recheada.txt>
+ - Peito de frango com parmesão e presunto crocante 
+     <livro:Revolução na Cozinha - Jamie Oliver>
+ - Rabanetes tailandeses
+     <http://www.macheesmo.com/2012/06/spicy-radish-toss/>
+ - Salmão com manjerona
+     <file:salmao.txt>
+ - Tilápia com limão e alho
+     <http://allrecipes.com/recipe/lemon-garlic-tilapia/>
+ - Tilapia com verdes
+     <http://www.blue-kitchen.com/2012/06/20/butter-poached-tilapia/>
+ - Tofu com pimenta do reino
+     <http://www.macheesmo.com/2012/07/black-pepper-tofu/>
+ - Milho ao estilo mexicano 
+     <livro:Revolução na Cozinha - Jamie Oliver>
+ - Omelete
+     <livro:Revolução na Cozinha - Jamie Oliver>
+ - Omelete de Denver
+     <http://www.macheesmo.com/2010/04/the-denver-omelet/>
+ - Omelete Lox
+     <http://www.macheesmo.com/2011/11/the-lox-omelet/>
+ - Frango com páprica 
+     <http://www.happychomp.com/post/48660128323/how-to-make-spicy-lemon-paprika-chicken-thighs>
+ - Camarão com vagem de ervilhas  
+     <http://www.simplyrecipes.com/recipes/shrimp_with_snow_peas/>
+ - Bolinhos de atum  
+     <http://www.happychomp.com/post/48725764981/recipe-tuna-patties>
+ - Bolinho de inhame e atum  
+     <http://www.happychomp.com/post/46237239700/recipe-spicy-tuna-bites>
+ - Bolinho de inhame e atum 2
+     <http://www.happychomp.com/post/46237733829/recipe-sweet-and-spicy-snack-balls>
+ - Cupcakes de ovo
+     <http://www.happychomp.com/post/46206080813/recipe-egg-sausage-cups>
+ - Frango enrolado em bacon
+     <http://www.happychomp.com/post/51133166907/bacon-wrapped-chicken-tenders-did-i-mention-that>
+ - Brócolis e couve-flor assados
+     <head>
+ - Frango grego marinado com iogurte (dobrar o sal)
+     <http://www.budgetbytes.com/2013/06/greek-marinated-chicken/>
+ - Couve com lentilhas (tirar o vinagre)
+     <http://www.budgetbytes.com/2013/06/wilted-kale-and-lentil-salad/>
+ - Batata-doce assada 
+     <http://www.simplesmentedelicia.com/?p=2177>
+
+
+FEITOS - ENSOPADOS
+
+ - Sopa de brócolis com parmesão
+     <http://www.macheesmo.com/2012/03/broccoli-parmesan-soup/>
+ - Sopa de feijão fradinho
+     <http://www.macheesmo.com/2008/12/good-luck-pea-soup/>
+ - Sopa de grão-de-bico
+     <http://www.macheesmo.com/2012/02/thirty-minute-chickpea-stew/>
+ - Lentilhas
+     <file:lentilhas.txt>
+ - Chilli con carne 
+     <livro:Revolução na Cozinha - Jamie Oliver>
+ - Vindaloo
+     <livro:Revolução na Cozinha - Jamie Oliver>
+ - Feijão burmanês 
+     <http://www.notderbypie.com/burmese-black-eyed-peas/>
+ - Sopa de milho e atum  
+     <http://www.simplesmentedelicia.com/?p=2689>
+ - Ensopado de carne (gado, cordeiro, frango e porco)
+     <livro:Revolução na Cozinha - Jamie Oliver>
+
+
+FEITOS - SALADAS
+
+ - Salada de lentilhas e grão-de-bico  
+     <http://smittenkitchen.com/blog/2013/04/lentil-and-chickpea-salad-with-feta-and-tahini/>
+ - Brócolis com molho asiático 
+     <livro:Revolução na Cozinha - Jamie Oliver>
+ - Salada César
+     <head:>
+ - Salada de bife e batatas 
+     <http://www.macheesmo.com/2012/04/steak-and-potato-salad/>
+ - Salada caprese com frango
+     <http://www.macheesmo.com/2012/08/chicken-caprese-salad/>
+ - Salada de rúcula com galinha e alho 
+     <http://www.macheesmo.com/2012/05/a-grill-disaster-plus-a-salad/>
+ - Salada Panzanella
+     <http://www.macheesmo.com/2010/07/panzanella-salad/>
+ - Verdes com ovos poché
+     <http://www.macheesmo.com/2008/12/warmed-greens-with-poached-egg/>
+
+
+FEITOS - CAFÉ DA MANHÃ
+
+ - Mingau 
+     <livro:Revolução na Cozinha - Jamie Oliver>
+     <file:mingau.txt>
+ - Bolinhos de aveia
+     <livro:Simplifique sua vida>
+
+
+FEITOS - MOLHOS
+
+ - Caldo de legumes
+     <http://www.simplyrecipes.com/recipes/how_to_make_vegetable_stock/>
+ - Chimichurri (vinagrete)
+     <http://www.macheesmo.com/2011/03/argentine-chimichurri/>
+ - Guacamole
+     <http://www.macheesmo.com/2008/11/holy-guacamole/>
+ - Humus com pimentão assado
+     <http://www.macheesmo.com/2010/03/hummus-two-ways/>
+ - Molho de alho
+     <http://www.macheesmo.com/2012/05/a-grill-disaster-plus-a-salad/>
+ - Molho de sardinha e ovo
+     <http://www.macheesmo.com/2010/07/panzanella-salad/>
+
+
+A FAZER
+
+ - Hamburgueres de peru com abobrinha
+     <http://www.simplyrecipes.com/recipes/spicy_turkey_and_zucchini_burger/>
+ - Strogonoff de cogumelos
+     <http://www.amuse-your-bouche.com/15-minute-mushroom-stroganoff/>
+ - Molho de carne
+     <http://www.happychomp.com/post/50534241833/slow-cooked-beef-stew-after-playing-with-the-slow>
+ - Cordeiro marroquino
+     <http://www.youtube.com/watch?v=V2OWM4QodM0>
+ - Frango com mostarda
+     <http://www.youtube.com/watch?v=xn4x-g26P70>
+ - Fraldinha asiática
+     <http://www.blue-kitchen.com/2012/09/05/flavor-meets-tender-grilled-asian-flank-steak/>
+ - Salmão teriaki
+     <http://healthy-delicious.com/2012/08/two-minute-salmon-terryaki/>
+ - Sopa de feijões com chipotle
+     <http://www.macheesmo.com/2012/10/tortilla-stick-black-bean-soup/>
+ - Camarões assados com tomatinhos
+     <http://www.simplyrecipes.com/recipes/baked_shrimp_with_tomatillos/>
+ - Hummus de caju
+     <http://www.macheesmo.com/2011/12/cashew-dip/>
+ - Salada grega com orégano
+     <http://smittenkitchen.com/blog/2013/05/greek-salad-with-lemon-and-oregano/>
+ - Salada mediterrânea de frango
+     <http://www.simplyrecipes.com/recipes/chicken_salad/>
+ - Pimentões recheados
+     <http://www.rippedrecipes.com/recipe/stuffed-breakfast-peppers-611.html>
+ - Baba Ganouch (humus de berinjela)
+     <http://www.macheesmo.com/2013/05/homemade-baba-ganoush/>
+ - Panquecas de repolho japonesas
+     <http://smittenkitchen.com/blog/2013/05/japanese-cabbage-and-vegetable-pancakes/>
+ - Chille Relleno Burrito
+     <http://www.macheesmo.com/2011/05/chile-relleno-burrito/>
+
