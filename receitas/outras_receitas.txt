@@ -2,7 +2,7 @@ LOW-CARB
 
  - Alho-poró assado cremoso 
      <livro:Revolução na Cozinha - Jamie Oliver>
- - Atum em cama de legumes
+ - Cama de legumes (opcionalmente com salmão)
      <http://www.macheesmo.com/2010/08/steamed-salmon-with-roasted-veg/>
  - Boeuf bourguignon
      <http://www.macheesmo.com/2011/01/beef-burgundy/>
@@ -78,6 +78,7 @@ LOW-CARB
      <http://www.budgetbytes.com/2013/06/wilted-kale-and-lentil-salad/>
  - Hamburgueres de peru com abobrinha
      <http://www.simplyrecipes.com/recipes/spicy_turkey_and_zucchini_burger/>
+
 
 SALADAS
 

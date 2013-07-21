@@ -157,8 +157,6 @@ A FAZER
      <http://smittenkitchen.com/blog/2013/05/greek-salad-with-lemon-and-oregano/>
  - Salada mediterrânea de frango
      <http://www.simplyrecipes.com/recipes/chicken_salad/>
- - Pimentões recheados
-     <http://www.rippedrecipes.com/recipe/stuffed-breakfast-peppers-611.html>
  - Baba Ganouch (humus de berinjela)
      <http://www.macheesmo.com/2013/05/homemade-baba-ganoush/>
  - Panquecas de repolho japonesas
@@ -167,3 +165,5 @@ A FAZER
      <http://www.macheesmo.com/2011/05/chile-relleno-burrito/>
  - Salada de rúcula com bacon
      <http://smittenkitchen.com/blog/2013/07/grilled-bacon-salad-with-arugula-and-balsamic/>
+ - Pepinos recheados com atum
+     <http://www.rippedrecipes.com/recipe/cucumber-tuna-rolls-871.html>
