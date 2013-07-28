@@ -228,6 +228,34 @@ The model presented by \citet{razmerita11} aims to link traditional KM (Knowledg
 
 In the paper presented by \citet{tao11}, it is proposed an ontology model for knowledge representation to gather personalized information. The model builds personalized user ontologies by extracting global information from LCSH\footnote{Library of Congress Subject Headings} system and by discovering information from local user repositories. The local information system is fed manually by the user. When information is needed, it processes both ontologies to generate the requested data.
 
+Table~\ref{tab:comparacao2} shows a comparison between eProfile and related works. The following factors are taken into consideration:
+
+\begin{itemize}
+  \item Interoperability: it considers if the model presents interoperability -- if yes, whether it is syntactic or semantic -- according to the definition in Section~\ref{ch:introducao};
+  \item Dynamicity: it identifies which aspects of the profile management are dynamic. ``Profiles'' means that the model allows the profiles to be updated according to external events, without user interference, ``Models'' means that the entity or user models can be updated during execution, and ``Rules'' means that the rules for profile generation cab be changed on runtime;
+  \item Storage: it defines where the user profiles are stored;
+  \item Context awareness: considers if the user context is taken into consideration when forming the profile;
+  \item Uses trails: it defines if the trails are used when building the profile. In the table, ``Partial'' means the model uses some type of historical information to form the profile, but doesn't record the history of visited contexts and the actions done within these contexts;
+  \item Domain: it identifies if the profile is oriented to a specific domain, or if it allows different domains to be used.
+\end{itemize}
+
+\begin{table*}\centering\footnotesize
+  \begin{tabular*}{1.16\textwidth}{@{}lllllll@{}}
+    \toprule
+                                         & Interope-  & Dynamicity   & Storage  & Context       & Uses    &                     \\
+    Paper                                & rability   &             &          & awareness     & trails  & Domain              \\
+    \midrule
+    \citet{kim08}                    & Syntactic   & Profiles       & Server   & No            & No      & Generic             \\
+    \citet{chellouche10}             & Syntactic   & Profiles       & Server   & Yes           & No      & Multimedia Services \\
+    \citet{niederee04}               & Syntactic   & Profiles       & Client   & Yes           & No      & Generic             \\
+    \citet{pelep}                    & No         & Profiles       & Server   & Yes           & Partial & Education           \\
+    \citet{razmerita11}              & Syntactic   & Profiles       & Server   & Yes           & Partial & Generic             \\
+    \citet{tao11}                    & Semantic   & Profiles       & Server   & Yes           & Partial & Generic             \\
+    \bottomrule
+  \end{tabular*}
+  \caption{Comparison between related works and eProfile}
+  \label{tab:comparacao2}
+\end{table*}
 
 %-----------------------------------------------------------
 \section{eProfile Model}
@@ -764,38 +792,8 @@ Figure~\ref{fig:result2} shows the result of the second experiment. A sudden inc
 
 % TODO : abaixo: comparação com os trabalhos relacionados
 
-Table~\ref{tab:comparacao2} shows a comparison between eProfile and related works. The following factors are taken into consideration:
 
-\begin{itemize}
-  \item Interoperability: it considers if the model presents interoperability -- if yes, whether it is syntactic or semantic -- according to the definition in Section~\ref{ch:introducao};
-  \item Dynamicity: it identifies which aspects of the profile management are dynamic. ``Profiles'' means that the model allows the profiles to be updated according to external events, without user interference, ``Models'' means that the entity or user models can be updated during execution, and ``Rules'' means that the rules for profile generation cab be changed on runtime;
-  \item Storage: it defines where the user profiles are stored;
-  \item Context awareness: considers if the user context is taken into consideration when forming the profile;
-  \item Uses trails: it defines if the trails are used when building the profile. In the table, ``Partial'' means the model uses some type of historical information to form the profile, but doesn't record the history of visited contexts and the actions done within these contexts;
-  \item Domain: it identifies if the profile is oriented to a specific domain, or if it allows different domains to be used.
-\end{itemize}
-
-\begin{table*}\centering\footnotesize
-  \begin{tabular*}{1.16\textwidth}{@{}lllllll@{}}
-    \toprule
-                                         & Interope-  & Dynamicity   & Storage  & Context       & Uses    &                     \\
-    Paper                                & rability   &             &          & awareness     & trails  & Domain              \\
-    \midrule
-    \citet{kim08}                    & Syntactic   & Profiles       & Server   & No            & No      & Generic             \\
-    \citet{chellouche10}             & Syntactic   & Profiles       & Server   & Yes           & No      & Multimedia Services \\
-    \citet{niederee04}               & Syntactic   & Profiles       & Client   & Yes           & No      & Generic             \\
-    \citet{pelep}                    & No         & Profiles       & Server   & Yes           & Partial & Education           \\
-    \citet{razmerita11}              & Syntactic   & Profiles       & Server   & Yes           & Partial & Generic             \\
-    \citet{tao11}                    & Semantic   & Profiles       & Server   & Yes           & Partial & Generic             \\
-    \textbf{eProfile}                & Semantic   & Profiles,      & Server   & Yes           & Yes     & Generic             \\
-                            &            & Models and Rules & & & & \\
-    \bottomrule
-  \end{tabular*}
-  \caption{Comparison between related works and eProfile}
-  \label{tab:comparacao2}
-\end{table*}
-
-eProfile was based on some elements of the works cited, such as automatic profile improvement, use of unified profiles and operation in generic domains. Comparing the related works, eProfile contributes the use of trails for extracting profiles, which facilitates the inference with context-awareness. Moreover, eProfile allows each application to register its trails in the format they find most helpful for them, allowing the richness of details registered by an application to be translated into a more accurate profile of the entity.
+eProfile was based on some elements of the works cited in Section~\ref{ch:relacionados}, such as automatic profile improvement, use of unified profiles and operation in generic domains. Comparing the related works, eProfile contributes the use of trails for extracting profiles, which facilitates the inference with context-awareness. Moreover, eProfile allows each application to register its trails in the format they find most helpful for them, allowing the richness of details registered by an application to be translated into a more accurate profile of the entity.
 
 Furthermore, eProfile contributes the idea of dynamic models and rules, allowing applications to update the entity model or the profile inference rules during execution, simplifying the application process of entity-adapted interaction.
 
