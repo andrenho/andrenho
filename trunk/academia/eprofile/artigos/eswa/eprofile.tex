@@ -150,7 +150,7 @@ Profile Management \sep Ubiquitous Computing \sep User Modeling \sep Trails \sep
 \label{ch:introducao}
 %\paragraph{Paragraph headings} Use paragraph headings as needed.
 
-Nowadays, most users interact with a wide variety of computing systems. The current tendency is the increased interconnectedness between these systems, since the internet is becoming every day more present and available. Recent research predicts the full integration between these systems in a federation of computing systems. This federation is referred to as Smart Environment \citep{heckmann05,augusto10}.
+Nowadays, most users interact with a wide variety of computing systems. The current tendency is the increased interconnectedness between these systems, since the internet is becoming every day more present and available. It is prodicted the full integration between these systems in a federation of computing systems. This federation is referred to as Smart Environment \citep{heckmann05,augusto10}.
 
 \citet{weiser91} discussed a vision for the concept of smart environments. He
 presented a scenario in which the computer would become invisible and
@@ -172,22 +172,11 @@ transfer of information between the computer and the users must happen in the
 attention in moments of urgency. A car's engine can be taken as an example. When
 a person drives a car, the attention is focused on the road, and the driver almost doesn't notice the engine sound. However, if the engine emits a strange sound (that might indicate some kind of problem), the driver's attention turns to the engine.
 
-If a system is to be minimally intrusive, it must understand the situation of
-the user and his surroundings, and adapt its own behaviour according to this
-information. This information is called Context, and systems capable of this
-kind of adaptation are called context-aware \citep{satyanarayanan01,dey2001}. 
+If a system is to be minimally intrusive, it must understand the situation of the user and his surroundings, and adapt its own behaviour according to this information. This information is called Context, and systems capable of this kind of adaptation are called Context-aware \citep{satyanarayanan01,dey2001}. 
 
-Research in this area shows that is not only useful to know the context of the
-user when a service is being offered, but that the history of visited contexts
-can be a valuable information to help the application to adapt itself to the
-user. This history of visited contexts is called Trail \citep{driver08}. Although
-the trail is usually tied to the location of a user, the concept of a trail is
-broader and includes activities performed, applications used, content accessed
--- among others -- inside a specific context and timeframe \citep{silva10}.
+Research in this area shows that is not only useful to know the context of the user when a service is being offered, but that the history of visited contexts can be a valuable information to help the application to adapt itself to the user. This history of visited contexts is called Trail \citep{driver08}. Although the trail is usually tied to the location of a user, the concept of a trail is broader and includes activities performed, applications used, content accessed -- among others -- inside a specific context and timeframe \citep{silva10}.
 
 %\todo[inline]{Colocar referência para User Profiles}
-
-Ubiquitous computing has been used successfully in several different environments and contexts, such as commerce \citep{franco11}, COMPLETAR. One such environment is ubiquitous learning, or U-Learning. Ubiquitous learning can be understood as a set of educational processes that occur anywhere, at any time and with any device, continuously, contextualized and integrated into the daily lives of apprentices \citep{barbosa11}. It is important to notice that U-Learning is more than simply ``learning with u-computing technology'' \citep{hwang07}, but is composed by a mobile environment that takes into consideration the learner's individual information of various sources in context, and adapts the instructional content to meet the functions of different mobile devies \citep{hwang08}.
 
 For an application to adapt itself effectively to a user, it is not only important to know the history of contexts visited by a user, but to understand who the user is -- that is, what are his characteristics. This kind of application organize its knowledge about a user in User Profiles. The profiles are stored in a format called User Model \citep{fischer01,viviani10}.
 
@@ -201,6 +190,8 @@ A relevant aspect for environments with multiple independent systems is the inte
 
 Research indicates that it is desirable that future systems become increasingly invisible to their users \citep{weiser96}, and that a system can only become invisible if it is proactive, and can only be proactive by knowing the user \citep{satyanarayanan01}. For a system to know a user, it must know the user history \citep{silva10}, understand the context in which he is inserted \citep{dey2001}, as well as data collected concerning him in the same context (or in a similar context), and be able to process this set of information into a user profile \citep{fischer01,viviani10}.
 
+Ubiquitous computing has been used successfully in several different environments and contexts, such as commerce \citep{franco11}, logistics \citep{oliveira13}, accessibility \citep{tavares12} and entertainment \citep{segatto08}. One such environment is ubiquitous learning, or U-Learning. Ubiquitous learning can be understood as a set of educational processes that occur anywhere, at any time and with any device, continuously, contextualized and integrated into the daily lives of apprentices \citep{barbosa11}. It is important to notice that U-Learning is more than simply ``learning with u-computing technology'' \citep{hwang07}, but is composed by a mobile environment that takes into consideration the learner's individual information of various sources in context, and adapts the instructional content to meet the functions of different mobile devices \citep{hwang08}.
+
 In this setting we are proposing eProfile, a model for the automatic creation of profiles by inference of entity trails.
 
 The main characteristics of this model are:
@@ -212,30 +203,30 @@ The main characteristics of this model are:
   \item The semantic operability of the model. The ability to use information generated by various applications to build an entity profile allows the application to create more comprehensive profile generation rules, thus enriching the profiles information.
 \end{enumerate}
 
-This paper is organized as follows. In Section~\ref{ch:relacionados}, we present a review of recent research on this subject. Section~\ref{ch:modelo} proposes the eProfile model. Section~\ref{ch:implementacao} discusses implementation aspects. Section~\ref{ch:cenario} presents an experiment validating the model and highlighting eProfile contributions. Finally, a Section~\ref{sec:conclusao} presents the concluding remarks.
+This paper is organized as follows. Section~\ref{ch:relacionados} is dedicated to related works. Section~\ref{ch:modelo} proposes the eProfile model. Section~\ref{ch:implementacao} discusses implementation aspects. Section~\ref{ch:cenario} presents an eProfile integration with two existing applications in a scenario of ubiquitous learning. Finally, Section~\ref{sec:conclusao} presents the concluding remarks.
 
 
 %-----------------------------------------------------------
-\section{Literature Review}
+\section{Related Works}
 \label{ch:relacionados}
 
-Currently, the areas of ubiquitous computing, context-aware systems, trails and personalization are very promising, with a large number of papers being published annually on these subjects. %However, we were unable to find a model that makes use of inference using trails in order to personalize the user experience within a generic domain. Thus, the model presented in this paper aims to fill this need.
+%Currently, the areas of ubiquitous computing, context-aware systems, trails and personalization are very promising, with a large number of papers being published annually on these subjects. %However, we were unable to find a model that makes use of inference using trails in order to personalize the user experience within a generic domain. Thus, the model presented in this paper aims to fill this need.
 
 The UUCM model, presented by \citep{niederee04}, works in a generic domain. It does this by creating a basic ontology that can be extended by applications. Unlike many other proposals, UUCM stores the profiles on the client rather than the server. This brings advantages and disadvantages. Among the advantages there can be mentioned the privacy and disconnected access. However, this approach limits the interoperability between systems, since each client gets a version of the client's profile, restricting the use of a unified profile.
 
 \citet{kim08} presented a framework for profile management based on Web Services. The model provides a set of services to gather information necessary to create a profile: configuration, creation, exchange, processing and service. The model also applies dynamic configuration techniques for efficient profile management.
 
-PeLeP \citep{pelep} supports automatic improvement of a learner's profile in education ubiquitous environments, using the history of apprentices to update the profiles through inference. eProfile uses a similar strategy. However, since PeLeP's inference is made on a single specific domain (education), the inference rules are defined by the modelo and not the application. 
+PeLeP \citep{pelep} supports automatic improvement of a learner's profile in education ubiquitous environments, using the history of apprentices to update the profiles through inference. However, since PeLeP's inference is made on a single specific domain (education), the inference rules are defined by the model and not the application. 
 
-\citet{hong09} presented a model for a context-aware system for a proactive service based on context history. In this model, the context history of users is analyzed by an agent-based framework that provides personalized services. The authors implemented a prototype system using the proposed framework that offers services to the users according the the context being used in their PDA.
+\citet{hong09} presented a model for a context-aware system for a proactive service based on context history. In this model, the context history of users is analyzed by an agent-based framework that provides personalized services. The authors implemented a prototype system using the proposed framework that offers services to the users according the context being used in their PDA.
 
 The model presented by \citet{chellouche10}, presents a unified profile which can be used for various applications. The model assumes syntactic interoperability, which means that all applications need to record the events using the same format, which can cause the application to not be able to register the event with the richness of detail required. Moreover, the model presented by \citet{chellouche10} is limited to a specific domain (multimedia services).
 
-The model presented by \citet{razmerita11} aims to link tradition KM (Knowledge Management) with person KM. This is done through OntobUMf model, that manages user information. The architecture has three layers: front end, services and data. The model works in a generic domain and has three ontologies (user, domain and log), from which are fetched information that categorize the user in various ways, according to the level of activity, type of activity and level of knowledge sharing.
+The model presented by \citet{razmerita11} aims to link traditional KM (Knowledge Management) with personal KM. This is done through OntobUMf model, that manages user information. The architecture has three layers: front end, services and data. The model works in a generic domain and has three ontologies (user, domain and log), from which are fetched information that categorize the user in various ways, according to the level of activity, type of activity and level of knowledge sharing.
 
-\citet{wu12} presented a context-aware ubiquitous learning strategy using a cognitive apprenticeship approach applied to the standard operating process of a physical assessment nusring course the includes collecting patient' life signs and other information, where the students used a RFID-based mobile system that helped them on their learning. Experiment showed that the students' skill level improved more using a ubiquitous learning system than the traditional approach.
+\citet{wu12} presented a ubiquitous and context-aware learning strategy using a cognitive apprenticeship approach applied to the standard operating process of a physical assessment nursing course that includes collecting patient' life signs and other information, where the students used a RFID-based mobile system that helped them on their learning. Experiment showed that the students' skill level improved more using a ubiquitous learning system than the traditional approach.
 
-In the paper presented by \citet{tao11}, it is proposed a ontology model for knowledge representation to gather personalized information. The model builds personalized user ontologies by extracting global information from LCSH\footnote{Library of Congress Subject Headings} system and by discovering information from local user repositories. The local information system is fed manually by the user. When information is needed, it processes both ontologies to generate the requested data.
+In the paper presented by \citet{tao11}, it is proposed an ontology model for knowledge representation to gather personalized information. The model builds personalized user ontologies by extracting global information from LCSH\footnote{Library of Congress Subject Headings} system and by discovering information from local user repositories. The local information system is fed manually by the user. When information is needed, it processes both ontologies to generate the requested data.
 
 
 %-----------------------------------------------------------
@@ -261,7 +252,7 @@ profiles are inferred.
 
 Figure~\ref{fig:modelobasico} shows the overview of eProfile model, where each circle represents a component, and the arrows indicate the flow of data.
 
-The {\bf application} is any piece of software that is being used directly by an entity. For an application to be considered suitable to use this model and the functionality offered by eProfile, it needs to record its information on a trail manager supported by eProfile. The application must also implement a communication protocol to exchange messages with eProfile. If these prerequisites are followed, the application can be of any type and run in any type of device that has communication with the Internet.
+The {\bf application} is any piece of software that is being used directly by an entity. For an application to be considered suitable to use this model, it needs to record its information on a trail manager supported by eProfile. The application must also implement a communication protocol to exchange messages with eProfile. If these prerequisites are followed, the application can be of any type and run in any type of device that has communication with the Internet.
 
 The second component depicted is a {\bf trail manager}. A trail manager is capable of storing events held by an entity, putting them in chronological order and registering information relevant to the event (e.g., the context in which the event was held). The eProfile supports any trail manager whose communication protocol is implemented in eProfile.
 
@@ -291,7 +282,7 @@ Since eProfile supports multiple applications, it is possible for different appl
   \label{fig:modelo}
 \end{figure}
 
-Figure~\ref{fig:modelo} shows the architecture of eProfile. The components ``Application'' and ``Trail Manager'' are the same as shown in Figure~\ref{fig:modelobasico}, while the ``eProfile'' was expanded to show its inner workings. The letters used in this figure represent the same ones used in Figure~\ref{fig:modelobasico}. The eProfile is composed by four autonomous agentes and four databases. The usage of agents simplified the processing of ontology data and the inference execution.
+Figure~\ref{fig:modelo} shows the architecture of eProfile. The components ``Application'' and ``Trail Manager'' are the same as shown in Figure~\ref{fig:modelobasico}, while the ``eProfile'' was expanded to show its inner workings. The letters used in this figure represent the same ones used in Figure~\ref{fig:modelobasico}. The eProfile is composed by four autonomous agents and four databases. The usage of agents simplified the processing of ontology data and the inference execution.
 
 %Since eProfile is a model that infers information about data stored in an ontology autonomously, and is organized into independent parts, it uses the technology of autonomous agents.
 
@@ -397,7 +388,7 @@ of eProfile. A change in the rules or in the model will reflect in a change in
 the generated profile when the rules are executed the next time.
 
 %-----------------------------------------------------------
-\section{Implementation Aspects}
+\section{Implementation}
 \label{ch:implementacao}
 
 eProfile prototype was developed in Python \citep{python}. Python is a generic, open source, object-oriented, high-level language, that supports multiple architectures. % eProfile class diagram is represented in Figure~\ref{fig:classes}. The Communicator, Configurator, Converter and Reasoner classes implement the agents with the same names described in Section~\ref{sec:arquitetura}, and all of them inherit from class Agent, where the common agent tasks are implemented, such as setup, inter-agent communication and thread control.
@@ -408,7 +399,7 @@ eProfile prototype was developed in Python \citep{python}. Python is a generic, 
 %  \label{fig:classes}
 %\end{figure}
 
-The rule, model and profile information are stored in SQLite3 databases \citep{sqlite3}. SQLite3 is an SQL transactional self-contained database, available in the public domain. The SQLite3 was chosen due to its good performance and the fact that it does not require a separate server for deployment. The use of a relational database to store the rule, model and profile databases was made due to performance reasons. The ConnectorDB class connects the agents with the databases.
+The rule, model and profile information are stored in SQLite3 databases \citep{sqlite3}. SQLite3 is an SQL transactional self-contained database, available in the public domain. The SQLite3 was chosen due to its good performance and the fact that it does not require a separate server for deployment. The use of a relational database to store the rule, model and profile databases was made due to performance reasons.
 
 % Figure~\ref{fig:dados_inferencia} shows the data flow for the entity profile
 % inference process. 
@@ -423,7 +414,7 @@ The knowledge representation language used for storage and processing of ontolog
 \section{Evaluation Aspects}
 \label{ch:cenario}
 
-It is only possible to evaluate the functionalities of a proposed infrastructure by building applications that utilize it and then evaluate them, in order to obtain an indirect evaluation of the model \citep{edwards03}. The scientific community has been using scenarios to perform this type of indirect evaluation in context sensitive (such as the approach taken by \citet{dey2001b}) and ubiquitous (according to \citet{satyanarayanan01}) environments. This work follows the same approach -- we created a prototype and a scenario for performing an experiment, in order to evaluate eProfile.
+It is only possible to evaluate the functionalities of a proposed infrastructure by building applications that utilize it and then evaluate them, in order to obtain an indirect evaluation of the model \citep{edwards03}. The scientific community has been using scenarios to perform this type of indirect evaluation in context-aware (such as the approach taken by \citet{dey2001b}) and ubiquitous (according to \citet{satyanarayanan01}) environments. This work follows the same approach -- we created a prototype and a scenario for performing an experiment, in order to evaluate eProfile.
 
 The experiment presented is based on the generation of simulated trails of undergraduate students within the context of Ubiquitous Learning. Ubiquitous Learning can be understood as a set of educational processes that occur anywhere, at any time and with any device, continuously, contextualized and integrated into the daily lives of apprentices \citep{barbosa11}.
 
@@ -438,9 +429,9 @@ The scenario consists of a group of students that carries out a graduation cours
 
 Students use mobile devices (laptops or smartphones), on which the applications used for administration of their academic life are installed -- in particular, UniManager and LOCAL.
 
-UniManager is the system used for discipline administration, and it is described in detail in Section~\ref{sec:eprofile_unimanager}. It is used by the university administration and the students. The administration uses it to register disciplines, and students, to link students to their disciplines and to issue management reports such as attendance and approval/failing of students Students use it to hand out their tests and papers, to make their enrollment in the disciplines and to check their grades and absences.
+UniManager is the system used for discipline administration, and it is described in detail in Section~\ref{sec:eprofile_unimanager}. It is used by the university administration and the students. The administration uses it to register disciplines, and students, to link students to their disciplines and to issue management reports such as attendance and approval/failing of students. Students use it to hand out their tests and papers, to make their enrollment in the disciplines and to check their grades and absences.
 
-In addition, professors and students also use LOCAL on their mobile devices. LOCAL is described in more detail in Section~\ref{sec:eprofile_local} and in \citep{barbosa11}. LOCAL links profile information with the entity location, facilitating interaction between learners and enabling the delivery of contextualized educational material. Professors use the LOCAL to register material that will be distributed to students. LOCAL communicates with students to distribute educational material previously registered and to put students with similar interests in touch during educational activities. If, during these activities, the student has not registered any interest that matches those required by the activity, he has the option to make the choice using a user interface to LOCAL called Personal Assistant.
+In addition, professors and students also use LOCAL on their mobile devices. LOCAL is described in more detail in Section~\ref{sec:eprofile_local} and in \citep{barbosa11}. LOCAL links profile information with the user location, facilitating interaction between learners and enabling the delivery of contextualized educational material. Professors use the LOCAL to register material that will be distributed to students. LOCAL communicates with students to distribute educational material previously registered and to put students with similar interests in touch during educational activities. If, during these activities, the student has not registered any interest that matches those required by the activity, he has the option to make the choice using a user interface to LOCAL called Personal Assistant.
 
 Table~\ref{tab:aula} exemplifies a two and a half hours class involving 10 students, in which there was a debate about Programming Techniques. After the debate, students undertook a study about the individual topics discussed in the debate. In this example, the presence of students, the handing out of their work and the grade achieved were registered in UniManager. The educational content of the lesson was registered in LOCAL.
 
@@ -738,7 +729,7 @@ The level of similarity is defined by the number of the same previous choices (p
 
 \[ M_s = \left\{ x | x \in A \wedge \left( \frac{\left|P_s\cap P_x\right|}{\left|P_x\right|} > K \right) \right\} \]
 
-where $A$ is the set of all students (past and present), $P_s$ is the set of the preferences of the student $s$, $P_x$ is the set of preferences of the other student, and $K$ is a parameter of the simulation that defines the level of similarity expected between students to suggest. Different tests were simulated for for $K = \{ 0.3, 0.4, 0.5, 0.6, 0.7 \}$.
+where $A$ is the set of all students (past and present), $P_s$ is the set of the preferences of the student $s$, $P_x$ is the set of preferences of the other student, and $K$ is a parameter of the simulation that defines the level of similarity expected between students to suggest. Different tests were simulated for $K = \{ 0.3, 0.4, 0.5, 0.6, 0.7 \}$.
 
 The second step is to examine the choice made in each debate or paper by each student in $M_s$. The most chosen subject is the one suggested to the student.
 
