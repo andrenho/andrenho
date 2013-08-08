@@ -25,7 +25,7 @@
 %%
 %%
 %\documentclass[final,3p,authoryear,times,twocolumn]{elsarticle}
-\documentclass[preprint,authoryear,12pt]{elsarticle}
+\documentclass[preprint,authoryear,12pt,dvipdfm]{elsarticle}
 
 %% Use the option review to obtain double line spacing
 %% \documentclass[authoryear,preprint,review,12pt]{elsarticle}
@@ -54,6 +54,972 @@
 \usepackage[utf8]{inputenc}
 \usepackage{booktabs}
 \usepackage{verbatim}
+\usepackage{filecontents}
+
+
+\begin{filecontents}{\jobname.bib}
+@article{weiser91,
+    author  = "Mark Weiser",
+    title   = "The Computer for the 21st Century",
+    year    = "1991",
+    journal = "Scientific America",
+    pages   = "94--104",
+}
+
+@article{weiser96,
+    author  = "Mark Weiser and John Seely Brown",
+    title   = "Designing Calm Technology",
+    month   = "July",
+    year    = "1996",
+    journal = "PowerGrid Journal",
+}
+
+@article{dey2001,
+    author  = "A. Dey",
+    title   = "Understanding and Using Context",
+    journal = "Personal and Ubiquitous Computing", 
+    volume  = "6",
+    number  = "1",
+    year    = "2001", 
+    pages   = "4--7"
+}
+
+@article{dey2001b,
+ author = {Dey, Anind K. and Abowd, Gregory D. and Salber, Daniel},
+ title = {A conceptual framework and a toolkit for supporting the rapid prototyping of context-aware applications},
+ journal = {Hum.-Comput. Interact.},
+ issue_date = {December 2001},
+ volume = {16},
+ number = {2},
+ month = dec,
+ year = {2001},
+ issn = {0737-0024},
+ pages = {97--166},
+ numpages = {70},
+ acmid = {1463110},
+ publisher = {L. Erlbaum Associates Inc.},
+ address = {Hillsdale, NJ, USA},
+} 
+
+
+@inproceedings{abowd99,
+ author = {Abowd, Gregory D. and Dey, Anind K. and Brown, Peter J. and Davies, Nigel and Smith, Mark and Steggles, Pete},
+ title = {Towards a Better Understanding of Context and Context-Awareness},
+ booktitle = {Proceedings of the 1st international symposium on Handheld and Ubiquitous Computing},
+ series = {HUC '99},
+ year = {1999},
+ isbn = {3-540-66550-1},
+ location = {Karlsruhe, Germany},
+ pages = {304--307},
+ numpages = {4},
+ acmid = {743843},
+ publisher = {Springer-Verlag},
+ address = {London, UK},
+} 
+
+@inproceedings{schilit94,
+    author = {Bill Schilit and Norman Adams and Roy Want},
+    title = {Context-Aware Computing Applications},
+    booktitle = {In Proceedings of the Workshop on Mobile Computing Systems and Applications},
+    year = {1994},
+    pages = {85--90},
+    publisher = {IEEE Computer Society}
+}
+
+@article{pelep,
+    author = { Darci Levis and Jorge L. V. Barbosa and Sérgio Crespo C. S. Pinto and Debora Nice Ferrari Barbosa },
+    title = { Automatic Improvement of the Learner's Profile in Ubiquitous Systems },
+    journal = { Braz J Inform Educ },
+    volume = { 16 },
+    number = { 1 },
+    pages = { 29--41 },
+    year = { 2008 }
+}
+
+@article{smith08,
+    location = {http://www.scientificcommons.org/42583888},
+    title = {Towards Truly Ubiquitous Life Annotation},
+    author = {Ashley Smith and Wendy Hall and Hugh Glaser and Leslie Carr},
+    year = {2008},
+    abstract = {Throughout the age of information technology, we have experienced our lives getting simpler through the use of computers. Computer technology is becoming more and more integrated into our everyday routines, and as the technology becomes available we come to rely upon it. In this document we present a discussion of current technology that may be used to annotate the life of a human being, and propose a future in which diaries are obsolete in favour of computer technology and the Semantic Web. 1},
+    institution = {CiteSeerX - Scientific Literature Digital Library and Search Engine [http://citeseerx.ist.psu.edu/oai2] (United States)},
+}
+
+@inproceedings{silva09,
+    author = {Silva, Jader and Rosa, João and Barbosa, Jorge and Barbosa, D\'{e}bora N. F. and Palazzo, Luiz Ant\^{o}nio Moro},
+    title = {Content distribution in trail-aware environments},
+    booktitle = {Proceedings of the XV Brazilian Symposium on Multimedia and the Web},
+    series = {WebMedia '09},
+    year = {2009},
+    isbn = {978-1-60558-880-3},
+    location = {Fortaleza, Cear\á, Brazil},
+    pages = {15:1--15:8},
+    articleno = {15},
+    numpages = {8},
+    acmid = {1858492},
+    publisher = {ACM},
+    address = {New York, NY, USA},
+    keywords = {context management, mobile computing, trails},
+} 
+
+@article{starner96,
+    author = {Thad Starner and Bradley Rhodes and Joshua Weaver and Alex Pentland},
+    title = {Human-powered wearable computing},
+    journal = {IBM Systems Journal},
+    year = {1996},
+    volume = {35},
+    pages = {618--629}
+}
+
+@inproceedings{yamim02,
+    author = {Yamin, Adenauer C. and Augustin, Iara and Barbosa, Jorge L. V. and Geyer, Cl\'{a}udio F. R.},
+    title = {ISAM: a pervasive view in distributed mobile computing},
+    booktitle = {Proceedings of the IFIP TC6 / WG6.2 \& WG6.7 Conference on Network Control and Engineering for QoS, Security and Mobility},
+    year = {2002},
+    isbn = {1-4020-7268-6},
+    pages = {431--436},
+    numpages = {6},
+    acmid = {716373},
+    publisher = {Kluwer, B.V.},
+    address = {Deventer, The Netherlands, The Netherlands},
+} 
+
+@misc{bbc10,
+    author = {BBC},
+    title = {Over 5 billion mobile phone connections worldwide},
+    year = {2010},
+    NOTE = "\texttt{http://www.bbc.co.uk/news/10569081}",
+}
+
+@misc{acm10,
+    author = {ACM},
+    title = {ACM Computing Classification System},
+    year = {2012},
+    note = "\texttt{http://www.acm.org/class/2012}",
+}
+
+@inproceedings{chellouche10,
+    author = {Chellouche, Soraya Ait and Arnaud, Julien and N\'{e}gru, Daniel},
+    title = {Flexible user profile management for context-aware ubiquitous environments},
+    booktitle = {Proceedings of the 7th IEEE conference on Consumer communications and networking conference},
+    series = {CCNC'10},
+    year = {2010},
+    isbn = {978-1-4244-5175-3},
+    location = {Las Vegas, Nevada, USA},
+    pages = {980--984},
+    numpages = {5},
+    acmid = {1834438},
+    publisher = {IEEE Press},
+    address = {Piscataway, NJ, USA},
+    keywords = {context-awareness, middleware, personalized services, ubiquitous environments, user profile},
+} 
+
+@article{sutterer07, 
+    author = {Michael Sutterer and Olivier Coutand and Olaf Droegehorn and Klaus David and Kees van der Sluijs}, 
+    title = {Managing and Delivering Context-Dependent User Preferences in Ubiquitous Computing Environments},
+    journal ={Applications and the Internet Workshops, IEEE/IPSJ International Symposium on},
+    volume = {0},
+    isbn = {0-7695-2757-4},
+    year = {2007},
+    pages = {4},
+    publisher = {IEEE Computer Society},
+    address = {Los Alamitos, CA, USA}
+}
+
+@inproceedings{korth07,
+    author = {Alexander Korth and Till Plumbaum},
+    booktitle = {Information Reuse and Integration, 2007. IRI 2007. IEEE International Conference on Information Reuse and Integration},
+    interhash = {56d8968d18a459ea7a1ad484c8dda2d6},
+    intrahash = {7e7626829a79c7d70fefd8d5824e6fb8},
+    pages = {291-297},
+    title = {A Framework for Ubiquitous User Modeling},
+    year = 2007,
+    keywords = {jabref:noKeywordAssigned},
+    added-at = {2009-03-16T11:46:26.000+0100},
+    month = {August}
+}
+
+
+@inproceedings{silva08,
+    author = {da Silva, Douglas Michaelsen and Barbosa, Jorge and Vieira, Renata},
+    title = {OCtoPUS: um modelo para classificação de perfil de usuários usando trilhas em sistemas ubíquos},
+    booktitle = {Companion Proceedings of the XIV Brazilian Symposium on Multimedia and the Web},
+    series = {WebMedia '08},
+    year = {2008},
+    isbn = {978-85-7669-199-0},
+    location = {Vila Velha, Esp\írito Santo, Brazil},
+    pages = {185--188},
+    numpages = {4},
+    acmid = {1810036},
+    publisher = {ACM},
+    address = {New York, NY, USA},
+    keywords = {intelligent agents, semantic web, trail, ubiquitous computing},
+} 
+
+@InProceedings{viviani10,
+  title         = {{A Survey on User Modeling in Multi-Application 
+    Environments}},
+  author        = {Marco Viviani and Nadia Bennani and Elod 
+    Egyed-Zsigmond},
+  year          = {2010},
+  month         = aug,
+  booktitle     = {The Third International Conference on Advances in 
+    Human-oriented and Personalized Mechanisms, Technologies, and Services 
+    CENTRIC'10},
+  pages         = {111--116}, 
+  publisher     = {IEEE}, 
+  DOI           = {10.1109/CENTRIC.2010.30}, 
+  isbn          = {978-1-4244-7778-4}, 
+  language      = {en},
+  note          = {}
+}
+
+@inproceedings{niederee04,
+    author = {Niederée, Claudia and Stewart, Avaré and Mehta, Bhaskar and Hemmje, M.},
+    booktitle = {E4PIA Workshop 2004},
+    keywords = {distributed systems, user model},
+    posted-at = {2010-10-20 10:52:21},
+    priority = {2},
+    title = {{A Multi-Dimensional, Unified User Model for Cross-System Personalization}},
+    year = {2004}
+}
+
+@inproceedings{goker02,
+  author = {Goker, A. and Myrhaug, H.I.},
+  booktitle = {European Conference on Case Based Reasoning, Workshop on Case Based Reasoning and Personalization},
+  title = {User Context and Personalization},
+  year = {2002}
+}
+
+@article{benerecetti00,
+	Author = {Massimo Benerecetti and Paolo Bouquet and Chiara Ghidini},
+	Date-Added = {2008-07-03 18:43:19 +0200},
+	Date-Modified = {2011-05-18 14:22:00 +0200},
+	Doi = {10.1080/09528130050111446},
+	Journal = {Philosophical Foundations of Artificial Intelligence. A special issue of the journal of Experimental and Theoretical AI (JETAI)},
+	Number = {3},
+	Pages = {279-305},
+	Title = {Contextual Reasoning Distilled},
+	Volume = {12},
+	Year = {2000},
+}
+
+@article{carmagnola09,
+ author = {Carmagnola, Francesca and Cena, Federica},
+ title = {User identification for cross-system personalisation},
+ journal = {Information Sciences},
+ volume = {179},
+ issue = {1-2},
+ month = {January},
+ year = {2009},
+ issn = {0020-0255},
+ pages = {16--32},
+ numpages = {17},
+ acmid = {1458873},
+ publisher = {Elsevier Science Inc.},
+ address = {New York, NY, USA},
+ keywords = {Cross-system personalisation, Intelligent information systems, Personalised systems, User modeling},
+} 
+
+@book{ieeedict,
+ author = {Geraci, Anne},
+ title = {IEEE Standard Computer Dictionary: Compilation of IEEE Standard Computer Glossaries},
+ year = {1991},
+ isbn = {1559370793},
+ publisher = {IEEE Press},
+ address = {Piscataway, NJ, USA},
+} 
+
+
+@misc{prometheus,
+    author = {Padgham, L. and Winikoff, M.},
+    citeulike-article-id = {901166},
+    posted-at = {2006-10-17 09:29:13},
+    priority = {2},
+    title = {Prometheus: A Methodology for Developing Intelligent Agents},
+    year = {2002}
+}
+
+@book{prometheus-book,
+  author = {Padgham, L. and Winikoff, M.},
+  title = {Developing intelligent agent systems: a pratical guide},
+  year = {2004},
+  publisher = {{John Wiley and Sons, Ltd}}
+}
+
+@misc{rdf,
+    author = {W3C},
+    title = {{RDF}/{XML} Syntax Specification (Revised)},
+    year = {2011},
+    NOTE = "\texttt{http://www.w3.org/RDF/}. Accessed in 05/05/2012"
+}
+
+@misc{rdfs,
+    author = {W3C},
+    title = {{RDF} Vocabulary Description Language 1.0: RDF Schema},
+    year = {2011},
+    NOTE = "\texttt{http://www.w3.org/TR/rdf-schema/}. Accessed in 05/05/2012"
+}
+
+@misc{owl-guide,
+    author = {W3C},
+    title = {{OWL} Web Ontology Language Guide},
+    year = {2011},
+    NOTE = "\texttt{http://www.w3.org/TR/owl-guide/}. Accessed in 03/11/2013"
+}
+
+@misc{owl-manchester,
+    author = {W3C},
+    title = {{OWL} 2 Web Ontology Language Manchester Syntax},
+    year = {2009},
+    NOTE = "\texttt{http://www.w3.org/TR/owl2-manchester-syntax/}. Accessed in 08/07/2012"
+}
+
+@misc{sparql,
+    author = {W3C},
+    title = {{SPARQL} Query Language for {RDF}},
+    year = {2008},
+    NOTE = "\texttt{http://www.w3.org/TR/rdf-sparql-query/}. Accessed in 05/05/2012"
+}
+
+@misc{swrl,
+    author = {W3C},
+    title = {{SWRL}: A Semantic Web Rule Language Combining {OWL} and RuleML},
+    year = {2004},
+    NOTE = "\texttt{http://www.w3.org/Submission/SWRL/}. Accessed in 05/05/2012"
+}
+
+@misc{java,
+    author = {Oracle},
+    title = {Oracle Technology Network for Java Developers},
+    year = {2012},
+    NOTE = "\texttt{http://www.oracle.com/technetwork/java/index.html}. Accessed in 05/05/2012"
+}
+
+@misc{sqlite3,
+    author = {Hwaci},
+    title = {SQLite Home Page},
+    year = {2013},
+    NOTE = "\texttt{http://www.sqlite.org/}. Accessed in 03/11/2013"
+}
+
+
+
+@misc{sql,
+    author = {ISO/EIC},
+    title = {Database Language SQL},
+    year = {1992},
+    NOTE = "\texttt{http://www.contrib.andrew.cmu.edu/~shadow/sql/sql1992.txt}. Accessed in 05/05/2012"
+}
+
+@misc{protege,
+  author = {Stanford Center for Biomedical Informatics Research (BMIR)},
+  title = {The Protégé Ontology Editor and Knowledge Aquisition System},
+  year = {2011},
+  NOTE = "\texttt{http://protege.stanford.edu/}. Accessed in 05/05/2012"
+}
+
+@book{lenat89,
+ author = {Lenat, Douglas B. and Guha, R. V.},
+ title = {Building Large Knowledge-Based Systems; Representation and Inference in the Cyc Project},
+ year = {1989},
+ isbn = {0201517523},
+ edition = {1st},
+ publisher = {Addison-Wesley Longman Publishing Co., Inc.},
+ address = {Boston, MA, USA},
+} 
+
+@book{daconta03,
+  author = {Daconta, Michael C. and Obrst, Leo J. and Smith, Kevin T.},
+  address = {Indianapolis},
+  day = 19,
+  howpublished = {Paperback},
+  interhash = {08b82b5da1dd3850469c0728489d535f},
+  intrahash = {4976d58e6ee2cf0a0f3cde8fa7d4e1c3},
+  pages = 281,
+  publisher = {Wiley},
+  title = {The Semantic Web : A Guide to the Future of XML, Web Services, and Knowledge Management},
+  year = 2003,
+  keywords = {books classification diks distributed information interoperability knowledge metadata ontology rdf semanticweb web xml},
+  added-at = {2011-02-08T14:37:13.000+0100},
+  posted-at = {2009-02-28 13:17:03},
+  location = {Indianapolis},
+  biburl = {http://www.bibsonomy.org/bibtex/24976d58e6ee2cf0a0f3cde8fa7d4e1c3/gonaut},
+  timestamp = {2011-02-08T14:37:13.000+0100},
+  priority = {0},
+  isbn = {0471432571},
+  month = May
+}
+
+@article{sirin05,
+    address = {Amsterdam, The Netherlands, The Netherlands},
+    author = {Sirin, E. and Parsia, B. and Grau, B. and Kalyanpur, A. and Katz, Y.},
+    booktitle = {Software Engineering and the Semantic Web},
+    issn = {15708268},
+    journal = {Web Semantics: Science, Services and Agents on the World Wide Web},
+    keywords = {clarck, ontology, owl-dl, parsia, pellet, reasoner},
+    month = jun,
+    number = {2},
+    pages = {51--53},
+    posted-at = {2008-08-26 23:08:20},
+    priority = {0},
+    publisher = {Elsevier Science Publishers B. V.},
+    title = {Pellet: A practical OWL-DL reasoner},
+    volume = {5},
+    year = {2007}
+}
+
+@inproceedings{tsarkov06,
+  author = {Tsarkov, D. and Horrocks, I.},
+  booktitle = {Proc. of the Int. Joint Conf. on Automated Reasoning (IJCAR 2006)},
+  interhash = {cad0ee02a1674720e1077c9df58f9a7b},
+  intrahash = {0fc460cfaeded3696821f8a515c29bcd},
+  pages = {292--297},
+  publisher = {Springer},
+  series = {Lecture Notes in Artificial Intelligence},
+  title = {FaCT++ Description Logic Reasoner: System Description},
+  volume = 4130,
+  year = 2006,
+  timestamp = {2008-01-26T07:18:56.000+0100},
+  keywords = {English FaCT++ OWL Reasoning Semantic Tableau Web _Diplomathesis},
+  added-at = {2008-01-26T07:18:56.000+0100},
+  biburl = {http://www.bibsonomy.org/bibtex/20fc460cfaeded3696821f8a515c29bcd/haschek}
+}
+
+@Article{motik09,
+    author = "Boris Motik and Rob Shearer and Ian Horrocks",
+    title = "{Hypertableau Reasoning for Description Logics}",
+    journal = "Journal of Artificial Intelligence Research",
+    year = "2009",
+    volume = "36",
+    pages = "165--228",
+}
+
+@incollection {barbosa05,
+   author = {Barbosa, Débora and Geyer, Cláudio and Barbosa, Jorge},
+   title = {Globaledu - An Architecture to Support Learning in a Pervasive Computing Environment},
+   booktitle = {New Trends and Technologies in Computer-Aided Learning for Computer-Aided Design},
+   series = {IFIP International Federation for Information Processing},
+   editor = {Rettberg, Achim and Bobda, Christophe},
+   publisher = {Springer Boston},
+   isbn = {978-0-387-29642-5},
+   keyword= {Computer Science},
+   pages = {1-10},
+   volume = {192},
+   year = {2005}
+}
+
+@article{barbosa08,
+ author = {Barbosa, Jorge and Hahn, Rodrigo and Rabello, Solon and Barbosa, D\'{e}bora},
+ title = {Local: a model geared towards ubiquitous learning},
+ journal = {SIGCSE Bull.},
+ issue_date = {March 2008},
+ volume = {40},
+ issue = {1},
+ month = {March},
+ year = {2008},
+ issn = {0097-8418},
+ pages = {432--436},
+ numpages = {5},
+ acmid = {1352281},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {location systems, mobile and ubiquitous computing, mobile and ubiquitous learning},
+}
+
+@incollection{gumo,
+    author = {Heckmann, Dominik and Schwartz, Tim and Brandherm, Boris and Schmitz, Michael and von Wilamowitz-Moellendorff, Margeritta},
+    citeulike-article-id = {2365979},
+    journal = {User Modeling 2005},
+    keywords = {user-model},
+    pages = {428--432},
+    posted-at = {2008-02-12 13:18:47},
+    priority = {2},
+    title = {Gumo – The General User Model Ontology},
+    booktitle = {Gumo – The General User Model Ontology},
+    year = {2005}
+}
+
+@techreport{foaf,
+  author = {Brickley, Dan and Miller, Libby},
+  interhash = {a38a370c19ce8c42759493edde310e4e},
+  intrahash = {d2d419949fcfba4c3d7e52720c04ed5a},
+  title = {{FOAF Vocabulary Specification 0.97}},
+  type = {Namespace document},
+  year = 2010,
+  timestamp = {2010-05-27T23:30:03.000+0200},
+  keywords = {foaf proj:o4p specification vocabulary},
+  added-at = {2010-05-27T23:30:03.000+0200},
+  month = {January},
+}
+
+@inproceedings{ontonym,
+ author = {Stevenson, Graeme and Knox, Stephen and Dobson, Simon and Nixon, Paddy},
+ title = {Ontonym: a collection of upper ontologies for developing pervasive systems},
+ booktitle = {Proceedings of the 1st Workshop on Context, Information and Ontologies},
+ series = {CIAO '09},
+ year = {2009},
+ isbn = {978-1-60558-528-4},
+ location = {Heraklion, Greece},
+ pages = {9:1--9:8},
+ articleno = {9},
+ numpages = {8},
+ acmid = {1552271},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+} 
+
+@INPROCEEDINGS{golemati07,
+    author = {Maria Golemati and Akrivi Katifori and Costas Vassilakis and George Lepouras and Constantin Halatsis},
+    title = {Creating an Ontology for the User Profile: Method and Applications},
+    booktitle = {In Proceedings of the First International Conference on Research Challenges in Information Science (RCIS)},
+    year = {2007}
+}
+
+@PHDTHESIS{heckmann05,
+  AUTHOR =       {Dominik Heckmann},
+  TITLE =        {Ubiquitous User Modeling},
+  SCHOOL =       {Department of Computer Science, Saarland University},
+  YEAR =         {2005},
+  type =         {},
+  address =      {Germany},
+  month =        {November},
+}
+
+@ARTICLE{satyanarayanan01,
+    author = {M. Satyanarayanan},
+    title = {Pervasive Computing: Vision and Challenges},
+    journal = {IEEE Personal Communications},
+    year = {2001},
+    volume = {8},
+    pages = {10--17}
+}
+
+@article{driver08,
+ author = {Driver, Cormac and Clarke, Siobhan},
+ title = {An application framework for mobile, context-aware trails},
+ journal = {Pervasive Mob. Comput.},
+ volume = {4},
+ issue = {5},
+ month = {October},
+ year = {2008},
+ issn = {1574-1192},
+ pages = {719--736},
+ numpages = {18},
+ acmid = {1412771},
+ publisher = {Elsevier Science Publishers B. V.},
+ address = {Amsterdam, The Netherlands, The Netherlands},
+ keywords = {Context-aware scheduling, Pervasive computing, Software frameworks, Trails}
+}
+
+@ARTICLE{clarke04, 
+author={Clarke, S. and Driver, C.}, 
+journal={Computer}, 
+title={Context-aware trails [mobile computing]}, 
+year={2004}, 
+month={aug.}, 
+volume={37}, 
+number={8}, 
+pages={ 97 - 99}, 
+keywords={ context-aware trail; mobile computing; mobile device; route planning; sensor fusion; mobile computing; mobile handsets; sensor fusion;}, 
+ISSN={0018-9162},}
+
+@inproceedings{driver04,
+    author = {Cormac Driver and Siobh{\'a}n Clarke},
+    title = {Hermes: A Software Framework for Mobile, Context-Aware Trails},
+    booktitle = {Workshop on Computer Support for Human Tasks and Activities at Pervasive 2004},
+    location = {Vienna, Austria},
+    year = 2004,
+    month = apr,
+    keywords = {hermes, human tasks, activities, context-aware, trails, mobile},
+    dsgref = {hermes, UbicomGSS}
+}
+
+@article{mulvenna00,
+ author = {Mulvenna, Maurice D. and Anand, Sarabjot S. and B\"{u}chner, Alex G.},
+ title = {Personalization on the Net using Web mining: introduction},
+ journal = {Commun. ACM},
+ volume = {43},
+ issue = {8},
+ month = {August},
+ year = {2000},
+ issn = {0001-0782},
+ pages = {122--125},
+ numpages = {4},
+ acmid = {345165},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+} 
+
+@article{silva10,
+   author = {Silva, Jader and Rosa, João and Barbosa, Jorge and Barbosa, Débora and Palazzo, Luiz},
+   affiliation = {University of the Sinos Valley, Unisinos Ave., São Leopoldo, RS 950, Brazil},
+   title = {Content distribution in trail-aware environments},
+   journal = {Journal of the Brazilian Computer Society},
+   publisher = {Springer London},
+   issn = {0104-6500},
+   keyword = {Computer Science},
+   pages = {163-176},
+   volume = {16},
+   issue = {3},
+   year = {2010}
+}
+
+
+@article{barbosa11,
+author="Jorge Luis Victoria Barbosa and Rodrigo Machado Hahn and Debora Nice Ferrari Barbosa and Amarolinda Iara da Costa Zanel Saccol",
+journal="International Journal of Learning Technology 2011",
+volume="6",
+number="1",
+pages="62 - 83",
+year="2011",
+title="A ubiquitous learning model focused on learner interaction"
+}
+
+
+
+@article{franco11,
+title = "MUCS: A model for ubiquitous commerce support",
+journal = "Electronic Commerce Research and Applications",
+volume = "10",
+number = "2",
+pages = "237 - 246",
+year = "2011",
+issn = "1567-4223",
+author = "Laerte K. Franco and Joao H. Rosa and Jorge L.V. Barbosa and Cristiano A. Costa and Adenauer C. Yamin",
+keywords = "Buyer and seller support",
+keywords = "Design science",
+keywords = "Experiments",
+keywords = "Prototype development",
+keywords = "Ubiquitous computing",
+keywords = "Ubiquitous commerce"
+}
+
+@inproceedings{edwards03,
+ author = {Edwards, W. Keith and Bellotti, Victoria and Dey, Anind K. and Newman, Mark W.},
+ title = {The challenges of user-centered design and evaluation for infrastructure},
+ booktitle = {Proceedings of the SIGCHI conference on Human factors in computing systems},
+ series = {CHI '03},
+ year = {2003},
+ isbn = {1-58113-630-7},
+ location = {Ft. Lauderdale, Florida, USA},
+ pages = {297--304},
+ numpages = {8},
+ acmid = {642664},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+}
+
+@techreport{python,
+ author = {Rossum, Guido},
+ title = {Python reference manual},
+ year = {1995},
+ publisher = {CWI (Centre for Mathematics and Computer Science)},
+ address = {Amsterdam, The Netherlands, The Netherlands},
+}
+
+@phdthesis{fielding00,
+ author = {Fielding, Roy Thomas},
+ title = {Architectural styles and the design of network-based software architectures},
+ year = {2000},
+ isbn = {0-599-87118-0},
+ note = {AAI9980887},
+ publisher = {University of California, Irvine},
+}
+
+
+@article{yannakakis09,
+  author    = {Georgios N. Yannakakis and
+               John Hallam},
+  title     = {Real-Time Game Adaptation for Optimizing Player Satisfaction},
+  journal   = {IEEE Trans. Comput. Intellig. and AI in Games},
+  volume    = {1},
+  number    = {2},
+  year      = {2009},
+  pages     = {121-133},
+  bibsource = {DBLP, http://dblp.uni-trier.de}
+}
+
+
+@article{tao11,
+          volume = {23},
+          number = {4},
+          author = {Daniel Tao and Yuefeng Li and Ning Zhong},
+         address = {United States of America},
+           title = {A Personalized Ontology Model for Web Information Gathering},
+       publisher = {IEEE},
+            year = {2011},
+         journal = {IEEE Transactions on Knowledge \& Data Engineering},
+           pages = {496--511},
+        keywords = {Ontology, personalization, semantic relations, world knowledge, local instance repository, user profiles, web  information gathering},
+        abstract = {As a model for knowledge description and formalization, ontologies are widely used to represent user profiles in personalized web information gathering. However, when representing user profiles, many models have utilized only knowledge from either a global knowledge base or a user local information. In this paper, a personalized ontology model is proposed for knowledge representation and reasoning over user profiles. This model learns ontological user profiles from both a world knowledge base and user local instance repositories. The ontology model is evaluated by comparing it against benchmark models in web information gathering. The results show that this ontology model is successful.}
+}
+
+
+@article{razmerita11,
+  author    = {Liana Razmerita},
+  title     = {An Ontology-Based Framework for Modeling User Behavior -
+               A Case Study in Knowledge Management},
+  journal   = {IEEE Transactions on Systems, Man, and Cybernetics, Part
+               A},
+  volume    = {41},
+  number    = {4},
+  year      = {2011},
+  pages     = {772-783},
+  bibsource = {DBLP, http://dblp.uni-trier.de}
+}
+
+
+@inproceedings{kim08,
+ author = {Kim, Kyung-Sik and Lee, Jae-Dong},
+ title = {Profile Management Framework Based on Web Services for Providing Personalized Services},
+ booktitle = {Proceedings of the 2008 International Conference on Convergence and Hybrid Information Technology},
+ series = {ICHIT '08},
+ year = {2008},
+ isbn = {978-0-7695-3328-5},
+ pages = {501--508},
+ numpages = {8},
+ acmid = {1438279},
+ publisher = {IEEE Computer Society},
+ address = {Washington, DC, USA},
+ keywords = {Profile Management Framework, User Profile, Personalized Services, Web Services},
+}
+
+
+@incollection{augusto10,
+  abstract = {Advances in the miniaturization of electronics is allowing computing devices with various capabilities and interfaces to become part of our daily life. Sensors, actuators, and processing units can now be purchased at very affordable prices. This technology can be networked and used with the coordination of highly intelligent software to understand the events and relevant context of a specific environment and to take sensible decisions in real-time or a posteriori.},
+  added-at = {2012-05-30T10:42:37.000+0200},
+  author = {Augusto, Juan Carlos and Nakashima, Hideyuki and Aghajan, Hamid},
+  biburl = {http://www.bibsonomy.org/bibtex/2acd51d4e8233b8ab633ea25b32cf757e/flint63},
+  booktitle = {Handbook of Ambient Intelligence and Smart Environments},
+  crossref = {NakashimaAghajanAugusto2010},
+  file = {SpringerLink:2010/AugustoNakashimaAghajan10p3.pdf:PDF},
+  groups = {public},
+  interhash = {00df41937f85b31ff732508e38fdedad},
+  intrahash = {acd51d4e8233b8ab633ea25b32cf757e},
+  keywords = {v1205 springer paper embedded ai sensor data processing recognition analysis action zzz.spm zzz.cps},
+  pages = {3-31},
+  timestamp = {2012-05-30T10:42:37.000+0200},
+  title = {Ambient Intelligence and Smart Environments: A State of the Art},
+  username = {flint63},
+  year = 2010
+}
+
+
+@article{fischer01,
+  title={User modeling in human--computer interaction},
+  author={Fischer, Gerhard},
+  journal={User modeling and user-adapted interaction},
+  volume={11},
+  number={1},
+  pages={65--86},
+  year={2001},
+  publisher={Springer}
+}
+
+
+@article{gruber93,
+ author = {Gruber, Thomas R.},
+ title = {A translation approach to portable ontology specifications},
+ journal = {Knowl. Acquis.},
+ issue_date = {June 1993},
+ volume = {5},
+ number = {2},
+ month = jun,
+ year = {1993},
+ issn = {1042-8143},
+ pages = {199--220},
+ numpages = {22},
+ acmid = {173747},
+ publisher = {Academic Press Ltd.},
+ address = {London, UK, UK},
+} 
+
+@book{genesereth87,
+ author = {Genesereth, Michael R. and Nilsson, Nils J.},
+ title = {Logical foundations of artificial intelligence},
+ year = {1987},
+ isbn = {0-934613-31-1},
+ publisher = {Morgan Kaufmann Publishers Inc.},
+ address = {San Francisco, CA, USA},
+} 
+
+@book{liu09,
+  editor    = {Ling Liu and
+               M. Tamer {\"O}zsu},
+  title     = {Encyclopedia of Database Systems},
+  booktitle = {Encyclopedia of Database Systems},
+  publisher = {Springer US},
+  year      = {2009},
+  isbn      = {978-0-387-35544-3, 978-0-387-39940-9},
+  ee        = {http://dx.doi.org/10.1007/978-0-387-39940-9},
+  bibsource = {DBLP, http://dblp.uni-trier.de}
+}
+
+
+@INPROCEEDINGS{strang04,
+    author = {Thomas Strang and Claudia Linnhoff-Popien},
+    title = {A Context Modeling Survey},
+    booktitle = {In: Workshop on Advanced Context Modelling, Reasoning and Management, UbiComp 2004 - The Sixth International Conference on Ubiquitous Computing, Nottingham/England},
+    year = {2004},
+    publisher = {}
+}
+
+@INPROCEEDINGS{krummenacher07,
+    author = {Reto Krummenacher and Thomas Strang},
+    title = {Ontology-Based Context Modeling},
+    booktitle = {In Workshop on Context-Aware Proactive Systems},
+    year = {2007}
+}
+
+
+@INPROCEEDINGS{wasfi99,
+    author = {Ahmad M. Ahmad Wasfi},
+    title = {Collecting User Access Patterns for Building User Profiles and Collaborative Filtering},
+    booktitle = {In Proceedings of the 1999 International Conference on Intelligent User Interfaces},
+    year = {1999},
+    pages = {57--64}
+}
+
+@inproceedings{amato99,
+  author    = {Giuseppe Amato and
+               Umberto Straccia},
+  title     = {User Profile Modeling and Applications to Digital Libraries},
+  booktitle = {ECDL},
+  year      = {1999},
+  pages     = {184-197},
+  crossref  = {DBLP:conf/ercimdl/1999},
+  bibsource = {DBLP, http://dblp.uni-trier.de}
+}
+
+@incollection{schiaffino09,
+  author    = {Silvia N. Schiaffino and
+               Anal\'{\i}a Amandi},
+  title     = {Intelligent User Profiling},
+  booktitle = {Artificial Intelligence: An International Perspective},
+  year      = {2009},
+  pages     = {193-216},
+  crossref  = {DBLP:series/lncs/5640},
+  bibsource = {DBLP, http://dblp.uni-trier.de}
+}
+
+
+@article{hwang07,
+  author    = {Gwo-Jen Hwang and
+               Ting-Ting Wu and
+               Yen-Jung Chen},
+  title     = {Ubiquitous Computing Technologies in Education},
+  journal   = {IJDET},
+  volume    = {5},
+  number    = {4},
+  year      = {2007},
+  pages     = {1-4},
+  bibsource = {DBLP, http://dblp.uni-trier.de}
+}
+
+@article{hwang08,
+  author    = {Gwo-Jen Hwang and
+               Chin-Chung Tsai and
+               Stephen J. H. Yang},
+  title     = {Criteria, Strategies and Research Issues of Context-Aware
+               Ubiquitous Learning},
+  journal   = {Educational Technology {\&} Society},
+  volume    = {11},
+  number    = {2},
+  year      = {2008},
+  pages     = {81-91},
+  ee        = {http://www.ifets.info/abstract.php?art_id=845},
+  bibsource = {DBLP, http://dblp.uni-trier.de}
+}
+
+@article{hong09,
+ author = {Hong, Jongyi and Suh, Eui-Ho and Kim, Junyoung and Kim, SuYeon},
+ title = {Context-aware system for proactive personalized service based on context history},
+ journal = {Expert Syst. Appl.},
+ issue_date = {May, 2009},
+ volume = {36},
+ number = {4},
+ month = may,
+ year = {2009},
+ issn = {0957-4174},
+ pages = {7448--7457},
+ numpages = {10},
+ acmid = {1508630},
+ publisher = {Pergamon Press, Inc.},
+ address = {Tarrytown, NY, USA},
+ keywords = {Context history, Context-aware, Proactive systems, User preference},
+}
+
+
+@article{wu12,
+  author    = {Po-Han Wu and
+               Gwo-Jen Hwang and
+               Liang-Hao Su and
+               Yueh-Min Huang},
+  title     = {A Context-Aware Mobile Learning System for Supporting Cognitive
+               Apprenticeships in Nursing Skills Training},
+  journal   = {Educational Technology {\&} Society},
+  volume    = {15},
+  number    = {1},
+  year      = {2012},
+  pages     = {223-236},
+  ee        = {http://www.ifets.info/download_pdf.php?j_id=54{\&}a_id=1210},
+  bibsource = {DBLP, http://dblp.uni-trier.de}
+}
+
+
+@article{oliveira13,
+  added-at = {2013-01-28T00:00:00.000+0100},
+  author = {Oliveira, Rodrigo R. and Noguez, Felipe C. and da Costa, Cristiano André and Barbosa, Jorge Luis Victória and Prado, Mario P.},
+  interhash = {7ae0ed68ea961f79ba92c8aeb5e7ac32},
+  intrahash = {ddc11f604bcb9027e11550775999bf0d},
+  journal = {Expert Syst. Appl.},
+  keywords = {dblp},
+  number = 6,
+  pages = {2023-2031},
+  timestamp = {2013-01-28T00:00:00.000+0100},
+  title = {SWTRACK: An intelligent model for cargo tracking based on off-the-shelf mobile devices.},
+  volume = 40,
+  year = 2013
+}
+
+
+@article{segatto08,
+  added-at = {2008-11-12T00:00:00.000+0100},
+  author = {Segatto, Wilian and Herzer, Eduardo and Mazzotti, Cristiano L. and Bittencourt, João Ricardo and Barbosa, Jorge},
+  date = {2008-11-12},
+  description = {dblp},
+  interhash = {b329b70341a90a93f49c923daa2f2f3c},
+  intrahash = {995111189db2618abf10290b47a9e6fa},
+  journal = {Computers in Entertainment},
+  keywords = {dblp},
+  number = 3,
+  timestamp = {2008-11-12T00:00:00.000+0100},
+  title = {Mobio threat: A mobile game based on the integration of wireless technologies.},
+  volume = 6,
+  year = 2008
+}
+
+
+@inproceedings{tavares12,
+  added-at = {2013-01-22T00:00:00.000+0100},
+  author = {Tavares, João and Barbosa, Jorge L. V. and da Costa, Cristiano André and Yamin, Adenauer C. and Real, Rodrigo Araújo},
+  booktitle = {PETRA},
+  editor = {Makedon, Fillia},
+  interhash = {8bbf58c43dafbbed8860266f38db26c4},
+  intrahash = {7ed0a06ab546db1ba3dbdeee51993c0d},
+  isbn = {978-1-4503-1300-1},
+  keywords = {dblp},
+  pages = 27,
+  publisher = {ACM},
+  timestamp = {2013-01-22T00:00:00.000+0100},
+  title = {Hefestos: a model for ubiquitous accessibility support.},
+  year = 2012
+}
+
+\end{filecontents}
+
+
 
 %% The lineno packages adds line numbers. Start line numbering with
 %% \begin{linenumbers}, end it with \end{linenumbers}. Or switch it on
@@ -275,7 +1241,7 @@ profiles are inferred.
 \label{sec:visao_geral}
 
 \begin{figure}
-  \centering\includegraphics[width=0.6\textwidth]{modelobasico_en.png}
+  \centering\includegraphics[width=0.6\textwidth]{modelobasico_en.eps}
   \caption{Overview of eProfile}
   \label{fig:modelobasico}
 \end{figure}
@@ -292,7 +1258,7 @@ eProfile}, where the arrows indicate the flow of data. The communication starts 
 Since eProfile supports multiple applications, it is possible for different applications to use different trail managers. Therefore, eProfile also supports communication with a number of trail managers, as exemplified in Figure~\ref{fig:gerenciadores}.
 
 \begin{figure}
-  \centering\includegraphics[width=1\textwidth]{modelo2_en.png}
+  \centering\includegraphics[width=1\textwidth]{modelo2_en.eps}
   \caption{eProfile connected to multiple trail managers}
   \label{fig:gerenciadores}
 \end{figure}
@@ -307,7 +1273,7 @@ Since eProfile supports multiple applications, it is possible for different appl
 \label{sec:arquitetura}
 
 \begin{figure}
-  \centering\includegraphics[width=1\textwidth]{modelo_big_en.png}
+  \centering\includegraphics[width=1\textwidth]{modelo_big_en.eps}
   \caption{eProfile architecture}
   \label{fig:modelo}
 \end{figure}
@@ -353,7 +1319,7 @@ As mentioned in Section~\ref{sec:arquitetura}, eProfile uses two ontologies: a t
 The trail ontology data (eOntoTrail), shown in Figure~\ref{fig:ont_trilha}, is fed by different trail managers. The Converter agent is responsible for receiving data in the trail manager format and converting it to the eOntoTrail. This way, the reasoner has a single ontology on which to reason.
 
 \begin{figure}
-  \centering\includegraphics[width=1\textwidth]{ont_trilha_simples.png}
+  \centering\includegraphics[width=1\textwidth]{ont_trilha_simples.eps}
   \caption{eProfile Trail Ontology (eOntoTrail)}
   \label{fig:ont_trilha}
 \end{figure}
@@ -370,7 +1336,7 @@ Activity}, the action that the entity is performing (or trying to perform). This
 last class is the most comprehensive of the ontology, and will possibly be the most specialized by the trail managers.
 
 \begin{figure}
-  \centering\includegraphics[width=0.45\textwidth]{ont_perfil3.png}
+  \centering\includegraphics[width=0.45\textwidth]{ont_perfil3.eps}
   \caption{eProfile Profile Ontology (eOntoProfile)}
   \label{fig:ont_perfil}
 \end{figure}
@@ -392,7 +1358,7 @@ an entity profile according to an entity model previously registered by the appl
 For a rule to be executed, the application must have previously registered within eProfile: (i) the rule itself, (ii) an entity model, which serves as basis for the entity profile format, and (iii) the trail of the entity on which the inference is performed. From these three pieces of information, the reasoner is able to generate an entity profile, according to Figure~\ref{fig:dados_inferencia}.
 
 \begin{figure}\centering
-  \includegraphics[width=0.9\textwidth]{dados_inferencia_en.png}
+  \includegraphics[width=0.9\textwidth]{dados_inferencia_en.eps}
   \caption{Data flow for the entity profile inference}
   \label{fig:dados_inferencia}
 \end{figure}
@@ -424,7 +1390,7 @@ the generated profile when the rules are executed the next time.
 eProfile prototype was developed in Python \citep{python}. Python is a generic, open source, object-oriented, high-level language, that supports multiple architectures. % eProfile class diagram is represented in Figure~\ref{fig:classes}. The Communicator, Configurator, Converter and Reasoner classes implement the agents with the same names described in Section~\ref{sec:arquitetura}, and all of them inherit from class Agent, where the common agent tasks are implemented, such as setup, inter-agent communication and thread control.
 
 %\begin{figure}
-%  \includegraphics[width=1\textwidth]{imagens/classes_en.png}
+%  \includegraphics[width=1\textwidth]{imagens/classes_en.eps}
 %  \caption{eProfile class diagram}
 %  \label{fig:classes}
 %\end{figure}
@@ -456,7 +1422,7 @@ The following sections describe the applications used for the integration (Secti
 \label{sec:cen1_apps}
 
 \begin{figure}
-  \centering\includegraphics[width=0.6\textwidth]{modelo_cenario1_en.png}
+  \centering\includegraphics[width=0.6\textwidth]{modelo_cenario1_en.eps}
   \caption{Scenario model}
   \label{fig:modelo_cenario1}
 \end{figure}
@@ -475,7 +1441,7 @@ The initial communication occurs between applications and eProfile (arrows ``a''
 This scenario integrates eProfile to a ubiquitous learning system called LOCAL (Location and Context-Aware Learning). LOCAL uses location information and context as an aid to teaching and learning process. A location system monitors the mobility of apprentices and, based on their physical position, explores educational opportunities \citep{barbosa11}.
 
 \begin{figure}[!t]
-  \centering\includegraphics[width=0.7\textwidth]{arq_local.png}
+  \centering\includegraphics[width=0.7\textwidth]{arq_local.eps}
   \caption{LOCAL model \citep{barbosa11}}
   \label{fig:arq_local}
 \end{figure}
@@ -493,7 +1459,7 @@ and (iii) we included a communication interface with eProfile, where the LOCAL
 User Profiles module is fed by profiles generated by eProfile.
 
 \begin{figure}[!t]
-  \centering\includegraphics[width=1\textwidth]{eprofile_local_en.png}
+  \centering\includegraphics[width=1\textwidth]{eprofile_local_en.eps}
   \caption{eProfile/LOCAL Integration}
   \label{fig:eprofile_local}
 \end{figure}
@@ -530,7 +1496,7 @@ users (learners) in order to put them in contact and distribute content in the m
 UniManager is a administrative software used by the university for registration and management of students and disciplines. This application model is shown in Figure~\ref{fig:unimanager}.
 
 \begin{figure}[!t]
-  \centering\includegraphics[width=0.9\textwidth]{unimanager_en.png}
+  \centering\includegraphics[width=0.9\textwidth]{unimanager_en.eps}
   \caption{UniManager model}
   \label{fig:unimanager}
 \end{figure}
@@ -547,7 +1513,7 @@ UniManager also contains a profile database. On this database are stored: (i) re
 The profile database is dynamically updated based on recorded events, but is limited to data recorded in UniManager itself. Integration between eProfile and UniManager leverages the generation of more advanced profiles, using the information inferred by eProfile from the data generated by LOCAL. Using this data, it is possible to register the interests of the student in UniManager's profile database, in order to suggest him optional subjects that might be of his interest. Furthermore, the use of trails allows the profiles to be generated based on historical information. 
 
 \begin{figure}[!t]
-  \centering\includegraphics[width=1\textwidth]{unimanager_eprofile_en.png}
+  \centering\includegraphics[width=1\textwidth]{unimanager_eprofile_en.eps}
   \caption{UniManager/eProfile integration}
   \label{fig:unimanager_eprofile}
 \end{figure}
@@ -616,19 +1582,19 @@ The scenario consists of two types of entities: students and disciplines. The ``
 %The students' trail, as registered by LOCAL and UniManager, contains the following kind of events: registration, discipline enrollment, entry and exit from locations inside the campus, handing out of test and papers, new preferences and abandonment of the course. The trail format is detailed in Figure~\ref{fig:ont_estudante}. The following events are registered in the professor trail: registration, entry and exit from locations inside the campus and evaluation of students' tests and papers, according to the diagram shown in Figure~\ref{fig:ont_docente}. The discipline trail receives the following events: registration, beginning and end of semester and work group, according to Figure~\ref{fig:ont_disciplina}.
 
 %\begin{figure}[!t]
-%  \centering\includegraphics[width=0.6\textwidth]{imagens/ont_estudante.png}
+%  \centering\includegraphics[width=0.6\textwidth]{imagens/ont_estudante.eps}
 %  \caption{Student trail ontology}
 %  \label{fig:ont_estudante}
 %\end{figure}
 
 %\begin{figure}[!t]
-%  \centering\includegraphics[width=0.6\textwidth]{imagens/ont_docente.png}
+%  \centering\includegraphics[width=0.6\textwidth]{imagens/ont_docente.eps}
 %  \caption{Professor trail ontology}
 %  \label{fig:ont_docente}
 %\end{figure}
 
 %\begin{figure}[!t]
-%  \centering\includegraphics[width=0.6\textwidth]{imagens/ont_disciplina.png}
+%  \centering\includegraphics[width=0.6\textwidth]{imagens/ont_disciplina.eps}
 %  \caption{Discipline trail ontology}
 %  \label{fig:ont_disciplina}
 %\end{figure}
@@ -638,7 +1604,7 @@ The scenario consists of two types of entities: students and disciplines. The ``
 %The entities models are the data structure used to store the profile of a entity. The entity model used by the LOCAL User Profile module is shown in Figure~\ref{fig:perfil_local}. The learners' profiles have two types of data: (i) persistent, associated to the learner in any situation, and (ii) contextual, associated with which the contexts in which the learner interacts.
 
 %\begin{figure}[!t]
-%  \centering\includegraphics[width=0.7\textwidth]{imagens/perfil_local.png}
+%  \centering\includegraphics[width=0.7\textwidth]{imagens/perfil_local.eps}
 %  \caption{LOCAL profile model \citep{barbosa11}}
 %  \label{fig:perfil_local}
 %\end{figure}
@@ -648,7 +1614,7 @@ The scenario consists of two types of entities: students and disciplines. The ``
 %UniManager stores profiles of disciplines, professors and students. Its entity model is illustrated in Figure~\ref{fig:perfil_unimanager}. The basic information, disciplines enrolled and notes/absences from the student profile, along with the disciplines information, are used for managerial activities of the university, such as checking if the student can attend a particular discipline. Performance information about the professor and historical average grades of disciplines are used to adjust the professor with the discipline he has higher affinity or performance. Information about students interests are used to suggest optional disciplines to them.
 
 %\begin{figure}[!t]
-%  \centering\includegraphics[width=0.65\textwidth]{imagens/unimanager_perfil_en.png}
+%  \centering\includegraphics[width=0.65\textwidth]{imagens/unimanager_perfil_en.eps}
 %  \caption{UniManager profile model}
 %  \label{fig:perfil_unimanager}
 %\end{figure}
@@ -884,7 +1850,8 @@ As mentioned, the model is an initial proposal, and there are several opportunit
 %% References with bibTeX database:
 
 \bibliographystyle{elsarticle-harv}
-\bibliography{../../eprofile}
+%\bibliography{../../eprofile}
+\bibliography{\jobname}
 
 %% Authors are advised to submit their bibtex database files. They are
 %% requested to list a bibtex style file in the manuscript if they do
