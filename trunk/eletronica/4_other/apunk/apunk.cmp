@@ -1,0 +1,108 @@
+Cmp-Mod V01 Created by CvPcb (2013-may-18)-stable date = Sáb 10 Ago 2013 16:07:13 BRT
+
+BeginCmp
+TimeStamp = /51CDC812;
+Reference = BT1;
+ValeurCmp = BATTERY;
+IdModule  = bornier2;
+EndCmp
+
+BeginCmp
+TimeStamp = /51CDC41A;
+Reference = C1;
+ValeurCmp = 10u;
+IdModule  = C1V7;
+EndCmp
+
+BeginCmp
+TimeStamp = /51CDC33B;
+Reference = C3;
+ValeurCmp = 10n;
+IdModule  = C2;
+EndCmp
+
+BeginCmp
+TimeStamp = /51CDC505;
+Reference = C4;
+ValeurCmp = 100n;
+IdModule  = R3;
+EndCmp
+
+BeginCmp
+TimeStamp = /51DC96FD;
+Reference = D1;
+ValeurCmp = LED;
+IdModule  = LED-5MM;
+EndCmp
+
+BeginCmp
+TimeStamp = /51CDC71A;
+Reference = J1;
+ValeurCmp = JACK_2P;
+IdModule  = bornier3;
+EndCmp
+
+BeginCmp
+TimeStamp = /51CDC2ED;
+Reference = R1;
+ValeurCmp = 1K;
+IdModule  = R4;
+EndCmp
+
+BeginCmp
+TimeStamp = /51CDC43C;
+Reference = R2;
+ValeurCmp = 10K;
+IdModule  = R4;
+EndCmp
+
+BeginCmp
+TimeStamp = /51CDC427;
+Reference = R3;
+ValeurCmp = 6K8;
+IdModule  = R4;
+EndCmp
+
+BeginCmp
+TimeStamp = /51DC970A;
+Reference = R4;
+ValeurCmp = 680;
+IdModule  = R4;
+EndCmp
+
+BeginCmp
+TimeStamp = /51CDBE00;
+Reference = RV1;
+ValeurCmp = 500K;
+IdModule  = bornier3;
+EndCmp
+
+BeginCmp
+TimeStamp = /51CDBDF3;
+Reference = RV2;
+ValeurCmp = 500K;
+IdModule  = bornier3;
+EndCmp
+
+BeginCmp
+TimeStamp = /51DC98CA;
+Reference = SW1;
+ValeurCmp = SPST;
+IdModule  = PUSH_BUTT_SHAPE1;
+EndCmp
+
+BeginCmp
+TimeStamp = /51CF2CBF;
+Reference = U1;
+ValeurCmp = LM555N;
+IdModule  = DIP-8__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /51CF2CD6;
+Reference = U2;
+ValeurCmp = LM555N;
+IdModule  = DIP-8__300;
+EndCmp
+
+EndListe
