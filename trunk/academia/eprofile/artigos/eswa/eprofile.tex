@@ -1091,11 +1091,11 @@ keywords = "Ubiquitous commerce"
 	           Applied Computing Graduate Program (PIPCA) \\
                    Av. Unisinos, 950, São Leopoldo, Brazil}
 \address[FEEVALE]{Feevale University\\
-                  Inclusion and Diversity Post-graduation Program\\
+                  Inclusion and Diversity Post-graduate Program\\
                   RS-239, 2755, Novo Hamburgo, Brazil}
 
 \begin{abstract}
-Ubiquitous systems have the challenge of implicitly collect relevant information about entities, and use this information to understand and predict their behavior. This allows the applications to adapt themselves to the entities, thus avoiding to overflow them with inquires and information. The analysis of trails, the context-aware history of actions, can further improve the relevance of information. This paper proposes a model that allows applications to register entities' actions in trails and infer profile information from these trails, using semantic interoperability and thus allowing different applications to share information and infer a unified profile. An application was developed and integrated with two different softwares in a context of ubiquitous education, where the student profiles were dynamically updated, allowing them to better adapt to the environment. The contributions of this model are the use of trails for extracting profiles and the capability of managing dynamic inference rules for profile generation.
+Ubiquitous systems have the challenge of implicitly collect relevant information about entities, and use this information to understand and predict their behavior. This allows the applications to adapt themselves to the entities, thus avoiding to overflow them with inquires and information. The analysis of trails, the context-aware history of actions, can further improve the relevance of information. This paper proposes a model that allows applications to register entities' actions in trails and infer profile information from these trails, using semantic interoperability and thus allowing different applications to share information and infer a unified profile. An application was developed and integrated with two different softwares in a scenario of ubiquitous learning, where the student profiles were dynamically updated, allowing them to better adapt to the environment. The contributions of this model are the use of trails for extracting profiles and the capability of managing dynamic inference rules for profile generation.
 \end{abstract}
 
 \begin{keyword}
@@ -1156,11 +1156,11 @@ A relevant aspect for environments with multiple independent systems is the inte
 
 Research indicates that it is desirable that future systems become increasingly invisible to their users \citep{weiser96}, and that a system can only become invisible if it is proactive, and can only be proactive by knowing the user \citep{satyanarayanan01}. For a system to know a user, it must know the user history \citep{silva10}, understand the context in which he is inserted \citep{dey2001}, as well as data collected concerning him in the same context (or in a similar context), and be able to process this set of information into a user profile \citep{fischer01,viviani10}.
 
-In this setting we are proposing eProfile. eProfile is a ubiquitous profile manager of generic domain oriented towards distributed environments, with inter-system interoperability, which infers profile data through analysis of an entity trails (provided by a manager tracks), following rules defined by the entities, and provides data inferred to be used by applications.
-
 Ubiquitous computing has been used successfully in several different environments and contexts, such as commerce \citep{franco11}, logistics \citep{oliveira13}, accessibility \citep{tavares12} and entertainment \citep{segatto08}. One such environment is ubiquitous learning, or U-Learning. Ubiquitous learning can be understood as a set of educational processes that occur anywhere, at any time and with any device, continuously, contextualized and integrated into the daily lives of apprentices \citep{barbosa11}. It is important to notice that U-Learning is more than simply ``learning with u-computing technology'' \citep{hwang07}, but is composed by a mobile environment that takes into consideration the learner's individual information of various sources in context, and adapts the instructional content to meet the functions of different mobile devices \citep{hwang08}.
 
-eProfile's main characteristics are the use of trails for extracting profiles, the capability of generating dynamic profiles, the capability of managing dynamic inference rules and models, and the semantic operability of the model. These characteristics are used to maintain the student dynamic profiles updated, allowing a better adaptation to the ubiquitous learning environment.
+In this setting we are proposing eProfile. eProfile is a ubiquitous profile manager of generic domain oriented towards distributed environments, with inter-system interoperability. eProfile infers profile data through analysis of an entity trails (provided by a manager tracks), following rules defined by the entities, and provides data inferred to be used by applications.
+
+Moreover, this article proposes the eProfile application in a scenario of Ubiquitous Learning. eProfile's main characteristics are the use of trails for extracting profiles, the capability of generating dynamic profiles, the capability of managing dynamic inference rules and models, and the semantic operability of the model. In the application, these characteristics were used to maintain the student dynamic profiles updated, allowing a better adaptation to the ubiquitous learning environment.
 
 This paper is organized as follows. Section~\ref{ch:relacionados} is dedicated to related works. Section~\ref{ch:modelo} proposes the eProfile model. Section~\ref{ch:implementacao} discusses implementation aspects. Section~\ref{ch:cenario} presents an eProfile integration with two existing applications in a scenario of ubiquitous learning. Finally, Section~\ref{sec:conclusao} presents the concluding remarks.
 
@@ -1216,7 +1216,7 @@ Table~\ref{tab:comparacao2} shows a comparison between related works. The follow
   \label{tab:comparacao2}
 \end{table*}
 
-The main characteristics of eProfile's model are:
+Besides the characteristics listed in Table~\ref{tab:comparacao2}, we expect in our model four aditional characteristics that were either not found in this model, or were only partially implemented: 
 
 \begin{enumerate}
   \item The use of trails for extracting profiles. By looking at the entity history, it is possible not only to consider its current situation, but also to examine the entity's past, obtaining a more complete set of information. Furthermore, this allows the entity profile to be generated automatically, instead of requiring the entity or application to fill out the data manually;
