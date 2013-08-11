@@ -2,9 +2,9 @@ Dear Mr. J. Liebowitz Editor-in-Chief of the Expert Systems with Applications
 
 We would like to submit for your consideration a possible contribution to the Expert Systems with Applications. 
 
-The article describes a work that has been developed in a partnership beetwen the University of Vale do Rio dos Sinos and the Feevale University, two universities located in the south of Brazil.
+The article describes a work that has been developed in a partnership beetwen the University of Vale do Rio dos Sinos and the Feevale University, two universities located in the south of Brazil. Both institutions have ten years of experience in the research and application of the Ubiquitous Learning.
 
-The title of the article is “A Model for Profile Management Applied to Ubiquitous Learning Environments”. We propose an ubiquitous application – a intelligent profile manager oriented towards distributed environments. It infers profile data through analysis of an entity trails, allowing other applications to adapt to their users. The proposed model was applied to a ubiquitous learning environment, and evaluated through integration with two academic softwares.
+The title of the article is “A Model for Profile Management Applied to Ubiquitous Learning Environments”. We propose a ubiquitous application – an intelligent profile manager oriented towards distributed environments. It infers profile data through analysis of the history of contexts visited by the users, allowing other applications to better adapt to them. The proposed model was applied to a ubiquitous learning environment, and evaluated through integration with two academic softwares.
 
 This is an original article and we are submitting the manuscript only to your journal. 
 
