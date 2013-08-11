@@ -18,8 +18,6 @@ FEITOS - PRATOS PRINCIPAIS
      <http://www.youtube.com/watch?v=MxPqgNvc5sQ>
  - Frango Kung-Pao
      <file:kungpao.txt>
- - Moranga recheada
-     <file:moranga_recheada.txt>
  - Peito de frango com parmesão e presunto crocante 
      <livro:Revolução na Cozinha - Jamie Oliver>
  - Rabanetes tailandeses
@@ -32,26 +30,10 @@ FEITOS - PRATOS PRINCIPAIS
      <http://www.blue-kitchen.com/2012/06/20/butter-poached-tilapia/>
  - Tofu com pimenta do reino
      <http://www.macheesmo.com/2012/07/black-pepper-tofu/>
- - Milho ao estilo mexicano 
-     <livro:Revolução na Cozinha - Jamie Oliver>
- - Omelete
-     <livro:Revolução na Cozinha - Jamie Oliver>
- - Omelete de Denver
-     <http://www.macheesmo.com/2010/04/the-denver-omelet/>
- - Omelete Lox
-     <http://www.macheesmo.com/2011/11/the-lox-omelet/>
  - Frango com páprica 
      <http://www.happychomp.com/post/48660128323/how-to-make-spicy-lemon-paprika-chicken-thighs>
  - Camarão com vagem de ervilhas  
      <http://www.simplyrecipes.com/recipes/shrimp_with_snow_peas/>
- - Bolinhos de atum  
-     <http://www.happychomp.com/post/48725764981/recipe-tuna-patties>
- - Bolinho de inhame e atum  
-     <http://www.happychomp.com/post/46237239700/recipe-spicy-tuna-bites>
- - Bolinho de inhame e atum 2
-     <http://www.happychomp.com/post/46237733829/recipe-sweet-and-spicy-snack-balls>
- - Cupcakes de ovo
-     <http://www.happychomp.com/post/46206080813/recipe-egg-sausage-cups>
  - Frango enrolado em bacon
      <http://www.happychomp.com/post/51133166907/bacon-wrapped-chicken-tenders-did-i-mention-that>
  - Brócolis e couve-flor assados
@@ -66,6 +48,8 @@ FEITOS - PRATOS PRINCIPAIS
      <http://www.reddit.com/r/fitmeals/comments/1j7snh/savory_pie_with_chickpea_crust_low_carb_low_cal/>
  - Strogonoff de cogumelos
      <http://www.amuse-your-bouche.com/15-minute-mushroom-stroganoff/>
+ - Frango espanhol
+     <http://www.simplyrecipes.com/recipes/spanish_baked_chicken/>
 
 
 FEITOS - ENSOPADOS
@@ -88,6 +72,29 @@ FEITOS - ENSOPADOS
      <http://www.simplesmentedelicia.com/?p=2689>
  - Ensopado de carne (gado, cordeiro, frango e porco)
      <livro:Revolução na Cozinha - Jamie Oliver>
+
+FEITOS - LANCHES
+
+ - Omelete de salmão
+     <http://www.macheesmo.com/2013/07/smoked-salmon-scrambled-eggs/>
+ - Milho ao estilo mexicano 
+     <livro:Revolução na Cozinha - Jamie Oliver>
+ - Omelete
+     <livro:Revolução na Cozinha - Jamie Oliver>
+ - Omelete de Denver
+     <http://www.macheesmo.com/2010/04/the-denver-omelet/>
+ - Omelete Lox
+     <http://www.macheesmo.com/2011/11/the-lox-omelet/>
+ - Bolinhos de atum  
+     <http://www.happychomp.com/post/48725764981/recipe-tuna-patties>
+ - Bolinho de inhame e atum  
+     <http://www.happychomp.com/post/46237239700/recipe-spicy-tuna-bites>
+ - Bolinho de inhame e atum 2
+     <http://www.happychomp.com/post/46237733829/recipe-sweet-and-spicy-snack-balls>
+ - Cupcakes de ovo
+     <http://www.happychomp.com/post/46206080813/recipe-egg-sausage-cups>
+ - Pizza paleo
+     <http://eatfatlosefatblog.com/low-carb-keto-crispy-cauliflower-crust-pizza-paleo/>
 
 
 FEITOS - SALADAS
@@ -139,6 +146,13 @@ FEITOS - MOLHOS
      <http://www.macheesmo.com/2010/07/panzanella-salad/>
 
 
+FEITOS - DOCES
+
+ - Gelatina
+ - Creme de chocolate lowcarb
+     <http://www.happychomp.com/post/55845954992/healthyjeezny-goalstopursue>
+
+
 A FAZER
 
  - Hamburgueres de peru com abobrinha
@@ -169,20 +183,10 @@ A FAZER
      <http://smittenkitchen.com/blog/2013/05/japanese-cabbage-and-vegetable-pancakes/>
  - Chille Relleno Burrito
      <http://www.macheesmo.com/2011/05/chile-relleno-burrito/>
- - Pizza paleo
-     <http://eatfatlosefatblog.com/low-carb-keto-crispy-cauliflower-crust-pizza-paleo/>
  - Frango com molho de maçã
      <http://www.betterhealththrunutrition.com/2013/08/04/low-carb-apple-chicken/>
- - Omelete de salmão
-     <http://www.macheesmo.com/2013/07/smoked-salmon-scrambled-eggs/>
- - Frango espanhol
-     <http://www.simplyrecipes.com/recipes/spanish_baked_chicken/>
  - Salada de pepinos com Tahine
      <http://www.simplyrecipes.com/recipes/cucumber_salad_with_tahini_dressing/>
- - Salada panzanella 2
-     <http://www.simplyrecipes.com/recipes/panzanella_bread_salad/>
- - Pudim de chocolate lowcarb
-     <http://www.happychomp.com/post/55845954992/healthyjeezny-goalstopursue>
  - Conservas italianas
      <http://www.healthy-delicious.com/2013/07/hot-italian-giardiniera-canning/>
  - Salada de berinjela e abobrinha
@@ -193,7 +197,3 @@ A FAZER
      <http://arugulafiles.typepad.com/the_arugula_files/2013/07/shrinky-dink-sesame-kale-chips-.html>
  - Frango assado com cenouras e amêndoas
      <http://www.healthy-delicious.com/2013/07/pan-roast-chicken-with-carrots-and-almonds/>
- - Torta salgada com borda de grão-de-bico
-     <http://www.reddit.com/r/fitmeals/comments/1j7snh/savory_pie_with_chickpea_crust_low_carb_low_cal/>
- - Stogonoff de cogumelos
-     <http://www.amuse-your-bouche.com/15-minute-mushroom-stroganoff/>
