@@ -18,6 +18,7 @@ feh --bg-scale ~/wpaper/valfenda.jpg
 
 #exec wmaker
 exec i3
+#exec startxfce4
 
 # exec gnome-session
 # exec startkde
