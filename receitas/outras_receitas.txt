@@ -279,6 +279,8 @@ PÃES
      <http://www.macheesmo.com/2012/01/portuguese-sweet-bread/>
  - Pão integral dos Wagners
      <pao_integral.txt>
+ - Pão de hambúrguer
+     <http://www.macheesmo.com/2013/08/brioche-burger-buns/>
  - Pão não-sovado 
      <http://www.macheesmo.com/2008/10/life-changing-bread/>
  - Pão de semolina com azeite
