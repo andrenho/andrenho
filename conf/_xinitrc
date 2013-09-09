@@ -15,6 +15,7 @@ setxkbmap br
 xmodmap ~/.Xmodmap
 xrdb ~/.Xresources
 feh --bg-scale ~/wpaper/valfenda.jpg
+conky
 
 #exec wmaker
 exec i3
