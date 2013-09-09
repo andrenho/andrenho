@@ -25,7 +25,7 @@
 double_buffer yes
 
 alignment top_right
-background no
+background yes
 border_width 1
 border_inner_margin 10
 border_outer_margin 20
