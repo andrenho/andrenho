@@ -2,3 +2,4 @@
 
 http://123led.wordpress.com/about/
 http://dx.com/p/hq16-16r-16-x-16-red-led-display-common-anode-dot-matrix-module-black-white-196721
+http://extremeelectronics.co.in/avr-tutorials/interfacing-ds1307-rtc-chip-with-avr-microcontroller/

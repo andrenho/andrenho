@@ -37,7 +37,7 @@ $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
 Title "AW601 Pong Clock"
-Date "28 jun 2013"
+Date "11 sep 2013"
 Rev ""
 Comp "Imperial Electronics"
 Comment1 ""
@@ -2559,7 +2559,7 @@ L CRYSTAL X2
 U 1 1 51CDC4D8
 P 1750 8800
 F 0 "X2" H 1750 8950 60  0000 C CNN
-F 1 "16Mhz" H 1750 8650 60  0000 C CNN
+F 1 "32kHz" H 1750 8650 60  0000 C CNN
 F 2 "~" H 1750 8800 60  0000 C CNN
 F 3 "~" H 1750 8800 60  0000 C CNN
 	1    1750 8800
@@ -2630,4 +2630,58 @@ Wire Wire Line
 Connection ~ 1750 10300
 Wire Wire Line
 	2600 9700 2400 9700
+Text Label 1050 9550 0    60   ~ 0
+SDA
+Text Label 1100 9200 0    60   ~ 0
+SCL
+$Comp
+L R R?
+U 1 1 5230ED52
+P 950 8100
+F 0 "R?" V 900 7850 40  0000 C CNN
+F 1 "220" V 957 8101 40  0000 C CNN
+F 2 "~" V 880 8100 30  0000 C CNN
+F 3 "~" H 950 8100 30  0000 C CNN
+	1    950  8100
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R?
+U 1 1 5230ED5F
+P 800 8100
+F 0 "R?" V 750 7850 40  0000 C CNN
+F 1 "220" V 807 8101 40  0000 C CNN
+F 2 "~" V 730 8100 30  0000 C CNN
+F 3 "~" H 800 8100 30  0000 C CNN
+	1    800  8100
+	1    0    0    -1  
+$EndComp
+$Comp
+L +5V #PWR?
+U 1 1 5230ED71
+P 800 7700
+F 0 "#PWR?" H 800 7790 20  0001 C CNN
+F 1 "+5V" H 800 7790 30  0000 C CNN
+F 2 "" H 800 7700 60  0000 C CNN
+F 3 "" H 800 7700 60  0000 C CNN
+	1    800  7700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	800  7850 800  7700
+Wire Wire Line
+	950  7850 950  7750
+Wire Wire Line
+	950  7750 800  7750
+Connection ~ 800  7750
+Wire Wire Line
+	950  8350 950  8450
+Wire Wire Line
+	950  8450 1050 8450
+Connection ~ 1050 8450
+Wire Wire Line
+	800  8350 800  8550
+Wire Wire Line
+	800  8550 1100 8550
+Connection ~ 1100 8550
 $EndSCHEMATC
