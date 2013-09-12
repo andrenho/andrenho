@@ -4,8 +4,8 @@ SPEED=19200
 
 all: main.hex
 
-main.elf: main.c
-	avr-gcc -mmcu=$(DEVICE) -Wall -Wextra -Os -omain.elf main.c
+main.elf: main.c i2cmaster.S
+	avr-gcc -mmcu=$(DEVICE) -I. -Wall -Wextra -Os -omain.elf main.c i2cmaster.S
 
 main.hex: main.elf
 	avr-objcopy -j .text -j .data -O ihex main.elf main.hex

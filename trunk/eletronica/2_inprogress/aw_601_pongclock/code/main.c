@@ -7,7 +7,12 @@
 
 #define F_CPU 16000000UL
 #include <util/delay.h>
-#include <util/twi.h>
+
+#include <i2cmaster.h>
+
+#define DS1307_ADDRESS (0b11010000)
+#define DS1307_READ  (DS1307_ADDRESS | 1)
+#define DS1307_WRITE (DS1307_ADDRESS | 0)
 
 /********
  * DATA *
@@ -287,6 +292,9 @@ void init_uc()
 
 	// activate interrupts
 	sei();
+
+	// initialize I²C
+	i2c_init();
 }
 
 ISR(TIMER1_COMPA_vect)
@@ -624,6 +632,28 @@ void bigclock_draw()
 }
 
 
+/**********
+ *  TIME  *
+ **********/
+void read_time()
+{
+	// set address (0x0 - seconds)
+	i2c_start_wait(DS1307_WRITE);
+	i2c_write(0x0);
+	i2c_stop();
+
+	// read bytes
+	i2c_rep_start(DS1307_READ);
+	unsigned char n = i2c_readAak();
+	seconds = ((n >> 4) * 10) + (n & 0x3);
+	n = i2c_readAak();
+	minutes = ((n >> 4) * 10) + (n & 0x3);
+	n = i2c_readNak();
+	hours = ((n >> 4) * 10) + (n & 0x3);
+	i2c_stop();
+}
+
+
 /*************
  *  GENERAL  *
  *************/
@@ -633,6 +663,7 @@ int main()
 	clear();
 	pong_init();
 	init_uc();
+	read_time();
 
 	// infinite loop
 	//int c = 0;
