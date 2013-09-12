@@ -28,6 +28,7 @@ volatile int bigclock = 0;
 volatile uint8_t hours = 0;
 volatile uint8_t minutes = 0;
 volatile uint8_t seconds = 0;
+volatile int read_clock = 0;
 
 // PONG control
 volatile struct pong_t {
@@ -299,6 +300,8 @@ void init_uc()
 
 ISR(TIMER1_COMPA_vect)
 {
+	read_clock = 1;
+	/*
 	seconds++;
 	if(seconds >= 60) {
 		seconds = 0;
@@ -307,7 +310,7 @@ ISR(TIMER1_COMPA_vect)
 		} else {
 			pong.change_min = 1;
 		}
-	}
+	}*/
 }
 
 // runs every x us, draw screen
@@ -398,6 +401,95 @@ void read_button(int adc)
 		bigclock = !bigclock;
 		_delay_ms(50);
 	} 
+}
+
+
+/**********
+ *  TIME  *
+ **********/
+void read_time()
+{
+
+	unsigned char n;
+
+	// read minutes
+	i2c_start_wait(DS1307_WRITE);
+	i2c_write(0x1);
+	i2c_rep_start(DS1307_READ);
+	n = i2c_readNak();
+	int m = ((n >> 4) * 10) + (n & 0b1111);
+
+	// read hours
+	i2c_rep_start(DS1307_WRITE);
+	i2c_write(0x2);
+	i2c_rep_start(DS1307_READ);
+	n = i2c_readNak();
+	int h = (((n >> 4) & 0x1) * 10) + (n & 0b1111);
+	i2c_stop();
+
+	// check for change
+	if(h != hours) {
+		pong.change_hr = 1;
+	} else if(m != minutes) {
+		pong.change_min = 1;
+	}
+}
+
+
+void read_time_initial()
+{
+	unsigned char n;
+
+	/*
+	i2c_start_wait(DS1307_WRITE);
+	i2c_write(0x0);
+	i2c_write(0b00000000);
+	i2c_stop();
+	*/
+
+	/*
+	i2c_start_wait(DS1307_WRITE);
+	i2c_write(0x1);
+	i2c_write(0x4);
+	i2c_stop();
+
+	i2c_start_wait(DS1307_WRITE);
+	i2c_write(0x2);
+	i2c_write(0x9);
+	i2c_stop();
+	*/
+
+	// set address (0x0 - seconds)
+	/*
+	i2c_start_wait(DS1307_WRITE);
+	i2c_write(0x0);
+	i2c_rep_start(DS1307_READ);
+	n = i2c_readNak();
+	seconds = (((n >> 4) & 0b111) * 10) + (n & 0x3);
+	i2c_stop();
+	*/
+
+	// read seconds
+	i2c_start_wait(DS1307_WRITE);
+	i2c_write(0x0);
+	i2c_rep_start(DS1307_READ);
+	n = i2c_readNak();
+	seconds = (((n >> 4) & 0b111) * 10) + (n & 0b1111);
+
+	// read minutes
+	i2c_rep_start(DS1307_WRITE);
+	i2c_write(0x1);
+	i2c_rep_start(DS1307_READ);
+	n = i2c_readNak();
+	minutes = ((n >> 4) * 10) + (n & 0b1111);
+
+	// read hours
+	i2c_rep_start(DS1307_WRITE);
+	i2c_write(0x2);
+	i2c_rep_start(DS1307_READ);
+	n = i2c_readNak();
+	hours = (((n >> 4) & 0x1) * 10) + (n & 0b1111);
+	i2c_stop();
 }
 
 
@@ -632,28 +724,6 @@ void bigclock_draw()
 }
 
 
-/**********
- *  TIME  *
- **********/
-void read_time()
-{
-	// set address (0x0 - seconds)
-	i2c_start_wait(DS1307_WRITE);
-	i2c_write(0x0);
-	i2c_stop();
-
-	// read bytes
-	i2c_rep_start(DS1307_READ);
-	unsigned char n = i2c_readAak();
-	seconds = ((n >> 4) * 10) + (n & 0x3);
-	n = i2c_readAak();
-	minutes = ((n >> 4) * 10) + (n & 0x3);
-	n = i2c_readNak();
-	hours = ((n >> 4) * 10) + (n & 0x3);
-	i2c_stop();
-}
-
-
 /*************
  *  GENERAL  *
  *************/
@@ -663,7 +733,7 @@ int main()
 	clear();
 	pong_init();
 	init_uc();
-	read_time();
+	read_time_initial();
 
 	// infinite loop
 	//int c = 0;
@@ -682,7 +752,13 @@ int main()
 			}
 			pong_move_ball();
 		}
+		
 		read_button(ADCW);
+
+		if(read_clock) {
+			read_time();
+			read_clock = 0;
+		}
 	}
 
 	return 0;
