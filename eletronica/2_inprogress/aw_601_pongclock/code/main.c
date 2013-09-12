@@ -240,6 +240,95 @@ static void draw_bignumber(int x, int y, int n)
 }
 
 
+/**********
+ *  TIME  *
+ **********/
+void read_time()
+{
+
+	unsigned char n;
+
+	// read minutes
+	i2c_start_wait(DS1307_WRITE);
+	i2c_write(0x1);
+	i2c_rep_start(DS1307_READ);
+	n = i2c_readNak();
+	int m = ((n >> 4) * 10) + (n & 0b1111);
+
+	// read hours
+	i2c_rep_start(DS1307_WRITE);
+	i2c_write(0x2);
+	i2c_rep_start(DS1307_READ);
+	n = i2c_readNak();
+	int h = (((n >> 4) & 0x1) * 10) + (n & 0b1111);
+	i2c_stop();
+
+	// check for change
+	if(h != hours) {
+		pong.change_hr = 1;
+	} else if(m != minutes) {
+		pong.change_min = 1;
+	}
+}
+
+
+void read_time_initial()
+{
+	unsigned char n;
+
+	/*
+	i2c_start_wait(DS1307_WRITE);
+	i2c_write(0x0);
+	i2c_write(0b00000000);
+	i2c_stop();
+	*/
+
+	/*
+	i2c_start_wait(DS1307_WRITE);
+	i2c_write(0x1);
+	i2c_write(0x4);
+	i2c_stop();
+
+	i2c_start_wait(DS1307_WRITE);
+	i2c_write(0x2);
+	i2c_write(0x9);
+	i2c_stop();
+	*/
+
+	// set address (0x0 - seconds)
+	/*
+	i2c_start_wait(DS1307_WRITE);
+	i2c_write(0x0);
+	i2c_rep_start(DS1307_READ);
+	n = i2c_readNak();
+	seconds = (((n >> 4) & 0b111) * 10) + (n & 0x3);
+	i2c_stop();
+	*/
+
+	// read seconds
+	i2c_start_wait(DS1307_WRITE);
+	i2c_write(0x0);
+	i2c_rep_start(DS1307_READ);
+	n = i2c_readNak();
+	seconds = (((n >> 4) & 0b111) * 10) + (n & 0b1111);
+
+	// read minutes
+	i2c_rep_start(DS1307_WRITE);
+	i2c_write(0x1);
+	i2c_rep_start(DS1307_READ);
+	n = i2c_readNak();
+	minutes = ((n >> 4) * 10) + (n & 0b1111);
+
+	// read hours
+	i2c_rep_start(DS1307_WRITE);
+	i2c_write(0x2);
+	i2c_rep_start(DS1307_READ);
+	n = i2c_readNak();
+	hours = (((n >> 4) & 0x1) * 10) + (n & 0b1111);
+	i2c_stop();
+}
+
+
 /**************
  * IC CONTROL *
  **************/
@@ -301,16 +390,6 @@ void init_uc()
 ISR(TIMER1_COMPA_vect)
 {
 	read_clock = 1;
-	/*
-	seconds++;
-	if(seconds >= 60) {
-		seconds = 0;
-		if(minutes == 59) {
-			pong.change_hr = 1;
-		} else {
-			pong.change_min = 1;
-		}
-	}*/
 }
 
 // runs every x us, draw screen
@@ -401,95 +480,6 @@ void read_button(int adc)
 		bigclock = !bigclock;
 		_delay_ms(50);
 	} 
-}
-
-
-/**********
- *  TIME  *
- **********/
-void read_time()
-{
-
-	unsigned char n;
-
-	// read minutes
-	i2c_start_wait(DS1307_WRITE);
-	i2c_write(0x1);
-	i2c_rep_start(DS1307_READ);
-	n = i2c_readNak();
-	int m = ((n >> 4) * 10) + (n & 0b1111);
-
-	// read hours
-	i2c_rep_start(DS1307_WRITE);
-	i2c_write(0x2);
-	i2c_rep_start(DS1307_READ);
-	n = i2c_readNak();
-	int h = (((n >> 4) & 0x1) * 10) + (n & 0b1111);
-	i2c_stop();
-
-	// check for change
-	if(h != hours) {
-		pong.change_hr = 1;
-	} else if(m != minutes) {
-		pong.change_min = 1;
-	}
-}
-
-
-void read_time_initial()
-{
-	unsigned char n;
-
-	/*
-	i2c_start_wait(DS1307_WRITE);
-	i2c_write(0x0);
-	i2c_write(0b00000000);
-	i2c_stop();
-	*/
-
-	/*
-	i2c_start_wait(DS1307_WRITE);
-	i2c_write(0x1);
-	i2c_write(0x4);
-	i2c_stop();
-
-	i2c_start_wait(DS1307_WRITE);
-	i2c_write(0x2);
-	i2c_write(0x9);
-	i2c_stop();
-	*/
-
-	// set address (0x0 - seconds)
-	/*
-	i2c_start_wait(DS1307_WRITE);
-	i2c_write(0x0);
-	i2c_rep_start(DS1307_READ);
-	n = i2c_readNak();
-	seconds = (((n >> 4) & 0b111) * 10) + (n & 0x3);
-	i2c_stop();
-	*/
-
-	// read seconds
-	i2c_start_wait(DS1307_WRITE);
-	i2c_write(0x0);
-	i2c_rep_start(DS1307_READ);
-	n = i2c_readNak();
-	seconds = (((n >> 4) & 0b111) * 10) + (n & 0b1111);
-
-	// read minutes
-	i2c_rep_start(DS1307_WRITE);
-	i2c_write(0x1);
-	i2c_rep_start(DS1307_READ);
-	n = i2c_readNak();
-	minutes = ((n >> 4) * 10) + (n & 0b1111);
-
-	// read hours
-	i2c_rep_start(DS1307_WRITE);
-	i2c_write(0x2);
-	i2c_rep_start(DS1307_READ);
-	n = i2c_readNak();
-	hours = (((n >> 4) & 0x1) * 10) + (n & 0b1111);
-	i2c_stop();
 }
 
 
