@@ -658,6 +658,7 @@ void pong_move_ball(void)
 		} else {
 			hours++;
 		}
+		read_time();
 		pong.ball_x = 2;
 		pong.ball_y = 7;
 		pong.ball_dir_x = 1;
@@ -671,6 +672,7 @@ void pong_move_ball(void)
 		pong.ball_dir_x = -1;
 		pong.ball_dir_y = -4;
 		pong.change_min = 0;
+		read_time();
 	}
 
 	// prepare pad movement
