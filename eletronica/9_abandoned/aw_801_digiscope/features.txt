@@ -1,0 +1,29 @@
+- On/Off
+- Modes: time (1 input) / time (2 inputs) / voltage Y
+- Cables: voltage, ground, voltage 2
+
+- Regulators
+  - Time/DIV
+  - Volts/DIV
+  - X Pos
+  - Y Pos
+  - Trigger
+  - Analog / digital (with numbers)
+  - Autoset (?)
+
+Constraints:
+- DC only
+- Limited to 12V
+- 12mV steps
+
+Modelo:
+
+                                         ------  -------
+ VOLT1 <----|CONV 5/12|--|REG.VOLT(5V)|--|    |  | USB |   .--||
+ GND   <---------------------------------| mC |--|contr|--<   ||
+ VOLT2 <----|CONV 5/12|--|REG.VOLT(5V)|--|    |  | MAX?|   '--||
+                                         ------  -------
+					    |
+				      ------------
+				      | CONTROLS |
+				      ------------
