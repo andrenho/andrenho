@@ -79,7 +79,7 @@ Types of operations:
  - Test / status flags
      BR
  - System functions
-     INT, RETI, NOP
+     INT, RETI, NOP, HALT
 
 ------------------------------------------------------------------------
 
