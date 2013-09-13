@@ -260,7 +260,11 @@ void read_time()
 	i2c_write(0x2);
 	i2c_rep_start(DS1307_READ);
 	n = i2c_readNak();
-	int h = (((n >> 4) & 0x1) * 10) + (n & 0b1111);
+	int h = (n & 0b1111);
+	if(n & 0b100000)
+		h += 20;
+	else if(n & 0b10000)
+		h += 10;
 	i2c_stop();
 
 	// check for change
@@ -276,44 +280,8 @@ void read_time_initial()
 {
 	unsigned char n;
 
-	/*
-	i2c_start_wait(DS1307_WRITE);
-	i2c_write(0x0);
-	i2c_write(0b00000000);
-	i2c_stop();
-	*/
-
-	/*
-	i2c_start_wait(DS1307_WRITE);
-	i2c_write(0x1);
-	i2c_write(0x4);
-	i2c_stop();
-
-	i2c_start_wait(DS1307_WRITE);
-	i2c_write(0x2);
-	i2c_write(0x9);
-	i2c_stop();
-	*/
-
-	// set address (0x0 - seconds)
-	/*
-	i2c_start_wait(DS1307_WRITE);
-	i2c_write(0x0);
-	i2c_rep_start(DS1307_READ);
-	n = i2c_readNak();
-	seconds = (((n >> 4) & 0b111) * 10) + (n & 0x3);
-	i2c_stop();
-	*/
-
-	// read seconds
-	i2c_start_wait(DS1307_WRITE);
-	i2c_write(0x0);
-	i2c_rep_start(DS1307_READ);
-	n = i2c_readNak();
-	seconds = (((n >> 4) & 0b111) * 10) + (n & 0b1111);
-
 	// read minutes
-	i2c_rep_start(DS1307_WRITE);
+	i2c_start_wait(DS1307_WRITE);
 	i2c_write(0x1);
 	i2c_rep_start(DS1307_READ);
 	n = i2c_readNak();
@@ -324,8 +292,42 @@ void read_time_initial()
 	i2c_write(0x2);
 	i2c_rep_start(DS1307_READ);
 	n = i2c_readNak();
-	hours = (((n >> 4) & 0x1) * 10) + (n & 0b1111);
+	hours = (n & 0b1111);
+	if(n & 0b100000)
+		hours += 20;
+	else if(n & 0b10000)
+		hours += 10;
 	i2c_stop();
+
+	pong.change_min = 0;
+	pong.change_hr = 0;
+}
+
+
+void save_time()
+{
+	// seconds
+	i2c_start_wait(DS1307_WRITE);
+	i2c_write(0x0);
+	i2c_write(0b00000000);
+	i2c_stop();
+
+	// minutes
+	i2c_start_wait(DS1307_WRITE);
+	i2c_write(0x1);
+	i2c_write((minutes % 10) | ((minutes / 10) << 4));
+	i2c_stop();
+
+	// hours
+	i2c_start_wait(DS1307_WRITE);
+	i2c_write(0x2);
+	i2c_write((hours % 10) 
+			| ((hours >= 10 && hours < 20) ? 0b010000 : 0)
+			| ((hours >= 20) ? 0b100000 : 0)
+			| 0b0000000);
+	i2c_stop();
+
+	read_time_initial();
 }
 
 
@@ -390,6 +392,7 @@ void init_uc()
 ISR(TIMER1_COMPA_vect)
 {
 	read_clock = 1;
+	++seconds;
 }
 
 // runs every x us, draw screen
@@ -464,6 +467,7 @@ void read_button(int adc)
 		if(hours > 23) {
 			hours = 0;
 		}
+		save_time();
 		_delay_ms(50);
 	} else if(adc > 920) { // minutes
 		minutes++;
@@ -474,6 +478,7 @@ void read_button(int adc)
 		if(hours > 23) {
 			hours = 0;
 		}
+		save_time();
 		_delay_ms(50);
 	} else if(adc > 800) { // mode
 		clear();
