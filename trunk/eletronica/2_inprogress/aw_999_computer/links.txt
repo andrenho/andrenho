@@ -2,3 +2,10 @@ Display:
 http://www.bigmessowires.com/2011/06/07/low-power-lcd-smackdown/
 http://robey.lag.net/2010/01/23/tiny-monospace-font.html
 
+CPU:
+http://dcpu.com/
+http://fail0verflow.com/blog/2012/dcpu-16-review.html
+
+Comprar:
+DRAM - http://www.soldafria.com.br/circuito-integrado-memoria-ram-v53c16258hk50-p-2056.html
+USB - http://www.soldafria.com.br/conector-usb-a-femea-yh-usb01b-p-2795.html

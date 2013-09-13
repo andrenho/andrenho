@@ -1,11 +1,6 @@
-update=13/06/2013 14:29:02
+update=13/09/2013 08:36:18
 version=1
-last_client=pcbnew
-[cvpcb]
-version=1
-NetIExt=net
-[cvpcb/libraries]
-EquName1=devcms
+last_client=cvpcb
 [eeschema]
 version=1
 LibDir=../../../components
@@ -68,7 +63,6 @@ DrawSegmentWidth=0.200000000000
 BoardOutlineThickness=0.100000000000
 ModuleOutlineThickness=0.150000000000
 [pcbnew/libraries]
-LibDir=../../../components
 LibName1=sockets
 LibName2=connect
 LibName3=discret
@@ -86,3 +80,9 @@ LibName14=dip_sockets
 LibName15=pga_sockets
 LibName16=valves
 LibName17=footprint_aw
+LibDir=../../../components
+[cvpcb]
+version=1
+NetIExt=net
+[cvpcb/libraries]
+EquName1=devcms
