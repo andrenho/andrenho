@@ -1,4 +1,4 @@
-PCBNEW-LibModule-V1  14/06/2013 16:12:40
+PCBNEW-LibModule-V1  13/09/2013 08:35:29
 # encoding utf-8
 Units mm
 $INDEX
@@ -6,6 +6,7 @@ $INDEX
 LED_16x16
 pin
 pin1
+socket_CR2032
 $EndINDEX
 $MODULE 1pin
 Po 0 0 0 15 51BB69C8 00000000 ~~
@@ -298,4 +299,28 @@ Ne 0 ""
 Po 0 0
 $EndPAD
 $EndMODULE pin1
+$MODULE socket_CR2032
+Po 0 0 0 15 5232F87C 00000000 ~~
+Li socket_CR2032
+Sc 0
+AR 
+Op 0 0 0
+T0 0 0 1 1 0 0.15 N V 21 N "socket_CR2032"
+T1 16.51 19.05 1 1 0 0.15 N V 21 N "VAL**"
+DC 0 0 1.27 -10.16 0.15 21
+$PAD
+Sh "1" R 1.5 1.5 0 0 0
+Dr 0.6 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 10.16 0
+$EndPAD
+$PAD
+Sh "2" C 1.5 1.5 0 0 0
+Dr 0.6 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po -10.16 0
+$EndPAD
+$EndMODULE socket_CR2032
 $EndLIBRARY
