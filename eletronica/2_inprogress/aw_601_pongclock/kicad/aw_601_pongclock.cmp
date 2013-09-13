@@ -1,10 +1,10 @@
-Cmp-Mod V01 Created by CvPcb (2013-05-16 BZR 4016)-stable date = 13/09/2013 08:24:33
+Cmp-Mod V01 Created by CvPcb (2013-05-16 BZR 4016)-stable date = 13/09/2013 08:36:44
 
 BeginCmp
 TimeStamp = /51CDD52B;
 Reference = BT1;
 ValeurCmp = BATTERY;
-IdModule  = ;
+IdModule  = socket_CR2032;
 EndCmp
 
 BeginCmp
