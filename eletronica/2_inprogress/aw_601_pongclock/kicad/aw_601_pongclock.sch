@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date 13/09/2013 08:24:44
+EESchema Schematic File Version 2
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -37,7 +37,7 @@ $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
 Title "AW601 Pong Clock"
-Date "13 sep 2013"
+Date "15 sep 2013"
 Rev ""
 Comp "Imperial Electronics"
 Comment1 ""
@@ -2639,7 +2639,7 @@ L R R13
 U 1 1 5230ED52
 P 950 8100
 F 0 "R13" V 900 7850 40  0000 C CNN
-F 1 "220" V 957 8101 40  0000 C CNN
+F 1 "10K" V 957 8101 40  0000 C CNN
 F 2 "~" V 880 8100 30  0000 C CNN
 F 3 "~" H 950 8100 30  0000 C CNN
 	1    950  8100
@@ -2650,7 +2650,7 @@ L R R12
 U 1 1 5230ED5F
 P 800 8100
 F 0 "R12" V 750 7850 40  0000 C CNN
-F 1 "220" V 807 8101 40  0000 C CNN
+F 1 "10K" V 807 8101 40  0000 C CNN
 F 2 "~" V 730 8100 30  0000 C CNN
 F 3 "~" H 800 8100 30  0000 C CNN
 	1    800  8100

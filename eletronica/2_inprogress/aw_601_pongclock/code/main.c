@@ -669,6 +669,7 @@ void pong_move_ball(void)
 		pong.ball_dir_x = 1;
 		pong.ball_dir_y = -4;
 		pong.change_hr = 0;
+		read_time_initial();
 	}
 	if(pong.ball_x == 0 && pong.change_min) {
 		minutes++;
@@ -677,7 +678,7 @@ void pong_move_ball(void)
 		pong.ball_dir_x = -1;
 		pong.ball_dir_y = -4;
 		pong.change_min = 0;
-		read_time();
+		read_time_initial();
 	}
 
 	// prepare pad movement
