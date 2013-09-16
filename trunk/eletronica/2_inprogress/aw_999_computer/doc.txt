@@ -77,8 +77,8 @@ Registers
    010 - Indexed indirect
    011 - Immediate
    100 - Stack operation
-   101 - Zero page + absolute
-   110 - Zero page + absolute + register
+   101 - Absolute
+   110 - Absolute + register
 
 Flags:
  Y (carry)
@@ -125,25 +125,69 @@ Types of operations
      ADD, SUB, MUL, DIV, INC, DEC
  - Jumps / branches
      JMP, JSR, RET
- - Test / status flags
+ - Test / status flags (has sign flag)
      BEQ, BNE, BLT, BGT, BLE, BGE, BY, BZ, BO, BN, BNY, BNZ, BNO, BNN
  - System functions
      INT, RETI, NOP, HALT
 
 Opcode list
 -----------
+        imp reg imm8 imm16 dir8 dir16 ind8 ind16 rel8 rel16
+Memory
+  LD              01    02   03    04   05    06
+  ST              0A    0B   0C    0D   0E    0F
+Register
+  SET
+Stack
+  PUSH
+  POP
+Logical
+  AND
+  XOR
+  OR
+  NOT
+  SHL
+  SHR
+  ROL
+  ROR
+  TEST
+Artithmetical
+  ADD
+  SUB
+  MUL
+  DIV
+  MOD
+  INC        41
+  DEC
+Jumps
+  JMPb                                             4C    4D
+  JMPf                                             4E    4F
+  JSR
+  RET
+Branches
+  BEQ
+  BNE
+  BLT
+  BEQ
+  BNE
+  BLT
+  BGT
+  BLE
+  BGE
+  BY
+  BZ                                               83    84
+  BO
+  BN
+  BNY
+  BNZ
+  BNO
+  BNN
+System functions
+  INT
+  RETI
+  NOP 
+  HALT
 
-      0x00 0x01 0x02 0x03 0x04 0x05 0x06 0x07 0x08 0x09
-0x00  LD   ST   SET  PUSH POP  
-0x10  AND  XOR  OR   NOT  SHL  SHR  ROL  ROR  TEST
-0x20  ADD  SUB  MUL  DIV  INC  DEC
-0x30  JMPa JMPi JSRa JSRi RET
-0x40  BEQ  BNE  BLT  BGT  BLE  BY   BZ   BO   BN
-0x50  BNZ  BNO  BNN  INT  RETI NOP  HALT
-0x60
-0x70
-0x80
-0x90
 
 ------------------------------------------------------------------------
 
