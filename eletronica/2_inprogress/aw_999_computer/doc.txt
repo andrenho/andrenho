@@ -27,18 +27,18 @@
   |          |    Battery    |  |       |   |                     | |
   +--------+ |               |  |       |   |                     | |
   | Audio  | |               |  |       |   +---------------------+ |
-  +--------+ |               |  +-------+      +---+ +---+ +---+    |
-  |          +---------------+  +-------+      | 1 | | 2 | | 3 |    |
-  |          +---------------+  |       |      +---+ +---+ +---+    |
-  |          |               |  |       |      +---+ +---+ +---+    |
-  |          |               |  |       |      | 4 | | 5 | | 6 |    |
-  |          |               |  |  RAM  |      +---+ +---+ +---+    |
-  |          |  Components   |  |       |      +---+ +---+ +---+    |
-  |          |               |  |       |      | 7 | | 8 | | 9 |    |
-  |          |               |  |       |      +---+ +---+ +---+    |
-  |          |               |  |       |      +---+ +---+ +---+    |
-  |          |               |  |       |      | X | | 0 | | Y |    |
-  |          +---------------+  +-------+      +---+ +---+ +---+    |
+  +--------+ |               |  +-------+   +---+ +---+ +---+ +---+ |
+  |          +---------------+  +-------+   | 1 | | 2 | | 3 | | A | |
+  |          +---------------+  |       |   +---+ +---+ +---+ +---+ |
+  |          |               |  |       |   +---+ +---+ +---+ +---+ |
+  |          |               |  |       |   | 4 | | 5 | | 6 | | B | |
+  |          |               |  |  RAM  |   +---+ +---+ +---+ +---+ |
+  |          |  Components   |  |       |   +---+ +---+ +---+ +---+ |
+  |          |               |  |       |   | 7 | | 8 | | 9 | | C | |
+  |          |               |  |       |   +---+ +---+ +---+ +---+ |
+  |          |               |  |       |   +---+ +---+ +---+ +---+ |
+  |          |               |  |       |   | X | | 0 | | Y | | D | |
+  |          +---------------+  +-------+   +---+ +---+ +---+ +---+ |
   +-----------------------------------------------------------------+
 
 mC = ATMEGA 162V - 5 mA @ 4 Mhz, 0.8 mA @ 1 Mhz (3V)
@@ -52,9 +52,33 @@ Battery = CR2032 - 225 mAh
 =  CPU  =
 =========
 
-Registers (8-bit):
- 8-bit  (A, B, C, D, E, F, G, H)
- 32-bit (PC, SP)
+Registers
+---------
+ 0000 - A (16 bit)
+ 0001 - B (16 bit)
+ 0010 - C (16 bit)
+ 0011 - D (16 bit)
+ 0100 - E (16 bit)
+ 0101 - F (16 bit)
+ 0110 - G (16 bit)
+ 0111 - H (16 bit)
+ 1000 - AB (32 bit)
+ 1001 - ST (24 bit)
+ 1010 - ??
+ 1011 - ??
+ 1100 - ??
+ 1101 - ??
+ 1110 - ??
+ 1111 - Addressing mode: 
+  0XXX - 8 bit
+  1XXX - 16 bit
+   000 - PC-relative
+   001 - Register indirect
+   010 - Indexed indirect
+   011 - Immediate
+   100 - Stack operation
+   101 - Zero page + absolute
+   110 - Zero page + absolute + register
 
 Flags:
  Y (carry)
@@ -63,7 +87,32 @@ Flags:
  O (overflow)
  N (negative)
 
-Types of operations:
+
+Operation composition:
+----------------------
+
+0000000 00000000 00000000...
+|       |   |    '--Parameters
+|       |   '-- Register 2
+|       '-- Register 1 / addressing mode
+'-- Instruction opcode
+
+
+Adressing modes
+---------------
+ - Register on register: XXX A,B        (2 bytes)
+ - Absolute:             JMP AAAAAA     (4 bytes)
+ - Indirect:             JMP [AAAAAA]   (4 bytes)
+ - PC-relative:          BXX AA         (3 bytes, 4 bytes)
+ - Register indirect:    XXX [R]        (2 bytes)
+ - Indexed indirect:     XXX [R], 99    (3 bytes, 4 bytes)
+ - Indirect indexed:     XXX [R, 99]    (3 bytes, 4 bytes)
+ - Immediate:            XXX R, 99      (3 bytes, 4 bytes)
+ - Stacked:              XXX R, ST+99   (3 bytes)
+
+ 
+Types of operations
+-------------------
  - Load/store (from/to memory)
      LD, ST
  - Register transfers
@@ -75,11 +124,26 @@ Types of operations:
  - Arithmetical / increment
      ADD, SUB, MUL, DIV, INC, DEC
  - Jumps / branches
-     JMP, CALL, RET
+     JMP, JSR, RET
  - Test / status flags
-     BR
+     BEQ, BNE, BLT, BGT, BLE, BGE, BY, BZ, BO, BN, BNY, BNZ, BNO, BNN
  - System functions
      INT, RETI, NOP, HALT
+
+Opcode list
+-----------
+
+      0x00 0x01 0x02 0x03 0x04 0x05 0x06 0x07 0x08 0x09
+0x00  LD   ST   SET  PUSH POP  
+0x10  AND  XOR  OR   NOT  SHL  SHR  ROL  ROR  TEST
+0x20  ADD  SUB  MUL  DIV  INC  DEC
+0x30  JMPa JMPi JSRa JSRi RET
+0x40  BEQ  BNE  BLT  BGT  BLE  BY   BZ   BO   BN
+0x50  BNZ  BNO  BNN  INT  RETI NOP  HALT
+0x60
+0x70
+0x80
+0x90
 
 ------------------------------------------------------------------------
 
@@ -87,13 +151,39 @@ Types of operations:
 =  Memory Map  =
 ================
 
+0000-00FF    Interrupt map
+0100-01FF    Video
+0200-021F    Keyboard
+0220-025F    Timer
+0260-029F    Audio
+02A0-02DF    Non-volatile memory
+02E0-02FF    System information
 
+Interrupt map
+-------------
+ 0 - keyboard
+ 1~4 - timer 1~4
+
+System information
+------------------
+ ...
 
 ------------------------------------------------------------------------
 
 ===========
 =  Video  =
 ===========
+
+01FF - Video mode (0 - terminal, 1 - pixel)
+
+Terminal mode
+-------------
+01FE - end of queue
+
+Graphic mode
+------------
+0100-01FC0 - pixels (8 bit)
+
 
 ------------------------------------------------------------------------
 
@@ -108,6 +198,12 @@ Types of operations:
 =  Non-volatile memory  =
 =========================
 
+
+------------------------------------------------------------------------
+
+===========
+=  Timer  =
+===========
 
 ------------------------------------------------------------------------
 
