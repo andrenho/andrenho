@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2
+EESchema Schematic File Version 2  date 16/09/2013 09:15:03
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -37,7 +37,7 @@ $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
 Title "AW601 Pong Clock"
-Date "15 sep 2013"
+Date "16 sep 2013"
 Rev ""
 Comp "Imperial Electronics"
 Comment1 ""
@@ -2473,24 +2473,6 @@ Text Label 8450 2050 0    60   ~ 0
 V4
 Text Label 6800 5500 0    60   ~ 0
 V4
-Text Label 11800 4150 0    60   ~ 0
-V28
-Text Label 11800 4250 0    60   ~ 0
-V29
-Text Label 11800 4350 0    60   ~ 0
-V30
-Text Label 11800 4450 0    60   ~ 0
-V31
-Text Label 11800 4550 0    60   ~ 0
-V32
-Text Label 14100 5350 1    60   ~ 0
-V28
-Text Label 14500 5350 1    60   ~ 0
-V29
-Text Label 14700 5350 1    60   ~ 0
-V30
-Text Label 15100 5350 1    60   ~ 0
-V31
 Text Label 15300 5350 1    60   ~ 0
 V32
 $Comp
@@ -2686,4 +2668,22 @@ Wire Wire Line
 Connection ~ 1100 8550
 Text Label 2450 9700 0    60   ~ 0
 BAT+
+Text Label 11800 4550 0    60   ~ 0
+V32
+Text Label 11800 4150 0    60   ~ 0
+V28
+Text Label 11800 4250 0    60   ~ 0
+V29
+Text Label 11800 4350 0    60   ~ 0
+V30
+Text Label 11800 4450 0    60   ~ 0
+V31
+Text Label 14100 5350 1    60   ~ 0
+V28
+Text Label 14500 5350 1    60   ~ 0
+V29
+Text Label 14700 5350 1    60   ~ 0
+V30
+Text Label 15100 5350 1    60   ~ 0
+V31
 $EndSCHEMATC
