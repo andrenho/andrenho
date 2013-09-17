@@ -1,5 +1,7 @@
 #include "display.h"
 
+#include <assert.h>
+
 Display* display_init()
 {
 	Display* d = malloc(sizeof(Display));
@@ -27,7 +29,17 @@ Display* display_init()
 	d->shadow = SDL_CreateTextureFromSurface(d->ren, sf);
 	SDL_FreeSurface(sf);
 
+	// load charmap
+	sf = IMG_Load("chars.png");
+	for(int x=0; x<64; x++) {
+		for(int y=0; y<96; y++) {
+			d->charmap[x+(y*64)] = !((char*)sf->pixels)[x+(y*64)];
+		}
+	}
+	SDL_FreeSurface(sf);
+
 	d->active = true;
+	d->cur_x = d->cur_y;
 
 	return d;
 }
@@ -40,6 +52,17 @@ void display_check_events(Display* d)
 	while(SDL_PollEvent(&e)) {
 		if(e.type == SDL_QUIT) {
 			d->active = false;
+		}
+	}
+}
+
+
+void display_draw_char(Display* d, char c, int x, int y)
+{
+	assert(x >= 0 && x < 21 && y >= 0 && y < 8);
+	for(int px=0; px<4; px++) {
+		for(int py=0; py<6; py++) {
+			d->data[(x*4+px)+((y*6+py)*84)] = d->charmap[((c%16)*4+px) + ((c/16)*6+py)*64];
 		}
 	}
 }
@@ -70,4 +93,23 @@ void display_update(Display* d)
 
 	// update screen
 	SDL_RenderPresent(d->ren);
+}
+
+
+void display_send_command(Display* d, char* str)
+{
+	if(str[0] == 0) {
+		return;
+	}
+
+	if(str[0] != 27) {
+		display_draw_char(d, str[0], d->cur_x++, d->cur_y);
+		if(d->cur_x > 20) {
+			d->cur_x = 0;
+			d->cur_y++;
+		}
+		if(d->cur_y > 7) {
+			abort();
+		}
+	}
 }
