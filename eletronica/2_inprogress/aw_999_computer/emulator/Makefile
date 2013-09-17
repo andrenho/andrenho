@@ -1,13 +1,8 @@
 CC=gcc
-CFLAGS=-Wall -g --std=c99
+CFLAGS=-Wall -g -O0 --std=c99 `sdl2-config --cflags` `pkg-config --cflags SDL2_image`
+LDFLAGS=`sdl2-config --libs` `pkg-config --libs SDL2_image`
 
-all: display emulator
-
-emulator: emulator.o
-	$(CC) -o $@ $< $(CFLAGS) $(LIBS)
-
-display: display.o
-	$(CC) -o $@ $< $(CFLAGS) $(LIBS) `sdl2-config --cflags --libs` `pkg-config --cflags --libs SDL2_image`
+emulator: display.o emulator.o ram.o
 
 clean:
-	rm -rf display *.o
+	rm -rf emulator *.o
