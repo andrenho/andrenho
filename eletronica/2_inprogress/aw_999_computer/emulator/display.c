@@ -2,6 +2,8 @@
 
 #include <assert.h>
 
+#include "SDL2/SDL_image.h"
+
 Display* display_init()
 {
 	Display* d = malloc(sizeof(Display));
