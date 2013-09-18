@@ -43,6 +43,9 @@ Display* display_init()
 	d->active = true;
 	d->cur_x = d->cur_y;
 
+	for(int i=0; i<48*84; i++)
+		d->data[i] = 0;
+
 	return d;
 }
 
