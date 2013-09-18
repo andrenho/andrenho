@@ -13,7 +13,7 @@ CPU* cpu_init()
 }
 
 
-static uint16_t* cpu_find_register(CPU* c, uint8_t d)
+uint16_t* cpu_find_register(CPU* c, uint8_t d)
 {
 	switch(d) {
 	case 0x0: return &c->A;

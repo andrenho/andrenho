@@ -11,6 +11,7 @@ typedef struct CPU {
 
 CPU* cpu_init();
 bool cpu_step(CPU* cpu);
+uint16_t* cpu_find_register(CPU* c, uint8_t d);
 
 #define LD_imm8 	0x01
 #define LD_ind16	0x06
