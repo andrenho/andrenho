@@ -137,7 +137,7 @@ Memory
   LD              01    02   03    04   05    06
   ST              0A    0B   0C    0D   0E    0F
 Register
-  SET
+  SET             10
 Stack
   PUSH
   POP
@@ -186,7 +186,7 @@ System functions
   INT
   RETI
   NOP 
-  HALT
+  HALT  FF
 
 
 ------------------------------------------------------------------------
@@ -197,11 +197,11 @@ System functions
 
 0000-00FF    Interrupt map
 0100-01FF    Video
-0200-021F    Keyboard
-0220-025F    Timer
-0260-029F    Audio
-02A0-02DF    Non-volatile memory
-02E0-02FF    System information
+0300-031F    Keyboard
+0320-035F    Timer
+0360-039F    Audio
+03A0-03DF    Non-volatile memory
+03E0-03FF    System information
 
 Interrupt map
 -------------
@@ -218,15 +218,15 @@ System information
 =  Video  =
 ===========
 
-01FF - Video mode (0 - terminal, 1 - pixel)
+02FF - Video mode (0 - terminal, 1 - pixel)
 
 Terminal mode
 -------------
-01FE - end of queue
+02FE - end of queue
 
 Graphic mode
 ------------
-0100-01FC0 - pixels (8 bit)
+0100-02FC0 - pixels (8 bit)
 
 
 ------------------------------------------------------------------------
