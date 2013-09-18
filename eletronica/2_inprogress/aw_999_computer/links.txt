@@ -1,6 +1,7 @@
 Display:
 http://www.bigmessowires.com/2011/06/07/low-power-lcd-smackdown/
 http://robey.lag.net/2010/01/23/tiny-monospace-font.html
+http://learn.adafruit.com/nokia-5110-3310-monochrome-lcd
 
 CPU:
 http://dcpu.com/
