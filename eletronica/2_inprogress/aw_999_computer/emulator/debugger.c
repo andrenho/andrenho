@@ -16,6 +16,7 @@ Debugger* debugger_init()
 	raw();
 	noecho();
 	refresh();
+	curs_set(0);
 	d->topPC = 0x1000;
 
 	return d;
@@ -93,18 +94,26 @@ static int debugger_operation(Debugger* d, uint32_t pc, char* str)
 
 void debugger_interact(Debugger* d)
 {
+	// instructions
 	int y;
 	uint32_t pc = d->topPC;
 	for(y=0; y<(LINES - 4); y++) {
 		static char str[30];
 		int dif = debugger_operation(d, pc, str);
-		mvprintw(y, 2, "%06X:  %s", pc, str);
+		mvprintw(y, 0, "  %06X:  %s               ", pc, str);
 		if(pc == cpu->PC) {
 			mvchgat(y, 0, 30, A_REVERSE, 1, NULL);
 		}
 		pc += dif;
 	}
 
+	// registers
+	for(y=0; y<8; y++) {
+		mvprintw(y, COLS-16, "%s: 0x%04X", debug_register(y),
+			*cpu_find_register(cpu, y));
+	}
+
+	// get keys
 	int c = getch();
 	switch(c)
 	{
