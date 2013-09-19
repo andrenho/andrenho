@@ -1,3 +1,101 @@
 #!/usr/bin/env ruby
 
 
+class Command
+  attr_reader :gsub, :opcode
+  def initialize(gsub, opcode)
+    @gsub = gsub
+    @opcode = opcode
+  end
+end
+
+$command = [
+  Command.new('set $reg, $n', 0x10),
+]
+
+
+class Assembler
+
+  def initialize(filename)
+    @filename = filename
+    @symbol = {}
+  end
+
+  def parse
+    preprocess
+    process 1
+    process 2
+  end
+
+private
+
+  def preprocess
+    @output = `cpp -P -I. -Wall #{ARGV.join(' ')}`
+    exit if $?.exitstatus != 0
+    @output.gsub!(':', ":\n")
+  end
+
+
+  def process(pass)
+    @addr = 0x0
+    @output.each_line do |line|
+      # remove comments
+      line.gsub!(/[\t|\s]*;.*$/, '')
+
+      # remove initial spaces
+      line.gsub!(/^[\t|\s]*/, '')
+
+      # remove enter
+      line.chomp!
+
+      # ingore empty lines
+      next if line.empty?
+
+      # parse file
+      if ['org'].include? line.split[0]
+        parse_directive(line.split)
+      elsif line[-1] == ':'
+        parse_linename(line.chomp) if pass == 1
+      elsif ['db'].include? line.split[0]
+        parse_data(line.split, pass)
+      else
+        parse_command(line.split, pass)
+      end
+    end
+  end
+
+  def parse_directive(args)
+    if args[0] == 'org'
+      error('too many arguments to org') if args.length > 2
+      @addr = Integer(args[1]) rescue error('invalid number')
+    else
+      abort
+    end
+  end
+
+  def parse_linename(name)
+    error('repeated symbol') if @symbol.has_key? name
+    @symbol[name] = @addr
+  end
+
+  def parse_data(line, pass)
+  end
+
+  def parse_command(line, pass)
+  end
+
+  def error(s)
+    $stderr.puts "error: #{s}"
+    exit
+  end
+
+end
+
+
+if ARGV.size == 0
+  $stderr.puts 'Usage: has filename.asm'
+  exit 1
+end
+
+has = Assembler.new(ARGV)
+has.parse
