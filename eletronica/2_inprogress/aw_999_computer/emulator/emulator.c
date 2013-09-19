@@ -32,8 +32,8 @@ int main(int argc, char* argv[])
 	// main loop
 	int i;
 	while(display->active) {
-		display_check_events(display);
 		display_update(display);
+		display_check_events(display);
 
 		if(dbg) {
 			debugger_interact(dbg);

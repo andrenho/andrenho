@@ -7,6 +7,7 @@
 typedef struct CPU {
 	uint16_t A, B, C, D, E, F, G, H;
 	uint32_t ST, PC;
+	bool halt_mode;
 } CPU;
 
 CPU* cpu_init();
