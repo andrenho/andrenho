@@ -54,10 +54,15 @@ void display_check_events(Display* d)
 {
 	SDL_Event e;
 	// check events
+again:
 	while(SDL_PollEvent(&e)) {
 		if(e.type == SDL_QUIT) {
 			d->active = false;
+			return;
 		}
+	}
+	if(cpu->halt_mode) {
+		goto again;
 	}
 }
 

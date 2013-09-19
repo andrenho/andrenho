@@ -5,6 +5,7 @@
 
 typedef struct Debugger {
 	uint32_t topPC;
+	uint32_t topRAM;
 } Debugger;
 
 Debugger* debugger_init();

@@ -9,6 +9,7 @@ CPU* cpu_init()
 {
 	CPU* c = malloc(sizeof(CPU));
 	c->PC = 0x1000;
+	c->halt_mode = false;
 	return c;
 }
 
@@ -45,7 +46,7 @@ bool cpu_step(CPU* c)
 		r1 = cpu_find_register(c, ram_get(c->PC) >> 4);
 		r2 = cpu_find_register(c, ram_get(c->PC++) & 0xf);
 		address = ram_get(c->PC++) << 8;
-		address += ram_get(c->PC++) & 0xf;
+		address |= ram_get(c->PC++) & 0xff;
 		*r1 = ram_get(*r2 + address);
 		break;
 	case SET_imm8:
@@ -54,29 +55,28 @@ bool cpu_step(CPU* c)
 		break;
 	case BZ_rel8:
 		r1 = cpu_find_register(c, ram_get(c->PC++) >> 4);
-		address = ram_get(c->PC++) & 0xf;
+		address = ram_get(c->PC++) & 0xff;
 		if(*r1 == 0) {
 			c->PC += ((int8_t)address) - 1;
 		}
 		break;
 	case ST_dir16:
-		r1 = cpu_find_register(c, ram_get(c->PC) >> 4);
-		r2 = cpu_find_register(c, ram_get(c->PC++) & 0xf);
+		r1 = cpu_find_register(c, ram_get(c->PC++) >> 4);
 		address = ram_get(c->PC++) << 8;
-		address += ram_get(c->PC++) & 0xf;
-		ram_set(address+(*r1), *r2);
+		address |= ram_get(c->PC++) & 0xff;
+		ram_set(address, *r1);
 		break;
 	case INC_reg:
 		r1 = cpu_find_register(c, ram_get(c->PC++) >> 4);
 		(*r1)++;
 		break;
 	case JMPb_rel8:
-		address = ram_get(c->PC++) & 0xf;
+		address = ram_get(c->PC++) & 0xff;
 		c->PC -= (address + 1);
 		break;
 	case HALT_imp:
-		// TODO
-		break;
+		c->halt_mode = true;
+		return true;
 	default:
 		fprintf(stderr, "Invalid opcode 0x%X in 0x%X.\n", opc, c->PC--);
 		exit(1);
