@@ -3,6 +3,8 @@
 #include <assert.h>
 
 #include "SDL2/SDL_image.h"
+#include "cpu.h"
+extern CPU* cpu;
 
 Display* display_init()
 {
