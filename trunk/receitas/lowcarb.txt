@@ -91,6 +91,8 @@ FEITOS - LANCHES
      <http://www.macheesmo.com/2010/04/the-denver-omelet/>
  - Omelete Lox
      <http://www.macheesmo.com/2011/11/the-lox-omelet/>
+ - Omelete de couve
+     <http://www.simplyrecipes.com/recipes/scrambled_eggs_with_kale_and_mozzarella/>
  - Bolinhos de atum  
      <http://www.happychomp.com/post/48725764981/recipe-tuna-patties>
  - Bolinho de inhame e atum  
@@ -107,6 +109,8 @@ FEITOS - LANCHES
      <http://smittenkitchen.com/blog/2013/09/zucchini-parmesan-crisps/>
  - Quesadilla grega de espinafre
      <http://www.macheesmo.com/2013/08/greek-spinach-quesadilla/>
+ - Fritatta de chilles
+     <http://www.macheesmo.com/2013/09/hatch-chile-frittata/>
 
 
 FEITOS - SALADAS
@@ -133,6 +137,8 @@ FEITOS - SALADAS
      <http://www.rippedrecipes.com/recipe/cucumber-tuna-rolls-871.html>
  - Salada de frango com molho italiano
      <http://www.healthy-delicious.com/2013/08/chicken-chopped-salad-sweet-italian-dressing-portillos/>
+ - Salada caprese
+     <http://www.macheesmo.com/2012/08/chicken-caprese-salad/>
 
 
 FEITOS - CAFÉ DA MANHÃ
@@ -215,3 +221,7 @@ A FAZER
      <http://www.macheesmo.com/2013/08/cherry-bbq-sauce/>
  - Abacate com ovo
      <http://www.happychomp.com/post/59091652336>
+ - Sopa de bacon
+     <http://www.healthy-delicious.com/2013/10/spicy-bacon-scallion-dip/>
+ - Salmão tunísio com molho verde
+     <http://www.notderbypie.com/tunisian-salmon-with-spicy-green-sauce/>
