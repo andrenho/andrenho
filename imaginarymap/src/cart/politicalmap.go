@@ -7,21 +7,35 @@ import (
 )
 
 type PoliticalMap struct {
+	MapType
 }
 
-func (mt *PoliticalMap) Draw(m *wm.Worldmap, proj Projection, c *CartConfig) {
+func NewPoliticalMap(m *wm.Worldmap, proj Projection,
+	config *CartConfig) IMapType {
+	return &PoliticalMap{MapType{m, proj, config}}
+}
+
+func (mt *PoliticalMap) Draw() {
 	var b bytes.Buffer
 
-	b.WriteString(SVG_Header())
-	for _, poly := range m.Polygons {
+	b.WriteString(mt.SVG_Header())
+
+	// draw polygons
+	for _, poly := range mt.m.Polygons {
 		b.WriteString("<polygon points=\"")
 		for _, pt := range poly.Points {
-			x, y := proj.Convert(*pt)
+			x, y := mt.proj.Convert(*pt)
 			b.WriteString(fmt.Sprintf("%f,%f ", x, y))
 		}
 		b.WriteString("\" style=\"fill:lime; stroke:black; stroke-width:1\" />")
 	}
-	b.WriteString(SVG_Footer())
+
+	// draw grid
+	if mt.config.DrawGrid {
+		b.WriteString(mt.DrawPoints())
+	}
+
+	b.WriteString(mt.SVG_Footer())
 
 	fmt.Println(b.String())
 }
