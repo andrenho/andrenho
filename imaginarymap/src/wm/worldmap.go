@@ -30,21 +30,21 @@ func (m *Worldmap) createPolygonsVoronoi(cfg *MapConfig) {
 	var vertices voronoi.Vertices
 	vor := voronoi.Voronoi{}
 	// add border points
-
+	// TODO
 	// add random points
-	for lat := 1.0; lat < 180.0; lat += (1.0 / cfg.PointDensity) {
-		for lon := 1.0; lon < 360.0; lon += (1.0 / cfg.PointDensity) {
+	for lat := 1.0; lat < 170.0; lat += (1.0 / cfg.PointDensity) {
+		for lon := 1.0; lon < 350.0; lon += (1.0 / cfg.PointDensity) {
 			o := m.rnd.Float64() * (1.0 / cfg.PointDensity)
 			a := m.rnd.Float64() * (1.0 / cfg.PointDensity)
 			vertices = append(vertices, &voronoi.Point{lon + o, lat + a})
 		}
 	}
 	// calculate voronoi and add vertices
-	edges := vor.GetEdges(&vertices, 360.0, 180.0)
-	edges_clear := cleanupVoronoi(&edges)
+	edges := vor.GetEdges(&vertices, 10000.0, 50000)
+	edges_clear := &edges // cleanupVoronoi(&edges)
 	for _, e := range *edges_clear {
-		p1 := Point{Longitude: e.Start.X - 180.0, Latitude: e.Start.Y - 90.0}
-		p2 := Point{Longitude: e.End.X - 180.0, Latitude: e.End.Y - 90.0}
+		p1 := Point{Longitude: e.Start.X, Latitude: e.Start.Y}
+		p2 := Point{Longitude: e.End.X, Latitude: e.End.Y}
 		m.Points[p1] = PointInfo{}
 		m.Points[p2] = PointInfo{}
 

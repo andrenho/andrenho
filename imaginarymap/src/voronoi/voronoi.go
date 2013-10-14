@@ -16,7 +16,9 @@
 
 // An implementation of Fortune's algorithm to get Voronoi edges for a set of
 // points.
-package voronoi
+
+//package voronoi
+package main
 
 import (
 	"container/heap"
