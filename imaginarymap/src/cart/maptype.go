@@ -26,11 +26,19 @@ func (mt *MapType) SVG_Footer() string {
 
 func (mt *MapType) DrawPoints() string {
 	var b bytes.Buffer
-	for _, pt := range mt.m.Points {
+	for pt, _ := range mt.m.Points {
 		x, y := mt.proj.Convert(pt)
 		b.WriteString(fmt.Sprintf(
 			"\t<circle cx='%f' cy='%f' r='%f' fill='black' />\n",
 			x, y, mt.config.GridPointSize))
+	}
+	for _, po := range mt.m.Polygons {
+		b.WriteString("\t<polygon points='")
+		for _, pt := range po.Points {
+			x, y := mt.proj.Convert(*pt)
+			b.WriteString(fmt.Sprintf("%f,%f ", x, y))
+		}
+		b.WriteString(fmt.Sprintf("' style='stroke:black;stroke-width:1'/>\n"))
 	}
 	return b.String()
 }
