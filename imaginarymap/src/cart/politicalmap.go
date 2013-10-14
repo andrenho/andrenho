@@ -20,16 +20,6 @@ func (mt *PoliticalMap) Draw() {
 
 	b.WriteString(mt.SVG_Header())
 
-	// draw polygons
-	for _, poly := range mt.m.Polygons {
-		b.WriteString("<polygon points=\"")
-		for _, pt := range poly.Points {
-			x, y := mt.proj.Convert(*pt)
-			b.WriteString(fmt.Sprintf("%f,%f ", x, y))
-		}
-		b.WriteString("\" style=\"fill:lime; stroke:black; stroke-width:1\" />")
-	}
-
 	// draw grid
 	if mt.config.DrawGrid {
 		b.WriteString(mt.DrawPoints())

@@ -8,7 +8,7 @@ type MapConfig struct {
 func LoadMapConfig() *MapConfig {
 	return &MapConfig{
 		Seed:         1,
-		PointDensity: 0.01,
+		PointDensity: 0.05,
 	}
 }
 
