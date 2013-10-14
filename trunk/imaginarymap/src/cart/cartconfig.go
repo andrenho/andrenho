@@ -9,7 +9,7 @@ type CartConfig struct {
 func LoadCartographerConfig() *CartConfig {
 	return &CartConfig{
 		DrawGrid:      true,
-		GridPointSize: 0.8,
+		GridPointSize: 2,
 	}
 }
 
