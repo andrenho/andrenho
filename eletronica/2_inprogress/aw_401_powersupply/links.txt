@@ -1,3 +1,16 @@
 http://project-eps.blogspot.be/2013/05/linear-regulated-bench-power-supply.html
 
 http://dx.com/p/mini-digital-blue-red-led-dc-current-meter-voltmeter-w-ampere-shunt-219592
+
+http://makezine.com/projects/0-24-Volt-2-Amp-Bench-Top-Power-Supply/
+
+Comprar:
+  - os fios agüentam 1A?
+  - caixa
+  - porta-fusível (precisa?)
+  - fusível 1A (precisa?)
+  - seletor de voltagem
+  - discos para prender os fios
+  - dissipador (?)
+  - conector de fios (com chave de fenda)
+  - ver circuito de proteção (?)
