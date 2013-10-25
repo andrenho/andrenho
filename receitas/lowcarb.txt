@@ -56,6 +56,10 @@ FEITOS - PRATOS PRINCIPAIS
      <http://www.kalofagas.ca/2013/07/22/zucchini-eggplant-stack-with-smoked-metsovone-cheese/>
  - Panquecas de repolho japonesas
      <http://smittenkitchen.com/blog/2013/05/japanese-cabbage-and-vegetable-pancakes/>
+ - Picadinho de flanela
+     <http://www.macheesmo.com/2013/10/red-flannel-hash/>
+ - Filé mignon com brócolis
+     <head>
 
 
 FEITOS - ENSOPADOS
@@ -111,6 +115,8 @@ FEITOS - LANCHES
      <http://www.macheesmo.com/2013/08/greek-spinach-quesadilla/>
  - Fritatta de chilles
      <http://www.macheesmo.com/2013/09/hatch-chile-frittata/>
+ - Rolinho de peru
+     <http://www.happychomp.com/post/64804495875>
 
 
 FEITOS - SALADAS
@@ -139,6 +145,8 @@ FEITOS - SALADAS
      <http://www.healthy-delicious.com/2013/08/chicken-chopped-salad-sweet-italian-dressing-portillos/>
  - Salada caprese
      <http://www.macheesmo.com/2012/08/chicken-caprese-salad/>
+ - Salada de café-da-manhã
+     <http://www.macheesmo.com/2009/05/the-breakfast-salad/>
 
 
 FEITOS - CAFÉ DA MANHÃ
@@ -225,3 +233,7 @@ A FAZER
      <http://www.healthy-delicious.com/2013/10/spicy-bacon-scallion-dip/>
  - Salmão tunísio com molho verde
      <http://www.notderbypie.com/tunisian-salmon-with-spicy-green-sauce/>
+ - Spaghetti de abóbora com lingüiça
+     <http://www.simplyrecipes.com/recipes/roasted_spaghetti_squash_with_sausage_and_kale/>
+ - Salada cesar do Sul
+     <http://www.notderbypie.com/southwestern-caesar-with-chipotle-parmesan-dressing/>
