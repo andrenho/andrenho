@@ -5,12 +5,25 @@ http://dx.com/p/mini-digital-blue-red-led-dc-current-meter-voltmeter-w-ampere-sh
 http://makezine.com/projects/0-24-Volt-2-Amp-Bench-Top-Power-Supply/
 
 Comprar:
-  - os fios agüentam 1A?
   - caixa
+      http://loja.multcomercial.com.br/ecommerce_site/produto_13141_4689_Gabinete-Plastico-HT100
   - porta-fusível (precisa?)
-  - fusível 1A (precisa?)
-  - seletor de voltagem
-  - discos para prender os fios
-  - dissipador (?)
-  - conector de fios (com chave de fenda)
-  - ver circuito de proteção (?)
+  - fusível 1A, 250mA (precisa? qual o tamanho?)
+      http://loja.multcomercial.com.br/ecommerce_site/produto_5886_4689_Fusivel-20AG-5x20mm
+      http://loja.multcomercial.com.br/ecommerce_site/produto_5892_4689_Fusivel-3AG-6-3x32mm
+  - seletor de voltagem (chave HH)
+      http://loja.multcomercial.com.br/ecommerce_site/produto_22635_4689_Chave-HH-Seis-Terminais-Sold-a-Fio-sem-Haste-Mni-com-Gravacao-127V-220V-Cod-Chave-60A
+  - discos para prender os fios (Bourne B09)
+      http://loja.multcomercial.com.br/ecommerce_site/produto_11214_4689_Borne-4mm-B09
+  - dissipador
+      http://loja.multcomercial.com.br/ecommerce_site/produto_11152_4689_Dissipador-de-Calor-180487
+  - conector de fios (bourne)
+      http://loja.multcomercial.com.br/ecommerce_site/produto_11039_4689_Borne-KRE-02-02-vias-passo-508mm
+  - suporte LED
+      ??
+
+
+Ver:
+ - adicionar LED
+ - tamanho caixa
+ - porta-fusível
