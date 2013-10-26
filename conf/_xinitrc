@@ -17,6 +17,8 @@ xrdb ~/.Xresources
 feh --bg-scale ~/wpaper/valfenda.jpg
 conky
 
+#sudo cpupower frequency-set -g performance
+
 #exec wmaker
 exec i3
 #exec startxfce4

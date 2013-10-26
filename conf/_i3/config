@@ -166,7 +166,7 @@ assign [class="Qbittorrent"] → 10: torrent
 
 
 # initialize applications
-exec --no-startup-id i3-msg 'workspace 1: shell; exec urxvt; workspace 2: browser; exec chromium; workspace 3: develop; exec urxvt; exec optirun urxvt; workspace 1: shell'
+exec --no-startup-id i3-msg 'workspace 1: shell; exec urxvt; workspace 2: browser; exec optirun chromium; workspace 3: develop; exec urxvt; exec optirun urxvt; workspace 1: shell'
 
 popup_during_fullscreen smart
 

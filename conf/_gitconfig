@@ -1,8 +1,8 @@
 [user]
 	name = André Wagner
-	email = andre_nho@gmail.com
+	email = andre.nho@gmail.com
 [credential]
-	helper = cache --timeout=50000
+	helper = cache --timeout=3600000
 #[http]
 #	proxy = http://aw98156:e3295496@proxybrv.deere.com:81/
 [color]
