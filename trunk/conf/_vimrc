@@ -1,4 +1,6 @@
 set nocompatible
+set term=screen-256color
+set ttymouse=xterm2
 
 " movement with wrap
 noremap  <buffer> <silent> k gk
@@ -64,8 +66,9 @@ au BufNewFile,BufRead,BufEnter *.cc,*.h set omnifunc=
 
 " python
 syn keyword Keyword self
-"let python_highlight_all = 1
-"let python_highlight_space_errors = 0
+let python_highlight_numbers = 1
+let python_highlight_builtins = 1
+let python_highlight_exceptions = 1
 
 " fullscreen
 nmap <silent> <M-f> :call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<CR>
@@ -122,8 +125,8 @@ inoremap <Down> <C-o>gj
 inoremap <Up> <C-o>gk
 
 " mark 80th column
-set textwidth=80
-set colorcolumn=+1
+"set textwidth=80
+"set colorcolumn=+1
 
 " clipboard
 set clipboard=unnamed
@@ -133,17 +136,31 @@ let g:clang_complete_auto=0
 let g:clang_close_preview=1
 let g:clang_user_options = '-std=c++11'
 set wildmode=longest,list:longest
-inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
-inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
-inoremap <expr> <Tab>       pumvisible() ? "\<C-y>" : "\<Tab>"
-inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
-inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
-inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
-inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
-inoremap <C-l> <C-x><C-u>
+"inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
+"inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
+"inoremap <expr> <Tab>       pumvisible() ? "\<C-y>" : "\<Tab>"
+"inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
+"inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
+"inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
+"inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
+"inoremap <C-l> <C-x><C-u>
 "set conceallevel=2
 "set concealcursor=vin
 "let g:clang_snippets=1
 "let g:clang_conceal_snippets=1
 "let g:clang_snippets_engine='clang_complete'
-set completeopt=menu,menuone
+set completeopt=menu,menuone,longest
+
+colorscheme xterm-andre
+
+let mapleader = ","
+
+map  <ESC>, :tabp<CR>
+imap <ESC>, <ESC>:tabp<CR>
+map  <ESC>. :tabn<CR>
+imap <ESC>. <ESC>:tabn<CR>
+map  <ESC>[5;3~ :tabp<CR>
+imap <ESC>[5;3~ <ESC>:tabp<CR>
+map  <ESC>[6;3~ :tabn<CR>
+imap <ESC>[6;3~ <ESC>:tabn<CR>
+inoremap jk <ESC>

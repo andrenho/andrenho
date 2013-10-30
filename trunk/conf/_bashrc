@@ -129,6 +129,7 @@ export CCACHE_PATH="/usr/bin"
 export CCACHE_DIR="/tmp/ccache"
 alias gcc='colorgcc'
 alias subdl='subdl --interactive --lang=pob'
+alias tree='tree -FAC'
 
 
 export https_proxy=$http_proxy
