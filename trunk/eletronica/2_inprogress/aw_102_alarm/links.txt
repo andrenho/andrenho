@@ -1,0 +1,7 @@
+Coin Battery - uC (ATTINY2313) - Display (Nokia 5110)
+                       |
+                       |- led (SMD?)
+                       |- power button
+		       |- buzzer
+                       |- 2 tactile buttons (up/down time)
+		       '- 3-way switch
