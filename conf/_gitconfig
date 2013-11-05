@@ -3,8 +3,8 @@
 	email = andre.nho@gmail.com
 [credential]
 	helper = cache --timeout=3600000
-#[http]
-#	proxy = http://aw98156:e3295496@proxybrv.deere.com:81/
+[http]
+	proxy = http://localhost:5865/
 [color]
 	status = auto
 	branch = auto
