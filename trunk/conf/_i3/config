@@ -154,6 +154,9 @@ bindsym XF86AudioRaiseVolume exec amixer -q set Master 2dB+ unmute
 bindsym XF86AudioLowerVolume exec amixer -q set Master 2dB- unmute
 bindsym XF86AudioMute exec amixer -q set Master toggle
 
+for_window [class="vinterm"] floating disable
+for_window [class="newhope"] floating disable
+
 
 bindsym $mod+t border normal
 bindsym $mod+y border pixel 3

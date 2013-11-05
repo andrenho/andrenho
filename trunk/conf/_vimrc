@@ -14,7 +14,7 @@ let g:solarized_bold = 0
 let g:solarized_termcolors=256
 set background=light
 set guioptions=emgrt                    " GUI only screen resources
-set hlsearch                            " incremental highlight search
+set nohlsearch                          " incremental highlight search
 set incsearch
 set foldnestmax=1                       " max nesting
 set synmaxcol=2048
