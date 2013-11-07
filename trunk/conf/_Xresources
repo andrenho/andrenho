@@ -11,7 +11,7 @@ URxvt.font: xft:Ubuntu Mono:size=15,style=Regular
 !URxvt.font: xft:Ubuntu Mono:size=15,style=Regular
 urxvt*foreground: #f2f2f2
 urxvt*background: #101010
-urxvt*color0:    #6c6c6c
+urxvt*color0:    #000000
 urxvt*color1:    #e9897c
 urxvt*color2:    #b6e77d
 urxvt*color3:    #ecebbe
