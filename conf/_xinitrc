@@ -14,7 +14,7 @@ fi
 setxkbmap br
 xmodmap ~/.Xmodmap
 xrdb ~/.Xresources
-feh --bg-scale ~/wpaper/valfenda.jpg
+feh --bg-center ~/wpaper/sunshine.jpg
 conky
 
 #sudo cpupower frequency-set -g performance
