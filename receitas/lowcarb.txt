@@ -237,3 +237,5 @@ A FAZER
      <http://www.simplyrecipes.com/recipes/roasted_spaghetti_squash_with_sausage_and_kale/>
  - Salada cesar do Sul
      <http://www.notderbypie.com/southwestern-caesar-with-chipotle-parmesan-dressing/>
+ - Carne moída cubana
+     <http://www.marksdailyapple.com/cuban-picadillo/>
