@@ -60,7 +60,12 @@ FEITOS - PRATOS PRINCIPAIS
      <http://www.macheesmo.com/2013/10/red-flannel-hash/>
  - Filé mignon com brócolis
      <head>
-
+ - Carne com molho de tomates
+     <http://www.marksdailyapple.com/filipino-beef-kaldereta/>
+ - Almôndegas
+     <http://www.marksdailyapple.com/ginger-and-lemongrass-meatballs-with-braised-scallions/>
+ - Strogonoff
+     <http://www.marksdailyapple.com/beef-stroganoff/>
 
 FEITOS - ENSOPADOS
 
@@ -239,3 +244,5 @@ A FAZER
      <http://www.notderbypie.com/southwestern-caesar-with-chipotle-parmesan-dressing/>
  - Carne moída cubana
      <http://www.marksdailyapple.com/cuban-picadillo/>
+ - Couve-flor assada com queijo e bacon
+     <http://www.reddit.com/r/ketorecipes/comments/1qxn9e/loaded_mashed_cauliflower_casserole_recipe_in/>
