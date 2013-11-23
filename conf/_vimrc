@@ -164,3 +164,6 @@ imap <ESC>[5;3~ <ESC>:tabp<CR>
 map  <ESC>[6;3~ :tabn<CR>
 imap <ESC>[6;3~ <ESC>:tabn<CR>
 inoremap jk <ESC>
+
+let HardMode_level="wannabe"
+"call HardMode()
