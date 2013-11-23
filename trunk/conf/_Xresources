@@ -30,3 +30,4 @@ urxvt*color15:    #e2e2e2
 urxvt*internalborder: 6
 urxvt*transparent: true
 urxvt*shading: 12
+URxvt*scrollBar: false
