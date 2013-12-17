@@ -1,6 +1,6 @@
 if #arg ~= 1 then
-    print('Usage: '..arg[-1]..' '..arg[0]..' Classname')
-    os.exit()
+   print('Usage: '..arg[-1]..' '..arg[0]..' Classname')
+   os.exit()
 end
 
 s = (
@@ -8,8 +8,8 @@ s = (
 CLASSNAME.__index = CLASSNAME
 
 function CLASSNAME:new()
-  local self = setmetatable({}, CLASSNAME)
-  return self
+   local self = setmetatable({}, CLASSNAME)
+   return self
 end
 
 -------------
@@ -17,17 +17,17 @@ end
 -------------
 
 function CLASSNAME:__tostring()
-  return '[CLASSNAME]'
+   return '[CLASSNAME]'
 end
 
 function CLASSNAME:type() return 'CLASSNAME' end
 
 return CLASSNAME
 
--- vim: ts=4:sw=4:sts=4:expandtab]]):gsub('CLASSNAME', arg[1])
+-- vim: ts=3:sw=3:sts=3:expandtab]]):gsub('CLASSNAME', arg[1])
 
 local f = io.open(arg[1]:lower()..'.lua', 'wb')
 f:write(s)
 f:close()
 
--- vim: ts=4:sw=4:sts=4:expandtab
+-- vim: ts=3:sw=3:sts=3:expandtab
