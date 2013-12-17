@@ -7,9 +7,9 @@ function love.update(dt)
 end
 
 function love.draw()
-    love.graphics.setColor(72, 160, 14)
-    love.graphics.polygon('fill', physics.objects[1].body:getWorldPoints(
-        physics.objects[1].shape:getPoints()))
+   love.graphics.setColor(72, 160, 14)
+   love.graphics.polygon('fill', phys.objects[1].body:getWorldPoints(
+      phys.objects[1].shape:getPoints()))
 end
 
 function love.mousepressed(x, y, button)
@@ -30,4 +30,4 @@ end
 function love.quit()
 end
 
--- vim: ts=4:sw=4:sts=4:expandtab
+-- vim: ts=3:sw=3:sts=3:expandtab
