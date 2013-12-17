@@ -7,6 +7,9 @@ function love.update(dt)
 end
 
 function love.draw()
+    love.graphics.setColor(72, 160, 14)
+    love.graphics.polygon('fill', physics.objects[1].body:getWorldPoints(
+        physics.objects[1].shape:getPoints()))
 end
 
 function love.mousepressed(x, y, button)
