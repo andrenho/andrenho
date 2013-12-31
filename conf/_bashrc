@@ -127,6 +127,7 @@ export PATH=$PATH:/usr/games
 export PATH="/usr/lib/colorgcc/bin:$PATH"
 export CCACHE_PATH="/usr/bin"
 export CCACHE_DIR="/tmp/ccache"
+export PATH="/usr/lib/ccache/bin/:$PATH"
 alias gcc='colorgcc'
 alias subdl='subdl --interactive --lang=pob'
 alias tree='tree -FAC'
