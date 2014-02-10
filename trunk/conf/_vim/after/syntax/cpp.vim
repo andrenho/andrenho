@@ -53,6 +53,7 @@ syn match    cCustomClass    "\w\+\s*::" contains=cCustomScope
 "   http://www.vim.org/scripts/script.php?script_id=1640
 " -----------------------------------------------------------------------------
 syntax keyword cppSTLconstant override
+syntax keyword cppSTLconstant final
 syntax keyword cppSTLconstant badbit
 syntax keyword cppSTLconstant digits
 syntax keyword cppSTLconstant digits10
