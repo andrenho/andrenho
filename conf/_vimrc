@@ -61,9 +61,9 @@ let c_hi_libs	 = ['*']
 let go_highlight_space_tab_error = 0
 let go_highlight_trailing_whitespace_error = 0
 set rtp+=C:/andre/desenv/go/misc/vim
-au BufNewFile,BufRead *.cc set syntax=cpp11
-au BufNewFile,BufRead *.h  set syntax=cpp11
-au BufNewFile,BufRead,BufEnter *.cc,*.h set omnifunc=
+"au BufNewFile,BufRead *.cc set syntax=cpp11
+"au BufNewFile,BufRead *.h  set syntax=cpp11
+"au BufNewFile,BufRead,BufEnter *.cc,*.h set omnifunc=
 
 " python
 syn keyword Keyword self
@@ -112,6 +112,7 @@ imap <ESC><ESC>[6^ <C-PageDown>
 
 " 256 colors
 set t_Co=256
+let g:CSApprox_attr_map = { 'bold' : 'bold', 'italic' : '', 'sp' : '' }
 
 " move cursor inside a paragraph
 nnoremap j gj
@@ -167,4 +168,5 @@ imap <ESC>[6;3~ <ESC>:tabn<CR>
 inoremap jk <ESC>
 
 let HardMode_level="wannabe"
-"call HardMode()
+
+colorscheme codeschool
