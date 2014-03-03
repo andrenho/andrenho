@@ -169,4 +169,8 @@ inoremap jk <ESC>
 
 let HardMode_level="wannabe"
 
-colorscheme codeschool
+"colorscheme codeschool
+
+let c_no_curly_error=1
+
+set tabpagemax=100
