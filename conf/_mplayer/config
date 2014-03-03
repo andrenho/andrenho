@@ -12,4 +12,8 @@ ass-font-scale=2
 ass-force-style="FontName=FreeSans,Default.Bold=1"
 ass-subpos=50
 
+subfont-encoding=unicode
+unicode=yes
+utf8=no
+
 osdc=1
