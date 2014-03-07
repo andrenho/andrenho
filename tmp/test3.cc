@@ -18,6 +18,7 @@ public:
 		glBindVertexArray(vao);
 	}
 
+
 	void Render(double currentTime) override
 	{
 		const GLfloat color[] = { 0.0f, 0.2f, 0.0f, 1.0f };
@@ -27,6 +28,7 @@ public:
 		
 		glDrawArrays(GL_TRIANGLES, 0, 3);
 	}
+
 
 	void Shutdown() override
 	{
