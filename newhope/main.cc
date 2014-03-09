@@ -1,6 +1,6 @@
-#include "render/box.h"
 #include "render/renderengine.h"
 #include "render/renderer.h"
+#include "render/triangle.h"
 
 render::RenderEngine* render_engine = nullptr;
 
@@ -11,7 +11,8 @@ int main()
 
     render_engine->setRenderer(&renderer);
 
-    renderer.AddObject(new render::Box());
+    renderer.AddObject(new render::Triangle());
+    renderer.Setup();
 
     while(render_engine->Active()) {
         render_engine->ProcessEvents();
