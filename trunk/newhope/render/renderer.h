@@ -17,13 +17,14 @@ public:
 	Renderer(const Renderer&) = delete;
     Renderer& operator=(const Renderer&) = delete;
 
-    void AddObject(class Box* box);
+    void AddObject(class Object* obj);
 
+    void Setup();
     void Render();
 
 private:
     GLuint vao = 0, prog = 0;
-    vector<class Box*> objects = {};
+    vector<class Object*> objects = {};
 };
 
 }

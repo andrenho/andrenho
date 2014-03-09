@@ -1,6 +1,6 @@
 #include "render/renderer.h"
 
-#include "render/box.h"
+#include "render/object.h"
 #include "render/renderengine.h"
 
 extern render::RenderEngine* render_engine;
@@ -10,27 +10,30 @@ namespace render {
 Renderer::Renderer()
 {
     glGenVertexArrays(1, &vao);
-    glBindVertexArray(vao);
+    glBindVertexArray(vao); // TODO
 
-    prog = render_engine->CompileProgram("vertex.glsl", "fragment.glsl");
-
-	GLint posAttrib = glGetAttribLocation(prog, "vert");
-	glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE, 0, 0);
-	glEnableVertexAttribArray(posAttrib);
 }
 
 
 Renderer::~Renderer()
 {
-		glDeleteVertexArrays(1, &vao);
+    glDeleteVertexArrays(1, &vao);
 }
 
 void 
-Renderer::AddObject(class Box* box)
+Renderer::AddObject(Object* obj)
 {
-    glBufferData(GL_ARRAY_BUFFER, sizeof(box->vertexData), box->vertexData, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, obj->VerticesSize() * sizeof(float), obj->Vertices(), GL_STATIC_DRAW);
+    objects.push_back(obj);
+}
 
-    objects.push_back(box);
+void
+Renderer::Setup()
+{
+    prog = render_engine->CompileProgram("vertex.glsl", "fragment.glsl");
+    for(auto const& object: objects) {
+        object->UploadToGPU(prog);
+    }
 }
 
 void
@@ -41,7 +44,7 @@ Renderer::Render()
 
     glUseProgram(prog);
     for(auto const& object: objects) {
-        glDrawArrays(GL_TRIANGLES, 0, object->NumTriangles());
+        glDrawArrays(GL_TRIANGLES, 0, object->NumVertices());
     }
 }
 

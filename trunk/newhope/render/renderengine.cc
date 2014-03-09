@@ -68,8 +68,10 @@ RenderEngine::Render()
 GLuint 
 RenderEngine::CompileProgram(string vs_src, string fs_src)
 {
-	const GLchar* src_v = ReadWholeFile(vs_src).c_str();
-	const GLchar* src_f = ReadWholeFile(fs_src).c_str();
+    string v = ReadWholeFile(vs_src);
+    string f = ReadWholeFile(fs_src);
+	const GLchar* src_v = v.c_str(); 
+	const GLchar* src_f = f.c_str();
 	GLint isCompiled = GL_FALSE;
 
 	GLuint vshader = glCreateShader(GL_VERTEX_SHADER);
@@ -77,7 +79,10 @@ RenderEngine::CompileProgram(string vs_src, string fs_src)
 	glCompileShader(vshader);
 	glGetShaderiv(vshader, GL_COMPILE_STATUS, &isCompiled);
 	if(isCompiled == GL_FALSE) {
-		throw;
+		char buffer[512];
+        glGetShaderInfoLog(vshader, 512, NULL, buffer);
+        cerr << buffer << endl;
+        throw;
 	}
 
 	GLuint fshader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -85,6 +90,9 @@ RenderEngine::CompileProgram(string vs_src, string fs_src)
 	glCompileShader(fshader);
 	glGetShaderiv(fshader, GL_COMPILE_STATUS, &isCompiled);
 	if(isCompiled == GL_FALSE) {
+		char buffer[512];
+        glGetShaderInfoLog(fshader, 512, NULL, buffer);
+        cerr << buffer << endl;
 		throw;
 	}
 
@@ -103,19 +111,11 @@ RenderEngine::CompileProgram(string vs_src, string fs_src)
 string 
 RenderEngine::ReadWholeFile(string filename)
 {
-	ifstream in(filename, ios::in | ios::binary);
-	if(in) {
-		string contents;
-		in.seekg(0, ios::end);
-		contents.resize(in.tellg());
-		in.seekg(0, ios::beg);
-		in.read(&contents[0], contents.size());
-		in.close();
-		return contents;
-	}
-	throw(errno);
-}
+    ifstream file(filename);
+    string content((istreambuf_iterator<char>(file)), istreambuf_iterator<char>());
 
+    return content;
+}
 
 }
 
