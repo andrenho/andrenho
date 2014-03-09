@@ -31,6 +31,11 @@ RenderEngine::RenderEngine(string window_name)
 	// GLEW
 	glewExperimental = GL_TRUE;
 	glewInit();
+
+    // setup OpenGL
+    glClearColor(0, 0, 0, 1);
+    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
 }
 
 

@@ -16,9 +16,9 @@ public:
     Triangle& operator=(const Triangle&) = delete;
 
     const float* Vertices() const { return vertices; }
-    int VerticesSize() const { return 6; }
-    int NumVertices() const { return 3; }
-    void UploadToGPU(unsigned int program);
+    int NumVertices() const { return 6; }
+    void Setup(unsigned int program);
+    glm::vec3 Position() const { return glm::vec3 { 0.0f, 0.0f, 0.0f }; }
 
 private:
     float vertices[6];
