@@ -13,7 +13,7 @@ Triangle::Triangle()
 
 
 void 
-Triangle::UploadToGPU(unsigned int program)
+Triangle::Setup(unsigned int program)
 {
     GLint posAttrib = glGetAttribLocation(program, "position");
     glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 0, 0);

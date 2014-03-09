@@ -3,6 +3,7 @@
 
 #define GLEW_STATIC
 #include <GL/glew.h>
+#include <glm/glm.hpp>
 
 #include <vector>
 using namespace std;
@@ -22,9 +23,13 @@ public:
     void Setup();
     void Render();
 
+    void setCamera(glm::vec3 position, glm::vec3 looking_at) { cam_position = position; cam_lookat = looking_at; }
+
 private:
     GLuint vao = 0, prog = 0;
     vector<class Object*> objects = {};
+    glm::vec3 cam_position = { 0.0f, 0.0f, 0.0f };
+    glm::vec3 cam_lookat   = { 0.0f, 0.0f, 0.0f };
 };
 
 }

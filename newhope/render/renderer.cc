@@ -1,5 +1,9 @@
 #include "render/renderer.h"
 
+#define GLM_FORCE_RADIANS
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+
 #include "render/object.h"
 #include "render/renderengine.h"
 
@@ -23,7 +27,7 @@ Renderer::~Renderer()
 void 
 Renderer::AddObject(Object* obj)
 {
-    glBufferData(GL_ARRAY_BUFFER, obj->VerticesSize() * sizeof(float), obj->Vertices(), GL_STATIC_DRAW);
+    obj->UploadToGPU();
     objects.push_back(obj);
 }
 
@@ -32,18 +36,25 @@ Renderer::Setup()
 {
     prog = render_engine->CompileProgram("vertex.glsl", "fragment.glsl");
     for(auto const& object: objects) {
-        object->UploadToGPU(prog);
+        object->Setup(prog);
     }
 }
 
 void
 Renderer::Render()
 {
-    glClearColor(0, 0, 0, 1);
+    glm::mat4 projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
+    glm::mat4 view = glm::lookAt( 
+            cam_position,
+            cam_lookat,
+            glm::vec3(0,1,0)  // Head is up (set to 0,-1,0 to look upside-down)
+    );
+
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
     glUseProgram(prog);
     for(auto const& object: objects) {
+        object->Prepare(projection, view);
         glDrawArrays(GL_TRIANGLES, 0, object->NumVertices());
     }
 }
