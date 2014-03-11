@@ -1,7 +1,6 @@
 #include "render/renderengine.h"
 #include "render/renderer.h"
-#include "render/triangle.h"
-#include "render/square.h"
+#include "render/pyramid.h"
 
 render::RenderEngine* render_engine = nullptr;
 
@@ -12,11 +11,10 @@ int main()
 
     render_engine->setRenderer(&renderer);
 
-    renderer.AddObject(new render::Square());
+    renderer.AddObject(new render::Pyramid());
     renderer.Setup();
     
-    float y = 0.0f;
-    renderer.setCamera(glm::vec3 { 4, 3, 3 }, glm::vec3 {0, 0, 0});
+    renderer.setCamera(glm::vec3 { 4, 4, 3 }, glm::vec3 {0, 0, 0});
 
     while(render_engine->Active()) {
         render_engine->ProcessEvents();
