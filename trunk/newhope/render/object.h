@@ -15,16 +15,20 @@ public:
 	Object(const Object&) = delete;
     Object& operator=(const Object&) = delete;
 
+    virtual void Prepare(glm::mat4 projection, glm::mat4 view);
+
     virtual const float* Vertices() const = 0;
     virtual int NumVertices() const = 0;
 
     virtual void UploadToGPU();
     virtual glm::vec3 Position() const = 0;
 
-    virtual void Setup(unsigned int program) = 0;
-    virtual void Prepare(glm::mat4 projection, glm::mat4 view) { (void)projection, (void)view; }
+    virtual void Setup(unsigned int program);
+    virtual glm::mat4 ModelMatrix() const;
+
 
 protected:
+    GLuint mvp_id = 0;
     GLuint vbo = 0;
 };
 

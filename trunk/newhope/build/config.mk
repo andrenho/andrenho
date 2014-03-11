@@ -25,7 +25,7 @@ LOCALEPREFIX="i18n"
 # errors ignored on cpplint
 LINT_IGNORE=-whitespace,-runtime/references,-legal/copyright,-readability/todo,-readability/streams
 
-# basic flags
+# warning flags
 WARNINGS=-Weffc++ -pedantic  \
     -Wextra  -Wall -Wcast-align \
     -Wcast-qual  -Wchar-subscripts  -Wcomment -Wconversion \
@@ -47,8 +47,13 @@ WARNINGS=-Weffc++ -pedantic  \
     -Wunused-function  -Wunused-label  -Wunused-parameter \
     -Wunused-value  -Wunused-variable  -Wvariadic-macros \
     -Wvolatile-register-var  -Wwrite-strings
-CPPFLAGS = -DVERSION=\"${VERSION}\" -DDATAPREFIX=\"${DATAPREFIX}\" -DLOCALEDIR=\"${LOCALEPREFIX}\" ${WARNINGS} -I. -std=c++11
+
+# defines and includes
+CPPFLAGS += -DVERSION=\"${VERSION}\" -DDATAPREFIX=\"${DATAPREFIX}\" -DLOCALEDIR=\"${LOCALEPREFIX}\" ${WARNINGS} -I. 
 LDFLAGS = -L/usr/lib
+
+# extra flags
+CPPFLAGS += -std=c++11 -pipe
 
 # Duma libraries
 ifeq (${DUMA}, yes)
@@ -59,6 +64,7 @@ ifeq (${OPT},no)
   CPPFLAGS += -O0
 else
   CPPFLAGS += -O3
+  LDFLAGS += -Wl,-O1 -Wl,--discard-all
 endif
 
 ifeq (${DEBUG},yes)

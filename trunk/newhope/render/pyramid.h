@@ -1,5 +1,5 @@
-#ifndef RENDER_SQUARE_H_
-#define RENDER_SQUARE_H_
+#ifndef RENDER_PYRAMID_H_
+#define RENDER_PYRAMID_H_
 
 #include "object.h"
 
@@ -8,19 +8,19 @@
 
 namespace render {
 
-class Square : public Object {
+class Pyramid : public Object {
 public:
-    Square();
+    Pyramid();
 
-	Square(const Square&) = delete;
-    Square& operator=(const Square&) = delete;
+	Pyramid(const Pyramid&) = delete;
+    Pyramid& operator=(const Pyramid&) = delete;
 
     const float* Vertices() const { return vertices; }
-    int NumVertices() const { return 9; }
+    int NumVertices() const { return 36; }
     glm::vec3 Position() const { return glm::vec3 { 0.0f, 0.0f, 0.0f }; }
 
 private:
-    float vertices[9];
+    float vertices[36];
 };
 
 }
