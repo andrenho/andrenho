@@ -17,7 +17,7 @@ SRC = main.cc			\
       render/object.cc		\
       render/renderengine.cc	\
       render/scene.cc		\
-      render/teapot.cc
+      render/triangle.cc
 
 OBJ = ${SRC:.cc=.o}
 HEADERS = ${SRC:.cc=.h}

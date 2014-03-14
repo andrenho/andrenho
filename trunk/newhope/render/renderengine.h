@@ -1,13 +1,32 @@
 #ifndef RENDER_RENDERENGINE_H_
 #define RENDER_RENDERENGINE_H_
 
+#define GLEW_STATIC
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+
+#include <string>
+using namespace std;
+
+namespace render {
+
 class RenderEngine {
 public:
-    RenderEngine();
+    RenderEngine(string window_name);
+    ~RenderEngine();
+
+    bool Active();
+    void ProcessEvents();
+    void Render(class Scene const& scene);
 
 	RenderEngine(const RenderEngine&) = delete;
     RenderEngine& operator=(const RenderEngine&) = delete;
+
+private:
+    GLFWwindow* window = nullptr;
 };
+
+}
 
 #endif  // RENDER_RENDERENGINE_H_
 
