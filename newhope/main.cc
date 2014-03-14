@@ -1,21 +1,21 @@
 #include "render/renderengine.h"
 #include "render/scene.h"
 #include "render/camera.h"
-#include "render/teapot.h"
+#include "render/triangle.h"
 
 int main()
 {
-	RenderEngine engine;
+    render::RenderEngine engine("newhope");
 
-	Camera camera;
-	Scene scene(camera);
-	Teapot teapot;
+    render::Camera camera;
+    render::Scene scene(camera);
+    render::Triangle object;
 
 	camera.setPosition(4, 4, 3);
-	camera.lookAt(0, 0, 0);
+	camera.LookAt(0, 0, 0);
 
-	scene.AddObject(teapot);
-	scene.setMode(Scene::WIREFRAME);
+	scene.AddObject(object);
+	scene.setMode(render::Scene::WIREFRAME);
 
 	while(engine.Active())
 	{
@@ -23,3 +23,5 @@ int main()
 		engine.Render(scene);
 	}
 }
+
+// vim: ts=4:sw=4:sts=4:expandtab
