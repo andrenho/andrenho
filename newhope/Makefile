@@ -12,7 +12,12 @@ else
   include build/libraries_win.mk
 endif
 
-SRC = main.cc
+SRC = main.cc			\
+      render/camera.cc		\
+      render/object.cc		\
+      render/renderengine.cc	\
+      render/scene.cc		\
+      render/teapot.cc
 
 OBJ = ${SRC:.cc=.o}
 HEADERS = ${SRC:.cc=.h}
