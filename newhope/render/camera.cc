@@ -4,10 +4,12 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+#include "render/renderengine.h"
 
 namespace render {
 
-Camera::Camera()
+Camera::Camera(RenderEngine const& engine)
+    : engine(engine)
 {
 }
 
@@ -28,7 +30,7 @@ Camera::LookAt(float x, float y, float z)
 glm::mat4 
 Camera::Projection() const
 {
-    return glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
+    return glm::perspective(45.0f, engine.ScreenRatio(), 0.1f, 100.0f);
 }
 
 

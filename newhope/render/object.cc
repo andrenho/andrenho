@@ -1,12 +1,5 @@
 #include "render/object.h"
 
-#define GLEW_STATIC
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#define GLM_FORCE_RADIANS
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-
 #include <algorithm>
 #include <cerrno>
 #include <fstream>
@@ -31,12 +24,26 @@ Object::Prepare(class Camera const& camera) const
     glUseProgram(program);
     glBindVertexArray(vao);
 
-    // TODO - adjust position and rotation
-    glm::mat4 model = glm::mat4(1.0f); // TODO
+    // send camera info
+    SendUniformMatrix("projection", camera.Projection());
+    SendUniformMatrix("camera", camera.View());
 
-    GLint mvp_id = glGetUniformLocation(program, "MVP");
-    glm::mat4 mvp = camera.Projection() * camera.View() * model;
-    glUniformMatrix4fv(mvp_id, 1, GL_FALSE, &mvp[0][0]);
+    // translate, rotate and scale
+    glm::mat4 translate = glm::translate(
+            glm::mat4(1.0f), 
+            glm::vec3(translate_x, translate_y, translate_z));
+    glm::mat4 rotate_x = glm::rotate(translate, rotation_x, glm::vec3(1.0f, 0.0f, 0.0f));
+    glm::mat4 rotate_y = glm::rotate(rotate_x, rotation_y, glm::vec3(0.0f, 1.0f, 0.0f));
+    // TODO - glm::mat4 scale = glm::scale(rotate_y, glm::vec3(scale, scale, scale));
+    SendUniformMatrix("model", rotate_y);
+}
+
+
+void 
+Object::SendUniformMatrix(string parameter, glm::mat4 value) const
+{
+    GLint id = glGetUniformLocation(program, parameter.c_str());
+    glUniformMatrix4fv(id, 1, GL_FALSE, &value[0][0]);
 }
 
 
