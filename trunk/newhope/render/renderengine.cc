@@ -67,6 +67,13 @@ RenderEngine::Render(Scene const& scene)
 }
 
 
+void 
+RenderEngine::InstallKeyCallback(GLFWkeyfun cbfun)
+{
+    glfwSetKeyCallback(window, cbfun);
+}
+
+
 }
 
 // vim: ts=4:sw=4:sts=4:expandtab

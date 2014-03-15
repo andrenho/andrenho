@@ -18,6 +18,8 @@ public:
     bool Active();
     void ProcessEvents();
     void Render(class Scene const& scene);
+    
+    void InstallKeyCallback(GLFWkeyfun cbfun);
 
 	RenderEngine(const RenderEngine&) = delete;
     RenderEngine& operator=(const RenderEngine&) = delete;
