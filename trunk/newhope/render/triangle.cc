@@ -22,9 +22,9 @@ Triangle::Triangle()
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertex), vertex, GL_STATIC_DRAW);
 
     // link program variables
-    GLint position = glGetAttribLocation(program, "position");
-    glVertexAttribPointer(position, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
-    glEnableVertexAttribArray(position);
+    GLint vert = glGetAttribLocation(program, "vert");
+    glVertexAttribPointer(vert, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+    glEnableVertexAttribArray(vert);
 
     // unbind VBO
     glBindBuffer(GL_ARRAY_BUFFER, 0);

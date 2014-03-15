@@ -7,7 +7,7 @@ namespace render {
 
 class Camera {
 public:
-    Camera();
+    Camera(class RenderEngine const& engine);
 
     void setPosition(float x, float y, float z);
     void LookAt(float x, float y, float z);
@@ -19,6 +19,8 @@ public:
     Camera& operator=(const Camera&) = delete;
 
 private:
+    class RenderEngine const& engine;
+
     glm::vec3 position = { 0, 0, 0 };
     glm::vec3 lookat = { 0, 0, 0 };
 };

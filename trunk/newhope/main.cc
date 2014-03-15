@@ -8,8 +8,8 @@
 #include "render/triangle.h"
 
 
-float cam_x = 4,
-      cam_y = 3,
+float cam_x = 0,
+      cam_y = 0,
       cam_z = 3;
 
 
@@ -48,14 +48,18 @@ int main()
     render::RenderEngine engine("newhope");
     engine.InstallKeyCallback(&key_callback);
 
-    render::Camera camera;
+    render::Camera camera(engine);
     render::Scene scene(camera);
-    render::Triangle object;
+    render::Triangle object1, object2;
 
 	camera.LookAt(0, 0, 0);
 
-	scene.AddObject(object);
+	scene.AddObject(object1);
+	scene.AddObject(object2);
 	scene.setMode(render::Scene::WIREFRAME);
+
+    object1.Translate(-1, 0, 0);
+    object2.Translate(1, 0, 0);
 
 	while(engine.Active())
 	{

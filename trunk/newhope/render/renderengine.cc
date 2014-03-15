@@ -1,5 +1,7 @@
 #include "render/renderengine.h"
 
+#include <cassert>
+
 #include "render/scene.h"
 
 namespace render {
@@ -13,10 +15,10 @@ RenderEngine::RenderEngine(string window_name)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 	
 	// create window
 	window = glfwCreateWindow(800, 600, window_name.c_str(), nullptr, nullptr);
+    assert(window);
 
 	// make OpenGL context active
 	glfwMakeContextCurrent(window);
@@ -35,6 +37,7 @@ RenderEngine::RenderEngine(string window_name)
 RenderEngine::~RenderEngine()
 {
 	// terminate GLFW
+    glfwDestroyWindow(window);
 	glfwTerminate();
 }
 
@@ -71,6 +74,16 @@ void
 RenderEngine::InstallKeyCallback(GLFWkeyfun cbfun)
 {
     glfwSetKeyCallback(window, cbfun);
+}
+
+
+float 
+RenderEngine::ScreenRatio() const
+{
+    //int width, height;
+    //glfwGetFramebufferSize(window, &width, &height);
+    return 4.0f / 3.0f;
+    //return static_cast<float>(width) / static_cast<float>(height);
 }
 
 
