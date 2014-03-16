@@ -5,6 +5,7 @@
 #include "render/renderengine.h"
 #include "render/scene.h"
 #include "render/camera.h"
+#include "render/obj_object.h"
 #include "render/triangle.h"
 
 
@@ -50,16 +51,17 @@ int main()
 
     render::Camera camera(engine);
     render::Scene scene(camera);
-    render::Triangle object1, object2;
+    render::Triangle triangle;
+    render::OBJ_Object cube("data/cube.obj");
 
 	camera.LookAt(0, 0, 0);
 
-	scene.AddObject(object1);
-	scene.AddObject(object2);
+	//scene.AddObject(triangle);
+	scene.AddObject(cube);
 	scene.setMode(render::Scene::WIREFRAME);
 
-    object1.Translate(-1, 0, 0);
-    object2.Translate(1, 0, 0);
+    //triangle.Translate(-1, 0, 0);
+    //cube.Translate(1, 0, 0);
 
 	while(engine.Active())
 	{
