@@ -17,6 +17,7 @@ SRC = main.cc			\
       render/object.cc		\
       render/renderengine.cc	\
       render/scene.cc		\
+      render/obj_object.cc	\
       render/triangle.cc
 
 OBJ = ${SRC:.cc=.o}
