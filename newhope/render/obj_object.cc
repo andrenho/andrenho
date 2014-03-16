@@ -64,20 +64,28 @@ OBJ_Object::SetupObject()
 
     // upload data to graphic card
     int i=0;
-    GLfloat* vertex = new GLfloat[triangles.size()*9];
+    GLfloat* vertex = new GLfloat[vertices.size() * 3];
+    for(auto const& vertice: vertices) {
+        vertex[i++] = vertice.x;
+        vertex[i++] = vertice.y;
+        vertex[i++] = vertice.z;
+    }
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * 3 * sizeof(GLfloat), vertex, GL_STATIC_DRAW);
+    delete[] vertex;
+
+    // create EBO
+    GLuint ebo;
+    glGenBuffers(1, &ebo);
+    GLuint* elements = new GLuint[triangles.size() * 3];
+    i = 0;
     for(auto const& triangle: triangles) {
-        for(int j=0; j<3; j++) {
-            glm::vec3& vertice = vertices[triangle[j]-1];
-            vertex[i++] = vertice.x;
-            vertex[i++] = vertice.y;
-            vertex[i++] = vertice.z;
-        }
+        elements[i++] = triangle[0]-1;
+        elements[i++] = triangle[1]-1;
+        elements[i++] = triangle[2]-1;
     }
-    for(int i=0; i<triangles.size()*9; i+=3) {
-        cout << vertex[i] << " " << vertex[i+1] << " " << vertex[i+2] <<  endl;
-    }
-    glBufferData(GL_ARRAY_BUFFER, triangles.size() * 9, vertex, GL_STATIC_DRAW);
-    delete vertex;
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, triangles.size() * 3 * sizeof(GLuint), elements, GL_STATIC_DRAW);
+    delete[] elements;
 
     // link program variables
     GLint vert = glGetAttribLocation(program, "vert");
@@ -105,7 +113,7 @@ OBJ_Object::Split(string const& s, char delim, vector<string>& elems) const
 void 
 OBJ_Object::Render() const
 {
-    glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(triangles.size() * 9));
+    glDrawElements(GL_TRIANGLES, triangles.size() * 3, GL_UNSIGNED_INT, 0);
 }
 
 
