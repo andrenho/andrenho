@@ -1,5 +1,7 @@
 #include "render/scene.h"
 
+#include <cstdlib>
+
 #include "render/camera.h"
 #include "render/object.h"
 
@@ -19,9 +21,16 @@ Scene::AddObject(Object const& obj)
 
 
 void 
-Scene::setMode(Mode mode)
+Scene::setMode(enum Mode mode)
 {
-    (void) mode;
+    this->mode = mode;
+    if(mode == WIREFRAME) {
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    } else if(mode == FILL) {
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    } else {
+        abort();
+    }
 }
 
 

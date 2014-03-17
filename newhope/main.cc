@@ -11,7 +11,8 @@
 
 float cam_x = 0,
       cam_y = 0,
-      cam_z = 3;
+      cam_z = 30;
+render::Scene* s = nullptr;
 
 
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
@@ -37,6 +38,12 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
             cam_z += 0.3f; break;
         case GLFW_KEY_PERIOD:
             cam_z -= 0.3f; break;
+        case GLFW_KEY_W:
+            if(s->Mode() == render::Scene::FILL) {
+                s->setMode(render::Scene::WIREFRAME);
+            } else {
+                s->setMode(render::Scene::FILL);
+            }
         default:
             ;
         }
@@ -51,14 +58,14 @@ int main()
 
     render::Camera camera(engine);
     render::Scene scene(camera);
+    s = &scene;
     render::Triangle triangle;
-    render::OBJ_Object cube("data/cube.obj");
+    render::OBJ_Object cube("data/teapot.obj");
 
 	camera.LookAt(0, 0, 0);
 
 	//scene.AddObject(triangle);
 	scene.AddObject(cube);
-	scene.setMode(render::Scene::WIREFRAME);
 
     //triangle.Translate(-1, 0, 0);
     //cube.Translate(1, 0, 0);
