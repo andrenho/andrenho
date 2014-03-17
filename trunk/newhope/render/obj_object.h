@@ -31,6 +31,8 @@ private:
 
     vector<glm::vec3> vertices = {};
     vector<array<int,3>> triangles = {};
+    vector<glm::vec3> normal_vertices = {};
+    vector<array<int,3>> normals = {};
 };
 
 }

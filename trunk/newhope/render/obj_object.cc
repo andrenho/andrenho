@@ -27,17 +27,23 @@ OBJ_Object::LoadOBJ(string const& filename)
                     float x, y, z;
                     in >> x >> y >> z;
                     vertices.emplace_back(x, y, z);
-                } else if(cmd == "f") {
+                } else if(cmd == "vn") { // normal vertice
+                    float x, y, z;
+                    in >> x >> y >> z;
+                    normal_vertices.emplace_back(x, y, z);
+                } else if(cmd == "f") { // triangles
                     vector<string> elements;
-                    array<int,3> triangle;
+                    array<int,3> triangle, normal;
                     string vect[3];
                     in >> vect[0] >> vect[1] >> vect[2];
                     for(int i=0; i<3; i++) {
                         elements.clear();
                         Split(vect[i], '/', elements);
                         triangle[i] = atoi(elements[0].c_str());
+                        normal[i] = atoi(elements[2].c_str());
                     }
                     triangles.emplace_back(triangle);
+                    normals.emplace_back(normal);
                 } else {
                     throw "Invalid command '" + cmd + "' on file " + filename;
                 }
