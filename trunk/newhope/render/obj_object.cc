@@ -1,5 +1,6 @@
 #include "render/obj_object.h"
 
+#include <cstdlib>
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -20,7 +21,7 @@ OBJ_Object::LoadOBJ(string const& filename)
         string cmd;
         while(in >> cmd) {
             if(!cmd.empty()) {
-                if(cmd[0] == '#' || cmd == "o" || cmd == "s" || cmd == "vn") {
+                if(cmd[0] == '#' || cmd == "o" || cmd == "s" || cmd == "vn" || cmd == "vt" || cmd == "g") {
                     getline(in, cmd);
                 } else if(cmd == "v") { // vertice
                     float x, y, z;
@@ -34,7 +35,7 @@ OBJ_Object::LoadOBJ(string const& filename)
                     for(int i=0; i<3; i++) {
                         elements.clear();
                         Split(vect[i], '/', elements);
-                        triangle[i] = stoi(elements[0]);
+                        triangle[i] = atoi(elements[0].c_str());
                     }
                     triangles.emplace_back(triangle);
                 } else {

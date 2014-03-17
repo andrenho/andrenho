@@ -10,10 +10,11 @@ class Scene {
 public:
     Scene(class Camera const& camera);
 
-    enum Mode { WIREFRAME };
+    enum Mode { FILL, WIREFRAME };
 
     void AddObject(class Object const& obj);
-    void setMode(Mode mode);
+    void setMode(enum Mode mode);
+    enum Mode Mode() const { return mode; }
 
     void Render() const;
 
@@ -23,6 +24,7 @@ public:
 private:
     class Camera const& camera;
     vector<const Object*> objects = {};
+    enum Mode mode = FILL;
 };
 
 }
