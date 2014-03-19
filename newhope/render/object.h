@@ -25,13 +25,16 @@ public:
     inline void Rotate(float x, float y) { rotation_x += x; rotation_y += y; }
     inline void Translate(float x, float y, float z) { translate_x += x; translate_y += y; translate_z += z; }
 
-    void Render(class Camera const& camera) const;
+    void Render(class Camera const& camera, vector<class Light const*> const& lights) const;
 
 private:
     void SetupObject();
+
     void UploadVertices(vector<glm::vec3> const& vertices, GLuint& vbo);
     void UploadElements(vector<array<int,3>> const& elements, GLuint& ebo);
     void LinkVertexArray(string const& variable, GLuint vbo, GLuint ebo);
+
+    void ApplyLights(vector<class Light const*> const& lights) const;
 
     void SendUniform(string parameter, glm::mat4 value) const;
     void SendUniform(string parameter, glm::vec3 value) const;

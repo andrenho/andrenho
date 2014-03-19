@@ -6,11 +6,12 @@
 #include <iostream>
 using namespace std;
 
-#include "render/renderengine.h"
-#include "render/scene.h"
 #include "render/camera.h"
+#include "render/light.h"
 #include "render/object.h"
 #include "render/program.h"
+#include "render/renderengine.h"
+#include "render/scene.h"
 
 float cam_x = 0,
       cam_y = 0,
@@ -26,8 +27,14 @@ int main()
         engine.InstallKeyCallback(&key_callback);
 
         render::Camera camera(engine);
+        render::Light ambient_light(render::Light::AMBIENT, 1.0f, 1.0f, 0.0f, 0.2f);
+        render::Light diffuse_light(render::Light::DIFFUSE, 1.0f, 1.0f, 1.0f, 0.7f, 5.0f, 5.0f, -0.7f);
+
         render::Scene scene(camera);
+        scene.AddLight(ambient_light);
+        scene.AddLight(diffuse_light);
         s = &scene; // TODO
+
         render::Program program("shaders/vertex.glsl", "shaders/fragment.glsl");
         render::Object cube("data/teapot.obj", program);
 
@@ -45,8 +52,9 @@ int main()
             engine.ProcessEvents();
             engine.Render(scene);
         }
-    } catch(std::exception& ex) {
-        cout << ex.what() << endl;
+
+    } catch(const char*& err) {
+        cout << err << endl;
         std::abort();
     }
 }

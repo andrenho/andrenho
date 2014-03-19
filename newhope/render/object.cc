@@ -1,6 +1,10 @@
 #include "render/object.h"
 
+#include <iostream>
+using namespace std;
+
 #include "render/camera.h"
+#include "render/light.h"
 #include "render/obj_loader.h"
 #include "render/program.h"
 
@@ -19,7 +23,7 @@ Object::Object(string const& origin, Program const& program)
 
 
 void 
-Object::Render(class Camera const& camera) const
+Object::Render(class Camera const& camera, vector<Light const*> const& lights) const
 {
     // setup pointers
     glUseProgram(program.Reference());
@@ -37,10 +41,10 @@ Object::Render(class Camera const& camera) const
     // TODO - glm::mat4 scale = glm::scale(rotate_y, glm::vec3(scale, scale, scale));
     SendUniform("model", rotate_y);
 
-    // send lights
-    SendUniform("dir_light.color", glm::vec3{ 1.0f, 1.0f, 0.0f });
-    SendUniform("dir_light.intensity", 0.3f);
+    // apply lights
+    ApplyLights(lights);
 
+    // draw elements
     glBindVertexArray(vao);
     glDrawElements(GL_TRIANGLES, triangles.size() * 3, GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
@@ -78,13 +82,13 @@ Object::UploadVertices(vector<glm::vec3> const& vertices, GLuint& vbo)
     // VBO - upload vertices to GPU
     int i=0;
     GLfloat* vertex = new GLfloat[vertices.size() * 3];
+    glGenBuffers(1, &vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
     for(auto const& vertice: vertices) {
         vertex[i++] = vertice.x;
         vertex[i++] = vertice.y;
         vertex[i++] = vertice.z;
     }
-    glGenBuffers(1, &vbo);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * 3 * sizeof(GLfloat), vertex, GL_STATIC_DRAW);
     delete[] vertex;
 }
@@ -119,6 +123,27 @@ Object::LinkVertexArray(string const& variable, GLuint vbo, GLuint ebo)
     glEnableVertexAttribArray(variable_id);
 }
 
+
+void 
+Object::ApplyLights(vector<class Light const*> const& lights) const
+{
+    // apply lights
+    for(auto const& light: lights) {
+        switch(light->Type) {
+        case Light::LightType::AMBIENT:
+            SendUniform("amb_light.color", light->Ambient.Color);
+            SendUniform("amb_light.intensity", light->Ambient.Intensity);
+            break;
+        case Light::LightType::DIFFUSE:
+            SendUniform("dif_light.color", light->Diffuse.Color);
+            SendUniform("dif_light.intensity", light->Diffuse.Intensity);
+            SendUniform("dif_light.direction", light->Diffuse.Direction);
+            break;
+        default:
+            throw "Invalid light type.";
+        }
+    }
+}
 
 // ------ send uniforms
 
