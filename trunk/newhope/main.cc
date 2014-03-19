@@ -27,8 +27,8 @@ int main()
         engine.InstallKeyCallback(&key_callback);
 
         render::Camera camera(engine);
-        render::Light ambient_light(render::Light::AMBIENT, 1.0f, 1.0f, 0.0f, 0.2f);
-        render::Light diffuse_light(render::Light::DIFFUSE, 1.0f, 1.0f, 1.0f, 0.7f, 5.0f, 5.0f, -0.7f);
+        render::Light ambient_light(render::Light::AMBIENT, 1.0f, 1.0f, 0.0f, 0.1f);
+        render::Light diffuse_light(render::Light::DIFFUSE, 1.0f, 1.0f, 1.0f, 0.4f, -1.0f, -1.0f, -0.7f);
 
         render::Scene scene(camera);
         scene.AddLight(ambient_light);
@@ -72,17 +72,17 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
             glfwSetWindowShouldClose(window, GL_TRUE);
             break;
         case GLFW_KEY_LEFT:
-            cam_x -= 0.3f; break;
+            cam_x -= 1; break;
         case GLFW_KEY_RIGHT:
-            cam_x += 0.3f; break;
+            cam_x += 1; break;
         case GLFW_KEY_UP:
-            cam_y += 0.3f; break;
+            cam_y += 1; break;
         case GLFW_KEY_DOWN:
-            cam_y -= 0.3f; break;
+            cam_y -= 1; break;
         case GLFW_KEY_COMMA:
-            cam_z += 0.3f; break;
+            cam_z += 1; break;
         case GLFW_KEY_PERIOD:
-            cam_z -= 0.3f; break;
+            cam_z -= 1; break;
         case GLFW_KEY_W:
             if(s->Mode() == render::Scene::FILL) {
                 s->setMode(render::Scene::WIREFRAME);
