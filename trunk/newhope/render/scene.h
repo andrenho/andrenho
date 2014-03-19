@@ -13,6 +13,7 @@ public:
     enum Mode { FILL, WIREFRAME };
 
     void AddObject(class Object const& obj);
+    void AddLight(class Light const& light);
     void setMode(enum Mode mode);
     enum Mode Mode() const { return mode; }
 
@@ -24,6 +25,7 @@ public:
 private:
     class Camera const& camera;
     vector<const Object*> objects = {};
+    vector<const Light*> lights = {};
     enum Mode mode = FILL;
 };
 

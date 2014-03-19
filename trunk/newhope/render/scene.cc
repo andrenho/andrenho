@@ -20,6 +20,13 @@ Scene::AddObject(Object const& obj)
 }
 
 
+void
+Scene::AddLight(Light const& light)
+{
+    lights.push_back(&light);
+}
+
+
 void 
 Scene::setMode(enum Mode mode)
 {
@@ -38,7 +45,7 @@ void
 Scene::Render() const
 {
     for(auto const& obj: objects) {
-        obj->Render(camera);
+        obj->Render(camera, lights);
     }
 }
 
