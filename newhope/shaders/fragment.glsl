@@ -16,13 +16,16 @@ struct DiffuseLight {
 };
 uniform DiffuseLight dif_light;
 
+in vec3 ec_pos;
+
 void main() {
     // ambient light
     vec4 amb_color = vec4(amb_light.color, 1.0f) * amb_light.intensity;
 
     // diffuse light
     vec4 diffuse_color;
-    float diffuse_factor = dot(normalize(normal), -dif_light.direction);
+    vec3 ec_normal = normalize(cross(dFdx(ec_pos), dFdy(ec_pos)));
+    float diffuse_factor = dot(normalize(ec_normal), -dif_light.direction);
     if(diffuse_factor > 0) {
         diffuse_color = vec4(dif_light.color, 1.0f) * dif_light.intensity * diffuse_factor;
     } else {
