@@ -14,7 +14,7 @@ using namespace std;
 
 float cam_x = 0,
       cam_y = 0,
-      cam_z = 30;
+      cam_z = 40;
 render::Scene* s = nullptr;
 
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);

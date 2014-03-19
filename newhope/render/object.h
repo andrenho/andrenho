@@ -29,7 +29,13 @@ public:
 
 private:
     void SetupObject();
-    void SendUniformMatrix(string parameter, glm::mat4 value) const;
+    void UploadVertices(vector<glm::vec3> const& vertices, GLuint& vbo);
+    void UploadElements(vector<array<int,3>> const& elements, GLuint& ebo);
+    void LinkVertexArray(string const& variable, GLuint vbo, GLuint ebo);
+
+    void SendUniform(string parameter, glm::mat4 value) const;
+    void SendUniform(string parameter, glm::vec3 value) const;
+    void SendUniform(string parameter, float value) const;
 
     class Program const& program;
 
@@ -44,7 +50,9 @@ private:
 
     GLuint vao = 0,
            vbo = 0,
-           ebo = 0;
+           vbo_normals = 0,
+           ebo = 0,
+           ebo_normals = 0;
 
     // ---
 
