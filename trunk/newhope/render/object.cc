@@ -1,27 +1,28 @@
 #include "render/object.h"
 
-#include <algorithm>
-#include <cerrno>
-#include <fstream>
-#include <iostream>
-using namespace std;
-
 #include "render/camera.h"
+#include "render/obj_loader.h"
+#include "render/program.h"
 
 namespace render {
 
-map<string, GLuint> Object::Programs = {};
-
-
-Object::Object()
+Object::Object(string const& origin, Program const& program)
+    : program(program)
 {
+    if(origin.compare(origin.length()-4, 4, ".obj") == 0) {
+        OBJ_Loader::Load(origin, *this);
+    } else {
+        throw "Invalid file extension for file " + origin;
+    }
+    SetupObject();
 }
 
 
 void 
-Object::Prepare(class Camera const& camera) const
+Object::Render(class Camera const& camera) const
 {
-    glUseProgram(program);
+    // setup pointers
+    glUseProgram(program.Reference());
     glBindVertexArray(vao);
 
     // send camera info
@@ -36,74 +37,64 @@ Object::Prepare(class Camera const& camera) const
     glm::mat4 rotate_y = glm::rotate(rotate_x, rotation_y, glm::vec3(0.0f, 1.0f, 0.0f));
     // TODO - glm::mat4 scale = glm::scale(rotate_y, glm::vec3(scale, scale, scale));
     SendUniformMatrix("model", rotate_y);
+
+    glDrawElements(GL_TRIANGLES, triangles.size() * 3, GL_UNSIGNED_INT, 0);
+}
+
+
+void
+Object::SetupObject()
+{
+    // initialize VAO
+    glGenVertexArrays(1, &vao);
+    glBindVertexArray(vao);
+
+    // initialize VBO
+    glGenBuffers(1, &vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+
+    // upload vertices to graphic card
+    int i=0;
+    GLfloat* vertex = new GLfloat[vertices.size() * 3];
+    for(auto const& vertice: vertices) {
+        vertex[i++] = vertice.x;
+        vertex[i++] = vertice.y;
+        vertex[i++] = vertice.z;
+    }
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * 3 * sizeof(GLfloat), vertex, GL_STATIC_DRAW);
+    delete[] vertex;
+
+    // create EBO - elements
+    glGenBuffers(1, &ebo);
+    GLuint* elements = new GLuint[triangles.size() * 3];
+    i = 0;
+    for(auto const& triangle: triangles) {
+        elements[i++] = triangle[0]-1;
+        elements[i++] = triangle[1]-1;
+        elements[i++] = triangle[2]-1;
+    }
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, triangles.size() * 3 * sizeof(GLuint), elements, GL_STATIC_DRAW);
+    delete[] elements;
+
+    // link program variables
+    GLint vert = glGetAttribLocation(program.Reference(), "vert");
+    glVertexAttribPointer(vert, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+    glEnableVertexAttribArray(vert);
+
+    // unbind VBO
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);
+    
+    // TODO - clear mesh
 }
 
 
 void 
 Object::SendUniformMatrix(string parameter, glm::mat4 value) const
 {
-    GLint id = glGetUniformLocation(program, parameter.c_str());
+    GLint id = glGetUniformLocation(program.Reference(), parameter.c_str());
     glUniformMatrix4fv(id, 1, GL_FALSE, &value[0][0]);
-}
-
-
-GLuint 
-Object::SetupProgram(string vertex_shader, string frag_shader)
-{
-    decltype(Programs)::iterator it = Programs.find(vertex_shader + " " + frag_shader);
-    if(it != end(Programs)) {
-        return it->second;
-    }   
-
-    string v = ReadWholeFile(vertex_shader);
-    string f = ReadWholeFile(frag_shader);
-	const GLchar* src_v = v.c_str(); 
-	const GLchar* src_f = f.c_str();
-	GLint isCompiled = GL_FALSE;
-
-	GLuint vshader = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vshader, 1, &src_v, NULL);
-	glCompileShader(vshader);
-	glGetShaderiv(vshader, GL_COMPILE_STATUS, &isCompiled);
-	if(isCompiled == GL_FALSE) {
-		char buffer[512];
-        glGetShaderInfoLog(vshader, 512, NULL, buffer);
-        cerr << buffer << endl;
-        throw;
-	}
-
-	GLuint fshader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fshader, 1, &src_f, NULL);
-	glCompileShader(fshader);
-	glGetShaderiv(fshader, GL_COMPILE_STATUS, &isCompiled);
-	if(isCompiled == GL_FALSE) {
-		char buffer[512];
-        glGetShaderInfoLog(fshader, 512, NULL, buffer);
-        cerr << buffer << endl;
-		throw;
-	}
-
-	GLuint program = glCreateProgram();
-	glAttachShader(program, vshader);
-	glAttachShader(program, fshader);
-	glLinkProgram(program);
-
-	glDeleteShader(vshader);
-	glDeleteShader(fshader);
-
-    Programs[vertex_shader + " " + frag_shader] = program;
-
-	return program;
-}
-
-
-string 
-Object::ReadWholeFile(string filename)
-{
-    ifstream file(filename);
-    string content((istreambuf_iterator<char>(file)), istreambuf_iterator<char>());
-
-    return content;
 }
 
 

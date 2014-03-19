@@ -14,11 +14,11 @@ endif
 
 SRC = main.cc			\
       render/camera.cc		\
+      render/obj_loader.cc	\
       render/object.cc		\
+      render/program.cc		\
       render/renderengine.cc	\
-      render/scene.cc		\
-      render/obj_object.cc	\
-      render/triangle.cc
+      render/scene.cc
 
 OBJ = ${SRC:.cc=.o}
 HEADERS = ${SRC:.cc=.h}

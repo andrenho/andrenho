@@ -2,44 +2,53 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+#include <cstdlib>
+#include <iostream>
+using namespace std;
+
 #include "render/renderengine.h"
 #include "render/scene.h"
 #include "render/camera.h"
-#include "render/obj_object.h"
-#include "render/triangle.h"
-
+#include "render/object.h"
+#include "render/program.h"
 
 float cam_x = 0,
       cam_y = 0,
       cam_z = 30;
 render::Scene* s = nullptr;
 
-static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
 int main()
 {
-    render::RenderEngine engine("newhope");
-    engine.InstallKeyCallback(&key_callback);
+    try {
+        render::RenderEngine engine("newhope");
+        engine.InstallKeyCallback(&key_callback);
 
-    render::Camera camera(engine);
-    render::Scene scene(camera);
-    s = &scene;
-    render::OBJ_Object cube("data/teapot.obj");
+        render::Camera camera(engine);
+        render::Scene scene(camera);
+        s = &scene; // TODO
+        render::Program program("shaders/vertex.glsl", "shaders/fragment.glsl");
+        render::Object cube("data/teapot.obj", program);
 
-	camera.LookAt(0, 0, 0);
+        camera.LookAt(0, 0, 0);
 
-	//scene.AddObject(triangle);
-	scene.AddObject(cube);
+        //scene.AddObject(triangle);
+        scene.AddObject(cube);
 
-    //triangle.Translate(-1, 0, 0);
-    //cube.Translate(1, 0, 0);
+        //triangle.Translate(-1, 0, 0);
+        //cube.Translate(1, 0, 0);
 
-	while(engine.Active())
-	{
-        camera.setPosition(cam_x, cam_y, cam_z);
-		engine.ProcessEvents();
-		engine.Render(scene);
-	}
+        while(engine.Active())
+        {
+            camera.setPosition(cam_x, cam_y, cam_z);
+            engine.ProcessEvents();
+            engine.Render(scene);
+        }
+    } catch(std::exception& ex) {
+        cout << ex.what() << endl;
+        std::abort();
+    }
 }
 
 

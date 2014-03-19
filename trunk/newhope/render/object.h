@@ -10,39 +10,46 @@
 
 #include <map>
 #include <string>
+#include <vector>
 using namespace std;
 
 namespace render {
 
 class Object {
+    friend class OBJ_Loader;
+
 public:
+    Object(string const& origin, class Program const& program);
+    virtual ~Object() {}
+
     inline void Rotate(float x, float y) { rotation_x += x; rotation_y += y; }
     inline void Translate(float x, float y, float z) { translate_x += x; translate_y += y; translate_z += z; }
 
-    void Prepare(class Camera const& camera) const;
-    virtual void Render() const = 0;
-
-protected:
-    Object();
-    virtual ~Object() {}
-
-    GLuint SetupProgram(string vertex_shader, string frag_shader);
-    void SendUniformMatrix(string parameter, glm::mat4 value) const;
-
-    GLuint vao = 0, 
-           vbo = 0, 
-           program = 0;
-
-	Object(const Object&) = delete;
-    Object& operator=(const Object&) = delete;
+    void Render(class Camera const& camera) const;
 
 private:
-    string ReadWholeFile(string filename);
+    void SetupObject();
+    void SendUniformMatrix(string parameter, glm::mat4 value) const;
+
+    class Program const& program;
+
+    vector<glm::vec3> vertices = {};
+    vector<array<int,3>> triangles = {};
+    vector<glm::vec3> normal_vertices = {};
+    vector<array<int,3>> normals = {};
+
     float rotation_x = 0, rotation_y = 0;
     float translate_x = 0, translate_y = 0, translate_z = 0;
     float scale = 1;
 
-    static map<string, GLuint> Programs;
+    GLuint vao = 0,
+           vbo = 0,
+           ebo = 0;
+
+    // ---
+
+	Object(const Object&) = delete;
+    Object& operator=(const Object&) = delete;
 };
 
 }
