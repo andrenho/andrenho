@@ -69,7 +69,7 @@ OBJ_Object::SetupObject()
     glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
 
-    // upload data to graphic card
+    // upload vertices to graphic card
     int i=0;
     GLfloat* vertex = new GLfloat[vertices.size() * 3];
     for(auto const& vertice: vertices) {
@@ -80,7 +80,7 @@ OBJ_Object::SetupObject()
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * 3 * sizeof(GLfloat), vertex, GL_STATIC_DRAW);
     delete[] vertex;
 
-    // create EBO
+    // create EBO - elements
     GLuint ebo;
     glGenBuffers(1, &ebo);
     GLuint* elements = new GLuint[triangles.size() * 3];
