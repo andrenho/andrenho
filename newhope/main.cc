@@ -14,6 +14,34 @@ float cam_x = 0,
       cam_z = 30;
 render::Scene* s = nullptr;
 
+static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+
+int main()
+{
+    render::RenderEngine engine("newhope");
+    engine.InstallKeyCallback(&key_callback);
+
+    render::Camera camera(engine);
+    render::Scene scene(camera);
+    s = &scene;
+    render::OBJ_Object cube("data/teapot.obj");
+
+	camera.LookAt(0, 0, 0);
+
+	//scene.AddObject(triangle);
+	scene.AddObject(cube);
+
+    //triangle.Translate(-1, 0, 0);
+    //cube.Translate(1, 0, 0);
+
+	while(engine.Active())
+	{
+        camera.setPosition(cam_x, cam_y, cam_z);
+		engine.ProcessEvents();
+		engine.Render(scene);
+	}
+}
+
 
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
@@ -48,34 +76,6 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
             ;
         }
     }
-}
-
-
-int main()
-{
-    render::RenderEngine engine("newhope");
-    engine.InstallKeyCallback(&key_callback);
-
-    render::Camera camera(engine);
-    render::Scene scene(camera);
-    s = &scene;
-    render::Triangle triangle;
-    render::OBJ_Object cube("data/teapot.obj");
-
-	camera.LookAt(0, 0, 0);
-
-	//scene.AddObject(triangle);
-	scene.AddObject(cube);
-
-    //triangle.Translate(-1, 0, 0);
-    //cube.Translate(1, 0, 0);
-
-	while(engine.Active())
-	{
-        camera.setPosition(cam_x, cam_y, cam_z);
-		engine.ProcessEvents();
-		engine.Render(scene);
-	}
 }
 
 // vim: ts=4:sw=4:sts=4:expandtab
