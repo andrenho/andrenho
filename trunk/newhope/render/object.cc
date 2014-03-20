@@ -51,7 +51,7 @@ Object::Render(class Camera const& camera, vector<Light const*> const& lights) c
 
     // draw elements
     glBindVertexArray(vao);
-    glDrawElements(GL_TRIANGLES, triangles.size() * 3, GL_UNSIGNED_INT, 0);
+    glDrawArrays(GL_TRIANGLES, 0, triangles.size()*3);
     glBindVertexArray(0);
 }
 
@@ -79,87 +79,39 @@ Object::SetupObject()
     glGenVertexArrays(1, &vao);
     glBindVertexArray(vao);
 
-    // upload data
-    UploadVertices(vertices, vbo);
-    UploadElements(triangles, ebo);
-    UploadVertices(normal_vertices, vbo_normals);
-    UploadElements(normals, ebo_normals);
-    //UploadNormals(normal_vertices, normals, vbo_normals);
+    // send vertices to GPU
+    assert(triangles.size() == normals.size());
+    size_t sz = triangles.size();
+    vector<GLfloat> vertex;
+    for(int i=0; i<sz; i++) {
+        for(int j=0; j<3; j++) {
+            vertex.push_back(vertices[triangles[i][j]-1].x);
+            vertex.push_back(vertices[triangles[i][j]-1].y);
+            vertex.push_back(vertices[triangles[i][j]-1].z);
+            vertex.push_back(normal_vertices[normals[i][j]-1].x);
+            vertex.push_back(normal_vertices[normals[i][j]-1].y);
+            vertex.push_back(normal_vertices[normals[i][j]-1].z);
+        }
+    }
+    glGenBuffers(1, &vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBufferData(GL_ARRAY_BUFFER, vertex.size() * sizeof(GLfloat), &vertex[0], GL_STATIC_DRAW);
+    
+    // bind variables
+    glBindBuffer(GL_ARRAY_BUFFER, vbo); // TODO
+    GLint variable_id = glGetAttribLocation(program.Reference(), "vert");
+    glEnableVertexAttribArray(variable_id);
+    glVertexAttribPointer(variable_id, 3, GL_FLOAT, GL_FALSE, 6*sizeof(GLfloat), nullptr);
 
-    // link GPU data to vertex shader variables
-    LinkVertexArray("normals", vbo_normals, ebo_normals);
-    LinkVertexArray("vert", vbo, ebo);
+    variable_id = glGetAttribLocation(program.Reference(), "normals");
+    glEnableVertexAttribArray(variable_id);
+    glVertexAttribPointer(variable_id, 3, GL_FLOAT, GL_FALSE, 6*sizeof(GLfloat), (void*)(3*sizeof(GLfloat)));
 
     // unbind VAO & VBO
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
     // TODO - clear mesh
-}
-
-
-void
-Object::UploadVertices(vector<glm::vec3> const& vertices, GLuint& vbo)
-{
-    // VBO - upload vertices to GPU
-    vector<GLfloat> vertex;
-    for(auto const& vertice: vertices) {
-        vertex.push_back(vertice.x);
-        vertex.push_back(vertice.y);
-        vertex.push_back(vertice.z);
-    }
-    glGenBuffers(1, &vbo);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, vertex.size() * sizeof(GLfloat), &vertex[0], GL_STATIC_DRAW);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-}
-
-
-void
-Object::UploadElements(vector<array<int,3>> const& elements, GLuint& ebo)
-{
-    // EBO - upload elements to GPU
-    vector<GLuint> el;
-    for(auto const& element: elements) {
-        el.push_back(element[0]-1);
-        el.push_back(element[1]-1);
-        el.push_back(element[2]-1);
-    }
-    glGenBuffers(1, &ebo);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, el.size() * sizeof(GLuint), &el[0], GL_STATIC_DRAW);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-}
-
-
-void
-Object::UploadNormals(vector<glm::vec3> const& vertices, vector<array<int,3>> const& elements, GLuint& vbo)
-{
-    vector<GLfloat> vertex;
-    for(auto const& element: elements) {
-        for(int i=0; i<3; i++) {
-            vertex.push_back(vertices[element[i]-1].x);
-            vertex.push_back(vertices[element[i]-1].y);
-            vertex.push_back(vertices[element[i]-1].z);
-        }
-    }
-    glGenBuffers(1, &vbo);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, vertex.size() * sizeof(GLfloat), &vertex[0], GL_STATIC_DRAW);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-}
-
-
-void
-Object::LinkVertexArray(string const& variable, GLuint vbo, GLuint ebo)
-{
-    // link program variables
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-    GLint variable_id = glGetAttribLocation(program.Reference(), variable.c_str());
-    glEnableVertexAttribArray(variable_id);
-    glVertexAttribPointer(variable_id, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
-    glEnableVertexAttribArray(0);
 }
 
 

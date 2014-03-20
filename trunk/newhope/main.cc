@@ -36,7 +36,7 @@ int main()
         s = &scene; // TODO
 
         render::Program program("shaders/vertex.glsl", "shaders/fragment.glsl");
-        render::Object cube("data/torus.obj", program);
+        render::Object cube("data/suzanne.obj", program);
         //render::Object torus("data/teapot.obj", program);
         //cube.DebugVertices();
 

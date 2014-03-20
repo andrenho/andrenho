@@ -33,11 +33,6 @@ public:
 private:
     void SetupObject();
 
-    void UploadVertices(vector<glm::vec3> const& vertices, GLuint& vbo);
-    void UploadElements(vector<array<int,3>> const& elements, GLuint& ebo);
-    void UploadNormals(vector<glm::vec3> const& vertices, vector<array<int,3>> const& elements, GLuint& vbo);
-    void LinkVertexArray(string const& variable, GLuint vbo, GLuint ebo);
-
     void ApplyLights(vector<class Light const*> const& lights) const;
 
     void SendUniform(string parameter, glm::mat4 value) const;
