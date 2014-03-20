@@ -19,6 +19,8 @@ Object::Object(string const& origin, Program const& program)
         throw "Invalid file extension for file " + origin;
     }
     SetupObject();
+    cout << "Object " << origin << " loaded with " << vertices.size() << " vertices, " << triangles.size() << " triangles, "
+         << normal_vertices.size() << " normal vertices, and " << normals.size() << " normals." << endl;
 }
 
 
@@ -41,6 +43,9 @@ Object::Render(class Camera const& camera, vector<Light const*> const& lights) c
     // TODO - glm::mat4 scale = glm::scale(rotate_y, glm::vec3(scale, scale, scale));
     SendUniform("model", rotate_y);
 
+    // flat/smooth
+    SendUniform("smooth_model", true);
+
     // apply lights
     ApplyLights(lights);
 
@@ -48,6 +53,22 @@ Object::Render(class Camera const& camera, vector<Light const*> const& lights) c
     glBindVertexArray(vao);
     glDrawElements(GL_TRIANGLES, triangles.size() * 3, GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
+}
+
+
+void
+Object::DebugVertices() const
+{
+    for(auto const& triangle: triangles) {
+        cout << "[ ";
+        for(int i=0; i<3; i++) {
+             cout << "(" 
+                  << vertices[triangle[i]-1].x << ", "
+                  << vertices[triangle[i]-1].y << ", "
+                  << vertices[triangle[i]-1].z << ") ";
+        }
+        cout << "]" << endl;
+    }
 }
 
 
@@ -60,13 +81,14 @@ Object::SetupObject()
 
     // upload data
     UploadVertices(vertices, vbo);
-    UploadVertices(normal_vertices, vbo_normals);
     UploadElements(triangles, ebo);
+    UploadVertices(normal_vertices, vbo_normals);
     UploadElements(normals, ebo_normals);
+    //UploadNormals(normal_vertices, normals, vbo_normals);
 
     // link GPU data to vertex shader variables
-    LinkVertexArray("vert", vbo, ebo);
     LinkVertexArray("normals", vbo_normals, ebo_normals);
+    LinkVertexArray("vert", vbo, ebo);
 
     // unbind VAO & VBO
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -80,17 +102,16 @@ void
 Object::UploadVertices(vector<glm::vec3> const& vertices, GLuint& vbo)
 {
     // VBO - upload vertices to GPU
-    int i=0;
-    GLfloat* vertex = new GLfloat[vertices.size() * 3];
+    vector<GLfloat> vertex;
+    for(auto const& vertice: vertices) {
+        vertex.push_back(vertice.x);
+        vertex.push_back(vertice.y);
+        vertex.push_back(vertice.z);
+    }
     glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    for(auto const& vertice: vertices) {
-        vertex[i++] = vertice.x;
-        vertex[i++] = vertice.y;
-        vertex[i++] = vertice.z;
-    }
-    glBufferData(GL_ARRAY_BUFFER, vertices.size() * 3 * sizeof(GLfloat), vertex, GL_STATIC_DRAW);
-    delete[] vertex;
+    glBufferData(GL_ARRAY_BUFFER, vertex.size() * sizeof(GLfloat), &vertex[0], GL_STATIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 
@@ -98,17 +119,34 @@ void
 Object::UploadElements(vector<array<int,3>> const& elements, GLuint& ebo)
 {
     // EBO - upload elements to GPU
-    GLuint* el = new GLuint[elements.size() * 3];
-    int i = 0;
+    vector<GLuint> el;
     for(auto const& element: elements) {
-        el[i++] = element[0]-1;
-        el[i++] = element[1]-1;
-        el[i++] = element[2]-1;
+        el.push_back(element[0]-1);
+        el.push_back(element[1]-1);
+        el.push_back(element[2]-1);
     }
     glGenBuffers(1, &ebo);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, elements.size() * 3 * sizeof(GLuint), el, GL_STATIC_DRAW);
-    delete[] el;
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, el.size() * sizeof(GLuint), &el[0], GL_STATIC_DRAW);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+}
+
+
+void
+Object::UploadNormals(vector<glm::vec3> const& vertices, vector<array<int,3>> const& elements, GLuint& vbo)
+{
+    vector<GLfloat> vertex;
+    for(auto const& element: elements) {
+        for(int i=0; i<3; i++) {
+            vertex.push_back(vertices[element[i]-1].x);
+            vertex.push_back(vertices[element[i]-1].y);
+            vertex.push_back(vertices[element[i]-1].z);
+        }
+    }
+    glGenBuffers(1, &vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBufferData(GL_ARRAY_BUFFER, vertex.size() * sizeof(GLfloat), &vertex[0], GL_STATIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 
@@ -119,8 +157,9 @@ Object::LinkVertexArray(string const& variable, GLuint vbo, GLuint ebo)
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
     GLint variable_id = glGetAttribLocation(program.Reference(), variable.c_str());
-    glVertexAttribPointer(variable_id, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
     glEnableVertexAttribArray(variable_id);
+    glVertexAttribPointer(variable_id, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+    glEnableVertexAttribArray(0);
 }
 
 
@@ -169,6 +208,14 @@ Object::SendUniform(string parameter, float value) const
 {
     GLint id = glGetUniformLocation(program.Reference(), parameter.c_str());
     glUniform1f(id, value);
+}
+
+
+void 
+Object::SendUniform(string parameter, bool value) const
+{
+    GLint id = glGetUniformLocation(program.Reference(), parameter.c_str());
+    glUniform1i(id, value ? 1 : 0);
 }
 
 

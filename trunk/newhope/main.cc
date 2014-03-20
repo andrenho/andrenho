@@ -14,8 +14,8 @@ using namespace std;
 #include "render/scene.h"
 
 float cam_x = 0,
-      cam_y = 0,
-      cam_z = 40;
+      cam_y = 3,
+      cam_z = 10;
 render::Scene* s = nullptr;
 
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
@@ -27,7 +27,7 @@ int main()
         engine.InstallKeyCallback(&key_callback);
 
         render::Camera camera(engine);
-        render::Light ambient_light(render::Light::AMBIENT, 1.0f, 1.0f, 0.0f, 0.1f);
+        render::Light ambient_light(render::Light::AMBIENT, 1.0f, 1.0f, 0.0f, 0.2f);
         render::Light diffuse_light(render::Light::DIFFUSE, 1.0f, 1.0f, 1.0f, 0.4f, -1.0f, -1.0f, -0.7f);
 
         render::Scene scene(camera);
@@ -36,14 +36,17 @@ int main()
         s = &scene; // TODO
 
         render::Program program("shaders/vertex.glsl", "shaders/fragment.glsl");
-        render::Object cube("data/teapot.obj", program);
+        render::Object cube("data/torus.obj", program);
+        //render::Object torus("data/teapot.obj", program);
+        //cube.DebugVertices();
 
         camera.LookAt(0, 0, 0);
 
         //scene.AddObject(triangle);
         scene.AddObject(cube);
+        //scene.AddObject(torus);
 
-        //triangle.Translate(-1, 0, 0);
+        //torus.Translate(-1, 0, 0);
         //cube.Translate(1, 0, 0);
 
         while(engine.Active())
@@ -54,6 +57,9 @@ int main()
         }
 
     } catch(const char*& err) {
+        cout << err << endl;
+        std::abort();
+    } catch(string& err) {
         cout << err << endl;
         std::abort();
     }

@@ -24,14 +24,18 @@ public:
 
     inline void Rotate(float x, float y) { rotation_x += x; rotation_y += y; }
     inline void Translate(float x, float y, float z) { translate_x += x; translate_y += y; translate_z += z; }
+    inline void setSmooth(bool v) { smooth = v; }
 
     void Render(class Camera const& camera, vector<class Light const*> const& lights) const;
+
+    void DebugVertices() const;
 
 private:
     void SetupObject();
 
     void UploadVertices(vector<glm::vec3> const& vertices, GLuint& vbo);
     void UploadElements(vector<array<int,3>> const& elements, GLuint& ebo);
+    void UploadNormals(vector<glm::vec3> const& vertices, vector<array<int,3>> const& elements, GLuint& vbo);
     void LinkVertexArray(string const& variable, GLuint vbo, GLuint ebo);
 
     void ApplyLights(vector<class Light const*> const& lights) const;
@@ -39,6 +43,7 @@ private:
     void SendUniform(string parameter, glm::mat4 value) const;
     void SendUniform(string parameter, glm::vec3 value) const;
     void SendUniform(string parameter, float value) const;
+    void SendUniform(string parameter, bool value) const;
 
     class Program const& program;
 
@@ -51,10 +56,12 @@ private:
     float translate_x = 0, translate_y = 0, translate_z = 0;
     float scale = 1;
 
+    bool smooth = false;
+
     GLuint vao = 0,
            vbo = 0,
-           vbo_normals = 0,
            ebo = 0,
+           vbo_normals = 0,
            ebo_normals = 0;
 
     // ---

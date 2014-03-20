@@ -19,7 +19,7 @@ OBJ_Loader::Load(string const& filename, Object& obj)
         string cmd;
         while(in >> cmd) {
             if(!cmd.empty()) {
-                if(cmd[0] == '#' || cmd == "o" || cmd == "s" || cmd == "vt" || cmd == "g") {
+                if(cmd[0] == '#' || cmd == "o" || cmd == "s" || cmd == "vt" || cmd == "g" || cmd == "usemtl" || cmd == "mtllib") {
                     getline(in, cmd);
                 } else if(cmd == "v") { // vertice
                     float x, y, z;

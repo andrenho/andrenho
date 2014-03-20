@@ -1,22 +1,23 @@
 #version 150
 
-out vec4 finalColor;
-in vec3 normal;
-
 struct AmbientLight {
     vec3 color;
     float intensity;
 };
-uniform AmbientLight amb_light;
 
 struct DiffuseLight {
     vec3 color;
     float intensity;
     vec3 direction;
 };
-uniform DiffuseLight dif_light;
 
-in vec3 ec_pos;
+in vec3 normal;
+
+uniform AmbientLight amb_light;
+uniform DiffuseLight dif_light;
+uniform bool smooth_model;
+
+out vec4 finalColor;
 
 void main() {
     // ambient light
@@ -24,7 +25,10 @@ void main() {
 
     // diffuse light
     vec4 diffuse_color;
-    vec3 ec_normal = normalize(cross(dFdx(ec_pos), dFdy(ec_pos)));
+    vec3 ec_normal = normal;
+    if(!smooth_model) {
+        ec_normal = normalize(cross(dFdx(normal), dFdy(normal)));
+    }
     float diffuse_factor = dot(normalize(ec_normal), -dif_light.direction);
     if(diffuse_factor > 0) {
         diffuse_color = vec4(dif_light.color, 1.0f) * dif_light.intensity * diffuse_factor;
