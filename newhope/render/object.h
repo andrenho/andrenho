@@ -15,9 +15,13 @@ using namespace std;
 
 namespace render {
 
-class Object {
-    friend class OBJ_Loader;
+struct Vertice {
+    glm::vec3 Point;
+    glm::vec3 Normal;
+    glm::vec3 Color;
+};
 
+class Object {
 public:
     Object(string const& origin, class Program const& program);
     virtual ~Object() {}
@@ -27,8 +31,6 @@ public:
     inline void setSmooth(bool v) { smooth = v; }
 
     void Render(class Camera const& camera, vector<class Light const*> const& lights) const;
-
-    void DebugVertices() const;
 
 private:
     void SetupObject();
@@ -42,11 +44,7 @@ private:
 
     class Program const& program;
 
-    vector<glm::vec3> vertices = {};
-    vector<array<int,3>> triangles = {};
-    vector<glm::vec3> normal_vertices = {};
-    vector<array<int,3>> normals = {};
-    vector<glm::vec3> vertices_colors = {};
+    vector<Vertice> vertices = {};
 
     float rotation_x = 0, rotation_y = 0;
     float translate_x = 0, translate_y = 0, translate_z = 0;

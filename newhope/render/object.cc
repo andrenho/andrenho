@@ -15,13 +15,11 @@ Object::Object(string const& origin, Program const& program)
 {
     if(origin.compare(origin.length()-4, 4, ".obj") == 0) {
         OBJ_Loader loader;
-        loader.Load(origin, *this);
+        loader.Load(origin, vertices);
     } else {
         throw "Invalid file extension for file " + origin;
     }
     SetupObject();
-    cout << "Object " << origin << " loaded with " << vertices.size() << " vertices, " << triangles.size() << " triangles, "
-         << normal_vertices.size() << " normal vertices, and " << normals.size() << " normals." << endl;
 }
 
 
@@ -52,24 +50,8 @@ Object::Render(class Camera const& camera, vector<Light const*> const& lights) c
 
     // draw elements
     glBindVertexArray(vao);
-    glDrawArrays(GL_TRIANGLES, 0, triangles.size()*3);
+    glDrawArrays(GL_TRIANGLES, 0, vertices.size());
     glBindVertexArray(0);
-}
-
-
-void
-Object::DebugVertices() const
-{
-    for(auto const& triangle: triangles) {
-        cout << "[ ";
-        for(int i=0; i<3; i++) {
-             cout << "(" 
-                  << vertices[triangle[i]-1].x << ", "
-                  << vertices[triangle[i]-1].y << ", "
-                  << vertices[triangle[i]-1].z << ") ";
-        }
-        cout << "]" << endl;
-    }
 }
 
 
@@ -81,21 +63,11 @@ Object::SetupObject()
     glBindVertexArray(vao);
 
     // send vertices to GPU
-    assert(triangles.size() == normals.size());
-    size_t sz = triangles.size();
     vector<GLfloat> vertex;
-    for(int i=0; i<sz; i++) {
-        for(int j=0; j<3; j++) {
-            vertex.push_back(vertices[triangles[i][j]-1].x);
-            vertex.push_back(vertices[triangles[i][j]-1].y);
-            vertex.push_back(vertices[triangles[i][j]-1].z);
-            vertex.push_back(normal_vertices[normals[i][j]-1].x);
-            vertex.push_back(normal_vertices[normals[i][j]-1].y);
-            vertex.push_back(normal_vertices[normals[i][j]-1].z);
-            vertex.push_back(vertices_colors[triangles[i][j]-1].r);
-            vertex.push_back(vertices_colors[triangles[i][j]-1].g);
-            vertex.push_back(vertices_colors[triangles[i][j]-1].b);
-        }
+    for(auto const& vertice: vertices) {
+        for(int j=0; j<3; j++) { vertex.push_back(vertice.Point[j]); }
+        for(int j=0; j<3; j++) { vertex.push_back(vertice.Normal[j]); }
+        for(int j=0; j<3; j++) { vertex.push_back(vertice.Color[j]); }
     }
     glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);

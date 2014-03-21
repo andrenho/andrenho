@@ -12,24 +12,36 @@
 namespace render {
 
 void
-OBJ_Loader::Load(string const& filename, Object& obj)
+OBJ_Loader::Load(string const& filename, vector<struct Vertice>& vertices)
 {
+    glm::vec3 current_color = { 1, 1, 1 };
     ifstream in(filename);
     if(in.is_open()) {
         string cmd;
         while(in >> cmd) {
             if(!cmd.empty()) {
-                if(cmd[0] == '#' || cmd == "o" || cmd == "s" || cmd == "vt" || cmd == "g" || cmd == "usemtl" || cmd == "mtllib") {
+                if(cmd[0] == '#' || cmd == "o" || cmd == "s" || cmd == "vt" || cmd == "g") {
                     getline(in, cmd);
+                } else if(cmd == "mtllib") {
+                    string file;
+                    in >> file;
+                    LoadMaterials("data/" + file); // TODO
+                } else if(cmd == "usemtl") {
+                    string material;
+                    in >> material;
+                    try {
+                        current_color = colors.at(material);
+                    } catch(out_of_range& e) {
+                        throw "Invalid color " + material;
+                    }
                 } else if(cmd == "v") { // vertice
                     float x, y, z;
                     in >> x >> y >> z;
-                    obj.vertices.emplace_back(x, y, z);
-                    obj.vertices_colors.emplace_back(1.0f, 1.0f, 1.0f);
+                    points.emplace_back(x, y, z);
                 } else if(cmd == "vn") { // normal vertice
                     float x, y, z;
                     in >> x >> y >> z;
-                    obj.normal_vertices.emplace_back(x, y, z);
+                    normals.emplace_back(x, y, z);
                 } else if(cmd == "f") { // triangles
                     vector<string> elements;
                     array<int,3> triangle, normal;
@@ -40,9 +52,13 @@ OBJ_Loader::Load(string const& filename, Object& obj)
                         Split(vect[i], '/', elements);
                         triangle[i] = atoi(elements[0].c_str());
                         normal[i] = atoi(elements[2].c_str());
+
+                        vertices.push_back({
+                                { points[triangle[i]-1].x, points[triangle[i]-1].y, points[triangle[i]-1].z, },
+                                { normals[normal[i]-1].x, normals[normal[i]-1].y, normals[normal[i]-1].z, }, 
+                                current_color
+                        });
                     }
-                    obj.triangles.emplace_back(triangle);
-                    obj.normals.emplace_back(normal);
                 } else {
                     throw "Invalid command '" + cmd + "' on file " + filename;
                 }
@@ -57,6 +73,29 @@ OBJ_Loader::Load(string const& filename, Object& obj)
 void 
 OBJ_Loader::LoadMaterials(string const& filename)
 {
+    string current = "";
+    ifstream in(filename);
+    if(in.is_open()) {
+        string cmd;
+        while(in >> cmd) {
+            if(!cmd.empty()) {
+                if(cmd == "newmtl") {
+                    in >> current;
+                } else if(cmd == "Kd") {
+                    if(current == "") {
+                        throw "Kd without newmtl in " + filename;
+                    }
+                    float r, g, b;
+                    in >> r >> g >> b;
+                    colors[current] = { r, g, b };
+                } else {
+                    getline(in, cmd);
+                }
+            }
+        }
+    } else {
+        throw "Could not open file " + filename;
+    }
 }
 
 
