@@ -7,7 +7,7 @@
 namespace render {
 
 struct Light {
-    enum LightType { AMBIENT, DIFFUSE, SPECULAR } Type;
+    enum LightType { AMBIENT, DIFFUSE } Type;
     
     union {
         struct {

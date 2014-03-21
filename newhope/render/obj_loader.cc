@@ -25,6 +25,7 @@ OBJ_Loader::Load(string const& filename, Object& obj)
                     float x, y, z;
                     in >> x >> y >> z;
                     obj.vertices.emplace_back(x, y, z);
+                    obj.vertices_colors.emplace_back(1.0f, 1.0f, 1.0f);
                 } else if(cmd == "vn") { // normal vertice
                     float x, y, z;
                     in >> x >> y >> z;
@@ -53,8 +54,14 @@ OBJ_Loader::Load(string const& filename, Object& obj)
 }
 
 
+void 
+OBJ_Loader::LoadMaterials(string const& filename)
+{
+}
+
+
 vector<string> 
-OBJ_Loader::Split(string const& s, char delim, vector<string>& elems)
+OBJ_Loader::Split(string const& s, char delim, vector<string>& elems) const
 {
     stringstream ss(s);
     string item;
