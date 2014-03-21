@@ -36,7 +36,8 @@ int main()
         s = &scene; // TODO
 
         render::Program program("shaders/vertex.glsl", "shaders/fragment.glsl");
-        render::Object cube("data/cube.obj", program);
+        render::Object cube("data/torus.obj", program);
+        //cube.setSmooth(true);
         render::Object ground("data/ground.obj", program);
 
         camera.LookAt(0, 0, 0);
