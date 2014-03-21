@@ -14,7 +14,8 @@ Object::Object(string const& origin, Program const& program)
     : program(program)
 {
     if(origin.compare(origin.length()-4, 4, ".obj") == 0) {
-        OBJ_Loader::Load(origin, *this);
+        OBJ_Loader loader;
+        loader.Load(origin, *this);
     } else {
         throw "Invalid file extension for file " + origin;
     }
@@ -44,7 +45,7 @@ Object::Render(class Camera const& camera, vector<Light const*> const& lights) c
     SendUniform("model", rotate_y);
 
     // flat/smooth
-    SendUniform("smooth_model", true);
+    SendUniform("smooth_model", smooth);
 
     // apply lights
     ApplyLights(lights);
@@ -91,6 +92,9 @@ Object::SetupObject()
             vertex.push_back(normal_vertices[normals[i][j]-1].x);
             vertex.push_back(normal_vertices[normals[i][j]-1].y);
             vertex.push_back(normal_vertices[normals[i][j]-1].z);
+            vertex.push_back(vertices_colors[triangles[i][j]-1].r);
+            vertex.push_back(vertices_colors[triangles[i][j]-1].g);
+            vertex.push_back(vertices_colors[triangles[i][j]-1].b);
         }
     }
     glGenBuffers(1, &vbo);
@@ -101,11 +105,15 @@ Object::SetupObject()
     glBindBuffer(GL_ARRAY_BUFFER, vbo); // TODO
     GLint variable_id = glGetAttribLocation(program.Reference(), "vert");
     glEnableVertexAttribArray(variable_id);
-    glVertexAttribPointer(variable_id, 3, GL_FLOAT, GL_FALSE, 6*sizeof(GLfloat), nullptr);
+    glVertexAttribPointer(variable_id, 3, GL_FLOAT, GL_FALSE, 9*sizeof(GLfloat), nullptr);
 
     variable_id = glGetAttribLocation(program.Reference(), "normals");
     glEnableVertexAttribArray(variable_id);
-    glVertexAttribPointer(variable_id, 3, GL_FLOAT, GL_FALSE, 6*sizeof(GLfloat), (void*)(3*sizeof(GLfloat)));
+    glVertexAttribPointer(variable_id, 3, GL_FLOAT, GL_FALSE, 9*sizeof(GLfloat), (void*)(3*sizeof(GLfloat)));
+
+    variable_id = glGetAttribLocation(program.Reference(), "material_color");
+    glEnableVertexAttribArray(variable_id);
+    glVertexAttribPointer(variable_id, 3, GL_FLOAT, GL_FALSE, 9*sizeof(GLfloat), (void*)(6*sizeof(GLfloat)));
 
     // unbind VAO & VBO
     glBindBuffer(GL_ARRAY_BUFFER, 0);

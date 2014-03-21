@@ -15,7 +15,7 @@ using namespace std;
 
 float cam_x = 0,
       cam_y = 3,
-      cam_z = 10;
+      cam_z = 6;
 render::Scene* s = nullptr;
 
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
@@ -27,8 +27,8 @@ int main()
         engine.InstallKeyCallback(&key_callback);
 
         render::Camera camera(engine);
-        render::Light ambient_light(render::Light::AMBIENT, 1.0f, 1.0f, 0.0f, 0.2f);
-        render::Light diffuse_light(render::Light::DIFFUSE, 1.0f, 1.0f, 1.0f, 0.4f, -1.0f, -1.0f, -0.7f);
+        render::Light ambient_light(render::Light::AMBIENT, 0.3f, 0.3f, 0.3f, 0.3f);
+        render::Light diffuse_light(render::Light::DIFFUSE, 1.0f, 1.0f, 1.0f, 0.6f, -2.0f, -2.0f, -0.7f);
 
         render::Scene scene(camera);
         scene.AddLight(ambient_light);
@@ -36,7 +36,8 @@ int main()
         s = &scene; // TODO
 
         render::Program program("shaders/vertex.glsl", "shaders/fragment.glsl");
-        render::Object cube("data/suzanne.obj", program);
+        render::Object cube("data/colorcube.obj", program);
+        //cube.setSmooth(true);
         //render::Object torus("data/teapot.obj", program);
         //cube.DebugVertices();
 

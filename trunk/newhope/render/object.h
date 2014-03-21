@@ -46,6 +46,7 @@ private:
     vector<array<int,3>> triangles = {};
     vector<glm::vec3> normal_vertices = {};
     vector<array<int,3>> normals = {};
+    vector<glm::vec3> vertices_colors = {};
 
     float rotation_x = 0, rotation_y = 0;
     float translate_x = 0, translate_y = 0, translate_z = 0;

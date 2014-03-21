@@ -12,6 +12,7 @@ struct DiffuseLight {
 };
 
 in vec3 normal;
+in vec3 f_material_color;
 
 uniform AmbientLight amb_light;
 uniform DiffuseLight dif_light;
@@ -37,7 +38,7 @@ void main() {
     }
 
     // calculate final color
-	finalColor = vec4(1.0, 1.0, 1.0, 1.0) * (amb_color + diffuse_color);
+	finalColor = vec4(f_material_color, 1.0) * (amb_color + diffuse_color);
 }
 
 // vim: ts=4:sw=4:sts=4:expandtab
