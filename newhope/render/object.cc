@@ -29,10 +29,6 @@ Object::Render(class Camera const& camera, vector<Light const*> const& lights) c
     // setup pointers
     glUseProgram(program.Reference());
 
-    // send camera info
-    SendUniform("projection", camera.Projection());
-    SendUniform("camera", camera.View());
-
     // translate, rotate and scale
     glm::mat4 translate = glm::translate(
             glm::mat4(1.0f), 
@@ -40,7 +36,9 @@ Object::Render(class Camera const& camera, vector<Light const*> const& lights) c
     glm::mat4 rotate_x = glm::rotate(translate, rotation_x, glm::vec3(1.0f, 0.0f, 0.0f));
     glm::mat4 rotate_y = glm::rotate(rotate_x, rotation_y, glm::vec3(0.0f, 1.0f, 0.0f));
     // TODO - glm::mat4 scale = glm::scale(rotate_y, glm::vec3(scale, scale, scale));
-    SendUniform("model", rotate_y);
+
+    // send camera + model information
+    SendUniform("wvp", camera.Projection() * camera.View() * rotate_y);
 
     // flat/smooth
     SendUniform("smooth_model", smooth);
