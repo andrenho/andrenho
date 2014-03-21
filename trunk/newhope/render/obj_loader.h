@@ -12,13 +12,15 @@ namespace render {
 
 class OBJ_Loader {
 public:
-    void Load(string const& filename, class Object& obj);
+    void Load(string const& filename, vector<struct Vertice>& vertices);
 
 private:
     void LoadMaterials(string const& filename);
     vector<string> Split(string const& s, char delim, vector<string>& elems) const;
 
-    map<string, glm::vec3> colors;
+    map<string, glm::vec3> colors = {};
+
+    vector<glm::vec3> points = {}, normals = {};
 };
 
 }
