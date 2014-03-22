@@ -1,13 +1,15 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
 
 #include <cstdlib>
 #include <iostream>
 using namespace std;
 
+#include "render/ambientlight.h"
 #include "render/camera.h"
-#include "render/light.h"
+#include "render/diffuselight.h"
 #include "render/object.h"
 #include "render/program.h"
 #include "render/renderengine.h"
@@ -27,8 +29,9 @@ int main()
         engine.InstallKeyCallback(&key_callback);
 
         render::Camera camera(engine);
-        render::Light ambient_light(render::Light::AMBIENT, 1.0f, 1.0f, 1.0f, 0.2f);
-        render::Light diffuse_light(render::Light::DIFFUSE, 1.0f, 1.0f, 1.0f, 0.4f, -1.0f, -2.0f, -3.0f);
+        render::AmbientLight ambient_light(glm::vec3(1.0f, 1.0f, 1.0f), 0.2f);
+        render::Program diffuse_shadow("shaders/vertex.glsl", "shaders/shadow_map_fs.glsl");
+        render::DiffuseLight diffuse_light(glm::vec3(1.0f, 1.0f, 1.0f), 0.4f, glm::vec3(-1.0f, -2.0f, -3.0f), diffuse_shadow);
 
         render::Scene scene(camera);
         scene.AddLight(ambient_light);

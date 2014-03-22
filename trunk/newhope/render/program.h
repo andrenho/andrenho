@@ -4,6 +4,7 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
 
 #include <string>
 using namespace std;
@@ -16,6 +17,13 @@ public:
     ~Program();
 
     GLuint Reference() const { return reference; }
+
+    void SendUniform(string parameter, glm::mat4 value) const;
+    void SendUniform(string parameter, glm::vec3 value) const;
+    void SendUniform(string parameter, float value) const;
+    void SendUniform(string parameter, bool value) const;
+
+    void SendVertexArray(string paramter, int float_count, int stride) const;
 
 	Program(const Program&) = delete;
     Program& operator=(const Program&) = delete;

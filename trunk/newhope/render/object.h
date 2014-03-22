@@ -35,13 +35,6 @@ public:
 private:
     void SetupObject();
 
-    void ApplyLights(vector<class Light const*> const& lights) const;
-
-    void SendUniform(string parameter, glm::mat4 value) const;
-    void SendUniform(string parameter, glm::vec3 value) const;
-    void SendUniform(string parameter, float value) const;
-    void SendUniform(string parameter, bool value) const;
-
     class Program const& program;
 
     vector<Vertice> vertices = {};

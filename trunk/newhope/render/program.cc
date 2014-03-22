@@ -55,6 +55,49 @@ Program::~Program()
 }
 
 
+void 
+Program::SendUniform(string parameter, glm::mat4 value) const
+{
+    GLint id = glGetUniformLocation(Reference(), parameter.c_str());
+    glUniformMatrix4fv(id, 1, GL_FALSE, &value[0][0]);
+}
+
+
+void 
+Program::SendUniform(string parameter, glm::vec3 value) const
+{
+    GLint id = glGetUniformLocation(Reference(), parameter.c_str());
+    glUniform3fv(id, 1, &value[0]);
+}
+
+
+void 
+Program::SendUniform(string parameter, float value) const
+{
+    GLint id = glGetUniformLocation(Reference(), parameter.c_str());
+    glUniform1f(id, value);
+}
+
+
+void 
+Program::SendUniform(string parameter, bool value) const
+{
+    GLint id = glGetUniformLocation(Reference(), parameter.c_str());
+    glUniform1i(id, value ? 1 : 0);
+}
+
+
+void 
+Program::SendVertexArray(string parameter, int float_count, int stride) const
+{
+    GLint variable_id = glGetAttribLocation(Reference(), parameter.c_str());
+    glEnableVertexAttribArray(variable_id);
+    glVertexAttribPointer(variable_id, 3, GL_FLOAT, GL_FALSE, 
+            static_cast<GLsizei>(float_count*sizeof(GLfloat)), 
+            reinterpret_cast<void*>(stride*sizeof(GLfloat)));
+}
+
+
 string 
 Program::ReadWholeFile(string filename)
 {
