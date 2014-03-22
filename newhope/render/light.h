@@ -4,28 +4,22 @@
 #include <glm/glm.hpp>
 #include <cassert>
 
+#include "render/object.h"
+#include "render/program.h"
+
 namespace render {
 
-struct Light {
-    enum LightType { AMBIENT, DIFFUSE } Type;
-    
-    union {
-        struct {
-            glm::vec3 Color;
-            float Intensity;
-        } Ambient;
+class Light {
+public:
+    virtual ~Light() {}
 
-        struct {
-            glm::vec3 Color;
-            float Intensity;
-            glm::vec3 Direction;
-        } Diffuse;
-    };
+    virtual void ApplyLightToObject(Object const& obj, Program const& prog) const = 0;
 
-    Light(enum LightType Type, float r, float g, float b, float Intensity)
-        : Type(Type), Ambient({ glm::vec3 { r, g, b }, Intensity }) { assert(Type == LightType::AMBIENT); }
-    Light(enum LightType Type, float r, float g, float b, float Intensity, float x, float y, float z)
-        : Type(Type), Diffuse({ glm::vec3 { r, g, b }, Intensity, glm::vec3 { x, y, z } }) { assert(Type == LightType::DIFFUSE); }
+    const enum LightType { AMBIENT, DIFFUSE } Type;
+    const glm::vec3 Color;
+
+protected:
+    Light(enum LightType type, glm::vec3 color) : Type(type), Color(color) {}
 };
 
 }

@@ -3,8 +3,9 @@
 #include <iostream>
 using namespace std;
 
+#include "render/ambientlight.h"
 #include "render/camera.h"
-#include "render/light.h"
+#include "render/diffuselight.h"
 #include "render/obj_loader.h"
 #include "render/program.h"
 
@@ -38,17 +39,19 @@ Object::Render(class Camera const& camera, vector<Light const*> const& lights) c
     // TODO - glm::mat4 scale = glm::scale(rotate_y, glm::vec3(scale, scale, scale));
 
     // send camera + model information
-    SendUniform("wvp", camera.Projection() * camera.View() * rotate_y);
+    program.SendUniform("wvp", camera.Projection() * camera.View() * rotate_y);
 
     // flat/smooth
-    SendUniform("smooth_model", smooth);
+    program.SendUniform("smooth_model", smooth);
 
     // apply lights
-    ApplyLights(lights);
+    for(auto const& light: lights) {
+        light->ApplyLightToObject(*this, program);
+    }
 
     // draw elements
     glBindVertexArray(vao);
-    glDrawArrays(GL_TRIANGLES, 0, vertices.size());
+    glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(vertices.size()));
     glBindVertexArray(0);
 }
 
@@ -70,82 +73,18 @@ Object::SetupObject()
     glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(GL_ARRAY_BUFFER, vertex.size() * sizeof(GLfloat), &vertex[0], GL_STATIC_DRAW);
-    
+
     // bind variables
     glBindBuffer(GL_ARRAY_BUFFER, vbo); // TODO
-    GLint variable_id = glGetAttribLocation(program.Reference(), "vert");
-    glEnableVertexAttribArray(variable_id);
-    glVertexAttribPointer(variable_id, 3, GL_FLOAT, GL_FALSE, 9*sizeof(GLfloat), nullptr);
-
-    variable_id = glGetAttribLocation(program.Reference(), "normals");
-    glEnableVertexAttribArray(variable_id);
-    glVertexAttribPointer(variable_id, 3, GL_FLOAT, GL_FALSE, 9*sizeof(GLfloat), (void*)(3*sizeof(GLfloat)));
-
-    variable_id = glGetAttribLocation(program.Reference(), "material_color");
-    glEnableVertexAttribArray(variable_id);
-    glVertexAttribPointer(variable_id, 3, GL_FLOAT, GL_FALSE, 9*sizeof(GLfloat), (void*)(6*sizeof(GLfloat)));
-
+    program.SendVertexArray("vert", 9, 0);
+    program.SendVertexArray("normals", 9, 3);
+    program.SendVertexArray("material_color", 9, 6);
+    
     // unbind VAO & VBO
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
     // TODO - clear mesh
-}
-
-
-void 
-Object::ApplyLights(vector<class Light const*> const& lights) const
-{
-    // apply lights
-    for(auto const& light: lights) {
-        switch(light->Type) {
-        case Light::LightType::AMBIENT:
-            SendUniform("amb_light.color", light->Ambient.Color);
-            SendUniform("amb_light.intensity", light->Ambient.Intensity);
-            break;
-        case Light::LightType::DIFFUSE:
-            SendUniform("dif_light.color", light->Diffuse.Color);
-            SendUniform("dif_light.intensity", light->Diffuse.Intensity);
-            SendUniform("dif_light.direction", light->Diffuse.Direction);
-            break;
-        default:
-            throw "Invalid light type.";
-        }
-    }
-}
-
-// ------ send uniforms
-
-
-void 
-Object::SendUniform(string parameter, glm::mat4 value) const
-{
-    GLint id = glGetUniformLocation(program.Reference(), parameter.c_str());
-    glUniformMatrix4fv(id, 1, GL_FALSE, &value[0][0]);
-}
-
-
-void 
-Object::SendUniform(string parameter, glm::vec3 value) const
-{
-    GLint id = glGetUniformLocation(program.Reference(), parameter.c_str());
-    glUniform3fv(id, 1, &value[0]);
-}
-
-
-void 
-Object::SendUniform(string parameter, float value) const
-{
-    GLint id = glGetUniformLocation(program.Reference(), parameter.c_str());
-    glUniform1f(id, value);
-}
-
-
-void 
-Object::SendUniform(string parameter, bool value) const
-{
-    GLint id = glGetUniformLocation(program.Reference(), parameter.c_str());
-    glUniform1i(id, value ? 1 : 0);
 }
 
 
