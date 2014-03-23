@@ -28,10 +28,11 @@ DiffuseLight::ApplyLightToObject(Object const& obj, Program const& program) cons
 void
 DiffuseLight::InitShadowMap()
 {
+    /*
     int WindowWidth = 800, WindowHeight = 600; // TODO
 
     // Create the FBO
-    glGenFramebuffers(1, &fbo);    
+    glGenFramebuffers(1, &fbo);
     glBindFramebuffer(GL_FRAMEBUFFER, fbo);
 
     // Create the depth buffer
@@ -48,7 +49,13 @@ DiffuseLight::InitShadowMap()
 
     if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
         throw "FB error";
-    }
+    }*/
+}
+
+
+void
+DiffuseLight::PrepareShadowMap()
+{
 }
 
 
