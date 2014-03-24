@@ -88,6 +88,14 @@ Program::SendUniform(string parameter, bool value) const
 
 
 void 
+Program::SendUniform(string parameter, unsigned int value) const
+{
+    GLint id = glGetUniformLocation(Reference(), parameter.c_str());
+    glUniform1ui(id, value);
+}
+
+
+void 
 Program::SendVertexArray(string parameter, int float_count, int stride) const
 {
     GLint variable_id = glGetAttribLocation(Reference(), parameter.c_str());

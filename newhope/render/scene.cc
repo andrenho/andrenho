@@ -3,6 +3,7 @@
 #include <cstdlib>
 
 #include "render/camera.h"
+#include "render/diffuselight.h"
 #include "render/object.h"
 
 namespace render {
@@ -44,10 +45,14 @@ Scene::setMode(enum Mode mode)
 void
 Scene::Render() const
 {
+    /*
     for(auto const& obj: objects) {
         obj->Prepare(camera, lights);
         obj->Render();
     }
+    */
+
+    dynamic_cast<DiffuseLight const*>(lights[1])->DebugToScreen();
 }
 
 

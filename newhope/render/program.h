@@ -22,6 +22,7 @@ public:
     void SendUniform(string parameter, glm::vec3 value) const;
     void SendUniform(string parameter, float value) const;
     void SendUniform(string parameter, bool value) const;
+    void SendUniform(string parameter, unsigned int value) const;
 
     void SendVertexArray(string paramter, int float_count, int stride) const;
 
