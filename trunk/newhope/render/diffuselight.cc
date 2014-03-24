@@ -3,6 +3,7 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <SOIL/SOIL.h>
 
 #include <iostream>
 using namespace std;
@@ -38,18 +39,23 @@ DiffuseLight::CreateDepthTexture()
     glBindTexture(GL_TEXTURE_2D, depth_texture);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
 
     // setup texture
+    /*
     GLubyte* data = new GLubyte[256 * 256 * 4];
+    GLubyte j=0xff;
     for(int i=0; i<256*256*4; i+=4) {
-        data[i] = data[i+2] = 0x0;
-        data[i+1] = 0x80;
+        data[i] = data[i+2] = 0x80;
+        data[i+1] = j;
         data[i+3] = 0xff;
-    }
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 256, 256, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-    delete[] data;
+        j = 0x0;
+    }*/
+    int w, h;
+    unsigned char* image = SOIL_load_image("256x256.jpg", &w, &h, 0, SOIL_LOAD_RGB);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 256, 256, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+    //delete[] data;
 
     // setup debug
     glGenVertexArrays(1, &debug_vao);
@@ -57,8 +63,8 @@ DiffuseLight::CreateDepthTexture()
 
     GLfloat vertex[] = {
          0.000000, 0.000000, 0, 0,
-         1.000000, 0.000000, 0, 1,
-         0.000000, 1.000000, 1, 0,
+         1.000000, 0.000000, 1, 0,
+         0.000000, 1.000000, 0, 1,
          1.000000, 0.000000, 1, 0,
          1.000000, 1.000000, 1, 1,
          0.000000, 1.000000, 0, 1,
