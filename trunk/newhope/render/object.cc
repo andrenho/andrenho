@@ -25,7 +25,7 @@ Object::Object(string const& origin, Program const& program)
 
 
 void 
-Object::Render(class Camera const& camera, vector<Light const*> const& lights) const
+Object::Prepare(class Camera const& camera, vector<class Light const*> const& lights) const
 {
     // setup pointers
     glUseProgram(program.Reference());
@@ -48,8 +48,12 @@ Object::Render(class Camera const& camera, vector<Light const*> const& lights) c
     for(auto const& light: lights) {
         light->ApplyLightToObject(*this, program);
     }
+}
 
-    // draw elements
+
+void 
+Object::Render() const
+{
     glBindVertexArray(vao);
     glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(vertices.size()));
     glBindVertexArray(0);

@@ -7,22 +7,19 @@ namespace render {
 
 class DiffuseLight : public Light {
 public:
-    DiffuseLight(glm::vec3 color, float intensity, glm::vec3 direction, class Program const& program);
+    DiffuseLight(class RenderEngine const& engine, glm::vec3 color, float intensity, glm::vec3 direction, class Program const& program);
 
     void ApplyLightToObject(Object const& obj, Program const& prog) const;
-    void PrepareShadowMap();
 
     const float Intensity;
     const glm::vec3 Direction;
 
 private:
-    void InitShadowMap();
-    void BindForWriting() const;
-    void BindForReading(GLenum texture_unit) const;
+    void CreateDepthTexture();
 
-    GLuint fbo = 0,
-           depth_texture = 0;
+    class RenderEngine const& engine;
     class Program const& program;
+    GLuint depth_texture = 0;
 };
 
 }

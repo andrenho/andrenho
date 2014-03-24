@@ -45,7 +45,8 @@ void
 Scene::Render() const
 {
     for(auto const& obj: objects) {
-        obj->Render(camera, lights);
+        obj->Prepare(camera, lights);
+        obj->Render();
     }
 }
 

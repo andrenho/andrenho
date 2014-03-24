@@ -4,14 +4,17 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+#include <iostream>
+using namespace std;
+
 #include "render/program.h"
 
 namespace render {
 
-DiffuseLight::DiffuseLight(glm::vec3 color, float intensity, glm::vec3 direction, Program const& program)
-    : Light(LightType::DIFFUSE, color), Intensity(intensity), Direction(direction), program(program)
+DiffuseLight::DiffuseLight(RenderEngine const& engine, glm::vec3 color, float intensity, glm::vec3 direction, Program const& program)
+    : Light(LightType::DIFFUSE, color), Intensity(intensity), Direction(direction), engine(engine), program(program)
 {
-    InitShadowMap();
+    CreateDepthTexture();
 }
 
 
@@ -25,54 +28,22 @@ DiffuseLight::ApplyLightToObject(Object const& obj, Program const& program) cons
 }
 
 
-void
-DiffuseLight::InitShadowMap()
+void 
+DiffuseLight::CreateDepthTexture()
 {
-    /*
-    int WindowWidth = 800, WindowHeight = 600; // TODO
-
-    // Create the FBO
-    glGenFramebuffers(1, &fbo);
-    glBindFramebuffer(GL_FRAMEBUFFER, fbo);
-
-    // Create the depth buffer
+    // create texture
     glGenTextures(1, &depth_texture);
     glBindTexture(GL_TEXTURE_2D, depth_texture);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT16, WindowWidth, WindowHeight, 0, GL_DEPTH_COMPONENT, GL_FLOAT, nullptr);
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+    glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA32F, 256, 256);
 
-    glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, depth_texture, 0);
-    glDrawBuffer(GL_NONE);
-
-    if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
-        throw "FB error";
-    }*/
+    // setup texture
+    float* data = new float[256 * 256 * 4];
+    for(int i=0; i<256*256*4; i++) {
+        data[i] = 0x0;
+    }
+    glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 256, 256, GL_RGBA, GL_FLOAT, data);
+    delete[] data;
 }
-
-
-void
-DiffuseLight::PrepareShadowMap()
-{
-}
-
-
-void 
-DiffuseLight::BindForWriting() const
-{
-    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, fbo);
-}
-
-
-void 
-DiffuseLight::BindForReading(GLenum texture_unit) const
-{
-    glActiveTexture(texture_unit);
-    glBindTexture(GL_TEXTURE_2D, depth_texture);
-}
-
 
 
 }

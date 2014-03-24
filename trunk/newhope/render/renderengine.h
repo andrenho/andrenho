@@ -22,6 +22,7 @@ public:
     void InstallKeyCallback(GLFWkeyfun cbfun);
 
     float ScreenRatio() const;
+    void WindowSize(int& w, int& h) const;
 
 	RenderEngine(const RenderEngine&) = delete;
     RenderEngine& operator=(const RenderEngine&) = delete;
