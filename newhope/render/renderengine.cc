@@ -1,6 +1,8 @@
 #include "render/renderengine.h"
 
 #include <cassert>
+#include <iostream>
+using namespace std;
 
 #include "render/scene.h"
 
@@ -32,6 +34,9 @@ RenderEngine::RenderEngine(string window_name)
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
     glEnable(GL_CULL_FACE);
+
+    // clear error queue
+    while(glGetError() != GL_NO_ERROR);
 }
 
 
@@ -74,6 +79,13 @@ void
 RenderEngine::InstallKeyCallback(GLFWkeyfun cbfun)
 {
     glfwSetKeyCallback(window, cbfun);
+}
+
+
+void 
+RenderEngine::WindowSize(int& w, int& h) const
+{
+    glfwGetFramebufferSize(window, &w, &h);
 }
 
 
