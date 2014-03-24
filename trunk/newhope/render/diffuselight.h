@@ -1,6 +1,8 @@
 #ifndef RENDER_DIFFUSELIGHT_H_
 #define RENDER_DIFFUSELIGHT_H_
 
+#include <memory>
+
 #include "render/light.h"
 
 namespace render {
@@ -10,6 +12,7 @@ public:
     DiffuseLight(class RenderEngine const& engine, glm::vec3 color, float intensity, glm::vec3 direction, class Program const& program);
 
     void ApplyLightToObject(Object const& obj, Program const& prog) const;
+    void DebugToScreen() const;
 
     const float Intensity;
     const glm::vec3 Direction;
@@ -18,8 +21,9 @@ private:
     void CreateDepthTexture();
 
     class RenderEngine const& engine;
-    class Program const& program;
+    class Program const& program, debug_program;
     GLuint depth_texture = 0;
+    GLuint debug_vao = 0, debug_vbo = 0;
 };
 
 }
