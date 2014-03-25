@@ -80,9 +80,9 @@ Object::SetupObject()
 
     // bind variables
     glBindBuffer(GL_ARRAY_BUFFER, vbo); // TODO
-    program.SendVertexArray("vert", 9, 0);
-    program.SendVertexArray("normals", 9, 3);
-    program.SendVertexArray("material_color", 9, 6);
+    program.SendVertexArray("vert", 3, 9, 0);
+    program.SendVertexArray("normals", 3, 9, 3);
+    program.SendVertexArray("material_color", 3, 9, 6);
     
     // unbind VAO & VBO
     glBindBuffer(GL_ARRAY_BUFFER, 0);

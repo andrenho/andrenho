@@ -96,13 +96,14 @@ Program::SendUniform(string parameter, unsigned int value) const
 
 
 void 
-Program::SendVertexArray(string parameter, int float_count, int stride) const
+Program::SendVertexArray(string parameter, int num_components, int float_count, int stride, bool normalized) const
 {
     GLint variable_id = glGetAttribLocation(Reference(), parameter.c_str());
     glEnableVertexAttribArray(variable_id);
-    glVertexAttribPointer(variable_id, 3, GL_FLOAT, GL_FALSE, 
+    glVertexAttribPointer(variable_id, num_components, GL_FLOAT, 
+            normalized ? GL_TRUE : GL_FALSE, 
             static_cast<GLsizei>(float_count*sizeof(GLfloat)), 
-            reinterpret_cast<void*>(stride*sizeof(GLfloat)));
+            reinterpret_cast<const GLvoid*>(stride*sizeof(GLfloat)));
 }
 
 
