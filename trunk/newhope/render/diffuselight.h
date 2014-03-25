@@ -22,8 +22,10 @@ private:
 
     class RenderEngine const& engine;
     class Program const& program, debug_program;
+    GLuint fbo = 0;
     GLuint depth_texture = 0;
-    GLuint debug_vao = 0, debug_vbo = 0;
+
+    //GLuint debug_vao = 0, debug_vbo = 0;
 };
 
 }

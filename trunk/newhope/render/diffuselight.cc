@@ -33,6 +33,27 @@ DiffuseLight::ApplyLightToObject(Object const& obj, Program const& program) cons
 void 
 DiffuseLight::CreateDepthTexture()
 {
+    // create framebuffer
+    glGenFramebuffers(1, &fbo);
+    glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+
+    // create texture
+    glGenTextures(1, &depth_texture);
+    glBindTexture(GL_TEXTURE_2D, depth_texture);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT16, 1024, 1024, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+    // link framebuffer to texture
+    glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, depth_texture, 0);
+    glDrawBuffer(GL_NONE);
+    if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
+        throw "Could not create framebuffer.";
+    }
+
+    /*
     // create texture
     glEnable(GL_TEXTURE_2D);
     glActiveTexture(GL_TEXTURE0);
@@ -73,6 +94,7 @@ DiffuseLight::CreateDepthTexture()
     // unbind VAO & VBO
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
+    */
 }
 
 
@@ -83,7 +105,7 @@ DiffuseLight::DebugToScreen() const
     
     debug_program.SendUniform("sampler", 0u);
     
-    glBindVertexArray(debug_vao);
+    //glBindVertexArray(debug_vao);
     glDrawArrays(GL_TRIANGLES, 0, 12);
     glBindVertexArray(0);
 }
