@@ -45,11 +45,14 @@ Scene::setMode(enum Mode mode)
 void
 Scene::Render() const
 {
+    // draw objects
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
     for(auto const& obj: objects) {
         obj->Prepare(camera, lights);
         obj->Render();
     }
 
+    // draw debugging shadow image
     dynamic_cast<DiffuseLight const*>(lights[1])->DebugToScreen();
 }
 
