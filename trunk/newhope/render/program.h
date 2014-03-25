@@ -24,7 +24,7 @@ public:
     void SendUniform(string parameter, bool value) const;
     void SendUniform(string parameter, unsigned int value) const;
 
-    void SendVertexArray(string paramter, int float_count, int stride) const;
+    void SendVertexArray(string paramter, int num_components, int float_count, int stride, bool normalized = false) const;
 
 	Program(const Program&) = delete;
     Program& operator=(const Program&) = delete;
