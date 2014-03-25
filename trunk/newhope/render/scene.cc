@@ -45,7 +45,12 @@ Scene::setMode(enum Mode mode)
 void
 Scene::Render() const
 {
-    // draw objects
+    // draw shadows
+    for(auto const& light: lights) {
+        // TODO ...
+    }
+
+    // draw scene
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     for(auto const& obj: objects) {
         obj->Prepare(camera, lights);
