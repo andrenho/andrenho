@@ -57,15 +57,12 @@ DiffuseLight::CreateDepthTexture()
     glBindVertexArray(debug_vao);
 
     GLfloat vertex[] = {
-        /* 0.0f, 0.8f,    0.5f, 1.0f,
-        -0.8f,-0.8f,    0.0f, 0.0f,
-         0.8f,-0.8f,    1.0f, 0.0f,*/
         -1.0f,-1.0f,   0.0f, 0.0f,
-         1.0f,-1.0f,   1.0f, 0.0f,
-        -1.0f, 1.0f,   0.0f, 1.0f,
-         1.0f,-1.0f,   1.0f, 0.0f,
-         1.0f, 1.0f,   1.0f, 1.0f,
-        -1.0f, 1.0f,   0.0f, 1.0f,
+        -0.7f,-1.0f,   1.0f, 0.0f,
+        -1.0f,-0.7f,   0.0f, 1.0f,
+        -0.7f,-1.0f,   1.0f, 0.0f,
+        -0.7f,-0.7f,   1.0f, 1.0f,
+        -1.0f,-0.7f,   0.0f, 1.0f,
     };
     glGenBuffers(1, &debug_vbo);
     glBindBuffer(GL_ARRAY_BUFFER, debug_vbo);
