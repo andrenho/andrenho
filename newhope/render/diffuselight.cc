@@ -8,6 +8,8 @@
 #include <iostream>
 using namespace std;
 
+#include "render/ambientlight.h"
+#include "render/camera.h"
 #include "render/program.h"
 
 namespace render {
@@ -33,9 +35,11 @@ DiffuseLight::ApplyLightToObject(Object const& obj, Program const& program) cons
 void 
 DiffuseLight::CreateDepthTexture()
 {
+    // create framebuffer
+    glGenFramebuffers(1, &fbo);
+    glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+
     // create texture
-    glEnable(GL_TEXTURE_2D);
-    glActiveTexture(GL_TEXTURE0);
     glGenTextures(1, &depth_texture);
     glBindTexture(GL_TEXTURE_2D, depth_texture);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -44,6 +48,8 @@ DiffuseLight::CreateDepthTexture()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
 
     // setup texture
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 800, 600, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0); // TODO
+    /*
     int w, h;
     unsigned char* image = SOIL_load_image("256x256.png", &w, &h, 0, SOIL_LOAD_RGBA);
     if(!image) {
@@ -51,6 +57,15 @@ DiffuseLight::CreateDepthTexture()
     }
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
     SOIL_free_image_data(image);
+    */
+
+    // bind texture to framebuffer
+    glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, depth_texture, 0);
+    GLenum draw_buffers[1] = { GL_COLOR_ATTACHMENT0 };
+    glDrawBuffers(1, draw_buffers);
+    if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
+        throw "Could not create framebuffer.";
+    }
 
     // setup debug
     glGenVertexArrays(1, &debug_vao);
@@ -73,6 +88,33 @@ DiffuseLight::CreateDepthTexture()
     // unbind VAO & VBO
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
+
+    // unbind framebuffer
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
+
+void 
+DiffuseLight::DrawShadows(vector<Object const*> const& objects) const
+{
+    glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+    glViewport(0, 0, 800, 600); // TODO
+
+    glClearColor(0, 0, 0.5, 1);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    Camera camera(engine);
+    vector<Light const*> lights = { 
+        new AmbientLight(glm::vec3(1.0f, 1.0f, 1.0f), 0.8f),
+    };
+    for(auto const& obj: objects) {
+        obj->Prepare(camera, lights);
+        obj->Render();
+    }
+    delete lights[0];
+    delete lights[1];
+
+    glClearColor(0, 0, 0, 1);
 }
 
 
