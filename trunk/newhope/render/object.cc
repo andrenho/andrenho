@@ -52,23 +52,6 @@ Object::Prepare(class Camera const& camera, vector<class Light const*> const& li
 
 
 void 
-Object::PrepareForShadowing(class Program const& sh_program, glm::mat4 view) const
-{
-    glUseProgram(sh_program.Reference());
-
-    // translate, rotate and scale
-    glm::mat4 translate = glm::translate(
-            glm::mat4(1.0f), 
-            glm::vec3(translate_x, translate_y, translate_z));
-    glm::mat4 rotate_x = glm::rotate(translate, rotation_x, glm::vec3(1.0f, 0.0f, 0.0f));
-    glm::mat4 rotate_y = glm::rotate(rotate_x, rotation_y, glm::vec3(0.0f, 1.0f, 0.0f));
-    
-    // send mvp
-    sh_program.SendUniform("mvp", view * rotate_y);
-}
-
-
-void 
 Object::Render() const
 {
     glBindVertexArray(vao);
