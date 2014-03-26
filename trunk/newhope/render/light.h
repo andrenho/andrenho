@@ -14,6 +14,7 @@ public:
     virtual ~Light() {}
 
     virtual void ApplyLightToObject(Object const& obj, Program const& prog) const = 0;
+    virtual void RenderShadow(vector<Object const*> const& objects) const { (void)objects; }
 
     const enum LightType { AMBIENT, DIFFUSE } Type;
     const glm::vec3 Color;
