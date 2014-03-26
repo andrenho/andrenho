@@ -65,12 +65,7 @@ RenderEngine::ProcessEvents()
 void 
 RenderEngine::Render(Scene const& scene)
 {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     scene.Render();
-    
-    glBindVertexArray(0);
-    glUseProgram(0);
-
     glfwSwapBuffers(window);
 }
 
