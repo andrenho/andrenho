@@ -38,37 +38,10 @@ DiffuseLight::CreateDepthTexture()
     glActiveTexture(GL_TEXTURE0);
     glGenTextures(1, &depth_texture);
     glBindTexture(GL_TEXTURE_2D, depth_texture);
-    //glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 1024, 1024, 0, GL_RGBA, GL_FLOAT, 0); // TODO - sizes
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
-    //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_R_TO_TEXTURE);
-    glBindTexture(GL_TEXTURE_2D, 0);
-
-    // create framebuffer
-    /*
-    glGenFramebuffers(1, &fbo);
-    glBindFramebuffer(GL_FRAMEBUFFER, fbo);
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, depth_texture, 0);
-    // glDrawBuffer(GL_NONE);
-    if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
-        throw "Could not create framebuffer.";
-    }
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    */
-
-    /*
-    // create texture
-    glEnable(GL_TEXTURE_2D);
-    glActiveTexture(GL_TEXTURE0);
-    glGenTextures(1, &depth_texture);
-    glBindTexture(GL_TEXTURE_2D, depth_texture);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
-    */
 
     // setup texture
     int w, h;
@@ -104,35 +77,6 @@ DiffuseLight::CreateDepthTexture()
 
 
 void 
-DiffuseLight::RenderShadow(vector<Object const*> const& objects) const
-{
-    //glBindFramebuffer(GL_FRAMEBUFFER, fbo);
-    glClearColor(0, 0, 128, 255);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    /*
-    glClear(GL_DEPTH_BUFFER_BIT);
-    glViewport(0, 0, 1024, 1024); // TODO
-    //glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
-    
-    /// TODO - ortho?
-    glm::mat4 view = glm::lookAt(-Direction, glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
-    glm::mat4 model = glm::mat4(1.0);
-    glm::mat4 mvp = view * model;
-    for(auto const& obj: objects) {
-        obj->PrepareForShadowing(program, mvp);
-        obj->Render();
-    }
-
-    // TODO - return to original state
-    glViewport(0, 0, 800, 600);
-    glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-    */
-    glClearColor(0, 0, 0, 0);
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
-}
-
-
-void 
 DiffuseLight::DebugToScreen() const
 {
     glUseProgram(debug_program.Reference());
@@ -145,7 +89,5 @@ DiffuseLight::DebugToScreen() const
 }
 
 }
-
-// http://research.ncl.ac.uk/game/mastersdegree/graphicsforgames/shadowmapping/Tutorial%2014%20-%20Shadow%20Mapping.pdf
 
 // vim: ts=4:sw=4:sts=4:expandtab

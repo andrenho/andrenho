@@ -7,12 +7,11 @@
 
 namespace render {
 
-class DiffuseLight final : public Light {
+class DiffuseLight : public Light {
 public:
     DiffuseLight(class RenderEngine const& engine, glm::vec3 color, float intensity, glm::vec3 direction, class Program const& program);
 
     void ApplyLightToObject(Object const& obj, Program const& prog) const;
-    void RenderShadow(vector<Object const*> const& objects) const;
     void DebugToScreen() const;
 
     const float Intensity;
@@ -23,9 +22,7 @@ private:
 
     class RenderEngine const& engine;
     class Program const& program, debug_program;
-    GLuint fbo = 0;
     GLuint depth_texture = 0;
-
     GLuint debug_vao = 0, debug_vbo = 0;
 };
 
