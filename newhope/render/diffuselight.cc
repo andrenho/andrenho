@@ -100,7 +100,7 @@ DiffuseLight::DrawShadows(vector<Object const*> const& objects) const
     glBindFramebuffer(GL_FRAMEBUFFER, fbo);
     glViewport(0, 0, 800, 600); // TODO
 
-    glClearColor(0, 0, 0.5, 1);
+    glClearColor(0, 0, 1, 0.2);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     Camera camera(engine);
@@ -112,7 +112,6 @@ DiffuseLight::DrawShadows(vector<Object const*> const& objects) const
         obj->Render();
     }
     delete lights[0];
-    delete lights[1];
 
     glClearColor(0, 0, 0, 1);
 }
@@ -121,6 +120,7 @@ DiffuseLight::DrawShadows(vector<Object const*> const& objects) const
 void 
 DiffuseLight::DebugToScreen() const
 {
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glUseProgram(debug_program.Reference());
     
     debug_program.SendUniform("sampler", 0u);
