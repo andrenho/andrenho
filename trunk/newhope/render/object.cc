@@ -25,10 +25,14 @@ Object::Object(string const& origin, Program const& program)
 
 
 void 
-Object::Prepare(class Camera const& camera, vector<class Light const*> const& lights) const
+Object::Prepare(class Camera const& camera, vector<class Light const*> const& lights, Program const* prg) const
 {
     // setup pointers
-    glUseProgram(program.Reference());
+    if(!prg) {
+        glUseProgram(program.Reference());
+    } else {
+        glUseProgram(prg->Reference());
+    }
 
     // translate, rotate and scale
     glm::mat4 translate = glm::translate(
