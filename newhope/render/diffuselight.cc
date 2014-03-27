@@ -42,22 +42,20 @@ DiffuseLight::CreateDepthTexture()
     // create texture
     glGenTextures(1, &depth_texture);
     glBindTexture(GL_TEXTURE_2D, depth_texture);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+    // create depth buffer
+    GLuint depth_renderbuffer;
+    glGenRenderbuffers(1, &depth_renderbuffer);
+    glBindRenderbuffer(GL_RENDERBUFFER, depth_renderbuffer);
+    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, 800, 600);
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depth_renderbuffer);
 
     // setup texture
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 800, 600, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0); // TODO
-    /*
-    int w, h;
-    unsigned char* image = SOIL_load_image("256x256.png", &w, &h, 0, SOIL_LOAD_RGBA);
-    if(!image) {
-        throw "File not found.";
-    }
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
-    SOIL_free_image_data(image);
-    */
 
     // bind texture to framebuffer
     glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, depth_texture, 0);
@@ -100,15 +98,17 @@ DiffuseLight::DrawShadows(vector<Object const*> const& objects) const
     glBindFramebuffer(GL_FRAMEBUFFER, fbo);
     glViewport(0, 0, 800, 600); // TODO
 
-    glClearColor(0, 0, 1, 0.2);
+    glClearColor(0, 0, 0, 1);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     Camera camera(engine);
+    camera.LookAt(0, 0, 0);
+    camera.setPosition(-Direction.x, -Direction.y, -Direction.z);
     vector<Light const*> lights = { 
         new AmbientLight(glm::vec3(1.0f, 1.0f, 1.0f), 0.8f),
     };
     for(auto const& obj: objects) {
-        obj->Prepare(camera, lights);
+        obj->Prepare(camera, lights, &program);
         obj->Render();
     }
     delete lights[0];
