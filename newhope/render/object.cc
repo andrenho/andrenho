@@ -46,7 +46,9 @@ Object::Render(class Camera const& camera, vector<class Light const*> const& lig
     glUseProgram(program.Reference());
 
     // send camera + model information
-    program.SendUniform("wvp", camera.Projection() * camera.View() * Model());
+    program.SendUniform("model", Model());
+    program.SendUniform("vp", camera.Projection() * camera.View());
+    program.SendUniform("shadow_vp", dynamic_cast<DiffuseLight const*>(lights[1])->ProjectionView());
 
     // flat/smooth
     program.SendUniform("smooth_model", smooth);
@@ -70,7 +72,7 @@ Object::RenderForShadowing(class Program const& shprog, glm::mat4 vp) const
     glUseProgram(shprog.Reference());
 
     // send camera + model information
-    program.SendUniform("wvp", vp * Model());
+    shprog.SendUniform("wvp", vp * Model());
 
     // render
     RenderObject();

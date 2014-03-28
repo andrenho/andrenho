@@ -15,6 +15,8 @@ public:
     void DrawShadows(vector<Object const*> const& objects) const;
     void DebugToScreen() const;
 
+    glm::mat4 ProjectionView() const;
+
     const float Intensity;
     const glm::vec3 Direction;
 
