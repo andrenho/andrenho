@@ -47,13 +47,13 @@ DiffuseLight::CreateDepthTexture()
     glGenTextures(1, &depth_texture);
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, depth_texture);
+    
+    // setup texture
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, SHADOW_SIZE, SHADOW_SIZE, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
-    // setup texture
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, SHADOW_SIZE, SHADOW_SIZE, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_BYTE, 0); // TODO
 
     // attach texture to framebuffer
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depth_texture, 0);
@@ -93,6 +93,24 @@ DiffuseLight::SetupDebugTexture()
 }
 
 
+glm::mat4
+DiffuseLight::ProjectionView() const {
+    // setup projection
+    glm::mat4 view = glm::lookAt( 
+        glm::vec3(-Direction.x, -Direction.y, -Direction.z), // camera position
+        glm::vec3(0, 0, 0), // looking at
+        glm::vec3(0,1,0)    // Head is up (set to 0,-1,0 to look upside-down)
+    );
+    glm::mat4 projection = glm::perspective(
+            45.0f,      // FOV
+            1.0f,  // aspect
+            1.0f,       // near
+            100.0f      // far
+    );
+    return projection * view;
+}
+
+
 void 
 DiffuseLight::DrawShadows(vector<Object const*> const& objects) const
 {
@@ -103,22 +121,10 @@ DiffuseLight::DrawShadows(vector<Object const*> const& objects) const
     // clear texture
     glClear(GL_DEPTH_BUFFER_BIT);
 
-    // setup projection
-    glm::mat4 view = glm::lookAt( 
-        glm::vec3(-Direction.x, -Direction.y, -Direction.z), // camera position
-        glm::vec3(0, 0, 0), // looking at
-        glm::vec3(0,1,0)    // Head is up (set to 0,-1,0 to look upside-down)
-    );
-    glm::mat4 projection = glm::perspective(
-            45.0f,      // FOV
-            1.0f,  // aspect
-            2.0f,       // near
-            10.0f      // far
-    );
 
     // draw objects
     for(auto const& obj: objects) {
-        obj->RenderForShadowing(program, projection * view);
+        obj->RenderForShadowing(program, ProjectionView());
     }
 
     // unbind framebuffer
@@ -143,6 +149,8 @@ DiffuseLight::DebugToScreen() const
     glBindVertexArray(debug_vao);
     glDrawArrays(GL_TRIANGLES, 0, 12);
     glBindVertexArray(0);
+
+    glUseProgram(0);
 }
 
 

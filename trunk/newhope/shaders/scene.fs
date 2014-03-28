@@ -13,12 +13,22 @@ struct DiffuseLight {
 
 in vec3 normal;
 in vec3 f_material_color;
+in vec4 st_shadow;
 
 uniform AmbientLight amb_light;
 uniform DiffuseLight dif_light;
 uniform bool smooth_model;
+uniform sampler2D depth_map;
 
 out vec4 finalColor;
+
+float eval_shadow(vec2 texcoods) {
+    float shadow = texture(depth_map, texcoods).r;
+    if(shadow + epsilon < st_shadow.z) {
+        return 0.2;
+    }
+    return 1.0;
+}
 
 void main() {
     // ambient light
@@ -38,7 +48,7 @@ void main() {
     }
 
     // calculate final color
-	finalColor = vec4(f_material_color, 1.0) * (amb_color + diffuse_color);
+	finalColor = vec4(f_material_color, 1.0) * (amb_color + diffuse_color) * eval_shadow(st_shadow.xy);
 }
 
 // vim: ts=4:sw=4:sts=4:expandtab
