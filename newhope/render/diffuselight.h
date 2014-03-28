@@ -20,12 +20,15 @@ public:
 
 private:
     void CreateDepthTexture();
+    void SetupDebugTexture();
 
     class RenderEngine const& engine;
     class Program const& program, debug_program;
     GLuint depth_texture = 0;
     GLuint debug_vao = 0, debug_vbo = 0;
     GLuint fbo = 0;
+
+    const int SHADOW_SIZE = 256;
 };
 
 }

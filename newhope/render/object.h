@@ -30,11 +30,14 @@ public:
     inline void Translate(float x, float y, float z) { translate_x += x; translate_y += y; translate_z += z; }
     inline void setSmooth(bool v) { smooth = v; }
 
-    void Prepare(class Camera const& camera, vector<class Light const*> const& lights, class Program const* prg=nullptr) const;
-    void Render() const;
+    glm::mat4 Model() const;
+
+    void Render(class Camera const& camera, vector<class Light const*> const& lights) const;
+    void RenderForShadowing(class Program const& shprog, glm::mat4 vp) const;
 
 private:
     void SetupObject();
+    void RenderObject() const;
 
     class Program const& program;
 

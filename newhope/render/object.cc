@@ -24,16 +24,9 @@ Object::Object(string const& origin, Program const& program)
 }
 
 
-void 
-Object::Prepare(class Camera const& camera, vector<class Light const*> const& lights, Program const* prg) const
+glm::mat4 
+Object::Model() const
 {
-    // setup pointers
-    if(!prg) {
-        glUseProgram(program.Reference());
-    } else {
-        glUseProgram(prg->Reference());
-    }
-
     // translate, rotate and scale
     glm::mat4 translate = glm::translate(
             glm::mat4(1.0f), 
@@ -42,8 +35,18 @@ Object::Prepare(class Camera const& camera, vector<class Light const*> const& li
     glm::mat4 rotate_y = glm::rotate(rotate_x, rotation_y, glm::vec3(0.0f, 1.0f, 0.0f));
     // TODO - glm::mat4 scale = glm::scale(rotate_y, glm::vec3(scale, scale, scale));
 
+    return rotate_y;
+}
+
+
+void 
+Object::Render(class Camera const& camera, vector<class Light const*> const& lights) const
+{
+    // setup program
+    glUseProgram(program.Reference());
+
     // send camera + model information
-    program.SendUniform("wvp", camera.Projection() * camera.View() * rotate_y);
+    program.SendUniform("wvp", camera.Projection() * camera.View() * Model());
 
     // flat/smooth
     program.SendUniform("smooth_model", smooth);
@@ -52,11 +55,32 @@ Object::Prepare(class Camera const& camera, vector<class Light const*> const& li
     for(auto const& light: lights) {
         light->ApplyLightToObject(*this, program);
     }
+
+    // render
+    RenderObject();
+
+    glUseProgram(0);
 }
 
 
 void 
-Object::Render() const
+Object::RenderForShadowing(class Program const& shprog, glm::mat4 vp) const
+{
+    // setup program
+    glUseProgram(shprog.Reference());
+
+    // send camera + model information
+    program.SendUniform("wvp", vp * Model());
+
+    // render
+    RenderObject();
+
+    glUseProgram(0);
+}
+
+
+void
+Object::RenderObject() const
 {
     glBindVertexArray(vao);
     glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(vertices.size()));
