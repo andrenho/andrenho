@@ -22,6 +22,8 @@ uniform sampler2D depth_map;
 
 out vec4 finalColor;
 
+const float epsilon = 0.0;
+
 float eval_shadow(vec2 texcoods) {
     float shadow = texture(depth_map, texcoods).r;
     if(shadow + epsilon < st_shadow.z) {
