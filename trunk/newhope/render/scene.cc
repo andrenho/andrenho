@@ -51,8 +51,7 @@ Scene::Render() const
     // draw scene
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     for(auto const& obj: objects) {
-        obj->Prepare(camera, lights);
-        obj->Render();
+        obj->Render(camera, lights);
     }
 
     // draw shadows

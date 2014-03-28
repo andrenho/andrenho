@@ -4,6 +4,9 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <SOIL/SOIL.h>
+#define GLM_FORCE_RADIANS
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 #include <iostream>
 using namespace std;
@@ -19,6 +22,7 @@ DiffuseLight::DiffuseLight(RenderEngine const& engine, glm::vec3 color, float in
       debug_program("shaders/debug_light.vs", "shaders/debug_light.fs")
 {
     CreateDepthTexture();
+    SetupDebugTexture();
 }
 
 
@@ -41,30 +45,30 @@ DiffuseLight::CreateDepthTexture()
 
     // create texture
     glGenTextures(1, &depth_texture);
+    glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, depth_texture);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
-    // create depth buffer
-    GLuint depth_renderbuffer;
-    glGenRenderbuffers(1, &depth_renderbuffer);
-    glBindRenderbuffer(GL_RENDERBUFFER, depth_renderbuffer);
-    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, 800, 600);
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depth_renderbuffer);
-
     // setup texture
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 800, 600, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0); // TODO
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, SHADOW_SIZE, SHADOW_SIZE, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_BYTE, 0); // TODO
 
-    // bind texture to framebuffer
-    glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, depth_texture, 0);
-    GLenum draw_buffers[1] = { GL_COLOR_ATTACHMENT0 };
+    // attach texture to framebuffer
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depth_texture, 0);
+    GLenum draw_buffers[1] = { GL_NONE };
     glDrawBuffers(1, draw_buffers);
     if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
         throw "Could not create framebuffer.";
     }
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
 
+
+void
+DiffuseLight::SetupDebugTexture()
+{
     // setup debug
     glGenVertexArrays(1, &debug_vao);
     glBindVertexArray(debug_vao);
@@ -86,49 +90,63 @@ DiffuseLight::CreateDepthTexture()
     // unbind VAO & VBO
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
-
-    // unbind framebuffer
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 
 void 
 DiffuseLight::DrawShadows(vector<Object const*> const& objects) const
 {
+    // bind framebuffer
     glBindFramebuffer(GL_FRAMEBUFFER, fbo);
-    glViewport(0, 0, 800, 600); // TODO
+    glViewport(0, 0, SHADOW_SIZE, SHADOW_SIZE);
 
-    glClearColor(0, 0, 0, 1);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    // clear texture
+    glClear(GL_DEPTH_BUFFER_BIT);
 
-    Camera camera(engine);
-    camera.LookAt(0, 0, 0);
-    camera.setPosition(-Direction.x, -Direction.y, -Direction.z);
-    vector<Light const*> lights = { 
-        new AmbientLight(glm::vec3(1.0f, 1.0f, 1.0f), 0.8f),
-    };
+    // setup projection
+    glm::mat4 view = glm::lookAt( 
+        glm::vec3(-Direction.x, -Direction.y, -Direction.z), // camera position
+        glm::vec3(0, 0, 0), // looking at
+        glm::vec3(0,1,0)    // Head is up (set to 0,-1,0 to look upside-down)
+    );
+    glm::mat4 projection = glm::perspective(
+            45.0f,      // FOV
+            1.0f,  // aspect
+            2.0f,       // near
+            10.0f      // far
+    );
+
+    // draw objects
     for(auto const& obj: objects) {
-        obj->Prepare(camera, lights, &program);
-        obj->Render();
+        obj->RenderForShadowing(program, projection * view);
     }
-    delete lights[0];
 
-    glClearColor(0, 0, 0, 1);
+    // unbind framebuffer
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    glViewport(0, 0, 800, 600); // TODO
 }
 
 
 void 
 DiffuseLight::DebugToScreen() const
 {
+    // bind framebuffer
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glUseProgram(debug_program.Reference());
     
+    // bind texture
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, depth_texture);
+
+    // draw texture
     debug_program.SendUniform("sampler", 0u);
-    
     glBindVertexArray(debug_vao);
     glDrawArrays(GL_TRIANGLES, 0, 12);
     glBindVertexArray(0);
 }
+
+
+// http://antongerdelan.net/opengl/texture_shadows.html
 
 }
 

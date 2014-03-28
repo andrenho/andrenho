@@ -30,7 +30,7 @@ Camera::LookAt(float x, float y, float z)
 glm::mat4 
 Camera::Projection() const
 {
-    return glm::perspective(45.0f, engine.ScreenRatio(), 0.1f, 100.0f);
+    return glm::perspective(45.0f, engine.ScreenRatio(), 1.0f, 100.0f); // TODO - 0.1f
 }
 
 
