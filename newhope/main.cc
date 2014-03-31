@@ -29,9 +29,9 @@ int main()
         engine.InstallKeyCallback(&key_callback);
 
         render::Camera camera(engine);
-        render::AmbientLight ambient_light(glm::vec3(1.0f, 1.0f, 1.0f), 0.8f);
+        render::AmbientLight ambient_light(glm::vec3(1.0f, 1.0f, 1.0f), 0.3f);
         render::Program diffuse_shadow("shaders/shadow_map.vs", "shaders/shadow_map.fs");
-        render::DiffuseLight diffuse_light(engine, glm::vec3(1.0f, 1.0f, 1.0f), 0.4f, glm::vec3(-3.0f, -2.0f, -3.0f), diffuse_shadow);
+        render::DiffuseLight diffuse_light(engine, glm::vec3(1.0f, 1.0f, 1.0f), 0.4f, glm::vec3(3.0f, -3.0f, -3.0f), diffuse_shadow);
 
         render::Scene scene(camera);
         scene.AddLight(ambient_light);
@@ -39,7 +39,7 @@ int main()
         s = &scene; // TODO
 
         render::Program program("shaders/scene.vs", "shaders/scene.fs");
-        render::Object cube("data/torus.obj", program);
+        render::Object cube("data/suzanne.obj", program);
         //cube.setSmooth(true);
         render::Object ground("data/ground.obj", program);
 
