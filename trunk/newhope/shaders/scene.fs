@@ -22,14 +22,14 @@ uniform sampler2D depth_map;
 
 out vec4 finalColor;
 
-const float epsilon = 0.0;
+const float epsilon = 0.0042;
 
-float eval_shadow(vec2 texcoods) {
+bool eval_shadow(vec2 texcoods) {
     float shadow = texture(depth_map, texcoods).r;
     if(shadow + epsilon < st_shadow.z) {
-        return 0.2;
+        return false;
     }
-    return 1.0;
+    return true;
 }
 
 void main() {
@@ -50,7 +50,7 @@ void main() {
     }
 
     // calculate final color
-	finalColor = vec4(f_material_color, 1.0) * (amb_color + diffuse_color) * eval_shadow(st_shadow.xy);
+	finalColor = vec4(f_material_color, 1.0) * (amb_color + (eval_shadow(st_shadow.xy) ? diffuse_color : vec4(0,0,0,0)));
 }
 
 // vim: ts=4:sw=4:sts=4:expandtab
