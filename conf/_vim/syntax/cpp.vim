@@ -11,6 +11,8 @@ elseif exists("b:current_syntax")
   finish
 endif
 
+so <sfile>:h/opengl.vim
+
 " Read the C syntax to start with
 if version < 600
   so <sfile>:p:h/c.vim
