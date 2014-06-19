@@ -23,9 +23,6 @@ font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-# start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
-
 # kill focused window
 bindsym $mod+Shift+q kill
 
@@ -170,10 +167,14 @@ for_window [window_role="pop-up"] floating enable border normal
 
 
 # initialize applications
-exec --no-startup-id i3-msg 'workspace 1: shell; exec urxvt; workspace 2: browser; exec chromium; workspace 3: develop; exec urxvt; exec optirun urxvt; workspace 1: shell'
+# exec --no-startup-id i3-msg 'workspace 1: shell; exec urxvt; workspace 2: browser; exec chromium; workspace 3: develop; exec urxvt; exec optirun urxvt; workspace 1: shell'
 
 #for_window [class="newhope"] floating enable
 
 popup_during_fullscreen smart
 
 bindsym $mod+m [class="URxvt" title=".*VIM"] focus
+
+# start a terminal
+bindsym $mod+Return exec roxterm
+#bindsym $mod+Return exec i3-sensible-terminal

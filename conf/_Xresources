@@ -7,9 +7,10 @@ Xft.hintstyle: hintslight
 Xft.lcdfilter: lcddefault
 
 ! URxvt
-!URxvt.font: xft:Ubuntu Mono:size=15,style=Regular
+URxvt.font: xft:Ubuntu Mono:size=15,style=Regular
 !URxvt.font: xft:Envy Code R:size=15,style=Regular
-URxvt.font: xft:Inconsolata:size=15,style=Regular
+!URxvt.font: xft:Inconsolata:size=15,style=Regular
+!URxvt.font: xft:
 urxvt*foreground: #f2f2f2
 urxvt*background: #101010
 urxvt*color0:    #000000
@@ -30,5 +31,5 @@ urxvt*color14:    #d7d9fc
 urxvt*color15:    #e2e2e2
 urxvt*internalborder: 6
 urxvt*transparent: true
-urxvt*shading: 24
+urxvt*shading: 12
 URxvt*scrollBar: false
