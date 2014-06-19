@@ -153,7 +153,7 @@ set wildmode=longest,list:longest
 "let g:clang_snippets_engine='clang_complete'
 set completeopt=menu,menuone,longest
 
-colorscheme xterm-andre
+colorscheme koehler
 
 let mapleader = ","
 

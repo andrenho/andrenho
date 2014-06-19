@@ -139,3 +139,4 @@ export LC_ALL=$LANG
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
 
+shopt -s globstar
