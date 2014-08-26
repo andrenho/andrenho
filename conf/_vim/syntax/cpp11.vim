@@ -26,7 +26,7 @@ else
 endif
 
 " C++ extentions
-syn keyword cppStatement	new delete this friend using constexpr
+syn keyword cppStatement	new delete this friend using constexpr make_shared make_unique
 syn keyword cppAccess		public protected private
 syn keyword cppType		inline virtual explicit export bool wchar_t
 syn keyword cppExceptions	throw try catch
@@ -37,7 +37,7 @@ syn match cppCast		"\<\(const\|static\|dynamic\|reinterpret\)_cast\s*$"
 syn keyword cppStorageClass	mutable
 syn keyword cppStructure	class typename template namespace
 syn keyword cppNumber		NPOS
-syn keyword cppBoolean		true false
+syn keyword cppBoolean		true false nullptr
 
 " The minimum and maximum operators in GNU C++
 syn match cppMinMax "[<>]?"

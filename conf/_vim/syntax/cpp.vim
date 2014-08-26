@@ -16,8 +16,9 @@ so <sfile>:h/opengl.vim
 " Read the C syntax to start with
 if version < 600
   so <sfile>:p:h/c.vim
+  so <sfile>:p:h/cpp11.vim
 else
-  runtime! syntax/c.vim
+  runtime! syntax/cpp11.vim
   unlet b:current_syntax
 endif
 
