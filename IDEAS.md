@@ -39,5 +39,7 @@
 * Chiptune machine
 * Raspberry pi in a msx cartridge - MSX as terminal
 * Weather station (https://keep.google.com/u/0/#LIST/1SUjdKpEPDCBcNF9g-kP7hX-4NXcH_dAVZWq53WWKZTPvJpn4_k3XOZUPqehYzpA)
+* Camera
+  * https://www.adafruit.com/product/5660
 
 ### 
