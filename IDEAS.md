@@ -29,6 +29,7 @@
   * Z380
   * RPI (emulated)
   * RPI (native)
+  * A generic I/O
 * Mini-circuits:
   * Debounced button
 * Frequency meter (https://hackaday.com/2013/03/24/attiny2313-frequency-meter-measures-1hz-10mhz/)
