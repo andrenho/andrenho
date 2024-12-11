@@ -11,6 +11,7 @@
 
 ### Applications
 
+* Alternative to RetroPie (visually highly configurable, ready to use with kiosk mode)
 * Binary file editor
 * Browser (https://browser.engineering/index.html)
 * Programmer swiss knife
